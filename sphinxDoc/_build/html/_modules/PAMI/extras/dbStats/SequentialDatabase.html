@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../../../">
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.extras.dbStats.SequentialDatabase &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css" />
 
   
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=28a0d067"></script>
-        <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -109,10 +109,13 @@
 <span class="c1">#</span>
 <span class="c1">#             obj.printStats()</span>
 <span class="c1">#</span>
-<span class="c1">#</span>
+
+
+
+
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
+<span class="s2">Copyright (C)  2021 Rage Uday Kiran</span>
 
 <span class="s2">     This program is free software: you can redistribute it and/or modify</span>
 <span class="s2">     it under the terms of the GNU General Public License as published by</span>
@@ -136,9 +139,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generator</span>
 
 
-<div class="viewcode-block" id="SequentialDatabase">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase">[docs]</a>
-<span class="k">class</span> <span class="nc">SequentialDatabase</span><span class="p">():</span>
+<div class="viewcode-block" id="SequentialDatabase"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase">[docs]</a><span class="k">class</span> <span class="nc">SequentialDatabase</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    SequentialDatabase is to get stats of database like avarage, minimun, maximum  and so on.</span>
 
@@ -235,6 +236,9 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param inputFile: input file name or path</span>
 <span class="sd">        :type inputFile: str</span>
+<span class="sd">        :param sep: separator</span>
+<span class="sd">        :type sep: str</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inputFile</span> <span class="o">=</span> <span class="n">inputFile</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span> <span class="o">=</span> <span class="p">[]</span>
@@ -242,9 +246,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">sep</span> <span class="o">=</span> <span class="n">sep</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">database</span> <span class="o">=</span> <span class="p">{}</span>
 
-<div class="viewcode-block" id="SequentialDatabase.readDatabase">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.readDatabase">[docs]</a>
-    <span class="k">def</span> <span class="nf">readDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="SequentialDatabase.readDatabase"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.readDatabase">[docs]</a>    <span class="k">def</span> <span class="nf">readDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        read sequential database from input file and store into database and size of each sequence and subsequences.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -294,164 +296,134 @@
                             <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">[</span><span class="n">rowNum</span><span class="p">]</span> <span class="o">=</span> <span class="n">seq</span></div>
 
 
-
-<div class="viewcode-block" id="SequentialDatabase.getDatabaseSize">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getDatabaseSize">[docs]</a>
-    <span class="k">def</span> <span class="nf">getDatabaseSize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="SequentialDatabase.getDatabaseSize"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getDatabaseSize">[docs]</a>    <span class="k">def</span> <span class="nf">getDatabaseSize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the size of database</span>
 <span class="sd">        :return: dataset size</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.getTotalNumberOfItems">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getTotalNumberOfItems">[docs]</a>
-    <span class="k">def</span> <span class="nf">getTotalNumberOfItems</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="SequentialDatabase.getTotalNumberOfItems"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getTotalNumberOfItems">[docs]</a>    <span class="k">def</span> <span class="nf">getTotalNumberOfItems</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the number of items in database.</span>
 <span class="sd">        :return: number of items</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getSortedListOfItemFrequencies</span><span class="p">())</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.getMinimumSequenceLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getMinimumSequenceLength">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMinimumSequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="SequentialDatabase.getMinimumSequenceLength"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getMinimumSequenceLength">[docs]</a>    <span class="k">def</span> <span class="nf">getMinimumSequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the minimum sequence length</span>
 <span class="sd">        :return: minimum sequence length</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.getAverageSubsequencePerSequenceLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getAverageSubsequencePerSequenceLength">[docs]</a>
-    <span class="k">def</span> <span class="nf">getAverageSubsequencePerSequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="SequentialDatabase.getAverageSubsequencePerSequenceLength"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getAverageSubsequencePerSequenceLength">[docs]</a>    <span class="k">def</span> <span class="nf">getAverageSubsequencePerSequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the average subsequence length per sequence length. It is sum of all subsequence length divided by sequence length.</span>
 <span class="sd">        :return: average subsequence length per sequence length</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">totalLength</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">totalLength</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.getAverageItemPerSubsequenceLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getAverageItemPerSubsequenceLength">[docs]</a>
-    <span class="k">def</span> <span class="nf">getAverageItemPerSubsequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="SequentialDatabase.getAverageItemPerSubsequenceLength"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getAverageItemPerSubsequenceLength">[docs]</a>    <span class="k">def</span> <span class="nf">getAverageItemPerSubsequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the average Item length per subsequence. It is sum of all item length divided by subsequence length.</span>
 <span class="sd">        :return: average Item length per subsequence</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">totalLength</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">sum</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">subSeqLengthList</span><span class="p">)))</span>
         <span class="k">return</span> <span class="n">totalLength</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.getMaximumSequenceLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getMaximumSequenceLength">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMaximumSequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="SequentialDatabase.getMaximumSequenceLength"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getMaximumSequenceLength">[docs]</a>    <span class="k">def</span> <span class="nf">getMaximumSequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the maximum sequence length</span>
 <span class="sd">        :return: maximum sequence length</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.getStandardDeviationSequenceLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getStandardDeviationSequenceLength">[docs]</a>
-    <span class="k">def</span> <span class="nf">getStandardDeviationSequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="SequentialDatabase.getStandardDeviationSequenceLength"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getStandardDeviationSequenceLength">[docs]</a>    <span class="k">def</span> <span class="nf">getStandardDeviationSequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the standard deviation sequence length</span>
 <span class="sd">        :return: standard deviation sequence length</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">statistics</span><span class="o">.</span><span class="n">pstdev</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.getVarianceSequenceLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getVarianceSequenceLength">[docs]</a>
-    <span class="k">def</span> <span class="nf">getVarianceSequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="SequentialDatabase.getVarianceSequenceLength"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getVarianceSequenceLength">[docs]</a>    <span class="k">def</span> <span class="nf">getVarianceSequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the variance Sequence length</span>
 <span class="sd">        :return: variance Sequence length</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">statistics</span><span class="o">.</span><span class="n">variance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.getSequenceSize">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getSequenceSize">[docs]</a>
-    <span class="k">def</span> <span class="nf">getSequenceSize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="SequentialDatabase.getSequenceSize"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getSequenceSize">[docs]</a>    <span class="k">def</span> <span class="nf">getSequenceSize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the size of sequence</span>
 <span class="sd">        :return: sequences size</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.getMinimumSubsequenceLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getMinimumSubsequenceLength">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMinimumSubsequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="SequentialDatabase.getMinimumSubsequenceLength"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getMinimumSubsequenceLength">[docs]</a>    <span class="k">def</span> <span class="nf">getMinimumSubsequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the minimum subsequence length</span>
 <span class="sd">        :return: minimum subsequence length</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">min</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">subSeqLengthList</span><span class="p">)))</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.getAverageItemPerSequenceLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getAverageItemPerSequenceLength">[docs]</a>
-    <span class="k">def</span> <span class="nf">getAverageItemPerSequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="SequentialDatabase.getAverageItemPerSequenceLength"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getAverageItemPerSequenceLength">[docs]</a>    <span class="k">def</span> <span class="nf">getAverageItemPerSequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the average item length per sequence. It is sum of all item length divided by sequence length.</span>
 <span class="sd">        :return: average item length per sequence</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">totalLength</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">sum</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">subSeqLengthList</span><span class="p">)))</span>
         <span class="k">return</span> <span class="n">totalLength</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.getMaximumSubsequenceLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getMaximumSubsequenceLength">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMaximumSubsequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="SequentialDatabase.getMaximumSubsequenceLength"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getMaximumSubsequenceLength">[docs]</a>    <span class="k">def</span> <span class="nf">getMaximumSubsequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the maximum subsequence length</span>
 <span class="sd">        :return: maximum subsequence length</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">max</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">subSeqLengthList</span><span class="p">)))</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.getStandardDeviationSubsequenceLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getStandardDeviationSubsequenceLength">[docs]</a>
-    <span class="k">def</span> <span class="nf">getStandardDeviationSubsequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="SequentialDatabase.getStandardDeviationSubsequenceLength"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getStandardDeviationSubsequenceLength">[docs]</a>    <span class="k">def</span> <span class="nf">getStandardDeviationSubsequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the standard deviation subsequence length</span>
 <span class="sd">        :return: standard deviation subsequence length</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">allList</span><span class="o">=</span><span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSeqLengthList</span><span class="p">:</span>
             <span class="n">allList</span><span class="o">=</span><span class="n">allList</span><span class="o">+</span><span class="n">i</span>
         <span class="k">return</span> <span class="n">statistics</span><span class="o">.</span><span class="n">pstdev</span><span class="p">(</span><span class="n">allList</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.getVarianceSubsequenceLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getVarianceSubsequenceLength">[docs]</a>
-    <span class="k">def</span> <span class="nf">getVarianceSubsequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="SequentialDatabase.getVarianceSubsequenceLength"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getVarianceSubsequenceLength">[docs]</a>    <span class="k">def</span> <span class="nf">getVarianceSubsequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the variance subSequence length</span>
 <span class="sd">        :return: variance subSequence length</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">allList</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSeqLengthList</span><span class="p">:</span>
             <span class="n">allList</span> <span class="o">=</span> <span class="n">allList</span> <span class="o">+</span> <span class="n">i</span>
         <span class="k">return</span> <span class="n">statistics</span><span class="o">.</span><span class="n">variance</span><span class="p">(</span><span class="n">allList</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.getSortedListOfItemFrequencies">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getSortedListOfItemFrequencies">[docs]</a>
-    <span class="k">def</span> <span class="nf">getSortedListOfItemFrequencies</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<div class="viewcode-block" id="SequentialDatabase.getSortedListOfItemFrequencies"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getSortedListOfItemFrequencies">[docs]</a>    <span class="k">def</span> <span class="nf">getSortedListOfItemFrequencies</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get sorted list of item frequencies</span>
 <span class="sd">        :return: item frequencies</span>
+<span class="sd">        :rtype: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">itemFrequencies</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">:</span>
@@ -461,13 +433,11 @@
                     <span class="n">itemFrequencies</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">itemFrequencies</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)}</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.getFrequenciesInRange">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getFrequenciesInRange">[docs]</a>
-    <span class="k">def</span> <span class="nf">getFrequenciesInRange</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<div class="viewcode-block" id="SequentialDatabase.getFrequenciesInRange"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getFrequenciesInRange">[docs]</a>    <span class="k">def</span> <span class="nf">getFrequenciesInRange</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get sorted list of item frequencies in some range</span>
 <span class="sd">        :return: item separated by its frequencies</span>
+<span class="sd">        :rtype: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">fre</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSortedListOfItemFrequencies</span><span class="p">()</span>
         <span class="n">rangeFrequencies</span> <span class="o">=</span> <span class="p">{}</span>
@@ -480,13 +450,11 @@
             <span class="n">rangeFrequencies</span><span class="p">[</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">va</span>
         <span class="k">return</span> <span class="n">rangeFrequencies</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.getSequencialLengthDistribution">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getSequencialLengthDistribution">[docs]</a>
-    <span class="k">def</span> <span class="nf">getSequencialLengthDistribution</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<div class="viewcode-block" id="SequentialDatabase.getSequencialLengthDistribution"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getSequencialLengthDistribution">[docs]</a>    <span class="k">def</span> <span class="nf">getSequencialLengthDistribution</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get Sequence length Distribution</span>
 <span class="sd">        :return: Sequence length</span>
+<span class="sd">        :rtype: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">transactionLength</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">length</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span><span class="p">:</span>
@@ -494,13 +462,11 @@
             <span class="n">transactionLength</span><span class="p">[</span><span class="n">length</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">transactionLength</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])}</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.getSubsequencialLengthDistribution">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getSubsequencialLengthDistribution">[docs]</a>
-    <span class="k">def</span> <span class="nf">getSubsequencialLengthDistribution</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<div class="viewcode-block" id="SequentialDatabase.getSubsequencialLengthDistribution"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.getSubsequencialLengthDistribution">[docs]</a>    <span class="k">def</span> <span class="nf">getSubsequencialLengthDistribution</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get subSequence length distribution</span>
 <span class="sd">        :return: subSequence length</span>
+<span class="sd">        :rtype: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">transactionLength</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">sublen</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSeqLengthList</span><span class="p">:</span>
@@ -509,16 +475,10 @@
                 <span class="n">transactionLength</span><span class="p">[</span><span class="n">length</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">transactionLength</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])}</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.run">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.run">[docs]</a>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="SequentialDatabase.run"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">readDatabase</span><span class="p">()</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.printStats">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.printStats">[docs]</a>
-    <span class="k">def</span> <span class="nf">printStats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="SequentialDatabase.printStats"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.printStats">[docs]</a>    <span class="k">def</span> <span class="nf">printStats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To print the all status of sequence database</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -536,10 +496,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Standard Deviation Sequence Size : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">getStandardDeviationSubsequenceLength</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Variance in Sequence Sizes : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">getVarianceSubsequenceLength</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="SequentialDatabase.plotGraphs">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.plotGraphs">[docs]</a>
-    <span class="k">def</span> <span class="nf">plotGraphs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="SequentialDatabase.plotGraphs"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.SequentialDatabase.SequentialDatabase.plotGraphs">[docs]</a>    <span class="k">def</span> <span class="nf">plotGraphs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To plot the  distribution about items, subsequences in sequence and items in subsequence</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -548,9 +505,7 @@
         <span class="n">subLen</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getSubsequencialLengthDistribution</span><span class="p">()</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">plotLineGraphFromDictionary</span><span class="p">(</span><span class="n">itemFrequencies</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;Frequency&#39;</span><span class="p">,</span> <span class="s1">&#39;No of items&#39;</span><span class="p">,</span> <span class="s1">&#39;frequency&#39;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">plotLineGraphFromDictionary</span><span class="p">(</span><span class="n">seqLen</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;sequence length&#39;</span><span class="p">,</span> <span class="s1">&#39;sequence length&#39;</span><span class="p">,</span> <span class="s1">&#39;frequency&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plotLineGraphFromDictionary</span><span class="p">(</span><span class="n">subLen</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;subsequence length&#39;</span><span class="p">,</span> <span class="s1">&#39;subsequence length&#39;</span><span class="p">,</span> <span class="s1">&#39;frequency&#39;</span><span class="p">)</span></div>
-</div>
-
+        <span class="n">plt</span><span class="o">.</span><span class="n">plotLineGraphFromDictionary</span><span class="p">(</span><span class="n">subLen</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;subsequence length&#39;</span><span class="p">,</span> <span class="s1">&#39;subsequence length&#39;</span><span class="p">,</span> <span class="s1">&#39;frequency&#39;</span><span class="p">)</span></div></div>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">_ap</span><span class="o">=</span><span class="nb">str</span><span class="p">()</span>

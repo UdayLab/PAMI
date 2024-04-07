@@ -24,6 +24,8 @@ extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', 'sphinx.ext.napoleon'
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
+# Add PyCUDA to the list of mocked imports
+autodoc_mock_imports = ["pycuda"]
 
 
 # -- Options for HTML output -------------------------------------------------

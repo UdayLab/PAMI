@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.frequentPattern.basic package &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
 
   
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=28a0d067"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -95,15 +95,15 @@
            <div itemprop="articleBody">
              
   <section id="pami-frequentpattern-basic-package">
-<h1>PAMI.frequentPattern.basic package<a class="headerlink" href="#pami-frequentpattern-basic-package" title="Link to this heading"></a></h1>
+<h1>PAMI.frequentPattern.basic package<a class="headerlink" href="#pami-frequentpattern-basic-package" title="Permalink to this heading"></a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
 </section>
 <section id="module-PAMI.frequentPattern.basic.Apriori">
-<span id="pami-frequentpattern-basic-apriori-module"></span><h2>PAMI.frequentPattern.basic.Apriori module<a class="headerlink" href="#module-PAMI.frequentPattern.basic.Apriori" title="Link to this heading"></a></h2>
+<span id="pami-frequentpattern-basic-apriori-module"></span><h2>PAMI.frequentPattern.basic.Apriori module<a class="headerlink" href="#module-PAMI.frequentPattern.basic.Apriori" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.Apriori.Apriori">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.basic.Apriori.</span></span><span class="sig-name descname"><span class="pre">Apriori</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.basic.Apriori.</span></span><span class="sig-name descname"><span class="pre">Apriori</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
@@ -142,8 +142,6 @@ This variable is used to distinguish items from one another in a transaction. Th
 </dl>
 </dd>
 </dl>
-<section id="methods-to-execute-code-on-terminal">
-<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#methods-to-execute-code-on-terminal" title="Link to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
 <span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>Apriori.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;
@@ -157,14 +155,11 @@ This variable is used to distinguish items from one another in a transaction. Th
 <p class="admonition-title">Note</p>
 <p>minSup will be considered in percentage of database transactions</p>
 </div>
-</section>
-<section id="importing-this-algorithm-into-a-python-program">
-<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#importing-this-algorithm-into-a-python-program" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PAMI.frequentPattern.basic.Apriori</span> <span class="k">as</span> <span class="nn">alg</span>
 
 <span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">Apriori</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
 
-<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+<span class="n">obj</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
 
 <span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
 
@@ -187,15 +182,12 @@ This variable is used to distinguish items from one another in a transaction. Th
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="credits">
-<h3><strong>Credits:</strong><a class="headerlink" href="#credits" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.Apriori.Apriori.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori.getMemoryRSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -209,7 +201,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.Apriori.Apriori.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori.getMemoryUSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -223,7 +215,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.Apriori.Apriori.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori.getPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -237,7 +229,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.Apriori.Apriori.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>Storing final frequent patterns in a dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -251,7 +243,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.Apriori.Apriori.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori.getRuntime" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -264,14 +256,20 @@ This variable is used to distinguish items from one another in a transaction. Th
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.basic.Apriori.Apriori.mine">
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori.mine" title="Permalink to this definition"></a></dt>
+<dd><p>Frequent pattern mining process will start from here</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.Apriori.Apriori.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori.printResults" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori.printResults" title="Permalink to this definition"></a></dt>
 <dd><p>This function is used to print the result</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.Apriori.Apriori.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori.save" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -285,19 +283,18 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.Apriori.Apriori.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori.startMine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori.startMine" title="Permalink to this definition"></a></dt>
 <dd><p>Frequent pattern mining process will start from here</p>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
 <section id="module-PAMI.frequentPattern.basic.ECLAT">
-<span id="pami-frequentpattern-basic-eclat-module"></span><h2>PAMI.frequentPattern.basic.ECLAT module<a class="headerlink" href="#module-PAMI.frequentPattern.basic.ECLAT" title="Link to this heading"></a></h2>
+<span id="pami-frequentpattern-basic-eclat-module"></span><h2>PAMI.frequentPattern.basic.ECLAT module<a class="headerlink" href="#module-PAMI.frequentPattern.basic.ECLAT" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLAT.ECLAT">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.basic.ECLAT.</span></span><span class="sig-name descname"><span class="pre">ECLAT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.basic.ECLAT.</span></span><span class="sig-name descname"><span class="pre">ECLAT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
@@ -336,8 +333,6 @@ This variable is used to distinguish items from one another in a transaction. Th
 </dl>
 </dd>
 </dl>
-<section id="id1">
-<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
 <span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>ECLAT.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;
@@ -351,14 +346,11 @@ This variable is used to distinguish items from one another in a transaction. Th
 <p class="admonition-title">Note</p>
 <p>minSup will be considered in percentage of database transactions</p>
 </div>
-</section>
-<section id="id2">
-<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PAMI.frequentPattern.basic.ECLAT</span> <span class="k">as</span> <span class="nn">alg</span>
 
 <span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">ECLAT</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
 
-<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+<span class="n">obj</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
 
 <span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
 
@@ -381,15 +373,12 @@ This variable is used to distinguish items from one another in a transaction. Th
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="id3">
-<h3><strong>Credits:</strong><a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by Kundai  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLAT.ECLAT.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT.getMemoryRSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -403,7 +392,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLAT.ECLAT.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT.getMemoryUSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -417,7 +406,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLAT.ECLAT.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT.getPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -431,7 +420,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLAT.ECLAT.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>Storing final frequent patterns in a dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -445,7 +434,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLAT.ECLAT.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT.getRuntime" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -458,14 +447,20 @@ This variable is used to distinguish items from one another in a transaction. Th
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLAT.ECLAT.mine">
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT.mine" title="Permalink to this definition"></a></dt>
+<dd><p>Frequent pattern mining process will start from here</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLAT.ECLAT.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT.printResults" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT.printResults" title="Permalink to this definition"></a></dt>
 <dd><p>Function used to print the results</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLAT.ECLAT.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT.save" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -479,19 +474,18 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLAT.ECLAT.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT.startMine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT.startMine" title="Permalink to this definition"></a></dt>
 <dd><p>Frequent pattern mining process will start from here</p>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
 <section id="module-PAMI.frequentPattern.basic.ECLATDiffset">
-<span id="pami-frequentpattern-basic-eclatdiffset-module"></span><h2>PAMI.frequentPattern.basic.ECLATDiffset module<a class="headerlink" href="#module-PAMI.frequentPattern.basic.ECLATDiffset" title="Link to this heading"></a></h2>
+<span id="pami-frequentpattern-basic-eclatdiffset-module"></span><h2>PAMI.frequentPattern.basic.ECLATDiffset module<a class="headerlink" href="#module-PAMI.frequentPattern.basic.ECLATDiffset" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.basic.ECLATDiffset.</span></span><span class="sig-name descname"><span class="pre">ECLATDiffset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.basic.ECLATDiffset.</span></span><span class="sig-name descname"><span class="pre">ECLATDiffset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
@@ -530,8 +524,6 @@ This variable is used to distinguish items from one another in a transaction. Th
 </dl>
 </dd>
 </dl>
-<section id="id4">
-<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
 <span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>ECLATDiffset.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;
@@ -545,14 +537,11 @@ This variable is used to distinguish items from one another in a transaction. Th
 <p class="admonition-title">Note</p>
 <p>minSup will be considered in percentage of database transactions</p>
 </div>
-</section>
-<section id="id5">
-<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PAMI.frequentPattern.basic.ECLATDiffset</span> <span class="k">as</span> <span class="nn">alg</span>
 
 <span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">ECLATDiffset</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
 
-<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+<span class="n">obj</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
 
 <span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
 
@@ -575,15 +564,12 @@ This variable is used to distinguish items from one another in a transaction. Th
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="id6">
-<h3><strong>Credits:</strong><a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by Kundai under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.getMemoryRSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function
 :return: returning RSS memory consumed by the mining process
 :rtype: float</p>
@@ -591,7 +577,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.getMemoryUSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function
 :return: returning USS memory consumed by the mining process
 :rtype: float</p>
@@ -599,7 +585,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.getPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of frequent patterns after completion of the mining process
 :return: returning frequent patterns
 :rtype: dict</p>
@@ -607,7 +593,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>Storing final frequent patterns in a dataframe
 :return: returning frequent patterns in a dataframe
 :rtype: pd.DataFrame</p>
@@ -615,21 +601,27 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.getRuntime" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process
 :return: returning total amount of runtime taken by the mining process
 :rtype: float</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.mine">
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.mine" title="Permalink to this definition"></a></dt>
+<dd><p>Frequent pattern mining process will start from here</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.printResults" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.printResults" title="Permalink to this definition"></a></dt>
 <dd><p>This function is used to print the results</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.save" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to an output file
 :param outFile: name of the output file
 :type outFile: csvfile</p>
@@ -637,19 +629,18 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.startMine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.startMine" title="Permalink to this definition"></a></dt>
 <dd><p>Frequent pattern mining process will start from here</p>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
 <section id="module-PAMI.frequentPattern.basic.ECLATbitset">
-<span id="pami-frequentpattern-basic-eclatbitset-module"></span><h2>PAMI.frequentPattern.basic.ECLATbitset module<a class="headerlink" href="#module-PAMI.frequentPattern.basic.ECLATbitset" title="Link to this heading"></a></h2>
+<span id="pami-frequentpattern-basic-eclatbitset-module"></span><h2>PAMI.frequentPattern.basic.ECLATbitset module<a class="headerlink" href="#module-PAMI.frequentPattern.basic.ECLATbitset" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.basic.ECLATbitset.</span></span><span class="sig-name descname"><span class="pre">ECLATbitset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.basic.ECLATbitset.</span></span><span class="sig-name descname"><span class="pre">ECLATbitset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
@@ -688,8 +679,6 @@ This variable is used to distinguish items from one another in a transaction. Th
 </dl>
 </dd>
 </dl>
-<section id="id7">
-<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
 <span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>ECLATbitset.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;
@@ -703,14 +692,11 @@ This variable is used to distinguish items from one another in a transaction. Th
 <p class="admonition-title">Note</p>
 <p>minSup will be considered in percentage of database transactions</p>
 </div>
-</section>
-<section id="id8">
-<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PAMI.frequentPattern.basic.ECLATbitset</span> <span class="k">as</span> <span class="nn">alg</span>
 
 <span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">ECLATbitset</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
 
-<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+<span class="n">obj</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
 
 <span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
 
@@ -733,15 +719,12 @@ This variable is used to distinguish items from one another in a transaction. Th
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="id9">
-<h3><strong>Credits:</strong><a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by Yudai Masu under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.creatingFrequentItems">
-<span class="sig-name descname"><span class="pre">creatingFrequentItems</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.creatingFrequentItems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.creatingFrequentItems" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">creatingFrequentItems</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.creatingFrequentItems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.creatingFrequentItems" title="Permalink to this definition"></a></dt>
 <dd><p>This function creates frequent items from _database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -755,7 +738,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.genAllFrequentPatterns">
-<span class="sig-name descname"><span class="pre">genAllFrequentPatterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frequentItems</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.genAllFrequentPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.genAllFrequentPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">genAllFrequentPatterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frequentItems</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.genAllFrequentPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.genAllFrequentPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>This function generates all frequent patterns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -766,7 +749,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.genPatterns">
-<span class="sig-name descname"><span class="pre">genPatterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tidData</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.genPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.genPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">genPatterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tidData</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.genPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.genPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>This function generate frequent pattern about prefix.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -780,7 +763,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.getMemoryRSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function
 :return: returning RSS memory consumed by the mining process
 :rtype: float</p>
@@ -788,7 +771,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.getMemoryUSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function
 :return: returning USS memory consumed by the mining process
 :rtype: float</p>
@@ -796,7 +779,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.getPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of frequent patterns after completion of the mining process
 :return: returning frequent patterns
 :rtype: dict</p>
@@ -804,7 +787,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>Storing final frequent patterns in a dataframe
 :return: returning frequent patterns in a dataframe
 :rtype: pd.DataFrame</p>
@@ -812,21 +795,29 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.getRuntime" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process
 :return: returning total amount of runtime taken by the mining process
 :rtype: float</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.mine">
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.mine" title="Permalink to this definition"></a></dt>
+<dd><p>Frequent pattern mining process will start from here
+We start with the scanning the itemSets and store the bitsets respectively.
+We form the combinations of single items and  check with minSup condition to check the frequency of patterns</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.printResults" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.printResults" title="Permalink to this definition"></a></dt>
 <dd><p>This function is used to print the result</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.save" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to an output file
 :param outFile: name of the outputfile
 :type outFile: file</p>
@@ -834,7 +825,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.startMine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.startMine" title="Permalink to this definition"></a></dt>
 <dd><p>Frequent pattern mining process will start from here
 We start with the scanning the itemSets and store the bitsets respectively.
 We form the combinations of single items and  check with minSup condition to check the frequency of patterns</p>
@@ -842,7 +833,7 @@ We form the combinations of single items and  check with minSup condition to che
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.tidToBitset">
-<span class="sig-name descname"><span class="pre">tidToBitset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">itemset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.tidToBitset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.tidToBitset" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">tidToBitset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">itemset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset.tidToBitset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.tidToBitset" title="Permalink to this definition"></a></dt>
 <dd><p>This function converts tid list to bitset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -857,15 +848,14 @@ We form the combinations of single items and  check with minSup condition to che
 </dl>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
 <section id="module-PAMI.frequentPattern.basic.FPGrowth">
-<span id="pami-frequentpattern-basic-fpgrowth-module"></span><h2>PAMI.frequentPattern.basic.FPGrowth module<a class="headerlink" href="#module-PAMI.frequentPattern.basic.FPGrowth" title="Link to this heading"></a></h2>
+<span id="pami-frequentpattern-basic-fpgrowth-module"></span><h2>PAMI.frequentPattern.basic.FPGrowth module<a class="headerlink" href="#module-PAMI.frequentPattern.basic.FPGrowth" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.FPGrowth.FPGrowth">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.basic.FPGrowth.</span></span><span class="sig-name descname"><span class="pre">FPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.basic.FPGrowth.</span></span><span class="sig-name descname"><span class="pre">FPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
@@ -912,8 +902,6 @@ This variable is used to distinguish items from one another in a transaction. Th
 </dl>
 </dd>
 </dl>
-<section id="id10">
-<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
 <span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>FPGrowth.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;
@@ -927,14 +915,11 @@ This variable is used to distinguish items from one another in a transaction. Th
 <p class="admonition-title">Note</p>
 <p>minSup will be considered in percentage of database transactions</p>
 </div>
-</section>
-<section id="id11">
-<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.frequentPattern.basic</span> <span class="kn">import</span> <span class="n">FPGrowth</span> <span class="k">as</span> <span class="n">alg</span>
 
 <span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">FPGrowth</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
 
-<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+<span class="n">obj</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
 
 <span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
 
@@ -957,15 +942,12 @@ This variable is used to distinguish items from one another in a transaction. Th
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="id12">
-<h3><strong>Credits:</strong><a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getMemoryRSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function
 :return: returning RSS memory consumed by the mining process
 :rtype: float</p>
@@ -973,7 +955,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getMemoryUSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -987,7 +969,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of frequent patterns after completion of the mining process
 :return: returning frequent patterns
 :rtype: dict</p>
@@ -995,7 +977,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>Storing final frequent patterns in a dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1009,7 +991,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getRuntime" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1022,14 +1004,20 @@ This variable is used to distinguish items from one another in a transaction. Th
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.basic.FPGrowth.FPGrowth.mine">
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.mine" title="Permalink to this definition"></a></dt>
+<dd><p>Main program to start the operation</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.FPGrowth.FPGrowth.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.printResults" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.printResults" title="Permalink to this definition"></a></dt>
 <dd><p>This function is used to print the results</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.FPGrowth.FPGrowth.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.save" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1043,19 +1031,18 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.FPGrowth.FPGrowth.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.startMine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.startMine" title="Permalink to this definition"></a></dt>
 <dd><p>Main program to start the operation</p>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
 <section id="module-PAMI.frequentPattern.basic.abstract">
-<span id="pami-frequentpattern-basic-abstract-module"></span><h2>PAMI.frequentPattern.basic.abstract module<a class="headerlink" href="#module-PAMI.frequentPattern.basic.abstract" title="Link to this heading"></a></h2>
+<span id="pami-frequentpattern-basic-abstract-module"></span><h2>PAMI.frequentPattern.basic.abstract module<a class="headerlink" href="#module-PAMI.frequentPattern.basic.abstract" title="Permalink to this heading"></a></h2>
 </section>
 <section id="module-PAMI.frequentPattern.basic">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.frequentPattern.basic" title="Link to this heading"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.frequentPattern.basic" title="Permalink to this heading"></a></h2>
 </section>
 </section>
 

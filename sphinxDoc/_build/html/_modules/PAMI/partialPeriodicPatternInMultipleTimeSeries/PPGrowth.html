@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=28a0d067"></script>
-        <script src="../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -46,13 +48,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../temporalPatternMining.html">Temporal Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../geoReferencedPatternMining.html">Geo-referenced Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../utilityPatternMining.html">Utility Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fuzzyPatternMining.html">Fuzzy Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../uncertainPatternMining.html">Uncertain Database</a></li>
@@ -61,7 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../sequentialPatternMining.html">Sequential Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../multipleTimeseriesPatternMining.html">Multiple Timeseries Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
@@ -122,6 +124,7 @@
 <span class="c1">#</span>
 <span class="c1">#     run = obj.getRuntime()</span>
 
+
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
 
@@ -141,6 +144,8 @@
 
 <span class="s2">&quot;&quot;&quot;</span>
 
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
 <span class="kn">from</span> <span class="nn">PAMI.partialPeriodicPatternInMultipleTimeSeries</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
 
 
@@ -401,15 +406,21 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">removeNode</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="PPGrowth">
-<a class="viewcode-back" href="../../../partialPeriodicPatternInMultipleTimeSeriesPPGrowth.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth">[docs]</a>
-<span class="k">class</span> <span class="nc">PPGrowth</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_partialPeriodicPatterns</span><span class="p">):</span>
+<div class="viewcode-block" id="PPGrowth"><a class="viewcode-back" href="../../../partialPeriodicPatternInMultipleTimeSeriesPPGrowth.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth">[docs]</a><span class="k">class</span> <span class="nc">PPGrowth</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_partialPeriodicPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Description:   PPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.</span>
 
 <span class="sd">    :Reference:   C. Saideep, R. Uday Kiran, K. Zettsu, P. Fournier-Viger, M. Kitsuregawa and P. Krishna Reddy,</span>
 <span class="sd">                 &quot;Discovering Periodic Patterns in Irregular Time Series,&quot; 2019 International Conference on Data Mining Workshops (ICDMW), 2019,</span>
 <span class="sd">                  pp. 1020-1028, doi: 10.1109/ICDMW.2019.00147.</span>
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of periodic frequent pattern&#39;s</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of periodic frequent pattern&#39;s</span>
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
 
 <span class="sd">    :Attributes:</span>
 
@@ -480,11 +491,16 @@
 
 <span class="sd">    **Executing the code on terminal:**</span>
 <span class="sd">    -------------------------------------</span>
-<span class="sd">        Format:</span>
-<span class="sd">           &gt;&gt;&gt; python3 PPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">        Examples:</span>
-<span class="sd">           &gt;&gt;&gt; python3 PPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4</span>
+
+<span class="sd">       Format:</span>
+
+<span class="sd">       (.venv) $ python3 PPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</span>
+
+<span class="sd">       Examples:</span>
+
+<span class="sd">       (.venv) $  python3 PPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4</span>
 
 <span class="sd">    **Sample run of importing the code:**</span>
 <span class="sd">    ----------------------------------------</span>
@@ -694,9 +710,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="o">=</span><span class="n">newDatabase</span>
         <span class="k">return</span> <span class="n">rechangeDic</span>
 
-
-<div class="viewcode-block" id="PPGrowth.startMine">
-<a class="viewcode-back" href="../../../partialPeriodicPatternInMultipleTimeSeriesPPGrowth.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.startMine">[docs]</a>
+<div class="viewcode-block" id="PPGrowth.startMine"><a class="viewcode-back" href="../../../partialPeriodicPatternInMultipleTimeSeriesPPGrowth.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use mine() instead of startMine() for mining process&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mining process will start from this function</span>
@@ -733,10 +747,43 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Periodic Frequent patterns were generated successfully using PPGrowth algorithm &quot;</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="PPGrowth.Mine"><a class="viewcode-back" href="../../../partialPeriodicPatternInMultipleTimeSeriesPPGrowth.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.Mine">[docs]</a>    <span class="k">def</span> <span class="nf">Mine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Mining process will start from this function</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="PPGrowth.getMemoryUSS">
-<a class="viewcode-back" href="../../../partialPeriodicPatternInMultipleTimeSeriesPPGrowth.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getMemoryUSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">global</span> <span class="n">_minSup</span><span class="p">,</span> <span class="n">_maxPer</span><span class="p">,</span> <span class="n">_lno</span><span class="p">,</span><span class="n">_period</span><span class="p">,</span><span class="n">_periodicSupport</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Please enter the file path or file name:&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_periodicSupport</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Please enter the Periodic Support&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_creatingItemSets</span><span class="p">()</span>
+        <span class="n">changeDic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convertNumber</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_periodicSupport</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_periodicSupport</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_period</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_period</span><span class="p">)</span>
+        <span class="n">_periodicSupport</span><span class="p">,</span> <span class="n">_period</span><span class="p">,</span> <span class="n">_lno</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_periodicSupport</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_period</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_periodicSupport</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Please enter the minSup in range between 0 to 1&quot;</span><span class="p">)</span>
+
+        <span class="n">generatedItems</span><span class="p">,</span> <span class="n">pfList</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_periodicFrequentOneItem</span><span class="p">()</span>
+        <span class="n">updatedDatabases</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updateDatabases</span><span class="p">(</span><span class="n">generatedItems</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rankedUp</span><span class="o">=</span><span class="p">{</span><span class="n">y</span><span class="p">:</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rank</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_rank</span><span class="p">[</span><span class="n">k</span><span class="p">]:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">generatedItems</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">Tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buildTree</span><span class="p">(</span><span class="n">updatedDatabases</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span>
+        <span class="n">patterns</span> <span class="o">=</span> <span class="n">Tree</span><span class="o">.</span><span class="n">generatePatterns</span><span class="p">([])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">=</span><span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_savePeriodic</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">changeDic</span><span class="p">):</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">patterns</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Periodic Frequent patterns were generated successfully using PPGrowth algorithm &quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PPGrowth.getMemoryUSS"><a class="viewcode-back" href="../../../partialPeriodicPatternInMultipleTimeSeriesPPGrowth.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getMemoryUSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
 
 <span class="sd">        :return: returning USS memory consumed by the mining process</span>
@@ -745,10 +792,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span></div>
 
-
-<div class="viewcode-block" id="PPGrowth.getMemoryRSS">
-<a class="viewcode-back" href="../../../partialPeriodicPatternInMultipleTimeSeriesPPGrowth.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getMemoryRSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PPGrowth.getMemoryRSS"><a class="viewcode-back" href="../../../partialPeriodicPatternInMultipleTimeSeriesPPGrowth.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getMemoryRSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 
 <span class="sd">        :return: returning RSS memory consumed by the mining process</span>
@@ -757,10 +801,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span></div>
 
-
-<div class="viewcode-block" id="PPGrowth.getRuntime">
-<a class="viewcode-back" href="../../../partialPeriodicPatternInMultipleTimeSeriesPPGrowth.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getRuntime">[docs]</a>
-    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PPGrowth.getRuntime"><a class="viewcode-back" href="../../../partialPeriodicPatternInMultipleTimeSeriesPPGrowth.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getRuntime">[docs]</a>    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculating the total amount of runtime taken by the mining process</span>
 
 
@@ -770,10 +811,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span></div>
 
-
-<div class="viewcode-block" id="PPGrowth.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../partialPeriodicPatternInMultipleTimeSeriesPPGrowth.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getPatternsAsDataFrame">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PPGrowth.getPatternsAsDataFrame"><a class="viewcode-back" href="../../../partialPeriodicPatternInMultipleTimeSeriesPPGrowth.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getPatternsAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Storing final periodic-frequent patterns in a dataframe</span>
 
 <span class="sd">        :return: returning periodic-frequent patterns in a dataframe</span>
@@ -787,10 +825,7 @@
             <span class="n">dataFrame</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;Support&#39;</span><span class="p">,</span> <span class="s1">&#39;Periodicity&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">dataFrame</span></div>
 
-
-<div class="viewcode-block" id="PPGrowth.save">
-<a class="viewcode-back" href="../../../partialPeriodicPatternInMultipleTimeSeriesPPGrowth.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.save">[docs]</a>
-    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
+<div class="viewcode-block" id="PPGrowth.save"><a class="viewcode-back" href="../../../partialPeriodicPatternInMultipleTimeSeriesPPGrowth.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Complete set of periodic-frequent patterns will be loaded in to a output file</span>
 
@@ -803,10 +838,7 @@
             <span class="n">s1</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
             <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">s1</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="PPGrowth.getPatterns">
-<a class="viewcode-back" href="../../../partialPeriodicPatternInMultipleTimeSeriesPPGrowth.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getPatterns">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PPGrowth.getPatterns"><a class="viewcode-back" href="../../../partialPeriodicPatternInMultipleTimeSeriesPPGrowth.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getPatterns">[docs]</a>    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Function to send the set of periodic-frequent patterns after completion of the mining process</span>
 
 <span class="sd">        :return: returning periodic-frequent patterns</span>
@@ -814,19 +846,14 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span></div>
 
-
-<div class="viewcode-block" id="PPGrowth.printResults">
-<a class="viewcode-back" href="../../../partialPeriodicPatternInMultipleTimeSeriesPPGrowth.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.printResults">[docs]</a>
-    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PPGrowth.printResults"><a class="viewcode-back" href="../../../partialPeriodicPatternInMultipleTimeSeriesPPGrowth.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.printResults">[docs]</a>    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Partial Periodic Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div>
-</div>
-
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>

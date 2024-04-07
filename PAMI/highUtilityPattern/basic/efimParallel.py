@@ -161,8 +161,8 @@ class efimParallel(_ab._utilityPatterns):
     .. note:: maxMemory will be considered as Maximum memory used by this program for running
 
 
-     Sample run of importing the code:
-    --------------------------------------
+    **Importing this algorithm into a python program**
+    -------------------------------------------------------
     .. code-block:: python
 
             from PAMI.highUtilityPattern.basic import efimParallel as alg
@@ -190,7 +190,7 @@ class efimParallel(_ab._utilityPatterns):
             print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
-    -----------------------------
+    ----------------
             The complete program was written by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
     """
 

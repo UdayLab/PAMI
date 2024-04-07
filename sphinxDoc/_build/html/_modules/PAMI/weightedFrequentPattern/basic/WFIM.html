@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.weightedFrequentPattern.basic.WFIM &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=28a0d067"></script>
-        <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -46,13 +48,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
@@ -61,7 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
@@ -97,7 +99,7 @@
 <span class="c1"># patterns from tree.It employs downward closure property to  reduce the search space effectively.</span>
 <span class="c1">#</span>
 <span class="c1"># **Importing this algorithm into a python program**</span>
-<span class="c1"># --------------------------------------------------------</span>
+<span class="c1"># ----------------------------------------------------------</span>
 <span class="c1">#</span>
 <span class="c1">#</span>
 <span class="c1">#             from PAMI.weightFrequentPattern.basic import basic as alg</span>
@@ -149,6 +151,8 @@
 <span class="kn">from</span> <span class="nn">PAMI.weightedFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_fp</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generator</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
+
 
 <span class="n">_minSup</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
 <span class="n">_minWeight</span> <span class="o">=</span> <span class="nb">int</span><span class="p">()</span>
@@ -235,6 +239,7 @@
 <span class="sd">        :type transaction: list</span>
 <span class="sd">        :param count: frequency of item</span>
 <span class="sd">        :type count: int</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># This method takes transaction as input and returns the tree</span>
         <span class="n">currentNode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
@@ -326,9 +331,7 @@
                     <span class="k">yield</span> <span class="n">q</span>
 
 
-<div class="viewcode-block" id="WFIM">
-<a class="viewcode-back" href="../../../../weightedFrequentPatternBasicWFIM.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM">[docs]</a>
-<span class="k">class</span> <span class="nc">WFIM</span><span class="p">(</span><span class="n">_fp</span><span class="o">.</span><span class="n">_weightedFrequentPatterns</span><span class="p">):</span>
+<div class="viewcode-block" id="WFIM"><a class="viewcode-back" href="../../../../weightedFrequentPatternBasicWFIM.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM">[docs]</a><span class="k">class</span> <span class="nc">WFIM</span><span class="p">(</span><span class="n">_fp</span><span class="o">.</span><span class="n">_weightedFrequentPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Description:</span>
 <span class="sd">       * WFMiner is one of the fundamental algorithm to discover weighted frequent patterns in a transactional database.</span>
@@ -338,6 +341,16 @@
 <span class="sd">           U. Yun and J. J. Leggett, “Wfim: weighted frequent itemset mining with a weight range and a minimum weight,”</span>
 <span class="sd">           in Proceedings of the 2005 SIAM International Conference on Data Mining. SIAM, 2005, pp. 636–640.</span>
 <span class="sd">           https://epubs.siam.org/doi/pdf/10.1137/1.9781611972757.76</span>
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of weighted Frequent Patterns.</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of weighted Frequent Patterns.</span>
+<span class="sd">    :param  minSup: str or int or float:</span>
+<span class="sd">                   minimum support thresholds were tuned to find the appropriate ranges in the limited memory</span>
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
 
 <span class="sd">    :Attributes :</span>
 
@@ -399,17 +412,24 @@
 <span class="sd">            Extracts the one-frequent patterns from transactions</span>
 
 <span class="sd">    **Methods to execute code on terminal**</span>
-<span class="sd">    ----------------------------------------</span>
-<span class="sd">        Format:</span>
-<span class="sd">                  &gt;&gt;&gt;  python3 basic.py &lt;inputFile&gt; &lt;weightFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;minWeight&gt;</span>
+<span class="sd">    -------------------------------------------</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">        Example:</span>
-<span class="sd">                  &gt;&gt;&gt;  python3 basic.py sampleDB.txt weightSample.txt patterns.txt 10.0 3.4</span>
 
-<span class="sd">                 .. note:: minSup and maxPer will be considered in support count or frequency</span>
+<span class="sd">       Format:</span>
+
+<span class="sd">       (.venv) $ python3 basic.py &lt;inputFile&gt; &lt;weightFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;minWeight&gt;</span>
+
+<span class="sd">       Example Usage:</span>
+
+<span class="sd">       (.venv) $ python3 basic.py sampleDB.txt weightSample.txt patterns.txt 10.0 3.4</span>
+
+
+<span class="sd">               .. note:: minSup and maxPer will be considered in support count or frequency</span>
+
 
 <span class="sd">    **Importing this algorithm into a python program**</span>
-<span class="sd">    ---------------------------------------------------</span>
+<span class="sd">    -----------------------------------------------------</span>
 <span class="sd">    .. code-block:: python</span>
 
 <span class="sd">            from PAMI.weightFrequentPattern.basic import basic as alg</span>
@@ -466,6 +486,7 @@
     <span class="k">def</span> <span class="nf">__creatingItemSets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing the complete transactions of the database/input file in a database variable</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__Database</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="n">_fp</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
@@ -501,6 +522,7 @@
     <span class="k">def</span> <span class="nf">_scanningWeights</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing the weights of the variables in input file in a weights variable</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">global</span> <span class="n">_weights</span>
         <span class="n">_weights</span> <span class="o">=</span> <span class="p">{}</span>
@@ -561,6 +583,7 @@
     <span class="k">def</span> <span class="nf">__frequentOneItem</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generating One frequent items sets</span>
+<span class="sd">        :return: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">global</span> <span class="n">_maxWeight</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__mapSupport</span> <span class="o">=</span> <span class="p">{}</span>
@@ -582,6 +605,7 @@
 <span class="sd">                    rank = {&#39;a&#39;:0, &#39;b&#39;:1, &#39;c&#39;:2, &#39;d&#39;:3}</span>
 
 <span class="sd">        :param itemSet: list of one-frequent items</span>
+<span class="sd">        :return: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">list1</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__Database</span><span class="p">:</span>
@@ -621,11 +645,48 @@
             <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rankDup</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span>
         <span class="k">return</span> <span class="n">temp</span>
 
-<div class="viewcode-block" id="WFIM.startMine">
-<a class="viewcode-back" href="../../../../weightedFrequentPatternBasicWFIM.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM.startMine">[docs]</a>
+<div class="viewcode-block" id="WFIM.startMine"><a class="viewcode-back" href="../../../../weightedFrequentPatternBasicWFIM.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use mine() instead of startMine() for mining process&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        main program to start the operation</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">global</span> <span class="n">_minSup</span><span class="p">,</span> <span class="n">_minWeight</span><span class="p">,</span> <span class="n">_miniWeight</span><span class="p">,</span> <span class="n">_maxWeight</span><span class="p">,</span> <span class="n">_weights</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__startTime</span> <span class="o">=</span> <span class="n">_fp</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Please enter the file path or file name:&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Please enter the Minimum Support&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__creatingItemSets</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scanningWeights</span><span class="p">()</span>
+        <span class="n">_weights</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">_weights</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="n">_minWeight</span><span class="p">}</span>
+        <span class="n">_maxWeight</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">_weights</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+        <span class="n">_miniWeight</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">_weights</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">)</span>
+        <span class="n">_minSup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span>
+        <span class="n">itemSet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__frequentOneItem</span><span class="p">()</span>
+        <span class="n">updatedTransactions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__updateTransactions</span><span class="p">(</span><span class="n">itemSet</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rank</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__rankDup</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__rank</span><span class="p">[</span><span class="n">k</span><span class="p">]:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mapSupport</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">__Tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buildTree</span><span class="p">(</span><span class="n">updatedTransactions</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span>
+        <span class="n">patterns</span> <span class="o">=</span> <span class="n">__Tree</span><span class="o">.</span><span class="n">generatePatterns</span><span class="p">([])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">patterns</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__savePeriodic</span><span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__finalPatterns</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)]</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Weighted Frequent patterns were generated successfully using basic algorithm&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__endTime</span> <span class="o">=</span> <span class="n">_fp</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">_fp</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_fp</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span></div>
+
+<div class="viewcode-block" id="WFIM.Mine"><a class="viewcode-back" href="../../../../weightedFrequentPatternBasicWFIM.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM.Mine">[docs]</a>    <span class="k">def</span> <span class="nf">Mine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        main program to start the operation</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">global</span> <span class="n">_minSup</span><span class="p">,</span> <span class="n">_minWeight</span><span class="p">,</span> <span class="n">_miniWeight</span><span class="p">,</span> <span class="n">_maxWeight</span><span class="p">,</span> <span class="n">_weights</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__startTime</span> <span class="o">=</span> <span class="n">_fp</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -660,9 +721,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span></div>
 
 
-<div class="viewcode-block" id="WFIM.getMemoryUSS">
-<a class="viewcode-back" href="../../../../weightedFrequentPatternBasicWFIM.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM.getMemoryUSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="WFIM.getMemoryUSS"><a class="viewcode-back" href="../../../../weightedFrequentPatternBasicWFIM.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM.getMemoryUSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
 
@@ -672,10 +731,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__memoryUSS</span></div>
 
-
-<div class="viewcode-block" id="WFIM.getMemoryRSS">
-<a class="viewcode-back" href="../../../../weightedFrequentPatternBasicWFIM.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM.getMemoryRSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="WFIM.getMemoryRSS"><a class="viewcode-back" href="../../../../weightedFrequentPatternBasicWFIM.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM.getMemoryRSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of RSS memory consumed by the mining process will be retrieved from this function.</span>
 
@@ -685,10 +741,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__memoryRSS</span></div>
 
-
-<div class="viewcode-block" id="WFIM.getRuntime">
-<a class="viewcode-back" href="../../../../weightedFrequentPatternBasicWFIM.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM.getRuntime">[docs]</a>
-    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="WFIM.getRuntime"><a class="viewcode-back" href="../../../../weightedFrequentPatternBasicWFIM.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM.getRuntime">[docs]</a>    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculating the total amount of runtime taken by the mining process.</span>
 
@@ -698,10 +751,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__endTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">__startTime</span></div>
 
-
-<div class="viewcode-block" id="WFIM.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../weightedFrequentPatternBasicWFIM.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM.getPatternsAsDataFrame">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<div class="viewcode-block" id="WFIM.getPatternsAsDataFrame"><a class="viewcode-back" href="../../../../weightedFrequentPatternBasicWFIM.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM.getPatternsAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing final frequent patterns in a dataframe.</span>
 
@@ -716,15 +766,13 @@
             <span class="n">dataframe</span> <span class="o">=</span> <span class="n">_fp</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;Support&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">dataframe</span></div>
 
-
-<div class="viewcode-block" id="WFIM.save">
-<a class="viewcode-back" href="../../../../weightedFrequentPatternBasicWFIM.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM.save">[docs]</a>
-    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="WFIM.save"><a class="viewcode-back" href="../../../../weightedFrequentPatternBasicWFIM.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Complete set of frequent patterns will be loaded in to an output file.</span>
 
 <span class="sd">        :param outFile: name of the output file</span>
 <span class="sd">        :type outFile: csv file</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span> <span class="o">=</span> <span class="n">outFile</span>
         <span class="n">writer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
@@ -732,10 +780,7 @@
             <span class="n">s1</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
             <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">s1</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="WFIM.getPatterns">
-<a class="viewcode-back" href="../../../../weightedFrequentPatternBasicWFIM.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM.getPatterns">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<div class="viewcode-block" id="WFIM.getPatterns"><a class="viewcode-back" href="../../../../weightedFrequentPatternBasicWFIM.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM.getPatterns">[docs]</a>    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Function to send the set of frequent patterns after completion of the mining process.</span>
 
@@ -744,19 +789,15 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__finalPatterns</span></div>
 
-
-<div class="viewcode-block" id="WFIM.printResults">
-<a class="viewcode-back" href="../../../../weightedFrequentPatternBasicWFIM.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM.printResults">[docs]</a>
-    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="WFIM.printResults"><a class="viewcode-back" href="../../../../weightedFrequentPatternBasicWFIM.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM.printResults">[docs]</a>    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of  Weighted Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div>
-</div>
-
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div></div>
 
         
 

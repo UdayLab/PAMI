@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../../../">
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.extras.calculateMISValues.usingSD &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css" />
 
   
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=28a0d067"></script>
-        <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -107,10 +107,12 @@
 <span class="c1">#</span>
 <span class="c1">#             obj.save(oFile)</span>
 <span class="c1">#</span>
-<span class="c1">#</span>
+
+
+
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
+<span class="s2">Copyright (C)  2021 Rage Uday Kiran</span>
 
 <span class="s2">     This program is free software: you can redistribute it and/or modify</span>
 <span class="s2">     it under the terms of the GNU General Public License as published by</span>
@@ -131,15 +133,15 @@
 <span class="kn">import</span> <span class="nn">statistics</span> <span class="k">as</span> <span class="nn">_statistics</span>
 <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span> <span class="k">as</span> <span class="n">_urlopen</span>
 
-<div class="viewcode-block" id="usingSD">
-<a class="viewcode-back" href="../../../../PAMI.extras.calculateMISValues.html#PAMI.extras.calculateMISValues.usingSD.usingSD">[docs]</a>
-<span class="k">class</span> <span class="nc">usingSD</span><span class="p">():</span>
+<div class="viewcode-block" id="usingSD"><a class="viewcode-back" href="../../../../PAMI.extras.calculateMISValues.html#PAMI.extras.calculateMISValues.usingSD.usingSD">[docs]</a><span class="k">class</span> <span class="nc">usingSD</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    :Description: This code is used to calculate multiple minimum support of items in the the given database. Output can be stored in file or as as dataframe.</span>
 
 <span class="sd">    :param  iFile: str :</span>
 <span class="sd">                   Name of the Input file to mine complete set of frequent patterns</span>
+<span class="sd">    :param sd: int :</span>
+<span class="sd">                   SD of items to mine complete set of frequent patterns.</span>
 <span class="sd">    :param  threshold: int :</span>
 <span class="sd">                   The user can specify threshold either in count or proportion of database size. If the program detects the data type of threshold is integer, then it treats threshold is expressed in count.</span>
 <span class="sd">    :param  sep: str :</span>
@@ -207,6 +209,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function creates frequent items from _database.</span>
 <span class="sd">        :return: frequentTidData that stores frequent items and their tid list.</span>
+<span class="sd">        :rtype: tuple</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">tidData</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_lno</span> <span class="o">=</span> <span class="mi">0</span>
@@ -222,9 +225,7 @@
         <span class="n">frequentTidData</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">-</span> <span class="n">sd</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">tidData</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
         <span class="k">return</span> <span class="n">mini</span><span class="p">,</span> <span class="n">frequentTidData</span>
 
-<div class="viewcode-block" id="usingSD.calculateMIS">
-<a class="viewcode-back" href="../../../../PAMI.extras.calculateMISValues.html#PAMI.extras.calculateMISValues.usingSD.usingSD.calculateMIS">[docs]</a>
-    <span class="k">def</span> <span class="nf">calculateMIS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="usingSD.calculateMIS"><a class="viewcode-back" href="../../../../PAMI.extras.calculateMISValues.html#PAMI.extras.calculateMISValues.usingSD.usingSD.calculateMIS">[docs]</a>    <span class="k">def</span> <span class="nf">calculateMIS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_creatingItemSets</span><span class="p">()</span>
         <span class="n">mini</span><span class="p">,</span> <span class="n">frequentItems</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_creatingFrequentItems</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">frequentItems</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -233,10 +234,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span></div>
 
-
-<div class="viewcode-block" id="usingSD.getDataFrame">
-<a class="viewcode-back" href="../../../../PAMI.extras.calculateMISValues.html#PAMI.extras.calculateMISValues.usingSD.usingSD.getDataFrame">[docs]</a>
-    <span class="k">def</span> <span class="nf">getDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<div class="viewcode-block" id="usingSD.getDataFrame"><a class="viewcode-back" href="../../../../PAMI.extras.calculateMISValues.html#PAMI.extras.calculateMISValues.usingSD.usingSD.getDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing Items and its respective calculated minimum support values in a dataframe</span>
 <span class="sd">        :return: returning Items and its respective calculated minimum support values in a dataframe</span>
@@ -250,22 +248,18 @@
             <span class="n">dataFrame</span> <span class="o">=</span> <span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Items&#39;</span><span class="p">,</span> <span class="s1">&#39;MIS&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">dataFrame</span></div>
 
-
-<div class="viewcode-block" id="usingSD.save">
-<a class="viewcode-back" href="../../../../PAMI.extras.calculateMISValues.html#PAMI.extras.calculateMISValues.usingSD.usingSD.save">[docs]</a>
-    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="usingSD.save"><a class="viewcode-back" href="../../../../PAMI.extras.calculateMISValues.html#PAMI.extras.calculateMISValues.usingSD.usingSD.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Complete Items and its respective calculated minimum support values will be loaded in to an output file</span>
 <span class="sd">        :param outFile: name of the output file</span>
-<span class="sd">        :type outFile: file</span>
+<span class="sd">        :type outFile: csv file</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span> <span class="o">=</span> <span class="n">outFile</span>
         <span class="n">writer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">patternsAndSupport</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">patternsAndSupport</span><span class="p">)</span></div>
-</div>
-
+            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">patternsAndSupport</span><span class="p">)</span></div></div>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">cd</span> <span class="o">=</span> <span class="n">usingSD</span><span class="p">(</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>

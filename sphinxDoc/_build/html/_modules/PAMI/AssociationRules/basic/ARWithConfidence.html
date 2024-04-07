@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../../../">
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.AssociationRules.basic.ARWithConfidence &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css" />
 
   
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=28a0d067"></script>
-        <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -104,7 +104,7 @@
 <span class="c1">#</span>
 <span class="c1">#             obj = alg.ARWithConfidence(iFile, minConf)</span>
 <span class="c1">#</span>
-<span class="c1">#             obj.startMine()</span>
+<span class="c1">#             obj.mine()</span>
 <span class="c1">#</span>
 <span class="c1">#             associationRules = obj.getPatterns()</span>
 <span class="c1">#</span>
@@ -154,6 +154,8 @@
 
 
 <span class="kn">from</span> <span class="nn">PAMI.AssociationRules.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
+<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
+
 
 
 <span class="k">class</span> <span class="nc">_Confidence</span><span class="p">:</span>
@@ -231,9 +233,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_generation</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">suffix</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="ARWithConfidence">
-<a class="viewcode-back" href="../../../../PAMI.AssociationRules.basic.html#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence">[docs]</a>
-<span class="k">class</span> <span class="nc">ARWithConfidence</span><span class="p">:</span>
+<div class="viewcode-block" id="ARWithConfidence"><a class="viewcode-back" href="../../../../PAMI.AssociationRules.basic.html#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence">[docs]</a><span class="k">class</span> <span class="nc">ARWithConfidence</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Description: Association Rules are derived from frequent patterns using &quot;confidence&quot; metric.</span>
 
@@ -293,7 +293,7 @@
 
 <span class="sd">            obj = alg.ARWithConfidence(iFile, minConf)</span>
 
-<span class="sd">            obj.startMine()</span>
+<span class="sd">            obj.mine()</span>
 
 <span class="sd">            associationRules = obj.getPatterns()</span>
 
@@ -390,8 +390,7 @@
                     <span class="n">quit</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">k</span>
 
-<div class="viewcode-block" id="ARWithConfidence.startMine">
-<a class="viewcode-back" href="../../../../PAMI.AssociationRules.basic.html#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.startMine">[docs]</a>
+<div class="viewcode-block" id="ARWithConfidence.startMine"><a class="viewcode-back" href="../../../../PAMI.AssociationRules.basic.html#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use &#39;mine()&#39; instead of &#39;startMine()&#39; for mining process. Starting from January 2025, &#39;startMine()&#39; will be completely terminated.&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Association rule mining process will start from here</span>
@@ -410,9 +409,25 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Association rules successfully  generated from frequent patterns &quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ARWithConfidence.getMemoryUSS">
-<a class="viewcode-back" href="../../../../PAMI.AssociationRules.basic.html#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.getMemoryUSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ARWithConfidence.mine"><a class="viewcode-back" href="../../../../PAMI.AssociationRules.basic.html#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.mine">[docs]</a>    <span class="k">def</span> <span class="nf">mine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Association rule mining process will start from here</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_readPatterns</span><span class="p">()</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">_Confidence</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_frequentPatterns</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minConf</span><span class="p">)</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">_finalPatterns</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Association rules successfully  generated from frequent patterns &quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ARWithConfidence.getMemoryUSS"><a class="viewcode-back" href="../../../../PAMI.AssociationRules.basic.html#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.getMemoryUSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
 <span class="sd">        :return: returning USS memory consumed by the mining process</span>
@@ -421,10 +436,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span></div>
 
-
-<div class="viewcode-block" id="ARWithConfidence.getMemoryRSS">
-<a class="viewcode-back" href="../../../../PAMI.AssociationRules.basic.html#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.getMemoryRSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ARWithConfidence.getMemoryRSS"><a class="viewcode-back" href="../../../../PAMI.AssociationRules.basic.html#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.getMemoryRSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 <span class="sd">        :return: returning RSS memory consumed by the mining process</span>
@@ -433,10 +445,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span></div>
 
-
-<div class="viewcode-block" id="ARWithConfidence.getRuntime">
-<a class="viewcode-back" href="../../../../PAMI.AssociationRules.basic.html#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.getRuntime">[docs]</a>
-    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ARWithConfidence.getRuntime"><a class="viewcode-back" href="../../../../PAMI.AssociationRules.basic.html#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.getRuntime">[docs]</a>    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculating the total amount of runtime taken by the mining process</span>
 <span class="sd">        :return: returning total amount of runtime taken by the mining process</span>
@@ -445,10 +454,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span></div>
 
-
-<div class="viewcode-block" id="ARWithConfidence.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../PAMI.AssociationRules.basic.html#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.getPatternsAsDataFrame">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ARWithConfidence.getPatternsAsDataFrame"><a class="viewcode-back" href="../../../../PAMI.AssociationRules.basic.html#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.getPatternsAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing final frequent patterns in a dataframe</span>
 <span class="sd">        :return: returning frequent patterns in a dataframe</span>
@@ -463,10 +469,7 @@
         <span class="c1"># dataFrame = dataFrame.replace(r&#39;\r+|\n+|\t+&#39;,&#39; &#39;, regex=True)</span>
         <span class="k">return</span> <span class="n">dataFrame</span></div>
 
-
-<div class="viewcode-block" id="ARWithConfidence.save">
-<a class="viewcode-back" href="../../../../PAMI.AssociationRules.basic.html#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.save">[docs]</a>
-    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
+<div class="viewcode-block" id="ARWithConfidence.save"><a class="viewcode-back" href="../../../../PAMI.AssociationRules.basic.html#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Complete set of frequent patterns will be loaded in to an output file</span>
 <span class="sd">        :param outFile: name of the outputfile</span>
@@ -478,10 +481,7 @@
             <span class="n">s1</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
             <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">s1</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="ARWithConfidence.getPatterns">
-<a class="viewcode-back" href="../../../../PAMI.AssociationRules.basic.html#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.getPatterns">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ARWithConfidence.getPatterns"><a class="viewcode-back" href="../../../../PAMI.AssociationRules.basic.html#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.getPatterns">[docs]</a>    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Function to send the set of frequent patterns after completion of the mining process</span>
 <span class="sd">        :return: returning frequent patterns</span>
@@ -489,19 +489,14 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span></div>
 
-
-<div class="viewcode-block" id="ARWithConfidence.printResults">
-<a class="viewcode-back" href="../../../../PAMI.AssociationRules.basic.html#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.printResults">[docs]</a>
-    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ARWithConfidence.printResults"><a class="viewcode-back" href="../../../../PAMI.AssociationRules.basic.html#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.printResults">[docs]</a>    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Function to send the result after completion of the mining process</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Association Rules:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div>
-</div>
-
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
@@ -512,6 +507,7 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
             <span class="n">_ap</span> <span class="o">=</span> <span class="n">ARWithConfidence</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
         <span class="n">_ap</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Association Rules:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ap</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="n">_ap</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>

@@ -53,7 +53,7 @@ Copyright (C)  2021 Rage Uday Kiran
 
 
 from PAMI.georeferencedFrequentPattern.basic import abstract as _ab
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
+from typing import List, Dict
 from deprecated import deprecated
 
 class _Node:
@@ -146,7 +146,7 @@ class _Tree:
             self.nodeLink[node.item] = []
             self.nodeLink[node.item].append(node)
 
-    def createCPB(self, item, neighbour) :
+    def createCPB(self, item, neighbour):
         """
         Create conditional pattern base based on item and neighbour
 

@@ -52,13 +52,10 @@ __copyright__ = """
 
 """
 
-from PAMI.WeightedFrequentRegularPattern.basic import abstract as _ab
+from PAMI.weightedFrequentRegularPattern.basic import abstract as _fp
 import pandas as pd
 from deprecated import deprecated
-
-from PAMI.weightedFrequentPattern.basic import abstract as _ab
-import pandas as pd
-from deprecated import deprecated
+from typing import List, Dict
 
 
 _WS = str()

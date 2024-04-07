@@ -56,11 +56,9 @@ from PAMI.frequentPattern.basic import abstract as _ab
 # import abstract as _ab
 
 import os
-import csv
 import time
 import numpy as np
 import pycuda.gpuarray as gpuarray
-import pycuda.autoinit
 import psutil
 
 

@@ -52,9 +52,10 @@ __copyright__ = """
 
 """
 
-from PAMI.weightedFrequentNeighbourhoodPattern.basic import abstract as _ab
+from PAMI.weightedFrequentNeighbourhoodPattern.basic import abstract as _fp
 import pandas as pd
 from deprecated import deprecated
+from typing import List, Dict, Tuple, Union, Iterable
 
 _minWS = str()
 _weights = {}
