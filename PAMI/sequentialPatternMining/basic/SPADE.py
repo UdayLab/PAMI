@@ -54,7 +54,7 @@ __copyright__ = """
 
 """
 
-from PAMI.SequentialPatternMining.basic import abstract as _ab
+
 import pandas as pd
 from deprecated import deprecated
 

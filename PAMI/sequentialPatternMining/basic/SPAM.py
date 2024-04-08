@@ -53,15 +53,12 @@ __copyright__ = """
 
 """
 
-from PAMI.SequentialPatternMining.basic import abstract as _ab
+
 import pandas as pd
 from deprecated import deprecated
 
 from PAMI.sequentialPatternMining.basic import abstract as _ab
-
-from PAMI.sequentialPatternMining.basic import abstract as _ab
-import sys
-sys.setrecursionlimit(10000)
+_ab._sys.setrecursionlimit(10000)
 
 class SPAM(_ab._sequentialPatterns):
     """

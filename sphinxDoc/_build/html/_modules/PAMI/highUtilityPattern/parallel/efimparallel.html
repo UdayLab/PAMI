@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.highUtilityPattern.parallel.efimparallel &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=28a0d067"></script>
-        <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -46,13 +48,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
@@ -61,7 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
@@ -102,7 +104,7 @@
 <span class="c1">#</span>
 <span class="c1">#             obj=alg.efimparallel(&quot;input.txt&quot;,35)</span>
 <span class="c1">#</span>
-<span class="c1">#             obj.startMine()</span>
+<span class="c1">#             obj.mine()</span>
 <span class="c1">#</span>
 <span class="c1">#             highUtilityPattern = obj.getPatterns()</span>
 <span class="c1">#</span>
@@ -121,13 +123,14 @@
 <span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
 <span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
 
 
 
 
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
+<span class="s2">Copyright (C)  2021 Rage Uday Kiran</span>
 
 <span class="s2">     This program is free software: you can redistribute it and/or modify</span>
 <span class="s2">     it under the terms of the GNU General Public License as published by</span>
@@ -150,19 +153,30 @@
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">psutil</span>
 <span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
+<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 
 <span class="kn">from</span> <span class="nn">PAMI.highUtilityPattern.parallel</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
 
-<div class="viewcode-block" id="efimParallel">
-<a class="viewcode-back" href="../../../../PAMI.highUtilityPattern.parallel.html#PAMI.highUtilityPattern.parallel.efimparallel.efimParallel">[docs]</a>
-<span class="k">class</span> <span class="nc">efimParallel</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_utilityPatterns</span><span class="p">):</span>
+<div class="viewcode-block" id="efimParallel"><a class="viewcode-back" href="../../../../PAMI.highUtilityPattern.parallel.html#PAMI.highUtilityPattern.parallel.efimparallel.efimParallel">[docs]</a><span class="k">class</span> <span class="nc">efimParallel</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_utilityPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Description:   EFIM is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.</span>
 <span class="sd">    </span>
 <span class="sd">    :Reference:     Zida, S., Fournier-Viger, P., Lin, J.CW. et al. EFIM: a fast and memory efficient algorithm for</span>
 <span class="sd">                     high-utility itemset mining. Knowl Inf Syst 51, 595–625 (2017). https://doi.org/10.1007/s10115-016-0986-0</span>
-<span class="sd">    </span>
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of High Utility patterns</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of High Utility patterns</span>
+<span class="sd">    :param minUtil: int :</span>
+<span class="sd">                   The user given minUtil value.</span>
+<span class="sd">    :param maxMemory: int</span>
+<span class="sd">                   Maximum memory used by this program for running</span>
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
+
 <span class="sd">    :Attributes:</span>
 
 <span class="sd">        inputFile (str):</span>
@@ -308,12 +322,13 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Do a binary search on the given array to find the given item.</span>
 
-<span class="sd">        :Attributes:</span>
+<span class="sd">        :param arr: The array to search in</span>
 
-<span class="sd">            arr (list):</span>
-<span class="sd">                The array to search in.</span>
-<span class="sd">            item (int):</span>
-<span class="sd">                The item to search for.</span>
+<span class="sd">        :type arr: list</span>
+
+<span class="sd">        :param item: The item to search for</span>
+
+<span class="sd">        :type item: int</span>
 
 <span class="sd">        :return:</span>
 
@@ -341,14 +356,17 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Project the given beta itemset on the given database.</span>
 
-<span class="sd">        :Attributes:</span>
+<span class="sd">        :param beta: The beta itemset to project</span>
 
-<span class="sd">            beta (list):</span>
-<span class="sd">                The beta itemset to project.</span>
-<span class="sd">            file_data (dict):</span>
-<span class="sd">                The database to project on.</span>
-<span class="sd">            secondary (set):</span>
-<span class="sd">                The set of secondary items.</span>
+<span class="sd">        :type beta: list</span>
+
+<span class="sd">        :param file_data: The database to project on</span>
+
+<span class="sd">        :type file_data: dict</span>
+
+<span class="sd">        :param secondary: The set of secondary items</span>
+
+<span class="sd">        :type secondary: set</span>
 
 <span class="sd">        :return:</span>
 
@@ -422,10 +440,9 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Search for frequent patterns in the given collections.</span>
 
-<span class="sd">        :Attributes:</span>
+<span class="sd">        :param collections: The collections to search in</span>
 
-<span class="sd">            collections (list):</span>
-<span class="sd">                The collections to search in.</span>
+<span class="sd">        :type collections: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">threads</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
@@ -463,14 +480,10 @@
                 <span class="n">collections</span> <span class="o">=</span> <span class="n">new_collections</span>
 
 
-
-<div class="viewcode-block" id="efimParallel.startMine">
-<a class="viewcode-back" href="../../../../PAMI.highUtilityPattern.parallel.html#PAMI.highUtilityPattern.parallel.efimparallel.efimParallel.startMine">[docs]</a>
+<div class="viewcode-block" id="efimParallel.startMine"><a class="viewcode-back" href="../../../../PAMI.highUtilityPattern.parallel.html#PAMI.highUtilityPattern.parallel.efimparallel.efimParallel.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use &#39;mine()&#39; instead of &#39;startMine()&#39; for mining process. Starting from January 2025, &#39;startMine()&#39; will be completely terminated.&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Start the EFIM algorithm.</span>
-
-<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">ps</span> <span class="o">=</span> <span class="n">psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
@@ -489,10 +502,28 @@
         <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">runtime</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span></div>
 
+<div class="viewcode-block" id="efimParallel.mine"><a class="viewcode-back" href="../../../../PAMI.highUtilityPattern.parallel.html#PAMI.highUtilityPattern.parallel.efimparallel.efimParallel.mine">[docs]</a>    <span class="k">def</span> <span class="nf">mine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Start the EFIM algorithm.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="efimParallel.save">
-<a class="viewcode-back" href="../../../../PAMI.highUtilityPattern.parallel.html#PAMI.highUtilityPattern.parallel.efimparallel.efimParallel.save">[docs]</a>
-    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
+        <span class="n">ps</span> <span class="o">=</span> <span class="n">psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="n">fileData</span><span class="p">,</span> <span class="n">primary</span><span class="p">,</span> <span class="n">secondary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_file</span><span class="p">()</span>
+
+        <span class="n">collection</span> <span class="o">=</span> <span class="p">[[[],</span> <span class="n">fileData</span><span class="p">,</span> <span class="n">primary</span><span class="p">,</span> <span class="n">secondary</span><span class="p">]]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_search</span><span class="p">(</span><span class="n">collection</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">memoryRSS</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memoryUSS</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+
+        <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">runtime</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span></div>
+
+<div class="viewcode-block" id="efimParallel.save"><a class="viewcode-back" href="../../../../PAMI.highUtilityPattern.parallel.html#PAMI.highUtilityPattern.parallel.efimparallel.efimParallel.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Complete set of frequent patterns will be loaded in to an output file</span>
 <span class="sd">        :param outFile: name of the output file</span>
@@ -503,11 +534,8 @@
         <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">patternsAndSupport</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
             <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">patternsAndSupport</span><span class="p">)</span></div>
-
     
-<div class="viewcode-block" id="efimParallel.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../PAMI.highUtilityPattern.parallel.html#PAMI.highUtilityPattern.parallel.efimparallel.efimParallel.getPatternsAsDataFrame">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="efimParallel.getPatternsAsDataFrame"><a class="viewcode-back" href="../../../../PAMI.highUtilityPattern.parallel.html#PAMI.highUtilityPattern.parallel.efimparallel.efimParallel.getPatternsAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing final patterns in a dataframe</span>
 <span class="sd">        :return: returning patterns in a dataframe</span>
@@ -521,68 +549,55 @@
 
         <span class="k">return</span> <span class="n">dataFrame</span></div>
 
-
-<div class="viewcode-block" id="efimParallel.getPatterns">
-<a class="viewcode-back" href="../../../../PAMI.highUtilityPattern.parallel.html#PAMI.highUtilityPattern.parallel.efimparallel.efimParallel.getPatterns">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="efimParallel.getPatterns"><a class="viewcode-back" href="../../../../PAMI.highUtilityPattern.parallel.html#PAMI.highUtilityPattern.parallel.efimparallel.efimParallel.getPatterns">[docs]</a>    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the patterns discovered by the algorithm.</span>
 
-<span class="sd">        :return:</span>
-<span class="sd">            dict: A dictionary containing the discovered patterns.</span>
+<span class="sd">        :return: A dictionary containing the discovered patterns.</span>
+
+<span class="sd">        :rtype: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Patterns</span></div>
 
-
-<div class="viewcode-block" id="efimParallel.getRuntime">
-<a class="viewcode-back" href="../../../../PAMI.highUtilityPattern.parallel.html#PAMI.highUtilityPattern.parallel.efimparallel.efimParallel.getRuntime">[docs]</a>
-    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="efimParallel.getRuntime"><a class="viewcode-back" href="../../../../PAMI.highUtilityPattern.parallel.html#PAMI.highUtilityPattern.parallel.efimparallel.efimParallel.getRuntime">[docs]</a>    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the runtime of the algorithm.</span>
 
-<span class="sd">        :return:</span>
-<span class="sd">            float: The runtime in seconds.</span>
+<span class="sd">        :return: The runtime in seconds.</span>
+
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">runtime</span></div>
 
-
-<div class="viewcode-block" id="efimParallel.getMemoryRSS">
-<a class="viewcode-back" href="../../../../PAMI.highUtilityPattern.parallel.html#PAMI.highUtilityPattern.parallel.efimparallel.efimParallel.getMemoryRSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="efimParallel.getMemoryRSS"><a class="viewcode-back" href="../../../../PAMI.highUtilityPattern.parallel.html#PAMI.highUtilityPattern.parallel.efimparallel.efimParallel.getMemoryRSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the Resident Set Size (RSS) memory usage of the algorithm.</span>
 
-<span class="sd">        :return:</span>
-<span class="sd">            int: The RSS memory usage in bytes.</span>
+<span class="sd">        :return: The RSS memory usage in bytes.</span>
+
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">memoryRSS</span></div>
 
-
-<div class="viewcode-block" id="efimParallel.getMemoryUSS">
-<a class="viewcode-back" href="../../../../PAMI.highUtilityPattern.parallel.html#PAMI.highUtilityPattern.parallel.efimparallel.efimParallel.getMemoryUSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="efimParallel.getMemoryUSS"><a class="viewcode-back" href="../../../../PAMI.highUtilityPattern.parallel.html#PAMI.highUtilityPattern.parallel.efimparallel.efimParallel.getMemoryUSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the Unique Set Size (USS) memory usage of the algorithm.</span>
 
-<span class="sd">        :return:</span>
-<span class="sd">            int: The USS memory usage in bytes.</span>
+<span class="sd">        :return: The USS memory usage in bytes.</span>
+
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">memoryUSS</span></div>
 
 
-
-<div class="viewcode-block" id="efimParallel.printResults">
-<a class="viewcode-back" href="../../../../PAMI.highUtilityPattern.parallel.html#PAMI.highUtilityPattern.parallel.efimparallel.efimParallel.printResults">[docs]</a>
-    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="efimParallel.printResults"><a class="viewcode-back" href="../../../../PAMI.highUtilityPattern.parallel.html#PAMI.highUtilityPattern.parallel.efimparallel.efimParallel.printResults">[docs]</a>    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of High Utility Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div>
-</div>
-
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
@@ -605,6 +620,7 @@
     <span class="c1"># sep = &quot; &quot;</span>
     <span class="c1"># f = efimParallel(inputFile, minUtil, sep, 1)</span>
     <span class="c1"># f.startMine()</span>
+    <span class="c1"># f.mine()</span>
     <span class="c1"># print(&quot;# of patterns: &quot; + str(len(f.getPatterns())))</span>
     <span class="c1"># print(&quot;Time taken: &quot; + str(f.getRuntime()))</span>
     <span class="c1"># f.savePatterns(&quot;mine.txt&quot;)</span>
@@ -617,6 +633,7 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>    <span class="c1">#takes &quot;\t&quot; as a separator</span>
             <span class="n">_ap</span> <span class="o">=</span> <span class="n">efimParallel</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
         <span class="n">_ap</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of High Utility Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ap</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="n">_ap</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
@@ -625,6 +642,7 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">_ap</span> <span class="o">=</span> <span class="n">efimParallel</span><span class="p">(</span><span class="s1">&#39;/Users/likhitha/Downloads/Utility_T10I4D100K.csv&#39;</span><span class="p">,</span> <span class="mi">50000</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">_ap</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of High Utility Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ap</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="n">_ap</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;/Users/likhitha/Downloads/UPGrowth_output.txt&#39;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>

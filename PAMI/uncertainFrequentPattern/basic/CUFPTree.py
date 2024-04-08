@@ -52,12 +52,11 @@ __copyright__ = """
 
 """
 
-from PAMI.uncertainFrequentPattern.basic import abstract as _ab
 import pandas as pd
 from deprecated import deprecated
 
 from PAMI.uncertainFrequentPattern.basic import abstract as _ab
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
+from typing import List, Tuple
 
 
 _minSup = str()

@@ -48,10 +48,8 @@ __copyright__ = """
 
 """
 
-from PAMI.PartialperiodicPatternMultipleTimeSeries.basic import abstract as _ab
 import pandas as pd
 from deprecated import deprecated
-
 from PAMI.partialPeriodicPatternInMultipleTimeSeries import abstract as _ab
 
 

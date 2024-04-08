@@ -55,10 +55,6 @@ from PAMI.uncertainGeoreferencedFrequentPattern.basic import abstract as _ab
 import pandas as pd
 from deprecated import deprecated
 
-# from geoReferencedFrequentPatterns import abstract as _ab
-# from PAMI.uncertainGeoreferencedFrequentPattern.basic import abstract as _ab
-import abstract as _ab
-
 _minSup = str()
 _neighbourList = {}
 _ab._sys.setrecursionlimit(20000)

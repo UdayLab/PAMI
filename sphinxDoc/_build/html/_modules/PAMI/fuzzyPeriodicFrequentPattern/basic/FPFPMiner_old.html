@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../../../">
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css" />
 
   
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=28a0d067"></script>
-        <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -101,7 +101,7 @@
 <span class="c1">#</span>
 <span class="c1">#             obj =alg.FPFPMiner(&quot;input.txt&quot;,2,3)</span>
 <span class="c1">#</span>
-<span class="c1">#             obj.startMine()</span>
+<span class="c1">#             obj.mine()</span>
 <span class="c1">#</span>
 <span class="c1">#             periodicFrequentPatterns = obj.getPatterns()</span>
 <span class="c1">#</span>
@@ -125,7 +125,8 @@
 
 
 
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;(Copyright (C)  2021 Rage Uday Kiran</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Copyright (C)  2021 Rage Uday Kiran</span>
 
 <span class="s2">     This program is free software: you can redistribute it and/or modify</span>
 <span class="s2">     it under the terms of the GNU General Public License as published by</span>
@@ -152,10 +153,11 @@
 
 <span class="s2">     You should have received a copy of the GNU General Public License</span>
 <span class="s2">     along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
-<span class="s2">)&quot;&quot;&quot;</span>
+<span class="s2">&quot;&quot;&quot;</span>
 
 
 <span class="kn">from</span> <span class="nn">PAMI.fuzzyPeriodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
+<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 
 <span class="k">class</span> <span class="nc">_FFList</span><span class="p">:</span>
@@ -282,9 +284,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">quantity</span> <span class="o">=</span> <span class="mi">0</span>
 
 
-<div class="viewcode-block" id="FPFPMiner">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner">[docs]</a>
-<span class="k">class</span> <span class="nc">FPFPMiner</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_fuzzyPeriodicFrequentPatterns</span><span class="p">):</span>
+<div class="viewcode-block" id="FPFPMiner"><a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner">[docs]</a><span class="k">class</span> <span class="nc">FPFPMiner</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_fuzzyPeriodicFrequentPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Description:   Fuzzy Periodic Frequent Pattern Miner is desired to find all fuzzy periodic frequent patterns which is</span>
 <span class="sd">                    on-trivial and challenging problem to its huge search space.we are using efficient pruning</span>
@@ -396,7 +396,7 @@
 
 <span class="sd">        obj =alg.FPFPMiner(&quot;input.txt&quot;,2,3)</span>
 
-<span class="sd">        obj.startMine()</span>
+<span class="sd">        obj.mine()</span>
 
 <span class="sd">        periodicFrequentPatterns = obj.getPatterns()</span>
 
@@ -550,8 +550,7 @@
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File Not Found&quot;</span><span class="p">)</span>
                     <span class="n">quit</span><span class="p">()</span>
 
-<div class="viewcode-block" id="FPFPMiner.startMine">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.startMine">[docs]</a>
+<div class="viewcode-block" id="FPFPMiner.startMine"><a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use &#39;mine()&#39; instead of &#39;startMine()&#39; for mining process. Starting from January 2025, &#39;startMine()&#39; will be completely terminated.&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Fuzzy periodic Frequent pattern mining process will start from here</span>
@@ -668,6 +667,121 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span></div>
 
+<div class="viewcode-block" id="FPFPMiner.mine"><a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.mine">[docs]</a>    <span class="k">def</span> <span class="nf">mine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fuzzy periodic Frequent pattern mining process will start from here</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">maxTID</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">lastTIDs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_creatingItemSets</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">tid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_transactions</span><span class="p">)):</span>
+            <span class="n">tid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ts</span><span class="p">[</span><span class="n">line</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dbLen</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transactions</span><span class="p">[</span><span class="n">line</span><span class="p">]</span>
+            <span class="n">quantities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fuzzyValues</span><span class="p">[</span><span class="n">line</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">tid</span> <span class="o">&lt;</span> <span class="n">maxTID</span><span class="p">:</span>
+                <span class="n">maxTID</span> <span class="o">=</span> <span class="n">tid</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)):</span>
+                <span class="n">regions</span> <span class="o">=</span> <span class="n">_Regions</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">quantities</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="mi">3</span><span class="p">)</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemsLowSum</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">low</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemsLowSum</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+                    <span class="n">low</span> <span class="o">+=</span> <span class="n">regions</span><span class="o">.</span><span class="n">low</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemsLowSum</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">low</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemsLowSum</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">regions</span><span class="o">.</span><span class="n">low</span>
+                <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemMidSum</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">mid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemMidSum</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+                    <span class="n">mid</span> <span class="o">+=</span> <span class="n">regions</span><span class="o">.</span><span class="n">middle</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemMidSum</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">mid</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemMidSum</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">regions</span><span class="o">.</span><span class="n">middle</span>
+                <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemsHighSum</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">high</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemsHighSum</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+                    <span class="n">high</span> <span class="o">+=</span> <span class="n">regions</span><span class="o">.</span><span class="n">high</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemsHighSum</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">high</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemsHighSum</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">regions</span><span class="o">.</span><span class="n">high</span>
+        <span class="n">listOfFFIList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">mapItemsToFFLIST</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">itemsToRegion</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">item1</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemsLowSum</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="n">item1</span>
+            <span class="n">low</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemsLowSum</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+            <span class="n">mid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemMidSum</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+            <span class="n">high</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemsHighSum</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">low</span> <span class="o">&gt;=</span> <span class="n">mid</span> <span class="ow">and</span> <span class="n">low</span> <span class="o">&gt;=</span> <span class="n">high</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemSum</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">low</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemRegions</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;L&quot;</span>
+                <span class="n">itemsToRegion</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;L&quot;</span>
+            <span class="k">elif</span> <span class="n">mid</span> <span class="o">&gt;=</span> <span class="n">low</span> <span class="ow">and</span> <span class="n">mid</span> <span class="o">&gt;=</span> <span class="n">high</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemSum</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">mid</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemRegions</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;M&quot;</span>
+                <span class="n">itemsToRegion</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;M&quot;</span>
+            <span class="k">elif</span> <span class="n">high</span> <span class="o">&gt;=</span> <span class="n">low</span> <span class="ow">and</span> <span class="n">high</span> <span class="o">&gt;=</span> <span class="n">mid</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemRegions</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;H&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemSum</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">high</span>
+                <span class="n">itemsToRegion</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;H&quot;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemSum</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">:</span>
+                <span class="n">fUList</span> <span class="o">=</span> <span class="n">_FFList</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                <span class="n">k</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">item</span><span class="p">,</span> <span class="n">itemsToRegion</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">)])</span>
+                <span class="n">mapItemsToFFLIST</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">fUList</span>
+                <span class="n">listOfFFIList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fUList</span><span class="p">)</span>
+                <span class="n">lastTIDs</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">tid</span>
+        <span class="n">listOfFFIList</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">_ab</span><span class="o">.</span><span class="n">_functools</span><span class="o">.</span><span class="n">cmp_to_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_compareItems</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_transactions</span><span class="p">)):</span>
+            <span class="n">tid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ts</span><span class="p">[</span><span class="n">line</span><span class="p">])</span>
+            <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transactions</span><span class="p">[</span><span class="n">line</span><span class="p">]</span>
+            <span class="n">quantities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fuzzyValues</span><span class="p">[</span><span class="n">line</span><span class="p">]</span>
+            <span class="n">revisedTransaction</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)):</span>
+                <span class="n">pair</span> <span class="o">=</span> <span class="n">_Pair</span><span class="p">()</span>
+                <span class="n">pair</span><span class="o">.</span><span class="n">item</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">regions</span> <span class="o">=</span> <span class="n">_Regions</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">quantities</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="mi">3</span><span class="p">)</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="n">pair</span><span class="o">.</span><span class="n">item</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemSum</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemRegions</span><span class="p">[</span><span class="n">pair</span><span class="o">.</span><span class="n">item</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span>
+                        <span class="n">pair</span><span class="o">.</span><span class="n">quantity</span> <span class="o">=</span> <span class="n">regions</span><span class="o">.</span><span class="n">low</span>
+                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemRegions</span><span class="p">[</span><span class="n">pair</span><span class="o">.</span><span class="n">item</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;M&quot;</span><span class="p">:</span>
+                        <span class="n">pair</span><span class="o">.</span><span class="n">quantity</span> <span class="o">=</span> <span class="n">regions</span><span class="o">.</span><span class="n">middle</span>
+                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemRegions</span><span class="p">[</span><span class="n">pair</span><span class="o">.</span><span class="n">item</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;H&quot;</span><span class="p">:</span>
+                        <span class="n">pair</span><span class="o">.</span><span class="n">quantity</span> <span class="o">=</span> <span class="n">regions</span><span class="o">.</span><span class="n">high</span>
+                    <span class="k">if</span> <span class="n">pair</span><span class="o">.</span><span class="n">quantity</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">revisedTransaction</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
+            <span class="n">revisedTransaction</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">_ab</span><span class="o">.</span><span class="n">_functools</span><span class="o">.</span><span class="n">cmp_to_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_compareItems</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">revisedTransaction</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">pair</span> <span class="o">=</span> <span class="n">revisedTransaction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">remainUtil</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">revisedTransaction</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">remainUtil</span> <span class="o">+=</span> <span class="n">revisedTransaction</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">quantity</span>
+                <span class="k">if</span> <span class="n">pair</span><span class="o">.</span><span class="n">quantity</span> <span class="o">&gt;</span> <span class="n">remainUtil</span><span class="p">:</span>
+                    <span class="n">remainingUtility</span> <span class="o">=</span> <span class="n">pair</span><span class="o">.</span><span class="n">quantity</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">remainingUtility</span> <span class="o">=</span> <span class="n">remainUtil</span>
+                <span class="k">if</span> <span class="n">mapItemsToFFLIST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="n">pair</span><span class="o">.</span><span class="n">item</span><span class="p">,</span> <span class="n">itemsToRegion</span><span class="p">[</span><span class="n">pair</span><span class="o">.</span><span class="n">item</span><span class="p">]]))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">FFListOfItem</span> <span class="o">=</span> <span class="n">mapItemsToFFLIST</span><span class="p">[</span><span class="nb">tuple</span><span class="p">([</span><span class="n">pair</span><span class="o">.</span><span class="n">item</span><span class="p">,</span> <span class="n">itemsToRegion</span><span class="p">[</span><span class="n">pair</span><span class="o">.</span><span class="n">item</span><span class="p">]])]</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">FFListOfItem</span><span class="o">.</span><span class="n">elements</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">element</span> <span class="o">=</span> <span class="n">_Element</span><span class="p">(</span><span class="n">tid</span><span class="p">,</span> <span class="n">pair</span><span class="o">.</span><span class="n">quantity</span><span class="p">,</span> <span class="n">remainingUtility</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">lastTIDs</span><span class="p">[</span><span class="n">pair</span><span class="o">.</span><span class="n">item</span><span class="p">]</span> <span class="o">==</span> <span class="n">tid</span><span class="p">:</span>
+                            <span class="n">element</span> <span class="o">=</span> <span class="n">_Element</span><span class="p">(</span><span class="n">tid</span><span class="p">,</span> <span class="n">pair</span><span class="o">.</span><span class="n">quantity</span><span class="p">,</span> <span class="n">remainingUtility</span><span class="p">,</span> <span class="n">maxTID</span> <span class="o">-</span> <span class="n">tid</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">lastTid</span> <span class="o">=</span> <span class="n">FFListOfItem</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tid</span>
+                            <span class="n">curPer</span> <span class="o">=</span> <span class="n">tid</span> <span class="o">-</span> <span class="n">lastTid</span>
+                            <span class="n">element</span> <span class="o">=</span> <span class="n">_Element</span><span class="p">(</span><span class="n">tid</span><span class="p">,</span> <span class="n">pair</span><span class="o">.</span><span class="n">quantity</span><span class="p">,</span> <span class="n">remainingUtility</span><span class="p">,</span> <span class="n">curPer</span><span class="p">)</span>
+                    <span class="n">FFListOfItem</span><span class="o">.</span><span class="n">addElement</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_FSFIMining</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_itemSetBuffer</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">listOfFFIList</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span></div>
 
     <span class="k">def</span> <span class="nf">_FSFIMining</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">prefixLen</span><span class="p">,</span> <span class="n">fsFim</span><span class="p">,</span> <span class="n">minSup</span><span class="p">):</span>
 
@@ -696,9 +810,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_itemSetBuffer</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">prefixLen</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_FSFIMining</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_itemSetBuffer</span><span class="p">,</span> <span class="n">prefixLen</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">exULs</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="p">)</span>
 
-<div class="viewcode-block" id="FPFPMiner.getMemoryUSS">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getMemoryUSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FPFPMiner.getMemoryUSS"><a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getMemoryUSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
 
@@ -708,10 +820,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span></div>
 
-
-<div class="viewcode-block" id="FPFPMiner.getMemoryRSS">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getMemoryRSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FPFPMiner.getMemoryRSS"><a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getMemoryRSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 
@@ -720,10 +829,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span></div>
 
-
-<div class="viewcode-block" id="FPFPMiner.getRuntime">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getRuntime">[docs]</a>
-    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FPFPMiner.getRuntime"><a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getRuntime">[docs]</a>    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculating the total amount of runtime taken by the mining process</span>
 
@@ -731,7 +837,6 @@
 <span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span></div>
-
 
     <span class="k">def</span> <span class="nf">_construct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -802,9 +907,7 @@
         <span class="c1">#res1 = str(sumLUtil) + &quot; : &quot; + str(period)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">res</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">sumLUtil</span><span class="p">,</span> <span class="n">period</span><span class="p">]</span>
 
-<div class="viewcode-block" id="FPFPMiner.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getPatternsAsDataFrame">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FPFPMiner.getPatternsAsDataFrame"><a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getPatternsAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing final frequent patterns in a dataframe</span>
 
@@ -819,10 +922,7 @@
             <span class="n">dataFrame</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;Support&#39;</span><span class="p">,</span> <span class="s1">&#39;Periodicity&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">dataFrame</span></div>
 
-
-<div class="viewcode-block" id="FPFPMiner.getPatterns">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getPatterns">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FPFPMiner.getPatterns"><a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getPatterns">[docs]</a>    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Function to send the set of frequent patterns after completion of the mining process</span>
 
@@ -831,10 +931,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span></div>
 
-
-<div class="viewcode-block" id="FPFPMiner.save">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.save">[docs]</a>
-    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
+<div class="viewcode-block" id="FPFPMiner.save"><a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Complete set of frequent patterns will be loaded in to an output file</span>
 
@@ -847,19 +944,14 @@
             <span class="n">patternsAndSupport</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
             <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">patternsAndSupport</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="FPFPMiner.printResults">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.printResults">[docs]</a>
-    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FPFPMiner.printResults"><a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.printResults">[docs]</a>    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Fuzzy Periodic-Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div>
-</div>
-
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
@@ -870,6 +962,7 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>  <span class="c1"># to consider &quot;\t&quot; as a separator</span>
             <span class="n">_ap</span> <span class="o">=</span> <span class="n">FPFPMiner</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
         <span class="n">_ap</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Fuzzy Periodic-Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ap</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="n">_ap</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>

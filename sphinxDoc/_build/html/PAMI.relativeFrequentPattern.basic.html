@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.relativeFrequentPattern.basic package &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
 
   
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=28a0d067"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -95,15 +95,15 @@
            <div itemprop="articleBody">
              
   <section id="pami-relativefrequentpattern-basic-package">
-<h1>PAMI.relativeFrequentPattern.basic package<a class="headerlink" href="#pami-relativefrequentpattern-basic-package" title="Link to this heading"></a></h1>
+<h1>PAMI.relativeFrequentPattern.basic package<a class="headerlink" href="#pami-relativefrequentpattern-basic-package" title="Permalink to this heading"></a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
 </section>
 <section id="module-PAMI.relativeFrequentPattern.basic.RSFPGrowth">
-<span id="pami-relativefrequentpattern-basic-rsfpgrowth-module"></span><h2>PAMI.relativeFrequentPattern.basic.RSFPGrowth module<a class="headerlink" href="#module-PAMI.relativeFrequentPattern.basic.RSFPGrowth" title="Link to this heading"></a></h2>
+<span id="pami-relativefrequentpattern-basic-rsfpgrowth-module"></span><h2>PAMI.relativeFrequentPattern.basic.RSFPGrowth module<a class="headerlink" href="#module-PAMI.relativeFrequentPattern.basic.RSFPGrowth" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.relativeFrequentPattern.basic.RSFPGrowth.</span></span><span class="sig-name descname"><span class="pre">RSFPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minRS</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.relativeFrequentPattern.basic.RSFPGrowth.</span></span><span class="sig-name descname"><span class="pre">RSFPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minRS</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
@@ -195,8 +195,6 @@ __mapSupport represents the 1-length items with their respective support</p>
 </dl>
 </dd>
 </dl>
-<section id="methods-to-execute-code-on-terminal">
-<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#methods-to-execute-code-on-terminal" title="Link to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
 <span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$</span>python3<span class="w"> </span>RSFPGrowth.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;<span class="w"> </span>&lt;__minRatio&gt;
@@ -209,9 +207,6 @@ __mapSupport represents the 1-length items with their respective support</p>
 <span class="go">        .. note:: maxPer and minPS will be considered in percentage of database transactions</span>
 </pre></div>
 </div>
-</section>
-<section id="importing-this-algorithm-into-a-python-program">
-<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#importing-this-algorithm-into-a-python-program" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.relativeFrequentPattern</span> <span class="kn">import</span> <span class="n">RSFPGrowth</span> <span class="k">as</span> <span class="n">alg</span>
 
 <span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">RSFPGrowth</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">__minRatio</span><span class="p">)</span>
@@ -239,22 +234,19 @@ __mapSupport represents the 1-length items with their respective support</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="credits">
-<h3><strong>Credits:</strong><a class="headerlink" href="#credits" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by   Sai Chitra.B   under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.Mine">
-<span class="sig-name descname"><span class="pre">Mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth.Mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.Mine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">Mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth.Mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.Mine" title="Permalink to this definition"></a></dt>
 <dd><p>Main program to start the operation
 :return: None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.getMemoryRSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -268,7 +260,7 @@ __mapSupport represents the 1-length items with their respective support</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.getMemoryUSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -282,7 +274,7 @@ __mapSupport represents the 1-length items with their respective support</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.getPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -296,7 +288,7 @@ __mapSupport represents the 1-length items with their respective support</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>Storing final frequent patterns in a dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -310,7 +302,7 @@ __mapSupport represents the 1-length items with their respective support</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.getRuntime" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -324,14 +316,14 @@ __mapSupport represents the 1-length items with their respective support</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.printResults" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.printResults" title="Permalink to this definition"></a></dt>
 <dd><p>This function is used to print the results
 :return: None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.save" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -345,20 +337,19 @@ __mapSupport represents the 1-length items with their respective support</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.startMine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/relativeFrequentPattern/basic/RSFPGrowth.html#RSFPGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPattern.basic.RSFPGrowth.RSFPGrowth.startMine" title="Permalink to this definition"></a></dt>
 <dd><p>Main program to start the operation
 :return: None</p>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
 <section id="module-PAMI.relativeFrequentPattern.basic.abstract">
-<span id="pami-relativefrequentpattern-basic-abstract-module"></span><h2>PAMI.relativeFrequentPattern.basic.abstract module<a class="headerlink" href="#module-PAMI.relativeFrequentPattern.basic.abstract" title="Link to this heading"></a></h2>
+<span id="pami-relativefrequentpattern-basic-abstract-module"></span><h2>PAMI.relativeFrequentPattern.basic.abstract module<a class="headerlink" href="#module-PAMI.relativeFrequentPattern.basic.abstract" title="Permalink to this heading"></a></h2>
 </section>
 <section id="module-PAMI.relativeFrequentPattern.basic">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.relativeFrequentPattern.basic" title="Link to this heading"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.relativeFrequentPattern.basic" title="Permalink to this heading"></a></h2>
 </section>
 </section>
 

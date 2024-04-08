@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LPPMBreadth &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
 
   
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=28a0d067"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -117,10 +117,10 @@
            <div itemprop="articleBody">
              
   <section id="module-PAMI.localPeriodicPattern.basic.LPPMBreadth">
-<span id="lppmbreadth"></span><h1>LPPMBreadth<a class="headerlink" href="#module-PAMI.localPeriodicPattern.basic.LPPMBreadth" title="Link to this heading"></a></h1>
+<span id="lppmbreadth"></span><h1>LPPMBreadth<a class="headerlink" href="#module-PAMI.localPeriodicPattern.basic.LPPMBreadth" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.localPeriodicPattern.basic.LPPMBreadth.</span></span><span class="sig-name descname"><span class="pre">LPPMBreadth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxPer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxSoPer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minDur</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMBreadth.html#LPPMBreadth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.localPeriodicPattern.basic.LPPMBreadth.</span></span><span class="sig-name descname"><span class="pre">LPPMBreadth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxPer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxSoPer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minDur</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMBreadth.html#LPPMBreadth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_localPeriodicPatterns</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
@@ -205,8 +205,6 @@ This variable is used to distinguish items from one another in a transaction. Th
 </dl>
 </dd>
 </dl>
-<section id="executing-the-code-on-terminal">
-<h2><strong>Executing the code on terminal:</strong><a class="headerlink" href="#executing-the-code-on-terminal" title="Link to this heading"></a></h2>
 <blockquote>
 <div><dl>
 <dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">LPPBreadth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">maxPer</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSoPer</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minDur</span><span class="o">&gt;</span>
@@ -219,9 +217,6 @@ This variable is used to distinguish items from one another in a transaction. Th
 </dd>
 </dl>
 </div></blockquote>
-</section>
-<section id="sample-run-of-importing-the-code">
-<h2><strong>Sample run of importing the code:</strong><a class="headerlink" href="#sample-run-of-importing-the-code" title="Link to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.localPeriodicPattern.basic</span> <span class="kn">import</span> <span class="n">LPPMBreadth</span> <span class="k">as</span> <span class="n">alg</span>
 
 <span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">LPPMBreadth</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">maxPer</span><span class="p">,</span> <span class="n">maxSoPer</span><span class="p">,</span> <span class="n">minDur</span><span class="p">)</span>
@@ -249,15 +244,12 @@ This variable is used to distinguish items from one another in a transaction. Th
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total execution time in seconds: </span><span class="si">{</span><span class="n">runtime</span><span class="si">}</span><span class="s1">)</span>
 </pre></div>
 </div>
-</section>
-<section id="credits">
-<h2><strong>Credits:</strong><a class="headerlink" href="#credits" title="Link to this heading"></a></h2>
 <blockquote>
 <div><p>The complete program was written by So Nakamura under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMBreadth.html#LPPMBreadth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.getMemoryRSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMBreadth.html#LPPMBreadth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -271,7 +263,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMBreadth.html#LPPMBreadth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.getMemoryUSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMBreadth.html#LPPMBreadth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -285,7 +277,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMBreadth.html#LPPMBreadth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.getPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMBreadth.html#LPPMBreadth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of local periodic patterns after completion of the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -299,7 +291,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMBreadth.html#LPPMBreadth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMBreadth.html#LPPMBreadth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>Storing final local periodic patterns in a dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -313,7 +305,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMBreadth.html#LPPMBreadth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.getRuntime" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMBreadth.html#LPPMBreadth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -327,13 +319,13 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMBreadth.html#LPPMBreadth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.printResults" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMBreadth.html#LPPMBreadth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.printResults" title="Permalink to this definition"></a></dt>
 <dd><p>This function is used to print the results</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMBreadth.html#LPPMBreadth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.save" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMBreadth.html#LPPMBreadth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of local periodic patterns will be loaded in to an output file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -344,11 +336,10 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMBreadth.html#LPPMBreadth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.startMine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMBreadth.html#LPPMBreadth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth.startMine" title="Permalink to this definition"></a></dt>
 <dd><p>Mining process start from here.</p>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
