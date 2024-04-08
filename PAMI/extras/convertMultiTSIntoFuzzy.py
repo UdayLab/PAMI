@@ -9,11 +9,14 @@
 #
 #     obj.save()
 #
-#     obj.startMine()
+#     obj.mine()
 #
 
+
+
+
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -53,8 +56,7 @@ class convertMultipleTSIntoFuzzy():
 
                 obj.save()
 
-                obj.startMine()
-
+                obj.mine()
 
     """
 
@@ -167,11 +169,21 @@ class convertMultipleTSIntoFuzzy():
             # break
             writer.write("%s\n" %s2)
 
-
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
-        """ Frequent pattern mining process will start from here
+        """
+        Frequent pattern mining process will start from here
         """
         
+        self._creatingItemSets()
+        self._fuzzyMembershipFunc()
+        self._finalPatterns = {}
+
+    def mine(self) -> None:
+        """
+        Frequent pattern mining process will start from here
+        """
+
         self._creatingItemSets()
         self._fuzzyMembershipFunc()
         self._finalPatterns = {}
