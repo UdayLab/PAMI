@@ -9,35 +9,38 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.localPeriodicPattern.basic import LPPMBreadth as alg
+#             from PAMI.localPeriodicPattern.basic import LPPMBreadth as alg
 #
-#     obj = alg.LPPMBreadth(iFile, maxPer, maxSoPer, minDur)
+#             obj = alg.LPPMBreadth(iFile, maxPer, maxSoPer, minDur)
 #
-#     obj.startMine()
+#             obj.mine()
 #
-#     localPeriodicPatterns = obj.getPatterns()
+#             localPeriodicPatterns = obj.getPatterns()
 #
-#     print(f'Total number of local periodic patterns: {len(localPeriodicPatterns)}')
+#             print(f'Total number of local periodic patterns: {len(localPeriodicPatterns)}')
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print(f'Total memory in USS: {memUSS}')
+#             print(f'Total memory in USS: {memUSS}')
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print(f'Total memory in RSS: {memRSS}')
+#             print(f'Total memory in RSS: {memRSS}')
 #
-#     runtime = obj.getRuntime()
+#             runtime = obj.getRuntime()
 #
-#     print(f'Total execution time in seconds: {runtime})
+#             print(f'Total execution time in seconds: {runtime})
+#
+
+
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -58,6 +61,8 @@ __copyright__ = """
 from PAMI.localPeriodicPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import pandas as pd
+from deprecated import deprecated
+
 
 class LPPMBreadth(_ab._localPeriodicPatterns):
 
@@ -76,9 +81,9 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
         a Discrete Sequence. Information Sciences, Elsevier, to appear. [ppt] DOI: 10.1016/j.ins.2020.09.044
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
+                   Name of the Input file to mine complete set of local periodic pattern's
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
+                   Name of the output file to store complete set of local periodic patterns
     :param  minDur: str:
                    Minimal duration in seconds between consecutive periods of time-intervals where a pattern is continuously periodic.
     :param  maxPer: float:
@@ -127,7 +132,7 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
             Calculate PTL from input tsList as bit vector
         LPPMBreathSearch(extensionOfP)
             Mining local periodic patterns using breadth first search.
-        startMine()
+        mine()
             Mining process will start from here.
         getMemoryUSS()
             Total amount of USS memory consumed by the mining process will be retrieved from this function.
@@ -143,11 +148,19 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
             Complete set of local periodic patterns will be loaded in to a dataframe.
 
     **Executing the code on terminal:**
-    ------------------------------------
-            Format:
-                >>> python3 LPPBreadth.py <inputFile> <outputFile> <maxPer> <minSoPer> <minDur>
-            Examples:
-                >>> python3 LPPMBreadth.py sampleDB.txt patterns.txt 0.3 0.4 0.5
+    --------------------------------------
+
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 LPPBreadth.py <inputFile> <outputFile> <maxPer> <minSoPer> <minDur>
+
+      Example Usage:
+
+      (.venv) $ python3 LPPMBreadth.py sampleDB.txt patterns.txt 0.3 0.4 0.5
+
+    .. note: minDur will be considered as time interval between two consecutive periods
 
     **Sample run of importing the code:**
     -------------------------------------
@@ -157,7 +170,7 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
 
             obj = alg.LPPMBreadth(iFile, maxPer, maxSoPer, minDur)
 
-            obj.startMine()
+            obj.mine()
 
             localPeriodicPatterns = obj.getPatterns()
 
@@ -349,6 +362,7 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
         :param tsList: it is one item's tsList which is used bit vector.
         :type tsList: int
         :return: it is PTL of input item.
+        :rtype: set
         """
         tsList = list(bin(tsList))
         tsList = tsList[2:]
@@ -441,7 +455,9 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
         to convert the type of user specified minSup value
 
         :param value: user specified minSup value
+        :type value: int or float or str
         :return: converted type
+        :rtype: int or float
         """
         if type(value) is int:
             value = int(value)
@@ -455,6 +471,7 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
                 value = int(value)
         return value
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         Mining process start from here.
@@ -474,8 +491,28 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
         self._localPeriodicPatterns__memoryUSS = process.memory_full_info().uss
         self._localPeriodicPatterns__memoryRSS = process.memory_info().rss
 
+    def mine(self) -> None:
+        """
+        Mining process start from here.
+        """
+        self._localPeriodicPatterns__startTime = _ab._time.time()
+        self.__creatingItemSets()
+        self._localPeriodicPatterns__maxPer = self.__convert(self._localPeriodicPatterns__maxPer)
+        self._localPeriodicPatterns__maxSoPer = self.__convert(self._localPeriodicPatterns__maxSoPer)
+        self._localPeriodicPatterns__minDur = self.__convert(self._localPeriodicPatterns__minDur)
+        self._localPeriodicPatterns__finalPatterns = {}
+        self.__createTSList()
+        self.__generateLPP()
+        self._localPeriodicPatterns__endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._localPeriodicPatterns__memoryUSS = float()
+        self._localPeriodicPatterns__memoryRSS = float()
+        self._localPeriodicPatterns__memoryUSS = process.memory_full_info().uss
+        self._localPeriodicPatterns__memoryRSS = process.memory_info().rss
+
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -484,7 +521,8 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
         return self._localPeriodicPatterns__memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -493,7 +531,8 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
         return self._localPeriodicPatterns__memoryRSS
 
     def getRuntime(self) -> float:
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
@@ -502,7 +541,8 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
         return self._localPeriodicPatterns__endTime - self._localPeriodicPatterns__startTime
 
     def getPatternsAsDataFrame(self) -> pd.DataFrame:
-        """Storing final local periodic patterns in a dataframe
+        """
+        Storing final local periodic patterns in a dataframe
 
         :return: returning local periodic patterns in a dataframe
         :rtype: pd.DataFrame
@@ -519,10 +559,12 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
         return dataFrame
 
     def save(self, outFile: str) -> None:
-        """Complete set of local periodic patterns will be loaded in to an output file
+        """
+        Complete set of local periodic patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: csv file
+        :return: None
         """
         self._localPeriodicPatterns__oFile = outFile
         writer = open(self._localPeriodicPatterns__oFile, 'w+')
@@ -537,7 +579,8 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
             writer.write("%s \n" % patternsAndPTL)
 
     def getPatterns(self) -> Dict[Union[Tuple[str, ...], str], Set[Tuple[int, int]]]:
-        """ Function to send the set of local periodic patterns after completion of the mining process
+        """
+        Function to send the set of local periodic patterns after completion of the mining process
 
         :return: returning frequent patterns
         :rtype: dict
@@ -562,6 +605,7 @@ if __name__ == '__main__':
         if len(_ab._sys.argv) == 5:
             _ap = LPPMBreadth(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
         _ap.startMine()
+        _ap.mine()
         print("Total number of Local Periodic Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
