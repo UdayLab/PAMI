@@ -16,6 +16,9 @@
 
 
 # Introduction
+
+***
+
 PAttern MIning (PAMI) is a Python library containing several algorithms to discover user interest-based patterns in a wide-spectrum of datasets across multiple computing platforms. Useful links to utilize the services of this library were provided below:
 
 
@@ -35,7 +38,10 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 
 8. Report issues https://github.com/UdayLab/PAMI/issues
 
+
 # Recent Updates  
+
+***
 
 - Version 2023.07.07: New algorithms: cuApriroi, cuAprioriBit, cuEclat, cuEclatBit, gPPMiner, cuGPFMiner, FPStream, HUPMS, SHUPGrowth New codes to generate synthetic databases
 - Version 2023.06.20: Fuzzy Partial Periodic, Periodic Patterns in High Utility, Code Documentation, help() function Update 
@@ -43,7 +49,10 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 
 Total number of algorithms: 83
 
+
 # Features
+
+***
 
 - ✅ Well-tested and production-ready
 - 🔋 Highly optimized to our best effort, light-weight, and energy-efficient
@@ -56,20 +65,27 @@ Total number of algorithms: 83
 - 🐎 Snappy
 - 🐻 Ease of use
 
+
+
 # Table of Content
+
+***
 
 - [Maintenance](#Maintenance)
 - [Try your first PAMI program](#try-your-first-PAMI-program)
 - [Reading Material](#Reading-Material)
-- [Tutorials](#Tutorials)
 - [License](#License)
 - [Documentation](#Documentation)
 - [Background](#Background)
 - [Getting Help](#Getting-Help)
 - [Discussion and Development](#Discussion-and-Development)
 - [Contribution to PAMI](#Contribution-to-PAMI)
+- [Tutorials](#Tutorials)
+
 
 # Maintenance
+
+***
 
   __Installation__
   
@@ -120,7 +136,10 @@ Total number of algorithms: 83
 
         pip show pami
 
+
 # *Try your first PAMI program*
+
+***
 
 ```shell
 $ python
@@ -151,11 +170,59 @@ Memory (USS): 475353088
 ```
 
 # Reading Material
-For more examples, refer this YouTube link [YouTube](https://www.youtube.com/playlist?list=PLKP768gjVJmDer6MajaLbwtfC9ULVuaCZ)
- 
+
 ***
 
+For more examples, refer this YouTube link [YouTube](https://www.youtube.com/playlist?list=PLKP768gjVJmDer6MajaLbwtfC9ULVuaCZ)
+
+
+# License
+
+***
+
+[![GitHub license](https://img.shields.io/github/license/UdayLab/PAMI)](https://github.com/UdayLab/PAMI/blob/main/LICENSE)
+
+
+# Documentation
+
+***
+
+The official documentation is hosted on [PAMI](https://pami-1.readthedocs.io).
+
+
+
+# Background
+
+***
+
+The idea and motivation to develop PAMI was from [Kitsuregawa Lab](https://www.tkl.iis.u-tokyo.ac.jp/new/resources?lang=en) at the University of Tokyo. Work on ``PAMI`` started at [University of Aizu](https://u-aizu.ac.jp/en/) in 2020 and
+has been under active development since then.
+
+
+# Getting Help
+
+***
+
+For any queries, the best place to go to is github Issues [GithubIssues](https://github.com/orgs/UdayLab/discussions/categories/q-a).
+
+
+# Discussion and Development
+
+***
+
+In our GitHub repository, the primary platform for discussing development-related matters is the university lab. We encourage our team members and contributors to utilize this platform for a wide range of discussions, including bug reports, feature requests, design decisions, and implementation details.
+
+
+# Contribution to PAMI
+
+***
+
+We invite and encourage all community members to contribute, report bugs, fix bugs, enhance documentation, propose improvements, and share their creative ideas.
+
+
 # Tutorials 
+
+***
 
 ### 1. Pattern mining in binary transactional databases
 
@@ -353,8 +420,6 @@ For more examples, refer this YouTube link [YouTube](https://www.youtube.com/pla
 | FFI-Miner <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/fuzzyFrequentPattern/basic/FFIMiner.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
 
-
-
 #### 5.2. Fuzzy correlated pattern mining: [Sample](https://udaylab.github.io/PAMI/fuzzyCorrelatedPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                       |
@@ -460,24 +525,4 @@ For more examples, refer this YouTube link [YouTube](https://www.youtube.com/pla
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
  | Gspan <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/subgraphMining/basic/gspan.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> | TKG <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/subgraphMining/topk/tkg.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
-# License
-
-[![GitHub license](https://img.shields.io/github/license/UdayLab/PAMI)](https://github.com/UdayLab/PAMI/blob/main/LICENSE)
-
-# Documentation
-The official documentation is hosted on [PAMI](https://pami-1.readthedocs.io).
-
-# Background
-The idea and motivation to develop PAMI was from [Kitsuregawa Lab](https://www.tkl.iis.u-tokyo.ac.jp/new/resources?lang=en) at the University of Tokyo. Work on ``PAMI`` started at [University of Aizu](https://u-aizu.ac.jp/en/) in 2020 and
-has been under active development since then.
-
-# Getting Help
-For any queries, the best place to go to is github Issues [GithubIssues](https://github.com/orgs/UdayLab/discussions/categories/q-a).
-
-# Discussion and Development
-In our GitHub repository, the primary platform for discussing development-related matters is the university lab. We encourage our team members and contributors to utilize this platform for a wide range of discussions, including bug reports, feature requests, design decisions, and implementation details.
-
-# Contribution to PAMI
-We invite and encourage all community members to contribute, report bugs, fix bugs, enhance documentation, propose improvements, and share their creative ideas.
-
-[Go to Top](#table-of-contents)
+[Go to Top](#table-of-content)
