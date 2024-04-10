@@ -1,4 +1,4 @@
-[__<--__ Return to home page](index.html)
+[__<--__ Previous ](aboutPAMI.html)|[Home](installation.html)|[_Next_-->](organization.html)
 
 
 ## Evaluating Multiple Pattern Mining Algorithms on a Dataset
