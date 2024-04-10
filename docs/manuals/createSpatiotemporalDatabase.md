@@ -1,1 +1,1 @@
-[__<--__ Previous ](createTemporalDatabase.html)|[Home](createSpatiotemporalDatabase.html)|[_Next_-->](TransactionalDatabase.html)
+[__<--__ Previous ](createTemporalDatabase.html)|[Home](index.html)|[_Next_-->](TransactionalDatabase.html)
