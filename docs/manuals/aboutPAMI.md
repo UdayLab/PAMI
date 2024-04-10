@@ -1,4 +1,4 @@
-[__<--__ Previous ](index.html)|[_Home](aboutPAMI.html)|[_Next_-->](installation.html)
+[__<--__ Previous ](index.html)|[Home](aboutPAMI.html)|[_Next_-->](installation.html)
 
 ## About PAMI
 PAttern MIning (PAMI) is an important knowledge discovery technique in the data mining. Its objective is to discover 
