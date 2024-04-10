@@ -1,4 +1,4 @@
-[__<--__ Previous ](aboutPAMI.html)|[Home](installation.html)|[_Next_-->](organization.html)
+[__<--__ Previous ](spatialDatabase.html)|[Home](timeSeries.html)|[_Next_-->](denseDataFrame.html)
 
 ## Multiple timeseries data
 
