@@ -1,1 +1,1 @@
-[__<--__ Previous ](aboutPAMI.html)|[Home](installation.html)|[_Next_-->](organization.html)
+[__<--__ Previous ](uncertainDatabseStats.html)|[Home](georeferencedDatabase.html)|[_Next_-->](terminalExecute.html)
