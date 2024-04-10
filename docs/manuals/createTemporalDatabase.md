@@ -1,4 +1,4 @@
-[__<--__ Previous ](aboutPAMI.html)|[Home](installation.html)|[_Next_-->](organization.html)
+[__<--__ Previous ](createTransactionalDatabase.html)|[Home](createTemporalDatabase.html)|[_Next_-->](createSpatiotemporalDatabase.html)
 
 ## Creation of temporal database
 
