@@ -1,4 +1,4 @@
-[__<--__ Previous ](temporalDatabaseStats.html)|[Home](utilityDatabaseStats.html)|[_Next_-->](uncertainDatabaseStats)
+[__<--__ Previous ](temporalDatabaseStats.html)|[Home](index.html)|[_Next_-->](uncertainDatabaseStats)
 
 
 # Statistical details of a transactional database
