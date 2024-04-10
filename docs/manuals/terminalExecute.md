@@ -1,4 +1,4 @@
-[__<--__ Return to home page](index.html)
+[__<--__ Previous ](aboutPAMI.html)|[Home](installation.html)|[_Next_-->](organization.html)
 
 # User Manual 
 Key concepts in each link were briefly mentioned to save your valuable time. Click on the necessary links to know more.
