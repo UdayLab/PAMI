@@ -1,4 +1,4 @@
-[__<--__ Previous ](aboutPAMI.html)|[Home](installation.html)|[_Next_-->](organization.html)
+[__<--__ Previous ](utilization.html)|[Home](evaluateMultipleAlgorithms.html)|[_Next_-->](visualizeSpatialItems.html)
 
 
 ## Evaluating Multiple Pattern Mining Algorithms on a Dataset
