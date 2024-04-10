@@ -1,4 +1,4 @@
-[__<--__ Previous ](aboutPAMI.html)|[Home](installation.html)|[_Next_-->](organization.html)
+[__<--__ Previous ](denseDataFrame.html)|[Home](sparseDataFrame.html)|[_Next_-->](DenseFormatDF.html)
 
 ## Sparse dataframe
 
