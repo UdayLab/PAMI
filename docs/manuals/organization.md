@@ -1,4 +1,4 @@
-[__<--__ Previous ](installation.html)|[Home](organization.html)|[_Next_-->](transactionalDatabase.html)
+[__<--__ Previous ](installation.html)|[Home](index.html)|[_Next_-->](transactionalDatabase.html)
 
 ## Structural Organization  of Algorithms in PAMI
 
