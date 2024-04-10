@@ -272,7 +272,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
         sc = _SparkContext(conf=conf)
 
         rdd = sc.textFile(self._iFile, self._numPartitions)\
-            .map(lambda x: x.rstrip().split('\t'))\
+            .map(lambda x: x.rstrip().split(self._sep))\
             .persist()
 
         self._lno = rdd.count()
@@ -315,7 +315,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
         sc = _SparkContext(conf=conf)
 
         rdd = sc.textFile(self._iFile, self._numPartitions)\
-            .map(lambda x: x.rstrip().split('\t'))\
+            .map(lambda x: x.rstrip().split(self._sep))\
             .persist()
 
         self._lno = rdd.count()

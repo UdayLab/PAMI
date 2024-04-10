@@ -54,6 +54,7 @@ Copyright (C)  2021 Rage Uday Kiran
 from PAMI.frequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 from deprecated import deprecated
+import numpy as np
 
 class Apriori(_ab._frequentPatterns):
     """
@@ -221,56 +222,9 @@ class Apriori(_ab._frequentPatterns):
             else:
                 value = int(value)
         return value
-
-    def _candidateToFrequent(self, candidateList: List[set]) -> Dict[frozenset, int]:
-        """
-        Generates frequent patterns from the candidate patterns
-
-        :param candidateList: Candidate pattern will be given as input
-
-        :type candidateList: list
-
-        :return: returning set of all frequent patterns
-
-        :rtype: dict
-
-        """
-
-        candidateToFrequentList = {}
-        for i in self._Database:
-            dictionary = {frozenset(j): int(candidateToFrequentList.get(frozenset(j), 0)) + 1 for j in candidateList if
-                          j.issubset(i)}
-            candidateToFrequentList.update(dictionary)
-        candidateToFrequentList = {key: value for key, value in candidateToFrequentList.items() if
-                                   value >= self._minSup}
-
-        return candidateToFrequentList
-
-    @staticmethod
-    def _frequentToCandidate(frequentList: Dict[frozenset, int], length: int) -> List[set]:
-        """
-
-        Generates candidate patterns from the frequent patterns
-
-        :param frequentList: set of all frequent patterns to generate candidate patterns of each of size is length
-
-        :type frequentList: dict
-
-        :param length: size of each candidate patterns to be generated
-
-        :type length: int
-
-        :return: set of candidate patterns in sorted order
-
-        :rtype: list
-
-        """
-
-        frequentToCandidateList = []
-        for i in frequentList:
-            nextList = [i | j for j in frequentList if len(i | j) == length and (i | j) not in frequentToCandidateList]
-            frequentToCandidateList.extend(nextList)
-        return sorted(frequentToCandidateList)
+    
+    def _lowMemory(self) -> None:
+        print()
 
     @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
@@ -303,30 +257,130 @@ class Apriori(_ab._frequentPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Frequent patterns were generated successfully using Apriori algorithm ")
 
+    def bitPacker(self, data, maxIndex):
+        packed_bits = 0
+        for i in data:
+            packed_bits |= 1 << (maxIndex - i)
+
+        return packed_bits
+
+    # @profile
+    def mineLowMemory(self) -> None:
+        """
+        Frequent pattern mining process will start from here
+        # Bitset implementation
+        """
+        self._startTime = _ab._time.time()
+
+        self._Database = []
+
+        self._creatingItemSets()
+
+        self._minSup = self._convert(self._minSup)
+
+        items = {}
+        index = 0
+        for line in self._Database:
+            for item in line:
+                if tuple([item]) in items:
+                    items[tuple([item])].append(index)
+                else:
+                    items[tuple([item])] = [index]
+            index += 1
+
+        # sort by length in descending order
+        items = dict(sorted(items.items(), key=lambda x: len(x[1]), reverse=True))
+        cands = []
+        for key in items:
+            if len(items[key]) >= self._minSup:
+                self._finalPatterns[key] = len(items[key])
+                cands.append(key)
+                items[key] = self.bitPacker(items[key], index)
+            else:
+                break
+
+        while cands:
+            newCands = []
+            for i in range(len(cands)):
+                for j in range(i + 1, len(cands)):
+                    if cands[i][:-1] == cands[j][:-1]:
+                        newCand = tuple(cands[i] + tuple([cands[j][-1]]))
+                        intersection = items[tuple([newCand[0]])]
+                        for k in range(1, len(newCand)):
+                            intersection &= items[tuple([newCand[k]])]
+                        count = int.bit_count(intersection)
+                        if count >= self._minSup:
+                            # items[newCand] = intersection
+                            newCands.append(newCand)
+                            self._finalPatterns[newCand] = count
+                    else:
+                        break
+            
+            cands = newCands
+
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Frequent patterns were generated successfully using Apriori algorithm ")
+
     def mine(self) -> None:
         """
         Frequent pattern mining process will start from here
         """
         self._Database = []
         self._startTime = _ab._time.time()
+
         self._creatingItemSets()
-        itemsList = sorted(list(set.union(*self._Database)))  # because Database is list
-        items = [{i} for i in itemsList]
-        itemsCount = len(items)
+
         self._minSup = self._convert(self._minSup)
-        self._finalPatterns = {}
-        for i in range(1, itemsCount):
-            frequentSet = self._candidateToFrequent(items)
-            for x, y in frequentSet.items():
-                sample = str()
-                for k in x:
-                    sample = sample + k + "\t"
-                self._finalPatterns[sample] = y
-            items = self._frequentToCandidate(frequentSet, i + 1)
-            if len(items) == 0:
-                break  # finish apriori
-        self._endTime = _ab._time.time()
+
+        items = {}
+        index = 0
+        for line in self._Database:
+            for item in line:
+                if tuple([item]) in items:
+                    items[tuple([item])].append(index)
+                else:
+                    items[tuple([item])] = [index]
+            index += 1
+
+        # sort by length in descending order
+        items = dict(sorted(items.items(), key=lambda x: len(x[1]), reverse=True))
+
+        cands = []
+        fileData = {}
+        for key in items:
+            if len(items[key]) >= self._minSup:
+                cands.append(tuple([key]))
+                self._finalPatterns[tuple([key])] = len(items[key])
+                fileData[tuple([key])] = set(items[key])
+            else:
+                break
+
+        while cands:
+            newKeys = []
+            for i in range(len(cands)):
+                for j in range(i+1, len(cands)):
+                    if cands[i][:-1] == cands[j][:-1]:
+                        newCand = tuple(cands[i] + tuple([cands[j][-1]]))
+                        intersection = fileData[tuple([newCand[0]])]
+                        for k in range(1, len(newCand)):
+                            intersection = intersection.intersection(fileData[tuple([newCand[k]])])
+
+                        # intersection = fileData[cands[i]].intersection(fileData[cands[j]])
+                        if len(intersection) >= self._minSup:
+                        #     fileData[newCand] = intersection
+                            newKeys.append(newCand)
+                            self._finalPatterns[newCand] = len(intersection)
+            del cands
+            cands = newKeys
+            del newKeys
+            
         process = _ab._psutil.Process(_ab._os.getpid())
+        self._endTime = _ab._time.time()
         self._memoryUSS = float()
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
@@ -448,3 +502,33 @@ if __name__ == "__main__":
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
+
+    minUtils = [150]
+
+    for minUtil in minUtils:
+        file = "/Users/tarunsreepada/Downloads/Transactional_T10I4D100K.csv"
+        obj = Apriori(file, minUtil, sep='\t')
+        obj.mineLowMemory()
+        # obj.mine()
+        print("Total number of Frequent Patterns:", len(obj.getPatterns()))
+        print("Total Memory in USS:", obj.getMemoryUSS())
+        print("Total Memory in RSS", obj.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", obj.getRuntime())
+
+        # print()
+
+        # obj.mine()
+        # print("Total number of Frequent Patterns:", len(obj.getPatterns()))
+        # print("Total Memory in USS:", obj.getMemoryUSS())
+        # print("Total Memory in RSS", obj.getMemoryRSS())
+        # print("Total ExecutionTime in seconds:", obj.getRuntime())
+
+        # print()
+
+        obj = Apriori(file, minUtil, sep='\t')
+        obj.mine()
+        # obj.mine()
+        print("Total number of Frequent Patterns:", len(obj.getPatterns()))
+        print("Total Memory in USS:", obj.getMemoryUSS())
+        print("Total Memory in RSS", obj.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", obj.getRuntime())
