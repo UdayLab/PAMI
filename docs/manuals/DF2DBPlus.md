@@ -1,4 +1,4 @@
-[__<--__ Previous ](aboutPAMI.html)|[Home](installation.html)|[_Next_-->](organization.html)
+[__<--__ Previous ](DenseFormatDF.html)|[Home](DF2DBPlus.html)|[_Next_-->](createTransactionalDatabase.html)
 
 # Sparse dataframe
 
