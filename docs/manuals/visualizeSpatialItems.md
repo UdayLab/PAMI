@@ -1,4 +1,4 @@
-[__<--__ Previous ](aboutPAMI.html)|[Home](installation.html)|[_Next_-->](organization.html)
+[__<--__ Previous ](evaluateMultipleAlgorithms.html)|[Home](visualizeSpatialItems.html)|[_Next_-->](generateLatexGraphs.html)
 
 ## Visualizing top-_k_ geo-referenced (or spatially) interesting patterns
 
