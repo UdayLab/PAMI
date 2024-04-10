@@ -1,1 +1,1 @@
-[__<--__ Previous ](uncertainDatabseStats.html)|[Home](georeferencedDatabase.html)|[_Next_-->](terminalExecute.html)
+[__<--__ Previous ](uncertainDatabseStats.html)|[Home](index.html)|[_Next_-->](terminalExecute.html)
