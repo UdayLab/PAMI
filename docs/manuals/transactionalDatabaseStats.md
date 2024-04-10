@@ -1,4 +1,4 @@
-[__<--__ Previous ](aboutPAMI.html)|[Home](installation.html)|[_Next_-->](organization.html)
+[__<--__ Previous ](aboutPAMI.html)|[Home](index.html)|[_Next_-->](organization.html)
 
 ## Knowing the statistical details of a transactional database
 
