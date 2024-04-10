@@ -1,4 +1,4 @@
-[__<--__ Previous ](terminalExecute.html)|[Home](utilization.html)|[_Next_-->](evaluateMultipleAlgorithms.html)
+[__<--__ Previous ](terminalExecute.html)|[Home](index.html)|[_Next_-->](evaluateMultipleAlgorithms.html)
 
 ## Mining interesting patterns using an algorithm
 
