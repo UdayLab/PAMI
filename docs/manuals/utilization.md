@@ -1,4 +1,4 @@
-[__<--__ Previous ](aboutPAMI.html)|[Home](installation.html)|[_Next_-->](organization.html)
+[__<--__ Previous ](terminalExecute.html)|[Home](utilization.html)|[_Next_-->](evaluateMultipleAlgorithms.html)
 
 ## Mining interesting patterns using an algorithm
 
