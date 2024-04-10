@@ -1,4 +1,4 @@
-[__<--__ Previous ](aboutPAMI.html)|[Home](installation.html)|[_Next_-->](organization.html)
+[__<--__ Previous ](TransactionalDatabase.html)|[Home](temporalDatabaseStats.html)|[_Next_-->](utilityDatabaseStats.html)
 
 ## Statistical details of a temporal database
 
