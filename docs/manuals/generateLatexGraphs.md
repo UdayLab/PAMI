@@ -1,1 +1,1 @@
-[__<--__ Previous ](visualizeSpatialItems.html)|[Home](generateLatexGraphs.html)|[_Next_-->](neighborFileFromspatialDataframe.html)
+[__<--__ Previous ](visualizeSpatialItems.html)|[Home](index.html)|[_Next_-->](neighborFileFromspatialDataframe.html)
