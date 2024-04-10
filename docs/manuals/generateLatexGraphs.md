@@ -1,1 +1,1 @@
-[__<--__ Previous ](aboutPAMI.html)|[Home](installation.html)|[_Next_-->](organization.html)
+[__<--__ Previous ](visualizeSpatialItems.html)|[Home](generateLatexGraphs.html)|[_Next_-->](neighborFileFromspatialDataframe.html)
