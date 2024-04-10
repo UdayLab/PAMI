@@ -1,4 +1,5 @@
-[__<--__ Previous ](aboutPAMI.html)|[Home](installation.html)|[_Next_-->](organization.html)
+[__<--__ Previous ](timeSeries.html)|[Home](denseDataFrame.html)|[_Next_-->](sparseDataFrame.html)
+
 
 ## Dense dataframe
 
