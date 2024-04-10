@@ -1,4 +1,5 @@
-[__<--__ Previous ](aboutPAMI.html)|[Home](installation.html)|[_Next_-->](organization.html)
+[__<--__ Previous ](DF2DBPlus.html)|[Home](createTransactionalDatabase.html)|[_Next_-->](createTemporalDatabase.html)
+
 
 ## Creation of transactional database
 
