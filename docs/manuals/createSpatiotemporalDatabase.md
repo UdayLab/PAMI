@@ -1,1 +1,1 @@
-[__<--__ Previous ](aboutPAMI.html)|[Home](installation.html)|[_Next_-->](organization.html)
+[__<--__ Previous ](createTemporalDatabase.html)|[Home](createSpatiotemporalDatabase.html)|[_Next_-->](TransactionalDatabase.html)
