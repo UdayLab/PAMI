@@ -1,4 +1,4 @@
-[Previous](timeSeries.html)|[Home](index.html)|[Next](sparseDataFrame.html)
+[Previous](timeSeries.html)|[🏠 Home](index.html)|[Next](sparseDataFrame.html)
 
 
 ## Dense dataframe
