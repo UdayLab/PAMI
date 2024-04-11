@@ -14,6 +14,8 @@
 
 [Click here for more information](https://pepy.tech/project/pami)
 
+<img width="567" alt="Screenshot 2024-04-11 at 13 31 20" src="https://github.com/vanithakattumuri/PAMI/assets/134862983/4e9159b6-b20c-40a1-88b9-3698afec5d9e">
+
 
 # Introduction
 
