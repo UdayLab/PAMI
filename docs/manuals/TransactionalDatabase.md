@@ -1,4 +1,4 @@
-[Previous ](createSpatiotemporalDatabase.html)|[Home](index.html)|[Next](temporalDatabaseStats.html)
+[Previous ](createSpatiotemporalDatabase.html)|[🏠 Home](index.html)|[Next](temporalDatabaseStats.html)
 
 ## Transactional database
 ## Description
