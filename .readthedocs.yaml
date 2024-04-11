@@ -11,7 +11,6 @@ build:
   tools:
     python: "3.11"
     nodejs: "19"
-    libcudnn8: "8.9.2.26-1+cuda11.8"
     # You can also specify other tool versions:
     # nodejs: "19"
     # rust: "1.64"
