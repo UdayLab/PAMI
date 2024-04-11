@@ -1,4 +1,4 @@
-[__<--__ Previous ](organization.html)|[Home](index.html)|[_Next_-->](temporalDatabase.html)
+[Previous](organization.html)|[Home](index.html)|[Next](temporalDatabase.html)
 
 ## Transactional database
 
