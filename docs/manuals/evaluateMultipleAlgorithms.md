@@ -1,4 +1,4 @@
-[Previous](utilization.html)|[Home](index.html)|[Next](visualizeSpatialItems.html)
+[Previous](utilization.html)|[🏠 Home](index.html)|[Next](visualizeSpatialItems.html)
 
 
 ## Evaluating Multiple Pattern Mining Algorithms on a Dataset
