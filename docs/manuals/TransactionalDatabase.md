@@ -8,10 +8,11 @@
 
 ## Example: A sample transactional database containing the items from a to f is shown in below.
 
-|TID | Transactions|
-|1   | a, b, c     |
-|2   | d, e        |
-|3   | a, e, f     |
+TID | Transactions
+----|--------------
+1   | a, b, c     
+2   | d, e        
+3   | a, e, f     
 Rules to create a transactional database
 
     Since the TID of a transaction directly represents its row number in a database, we the algorithms in PAMI ignore the TID information to save storage space and processing time.
