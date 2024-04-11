@@ -1,1 +1,1 @@
-[__<--__ Return to home page](index.html)
+[__<--__ Previous ](generateLatexGraphs.html)|[Home](index.html)|[_Next_-->](index.html)

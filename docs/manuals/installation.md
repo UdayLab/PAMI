@@ -1,4 +1,4 @@
-[__<--__ Return to home page](index.html)
+[__<--__ Previous ](aboutPAMI.html)|[Home](index.html)|[_Next_-->](organization.html)
 
 ## Maintenance of PAMI library
 

@@ -1,4 +1,4 @@
-[__<--__ Return to home page](index.html)
+[__<--__ Previous ](aboutPAMI.html)|[Home](index.html)|[_Next_-->](organization.html)
 
 ## Converting a sparse dataframe into different database formats
 Currently, PAMI supports converting a dataframe into a transactional database, temporal database, ond a utility database.

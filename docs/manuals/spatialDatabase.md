@@ -1,4 +1,4 @@
-[__<--__ Return to home page](index.html)
+[__<--__ Previous ](neighborhoodDatabase.html)|[Home](index.html)|[_Next_-->](timeSeries.html)
 
 ## Geo-referenced database
 ### Description

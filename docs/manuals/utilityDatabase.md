@@ -1,4 +1,4 @@
-[__<--__ Return to home page](index.html)
+[__<--__ Previous ](temporalDatabase.html)|[Home](index.html)|[_Next_-->](uncertainDatabases.html)
 
 
 ## Utility databases
