@@ -1,4 +1,4 @@
-[Previous](DF2DBPlus.html)|[Home](index.html)|[Next](createTemporalDatabase.html)
+[Previous](DF2DBPlus.html)|[🏠 Home](index.html)|[Next](createTemporalDatabase.html)
 
 
 ## Creation of transactional database

@@ -1,4 +1,4 @@
-[__<--__ Previous ](aboutPAMI.html)|[Home](index.html)|[_Next_-->](organization.html)
+[Previous](aboutPAMI.html)|[🏠 Home](index.html)|[Next](organization.html)
 
 
 ## Conversion of dense dataframe into different database formats

@@ -1,4 +1,4 @@
-[__<--__ Previous ](geoReferencedDatabase.html)|[Home](index.html)|[_Next_-->](utilization.html)
+[Previous](geoReferencedDatabase.html)|[[🏠 Home](index.html)|[Next](utilization.html)
 
 # User Manual 
 Key concepts in each link were briefly mentioned to save your valuable time. Click on the necessary links to know more.
