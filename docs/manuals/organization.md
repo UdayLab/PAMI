@@ -1,4 +1,4 @@
-[Previous](installation.html)|[Home](index.html)|[Next](transactionalDatabase.html)
+[Previous](installation.html)|[🏠 Home](index.html)|[Next](transactionalDatabase.html)
 
 ## Structural Organization  of Algorithms in PAMI
 
