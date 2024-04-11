@@ -1,4 +1,4 @@
-[Previous](neighborhoodDatabase.html)|[Home](index.html)|[Next](timeSeries.html)
+[Previous](neighborhoodDatabase.html)|[🏠 Home](index.html)|[Next](timeSeries.html)
 
 ## Geo-referenced database
 ### Description
