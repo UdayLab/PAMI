@@ -1,4 +1,4 @@
-[__<--__ Previous ](createTransactionalDatabase.html)|[Home](index.html)|[_Next_-->](createSpatiotemporalDatabase.html)
+[Previous](createTransactionalDatabase.html)|[Home](index.html)|[Next](createSpatiotemporalDatabase.html)
 
 ## Creation of temporal database
 
