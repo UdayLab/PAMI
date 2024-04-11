@@ -28,6 +28,7 @@ setuptools.setup(
         'validators',
         'discord.py',
         'networkx',
+        'deprecated',
     ],
     extras_require={
         'gpu':  ['cupy', 'pycuda'],
