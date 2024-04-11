@@ -75,6 +75,7 @@ Total number of algorithms: 83
 
 - [Maintenance](#Maintenance)
 - [Try your first PAMI program](#try-your-first-PAMI-program)
+- [Evaluation](#evaluation)
 - [Reading Material](#Reading-Material)
 - [License](#License)
 - [Documentation](#Documentation)
@@ -170,6 +171,22 @@ Runtime: 8.749667644500732
 Memory (RSS): 522911744
 Memory (USS): 475353088
 ```
+
+# Evaluation:
+
+***
+
+1. we compared three different Python libraries such as PAMI, mlxtend and efficient-apriori for Apriori.
+2. (Transactional_T10I4D100K.csv)is a transactional database downloaded from PAMI and
+used as a input file for all libraries.
+3. Minimum support values and seperator are also same.
+
+* The performance of the **Apriori algorithm** is shown in the graphical results below:
+1. Comparing the **Patterns Generated** by different Python libraries for the Apriori algorithm:
+2. Evaluating the **Runtime** of the Apriori algorithm across different Python libraries:
+3. Comparing the **Memory Consumption** of the Apriori algorithm across different Python libraries:
+
+
 
 # Reading Material
 
