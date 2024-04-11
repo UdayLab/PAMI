@@ -1,4 +1,4 @@
-[Previous](aboutPAMI.html)|[Home](index.html)|[Next](organization.html)
+[Previous](aboutPAMI.html)|[🏠 Home](index.html)|[Next](organization.html)
 
 ## Maintenance of PAMI library
 
