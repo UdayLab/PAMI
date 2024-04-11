@@ -1,4 +1,4 @@
-[__<--__ Previous ](utilityDatabase.html)|[Home](index.html)|[_Next_-->](locationDatabase.html)
+[Previous ](utilityDatabase.html)|[Home](index.html)|[Next](locationDatabase.html)
 
 ## Uncertain database
 
