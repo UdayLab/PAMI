@@ -13,7 +13,8 @@ TID | Transactions
 1   | a, b, c     
 2   | d, e        
 3   | a, e, f     
-Rules to create a transactional database
+
+## Rules to create a transactional database
 
     Since the TID of a transaction directly represents its row number in a database, we the algorithms in PAMI ignore the TID information to save storage space and processing time.
     The items in a transactional database can be integers or strings.
