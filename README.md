@@ -194,7 +194,7 @@ used as a input file for all libraries.
 
    <img width="570" alt="Screenshot 2024-04-11 at 13 31 08" src="https://github.com/vanithakattumuri/PAMI/assets/134862983/5d5991ca-51ae-442d-9b5e-2d21bbebfedd">
 
-
+For more information we have attached a file in notebook folder please check it [Evaluation File](https://github.com/UdayLab/PAMI/blob/main/notebooks/Evaluation-neverDelete.ipynb)
 
 # Reading Material
 
