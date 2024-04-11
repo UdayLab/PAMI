@@ -1,4 +1,4 @@
-[__<--__ Previous ](DenseFormatDF.html)|[Home](index.html)|[_Next_-->](createTransactionalDatabase.html)
+[Previous](DenseFormatDF.html)|[Home](index.html)|[Next](createTransactionalDatabase.html)
 
 # Sparse dataframe
 
