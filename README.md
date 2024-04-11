@@ -183,8 +183,16 @@ used as a input file for all libraries.
 
 * The performance of the **Apriori algorithm** is shown in the graphical results below:
 1. Comparing the **Patterns Generated** by different Python libraries for the Apriori algorithm:
+
+   <img width="573" alt="Screenshot 2024-04-11 at 13 31 31" src="https://github.com/vanithakattumuri/PAMI/assets/134862983/fd7974bc-ffe2-44dd-82e3-a5306a8a23bd">
+   
 2. Evaluating the **Runtime** of the Apriori algorithm across different Python libraries:
+
+   <img width="567" alt="Screenshot 2024-04-11 at 13 31 20" src="https://github.com/vanithakattumuri/PAMI/assets/134862983/5d615ae3-dc0d-49ba-a880-4890bb1f11c5">
+
 3. Comparing the **Memory Consumption** of the Apriori algorithm across different Python libraries:
+
+   <img width="570" alt="Screenshot 2024-04-11 at 13 31 08" src="https://github.com/vanithakattumuri/PAMI/assets/134862983/5d5991ca-51ae-442d-9b5e-2d21bbebfedd">
 
 
 
