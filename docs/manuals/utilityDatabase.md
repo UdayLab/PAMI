@@ -1,4 +1,4 @@
-[Previous](temporalDatabase.html)|[Home](index.html)|[Next](uncertainDatabases.html)
+[Previous](temporalDatabase.html)|[🏠 Home](index.html)|[Next](uncertainDatabases.html)
 
 
 ## Utility databases
