@@ -54,7 +54,7 @@ class createNeighborhoodFileUsingEuclideanDistance:
 
     :Methods:
 
-        startMine()
+        mine()
             find and store the pairs of values whose Euclidean distance is less than or equal to maxEucledianDistace.
         getFileName()
             This function returns output file name.

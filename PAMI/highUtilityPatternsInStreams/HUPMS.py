@@ -472,7 +472,7 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
         treeGenerations(root, netUtil, candidatePattern, curItem)
             Generates the tree of the high utility patterns
 
-        startMine()
+        mine()
             Starts the mining process
 
         printTree(root, level)

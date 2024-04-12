@@ -465,6 +465,7 @@ if __name__ == "__main__":
 """_ap = cuEclat("/home/tarun/PAMI/PAMI/frequentPattern/cuda/test.txt", 2, " ")
     _ap = cuEclat("/home/tarun/Transactional_T10I4D100K.csv", 450, "\t")
     _ap.startMine()
+    _ap.mine()
     print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
     print("Total Memory in USS:", _ap.getMemoryUSS())
     print("Total Memory in RSS", _ap.getMemoryRSS())

@@ -142,7 +142,7 @@ class convertMultipleTSIntoFuzzy():
             return
        
     def save(self, outputFile: str) -> None:
-        self.startMine()
+        self.mine()
         writer = open(outputFile, 'w+')
         for line in range(len(self._transactionsDB)):
             item_list = self._transactionsDB[line]

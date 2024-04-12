@@ -130,7 +130,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
             Calculate PTL from input tsList as bit vector
         LPPMDepthSearch(extensionOfP)
             Mining local periodic patterns using depth first search.
-        startMine()
+        mine()
             Mining process will start from here.
         getMemoryUSS()
             Total amount of USS memory consumed by the mining process will be retrieved from this function.
