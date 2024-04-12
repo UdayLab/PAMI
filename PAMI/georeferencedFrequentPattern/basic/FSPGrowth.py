@@ -292,7 +292,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             This function starts pattern mining.
         getPatterns()
             Complete set of patterns will be retrieved with this function

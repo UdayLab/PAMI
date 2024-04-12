@@ -202,7 +202,7 @@ class HDSHUIM(_ab._utilityPatterns):
             a map to keep track of Probable Maximum utility(PMU) of each item
     :Methods:
 
-            startMine()
+            mine()
                 Mining process will start from here
             getPatterns()
                 Complete set of patterns will be retrieved with this function

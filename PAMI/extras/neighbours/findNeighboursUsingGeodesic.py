@@ -55,7 +55,7 @@ class createNeighborhoodFileUsingGeodesicDistance:
 
     :Methods:
 
-        startMine()
+        mine()
             find and store the pairs of values whose Geodesic distance is less than or equal to maxDistace.
         getFileName()
             This function returns output file name.
