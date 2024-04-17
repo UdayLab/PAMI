@@ -52,8 +52,6 @@ Copyright (C)  2021 Rage Uday Kiran
      Copyright (C)  2021 Rage Uday Kiran
 
 """
-
-
 from PAMI.highUtilityGeoreferencedFrequentPattern.basic import abstract as _ab
 from functools import cmp_to_key as _comToKey
 from deprecated import deprecated
