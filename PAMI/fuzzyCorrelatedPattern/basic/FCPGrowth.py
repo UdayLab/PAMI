@@ -855,7 +855,7 @@ def main():
     seperator='\t' 
 
     obj = FCPGrowth(inputFile, minimumSupportCount,ratioExample,seperator)    #initialize
-    obj.startMine()       
+    obj.mine()
 
 
 if __name__ == "__main__":

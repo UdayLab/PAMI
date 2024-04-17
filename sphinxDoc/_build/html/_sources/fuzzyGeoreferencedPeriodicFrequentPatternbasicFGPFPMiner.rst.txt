@@ -1,7 +1,0 @@
-FGPFPMiner
------------------------
-
-.. automodule:: PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner
-   :members:
-   :undoc-members:
-   :show-inheritance:

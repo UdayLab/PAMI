@@ -1,4 +1,4 @@
-[__<--__ Return to home page](index.html)
+[Previous](uncertainDatabases.html)|[🏠 Home](index.html)|[Next](neighborhoodDatabase.html)
 
 ## Location/Spatial database
 

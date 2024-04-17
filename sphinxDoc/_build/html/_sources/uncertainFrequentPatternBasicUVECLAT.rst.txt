@@ -1,7 +1,0 @@
-UVECLAT
------------
-
-.. automodule:: PAMI.uncertainFrequentPattern.basic.UVECLAT
-   :members:
-   :undoc-members:
-   :show-inheritance:

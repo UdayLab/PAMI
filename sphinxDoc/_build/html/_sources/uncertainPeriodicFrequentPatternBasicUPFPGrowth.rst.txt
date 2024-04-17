@@ -1,7 +1,0 @@
-UPFPGrowth
-----------------
-
-.. automodule:: PAMI.uncertainPeriodicFrequentPattern.basic.UPFPGrowth
-   :members:
-   :undoc-members:
-   :show-inheritance:

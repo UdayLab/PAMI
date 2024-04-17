@@ -1,7 +1,0 @@
-Apriori
------------
-
-.. automodule:: PAMI.frequentPattern.basic.Apriori
-   :members:
-   :undoc-members:
-   :show-inheritance:

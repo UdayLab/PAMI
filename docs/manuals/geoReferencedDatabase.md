@@ -1,1 +1,1 @@
-[__<--__ Return to home page](index.html)
+[Previous](uncertainDatabseStats.html)|[🏠 Home](index.html)|[Next](terminalExecute.html)

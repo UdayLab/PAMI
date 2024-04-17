@@ -1,7 +1,0 @@
-ECLATbitset
--------------
-
-.. automodule:: PAMI.frequentPattern.basic.ECLATbitset
-   :members:
-   :undoc-members:
-   :show-inheritance:

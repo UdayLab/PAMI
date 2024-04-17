@@ -2,4 +2,4 @@
 
 # Topics
 
-1. [Frequent pattern mining](./exercises/frequentPatternMining.html)
+1. [Frequent pattern mining](level2/exercises/frequentPatternMining.html)

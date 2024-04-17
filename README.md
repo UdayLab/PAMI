@@ -15,6 +15,8 @@
 [Click here for more information](https://pepy.tech/project/pami)
 
 
+
+
 # Introduction
 
 ***
@@ -30,7 +32,9 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 
 4. Coders manual https://udaylab.github.io/PAMI/codersManual/index.html
 
-5. Code documentation https://pami-1.readthedocs.io 
+5. Code documentation
+     - [HTML](https://udaylab.github.io/PAMI/html/index.html)  
+     - [Read the docs](https://pami-1.readthedocs.io)
 
 6. Datasets   https://u-aizu.ac.jp/~udayrage/datasets.html
 
@@ -73,6 +77,7 @@ Total number of algorithms: 83
 
 - [Maintenance](#Maintenance)
 - [Try your first PAMI program](#try-your-first-PAMI-program)
+- [Evaluation](#evaluation)
 - [Reading Material](#Reading-Material)
 - [License](#License)
 - [Documentation](#Documentation)
@@ -168,6 +173,32 @@ Runtime: 8.749667644500732
 Memory (RSS): 522911744
 Memory (USS): 475353088
 ```
+
+# Evaluation:
+
+***
+
+1. we compared three different Python libraries such as PAMI, mlxtend and efficient-apriori for Apriori.
+2. (Transactional_T10I4D100K.csv)is a transactional database downloaded from PAMI and
+used as a input file for all libraries.
+3. Minimum support values and seperator are also same.
+
+* The performance of the **Apriori algorithm** is shown in the graphical results below:
+1. Comparing the **Patterns Generated** by different Python libraries for the Apriori algorithm:
+
+   <img width="573" alt="Screenshot 2024-04-11 at 13 31 31" src="https://github.com/vanithakattumuri/PAMI/assets/134862983/fd7974bc-ffe2-44dd-82e3-a5306a8a23bd">
+   
+2. Evaluating the **Runtime** of the Apriori algorithm across different Python libraries:
+
+   <img width="567" alt="Screenshot 2024-04-11 at 13 31 20" src="https://github.com/vanithakattumuri/PAMI/assets/134862983/5d615ae3-dc0d-49ba-a880-4890bb1f11c5">
+
+3. Comparing the **Memory Consumption** of the Apriori algorithm across different Python libraries:
+
+   <img width="570" alt="Screenshot 2024-04-11 at 13 31 08" src="https://github.com/vanithakattumuri/PAMI/assets/134862983/5d5991ca-51ae-442d-9b5e-2d21bbebfedd">
+
+For more information, we have uploaded the evaluation file in two formats:
+- One **ipynb** file format, please check it here. [Evaluation File ipynb](https://github.com/UdayLab/PAMI/blob/main/notebooks/Evaluation-neverDelete.ipynb) 
+- Two **pdf** file format, check here. [Evaluation File Pdf](https://github.com/UdayLab/PAMI/blob/main/notebooks/evaluation.pdf)
 
 # Reading Material
 

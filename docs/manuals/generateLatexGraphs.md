@@ -1,1 +1,1 @@
-[__<--__ Return to home page](index.html)
+[Previous](visualizeSpatialItems.html)|[🏠 Home](index.html)|[Next](neighborFileFromspatialDataframe.html)

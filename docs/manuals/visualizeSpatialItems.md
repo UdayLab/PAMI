@@ -1,4 +1,4 @@
-[__<--__ Return to home page](index.html)
+[Previous](evaluateMultipleAlgorithms.html)|[🏠 Home](index.html)|[Next](generateLatexGraphs.html)
 
 ## Visualizing top-_k_ geo-referenced (or spatially) interesting patterns
 

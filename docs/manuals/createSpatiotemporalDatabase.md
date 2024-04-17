@@ -1,1 +1,1 @@
-[__<--__ Return to home page](index.html)
+[Previous ](createTemporalDatabase.html)|[🏠 Home](index.html)|[Next](TransactionalDatabase.html)

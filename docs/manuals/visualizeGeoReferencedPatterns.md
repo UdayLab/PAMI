@@ -1,4 +1,4 @@
-[__<--__ Return to home page](index.html)
+[Previous](aboutPAMI.html)|[🏠 Home](index.html)|[Next](organization.html)
 
 ## Visualizing top-_k_ geo-referenced (or spatially) interesting patterns
 

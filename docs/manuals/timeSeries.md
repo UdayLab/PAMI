@@ -1,4 +1,4 @@
-[__<--__ Return to home page](index.html)
+[Previous](spatialDatabase.html)|[🏠 Home](index.html)|[Next](denseDataFrame.html)
 
 ## Multiple timeseries data
 

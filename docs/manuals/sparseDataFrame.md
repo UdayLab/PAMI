@@ -1,4 +1,4 @@
-[__<--__ Return to home page](index.html)
+[Previous](denseDataFrame.html)|[🏠 Home](index.html)|[Next](DenseFormatDF.html)
 
 ## Sparse dataframe
 

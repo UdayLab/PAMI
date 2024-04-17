@@ -1,4 +1,4 @@
-[__<--__ Return to home page](index.html)
+[Previous ](utilityDatabase.html)|[🏠 Home](index.html)|[Next](locationDatabase.html)
 
 ## Uncertain database
 

@@ -1,6 +1,6 @@
-[__<--__ Return to home page](index.html)
+[Previous](aboutPAMI.html)|[🏠 Home](index.html)|[Next](organization.html)
 
-#Knowing the statistical details of a transactional database
+## Knowing the statistical details of a transactional database
 
 The performance of a mining algorithm primarily depends on the following two key factors: 
 1. Distribution of items' frequencies and 
