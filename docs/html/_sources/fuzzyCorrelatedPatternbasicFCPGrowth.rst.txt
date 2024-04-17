@@ -1,7 +1,0 @@
-FCPGrowth
---------------
-
-.. automodule:: PAMI.fuzzyCorrelatedPattern.basic.FCPGrowth
-   :members:
-   :undoc-members:
-   :show-inheritance:
