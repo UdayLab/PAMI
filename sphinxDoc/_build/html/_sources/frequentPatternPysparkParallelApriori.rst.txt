@@ -1,7 +1,0 @@
-parallelApriori
-------------------
-
-.. automodule:: PAMI.frequentPattern.pyspark.parallelApriori
-   :members:
-   :undoc-members:
-   :show-inheritance:

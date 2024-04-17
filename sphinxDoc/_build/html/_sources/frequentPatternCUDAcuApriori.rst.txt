@@ -1,8 +1,0 @@
-cuApriori
------------
-
-.. automodule:: PAMI.frequentPattern.cuda.cuApriori
-   :members:
-   :undoc-members:
-   :show-inheritance:
-

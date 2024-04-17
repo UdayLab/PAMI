@@ -1,7 +1,0 @@
-GFPGrowth
--------------
-
-.. automodule:: PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth
-   :members:
-   :undoc-members:
-   :show-inheritance:

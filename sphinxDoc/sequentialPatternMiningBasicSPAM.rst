@@ -1,7 +1,0 @@
-SPAM
----------
-
-.. automodule:: PAMI.sequentialPatternMining.basic.SPAM
-   :members:
-   :undoc-members:
-   :show-inheritance:
