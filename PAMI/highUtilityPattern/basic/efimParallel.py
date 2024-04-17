@@ -130,7 +130,7 @@ class efimParallel(_ab._utilityPatterns):
             Project the given beta itemset on the given database.
         search(collections):
             Search for high utility itemsets in the given collections.
-        startMine():
+        mine():
             Start the EFIM algorithm.
         savePatterns(outputFile):
             Save the patterns discovered by the algorithm to an output file.

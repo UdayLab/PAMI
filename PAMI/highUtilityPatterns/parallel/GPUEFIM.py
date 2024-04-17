@@ -172,7 +172,7 @@ class GPUEFIM:
             Read the input file and return the filtered transactions, primary items, and secondary items.
         search(collections):
             Search for high utility itemsets in the given collections.
-        startMine():
+        mine():
             Start the EFIM algorithm.
         savePatterns(outputFile):
             Save the patterns discovered by the algorithm to an output file.
