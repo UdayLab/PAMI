@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CoMine &mdash; PAMI 2024.03.02 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+    <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="CoMinePlus" href="correlatedPatternBasicCoMinePlus.html" />
+    <link rel="prev" title="Basic" href="correlatedPatternMining.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="transactionalPatternMining.html">Transactional Database</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="frequent1.html">Frequent Pattern mining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relativeFrequent.html">Relative Frequent Pattern</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FrequentPatternWithMultipleMinimumSupport1.html">Frequent pattern With Multiple Minimum Support</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="CorrelatedPatternMining1.html">Correlated Pattern Mining</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="correlatedPatternMining.html">Basic</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">CoMine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="correlatedPatternBasicCoMinePlus.html">CoMinePlus</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="FaultTolerantPatternMining1.html">Fault-Tolerant Frequent Pattern Mining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CoveragePatternMining1.html">Coverage Pattern Mining</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="temporalPatternMining.html">Temporal Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="geoReferencedPatternMining.html">Geo-referenced Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="utilityPatternMining.html">Utility Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="fuzzyPatternMining.html">Fuzzy Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="uncertainPatternMining.html">Uncertain Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sequentialPatternMining.html">Sequential Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="multipleTimeseriesPatternMining.html">Multiple Timeseries Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contiguousPatternMining.html">Contiguous Patterns</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="transactionalPatternMining.html">Transactional Database</a></li>
+          <li class="breadcrumb-item"><a href="CorrelatedPatternMining1.html">Correlated Pattern Mining</a></li>
+          <li class="breadcrumb-item"><a href="correlatedPatternMining.html">Basic</a></li>
+      <li class="breadcrumb-item active">CoMine</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/correlatedPatternBasicCoMine.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-PAMI.correlatedPattern.basic.CoMine">
+<span id="comine"></span><h1>CoMine<a class="headerlink" href="#module-PAMI.correlatedPattern.basic.CoMine" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.correlatedPattern.basic.CoMine.CoMine">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.correlatedPattern.basic.CoMine.</span></span><span class="sig-name descname"><span class="pre">CoMine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minAllConf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/correlatedPattern/basic/CoMine.html#CoMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.correlatedPattern.basic.CoMine.CoMine" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_correlatedPatterns</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CoMine is one of the fundamental algorithm to discover correlated  patterns in a transactional database. It is based on the traditional FP-Growth algorithm. This algorithm uses depth-first search technique to find all correlated patterns in a transactional database.</p>
+</dd>
+<dt class="field-even">Reference<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lee, Y.K., Kim, W.Y., Cao, D., Han, J. (2003). CoMine: efficient mining of correlated patterns. In ICDM (pp. 581–584).</p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of correlated patterns</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of correlated patterns</p></li>
+<li><p><strong>minSup</strong> – int or float or str :
+The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.</p></li>
+<li><p><strong>minAllConf</strong> – float :
+The user can specify minAllConf values within the range (0, 1).</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>memoryUSS<span class="classifier">float</span></dt><dd><p>To store the total amount of USS memory consumed by the program</p>
+</dd>
+<dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
+</dd>
+<dt>startTime:float</dt><dd><p>To record the start time of the mining process</p>
+</dd>
+<dt>endTime:float</dt><dd><p>To record the completion time of the mining process</p>
+</dd>
+<dt>minSup<span class="classifier">int</span></dt><dd><p>The user given minSup</p>
+</dd>
+<dt>minAllConf: float</dt><dd><p>The user given minimum all confidence Ratio(should be in range of 0 to 1)</p>
+</dd>
+<dt>Database<span class="classifier">list</span></dt><dd><p>To store the transactions of a database in list</p>
+</dd>
+<dt>mapSupport<span class="classifier">Dictionary</span></dt><dd><p>To maintain the information of item and their frequency</p>
+</dd>
+<dt>lno<span class="classifier">int</span></dt><dd><p>it represents the total no of transactions</p>
+</dd>
+<dt>tree<span class="classifier">class</span></dt><dd><p>it represents the Tree class</p>
+</dd>
+<dt>itemSetCount<span class="classifier">int</span></dt><dd><p>it represents the total no of patterns</p>
+</dd>
+<dt>finalPatterns<span class="classifier">dict</span></dt><dd><p>it represents to store the patterns</p>
+</dd>
+<dt>itemSetBuffer<span class="classifier">list</span></dt><dd><p>it represents the store the items in mining</p>
+</dd>
+<dt>maxPatternLength<span class="classifier">int</span></dt><dd><p>it represents the constraint for pattern length</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>CoMine.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;<span class="w"> </span>&lt;minAllConf&gt;<span class="w"> </span>&lt;sep&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>CoMine.py<span class="w"> </span>sampleTDB.txt<span class="w"> </span>output.txt<span class="w"> </span><span class="m">0</span>.25<span class="w"> </span><span class="m">0</span>.2
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup will be considered in percentage of database transactions</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.correlatedPattern.basic</span> <span class="kn">import</span> <span class="n">CoMine</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">CoMine</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">minAllConf</span><span class="p">,</span><span class="n">sep</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
+
+<span class="n">patterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of  Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">patterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.correlatedPattern.basic.CoMine.CoMine.getMemoryRSS">
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/correlatedPattern/basic/CoMine.html#CoMine.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.correlatedPattern.basic.CoMine.CoMine.getMemoryRSS" title="Permalink to this definition"></a></dt>
+<dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function
+:return: returning RSS memory consumed by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.correlatedPattern.basic.CoMine.CoMine.getMemoryUSS">
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/correlatedPattern/basic/CoMine.html#CoMine.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.correlatedPattern.basic.CoMine.CoMine.getMemoryUSS" title="Permalink to this definition"></a></dt>
+<dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function
+:return: returning USS memory consumed by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.correlatedPattern.basic.CoMine.CoMine.getPatterns">
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/correlatedPattern/basic/CoMine.html#CoMine.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.correlatedPattern.basic.CoMine.CoMine.getPatterns" title="Permalink to this definition"></a></dt>
+<dd><p>Function to send the set of correlated patterns after completion of the mining process
+:return: returning correlated patterns
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.correlatedPattern.basic.CoMine.CoMine.getPatternsAsDataFrame">
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/correlatedPattern/basic/CoMine.html#CoMine.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.correlatedPattern.basic.CoMine.CoMine.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
+<dd><p>Storing final correlated patterns in a dataframe
+:return: returning correlated patterns in a dataframe
+:rtype: pd.DataFrame</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.correlatedPattern.basic.CoMine.CoMine.getRuntime">
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/correlatedPattern/basic/CoMine.html#CoMine.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.correlatedPattern.basic.CoMine.CoMine.getRuntime" title="Permalink to this definition"></a></dt>
+<dd><p>Calculating the total amount of runtime taken by the mining process
+:return: returning total amount of runtime taken by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.correlatedPattern.basic.CoMine.CoMine.mine">
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/correlatedPattern/basic/CoMine.html#CoMine.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.correlatedPattern.basic.CoMine.CoMine.mine" title="Permalink to this definition"></a></dt>
+<dd><p>main method to start</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.correlatedPattern.basic.CoMine.CoMine.printResults">
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/correlatedPattern/basic/CoMine.html#CoMine.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.correlatedPattern.basic.CoMine.CoMine.printResults" title="Permalink to this definition"></a></dt>
+<dd><p>function to print the result after completing the process
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.correlatedPattern.basic.CoMine.CoMine.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/correlatedPattern/basic/CoMine.html#CoMine.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.correlatedPattern.basic.CoMine.CoMine.save" title="Permalink to this definition"></a></dt>
+<dd><p>Complete set of correlated patterns will be saved into an output file
+:param outFile: name of the outputfile
+:type outFile: file
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.correlatedPattern.basic.CoMine.CoMine.startMine">
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/correlatedPattern/basic/CoMine.html#CoMine.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.correlatedPattern.basic.CoMine.CoMine.startMine" title="Permalink to this definition"></a></dt>
+<dd><p>main method to start</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="correlatedPatternMining.html" class="btn btn-neutral float-left" title="Basic" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="correlatedPatternBasicCoMinePlus.html" class="btn btn-neutral float-right" title="CoMinePlus" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE UDAY KIRAN.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

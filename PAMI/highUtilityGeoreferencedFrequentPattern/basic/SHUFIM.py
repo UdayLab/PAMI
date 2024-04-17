@@ -52,8 +52,6 @@ Copyright (C)  2021 Rage Uday Kiran
      Copyright (C)  2021 Rage Uday Kiran
 
 """
-
-
 from PAMI.highUtilityGeoreferencedFrequentPattern.basic import abstract as _ab
 from functools import cmp_to_key as _comToKey
 from deprecated import deprecated
@@ -396,7 +394,7 @@ class SHUFIM(_ab._utilityPatterns):
 
     :Methods :
 
-        startMine()
+        mine()
                 Mining process will start from here
         getPatterns()
                 Complete set of patterns will be retrieved with this function
@@ -1073,7 +1071,7 @@ def main():
     minSup = 100
     seperator = ' '  
     obj = SHUFIM(iFile=inputFile, nFile=neighborFile, minUtil=minUtilCount, minSup=minSup, sep=seperator)    #initialize
-    obj.startMine()   
+    obj.mine()
     obj.printResults()
     print(obj.getPatterns())
 
