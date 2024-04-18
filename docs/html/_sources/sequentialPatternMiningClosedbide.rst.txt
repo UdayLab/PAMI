@@ -1,0 +1,7 @@
+bide
+----------
+
+.. automodule:: PAMI.sequentialPatternMining.closed.bide
+   :members:
+   :undoc-members:
+   :show-inheritance:

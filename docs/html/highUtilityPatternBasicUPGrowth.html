@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UPGrowth &mdash; PAMI 2024.04.18 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=802e8919"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Weighted Frequent Pattern Mining" href="WeightedFrequentPatternMining1.html" />
+    <link rel="prev" title="HMiner" href="highUtilityPatternBasicHMiner.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="transactionalPatternMining.html">Transactional Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="temporalPatternMining.html">Temporal Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="utilityPatternMining.html">Utility Pattern mining</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="HighUtilityPatternMining1.html">High-Utility Pattern mining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HighUtilityFrequentPatternMining1.html">High-Utility Frequent Pattern Mining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HighUtilityGeo-referencedFrequentPatternMining1.html">High-Utility Geo-referenced Frequent Pattern Mining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HighUtilitySpatialPatternMining1.html">High-Utility Spatial Pattern Mining</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="RelativeHighUtilityPatternMining1.html">Relative High-Utility Pattern Mining</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="relativeHighUtilityPatternMining.html">Basic</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="highUtilityPatternBasicEFIM.html">EFIM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="highUtilityPatternBasicHMiner.html">HMiner</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">UPGrowth</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="WeightedFrequentPatternMining1.html">Weighted Frequent Pattern Mining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WeightedFrequentRegularPatternMining1.html">Weighted Frequent Regular Pattern Mining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WeightedFrequentNeighbourhoodPatternMining1.html">Weighted Frequent Neighbourhood Pattern Mining</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="uncertainPatternMining.html">Uncertain Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sequentialPatternMining.html">Sequential Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contiguousPatternMining.html">Contiguous Patterns</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="utilityPatternMining.html">Utility Pattern mining</a></li>
+          <li class="breadcrumb-item"><a href="RelativeHighUtilityPatternMining1.html">Relative High-Utility Pattern Mining</a></li>
+          <li class="breadcrumb-item"><a href="relativeHighUtilityPatternMining.html">Basic</a></li>
+      <li class="breadcrumb-item active">UPGrowth</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/highUtilityPatternBasicUPGrowth.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-PAMI.highUtilityPattern.basic.UPGrowth">
+<span id="upgrowth"></span><h1>UPGrowth<a class="headerlink" href="#module-PAMI.highUtilityPattern.basic.UPGrowth" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.highUtilityPattern.basic.UPGrowth.</span></span><span class="sig-name descname"><span class="pre">UPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minUtil</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilityPattern/basic/UPGrowth.html#UPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_utilityPatterns</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>UP-Growth is two-phase algorithm to mine High Utility Itemsets from transactional databases.</p>
+</dd>
+<dt class="field-even">Reference<span class="colon">:</span></dt>
+<dd class="field-even"><p>Vincent S. Tseng, Cheng-Wei Wu, Bai-En Shie, and Philip S. Yu. 2010. UP-Growth: an efficient algorithm for high utility itemset mining.
+In Proceedings of the 16th ACM SIGKDD international conference on Knowledge discovery and data mining (KDD ‘10).
+Association for Computing Machinery, New York, NY, USA, 253–262. DOI:https://doi.org/10.1145/1835804.1835839</p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of High Utility patterns</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of High Utility patterns</p></li>
+<li><p><strong>minUtil</strong> – int :
+The user given minUtil value.</p></li>
+<li><p><strong>candidateCount</strong> – int
+Number of candidates specified by user</p></li>
+<li><p><strong>maxMemory</strong> – int
+Maximum memory used by this program for running</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the input file to mine complete set of frequent patterns</p>
+</dd>
+<dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the output file to store complete set of frequent patterns</p>
+</dd>
+<dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
+</dd>
+<dt>startTime:float</dt><dd><p>To record the start time of the mining process</p>
+</dd>
+<dt>endTime:float</dt><dd><p>To record the completion time of the mining process</p>
+</dd>
+<dt>minUtil<span class="classifier">int</span></dt><dd><p>The user given minUtil</p>
+</dd>
+<dt>NumberOfNodes<span class="classifier">int</span></dt><dd><p>Total number of nodes generated while building the tree</p>
+</dd>
+<dt>ParentNumberOfNodes<span class="classifier">int</span></dt><dd><p>Total number of nodes required to build the parent tree</p>
+</dd>
+<dt>MapItemToMinimumUtility<span class="classifier">map</span></dt><dd><p>A map to store the minimum utility of item in the database</p>
+</dd>
+<dt>phuis<span class="classifier">list</span></dt><dd><p>A list to store the phuis</p>
+</dd>
+<dt>MapItemToTwu<span class="classifier">map</span></dt><dd><p>A map to store the twu of each item in database</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>mine()</dt><dd><p>Mining process will start from here</p>
+</dd>
+<dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
+</dd>
+<dt>createLocalTree(tree, item)</dt><dd><p>A Method to Construct conditional pattern base</p>
+</dd>
+<dt>UPGrowth( tree, alpha)</dt><dd><p>A Method to Mine UP Tree recursively</p>
+</dd>
+<dt>PrintStats()</dt><dd><p>A Method to print number of phuis</p>
+</dd>
+<dt>save(oFile)</dt><dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
+</dd>
+<dt>getPatternsAsDataFrame()</dt><dd><p>Complete set of frequent patterns will be loaded in to a dataframe</p>
+</dd>
+<dt>getMemoryUSS()</dt><dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getMemoryRSS()</dt><dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getRuntime()</dt><dd><p>Total amount of runtime taken by the mining process will be retrieved from this function</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="executing-the-code-on-terminal">
+<h2><strong>Executing the code on terminal:</strong><a class="headerlink" href="#executing-the-code-on-terminal" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>UPGrowth<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;Neighbours&gt;<span class="w"> </span>&lt;minUtil&gt;<span class="w"> </span>&lt;sep&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>UPGrowth<span class="w"> </span>sampleTDB.txt<span class="w"> </span>output.txt<span class="w"> </span>sampleN.txt<span class="w"> </span><span class="m">35</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>maxMemory will be considered as Maximum memory used by this program for running</p>
+</div>
+</section>
+<section id="sample-run-of-importing-the-code">
+<h2>Sample run of importing the code:<a class="headerlink" href="#sample-run-of-importing-the-code" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.highUtilityPattern.basic</span> <span class="kn">import</span> <span class="n">UPGrowth</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span><span class="o">=</span><span class="n">alg</span><span class="o">.</span><span class="n">UPGrowth</span><span class="p">(</span><span class="s2">&quot;input.txt&quot;</span><span class="p">,</span><span class="mi">35</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
+
+<span class="n">highUtilityPattern</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Spatial Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">highUtilityPattern</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;output&quot;</span><span class="p">)</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="credits">
+<h2><strong>Credits:</strong><a class="headerlink" href="#credits" title="Link to this heading"></a></h2>
+<blockquote>
+<div><p>The complete program was written by Pradeep pallikila under the supervision of Professor Rage Uday Kiran.</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.PrintStats">
+<span class="sig-name descname"><span class="pre">PrintStats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/highUtilityPattern/basic/UPGrowth.html#UPGrowth.PrintStats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.PrintStats" title="Link to this definition"></a></dt>
+<dd><p>A Method to print number of phuis
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.getMemoryRSS">
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/highUtilityPattern/basic/UPGrowth.html#UPGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.getMemoryRSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function
+:return: returning RSS memory consumed by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.getMemoryUSS">
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/highUtilityPattern/basic/UPGrowth.html#UPGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.getMemoryUSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function
+:return: returning USS memory consumed by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.getPatterns">
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/highUtilityPattern/basic/UPGrowth.html#UPGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.getPatterns" title="Link to this definition"></a></dt>
+<dd><p>Function to send the set of frequent patterns after completion of the mining process
+:return: returning frequent patterns
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.getPatternsAsDataFrame">
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/highUtilityPattern/basic/UPGrowth.html#UPGrowth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<dd><p>Storing final frequent patterns in a dataframe
+:return: returning frequent patterns in a dataframe
+:rtype: pd.DataFrame</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.getRuntime">
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/highUtilityPattern/basic/UPGrowth.html#UPGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.getRuntime" title="Link to this definition"></a></dt>
+<dd><p>Calculating the total amount of runtime taken by the mining process
+return: returning total amount of runtime taken by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.mine">
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/highUtilityPattern/basic/UPGrowth.html#UPGrowth.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.mine" title="Link to this definition"></a></dt>
+<dd><p>Mining process will start from here
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.printResults">
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/highUtilityPattern/basic/UPGrowth.html#UPGrowth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.printResults" title="Link to this definition"></a></dt>
+<dd><p>This function is used to print the results
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/highUtilityPattern/basic/UPGrowth.html#UPGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.save" title="Link to this definition"></a></dt>
+<dd><p>Complete set of frequent patterns will be loaded in to an output file
+:param outFile: name of the output file
+:type outFile: csv file
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.startMine">
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/highUtilityPattern/basic/UPGrowth.html#UPGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilityPattern.basic.UPGrowth.UPGrowth.startMine" title="Link to this definition"></a></dt>
+<dd><p>Mining process will start from here
+:return: None</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="highUtilityPatternBasicHMiner.html" class="btn btn-neutral float-left" title="HMiner" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="WeightedFrequentPatternMining1.html" class="btn btn-neutral float-right" title="Weighted Frequent Pattern Mining" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE UDAY KIRAN.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
