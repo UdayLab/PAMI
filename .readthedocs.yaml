@@ -11,8 +11,6 @@ build:
   apt_packages:
     - cmake
     - nvidia-driver-525
-    - libcudnn7-dev
-    - cuda
     - nvidia-cuda-toolkit
   tools:
     python: "3.11"
