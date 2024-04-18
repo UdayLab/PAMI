@@ -290,7 +290,7 @@ class FPGrowth(_fp._frequentPatterns):
                 value = int(value)
         return value
     
-    def construct(self, items, data, minSup):
+    def _construct(self, items, data, minSup):
 
         items = {k: v for k, v in items.items() if v >= minSup}
 
@@ -309,13 +309,13 @@ class FPGrowth(_fp._frequentPatterns):
 
         return root, itemNodes
 
-    def all_combinations(self, arr):
+    def _all_combinations(self, arr):
         all_combinations_list = []
         for r in range(1, len(arr) + 1):
             all_combinations_list.extend(combinations(arr, r))
         return all_combinations_list
     
-    def recursive(self, root, itemNode, minSup, patterns):
+    def _recursive(self, root, itemNode, minSup, patterns):
         itemNode = {k: v for k, v in sorted(itemNode.items(), key = lambda x: x[1][1])}
 
         for item in itemNode:
@@ -331,7 +331,7 @@ class FPGrowth(_fp._frequentPatterns):
                 transaction, count = itemNode[item][0].pop().traverse()
                 if len(transaction) == 0:
                     continue
-                combination = self.all_combinations(transaction)
+                combination = self._all_combinations(transaction)
                 for comb in combination:
                     pat = "\t".join([str(i) for i in comb])
                     pat = pat + "\t" + "\t".join([str(i) for i in newRoot.item])
@@ -379,7 +379,7 @@ class FPGrowth(_fp._frequentPatterns):
                 continue
 
             # mine(newRoot, newItemNode, minSup, patterns)
-            self.recursive(newRoot, newItemNode, minSup, patterns)
+            self._recursive(newRoot, newItemNode, minSup, patterns)
 
 
     def mine(self) -> None:
@@ -400,14 +400,9 @@ class FPGrowth(_fp._frequentPatterns):
         for line in self.__Database:
             itemCount.update(line)
 
-        root, itemNode = self.construct(itemCount, self.__Database, self._minSup)
-        self.recursive(root, itemNode, self._minSup, self.__finalPatterns)
+        root, itemNode = self._construct(itemCount, self.__Database, self._minSup)
+        self._recursive(root, itemNode, self._minSup, self.__finalPatterns)
         
-
-
-
-
-
         print("Frequent patterns were generated successfully using frequentPatternGrowth algorithm")
         self.__endTime = _fp._time.time()
         self.__memoryUSS = float()
