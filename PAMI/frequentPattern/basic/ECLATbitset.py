@@ -336,31 +336,72 @@ class ECLATbitset(_ab._frequentPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Frequent patterns were generated successfully using Eclat_bitset algorithm")
 
-    def mine(self):
+    def bitPacker(self, data, maxIndex):
+        packed_bits = 0
+        for i in data:
+            packed_bits |= 1 << (maxIndex - i)
+
+        return packed_bits
+
+    def mine(self) -> None:
         """
         Frequent pattern mining process will start from here
-        We start with the scanning the itemSets and store the bitsets respectively.
-        We form the combinations of single items and  check with minSup condition to check the frequency of patterns
+        # Bitset implementation
         """
-
         self._startTime = _ab._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        if self._minSup is None:
-            raise Exception("Please enter the Minimum Support")
+
+        self._Database = []
 
         self._creatingItemSets()
-        frequentItems = self.creatingFrequentItems()
-        self._finalPatterns = {k: len(v) for k, v in frequentItems.items()}
-        frequentItemsBitset = self.tidToBitset(frequentItems)
-        self.genAllFrequentPatterns(frequentItemsBitset)
+
+        items = {}
+        index = 0
+        for line in self._Database:
+            for item in line:
+                if tuple([item]) in items:
+                    items[tuple([item])].append(index)
+                else:
+                    items[tuple([item])] = [index]
+            index += 1
+
+        # sort by length in descending order
+        items = dict(sorted(items.items(), key=lambda x: len(x[1]), reverse=True))
+        cands = []
+        for key in items:
+            if len(items[key]) >= self._minSup:
+                self._finalPatterns["\t".join(key)] = len(items[key])
+                cands.append(key)
+                items[key] = self.bitPacker(items[key], index)
+                # print(key, items[key])
+            else:
+                break
+
+        while cands:
+            newCands = []
+            for i in range(len(cands)):
+                for j in range(i + 1, len(cands)):
+                    if cands[i][:-1] == cands[j][:-1]:
+                        newCand = tuple(cands[i] + tuple([cands[j][-1]]))
+                        intersection = items[tuple([newCand[0]])]
+                        for k in range(1, len(newCand)):
+                            intersection &= items[tuple([newCand[k]])]
+                        count = int.bit_count(intersection)
+                        if count >= self._minSup:
+                            newCands.append(newCand)
+                            newCand = "\t".join(newCand)
+                            self._finalPatterns[newCand] = count
+                    else:
+                        break
+            
+            cands = newCands
+
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-        print("Frequent patterns were generated successfully using Eclat_bitset algorithm")
+        print("Frequent patterns were generated successfully using Apriori algorithm ")
 
     def getMemoryUSS(self):
         """
@@ -448,3 +489,4 @@ if __name__=="__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
