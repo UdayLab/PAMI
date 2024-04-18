@@ -11,18 +11,7 @@ build:
   apt_packages:
     - libclang
     - cmake
-    - cxx-compiler
-    - cupti
-    - bokeh
-    - cudnn
-    - nvcc_linux
-    - mpi4py
-    - cupti
-    - nccl
-    - pytorch
-    - tensorboard
-    - tensorflow-gpu
-    - torchvision
+    - cudnn9-cuda-12
   tools:
     python: "3.11"
     nodejs: "19"
