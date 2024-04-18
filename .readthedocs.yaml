@@ -10,7 +10,7 @@ build:
   os: ubuntu-22.04
   apt_packages:
     - cmake
-    - cudnn
+    - cudnn-cuda-12
   tools:
     python: "3.11"
     nodejs: "19"
