@@ -293,25 +293,25 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
 
         self.Mine()
 
-    def getMaxPer(self, arr, maxTS):
+    def _getMaxPer(self, arr, maxTS):
         arr = np.append(arr, [0, maxTS])
         arr = np.sort(arr)
         arr = np.diff(arr)
 
         return np.max(arr)
 
-    def construct(self, items, data, minSup, maxPer, maxTS, patterns):
+    def _construct(self, items, data, minSup, maxPer, maxTS, patterns):
 
         # maxPerItems = {k: self.getMaxPer(v, maxTS) for k, v in items.items() if len(v) >= minSup}
 
-        items = {k: v for k, v in items.items() if len(v) >= minSup and self.getMaxPer(v, maxTS) <= maxPer}
+        items = {k: v for k, v in items.items() if len(v) >= minSup and self._getMaxPer(v, maxTS) <= maxPer}
 
         #tested ok
         for item, ts in items.items():
             # pat = "\t".join(item)
             # self.patCount += 1
             # patterns[pat] = (len(ts), self.getMaxPer(ts, maxTS))
-            patterns[tuple([item])] = [len(ts), self.getMaxPer(ts, maxTS)]
+            patterns[tuple([item])] = [len(ts), self._getMaxPer(ts, maxTS)]
 
         root = _Node([], None, None)
         itemNodes = {}
@@ -330,7 +330,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
         return root, itemNodes
 
 
-    def recursive(self, root, itemNode, minSup, maxPer, patterns, maxTS):
+    def _recursive(self, root, itemNode, minSup, maxPer, patterns, maxTS):
 
         for item in itemNode:
             newRoot = _Node(root.item + [item], None, None)
@@ -354,7 +354,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
                         itemLocs[item] = list(locs)
 
             # Precompute getMaxPer results for itemLocs
-            maxPerResults = {item: self.getMaxPer(itemLocs[item], maxTS) for item in itemLocs if len(itemLocs[item]) >= minSup}
+            maxPerResults = {item: self._getMaxPer(itemLocs[item], maxTS) for item in itemLocs if len(itemLocs[item]) >= minSup}
 
             # Filter itemLocs based on minSup and maxPer
             itemLocs = {k: len(v) for k, v in itemLocs.items() if k in maxPerResults and maxPerResults[k] <= maxPer}
@@ -383,7 +383,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
                     else:
                         newItemNodes[item] = set([currNode])
 
-            self.recursive(newRoot, newItemNodes, minSup, maxPer, patterns, _lno)
+            self._recursive(newRoot, newItemNodes, minSup, maxPer, patterns, _lno)
 
     def Mine(self) -> None:
         """
@@ -421,9 +421,9 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
                     items[item] = []
                 items[item].append(index)
 
-        root, itemNodes = self.construct(items, self._Database, _minSup, _maxPer, _lno, self._finalPatterns)
+        root, itemNodes = self._construct(items, self._Database, _minSup, _maxPer, _lno, self._finalPatterns)
 
-        self.recursive(root, itemNodes, _minSup, _maxPer, self._finalPatterns, _lno)
+        self._recursive(root, itemNodes, _minSup, _maxPer, self._finalPatterns, _lno)
 
     
 
@@ -537,24 +537,6 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
-    file = "/Users/tarunsreepada/Documents/Code/Python/Temporal_T10I4D100K.csv"
-    minSup = 0.0007
-    maxPer = 10000
-    sep = "\t"
-    obj = PFPGrowth(file, minSup, maxPer, sep)
-    obj.Mine()
-    periodicFrequentPatterns = obj.getPatterns()
-    print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
-    obj.save("patterns.txt")
-    # Df = obj.getPatternsAsDataFrame()
-    # print(Df)
-    memUSS = obj.getMemoryUSS()
-    print("Total Memory in USS:", memUSS)
-    memRSS = obj.getMemoryRSS()
-    print("Total Memory in RSS", memRSS)
-    run = obj.getRuntime()
-    print("Total ExecutionTime in seconds:", run)
 
 
 

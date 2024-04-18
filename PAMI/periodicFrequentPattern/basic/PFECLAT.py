@@ -216,19 +216,6 @@ class PFECLAT(_ab._periodicFrequentPatterns):
     _memoryUSS = float()
     _memoryRSS = float()
 
-    def _getPeriodic(self, tids: set) -> int:
-        tidList = list(tids)
-        tidList.sort()
-        tidList.append(self._dbSize)
-        cur = 0
-        per = 0
-        for tid in tidList:
-            per = max(per, tid - cur)
-            if per > self._maxPer:  # early stopping
-                break
-            cur = tid
-        return per
-
     def _convert(self, value) -> float:
         """
         To convert the given user specified value
@@ -288,28 +275,6 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                 except IOError:
                     print("File Not Found")
                     quit()
-    
-    def _generateEclat(self, candidates: list) -> None:
-
-        print("Number of candidates:", len(candidates))
-        newCandidates = []
-        for i in range(0, len(candidates)):
-            prefixItem = candidates[i]
-            prefixItemSet = prefixItem.split()
-            for j in range(i + 1, len(candidates)):
-                item = candidates[j]
-                itemSet = item.split()
-                if prefixItemSet[:-1] == itemSet[:-1] and prefixItemSet[-1] != itemSet[-1]:
-                    _value = self._finalPatterns[item][2].intersection(self._finalPatterns[prefixItem][2])
-                    sup = len(_value)
-                    per = self._getPeriodic(_value)
-                    if sup >= self._minSup and per <= self._maxPer:
-                        newItem = prefixItem + "\t" + itemSet[-1]
-                        self._finalPatterns[newItem] = [sup, per, _value]
-                        newCandidates.append(newItem)
-
-        if len(newCandidates) > 0:
-            self._generateEclat(newCandidates)
 
     @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self) -> None:
@@ -330,7 +295,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         # self._memoryRSS = process.memory_info().rss
         # print("Periodic-Frequent patterns were generated successfully using PFECLAT algorithm ")
 
-    def getMaxPer(self, arr, maxTS):
+    def _getMaxPer(self, arr, maxTS):
         arr = np.append(list(arr), [0, maxTS])
         arr = np.sort(arr)
         arr = np.diff(arr)
@@ -345,9 +310,6 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         frequentSets = self._creatingItemSets()
-
-        
-
 
         items = {}
         maxTS = 0
@@ -372,7 +334,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
 
         keys = []
         for item in list(items.keys()):
-            per = self.getMaxPer(items[item], maxTS)
+            per = self._getMaxPer(items[item], maxTS)
             if per <= maxPer:
                 keys.append(item)
                 self._finalPatterns[item] = [len(items[item]), per, set(items[item])]
@@ -385,7 +347,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                         # print(keys[i], keys[j])
                         newKey = tuple(keys[i] + (keys[j][-1],))
                         intersect = items[keys[i]].intersection(items[keys[j]])
-                        per = self.getMaxPer(intersect, maxTS)
+                        per = self._getMaxPer(intersect, maxTS)
                         sup = len(intersect)
                         if sup >= minSup and per <= maxPer:
                             items[newKey] = intersect
