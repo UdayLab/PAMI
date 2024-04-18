@@ -57,7 +57,6 @@ __copyright__ = """
 from PAMI.periodicFrequentPattern.basic import abstract as _ab
 import pandas as pd
 from deprecated import deprecated
-import numpy as np
 
 from PAMI.periodicFrequentPattern.basic import abstract as _ab
 
@@ -248,14 +247,15 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                 value = int(value)
         return value
 
-    def _creatingItemSets(self) -> None:
+    def _creatingOneItemSets(self) -> list:
         """
-            Storing the complete transactions of the database/input file in a database variable
-        :return: None
+        Storing the complete transactions of the database/input file in a database variable
+        :return: list
         """
-        self._Database = []
+        plist = []
+        Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
-            data, ts = [], []
+            ts, data = [], []
             if self._iFile.empty:
                 print("its empty..")
             i = self._iFile.columns.values.tolist()
@@ -266,8 +266,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
             for i in range(len(data)):
                 tr = [ts[i][0]]
                 tr = tr + data[i]
-                self._Database.append(tr)
-
+                Database.append(tr)
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
@@ -276,7 +275,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                     line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self._Database.append(temp)
+                    Database.append(temp)
             else:
                 try:
                     with open(self._iFile, 'r', encoding='utf-8') as f:
@@ -284,14 +283,45 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                             line.strip()
                             temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            self._Database.append(temp)
+                            Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
+        tid = 0
+        itemsets = {}  # {key: item, value: list of tids}
+        periodicHelper = {}  # {key: item, value: [period, last_tid]}
+        for line in Database:
+            tid = int(line[0])
+            self._tidSet.add(tid)
+            for item in line[1:]:
+                if item in itemsets:
+                    itemsets[item].add(tid)
+                    periodicHelper[item][0] = max(periodicHelper[item][0],
+                                                  abs(tid - periodicHelper[item][1]))  # update current max period
+                    periodicHelper[item][1] = tid  # update the last tid
+                else:
+                    itemsets[item] = {tid}
+                    periodicHelper[item] = [abs(0 - tid), tid]  # initialize helper
+
+        # finish all items' period
+        self._dbSize = len(Database)
+        self._minSup = self._convert(self._minSup)
+        self._maxPer = self._convert(self._maxPer)
+        del Database
+        for item, _ in periodicHelper.items():
+            periodicHelper[item][0] = max(periodicHelper[item][0],
+                                          abs(self._dbSize - periodicHelper[item][1]))  # tid of the last transaction
+        candidates = []
+        for item, tids in itemsets.items():
+            per = periodicHelper[item][0]
+            sup = len(tids)
+            if sup >= self._minSup and per <= self._maxPer:
+                candidates.append(item)
+                self._finalPatterns[item] = [sup, per, tids]
+        return candidates
     
     def _generateEclat(self, candidates: list) -> None:
 
-        print("Number of candidates:", len(candidates))
         newCandidates = []
         for i in range(0, len(candidates)):
             prefixItem = candidates[i]
@@ -317,25 +347,17 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         Mining process will start from this function
         :return: None
         """
-        self.Mine()
-        # self._startTime = _ab._time.time()
-        # self._finalPatterns = {}
-        # frequentSets = self._creatingOneItemSets()
-        # self._generateEclat(frequentSets)
-        # self._endTime = _ab._time.time()
-        # process = _ab._psutil.Process(_ab._os.getpid())
-        # self._memoryRSS = float()
-        # self._memoryUSS = float()
-        # self._memoryUSS = process.memory_full_info().uss
-        # self._memoryRSS = process.memory_info().rss
-        # print("Periodic-Frequent patterns were generated successfully using PFECLAT algorithm ")
-
-    def getMaxPer(self, arr, maxTS):
-        arr = np.append(list(arr), [0, maxTS])
-        arr = np.sort(arr)
-        arr = np.diff(arr)
-
-        return np.max(arr)
+        self._startTime = _ab._time.time()
+        self._finalPatterns = {}
+        frequentSets = self._creatingOneItemSets()
+        self._generateEclat(frequentSets)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryRSS = float()
+        self._memoryUSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Periodic-Frequent patterns were generated successfully using PFECLAT algorithm ")
 
     def Mine(self) -> None:
         """
@@ -344,64 +366,8 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         """
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
-        frequentSets = self._creatingItemSets()
-
-        
-
-
-        items = {}
-        maxTS = 0
-        for line in self._Database:
-            index = int(line[0])
-            maxTS = max(maxTS, index)
-            for item in line[1:]:
-                if tuple([item]) not in items:
-                    items[tuple([item])] = set()
-                items[tuple([item])].add(index)
-
-        self._dbSize = maxTS
-
-        self._minSup = self._convert(self._minSup)
-        self._maxPer = self._convert(self._maxPer)
-        minSup = self._minSup
-        maxPer = self._maxPer
-
-
-        items = {k: v for k, v in items.items() if len(v) >= minSup}
-        items = {k: v for k, v in sorted(items.items(), key = lambda x: len(x[1]), reverse = True)}
-
-        keys = []
-        for item in list(items.keys()):
-            per = self.getMaxPer(items[item], maxTS)
-            if per <= maxPer:
-                keys.append(item)
-                self._finalPatterns[item] = [len(items[item]), per, set(items[item])]
-
-        while keys:
-            newKeys = []
-            for i in range(len(keys)):
-                for j in range(i + 1, len(keys)):
-                    if keys[i][:-1] == keys[j][:-1] and keys[i][-1] != keys[j][-1]:
-                        # print(keys[i], keys[j])
-                        newKey = tuple(keys[i] + (keys[j][-1],))
-                        intersect = items[keys[i]].intersection(items[keys[j]])
-                        per = self.getMaxPer(intersect, maxTS)
-                        sup = len(intersect)
-                        if sup >= minSup and per <= maxPer:
-                            items[newKey] = intersect
-                            newKeys.append(newKey)
-                            self._finalPatterns[newKey] = [sup, per, set(intersect)]
-                    else:
-                        break
-            keys = newKeys
-
-        newPattern = {}
-        for k, v in self._finalPatterns.items():
-            newPattern["\t".join([str(x) for x in k])] = v
-
-        self._finalPatterns = newPattern
-
-        # self._generateEclat(frequentSets)
+        frequentSets = self._creatingOneItemSets()
+        self._generateEclat(frequentSets)
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryRSS = float()

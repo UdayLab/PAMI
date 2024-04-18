@@ -538,6 +538,25 @@ if __name__ == "__main__":
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
+    file = "/Users/tarunsreepada/Documents/Code/Python/Temporal_T10I4D100K.csv"
+    minSup = 0.0007
+    maxPer = 10000
+    sep = "\t"
+    obj = PFPGrowth(file, minSup, maxPer, sep)
+    obj.Mine()
+    periodicFrequentPatterns = obj.getPatterns()
+    print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+    obj.save("patterns.txt")
+    # Df = obj.getPatternsAsDataFrame()
+    # print(Df)
+    memUSS = obj.getMemoryUSS()
+    print("Total Memory in USS:", memUSS)
+    memRSS = obj.getMemoryRSS()
+    print("Total Memory in RSS", memRSS)
+    run = obj.getRuntime()
+    print("Total ExecutionTime in seconds:", run)
+
+
 
     """
     **Methods to execute code on terminal**
