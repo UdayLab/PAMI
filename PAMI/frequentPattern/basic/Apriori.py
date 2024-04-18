@@ -52,9 +52,9 @@ Copyright (C)  2021 Rage Uday Kiran
 """
 
 from PAMI.frequentPattern.basic import abstract as _ab
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
+from typing import Dict, Union
 from deprecated import deprecated
-import numpy as np
+
 
 class Apriori(_ab._frequentPatterns):
     """
@@ -229,31 +229,7 @@ class Apriori(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
-        self._Database = []
-        self._startTime = _ab._time.time()
-        self._creatingItemSets()
-        itemsList = sorted(list(set.union(*self._Database)))  # because Database is list
-        items = [{i} for i in itemsList]
-        itemsCount = len(items)
-        self._minSup = self._convert(self._minSup)
-        self._finalPatterns = {}
-        for i in range(1, itemsCount):
-            frequentSet = self._candidateToFrequent(items)
-            for x, y in frequentSet.items():
-                sample = str()
-                for k in x:
-                    sample = sample + k + "\t"
-                self._finalPatterns[sample] = y
-            items = self._frequentToCandidate(frequentSet, i + 1)
-            if len(items) == 0:
-                break  # finish apriori
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Frequent patterns were generated successfully using Apriori algorithm ")
+        self.mine()
 
     def mine(self) -> None:
         """
