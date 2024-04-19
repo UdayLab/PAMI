@@ -47,6 +47,7 @@ __copyright__ = """
 """
 
 from PAMI.uncertainFrequentPattern.basic import abstract as _fp
+import deprecated
 
 _minSup = float()
 _fp._sys.setrecursionlimit(20000)
@@ -335,9 +336,11 @@ class _Tree(object):
 class TubeS(_fp._frequentPatterns):
     """
     :Description: TubeS is one of the fastest algorithm to discover frequent patterns in a uncertain transactional database.
+
     :Reference:
         Carson Kai-Sang Leung and Richard Kyle MacKinnon. 2014. Fast Algorithms for Frequent Itemset Mining from Uncertain Data.
         In Proceedings of the 2014 IEEE International Conference on Data Mining (ICDM '14). IEEE Computer Society, USA, 893–898. https://doi.org/10.1109/ICDM.2014.146
+
     :Attributes:
         iFile : file
             Name of the Input file or path of the input file
@@ -371,6 +374,7 @@ class TubeS(_fp._frequentPatterns):
             To represents the total no of patterns
         finalPatterns : dict
             To store the complete patterns
+
     :Methods:
         startMine()
             Mining process will start from here
@@ -396,6 +400,7 @@ class TubeS(_fp._frequentPatterns):
             After updating the Database, remaining items will be added into the tree by setting root node as null
         convert()
             to convert the user specified value
+
     **Methods to execute code on terminal**
     --------------------------------------------
             Format:
@@ -403,22 +408,37 @@ class TubeS(_fp._frequentPatterns):
             Example:
                       >>>  python3 TubeS.py sampleTDB.txt patterns.txt 3
                     .. note:: minSup  will be considered in support count or frequency
+
     **Importing this algorithm into a python program**
     ---------------------------------------------------
     .. code-block:: python
+
             from PAMI.uncertainFrequentPattern.basic import TubeS as alg
+
             obj = alg.TubeS(iFile, minSup)
+
             obj.startMine()
+
             frequentPatterns = obj.getPatterns()
+
             print("Total number of Frequent Patterns:", len(frequentPatterns))
+
             obj.save(oFile)
+
             Df = obj.getPatternsAsDataFrame()
+
             memUSS = obj.getMemoryUSS()
+
             print("Total Memory in USS:", memUSS)
+
             memRSS = obj.getMemoryRSS()
+
             print("Total Memory in RSS", memRSS)
+
             run = obj.getRuntime()
+
             print("Total ExecutionTime in seconds:", run)
+
     **Credits:**
     ---------------
     The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.
@@ -582,8 +602,8 @@ class TubeS(_fp._frequentPatterns):
 
     def _removeFalsePositives(self):
         """
-        To remove the false positive patterns generated in frequent patterns
-        :return: patterns with accurate probability
+        To remove the false positive patterns generated in frequent patterns.
+        :return: Patterns with accurate probability
         """
         global _finalPatterns
         periods = {}
@@ -609,7 +629,14 @@ class TubeS(_fp._frequentPatterns):
                     sample = sample + i + "\t"
                 self._finalPatterns[sample] = y
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
+        """
+        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
+        """
+        self.mine()
+
+    def mine(self):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
@@ -712,6 +739,7 @@ if __name__ == "__main__":
         if len(_fp._sys.argv) == 4:
             _ap = TubeS(_fp._sys.argv[1], _fp._sys.argv[3])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Uncertain Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_fp._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

@@ -296,40 +296,9 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
-        self._Database = []
-        self._startTime = _ab._time.time()
-        self._creatingItemSets()
-        self._minSup = self._convert(self._minSup)
-        self._itemSup = self._convert(self._itemSup)
-        self._minLength = int(self._minLength)
-        self._faultTolerance = int(self._faultTolerance)
-        Vector, plist = self._oneLengthFrequentItems()
-        for i in range(len(plist)):
-            itemx = plist[i]
-            tidsetx = Vector[itemx]
-            itemsetx = [itemx]
-            itemsets = []
-            tidsets = []
-            for j in range(i + 1, len(plist)):
-                itemj = plist[j]
-                tidsetj = Vector[itemj]
-                y1 = list(_np.array(tidsetx) | _np.array(tidsetj))
-                total = self._Count(y1)
-                if total >= self._minSup:
-                    itemsets.append(itemj)
-                    tidsets.append(y1)
-            if (len(itemsets) > 0):
-                self._processEquivalenceClass(itemsetx, itemsets, tidsets)
-            self._save(None, itemsetx, tidsetx)
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Fault-Tolerant Frequent patterns were generated successfully using VBFTMine algorithm ")
+        self.mine()
 
-    def Mine(self):
+    def mine(self):
         """
         Frequent pattern mining process will start from here
         """
@@ -459,6 +428,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 7:
             _ap = VBFTMine(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

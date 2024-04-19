@@ -641,43 +641,9 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
         :return : None
 
         """
-        global _minWS, _neighbourList, _rank
-        self.__startTime = _fp._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        if self._minWS is None:
-            raise Exception("Please enter the Minimum Support")
-        self.__creatingItemSets()
-        self._scanNeighbours()
-        self._minWS = self.__convert(self._minWS)
-        _minWS = self._minWS
-        itemSet = self.__frequentOneItem()
-        updatedTransactions = self.__updateTransactions(itemSet)
-        info = {self.__rank[k]: v for k, v in self._mapSupport.items()}
-        _rank = self.__rank
-        for x, y in self.__rank.items():
-            self.__rankDup[y] = x
-        _neighbourList = self._neighbourList
-        #self._neighbourList = {k:v for k, v in self._neighbourList.items() if k in self._mapSupport.keys()}
-        # for x, y in self._neighbourList.items():
-        #     xx = [self.__rank[i] for i in y if i in self._mapSupport.keys()]
-        #     _neighbourList[self.__rank[x]] = xx
-        # print(_neighbourList)
-        __Tree = self.__buildTree(updatedTransactions, info)
-        patterns = __Tree.generatePatterns([])
-        self.__finalPatterns = {}
-        for k in patterns:
-            s = self.__savePeriodic(k[0])
-            self.__finalPatterns[str(s)] = k[1]
-        print("Weighted Frequent patterns were generated successfully using SWFPGrowth algorithm")
-        self.__endTime = _fp._time.time()
-        self.__memoryUSS = float()
-        self.__memoryRSS = float()
-        process = _fp._psutil.Process(_fp._os.getpid())
-        self.__memoryUSS = process.memory_full_info().uss
-        self.__memoryRSS = process.memory_info().rss
+        self.mine()
 
-    def Mine(self) -> None:
+    def mine(self) -> None:
         """
         main program to start the operation
         :return : None
@@ -808,6 +774,7 @@ if __name__ == "__main__":
         if len(_fp._sys.argv) == 7:
             _ap = SWFPGrowth(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4], _fp._sys.argv[5], _fp._sys.argv[6])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Weighted Spatial Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_fp._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

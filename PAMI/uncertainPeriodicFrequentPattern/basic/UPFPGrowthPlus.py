@@ -756,29 +756,9 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
-        global _minSup, _maxPer, _first, _last, _lno
-        self._startTime = _ab._time.time()
-        self._creatingItemSets()
-        self._minSup = self._convert(self._minSup)
-        self._maxPer = self._convert(self._maxPer)
-        self._finalPatterns = {}
-        _minSup, _maxPer, _lno = self._minSup, self._maxPer, len(self._Database)
-        mapSupport, plist = self._PeriodicFrequentOneItems()
-        updatedTrans = self._updateTransactions(mapSupport)
-        info = {k: v for k, v in mapSupport.items()}
-        root = self._buildTree(updatedTrans, info)
-        self._periodic = {}
-        root.generatePatterns([], self._periodic)
-        self._removeFalsePositives()
-        print("Periodic Frequent patterns were generated successfully using UPFP-Growth++ algorithm")
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
+        self.mine()
 
-    def Mine(self):
+    def mine(self):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
@@ -887,6 +867,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = UPFPGrowthPlus(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
+        _ap.mine()
         _Patterns = _ap.getPatterns()
         print("Total number of Patterns:", len(_Patterns))
         _ap.savePatterns(_ab._sys.argv[2])

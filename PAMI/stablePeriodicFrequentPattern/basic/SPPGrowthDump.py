@@ -437,40 +437,9 @@ class SPPGrowth():
         Mining process will start from this function
         """
 
-        global _minSup, _maxPer, _lno, _maxLa
-        self._startTime = time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        if self._minSup is None:
-            raise Exception("Please enter the Minimum Support")
-        self._creatingItemSets()
-        self._minSup = self._convert(self._minSup)
-        self._maxPer = self._convert(self._maxPer)
-        self._maxLa = self._convert(self._maxLa)
-        _minSup, _maxPer, _maxLa, _lno = self._minSup, self._maxPer, self._maxLa, len(self._Database)
-        print(_minSup, _maxPer, _maxLa)
-        if self._minSup > len(self._Database):
-            raise Exception("Please enter the minSup in range between 0 to 1")
-        generatedItems, pfList = self._periodicFrequentOneItem()
-        updatedDatabases = self._updateDatabases(generatedItems)
-        for x, y in self._rank.items():
-            self._rankedUp[y] = x
-        info = {self._rank[k]: v for k, v in generatedItems.items()}
-        Tree = self._buildTree(updatedDatabases, info)
-        patterns = Tree.generatePatterns([])
-        self._finalPatterns = {}
-        for i in patterns:
-            sample = self._savePeriodic(i[0])
-            self._finalPatterns[sample] = i[1]
-        self._endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Stable Periodic Frequent patterns were generated successfully using topk algorithm ")
+        self.mine()
 
-    def Mine(self):
+    def mine(self):
         """
         Mining process will start from this function
         """
@@ -580,6 +549,7 @@ if __name__ == "__main__":
         if len(sys.argv) == 5:
             _ap = SPPGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
         _ap.startMine()
+        _ap.mine()
         _Patterns = _ap.getPatterns()
         print("Total number of Patterns:", len(_Patterns))
         _ap.save(sys.argv[2])

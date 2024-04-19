@@ -53,11 +53,11 @@ __copyright__ = """
 """
 
 
-from PAMI.uncertainPeriodicFrequentPattern.basic import abstract as _ab
+
 import pandas as pd
 from deprecated import deprecated
 from PAMI.uncertainPeriodicFrequentPattern.basic import abstract as _ab
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
+from typing import List, Dict, Tuple, Union
 
 _minSup = float()
 __maxPer = float()
@@ -741,29 +741,9 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
         by counting the original support of a patterns.
         :return: None
         """
-        global _lno, _maxPer, _minSup, _first, _last, periodic
-        self._startTime = _ab._time.time()
-        self._creatingItemSets()
-        self._finalPatterns = {}
-        self._minSup = self._convert(self._minSup)
-        self._maxPer = self._convert(self._maxPer)
-        _minSup, _maxPer, _lno = self._minSup, self._maxPer, self._lno
-        mapSupport, plist = self._periodicFrequentOneItem()
-        updatedTrans = self._updateTransactions(mapSupport)
-        info = {k: v for k, v in mapSupport.items()}
-        Tree1 = self._buildTree(updatedTrans, info)
-        self._periodic = {}
-        Tree1.generatePatterns([], self._periodic)
-        self._removeFalsePositives()
-        print("Periodic frequent patterns were generated successfully using UPFP algorithm")
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
+        self.mine()
 
-    def Mine(self) -> None:
+    def mine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns
         by counting the original support of a patterns.
@@ -877,6 +857,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = UPFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Uncertain Periodic-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
