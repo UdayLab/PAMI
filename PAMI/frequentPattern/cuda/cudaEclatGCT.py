@@ -351,28 +351,7 @@ class cudaEclatGCT:
         """
         Frequent pattern mining process will start from here
         """
-        startTime = time.time()
-        basePattern = []
-        final = {}
-
-        self.__creatingItemSets()
-        self._minSup = self.__convert(self._minSup)
-        minSup = self._minSup
-        vb_data, idx2item = self.compute_vertical_bitvector_data()
-
-        for i in range(len(vb_data)):
-            if _gpuarray.sum(vb_data[i]).get() >= self._minSup:
-                basePattern.append(idx2item[i])
-                final[idx2item[i]] = _gpuarray.sum(vb_data[i]).get()
-
-        # reverse idx2item
-        item2idx = {idx2item[i]: i for i in idx2item}
-        self.eclat(basePattern, final, vb_data, idx2item, item2idx)
-        self.__time = time.time() - startTime
-        self.__memRSS = psutil.Process(os.getpid()).memory_info().rss
-        self.__memUSS = psutil.Process(os.getpid()).memory_full_info().uss
-        self._finalPatterns = final
-        self.__GPU_MEM = vb_data.nbytes
+        self.mine()
 
     def mine(self):
         """

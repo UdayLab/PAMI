@@ -53,7 +53,7 @@ __copyright__ = """
 
 
 from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
-
+import deprecated
 
 class PPF_DFS(partialPeriodicPatterns):
     """
@@ -420,7 +420,16 @@ class PPF_DFS(partialPeriodicPatterns):
             self.__Generation(newprefix, classItemsets, classtidsets)
             self.__save(prefix, list(set(itemsetx)), tidsetx)
 
+
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
+        """
+        Main program start with extracting the periodic frequent items from the database and
+        performs prefix equivalence to form the combinations and generates closed periodic frequent patterns.
+        """
+        self.mine()
+
+    def mine(self):
         """
         Main program start with extracting the periodic frequent items from the database and
         performs prefix equivalence to form the combinations and generates closed periodic frequent patterns.
@@ -453,8 +462,6 @@ class PPF_DFS(partialPeriodicPatterns):
         self._partialPeriodicPatterns__memoryRSS = float()
         self._partialPeriodicPatterns__memoryUSS = process.memory_full_info().uss
         self._partialPeriodicPatterns__memoryRSS = process.memory_info().rss
-        # print("eclat Time taken:",temp)
-        # print("eclat Memory Space:",resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function

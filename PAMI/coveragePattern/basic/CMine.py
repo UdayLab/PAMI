@@ -300,25 +300,7 @@ class CMine(_ab._coveragePatterns):
     def startMine(self) -> None:
         """ Main method to start """
 
-        self._startTime = _ab._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        self._creatingItemSets()
-        self._minCS = self._convert(self._minCS)
-        self._minRF =  self._convert(self._minRF)
-        self._maxOR = self._convert(self._maxOR)
-        coverageItems = self.creatingCoverageItems()
-        self._finalPatterns = {k: len(v) for k, v in coverageItems.items()}
-        coverageItemsBitset = self.tidToBitset(coverageItems)
-        self.generateAllPatterns(coverageItemsBitset)
-        self.save('output.txt')
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Coverage patterns were generated successfully using CMine  algorithm")
+        self.mine()
 
     def mine(self) -> None:
         """ Main method to start """

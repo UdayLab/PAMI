@@ -413,33 +413,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         Frequent pattern mining process will start from here
         """
 
-        # global items_sets, endTime, startTime
-        self._startTime = _ab._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        self._creatingItemSets()
-        self._minSup = self._convert(self._minSup)
-        self._mapNeighbours()
-        self._finalPatterns = {}
-        self._frequentOneItem()
-        frequentSet = self._generateSpatialFrequentPatterns(self._finalPatterns)
-        for x, y in frequentSet.items():
-            if x not in self._finalPatterns:
-                self._finalPatterns[x] = y
-        while 1:
-            frequentSet = self._eclatGeneration(frequentSet)
-            for x, y in frequentSet.items():
-                if x not in self._finalPatterns:
-                    self._finalPatterns[x] = y
-            if len(frequentSet) == 0:
-                break
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Spatial Frequent patterns were generated successfully using SpatialECLAT algorithm")
+        self.mine()
 
     def mine(self):
         """

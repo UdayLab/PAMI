@@ -649,38 +649,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
         Mining process will start from this function
         """
 
-        global _minSup
-        self._startTime = _ab._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        if self._minSup is None:
-            raise Exception("Please enter the Minimum Support")
-        self._creatingItemSets()
-        self._minSup = self._convert(self._minSup)
-        _minSup = self._minSup
-        generatedItems, pfList = self._frequentOneItem()
-        updatedTransactions = self._updateTransactions(generatedItems)
-        for x, y in self._rank.items():
-            self._rankdup[y] = x
-        info = {self._rank[k]: v for k, v in generatedItems.items()}
-        patterns = {}
-        self._finalPatterns = {}
-        self._maximalTree = _MPTree()
-        Tree = self._buildTree(updatedTransactions, info)
-        Tree.generatePatterns([], patterns, self._maximalTree)
-        for x, y in patterns.items():
-            pattern = str()
-            x = self._convertItems(x)
-            for i in x:
-                pattern = pattern + i + "\t"
-            self._finalPatterns[pattern] = y
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Maximal Frequent patterns were generated successfully using MaxFp-Growth algorithm ")
+        self.mine()
 
     def mine(self):
         """

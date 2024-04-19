@@ -1,19 +1,16 @@
-# TemporalDatabase is a code used to create a synthetic temporal database.
+# TemporalDatabase is a collection of timestamps and along with data at particular time.
 #
 #  **Importing this algorithm into a python program**
 #  --------------------------------------------------------
 #
 #             from PAMI.extras.syntheticDataGenerator import TemporalDatabase as db
 #
-#             obj = db.TemporalDatabase(100, 10, 6, oFile, %, "\t")
+#             temporalDB = db(numOfTransactions, avgTransactionLength, numItems, outFileName)
 #
-#             obj.save()
+#             temporalDB.create(percentage)
 #
-#             obj.getFileName("outputFileName") # to create a file
 #
-#             obj.getDatabaseAsDataFrame("outputFileName") # to convert database into dataframe
-#
-#             obj.createTemporalFile("outputFileName") # to get outputfile
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -32,65 +29,82 @@ __copyright__ = """
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import Tuple, List, Union
+
 import pandas as pd
 import numpy as np
-import random
 import sys
-import os
+
 
 class TemporalDatabase:
     """
-    :Description:   generateTemporalDatabase creates a temporal database and outputs a database or a frame depending on input
+    :Description: - creates a temporal database with required parameter (e.g.,numOfTransactions, avgLenOfTransactions, numItems and outputFile).
+                  - output can be printed in two ways either in text file or dataframe depending on the input type.
 
     :Attributes:
+
         :param numOfTransactions: int
             number of transactions
+
         :param avgLenOfTransactions: int
             average length of transactions
+
         :param numItems: int
             number of items
+
         :param outputFile: str
-            output file name
+            the name the output file
+
         :param percentage: int
             percentage of coinToss for TID of temporalDatabase
+
         :param sep: str
             seperator for database output file
+
         :param typeOfFile: str
             specify database or dataframe to get corresponding output
 
     :Methods:
         getFileName():
             returns filename
+
         createTemporalFile():
             creates temporal database file or dataframe
+
         getDatabaseAsDataFrame:
             returns dataframe
+
         performCoinFlip():
             Perform a coin flip with the given probability
+
         tuning():
             Tune the arrayLength to match avgLenOfTransactions
+
         createTemporalFile():
             create Temporal database or dataframe depending on input
+
+    **Methods to execute code on terminal**
+    ---------------------------------------------
+
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 TemporalDatabase.py <numOfTransactions> <avgLenOfTransactions> <numItems> <outputFile>
+
+      Example Usage:
+
+      (.venv) $ python3 TemporalDatabase.py 50.0 10.0 100 temporal.txt
 
     **Importing this algorithm into a python program**
     --------------------------------------------------------
     .. code-block:: python
 
-            from PAMI.extras.generateDatabase import generateTemporalDatabase as db
+            from PAMI.extras.syntheticDataGenerator import TemporalDatabase as db
 
-            numOfTransactions = 100
-            numItems = 15
-            avgTransactionLength = 6
-            outFileName = 'temporal_ot.txt'
-            sep = '\t'
-            percent = 75
-            frameOrBase = "dataframe" # if you want to get dataframe as output
-            frameOrBase = "database" # if you want to get database/csv/file as output
+            temporalDB = db(numOfTransactions, avgTransactionLength, numItems, outFileName)
 
-            temporalDB = db.generateTemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName, percent, sep, frameOrBase )
-            temporalDB.createTemporalFile()
-            print(temporalDB.getDatabaseAsDataFrame())
+            temporalDB.create(percentage)
+
 
     """
     def __init__(self, numOfTransactions: int, avgLenOfTransactions: int, 
@@ -98,38 +112,7 @@ class TemporalDatabase:
                  sep: str='\t', typeOfFile: str="Database") -> None:
         
         """
-        :Description:   Initialize the generateTemporalDatabase class
-
-        :Attributes:
-            :param numOfTransactions: int
-                number of transactions
-            :param avgLenOfTransactions: int
-                average length of transactions
-            :param numItems: int
-                number of items
-            :param outputFile: str
-                output file name
-            :param percentage: int
-                percentage of coinToss for TID of temporalDatabase
-            :param sep: str
-                seperator for database output file
-            :param typeOfFile: str
-                specify database or dataframe to get corresponding output
-
-        :Methods:
-            getFileName():
-                returns filename
-            createTemporalFile():
-                creates temporal database file or dataframe
-            getDatabaseAsDataFrame:
-                returns dataframe
-            performCoinFlip():
-                Perform a coin flip with the given probability
-            tuning():
-                Tune the arrayLength to match avgLenOfTransactions
-            createTemporalFile():
-                create Temporal database or dataframe depending on input
-        
+        Initialize the generateTemporalDatabase class with required parameters.
         """
 
         self.numOfTransactions = numOfTransactions
@@ -145,14 +128,15 @@ class TemporalDatabase:
 
     def getFileName(self) -> str:
         """
-        return filename
-        :return:
+        This function take the name of the outputfile.
+        :return: outputFile.
         """
         return self.outputFile
 
     def getDatabaseAsDataFrame(self) -> pd.DataFrame:
         """
-        return dataframe
+        This function return the database in dataframe format.
+
         return: pd.dataframe
         """
         return self.df
@@ -168,13 +152,14 @@ class TemporalDatabase:
         Tune the array so that the sum of the values is equal to sumRes
 
         Parameters:
-        array: list - list of values
-        sumRes: int - target sum
+        :param array: list of values randomly generated.
+        :type array: list
+        :param sumRes: target sum
+        :type sumRes: int
 
         Returns:
         array: list - tuned array
         """
-
         # first generate a random array of length n whose values average to m
         values = np.random.randint(1, self.numItems, len(array))
 
@@ -198,8 +183,8 @@ class TemporalDatabase:
 
     def create(self) -> None:
         """
-        create Temporal database or dataframe depending on input
-        :return:
+        create Temporal database or dataframe depending on type of file specified.
+        :return: None
         """
 
         db = []
@@ -233,21 +218,6 @@ class TemporalDatabase:
             self.df = pd.DataFrame(data)
 
         print("Temporal database created successfully")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 if __name__ == '__main__':
 
