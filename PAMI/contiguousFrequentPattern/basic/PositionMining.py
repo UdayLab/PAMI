@@ -273,28 +273,7 @@ class PositionMining:
         Pattern mining process will start from here
         """
         # pass
-        self._startTime = _ab._time.time()
-        self.table={i:{} for i in range(1,6)}
-        self.readData()
-
-        self.getfreqs()
-        temp=self.symbol_freq
-        self.table.update({1:temp})
-        self.current_candidate=1
-        self.mineNext_candidates()
-        self.frequentPatterns={}
-        for length in self.table:
-            temp=self.table[length]
-            for pattern in temp:
-                self.frequentPatterns.update({pattern:len(temp[pattern])})
-        
-        
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._endTime = _ab._time.time()
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
+        self.mine()
 
     def mine(self):
         """

@@ -321,35 +321,7 @@ class FAE(_ab._frequentPatterns):
         """
             Main function of the program
         """
-        self._startTime = _ab._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        if self._k is None:
-            raise Exception("Please enter the Minimum Support")
-        self._creatingItemSets()
-        self._k = self._convert(self._k)
-        plist = self._frequentOneItem()
-        for i in range(len(plist)):
-            itemI = plist[i]
-            tidSetI = self._tidList[itemI]
-            itemSetX = [itemI]
-            itemSets = []
-            tidSets = []
-            for j in range(i + 1, len(plist)):
-                itemJ = plist[j]
-                tidSetJ = self._tidList[itemJ]
-                y1 = list(set(tidSetI).intersection(tidSetJ))
-                if len(y1) >= self._minimum:
-                    itemSets.append(itemJ)
-                    tidSets.append(y1)
-            self._Generation(itemSetX, itemSets, tidSets)
-        print(" TopK frequent patterns were successfully generated using FAE algorithm.")
-        self._endTime = _ab._time.time()
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
+        self.mine()
 
     def mine(self):
         """

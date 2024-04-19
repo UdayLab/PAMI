@@ -418,27 +418,7 @@ class RuleMiner:
         """
         Association rule mining process will start from here
         """
-        self._startTime = _ab._time.time()
-        k = self._readPatterns()
-        if self._measure == 'confidence':
-            a = Confidence(self._frequentPatterns, k, self._threshold)
-            a.run()
-            self._finalPatterns = a._finalPatterns
-        if self._measure == 'lift':
-            a = Lift(self._frequentPatterns, k, self._threshold)
-            a.run()
-            self._finalPatterns = a._finalPatterns
-        if self._measure == 'leverage':
-            a = Leverage(self._frequentPatterns, k, self._threshold)
-            a.run()
-            self._finalPatterns = a._finalPatterns
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Association rules successfully  generated from frequent patterns ")
+        self.mine()
 
 
     def mine(self):

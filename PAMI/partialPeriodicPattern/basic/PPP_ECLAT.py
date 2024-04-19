@@ -387,33 +387,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         :return: None
 
         """
-        self._startTime = _ab._time.time()
-        self._creatingItemSets()
-        plist = self._creatingOneitemSets()
-        self._finalPatterns = {}
-        for i in range(len(plist)):
-            itemI = plist[i]
-            tidSetX = self._tidList[itemI]
-            itemSetX = [itemI]
-            itemSets = []
-            tidSets = []
-            for j in range(i + 1, len(plist)):
-                itemJ = plist[j]
-                tidSetJ = self._tidList[itemJ]
-                y1 = list(set(tidSetX).intersection(tidSetJ))
-                val = self._getPeriodicSupport(y1)
-                if val >= self._minPS:
-                    itemSets.append(itemJ)
-                    tidSets.append(y1)
-            self._Generation(itemSetX, itemSets, tidSets)
-            self._save(None, itemSetX, tidSetX)
-        print("Partial Periodic Patterns were generated successfully using 3PEclat algorithm")
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryRSS = float()
-        self._memoryUSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
+        self.mine()
 
     def Mine(self) -> None:
         """

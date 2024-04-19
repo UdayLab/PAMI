@@ -451,21 +451,7 @@ class efimParallel(_ab._utilityPatterns):
         Start the EFIM algorithm.
         """
 
-        ps = psutil.Process(os.getpid())
-
-        self.start = time.time()
-
-        fileData, primary, secondary = self._read_file()
-
-        collection = [[[], fileData, primary, secondary]]
-
-        self._search(collection)
-
-        self.memoryRSS = ps.memory_info().rss
-        self.memoryUSS = ps.memory_full_info().uss
-
-        end = time.time()
-        self.runtime = end - self.start
+        self.mine()
 
     def mine(self):
         """

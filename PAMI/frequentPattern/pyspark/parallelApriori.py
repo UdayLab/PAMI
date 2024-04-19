@@ -365,30 +365,7 @@ class parallelApriori(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
-        self._startTime = _ab._time.time()
-
-        # setting SparkConf and SparkContext to process in parallel
-        conf = _ab._SparkConf().setAppName("parallelApriori").setMaster("local[*]")
-        sc = _ab._SparkContext(conf=conf)
-        # sc.addFile("file:///home/hadoopuser/Spark_code/abstract.py")
-
-        # read database from iFile
-        database = sc.textFile(self._iFile, self._numPartitions).map(
-            lambda x: {int(y) for y in x.rstrip().split(self._sep)})
-        self._lno = database.count()
-        # Calculating minSup as a percentage
-        self._minSup = self._convert(self._minSup)
-
-        oneFrequentItems = self._genFrequentItems(database)
-        self._finalPatterns = oneFrequentItems
-        self._getAllFrequentPatterns(database, oneFrequentItems)
-
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Frequent patterns were generated successfully using Parallel Apriori algorithm")
-        sc.stop()
+        self.mine()
 
     def mine(self):
         """

@@ -56,6 +56,7 @@ import sys as _sys
 import validators as _validators
 from urllib.request import urlopen as _urlopen
 from PAMI.partialPeriodicPattern.maximal import abstract as _abstract
+import deprecated
 
 global maximalTree
 _periodicSupport = float()
@@ -683,7 +684,15 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
             t1.append(self._pfList[i])
         return t1
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
+        """
+        Mining process will start from this function
+        """
+
+        self.mine()
+
+    def mine(self):
         """
         Mining process will start from this function
         """

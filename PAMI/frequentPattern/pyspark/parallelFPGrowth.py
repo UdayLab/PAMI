@@ -265,44 +265,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
-
-        self._startTime = _ab._time.time()
-
-        conf = _SparkConf().setAppName("Parallel FPGrowth").setMaster("local[*]")
-        sc = _SparkContext(conf=conf)
-
-        rdd = sc.textFile(self._iFile, self._numPartitions)\
-            .map(lambda x: x.rstrip().split(self._sep))\
-            .persist()
-
-        self._lno = rdd.count()
-        self._minSup = self._convert(self._minSup)
-
-        freqItems = rdd.flatMap(lambda trans: [(item, 1) for item in trans])\
-            .reduceByKey(add)\
-            .filter(lambda x: x[1] >= self._minSup)\
-            .sortBy(lambda x: x[1], ascending=False)\
-            .collect()
-        self._finalPatterns = dict(freqItems)
-        self._FPList = [x[0] for x in freqItems]
-        rank = dict([(item, index) for (index, item) in enumerate(self._FPList)])
-
-        workByPartition = rdd.flatMap(lambda x: self.genCondTransaction(x, rank)).groupByKey()
-
-        trees = workByPartition.foldByKey(Tree(), lambda tree, data: self.buildTree(tree, data))
-        freqPatterns = trees.flatMap(lambda tree_tuple: self.genAllFrequentPatterns(tree_tuple))
-        result = freqPatterns.map(lambda ranks_count: (tuple([self._FPList[z] for z in ranks_count[0]]), ranks_count[1]))\
-            .collect()
-
-        self._finalPatterns.update(dict(result))
-
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        sc.stop()
-
-        print("Frequent patterns were generated successfully using Parallel FPGrowth algorithm")
+        self.mine()
 
     def mine(self):
         """

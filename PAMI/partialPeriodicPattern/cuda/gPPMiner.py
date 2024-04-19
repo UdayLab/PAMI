@@ -3,7 +3,7 @@ import csv
 import time
 import psutil
 import numpy as np
-import pycuda.autoinit
+import deprecated
 import pycuda.driver as cuda
 from pycuda.compiler import SourceModule
 
@@ -178,23 +178,7 @@ class gPPMiner:
         """
         Start the mining process
         """
-        startTime = time.time()
-        data = self.__readFile()
-        bitValues, index2id = self.__generateBitArray(data)
-        keys = []
-
-        for i in range(len(index2id)):
-            keys.append([i])
-
-        if len(keys) > 1:
-            self.__eclat(bitValues, keys, index2id)
-
-        print(
-            "Periodic-Frequent patterns were generated successfully using gPPMiner"
-        )
-        self.__time = time.time() - startTime
-        self.__memRSS = psutil.Process(os.getpid()).memory_info().rss
-        self.__memUSS = psutil.Process(os.getpid()).memory_full_info().uss
+        self.mine()
 
     def __eclat(self, bitValues, keys, index2id):
         """
@@ -270,7 +254,7 @@ class gPPMiner:
             if len(keys) > 1:
                 self.__eclat(bitValues, keys, index2id)
 
-    def Mine(self):
+    def mine(self):
         """
         Start the mining process
         """

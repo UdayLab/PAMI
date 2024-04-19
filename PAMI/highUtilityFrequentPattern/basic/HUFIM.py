@@ -558,59 +558,7 @@ class HUFIM(_ab._utilityPatterns):
         High Utility Frequent Pattern mining start here
         :return: None
         """
-        self._startTime = _ab._time.time()
-        self._finalPatterns = {}
-        self._dataset = []
-        self._dataset = _Dataset(self._iFile, self._sep)
-        self._singleItemSetsSupport = _ab._defaultdict(int)
-        self._singleItemSetsUtility = _ab._defaultdict(int)
-        self._useUtilityBinArrayToCalculateLocalUtilityFirstTime(self._dataset)
-        self._minUtil = int(self._minUtil)
-        self._minSup = self._convert(self._minSup)
-        itemsToKeep = []
-        for key in self._utilityBinArrayLU.keys():
-            if self._utilityBinArrayLU[key] >= self._minUtil and self._singleItemSetsSupport[key] >= self._minSup:
-                itemsToKeep.append(key)
-        itemsToKeep = sorted(itemsToKeep, key=lambda x: self._singleItemSetsUtility[x], reverse=True)
-        currentName = 1
-        for idx, item in enumerate(itemsToKeep):
-            self._oldNamesToNewNames[item] = currentName
-            self._newNamesToOldNames[currentName] = item
-            itemsToKeep[idx] = currentName
-            currentName += 1
-        for transaction in self._dataset.getTransactions():
-            transaction.removeUnpromisingItems(self._oldNamesToNewNames)
-        self._sortDatabase(self._dataset.getTransactions())
-        emptyTransactionCount = 0
-        for transaction in self._dataset.getTransactions():
-            if len(transaction.getItems()) == 0:
-                emptyTransactionCount += 1
-        self._dataset.transactions = self._dataset.transactions[emptyTransactionCount:]
-        # calculating suffix utility values
-        totalUtility = 0
-        for item in itemsToKeep:
-            totalUtility += self._singleItemSetsUtility[self._newNamesToOldNames[item]]
-        # piItems
-        piItems = []
-        for item in itemsToKeep:
-            if totalUtility >= self._minUtil:
-                piItems.append(item)
-                totalUtility -= self._singleItemSetsUtility[self._newNamesToOldNames[item]]
-            else:
-                break
-        self._useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self._dataset)
-        itemsToExplore = []
-        for item in piItems:
-            if self._utilityBinArraySU[item] >= self._minUtil:
-                itemsToExplore.append(item)
-        self._backTrackingHUFIM(self._dataset.getTransactions(), itemsToKeep, itemsToExplore, 0)
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("High Utility Frequent patterns were generated successfully using HUFIM algorithm")
+        self.mine()
 
     def mine(self) -> None:
         """
