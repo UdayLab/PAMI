@@ -241,7 +241,6 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def tidToBitset(self,itemset):
         """
-
         This function converts tid list to bitset.
 
         :param itemset: frequent itemset that generated
