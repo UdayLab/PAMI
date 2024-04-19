@@ -694,30 +694,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
         """
         startMine() method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns.
         """
-        global _expSup, _expWSup, _weights, _finalPatterns
-        self._startTime = _ab._time.time()
-        self._Database, self._weights = [], {}
-        self._creatingItemSets()
-        self._scanningWeights()
-        _weights = self._weights
-        self._expSup = float(self._expSup)
-        self._expWSup = float(self._expWSup)
-        _expSup = self._expSup
-        _expWSup = self._expWSup
-        self._finalPatterns = {}
-        mapSupport, plist = self._frequentOneItem()
-        self.Database1 = self._updateTransactions(mapSupport)
-        info = {k: v for k, v in mapSupport.items()}
-        Tree1 = self._buildTree(self.Database1, info)
-        Tree1.generatePatterns([])
-        self._removeFalsePositives()
-        print("Weighted Frequent patterns were generated  successfully using basic algorithm")
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self.memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+        self.mine()
 
     def mine(self) -> None:
         """
@@ -834,6 +811,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 6:
             _ap = WUFIM(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Weighted Uncertain Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

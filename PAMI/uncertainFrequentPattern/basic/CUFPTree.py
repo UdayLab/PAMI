@@ -656,27 +656,9 @@ class CUFPTree(_ab._frequentPatterns):
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns.
         :return: None
         """
-        global minSup
-        self._startTime = _ab._time.time()
-        self._creatingItemSets()
-        self._minSup = self._convert(self._minSup)
-        minSup = self._minSup
-        self._finalPatterns = {}
-        mapSupport, plist = self._frequentOneItem()
-        self.Database1 = self._updateTransactions(mapSupport)
-        info = {k: v for k, v in mapSupport.items()}
-        Tree1 = self._buildTree(self.Database1, info)
-        Tree1.generatePatterns([])
-        self._removeFalsePositives()
-        print("Uncertain Frequent patterns were successfully generated using CUFPTree algorithm")
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self.memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+        self.mine()
 
-    def Mine(self) -> None:
+    def mine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns.
         :return: None
@@ -789,6 +771,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = CUFPTree(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Uncertain Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

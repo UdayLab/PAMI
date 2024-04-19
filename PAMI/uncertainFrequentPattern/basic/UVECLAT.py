@@ -48,7 +48,7 @@ __copyright__ = """
 
 import operator as _operator
 from PAMI.uncertainFrequentPattern.basic import abstract as _ab
-
+import deprecated
 
 _minSup = float()
 _finalPatterns = {}
@@ -72,10 +72,12 @@ class _Item:
 class UVEclat(_ab._frequentPatterns):
     """
     :Description: It is one of the fundamental algorithm to discover frequent patterns in an uncertain transactional database using PUF-Tree.
+
     :Reference:
     Carson Kai-Sang Leung, Lijing Sun: "Equivalence class transformation based mining of frequent itemsets from uncertain data",
     SAC '11: Proceedings of the 2011 ACM Symposium on Applied ComputingMarch, 2011, Pages 983–984,
     https://doi.org/10.1145/1982185.1982399
+
     :Attributes:
         iFile : file
             Name of the Input file or path of the input file
@@ -109,6 +111,7 @@ class UVEclat(_ab._frequentPatterns):
             To represents the total no of patterns
         finalPatterns : dict
             To store the complete patterns
+
     :Methods:
         startMine()
             Mining process will start from here
@@ -128,29 +131,46 @@ class UVEclat(_ab._frequentPatterns):
             Scans the dataset and stores in a list format
         frequentOneItem()
             Extracts the one-length frequent patterns from database
+
     **Methods to execute code on terminal**
     ------------------------------------------
             Format:
                       >>> python3 uveclat.py <inputFile> <outputFile> <minSup>
             Example:
                       >>>  python3 uveclat.py sampleTDB.txt patterns.txt 3
+
                       .. note:: minSup  will be considered in support count or frequency
+
     **Importing this algorithm into a python program**
     ---------------------------------------------------
     .. code-block:: python
+
             from PAMI.uncertainFrequentPattern.basic import UVECLAT as alg
+
             obj = alg.UVEclat(iFile, minSup)
+
             obj.startMine()
+
             frequentPatterns = obj.getPatterns()
+
             print("Total number of Frequent Patterns:", len(frequentPatterns))
+
             obj.save(oFile)
+
             Df = obj.getPatternsAsDataFrame()
+
             memUSS = obj.getmemoryUSS()
+
             print("Total Memory in USS:", memUSS)
+
             memRSS = obj.getMemoryRSS()
+
             print("Total Memory in RSS", memRSS)
+
             run = obj.getRuntime()
+
             print("Total ExecutionTime in seconds:", run)
+
     **Credits:**
     ---------------
          The complete program was written by   P.Likhitha    under the supervision of Professor Rage Uday Kiran.
@@ -393,7 +413,14 @@ class UVEclat(_ab._frequentPatterns):
             self._Generation(newPrefix, classItemSets, classTidSets)
             self._save(prefix, list(set(itemSetX)), tidSetI)
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
+        """
+        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
+        """
+        self.mine()
+
+    def mine(self):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
@@ -500,6 +527,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = UVEclat(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

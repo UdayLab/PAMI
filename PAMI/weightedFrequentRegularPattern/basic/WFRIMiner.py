@@ -656,38 +656,9 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         main program to start the operation
         :return: None
         """
-        global _WS, _regularity, _weights
-        self._startTime = _fp._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        if self._WS is None:
-            raise Exception("Please enter the Minimum Support")
-        self._creatingItemSets()
-        self._WS = self._convert(self._WS)
-        self._regularity = self._convert(self._regularity)
-        _WS, _regularity, _weights = self._WS, self._regularity, self._weight
-        itemSet = self._frequentOneItem()
-        updatedTransactions = self._updateTransactions(itemSet)
-        for x, y in self._rank.items():
-            self._rankDup[y] = x
-        info = {self._rank[k]: v for k, v in self._mapSupport.items()}
-        _Tree = self._buildTree(updatedTransactions, info)
-        patterns = _Tree.generatePatterns([])
-        self._finalPatterns = {}
-        for k in patterns:
-            s = self._savePeriodic(k[0])
-            self._finalPatterns[str(s)] = k[1]
-        print("Weighted Frequent Regular patterns were generated successfully using WFRIM algorithm")
-        self._endTime = _fp._time.time()
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        process = _fp._psutil.Process(_fp._os.getpid())
-        self._memoryRSS = float()
-        self._memoryUSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
+        self.mine()
 
-    def Mine(self) -> None:
+    def mine(self) -> None:
         """
         main program to start the operation
         :return: None
@@ -810,6 +781,7 @@ if __name__ == "__main__":
         if len(_fp._sys.argv) == 5:
             _ap = WFRIMiner(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4], _fp._sys.argv[5])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Weighted Frequent Regular Patterns:", len(_ap.getPatterns()))
         _ap.save(_fp._sys.argv[2])
         print("Total Memory in USS:",  _ap.getMemoryUSS())

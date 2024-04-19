@@ -48,7 +48,7 @@ __copyright__ = """
 from PAMI.uncertainFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Union
 import pandas as pd
-
+import deprecated
 _minSup = float()
 _finalPatterns = {}
 
@@ -71,9 +71,11 @@ class _Item:
 class TUFP(_ab._frequentPatterns):
     """
     :Description: It is one of the fundamental algorithm to discover top-k frequent patterns in a uncertain transactional database using CUP-Lists.
+
     :Reference:
         Tuong Le, Bay Vo, Van-Nam Huynh, Ngoc Thanh Nguyen, Sung Wook Baik 5, "Mining top-k frequent patterns from uncertain databases",
         Springer Science+Business Media, LLC, part of Springer Nature 2020, https://doi.org/10.1007/s10489-019-01622-1
+
     :Attributes:
         iFile : file
             Name of the Input file or path of the input file
@@ -107,6 +109,7 @@ class TUFP(_ab._frequentPatterns):
             To represents the total no of patterns
         finalPatterns : dict
             To store the complete patterns
+
     :Methods:
         startMine()
             Mining process will start from here
@@ -134,32 +137,48 @@ class TUFP(_ab._frequentPatterns):
             to convert the user specified value
         startMine()
             Mining process will start from this function
+
     **Methods to execute code on terminal**
     -----------------------------------------
             Format:
                       >>> python3 TUFP.py <inputFile> <outputFile> <minSup>
             Example:
                       >>>  python3 TUFP.py sampleTDB.txt patterns.txt 0.6
+
                       .. note:: minSup  will be considered in support count or frequency
+
     **Importing this algorithm into a python program**
     ------------------------------------------------------
     .. code-block:: python
             from PAMI.uncertainFrequentPattern.basic import TUFP as alg
+
             obj = alg.TUFP(iFile, minSup)
+
             obj.startMine()
+
             frequentPatterns = obj.getPatterns()
+
             print("Total number of Frequent Patterns:", len(frequentPatterns))
+
             obj.save(oFile)
+
             Df = obj.getPatternsAsDataFrame()
+
             memUSS = obj.getmemoryUSS()
+
             print("Total Memory in USS:", memUSS)
+
             memRSS = obj.getMemoryRSS()
+
             print("Total Memory in RSS", memRSS)
+
             run = obj.getRuntime()
+
             print("Total ExecutionTime in seconds:", run)
+
     **Credits:**
     ---------------
-             The complete program was written by   P.Likhitha   under the supervision of Professor Rage Uday Kiran.
+        The complete program was written by   P.Likhitha   under the supervision of Professor Rage Uday Kiran.
     """
 
     _startTime = float()
@@ -351,7 +370,15 @@ class TUFP(_ab._frequentPatterns):
             self._Generation(newPrefix, classItemSets, classTidSets)
             #self.save(prefix, list(set(itemSetX)), tidSetI)
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self) -> None:
+        """
+        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
+        """
+        self.mine()
+
+
+    def mine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
@@ -461,6 +488,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = TUFP(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
+        _ap.mine()
         _Patterns = _ap.getPatterns()
         print("Total number of Patterns:", len(_Patterns))
         _ap.save(_ab._sys.argv[2])

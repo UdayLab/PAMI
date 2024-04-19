@@ -53,7 +53,7 @@ __copyright__ = """
 """
 
 from PAMI.weightedFrequentPattern.basic import abstract as _fp
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
+from typing import List, Dict, Tuple, Union, Generator
 import pandas as pd
 from deprecated import deprecated
 
@@ -555,39 +555,9 @@ class WFIM(_fp._weightedFrequentPatterns):
         main program to start the operation
         :return: None
         """
-        global _minSup, _minWeight, _miniWeight, _maxWeight, _weights
-        self.__startTime = _fp._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        if self._minSup is None:
-            raise Exception("Please enter the Minimum Support")
-        self.__creatingItemSets()
-        self._scanningWeights()
-        _weights = {k: v for k, v in _weights.items() if v >= _minWeight}
-        _maxWeight = max([s for s in _weights.values()])
-        _miniWeight = min([s for s in _weights.values()])
-        self._minSup = self.__convert(self._minSup)
-        _minSup = self._minSup
-        itemSet = self.__frequentOneItem()
-        updatedTransactions = self.__updateTransactions(itemSet)
-        for x, y in self.__rank.items():
-            self.__rankDup[y] = x
-        info = {self.__rank[k]: v for k, v in self.__mapSupport.items()}
-        __Tree = self.__buildTree(updatedTransactions, info)
-        patterns = __Tree.generatePatterns([])
-        self.__finalPatterns = {}
-        for k in patterns:
-            s = self.__savePeriodic(k[0])
-            self.__finalPatterns[str(s)] = k[1]
-        print("Weighted Frequent patterns were generated successfully using basic algorithm")
-        self.__endTime = _fp._time.time()
-        self.__memoryUSS = float()
-        self.__memoryRSS = float()
-        process = _fp._psutil.Process(_fp._os.getpid())
-        self.__memoryUSS = process.memory_full_info().uss
-        self.__memoryRSS = process.memory_info().rss
+        self.mine()
 
-    def Mine(self) -> None:
+    def mine(self) -> None:
         """
         main program to start the operation
         :return: None
@@ -714,6 +684,7 @@ if __name__ == "__main__":
         if len(_fp._sys.argv) == 6:
             _ap = WFIM(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4], _fp._sys.argv[5])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Weighted Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_fp._sys.argv[2])
         print("Total Memory in USS:",  _ap.getMemoryUSS())
