@@ -1,0 +1,7 @@
+TSPIN
+------------
+
+.. automodule:: PAMI.stablePeriodicFrequentPattern.topK.TSPIN
+   :members:
+   :undoc-members:
+   :show-inheritance:

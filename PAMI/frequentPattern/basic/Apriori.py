@@ -52,9 +52,9 @@ Copyright (C)  2021 Rage Uday Kiran
 """
 
 from PAMI.frequentPattern.basic import abstract as _ab
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
+from typing import Dict, Union
 from deprecated import deprecated
-import numpy as np
+
 
 class Apriori(_ab._frequentPatterns):
     """
@@ -229,100 +229,7 @@ class Apriori(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
-        self._Database = []
-        self._startTime = _ab._time.time()
-        self._creatingItemSets()
-        itemsList = sorted(list(set.union(*self._Database)))  # because Database is list
-        items = [{i} for i in itemsList]
-        itemsCount = len(items)
-        self._minSup = self._convert(self._minSup)
-        self._finalPatterns = {}
-        for i in range(1, itemsCount):
-            frequentSet = self._candidateToFrequent(items)
-            for x, y in frequentSet.items():
-                sample = str()
-                for k in x:
-                    sample = sample + k + "\t"
-                self._finalPatterns[sample] = y
-            items = self._frequentToCandidate(frequentSet, i + 1)
-            if len(items) == 0:
-                break  # finish apriori
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Frequent patterns were generated successfully using Apriori algorithm ")
-
-    def bitPacker(self, data, maxIndex):
-        packed_bits = 0
-        for i in data:
-            packed_bits |= 1 << (maxIndex - i)
-
-        return packed_bits
-
-    # # @profile
-    # def mineLowMemory(self) -> None:
-    #     """
-    #     Frequent pattern mining process will start from here
-    #     # Bitset implementation
-    #     """
-    #     self._startTime = _ab._time.time()
-
-    #     self._Database = []
-
-    #     self._creatingItemSets()
-
-    #     self._minSup = self._convert(self._minSup)
-
-    #     items = {}
-    #     index = 0
-    #     for line in self._Database:
-    #         for item in line:
-    #             if tuple([item]) in items:
-    #                 items[tuple([item])].append(index)
-    #             else:
-    #                 items[tuple([item])] = [index]
-    #         index += 1
-
-    #     # sort by length in descending order
-    #     items = dict(sorted(items.items(), key=lambda x: len(x[1]), reverse=True))
-    #     cands = []
-    #     for key in items:
-    #         if len(items[key]) >= self._minSup:
-    #             self._finalPatterns[key] = len(items[key])
-    #             cands.append(key)
-    #             items[key] = self.bitPacker(items[key], index)
-    #         else:
-    #             break
-
-    #     while cands:
-    #         newCands = []
-    #         for i in range(len(cands)):
-    #             for j in range(i + 1, len(cands)):
-    #                 if cands[i][:-1] == cands[j][:-1]:
-    #                     newCand = tuple(cands[i] + tuple([cands[j][-1]]))
-    #                     intersection = items[tuple([newCand[0]])]
-    #                     for k in range(1, len(newCand)):
-    #                         intersection &= items[tuple([newCand[k]])]
-    #                     count = int.bit_count(intersection)
-    #                     if count >= self._minSup:
-    #                         # items[newCand] = intersection
-    #                         newCands.append(newCand)
-    #                         self._finalPatterns[newCand] = count
-    #                 else:
-    #                     break
-            
-    #         cands = newCands
-
-    #     self._endTime = _ab._time.time()
-    #     process = _ab._psutil.Process(_ab._os.getpid())
-    #     self._memoryUSS = float()
-    #     self._memoryRSS = float()
-    #     self._memoryUSS = process.memory_full_info().uss
-    #     self._memoryRSS = process.memory_info().rss
-    #     print("Frequent patterns were generated successfully using Apriori algorithm ")
+        self.mine()
 
     def mine(self) -> None:
         """

@@ -1,0 +1,7 @@
+FFIMiner
+---------------
+
+.. automodule:: PAMI.fuzzyFrequentPattern.basic.FFIMiner
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -55,9 +55,9 @@ __copyright__ = """
 from PAMI.periodicFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
-from PAMI.periodicFrequentPattern.basic import abstract as _ab
 import pandas as pd
 from deprecated import deprecated
+import numpy as np
 
 _maxPer = float()
 _minSup = float()
@@ -85,235 +85,37 @@ class _Node(object):
             Storing the children to their respective parent nodes
         """
 
-    def __init__(self, item: int, children: list) -> None:
-        """
-        Initializing the Node class
-
-        :param item: Storing the item of a node
-        :type item: int or None
-        :param children: To maintain the children of a node
-        :type children: dict
-        :return: None
-        """
-
+    def __init__(self, item, locations, parent=None):
         self.item = item
-        self.children = children
-        self.parent = None
-        self.timeStamps = []
+        self.locations = locations
+        self.parent = parent
+        self.children = {}
 
-    def addChild(self, node) -> None:
-        """
-        To add the children to a node
+    def addChild(self, item, locations):
+        if item not in self.children:
+            self.children[item] = _Node(item, locations, self)
+        else:
+            self.children[item].locations = locations + self.children[item].locations
+            
+        return self.children[item]
 
-        :param node: parent node in the tree
-        :return: None
-        """
+    def traverse(self):
+        transaction = []
+        locs = self.locations
+        node = self.parent
+        while node.parent is not None:
+            transaction.append(node.item)
+            node = node.parent
+        return transaction[::-1], locs
 
-        self.children[node.item] = node
-        node.parent = self
-
-
-class _Tree(object):
-    """
-    A class used to represent the frequentPatternGrowth tree structure
-
-    :Attributes:
-
-        root : Node
-            Represents the root node of the tree
-        summaries : dictionary
-            Storing the nodes with same item name
-        info : dictionary
-            Stores the support of the items
-
-
-    :Methods:
-
-        addTransactions(Database)
-            Creating transaction as a branch in frequentPatternTree
-        getConditionalPatterns(Node)
-            Generates the conditional patterns from tree for specific node
-        conditionalTransaction(prefixPaths,Support)
-            Takes the prefixPath of a node and support at child of the path and extract the frequent patterns from
-            prefixPaths and generates prefixPaths with items which are frequent
-        remove(Node)
-            Removes the node from tree once after generating all the patterns respective to the node
-        generatePatterns(Node)
-            Starts from the root node of the tree and mines the periodic-frequent patterns
-
-    """
-
-    def __init__(self) -> None:
-        self.root = _Node(None, {})
-        self.summaries = {}
-        self.info = {}
-
-    def addTransaction(self, transaction: list, tid: list) -> None:
-        """
-        Adding a transaction into tree
-
-        :param transaction: To represent the complete database
-        :type transaction: list
-        :param tid: To represent the timestamp of a database
-        :type tid: list
-        :return: pfp-growth tree
-        """
-
-        currentNode = self.root
-        for i in range(len(transaction)):
-            if transaction[i] not in currentNode.children:
-                newNode = _Node(transaction[i], {})
-                currentNode.addChild(newNode)
-                if transaction[i] in self.summaries:
-                    self.summaries[transaction[i]].append(newNode)
-                else:
-                    self.summaries[transaction[i]] = [newNode]
-                currentNode = newNode
-            else:
-                currentNode = currentNode.children[transaction[i]]
-        currentNode.timeStamps = currentNode.timeStamps + tid
-
-    def getConditionalPatterns(self, alpha) -> Tuple[List[List[int]], List[List[int]], Dict[str, List[int]]]:
-        """
-        Generates all the conditional patterns of a respective node
-
-        :param alpha: To represent a Node in the tree
-        :type alpha: Node
-        :return: A tuple consisting of finalPatterns, conditional pattern base and information
-        """
-        finalPatterns = []
-        finalSets = []
-        for i in self.summaries[alpha]:
-            set1 = i.timeStamps
-            set2 = []
-            while i.parent.item is not None:
-                set2.append(i.parent.item)
-                i = i.parent
-            if len(set2) > 0:
-                set2.reverse()
-                finalPatterns.append(set2)
-                finalSets.append(set1)
-        finalPatterns, finalSets, info = self.conditionalDatabases(finalPatterns, finalSets)
-        return finalPatterns, finalSets, info
-
-    @staticmethod
-    def generateTimeStamps(node) -> List[int]:
-        """
-        To get the timestamps of a node
-
-        :param node: A node in the tree
-        :return: Timestamps of a node
-        """
-
-        finalTimeStamps = node.timeStamps
-        return finalTimeStamps
-
-    def removeNode(self, nodeValue) -> None:
-        """
-        Removing the node from tree
-
-        :param nodeValue: To represent a node in the tree
-        :type nodeValue: node
-        :return: Tree with their nodes updated with timestamps
-        """
-
-        for i in self.summaries[nodeValue]:
-            i.parent.timeStamps = i.parent.timeStamps + i.timeStamps
-            del i.parent.children[nodeValue]
-
-    def getTimeStamps(self, alpha) -> List[int]:
-        """
-        To get all the timestamps of the nodes which share same item name
-
-        :param alpha: Node in a tree
-        :return: Timestamps of a  node
-        """
-        temporary = []
-        for i in self.summaries[alpha]:
-            temporary += i.timeStamps
-        return temporary
-
-    @staticmethod
-    def getSupportAndPeriod(timeStamps) -> List[int]:
-        """
-        To calculate the periodicity and support
-
-        :param timeStamps: Timestamps of an item set
-        :return: support, periodicity
-        """
-
-        global _maxPer, _lno
-        timeStamps.sort()
-        cur = 0
-        per = list()
-        sup = 0
-        for j in range(len(timeStamps)):
-            per.append(timeStamps[j] - cur)
-            cur = timeStamps[j]
-            sup += 1
-        per.append(_lno - cur)
-        if len(per) == 0:
-            return [0, 0]
-        return [sup, max(per)]
-
-    def conditionalDatabases(self, conditionalPatterns, conditionalTimeStamps) -> Tuple[List[List[int]], List[List[int]], Dict[str, List[int]]]:
-        """
-        It generates the conditional patterns with periodic-frequent items
-
-        :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
-        :type conditionalPatterns: list
-        :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node
-        :type conditionalTimeStamps: list
-        :returns: Returns conditional transactions by removing non-periodic and non-frequent items
-        """
-
-        global _maxPer, _minSup
-        pat = []
-        timeStamps = []
-        data1 = {}
-        for i in range(len(conditionalPatterns)):
-            for j in conditionalPatterns[i]:
-                if j in data1:
-                    data1[j] = data1[j] + conditionalTimeStamps[i]
-                else:
-                    data1[j] = conditionalTimeStamps[i]
-        updatedDictionary = {}
-        for m in data1:
-            updatedDictionary[m] = self.getSupportAndPeriod(data1[m])
-        updatedDictionary = {k: v for k, v in updatedDictionary.items() if v[0] >= _minSup and v[1] <= _maxPer}
-        count = 0
-        for p in conditionalPatterns:
-            p1 = [v for v in p if v in updatedDictionary]
-            trans = sorted(p1, key=lambda x: (updatedDictionary.get(x)[0], -x), reverse=True)
-            if len(trans) > 0:
-                pat.append(trans)
-                timeStamps.append(conditionalTimeStamps[count])
-            count += 1
-        return pat, timeStamps, updatedDictionary
-
-    def generatePatterns(self, prefix) -> None:
-        """
-        Generates the patterns
-
-        :param prefix: Forms the combination of items
-        :type prefix: list
-        :returns: yields patterns with their support and periodicity
-        """
-
-        for i in sorted(self.summaries, key=lambda x: (self.info.get(x)[0], -x)):
-            pattern = prefix[:]
-            pattern.append(i)
-            yield pattern, self.info[i]
-            patterns, timeStamps, info = self.getConditionalPatterns(i)
-            conditionalTree = _Tree()
-            conditionalTree.info = info.copy()
-            for pat in range(len(patterns)):
-                conditionalTree.addTransaction(patterns[pat], timeStamps[pat])
-            if len(patterns) > 0:
-                for q in conditionalTree.generatePatterns(pattern):
-                    yield q
-            self.removeNode(i)
-
+    def traverse(self):
+        transaction = []
+        locs = self.locations
+        node = self.parent
+        while node.parent is not None:
+            transaction.append(node.item)
+            node = node.parent
+        return transaction[::-1], locs
 
 class PFPGrowth(_ab._periodicFrequentPatterns):
     """
@@ -463,81 +265,6 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
                     print("File Not Found")
                     quit()
 
-
-    def _periodicFrequentOneItem(self) -> Tuple[Dict[str, List[int]], List[str]]:
-        """
-        Calculates the support of each item in the database and assign ranks to the items by decreasing support and returns the frequent items list
-
-        :return: return the one-length periodic frequent patterns
-        """
-        data = {}
-        for tr in self._Database:
-            for i in range(1, len(tr)):
-                if tr[i] not in data:
-                    data[tr[i]] = [int(tr[0]), int(tr[0]), 1]
-                else:
-                    data[tr[i]][0] = max(data[tr[i]][0], (int(tr[0]) - data[tr[i]][1]))
-                    data[tr[i]][1] = int(tr[0])
-                    data[tr[i]][2] += 1
-        for key in data:
-            data[key][0] = max(data[key][0], abs(len(self._Database) - data[key][1]))
-        data = {k: [v[2], v[0]] for k, v in data.items() if v[0] <= self._maxPer and v[2] >= self._minSup}
-        pfList = [k for k, v in sorted(data.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
-        self._rank = dict([(index, item) for (item, index) in enumerate(pfList)])
-        return data, pfList
-
-    def _updateDatabases(self, dict1) -> List[List[int]]:
-        """
-        Remove the items which are not frequent from database and updates the database with rank of items
-
-        :param dict1: frequent items with support
-        :type dict1: dictionary
-        :return: Sorted and updated transactions
-        """
-        list1 = []
-        for tr in self._Database:
-            list2 = [int(tr[0])]
-            for i in range(1, len(tr)):
-                if tr[i] in dict1:
-                    list2.append(self._rank[tr[i]])
-            if len(list2) >= 2:
-                basket = list2[1:]
-                basket.sort()
-                list2[1:] = basket[0:]
-                list1.append(list2)
-        return list1
-
-    @staticmethod
-    def _buildTree(data, info) -> _Tree:
-        """
-        It takes the database and support of each item and construct the main tree by setting root node as a null
-
-        :param data: it represents the one Database in database
-        :type data: list
-        :param info: it represents the support of each item
-        :type info: dictionary
-        :return: returns root node of tree
-        """
-
-        rootNode = _Tree()
-        rootNode.info = info.copy()
-        for i in range(len(data)):
-            set1 = [data[i][0]]
-            rootNode.addTransaction(data[i][1:], set1)
-        return rootNode
-
-    def _savePeriodic(self, itemSet) -> str:
-        """
-        To convert the ranks of items in to their original item names
-
-        :param itemSet: frequent pattern.
-        :return: frequent pattern with original item names
-        """
-        t1 = str()
-        for i in itemSet:
-            t1 = t1 + self._rankedUp[i] + "\t"
-        return t1
-
     def _convert(self, value) -> int:
         """
         To convert the given user specified value
@@ -564,36 +291,99 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
         :return: None
         """
 
-        global _minSup, _maxPer, _lno
-        self._startTime = _ab._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        if self._minSup is None:
-            raise Exception("Please enter the Minimum Support")
-        self._creatingItemSets()
-        self._minSup = self._convert(self._minSup)
-        self._maxPer = self._convert(self._maxPer)
-        _minSup, _maxPer, _lno = self._minSup, self._maxPer, len(self._Database)
-        if self._minSup > len(self._Database):
-            raise Exception("Please enter the minSup in range between 0 to 1")
-        generatedItems, pfList = self._periodicFrequentOneItem()
-        updatedDatabases = self._updateDatabases(generatedItems)
-        for x, y in self._rank.items():
-            self._rankedUp[y] = x
-        info = {self._rank[k]: v for k, v in generatedItems.items()}
-        Tree = self._buildTree(updatedDatabases, info)
-        patterns = Tree.generatePatterns([])
-        self._finalPatterns = {}
-        for i in patterns:
-            sample = self._savePeriodic(i[0])
-            self._finalPatterns[sample] = i[1]
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Periodic Frequent patterns were generated successfully using PFPGrowth algorithm ")
+        self.Mine()
+
+    def _getMaxPer(self, arr, maxTS):
+        arr = np.append(arr, [0, maxTS])
+        arr = np.sort(arr)
+        arr = np.diff(arr)
+
+        return np.max(arr)
+
+    def _construct(self, items, data, minSup, maxPer, maxTS, patterns):
+
+        # maxPerItems = {k: self.getMaxPer(v, maxTS) for k, v in items.items() if len(v) >= minSup}
+
+        items = {k: v for k, v in items.items() if len(v) >= minSup and self._getMaxPer(v, maxTS) <= maxPer}
+
+        #tested ok
+        for item, ts in items.items():
+            # pat = "\t".join(item)
+            # self.patCount += 1
+            # patterns[pat] = (len(ts), self.getMaxPer(ts, maxTS))
+            patterns[tuple([item])] = [len(ts), self._getMaxPer(ts, maxTS)]
+
+        root = _Node([], None, None)
+        itemNodes = {}
+        for line in data:
+            currNode = root
+            index = int(line[0])
+            line = line[1:]
+            line = sorted([item for item in line if item in items], key = lambda x: len(items[x]), reverse = True)
+            for item in line:
+                currNode = currNode.addChild(item, [index])   # heavy
+                if item in itemNodes:
+                    itemNodes[item].add(currNode)
+                else:
+                    itemNodes[item] = set([currNode])
+
+        return root, itemNodes
+
+
+    def _recursive(self, root, itemNode, minSup, maxPer, patterns, maxTS):
+
+        for item in itemNode:
+            newRoot = _Node(root.item + [item], None, None)
+
+            itemLocs = {}
+            transactions = {}
+            for node in itemNode[item]:
+                transaction, locs = node.traverse()
+                if len(transaction) < 1:
+                    continue
+                # transactions.append((transaction, locs))
+                if tuple(transaction) in transactions:
+                    transactions[tuple(transaction)].extend(locs)
+                else:
+                    transactions[tuple(transaction)] = locs
+
+                for item in transaction:
+                    if item in itemLocs:
+                        itemLocs[item] += locs
+                    else:
+                        itemLocs[item] = list(locs)
+
+            # Precompute getMaxPer results for itemLocs
+            maxPerResults = {item: self._getMaxPer(itemLocs[item], maxTS) for item in itemLocs if len(itemLocs[item]) >= minSup}
+
+            # Filter itemLocs based on minSup and maxPer
+            itemLocs = {k: len(v) for k, v in itemLocs.items() if k in maxPerResults and maxPerResults[k] <= maxPer}
+
+            # Iterate over filtered itemLocs
+            for item in itemLocs:
+                # pat = "\t".join([str(x) for x in newRoot.item + [item]])
+                # self.patCount += 1
+                # patterns[pat] = [itemLocs[item], maxPerResults[item]]
+                patterns[tuple(newRoot.item + [item])] = [itemLocs[item], maxPerResults[item]]
+            
+            if not itemLocs:
+                continue
+
+            newItemNodes = {}
+
+            for transaction, locs in transactions.items():
+                transaction = sorted([item for item in transaction if item in itemLocs], key = lambda x: itemLocs[x], reverse = True)
+                if len(transaction) < 1:
+                    continue
+                currNode = newRoot
+                for item in transaction:
+                    currNode = currNode.addChild(item, locs)
+                    if item in newItemNodes:
+                        newItemNodes[item].add(currNode)
+                    else:
+                        newItemNodes[item] = set([currNode])
+
+            self._recursive(newRoot, newItemNodes, minSup, maxPer, patterns, _lno)
 
     def Mine(self) -> None:
         """
@@ -607,23 +397,45 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
             raise Exception("Please enter the file path or file name:")
         if self._minSup is None:
             raise Exception("Please enter the Minimum Support")
+        if self._maxPer is None:
+            raise Exception("Please enter the Maximum Periodicity")
+        if self._sep is None:
+            raise Exception("Default separator is tab space, please enter the separator if you have different separator in the input file")
+
         self._creatingItemSets()
         self._minSup = self._convert(self._minSup)
         self._maxPer = self._convert(self._maxPer)
+        #tested ok
         _minSup, _maxPer, _lno = self._minSup, self._maxPer, len(self._Database)
         if self._minSup > len(self._Database):
             raise Exception("Please enter the minSup in range between 0 to 1")
-        generatedItems, pfList = self._periodicFrequentOneItem()
-        updatedDatabases = self._updateDatabases(generatedItems)
-        for x, y in self._rank.items():
-            self._rankedUp[y] = x
-        info = {self._rank[k]: v for k, v in generatedItems.items()}
-        Tree = self._buildTree(updatedDatabases, info)
-        patterns = Tree.generatePatterns([])
-        self._finalPatterns = {}
-        for i in patterns:
-            sample = self._savePeriodic(i[0])
-            self._finalPatterns[sample] = i[1]
+        
+
+        items = {}
+
+        # tested ok
+        for line in self._Database:
+            index = int(line[0])
+            for item in line[1:]:
+                if item not in items:
+                    items[item] = []
+                items[item].append(index)
+
+        root, itemNodes = self._construct(items, self._Database, _minSup, _maxPer, _lno, self._finalPatterns)
+
+        self._recursive(root, itemNodes, _minSup, _maxPer, self._finalPatterns, _lno)
+
+    
+
+        newPattern = {}
+        for k, v in self._finalPatterns.items():
+            newPattern["\t".join([str(x) for x in k])] = v
+
+        self._finalPatterns = newPattern
+
+
+
+
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
@@ -725,6 +537,7 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
 
 
     """

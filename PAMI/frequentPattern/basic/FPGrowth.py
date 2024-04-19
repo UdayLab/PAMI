@@ -53,6 +53,8 @@ Copyright (C)  2021 Rage Uday Kiran
 from PAMI.frequentPattern.basic import abstract as _fp
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 from deprecated import deprecated
+from itertools import combinations
+from collections import Counter
 
 _minSup = str()
 _fp._sys.setrecursionlimit(20000)
@@ -80,180 +82,34 @@ class _Node:
 
     """
 
-    def __init__(self, item, children) -> None:
-        self.itemId = item
-        self.counter = 1
-        self.parent = None
-        self.children = children
+    def __init__(self, item, count, parent) -> None:
+        self.item = item
+        self.count = count
+        self.parent = parent
+        self.children = {}
 
-    def addChild(self, node) -> None:
+    def addChild(self, item, count = 1) -> Any:
+        if item not in self.children:
+            self.children[item] = _Node(item, count, self)
+        else:
+            self.children[item].count += count
+        return self.children[item]
+    
+    def traverse(self) -> Tuple[List[int], int]:
         """
-        Retrieving the child from the tree
-        :param node: Children node of the tree
-        :type node: Node
-        :return: None
+        Traversing the tree to get the transaction
+
+        :return: transaction and count of each item in transaction
+
+        :rtype: Tuple, List and int
         """
-        self.children[node.itemId] = node
-        node.parent = self
-
-
-class _Tree:
-    """
-    A class used to represent the frequentPatternGrowth tree structure
-
-    :Attributes:
-
-        root : Node
-            The first node of the tree set to Null.
-        summaries : dictionary
-            Stores the nodes itemId which shares same itemId
-        info : dictionary
-            frequency of items in the transactions
-
-    :Methods:
-
-        addTransaction(transaction, freq)
-            adding items of  transactions into the tree as nodes and freq is the count of nodes
-        getFinalConditionalPatterns(node)
-            getting the conditional patterns from fp-tree for a node
-        getConditionalPatterns(patterns, frequencies)
-            sort the patterns by removing the items with lower minSup
-        generatePatterns(prefix)
-            generating the patterns from fp-tree
-    """
-
-    def __init__(self) -> None:
-        self.root = _Node(None, {})
-        self.summaries = {}
-        self.info = {}
-
-    def addTransaction(self, transaction, count) -> None:
-        """
-
-        Adding transaction into tree
-
-        :param transaction: it represents the one transaction in database
-
-        :type transaction: list
-
-        :param count: frequency of item
-
-        :type count: int
-
-        :return: None
-
-        """
-
-        # This method takes transaction as input and returns the tree
-        currentNode = self.root
-        for i in range(len(transaction)):
-            if transaction[i] not in currentNode.children:
-                newNode = _Node(transaction[i], {})
-                newNode.freq = count
-                currentNode.addChild(newNode)
-                if transaction[i] in self.summaries:
-                    self.summaries[transaction[i]].append(newNode)
-                else:
-                    self.summaries[transaction[i]] = [newNode]
-                currentNode = newNode
-            else:
-                currentNode = currentNode.children[transaction[i]]
-                currentNode.freq += count
-
-    def getFinalConditionalPatterns(self, alpha) -> Tuple[List[List[int]], List[int], Dict[int, int]]:
-        """
-        Generates the conditional patterns for a node
-
-        :param alpha: node to generate conditional patterns
-
-        :type alpha:
-
-        :return: conditional patterns, frequency of each item in conditional patterns
-
-        :rtype: Tuple, List and Dict
-
-        """
-        finalPatterns = []
-        finalFreq = []
-        for i in self.summaries[alpha]:
-            set1 = i.freq
-            set2 = []
-            while i.parent.itemId is not None:
-                set2.append(i.parent.itemId)
-                i = i.parent
-            if len(set2) > 0:
-                set2.reverse()
-                finalPatterns.append(set2)
-                finalFreq.append(set1)
-        finalPatterns, finalFreq, info = self.getConditionalTransactions(finalPatterns, finalFreq)
-        return finalPatterns, finalFreq, info
-
-    @staticmethod
-    def getConditionalTransactions(ConditionalPatterns, conditionalFreq) -> Tuple[List[List[int]], List[int], Dict[int, int]]:
-        """
-
-        To calculate the frequency of items in conditional patterns and sorting the patterns
-
-        :param ConditionalPatterns: paths of a node
-
-        :type ConditionalPatterns: Dict
-
-        :param conditionalFreq: frequency of each item in the path
-
-        :type conditionalFreq: Dict
-
-        :return: conditional patterns and frequency of each item in transactions
-
-        :rtype: Tuple, List, Dict
-
-        """
-        global _minSup
-        pat = []
-        freq = []
-        data1 = {}
-        for i in range(len(ConditionalPatterns)):
-            for j in ConditionalPatterns[i]:
-                if j in data1:
-                    data1[j] += conditionalFreq[i]
-                else:
-                    data1[j] = conditionalFreq[i]
-        up_dict = {k: v for k, v in data1.items() if v >= _minSup}
-        count = 0
-        for p in ConditionalPatterns:
-            p1 = [v for v in p if v in up_dict]
-            trans = sorted(p1, key=lambda x: (up_dict.get(x), -x), reverse=True)
-            if len(trans) > 0:
-                pat.append(trans)
-                freq.append(conditionalFreq[count])
-            count += 1
-        return pat, freq, up_dict
-
-    def generatePatterns(self, prefix) -> Tuple[List[List[int]], List[int]]:
-        """
-
-        To generate the frequent patterns
-
-        :param prefix: an empty list
-
-        :type prefix: list
-
-        :return: Frequent patterns that are extracted from fp-tree
-
-        :rtype: Tuple, List
-
-        """
-        for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
-            pattern = prefix[:]
-            pattern.append(i)
-            yield pattern, self.info[i]
-            patterns, freq, info = self.getFinalConditionalPatterns(i)
-            conditionalTree = _Tree()
-            conditionalTree.info = info.copy()
-            for pat in range(len(patterns)):
-                conditionalTree.addTransaction(patterns[pat], freq[pat])
-            if len(patterns) > 0:
-                for q in conditionalTree.generatePatterns(pattern):
-                    yield q
+        transaction = []
+        count = self.count
+        node = self.parent
+        while node.parent is not None:
+            transaction.append(node.item)
+            node = node.parent
+        return transaction[::-1], count
 
 
 class FPGrowth(_fp._frequentPatterns):
@@ -370,7 +226,6 @@ class FPGrowth(_fp._frequentPatterns):
     __Database = []
     __mapSupport = {}
     __lno = 0
-    __tree = _Tree()
     __rank = {}
     __rankDup = {}
 
@@ -434,133 +289,98 @@ class FPGrowth(_fp._frequentPatterns):
             else:
                 value = int(value)
         return value
+    
+    def _construct(self, items, data, minSup):
 
-    def __frequentOneItem(self) -> List[str]:
-        """
+        items = {k: v for k, v in items.items() if v >= minSup}
 
-        Generating One frequent items sets
-
-        :return: list of generated frequent items set
-
-        :rtype: list
-
-        """
-        self.__mapSupport = {}
-        for tr in self.__Database:
-            for i in range(0, len(tr)):
-                if tr[i] not in self.__mapSupport:
-                    self.__mapSupport[tr[i]] = 1
+        root = _Node([], 0, None)
+        itemNodes = {}
+        for line in data:
+            currNode = root
+            line = sorted([item for item in line if item in items], key = lambda x: items[x], reverse = True)
+            for item in line:
+                currNode = currNode.addChild(item)
+                if item in itemNodes:
+                    itemNodes[item][0].add(currNode)
+                    itemNodes[item][1] += 1
                 else:
-                    self.__mapSupport[tr[i]] += 1
-        self.__mapSupport = {k: v for k, v in self.__mapSupport.items() if v >= self._minSup}
-        genList = [k for k, v in sorted(self.__mapSupport.items(), key=lambda x: x[1], reverse=True)]
-        self.__rank = dict([(index, item) for (item, index) in enumerate(genList)])
-        return genList
+                    itemNodes[item] = [set([currNode]), 1]
 
-    def __updateTransactions(self, itemSet) -> List[List[int]]:
-        """
+        return root, itemNodes
 
-        Updates the items in transactions with rank of items according to their support
+    def _all_combinations(self, arr):
+        all_combinations_list = []
+        for r in range(1, len(arr) + 1):
+            all_combinations_list.extend(combinations(arr, r))
+        return all_combinations_list
+    
+    def _recursive(self, root, itemNode, minSup, patterns):
+        itemNode = {k: v for k, v in sorted(itemNode.items(), key = lambda x: x[1][1])}
 
-        :Example: oneLength = {'a':7, 'b': 5, 'c':'4', 'd':3}
-                    rank = {'a':0, 'b':1, 'c':2, 'd':3}
+        for item in itemNode:
+            if itemNode[item][1] < self._minSup:
+                break 
 
-        :param itemSet: list of one-frequent items
+            newRoot = _Node(root.item + [item], 0, None)
+            pat = "\t".join([str(i) for i in newRoot.item])
+            self.__finalPatterns[pat] = itemNode[item][1]
+            newItemNode = {}
 
-        :type itemSet: list
+            if len(itemNode[item][0]) == 1:
+                transaction, count = itemNode[item][0].pop().traverse()
+                if len(transaction) == 0:
+                    continue
+                combination = self._all_combinations(transaction)
+                for comb in combination:
+                    pat = "\t".join([str(i) for i in comb])
+                    pat = pat + "\t" + "\t".join([str(i) for i in newRoot.item])
+                    self.__finalPatterns[pat] = count
+                    # self._finalPatterns[tuple(list(comb) + newRoot.item)] = count
+                pass
 
-        :return: list of updated items with rank of items according to their support
 
-        :rtype: list
+            itemCount = {}
+            transactions = {}
+            for node in itemNode[item][0]:
+                transaction, count = node.traverse()
+                if len(transaction) == 0:
+                    continue
+                if tuple(transaction) in transactions:
+                    transactions[tuple(transaction)] += count
+                else:
+                    transactions[tuple(transaction)] = count
 
-        """
-        list1 = []
-        for tr in self.__Database:
-            list2 = []
-            for i in range(len(tr)):
-                if tr[i] in itemSet:
-                    list2.append(self.__rank[tr[i]])
-            if len(list2) >= 1:
-                list2.sort()
-                list1.append(list2)
-        return list1
 
-    @staticmethod
-    def __buildTree(transactions, info) -> _Tree:
-        """
+                for item in transaction:
+                    if item in itemCount:
+                        itemCount[item] += count
+                    else:
+                        itemCount[item] = count
 
-        Builds the tree with updated transactions
 
-        :param transactions: updated transactions
+            # remove items that are below minSup
+            itemCount = {k: v for k, v in itemCount.items() if v >= minSup}
+            if len(itemCount) == 0:
+                continue
 
-        :type transactions: list
+            for transaction, count in transactions.items():
+                transaction = sorted([item for item in transaction if item in itemCount], key = lambda x: itemCount[x], reverse = True)
+                currNode = newRoot
+                for item in transaction:
+                    currNode = currNode.addChild(item, count)
+                    if item in newItemNode:
+                        newItemNode[item][0].add(currNode)
+                        newItemNode[item][1] += count
+                    else:
+                        newItemNode[item] = [set([currNode]), count]
 
-        :param info: support details of each item in transactions
+            if len(newItemNode) < 1:
+                continue
 
-        :type info: dict
+            # mine(newRoot, newItemNode, minSup, patterns)
+            self._recursive(newRoot, newItemNode, minSup, patterns)
 
-        :return: transactions compressed in fp-tree
-
-        :rtype: Tree
-
-        """
-        rootNode = _Tree()
-        rootNode.info = info.copy()
-        for i in range(len(transactions)):
-            rootNode.addTransaction(transactions[i], 1)
-        return rootNode
-
-    def __savePeriodic(self, itemSet) -> str:
-        """
-
-        The duplication items and their ranks
-
-        :param itemSet: frequent itemSet that generated
-
-        :type itemSet: dict
-
-        :return: patterns with original item names.
-
-        :rtype: string
-
-        """
-        temp = str()
-        for i in itemSet:
-            temp = temp + self.__rankDup[i] + "\t"
-        return temp
-
-    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
-    def startMine(self) -> None:
-        """
-        Main program to start the operation
-        """
-        global _minSup
-        self.__startTime = _fp._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        if self._minSup is None:
-            raise Exception("Please enter the Minimum Support")
-        self.__creatingItemSets()
-        self._minSup = self.__convert(self._minSup)
-        _minSup = self._minSup
-        itemSet = self.__frequentOneItem()
-        updatedTransactions = self.__updateTransactions(itemSet)
-        for x, y in self.__rank.items():
-            self.__rankDup[y] = x
-        info = {self.__rank[k]: v for k, v in self.__mapSupport.items()}
-        __Tree = self.__buildTree(updatedTransactions, info)
-        patterns = __Tree.generatePatterns([])
-        self.__finalPatterns = {}
-        for k in patterns:
-            s = self.__savePeriodic(k[0])
-            self.__finalPatterns[str(s)] = k[1]
-        print("Frequent patterns were generated successfully using frequentPatternGrowth algorithm")
-        self.__endTime = _fp._time.time()
-        self.__memoryUSS = float()
-        self.__memoryRSS = float()
-        process = _fp._psutil.Process(_fp._os.getpid())
-        self.__memoryUSS = process.memory_full_info().uss
-        self.__memoryRSS = process.memory_info().rss
 
     def mine(self) -> None:
         """
@@ -575,17 +395,14 @@ class FPGrowth(_fp._frequentPatterns):
         self.__creatingItemSets()
         self._minSup = self.__convert(self._minSup)
         _minSup = self._minSup
-        itemSet = self.__frequentOneItem()
-        updatedTransactions = self.__updateTransactions(itemSet)
-        for x, y in self.__rank.items():
-            self.__rankDup[y] = x
-        info = {self.__rank[k]: v for k, v in self.__mapSupport.items()}
-        __Tree = self.__buildTree(updatedTransactions, info)
-        patterns = __Tree.generatePatterns([])
-        self.__finalPatterns = {}
-        for k in patterns:
-            s = self.__savePeriodic(k[0])
-            self.__finalPatterns[str(s)] = k[1]
+
+        itemCount = Counter()
+        for line in self.__Database:
+            itemCount.update(line)
+
+        root, itemNode = self._construct(itemCount, self.__Database, self._minSup)
+        self._recursive(root, itemNode, self._minSup, self.__finalPatterns)
+        
         print("Frequent patterns were generated successfully using frequentPatternGrowth algorithm")
         self.__endTime = _fp._time.time()
         self.__memoryUSS = float()
@@ -593,6 +410,13 @@ class FPGrowth(_fp._frequentPatterns):
         process = _fp._psutil.Process(_fp._os.getpid())
         self.__memoryUSS = process.memory_full_info().uss
         self.__memoryRSS = process.memory_info().rss
+
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    def startMine(self):
+        """
+        Starting the mining process
+        """
+        self.mine()
 
     def getMemoryUSS(self) -> float:
         """
@@ -691,3 +515,6 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
+    
+    

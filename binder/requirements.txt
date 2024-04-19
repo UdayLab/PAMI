@@ -1,3 +1,4 @@
+wheel==0.43.0
 psutil==5.9.5
 pandas==2.0.3
 plotly==5.15.0
@@ -10,3 +11,6 @@ numpy==1.25.1
 cupy==12.1.0
 sphinx_rtd_theme==1.3.0
 Sphinx==7.2.6
+setuptools==69.5.1
+nvidia-cudnn-cu11==9.0.0.312
+pycuda==2024.1
