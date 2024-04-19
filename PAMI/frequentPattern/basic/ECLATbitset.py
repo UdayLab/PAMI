@@ -213,97 +213,6 @@ class ECLATbitset(_ab._frequentPatterns):
                     print("File Not Found")
         self._minSup = self._convert(self._minSup)
 
-    def creatingFrequentItems(self):
-        """
-        This function creates frequent items from _database.
-
-        :return: frequentTidData that stores frequent items and their tid list.
-
-        :rtype: Dict
-
-        """
-        tidData = {}
-        self._lno = 0
-        for transaction in self._Database:
-            self._lno = self._lno + 1
-            for item in transaction:
-                if item not in tidData:
-                    tidData[item] = [self._lno]
-                else:
-                    tidData[item].append(self._lno)
-        frequentTidData = {k: v for k, v in tidData.items() if len(v) >= self._minSup}
-        frequentTidData = dict(sorted(frequentTidData.items(), reverse=True, key=lambda x: len(x[1])))
-        return frequentTidData
-
-    def tidToBitset(self, itemset):
-        """
-        This function converts tid list to bitset.
-
-        :param itemset: frequent itemset that generated
-
-        :type itemset: Dict
-
-        :return: patterns with original item names
-
-        :rtype: Dict
-
-        """
-        bitset = {}
-
-        for k, v in itemset.items():
-            bitset[k] = 0b1
-            bitset[k] = (bitset[k] << int(v[0])) | 0b1
-            for i in range(1, len(v)):
-                diff = int(v[i]) - int(v[i - 1])
-                bitset[k] = (bitset[k] << diff) | 0b1
-            bitset[k] = (bitset[k] << (self._lno - int(v[i])))
-        return bitset
-
-    def genPatterns(self, prefix, tidData):
-        """
-
-        This function generate frequent pattern about prefix.
-
-        :param prefix: prefix of pattern to generate patterns
-
-        :type prefix: str
-
-        :param tidData: tidData for pattern generation
-
-        :type tidData: list
-
-        """
-        # variables to store frequent item set and
-        itemset = prefix[0]
-
-        # Get the length of tidData
-        length = len(tidData)
-
-        for i in range(length):
-            # tid = prefix[1].intersection(tidData[i][1])
-            tid = prefix[1] & tidData[i][1]
-            count = bin(tid).count("1") - 1
-            # tidLength = len(tid)
-            if count >= self._minSup:
-                frequentItemset = itemset + '\t' + tidData[i][0]
-                self._finalPatterns[frequentItemset] = count
-                self.genPatterns((frequentItemset, tid), tidData[i + 1:length])
-
-    def genAllFrequentPatterns(self, frequentItems):
-        """
-        This function generates all frequent patterns.
-
-        :param frequentItems: frequent items
-
-        :type frequentItems: Dict
-
-        """
-        tidData = list(frequentItems.items())
-        length = len(tidData)
-        for i in range(length):
-            # print(i,tidData[i][0])
-            self.genPatterns(tidData[i], tidData[i + 1:length])
-
     @deprecated(
         "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
@@ -314,7 +223,7 @@ class ECLATbitset(_ab._frequentPatterns):
         """
         self.mine()
 
-    def bitPacker(self, data, maxIndex):
+    def _bitPacker(self, data, maxIndex):
         """
         It takes the data and maxIndex as input and generates integer as output value.
 
@@ -361,7 +270,7 @@ class ECLATbitset(_ab._frequentPatterns):
             if len(items[key]) >= self._minSup:
                 self._finalPatterns["\t".join(key)] = len(items[key])
                 cands.append(key)
-                items[key] = self.bitPacker(items[key], index)
+                items[key] = self._bitPacker(items[key], index)
                 # print(key, items[key])
             else:
                 break
@@ -480,4 +389,3 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
-

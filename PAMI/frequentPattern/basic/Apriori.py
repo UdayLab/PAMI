@@ -31,9 +31,6 @@
 #
 
 
-
-
-
 __copyright__ = """
 Copyright (C)  2021 Rage Uday Kiran
 
@@ -223,8 +220,8 @@ class Apriori(_ab._frequentPatterns):
                 value = int(value)
         return value
 
-
-    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated(
+        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         Frequent pattern mining process will start from here
@@ -265,11 +262,10 @@ class Apriori(_ab._frequentPatterns):
             else:
                 break
 
-
         while cands:
             newKeys = []
             for i in range(len(cands)):
-                for j in range(i+1, len(cands)):
+                for j in range(i + 1, len(cands)):
                     if cands[i][:-1] == cands[j][:-1]:
                         newCand = cands[i] + tuple([cands[j][-1]])
                         intersection = fileData[tuple([newCand[0]])]
@@ -282,7 +278,7 @@ class Apriori(_ab._frequentPatterns):
             del cands
             cands = newKeys
             del newKeys
-            
+
         process = _ab._psutil.Process(_ab._os.getpid())
         self._endTime = _ab._time.time()
         self._memoryUSS = float()

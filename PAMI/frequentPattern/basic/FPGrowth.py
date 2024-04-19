@@ -89,6 +89,19 @@ class _Node:
         self.children = {}
 
     def addChild(self, item, count = 1) -> Any:
+        """
+        Adds a child node to the current node with the specified item and count.
+
+        :param item: The item associated with the child node.
+        :type item: List
+
+        :param count: The count or support of the item. Default is 1.
+        :type count: int
+
+        :return: The child node added.
+        :rtype: List
+
+        """
         if item not in self.children:
             self.children[item] = _Node(item, count, self)
         else:
