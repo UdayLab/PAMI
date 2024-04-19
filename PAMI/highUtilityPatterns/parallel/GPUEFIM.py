@@ -422,28 +422,7 @@ class GPUEFIM:
         Start the EFIM algorithm.
         """
 
-        ps = psutil.Process(os.getpid())
-
-        self.start = time.time()
-
-        primary, secondary = self.read_file()
-
-        collection = [[[], primary, secondary]]
-
-        self.search(collection, 1)
-
-        self.memoryRSS = ps.memory_info().rss
-        self.memoryUSS = ps.memory_full_info().uss
-
-        end = time.time()
-        self.runtime = end - self.start
-
-        newPatterns = {}
-        for key, value in self.Patterns.items():
-            newKey = tuple([self.rename[x] for x in key])
-            newPatterns[newKey] = value
-        
-        self.Patterns = newPatterns
+        self.mine()
 
     def mine(self):
         """

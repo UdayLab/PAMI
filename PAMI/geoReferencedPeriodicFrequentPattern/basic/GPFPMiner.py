@@ -442,40 +442,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
         Frequent pattern mining process will start from here
         """
 
-        # global items_sets, endTime, startTime
-        self._startTime = _ab._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        self._creatingItemSets()
-        self._minSup = self._convert(self._minSup)
-        self.mapNeighbours()
-        self._finalPatterns = {}
-        plist = self._frequentOneItem()
-        for i in range(len(plist)):
-            itemX = plist[i]
-            tidSetX = self._tidList[itemX]
-            itemSetX = [itemX]
-            itemSets = []
-            tidSets = []
-            neighboursItems = self._getNeighbourItems(plist[i])
-            for j in range(i + 1, len(plist)):
-                if not plist[j] in neighboursItems:
-                    continue
-                itemJ = plist[j]
-                tidSetJ = self._tidList[itemJ]
-                y1 = list(set(tidSetX).intersection(tidSetJ))
-                if len(y1) >= self._minSup:
-                    itemSets.append(itemJ)
-                    tidSets.append(y1)
-            self._Generation(itemSetX, itemSets, tidSets)
-            self._save(None, itemSetX, tidSetX)
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Spatial Periodic Frequent patterns were generated successfully using SpatialEclat algorithm")
+        self.mine()
 
     def mine(self):
         """

@@ -19,6 +19,7 @@ __copyright__ = """
 """
 
 import abstract as _ab
+import deprecated
 
 class cuGPPMiner(_ab._partialPeriodicPatterns):
     """
@@ -331,8 +332,13 @@ class cuGPPMiner(_ab._partialPeriodicPatterns):
                 number += 1
         return newArraysAndItems
 
-
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
+
+        self.mine()
+
+
+    def mine(self):
         self._startTime = _ab._time.time()
 
         self._period = self._convert(self._period)

@@ -49,7 +49,7 @@ __copyright__ = """
 """
 
 from pandas.core.arrays import period
-
+import deprecated
 from PAMI.partialPeriodicPattern.basic import Gabstract as _abstract
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import validators as _validators
@@ -571,7 +571,15 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
                 value = int(value)
         return value
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self) -> None:
+        """
+        Main method where the patterns are mined by constructing tree.
+
+        """
+        self.mine()
+
+    def mine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree.
 

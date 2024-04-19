@@ -356,41 +356,7 @@ class CPPG(_ab._coveragePatterns):
     def startMine(self) -> None:
         """ Mining process will start from this function
         """
-
-        #global _minSup, _maxPer, _lno
-        self._startTime = _ab._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        if self._minRF is None:
-            raise Exception("Please enter the Relative Frequency")
-        if self._maxOR is None:
-            raise Exception("Please enter the Overlap Ratio")
-        if self._minCS is None:
-            raise Exception("Please enter the Coverage Ratio")
-        self._creatingItemSets()
-        self._minRF = self._convert(self._minRF)
-        self._maxOR = self._convert(self._maxOR)
-        self._minCS = self._convert(self._minCS)
-        if self._minRF > len(self._Database) or self._minCS > len(self._Database) or self._maxOR > len(self._Database):
-            raise Exception("Please enter the constraints in range between 0 to 1")
-        generatedItems, pfList = self._coverageOneItem()
-        self._finalPatterns = {k: v for k, v in generatedItems.items()}
-        updatedDatabases = self._updateDatabases(pfList)
-        proData = self._buildProjectedDatabase(updatedDatabases, pfList)
-        for x, y in proData.items():
-            uniqueItems = [x]
-            for i in y:
-                for j in i:
-                    if j not in uniqueItems:
-                        uniqueItems.append(j)
-            self._generateFrequentPatterns(uniqueItems)
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Coverage patterns were generated successfully using CPPG algorithm ")
+        self.mine()
 
     def mine(self) -> None:
         """ Mining process will start from this function

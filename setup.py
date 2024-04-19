@@ -24,6 +24,7 @@ setuptools.setup(
         'urllib3',
         'Pillow',
         'numpy',
+        'sphinx',
         'sphinx-rtd-theme',
         'validators',
         'discord.py',
