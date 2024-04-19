@@ -31,9 +31,6 @@
 #
 
 
-
-
-
 __copyright__ = """
 Copyright (C)  2021 Rage Uday Kiran
 
@@ -51,9 +48,9 @@ Copyright (C)  2021 Rage Uday Kiran
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-
 from PAMI.frequentPattern.basic import abstract as _ab
 from deprecated import deprecated
+
 
 class ECLATbitset(_ab._frequentPatterns):
     """
@@ -158,7 +155,6 @@ class ECLATbitset(_ab._frequentPatterns):
     _mapSupport = {}
     _lno = 0
 
-
     def _convert(self, value):
         """
         To convert the user specified minSup value
@@ -239,7 +235,7 @@ class ECLATbitset(_ab._frequentPatterns):
         frequentTidData = dict(sorted(frequentTidData.items(), reverse=True, key=lambda x: len(x[1])))
         return frequentTidData
 
-    def tidToBitset(self,itemset):
+    def tidToBitset(self, itemset):
         """
         This function converts tid list to bitset.
 
@@ -254,16 +250,16 @@ class ECLATbitset(_ab._frequentPatterns):
         """
         bitset = {}
 
-        for k,v in itemset.items():
+        for k, v in itemset.items():
             bitset[k] = 0b1
             bitset[k] = (bitset[k] << int(v[0])) | 0b1
-            for i in range(1,len(v)):
-                diff = int(v[i]) - int(v[i-1])
+            for i in range(1, len(v)):
+                diff = int(v[i]) - int(v[i - 1])
                 bitset[k] = (bitset[k] << diff) | 0b1
             bitset[k] = (bitset[k] << (self._lno - int(v[i])))
         return bitset
 
-    def genPatterns(self,prefix,tidData):
+    def genPatterns(self, prefix, tidData):
         """
 
         This function generate frequent pattern about prefix.
@@ -284,16 +280,16 @@ class ECLATbitset(_ab._frequentPatterns):
         length = len(tidData)
 
         for i in range(length):
-            #tid = prefix[1].intersection(tidData[i][1])
+            # tid = prefix[1].intersection(tidData[i][1])
             tid = prefix[1] & tidData[i][1]
             count = bin(tid).count("1") - 1
-            #tidLength = len(tid)
+            # tidLength = len(tid)
             if count >= self._minSup:
                 frequentItemset = itemset + '\t' + tidData[i][0]
                 self._finalPatterns[frequentItemset] = count
-                self.genPatterns((frequentItemset,tid),tidData[i+1:length])
+                self.genPatterns((frequentItemset, tid), tidData[i + 1:length])
 
-    def genAllFrequentPatterns(self,frequentItems):
+    def genAllFrequentPatterns(self, frequentItems):
         """
         This function generates all frequent patterns.
 
@@ -305,35 +301,18 @@ class ECLATbitset(_ab._frequentPatterns):
         tidData = list(frequentItems.items())
         length = len(tidData)
         for i in range(length):
-            #print(i,tidData[i][0])
-            self.genPatterns(tidData[i],tidData[i+1:length])
+            # print(i,tidData[i][0])
+            self.genPatterns(tidData[i], tidData[i + 1:length])
 
-    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated(
+        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
         """
         Frequent pattern mining process will start from here
         We start with the scanning the itemSets and store the bitsets respectively.
         We form the combinations of single items and  check with minSup condition to check the frequency of patterns
         """
-
-        self._startTime = _ab._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        if self._minSup is None:
-            raise Exception("Please enter the Minimum Support")
-
-        self._creatingItemSets()
-        frequentItems = self.creatingFrequentItems()
-        self._finalPatterns = {k: len(v) for k, v in frequentItems.items()}
-        frequentItemsBitset = self.tidToBitset(frequentItems)
-        self.genAllFrequentPatterns(frequentItemsBitset)
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Frequent patterns were generated successfully using Eclat_bitset algorithm")
+        self.mine()
 
     def bitPacker(self, data, maxIndex):
         """
@@ -403,7 +382,7 @@ class ECLATbitset(_ab._frequentPatterns):
                             self._finalPatterns[newCand] = count
                     else:
                         break
-            
+
             cands = newCands
 
         self._endTime = _ab._time.time()
@@ -482,9 +461,10 @@ class ECLATbitset(_ab._frequentPatterns):
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
-        print("Total ExecutionTime in ms:",  self.getRuntime())
+        print("Total ExecutionTime in ms:", self.getRuntime())
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
