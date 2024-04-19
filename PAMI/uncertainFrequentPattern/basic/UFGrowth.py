@@ -69,6 +69,7 @@ class _Item:
 
 
 class _Node(object):
+
     """
     A class used to represent the node of frequentPatternTree
     :Attributes:
