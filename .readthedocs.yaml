@@ -10,8 +10,8 @@ build:
   os: ubuntu-22.04
   apt_packages:
     - cmake
-    - nvidia-driver-525
-    - nvidia-cuda-toolkit
+    #- nvidia-driver-525
+    #- nvidia-cuda-toolkit
   tools:
     python: "3.11"
     nodejs: "19"
