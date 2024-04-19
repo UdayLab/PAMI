@@ -276,30 +276,7 @@ class ECLATDiffset(_ab._frequentPatterns):
         Frequent pattern mining process will start from here
         """
 
-        self._startTime = _ab._time.time()
-        self._Database = []
-        self._finalPatterns = {}
-        self._diffSets = {}
-        self._trans_set = set()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        if self._minSup is None:
-            raise Exception("Please enter the Minimum Support")
-        self._creatingItemSets()
-        #print(len(self._Database))
-        self._minSup = self._convert(self._minSup)
-        uniqueItemList = []
-        uniqueItemList = self._getUniqueItemList()
-        self._runDeclat(uniqueItemList)
-        self._finalPatterns = self._diffSets
-        #print(len(self._finalPatterns), len(uniqueItemList))
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Frequent patterns were generated successfully using ECLAT Diffset algorithm")
+        self.mine()
 
     def mine(self):
         """

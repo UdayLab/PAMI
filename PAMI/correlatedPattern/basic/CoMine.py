@@ -567,34 +567,7 @@ class CoMine(_ab._correlatedPatterns):
         """
         main method to start
         """
-        self._startTime = _ab._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        self._creatingItemSets()
-        self._minSup = self._convert(self._minSup)
-        self._tree = _Tree()
-        self._finalPatterns = {}
-        self._correlatedOneItem()
-        self._mapSupport = {k: v for k, v in self._mapSupport.items() if v >= self._minSup}
-        _itemSetBuffer = [k for k, v in sorted(self._mapSupport.items(), key=lambda x: x[1], reverse=True)]
-        for i in self._Database:
-            _transaction = []
-            for j in i:
-                if j in _itemSetBuffer:
-                    _transaction.append(j)
-            _transaction.sort(key=lambda val: self._mapSupport[val], reverse=True)
-            self._tree.addTransaction(_transaction)
-        self._tree.createHeaderList(self._mapSupport, self._minSup)
-        if len(self._tree.headerList) > 0:
-            self._itemSetBuffer = []
-            self._correlatedPatternGrowthGenerate(self._tree, self._itemSetBuffer, 0, self._mapSupport)
-        print("Correlated patterns were generated successfully using CoMine algorithm")
-        self._endTime = _ab._time.time()
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
+        self.mine()
 
     def mine(self) -> None:
         """

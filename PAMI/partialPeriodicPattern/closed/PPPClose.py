@@ -57,9 +57,6 @@ import sys as _sys
 import validators as _validators
 from urllib.request import urlopen as _urlopen
 from PAMI.partialPeriodicPattern.closed import abstract as _abstract
-
-
-from PAMI.partialPeriodicPattern.basic import abstract as _ab
 import pandas as pd
 from deprecated import deprecated
 
@@ -453,51 +450,9 @@ class PPPClose(_abstract._partialPeriodicPatterns):
         """
         Mining process will start from here
         """
-        self._startTime = _abstract._time.time()
-        self._creatingItemSets()
-        self._hashing = {}
-        self._finalPatterns = {}
-        periodicFrequentItems = self._OneLengthPartialItems()
-        for i in range(len(periodicFrequentItems)):
-            itemX = periodicFrequentItems[i]
-            if itemX is None:
-                continue
-            tidSetX = self._tidList[itemX]
-            itemSetX = [itemX]
-            itemSets = []
-            tidSets = []
-            for j in range(i + 1, len(periodicFrequentItems)):
-                itemJ = periodicFrequentItems[j]
-                if itemJ is None:
-                    continue
-                tidSetJ = self._tidList[itemJ]
-                y1 = list(set(tidSetX).intersection(tidSetJ))
-                if len(y1) < self._periodicSupport:
-                    continue
-                if len(tidSetX) == len(tidSetJ) and len(y1) is len(tidSetX):
-                    periodicFrequentItems.insert(j, None)
-                    itemSetX.append(itemJ)
-                elif len(tidSetX) < len(tidSetJ) and len(y1) is len(tidSetX):
-                    itemSetX.append(itemJ)
-                elif len(tidSetX) > len(tidSetJ) and len(y1) is len(tidSetJ):
-                    periodicFrequentItems.insert(j, None)
-                    itemSets.append(itemJ)
-                    tidSets.append(y1)
-                else:
-                    itemSets.append(itemJ)
-                    tidSets.append(y1)
-            if len(itemSets) > 0:
-                self._processEquivalenceClass(itemSetX, itemSets, tidSets)
-            self._save([], itemSetX, tidSetX)
-        self._endTime = _abstract._time.time()
-        process = _abstract._psutil.Process(_abstract._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Closed periodic frequent patterns were generated successfully using PPPClose algorithm ")
+        self.mine()
 
-    def Mine(self):
+    def mine(self):
         """
         Mining process will start from here
         """

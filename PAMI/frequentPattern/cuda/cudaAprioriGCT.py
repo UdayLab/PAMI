@@ -331,51 +331,7 @@ class cudaAprioriGCT(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
-        startTime = time.time()
-        basePattern = {}
-        final = {}
-
-        self.__creatingItemSets()
-        self._minSup = self.__convert(self._minSup)
-        minSup = self._minSup
-        vb_data, idx2item = self.compute_vertical_bitvector_data()
-
-        for i in range(len(vb_data)):
-            if gpuarray.sum(vb_data[i]).get() >= self._minSup:
-                basePattern[idx2item[i]] = [i]
-                final[idx2item[i]] = gpuarray.sum(vb_data[i]).get()
-
-        while len(basePattern) > 0:
-            temp = {}
-            keysList = list(basePattern.keys())
-            valuesList = list(basePattern.values())
-            for i in range(len(basePattern) - 1):
-                keyI = keysList[i].split(" ")
-                keyI = [int(x) for x in keyI]
-
-                for j in range(i + 1, len(basePattern)):
-                    keyJ = keysList[j].split(" ")
-                    keyJ = [int(x) for x in keyJ]
-                    values = set(valuesList[i])
-                    for val in valuesList[j]:
-                        values.add(val)
-                    values = list(sorted(values))
-                    totalArray = vb_data[values[0]]
-                    for k in range(1, len(values)):
-                        totalArray = totalArray.__mul__(vb_data[values[k]])
-                    support = gpuarray.sum(totalArray).get()
-                    if support >= self._minSup:
-                        combinedKey = " ".join(
-                            str(x) for x in sorted(set(keyI) | set(keyJ)))
-                        temp[combinedKey] = values
-                        final[str(combinedKey)] = support
-            basePattern = temp
-
-        self.__time = time.time() - startTime
-        self.__memRSS = psutil.Process(os.getpid()).memory_info().rss
-        self.__memUSS = psutil.Process(os.getpid()).memory_full_info().uss
-        self._finalPatterns = final
-        self.__GPU_MEM = vb_data.nbytes
+        self.mine()
 
     def mine(self):
         """

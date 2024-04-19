@@ -21,6 +21,7 @@ __copyright__ = """
 import abstract as _ab
 import cupy as cp
 import cudf
+import deprecated
 
 class gdscuGPPMiner(_ab._partialPeriodicPatterns):
     """
@@ -278,8 +279,12 @@ class gdscuGPPMiner(_ab._partialPeriodicPatterns):
     
         return candidates, data
 
-
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
+
+        self.mine()
+
+    def mine(self):
         self._startTime = _ab._time.time()
 
         self._period = self._convert(self._period)
@@ -299,11 +304,11 @@ class gdscuGPPMiner(_ab._partialPeriodicPatterns):
             # print("Number of Candidates:", len(candidates))
             newKeys = []
             for i in range(len(candidates)):
-                for j in range(i+1, len(candidates)):
-                        if candidates[i][:-1] == candidates[j][:-1] and candidates[i][-1] != candidates[j][-1]:
-                            newKeys.append(candidates[i] + candidates[j][-1:])
-                        else:
-                            break
+                for j in range(i + 1, len(candidates)):
+                    if candidates[i][:-1] == candidates[j][:-1] and candidates[i][-1] != candidates[j][-1]:
+                        newKeys.append(candidates[i] + candidates[j][-1:])
+                    else:
+                        break
 
             if len(newKeys) == 0:
                 break
@@ -320,15 +325,14 @@ class gdscuGPPMiner(_ab._partialPeriodicPatterns):
 
             period = _ab._cp.zeros(numberOfKeys, dtype=_ab._cp.uint32)
 
-
-            self.supportAndPeriod((numberOfKeys//32 + 1,), (32,),
-                                    (
-                                        values, self.arraySize,
-                                        newKeys, numberOfKeys, keySize,
-                                        period,
-                                        self._period, self._maxTS
-                                    )
-            )
+            self.supportAndPeriod((numberOfKeys // 32 + 1,), (32,),
+                                  (
+                                      values, self.arraySize,
+                                      newKeys, numberOfKeys, keySize,
+                                      period,
+                                      self._period, self._maxTS
+                                  )
+                                  )
 
             newKeys = _ab._cp.reshape(newKeys, (numberOfKeys, keySize))
             newKeys = _ab._cp.asnumpy(newKeys)
@@ -356,6 +360,7 @@ class gdscuGPPMiner(_ab._partialPeriodicPatterns):
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
         print("Periodic-Frequent patterns were generated successfully using gPPMiner algorithm ")
+
 
     def getMemoryUSS(self):
         """
