@@ -31,9 +31,6 @@
 #
 
 
-
-
-
 __copyright__ = """
 Copyright (C)  2021 Rage Uday Kiran
 
@@ -51,9 +48,9 @@ Copyright (C)  2021 Rage Uday Kiran
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-
 from PAMI.frequentPattern.basic import abstract as _ab
 from deprecated import deprecated
+
 
 class ECLATbitset(_ab._frequentPatterns):
     """
@@ -158,7 +155,6 @@ class ECLATbitset(_ab._frequentPatterns):
     _mapSupport = {}
     _lno = 0
 
-
     def _convert(self, value):
         """
         To convert the user specified minSup value
@@ -217,7 +213,8 @@ class ECLATbitset(_ab._frequentPatterns):
                     print("File Not Found")
         self._minSup = self._convert(self._minSup)
 
-    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated(
+        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
         """
         Frequent pattern mining process will start from here
@@ -227,6 +224,18 @@ class ECLATbitset(_ab._frequentPatterns):
         self.mine()
 
     def _bitPacker(self, data, maxIndex):
+        """
+        It takes the data and maxIndex as input and generates integer as output value.
+
+        :param data: it takes data as input.
+
+        :type data: int or float
+
+        :param maxIndex: It converts the data into bits By taking the maxIndex value as condition.
+
+        :type maxIndex: int
+
+        """
         packed_bits = 0
         for i in data:
             packed_bits |= 1 << (maxIndex - i)
@@ -282,7 +291,7 @@ class ECLATbitset(_ab._frequentPatterns):
                             self._finalPatterns[newCand] = count
                     else:
                         break
-            
+
             cands = newCands
 
         self._endTime = _ab._time.time()
@@ -361,9 +370,10 @@ class ECLATbitset(_ab._frequentPatterns):
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
-        print("Total ExecutionTime in ms:",  self.getRuntime())
+        print("Total ExecutionTime in ms:", self.getRuntime())
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
@@ -379,4 +389,3 @@ if __name__=="__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
-

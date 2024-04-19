@@ -89,6 +89,19 @@ class _Node:
         self.children = {}
 
     def addChild(self, item, count = 1) -> Any:
+        """
+        Adds a child node to the current node with the specified item and count.
+
+        :param item: The item associated with the child node.
+        :type item: List
+
+        :param count: The count or support of the item. Default is 1.
+        :type count: int
+
+        :return: The child node added.
+        :rtype: List
+
+        """
         if item not in self.children:
             self.children[item] = _Node(item, count, self)
         else:
@@ -291,6 +304,21 @@ class FPGrowth(_fp._frequentPatterns):
         return value
     
     def _construct(self, items, data, minSup):
+        """
+        Constructs the FP-tree from the given transactions.
+
+        :param items: A dictionary containing item frequencies.
+        :type items: Dict
+
+        :param data: A list of transactions.
+        :type data: List
+
+        :param minSup: The minimum support threshold.
+        :type minSup: int
+
+        :return: The root node of the constructed FP-tree and a dictionary containing information about nodes associated with each item.
+        :rtype: Tuple[_Node, Dict]
+        """
 
         items = {k: v for k, v in items.items() if v >= minSup}
 
@@ -310,12 +338,40 @@ class FPGrowth(_fp._frequentPatterns):
         return root, itemNodes
 
     def _all_combinations(self, arr):
+        """
+        Generates all possible combinations of items from a given transaction.
+
+        :param arr: A list of items in a transaction.
+        :type arr: List
+
+        :return: A list containing all possible combinations of items.
+        :rtype: List
+
+        """
+
         all_combinations_list = []
         for r in range(1, len(arr) + 1):
             all_combinations_list.extend(combinations(arr, r))
         return all_combinations_list
     
     def _recursive(self, root, itemNode, minSup, patterns):
+        """
+
+         Recursively explores the FP-tree to generate frequent patterns.
+
+         :param root: The root node of the current subtree.
+         :type root: _Node
+
+         :param itemNode: A dictionary containing information about the nodes associated with each item.
+         :type itemNode: Dict
+
+         :param minSup: The minimum support threshold.
+         :type minSup: int
+
+         :param patterns: A dictionary to store the generated frequent patterns.
+         :type patterns: Dict
+
+        """
         itemNode = {k: v for k, v in sorted(itemNode.items(), key = lambda x: x[1][1])}
 
         for item in itemNode:
