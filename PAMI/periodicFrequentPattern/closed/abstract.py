@@ -157,6 +157,6 @@ class _periodicFrequentPatterns(_ABC):
 
     @_abstractmethod
     def printResults(self):
-        """ TO print the results of execution """
+        """ To print the results of execution """
 
         pass

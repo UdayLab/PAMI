@@ -646,7 +646,8 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         print("Correlated Periodic-Frequent patterns were generated successfully using EPCPGrowth algorithm ")
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -655,7 +656,8 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -664,7 +666,8 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         return self._memoryRSS
 
     def getRuntime(self) -> float:
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
 
 
         :return: returning total amount of runtime taken by the mining process
@@ -674,7 +677,8 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self) -> pd.DataFrame:
-        """Storing final periodic-frequent patterns in a dataframe
+        """
+        Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -688,7 +692,8 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         return dataFrame
 
     def save(self, outFile: str) -> None:
-        """Complete set of periodic-frequent patterns will be loaded in to an output file
+        """
+        Complete set of periodic-frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: csv file
