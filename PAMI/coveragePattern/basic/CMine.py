@@ -62,6 +62,8 @@ from deprecated import deprecated
 
 class CMine(_ab._coveragePatterns):
     """
+    About this algorithm
+    ====================
 
     :Description:  CMine algorithms aims to discover the coverage patterns in transactional databases.
 
@@ -104,8 +106,10 @@ class CMine(_ab._coveragePatterns):
             To store the transactions of a database in list
 
 
-    **Methods to execute code on terminal**
-    ----------------------------------------------------
+    Execution methods
+    =================
+
+    **Terminal command**
 
     .. code-block:: console
 
@@ -119,9 +123,8 @@ class CMine(_ab._coveragePatterns):
 
     .. note: At the fixed minCS value, it can also be observed that the number of patterns increases as maxOR value increases.
 
+    **Calling from a python program**
 
-    **Importing this algorithm into a python program**
-    ----------------------------------------------------
     .. code-block:: python
 
             from PAMI.coveragePattern.basic import CMine as alg
@@ -151,8 +154,9 @@ class CMine(_ab._coveragePatterns):
             print("Total ExecutionTime in seconds:", run)
 
 
-    **Credits:**
-    --------------------------
+    Credits
+    =======
+
              The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
     """
@@ -176,6 +180,7 @@ class CMine(_ab._coveragePatterns):
     def _convert(self, value) -> Union[int, float]:
         """
         To convert the user specified minSup value
+
         :param value: user specified minSup value
         :return: converted type
         :rtype: Union[int, float]
@@ -193,7 +198,7 @@ class CMine(_ab._coveragePatterns):
 
     def _creatingItemSets(self) -> None:
         """
-            Storing the complete transactions of the database/input file in a database variable
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         self._mapSupport = {}
@@ -227,6 +232,7 @@ class CMine(_ab._coveragePatterns):
     def creatingCoverageItems(self) -> Dict[str, List[str]]:
         """
         This function creates coverage items from _database.
+
         :return: coverageTidData that stores coverage items and their tid list.
         :rtype: dict
         """
@@ -246,6 +252,7 @@ class CMine(_ab._coveragePatterns):
     def tidToBitset(self,item_set: Dict[str, int]) -> Dict[str, int]:
         """
         This function converts tid list to bitset.
+
         :param item_set:
         :return: Dictionary
         :rtype: dict
@@ -264,6 +271,7 @@ class CMine(_ab._coveragePatterns):
     def genPatterns(self,prefix: Tuple[str, int],tidData: List[Tuple[str, int]]) -> None:
         """
         This function generate coverage pattern about prefix.
+
         :param prefix: String
         :param tidData: list
         :return: None
@@ -287,6 +295,7 @@ class CMine(_ab._coveragePatterns):
     def generateAllPatterns(self,coverageItems: Dict[str, int]) -> None:
         """
         This function generates all coverage patterns.
+
         :param coverageItems: coverage items
         :return: None
         """
@@ -336,7 +345,9 @@ class CMine(_ab._coveragePatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -344,7 +355,9 @@ class CMine(_ab._coveragePatterns):
         return self._memoryRSS
 
     def getRuntime(self) -> float:
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -352,7 +365,9 @@ class CMine(_ab._coveragePatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
-        """Storing final coverage patterns in a dataframe
+        """
+        Storing final coverage patterns in a dataframe
+
         :return: returning coverage patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -365,7 +380,9 @@ class CMine(_ab._coveragePatterns):
         return dataFrame
 
     def save(self, outFile: str) -> None:
-        """Complete set of coverage patterns will be loaded in to an output file
+        """
+        Complete set of coverage patterns will be loaded in to an output file
+
         :param outFile: name of the outputfile
         :type outFile: file
         :return: None
@@ -377,7 +394,9 @@ class CMine(_ab._coveragePatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def getPatterns(self) -> Dict[str, int]:
-        """ Function to send the set of coverage patterns after completion of the mining process
+        """
+        Function to send the set of coverage patterns after completion of the mining process
+
         :return: returning coverage patterns
         :rtype: dict
         """

@@ -62,15 +62,10 @@ class _Leverage:
 
     """
     :param patterns: Dictionary containing patterns and its support value.
-
     :type patterns: dict
-
     :param  singleItems: List containing all the single frequent items.
-
     :type singleItems: list
-
     :param  minConf: Minimum confidence to mine all the satisfying association rules.
-
     :type minConf: int
     """
 
@@ -92,6 +87,7 @@ class _Leverage:
     def _generation(self, prefix, suffix) -> None:
         """
         To generate the combinations all association rules.
+
         :param prefix: the prefix of association rule.
         :type prefix: str
         :param suffix: the suffix of association rule.
@@ -111,6 +107,7 @@ class _Leverage:
     def _generateWithLeverage(self, lhs, rhs) -> float:
         """
         To find association rules satisfying user-specified minConf
+
         :param lhs: the prefix of association rule.
         :type lhs: str
         :param rhs: the suffix of association rule.
@@ -147,6 +144,9 @@ class _Leverage:
 
 class ARWithLeverage:
     """
+    About this algorithm
+    ====================
+
     :Description: Association Rules are derived from frequent patterns using "leverage" metric.
 
     :Reference:
@@ -180,8 +180,10 @@ class ARWithLeverage:
             To store the total amount of RSS memory consumed by the program
 
 
-    **Methods to execute code on terminal**
-    ----------------------------------------------------
+    Execution methods
+    =================
+
+    **Terminal command**
 
     .. code-block:: console
 
@@ -193,11 +195,11 @@ class ARWithLeverage:
 
       (.venv) $ python3 ARWithLeverage.py sampleDB.txt patterns.txt 10.0 ' '
 
-    .. note:: minConf will be considered only in 0 to 1.
+    .. note:: minConf can be specified in a value between 0 and 1.
 
     
-    **Importing this algorithm into a python program**
-    ----------------------------------------------------
+    **Calling from a python program**
+
     .. code-block:: python
 
             import PAMI.AssociationRules.basic import ARWithLeverage as alg
@@ -226,8 +228,8 @@ class ARWithLeverage:
 
             print("Total ExecutionTime in seconds:", run)
             
-    **Credits:**
-    --------------------
+    Credits
+    =======
 
              The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
@@ -250,7 +252,8 @@ class ARWithLeverage:
 
     def _readPatterns(self) -> list:
         """
-        To read patterns  of leverage.
+        To read patterns  of leverage
+
         :return: List of patterns
         :rtype: list
         """
@@ -321,6 +324,7 @@ class ARWithLeverage:
     def getMemoryUSS(self) -> float:
         """
         Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -330,6 +334,7 @@ class ARWithLeverage:
     def getMemoryRSS(self) -> float:
         """
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -339,6 +344,7 @@ class ARWithLeverage:
     def getRuntime(self) -> float:
         """
         Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -348,6 +354,7 @@ class ARWithLeverage:
     def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """
         Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -363,6 +370,7 @@ class ARWithLeverage:
     def save(self, outFile) -> None:
         """
         Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the outputfile
         :type outFile: file
         :return: None
@@ -376,6 +384,7 @@ class ARWithLeverage:
     def getPatterns(self) -> dict:
         """
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """
@@ -407,5 +416,3 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
-
