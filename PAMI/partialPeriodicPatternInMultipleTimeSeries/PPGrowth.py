@@ -1,8 +1,6 @@
 # PPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
-#
 #
 #     from PAMI.periodicFrequentPattern.basic import PPGrowth as alg
 #
@@ -27,6 +25,8 @@
 #     print("Total Memory in RSS", memRSS)
 #
 #     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
 
 
 __copyright__ = """
@@ -44,7 +44,7 @@ __copyright__ = """
 
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-     Copyright (C)  2021 Rage Uday Kiran
+     
 
 """
 
@@ -312,6 +312,9 @@ class _Tree(object):
 
 class PPGrowth(_ab._partialPeriodicPatterns):
     """
+    About this algorithm
+    ====================
+
     :Description:   PPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.
 
     :Reference:   C. Saideep, R. Uday Kiran, K. Zettsu, P. Fournier-Viger, M. Kitsuregawa and P. Krishna Reddy,
@@ -393,10 +396,14 @@ class PPGrowth(_ab._partialPeriodicPatterns):
         convert()
             to convert the user specified value
 
-    **Executing the code on terminal:**
-    -------------------------------------
-    .. code-block:: console
+    Execution methods
+    =================
 
+
+    **Terminal command**
+
+
+    .. code-block:: console
 
        Format:
 
@@ -437,7 +444,9 @@ class PPGrowth(_ab._partialPeriodicPatterns):
 
     **Credits:**
     --------------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+
+
+            The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
     """
     _startTime = float()
@@ -494,7 +503,6 @@ class PPGrowth(_ab._partialPeriodicPatterns):
                 except IOError:
                     print("File Not Found")
                     quit()
-
 
     def _periodicFrequentOneItem(self):
         """
