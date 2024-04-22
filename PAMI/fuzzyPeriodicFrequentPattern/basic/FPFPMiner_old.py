@@ -70,22 +70,21 @@ class _FFList:
 
     :Attributes:
 
-        item: int
+        item : int
             the item name
-        sumLUtil: float
+        sumLUtil : float
             the sum of utilities of a fuzzy item in database
-        sumRUtil: float
+        sumRUtil : float
             the sum of resting values of a fuzzy item in database
-        elements: list
+        elements : list
             list of elements contain tid,Utility and resting values of element in each transaction
-        maxPeriod: int
+        maxPeriod : int
             it represents the max period of a item
 
     :Methods:
 
         addElement(element)
             Method to add an element to this fuzzy list and update the sums at the same time.
-
         printElement(e)
             Method to print elements
 
@@ -124,14 +123,14 @@ class _Element:
 
     :Attributes:
 
-    tid : int
-        keep tact of transaction id
-    lUtils: float
-        the utility of a fuzzy item in the transaction
-    rUtils : float
-        the resting value of a fuzzy item in the transaction
-    period: int
-        represent the period of the element
+        tid : int
+            keep tact of transaction id
+        lUtils : float
+            the utility of a fuzzy item in the transaction
+        rUtils : float
+            the resting value of a fuzzy item in the transaction
+        period : int
+            represent the period of the element
     """
 
     def __init__(self, tid, iUtil, rUtil, period):
@@ -149,7 +148,7 @@ class _Regions:
 
         low : int
             low region value
-        middle: int
+        middle : int
             middle region value
         high : int
             high region values
@@ -217,37 +216,37 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
                Name of the oFile file to store complete set of fuzzy spatial frequent patterns
         minSup : float
             The user given support
-        period: int
+        period : int
             periodicity of an element
         memoryRSS : float
                 To store the total amount of RSS memory consumed by the program
-        startTime:float
+        startTime : float
                To record the start time of the mining process
-        endTime:float
+        endTime : float
             To record the completion time of the mining process
-        itemsCnt: int
+        itemsCnt : int
             To record the number of fuzzy spatial itemSets generated
-        mapItemsLowSum: map
+        mapItemsLowSum : map
             To keep track of low region values of items
-        mapItemsMidSum: map
+        mapItemsMidSum : map
             To keep track of middle region values of items
-        mapItemsHighSum: map
+        mapItemsHighSum : map
             To keep track of high region values of items
-        mapItemSum: map
+        mapItemSum : map
             To keep track of sum of Fuzzy Values of items
-        mapItemRegions: map
+        mapItemRegions : map
             To Keep track of fuzzy regions of item
-        jointCnt: int
+        joinsCnt : int
             To keep track of the number of FFI-list that was constructed
-        BufferSize: int
+        BufferSize : int
             represent the size of Buffer
-        itemBuffer list
+        itemSetBuffer list
             to keep track of items in buffer
-        maxTID: int
+        maxTID : int
             represent the maximum tid of the database
-        lastTIDs: map
+        lastTIDs : map
             represent the last tid of fuzzy items
-        itemsToRegion: map
+        itemsToRegion : map
             represent items with respective regions
 
     :Methods:
@@ -266,7 +265,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
             Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
-        convert(value):
+        convert(value)
             To convert the given user specified value
         FSFIMining( prefix, prefixLen, fsFim, minSup)
             Method generate FFI from prefix
@@ -364,15 +363,10 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         A Function that sort all FFI-list in ascending order of Support
 
         :param o1: First FFI-list
-
         :type o1: _FFList
-
         :param o2: Second FFI-list
-
-        :type o1: _FFList
-
-        :return: Comparision Value
-
+        :type o2: _FFList
+        :return: Comparison Value
         :rtype: int
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
@@ -386,11 +380,8 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         To convert the given user specified value
 
         :param value: user specified value
-
         :type value: int  or float or str
-
         :return: converted value
-
         :rtype: float
         """
         if type(value) is int:
@@ -636,12 +627,12 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         """
         A function to construct a new Fuzzy item set from 2 fuzzy itemSets
 
-        :param px:the item set px
-        :type px:FFI-List
-        :param py:item set py
-        :type py:FFI-List
-        :return :the item set of pxy(px and py)
-        :rtype :FFI-List
+        :param px: the item set px
+        :type px: FFI-List
+        :param py: item set py
+        :type py: FFI-List
+        :return: the item set of pxy(px and py)
+        :rtype: FFI-List
         """
         pxyUL = _FFList(py.item)
         prev = 0

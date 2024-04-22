@@ -65,10 +65,13 @@ class _FFList:
 
         item: int
             the item name
+
         sumIUtil: float
             the sum of utilities of a fuzzy item in database
+
         sumRUtil: float
             the sum of resting values of a fuzzy item in database
+
         elements: list
             a list of elements contain tid,Utility and resting values of element in each transaction
 
@@ -76,6 +79,7 @@ class _FFList:
 
         addElement(element)
             Method to add an element to this fuzzy list and update the sums at the same time.
+
         printElement(e)
             Method to print elements
     """
@@ -91,9 +95,7 @@ class _FFList:
         A Method that add a new element to FFList
 
         :param element: an element to be added to FFList
-
         :type element: Element
-
         :return: None
         """
         self.sumIUtil += element.iUtils
@@ -116,8 +118,10 @@ class _Element:
 
         tid : int
             keep tact of transaction id
+
         iUtils: float
             the utility of a fuzzy item in the transaction
+
         rUtils : float
             the  resting value of a fuzzy item in the transaction
     """
@@ -158,7 +162,6 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                    The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
     :param fuzFile: str :
                     The user can specify fuzFile.
-
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
@@ -167,35 +170,38 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
 
         iFile : string
             Name of the input file to mine complete set of fuzzy  frequent patterns
+
         fmFile : string
             Name of the fuzzy membership file to mine complete set of fuzzy  frequent patterns
+
         oFile : string
             Name of the oFile file to store complete set of fuzzy  frequent patterns
+
         minSup : float
             The user given minimum support
+
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
+
         startTime:float
             To record the start time of the mining process
+
         endTime:float
             To record the completion time of the mining process
+
         itemsCnt: int
             To record the number of fuzzy spatial itemSets generated
-        mapItemsLowSum: map
-            To keep track of low region values of items
-        mapItemsMidSum: map
-            To keep track of middle region values of items
-        mapItemsHighSum: map
-            To keep track of high region values of items
+
         mapItemSum: map
             To keep track of sum of Fuzzy Values of items
-        mapItemRegions: map
-            To Keep track of fuzzy regions of item
-        jointCnt: int
+
+        joinsCnt: int
             To keep track of the number of ffi-list that was constructed
+
         BufferSize: int
             represent the size of Buffer
-        itemBuffer list
+
+        itemSetBuffer list
             to keep track of items in buffer
 
     :Methods:
@@ -214,7 +220,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
             Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
-        convert(value):
+        convert(value)
             To convert the given user specified value
         compareItems(o1, o2)
             A Function that sort all ffi-list in ascending order of Support
@@ -310,15 +316,10 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         A Function that sort all ffi-list in ascending order of Support
 
         :param o1: First FFI-list
-
         :type o1: _FFList
-
         :param o2: Second FFI-list
-
         :type o1: _FFList
-
         :return: Comparision Value
-
         :rtype: int
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
@@ -337,11 +338,8 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         To convert the given user specified value
 
         :param value: user specified value
-
         :type value: int or float or str
-
         :return: converted value
-
         :rtype: int or float
         """
         if type(value) is int:
@@ -477,7 +475,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         :param FSFIM: the Fuzzy list of prefix itemSets
         :type FSFIM: list
         :param minSup: the minimum support of
-        :type minSup: int or flaot
+        :type minSup: int or float
         """
         for i in range(0, len(FSFIM)):
             X = FSFIM[i]

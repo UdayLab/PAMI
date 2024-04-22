@@ -35,14 +35,14 @@ class _geoReferencedPeriodicFrequentPatterns(_ABC):
 
         iFile : str
             Input file name or path of the input file
-        nFile: str
-            Neighbourhoof file name
-        minSup: integer or float or str
+        nFile : str
+            Neighbourhood file name
+        minSup : integer or float or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        maxPer: integer or float or str
+        maxPer : integer or float or str
             The user can specify maxPer either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
             Otherwise, it will be treated as float.
@@ -50,11 +50,11 @@ class _geoReferencedPeriodicFrequentPatterns(_ABC):
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
             However, the users can override their default separator
-        startTime:float
+        startTime : float
             To record the start time of the algorithm
-        endTime:float
+        endTime : float
             To record the completion time of the algorithm
-        finalPatterns: dict
+        finalPatterns : dict
             Storing the complete set of patterns in a dictionary variable
         oFile : str
             Name of the output file to store complete set of frequent patterns
@@ -128,6 +128,7 @@ class _geoReferencedPeriodicFrequentPatterns(_ABC):
     @_abstractmethod
     def save(self, oFile):
         """Complete set of frequent patterns will be saved in to an output file from this function
+
         :param oFile: Name of the output file
         :type oFile: csv file
         """

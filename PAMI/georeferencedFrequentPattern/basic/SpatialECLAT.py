@@ -83,18 +83,18 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
 
         iFile : str
             Input file name or path of the input file
-        nFile: str
+        nFile : str
             Name of Neighbourhood file name
-        minSup: int or float or str
+        minSup : int or float or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        startTime:float
+        startTime : float
             To record the start time of the mining process
-        endTime:float
+        endTime : float
             To record the completion time of the mining process
-        finalPatterns: dict
+        finalPatterns : dict
             Storing the complete set of patterns in a dictionary variable
         oFile : str
             Name of the output file to store complete set of frequent patterns
@@ -131,11 +131,11 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
             It will generate the combinations of frequent items
         generateSpatialFrequentPatterns(tidList)
             It will generate the combinations of frequent items from a list of items
-        convert(value):
+        convert(value)
             To convert the given user specified value    
-        getNeighbourItems(keySet):
+        getNeighbourItems(keySet)
             A function to get common neighbours of a itemSet
-        mapNeighbours(file):
+        mapNeighbours(file)
             A function to map items to their neighbours
 
     **Executing the code on terminal :**
@@ -324,7 +324,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         """
         It will generate the combinations of frequent items from a list of items
 
-        :param tidList :it represents the items with their respective transaction identifiers
+        :param tidList: it represents the items with their respective transaction identifiers
         :type tidList: dictionary
         :return: returning transaction dictionary
         :rtype: dict
@@ -351,10 +351,11 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
     def _getNeighbourItems(self, keySet):
         """
         A function to get Neighbours of a item
-        :param keySet:itemSet
-        :type keySet:str or tuple
+
+        :param keySet: itemSet
+        :type keySet: str or tuple
         :return: set of common neighbours
-        :rtype:set
+        :rtype: set
         """
         itemNeighbours = self._NeighboursMap.keys()
         if isinstance(keySet, str):

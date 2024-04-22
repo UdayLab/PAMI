@@ -50,7 +50,7 @@ class _fuzzySpatialFrequentPatterns(_ABC):
 
         iFile : str
             Input file name or path of the input file
-        minSup: integer or float or str
+        minSup : integer or float or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
@@ -58,11 +58,11 @@ class _fuzzySpatialFrequentPatterns(_ABC):
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator
-        startTime:float
+        startTime : float
             To record the start time of the algorithm
-        endTime:float
+        endTime : float
             To record the completion time of the algorithm
-        finalPatterns: dict
+        finalPatterns : dict
             Storing the complete set of patterns in a dictionary variable
         oFile : str
             Name of the output file to store complete set of frequent patterns
