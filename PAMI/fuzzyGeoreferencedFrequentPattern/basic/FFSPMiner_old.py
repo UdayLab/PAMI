@@ -111,7 +111,7 @@ class _Element:
 
         tid : int
             keep tact of transaction id
-        iUtils: float
+        iUtils : float
             the utility of a fuzzy item in the transaction
         rUtils : float
             the neighbourhood resting value of a fuzzy item in the transaction
@@ -131,7 +131,7 @@ class _Regions:
 
         low : int
             low region value
-        middle: int
+        middle : int
             middle region value
         high : int
             high region values
@@ -202,31 +202,31 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
             Name of the oFile file to store complete set of fuzzy spatial frequent patterns
         minSup : float
             The user given minimum support
-        neighbors: map
+        neighbors : map
             keep track of neighbours of elements
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-        startTime:float
+        startTime : float
             To record the start time of the mining process
-        endTime:float
+        endTime : float
             To record the completion time of the mining process
-        itemsCnt: int
+        itemsCnt : int
             To record the number of fuzzy spatial itemSets generated
-        mapItemsLowSum: map
+        mapItemsLowSum : map
             To keep track of low region values of items
-        mapItemsMidSum: map
+        mapItemsMidSum : map
             To keep track of middle region values of items
-        mapItemsHighSum: map
+        mapItemsHighSum : map
             To keep track of high region values of items
-        mapItemSum: map
+        mapItemSum : map
             To keep track of sum of Fuzzy Values of items
-        mapItemRegions: map
+        mapItemRegions : map
             To Keep track of fuzzy regions of item
-        jointCnt: int
+        joinsCnt : int
             To keep track of the number of FFI-list that was constructed
-        BufferSize: int
+        BufferSize : int
             represent the size of Buffer
-        itemBuffer list
+        itemSetBuffer : list
             to keep track of items in buffer
 
     :Methods:
@@ -245,7 +245,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
             Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function            
-        convert(value):
+        convert(value)
             To convert the given user specified value
         FSFIMining( prefix, prefixLen, fsFim, minSup)
             Method generate FFI from prefix
@@ -572,7 +572,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         :param FSFIM: the Fuzzy list of prefix itemSets
         :type FSFIM: list
         :param minSup: the minimum support of
-        :type minSup:int
+        :type minSup: int
         :param itemNeighbours: the set of common neighbours of prefix
         :type itemNeighbours: list or set
         """
@@ -599,8 +599,8 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         :type neighbourX: set or list
         :param neighbourY: the set of neighbours of itemSet 2
         :type neighbourY: set or list
-        :return : set of common neighbours of 2 itemSets
-        :rtype :set
+        :return: set of common neighbours of 2 itemSets
+        :rtype: set
         """
         result = []
         if neighbourX is None or neighbourY is None:
@@ -633,7 +633,6 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         """
         Calculating the total amount of runtime taken by the mining process
 
-
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -643,12 +642,12 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         """
         A function to construct a new Fuzzy itemSet from 2 fuzzy itemSets
 
-        :param px:the itemSet px
-        :type px:FFI-List
-        :param py:itemSet py
-        :type py:FFI-List
-        :return :the itemSet of pxy(px and py)
-        :rtype :FFI-List
+        :param px: the itemSet px
+        :type px: FFI-List
+        :param py: itemSet py
+        :type py: FFI-List
+        :return: the itemSet of pxy(px and py)
+        :rtype: FFI-List
         """
         pxyUL = _FFList(py.item)
         for ex in px.elements:
@@ -663,11 +662,11 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         """
         To find element with same tid as given
 
-        :param uList:fuzzyList
-        :type uList:FFI-List
-        :param tid:transaction id
-        :type tid:int
-        :return:element tid as given
+        :param uList: fuzzyList
+        :type uList: FFI-List
+        :param tid: transaction id
+        :type tid: int
+        :return: element tid as given
         :rtype: element if exist or None
         """
         List = uList.elements

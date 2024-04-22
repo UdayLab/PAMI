@@ -74,15 +74,15 @@ class _FFList:
     A class represent a Fuzzy List of an element
     :Attributes:
 
-        item: int
+        item : int
             the item name
-        sumLUtil: float
+        sumLUtil : float
             the sum of utilities of a fuzzy item in database
-        sumRUtil: float
+        sumRUtil : float
             the sum of resting values of a fuzzy item in database
-        elements: list
+        elements : list
             list of elements contain tid,Utility and resting values of element in each transaction
-        maxPeriod: int
+        maxPeriod : int
             it represents the max period of a item
 
     :Methods:
@@ -588,10 +588,10 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         To find element with same tid as given
 
         :param UList: fuzzy list
-        :type UList:FFI-List
+        :type UList: FFI-List
         :param tid:transaction id
-        :type tid:int
-        :return:element eith tid as given
+        :type tid: int
+        :return: element eith tid as given
         :rtype: element if exist or None
         """
         List = UList.elements
