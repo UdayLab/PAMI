@@ -5,6 +5,12 @@
 #
 #             from PAMI.fuzzyGeoreferencedFrequentPattern import FFSPMiner as alg
 #
+#             minSup = str()
+#
+#             iFile = " "
+#
+#             sep = "\t"
+#
 #             obj = alg.FFSPMiner("input.txt", "neighbours.txt", 2)
 #
 #             obj.mine()
@@ -27,7 +33,6 @@
 #
 #             print("Total ExecutionTime in seconds:", run)
 #
-
 
 
 
@@ -171,7 +176,10 @@ class _Pair:
 
 
 class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
-    """
+     """
+    About this algorithm
+    ====================
+
     :Description:   Fuzzy Frequent Spatial Pattern-Miner is desired to find all Spatially frequent fuzzy patterns
                     which is on-trivial and challenging problem to its huge search space.we are using efficient pruning
                     techniques to reduce the search space.
@@ -258,9 +266,11 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         WriteOut(prefix, prefixLen, item, sumIUtil,period)
             To Store the patten
     
-    **Executing the code on terminal :**
-    ----------------------------------------
+    Execution methods
+    =================
 
+
+    **Terminal command**
     .. code-block:: console
 
       Format:
@@ -305,24 +315,16 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    **Credits:**
-    ---------------
+    Credits
+    =======
             The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
     """
-    
-    _startTime = float()
-    _endTime = float()
+
+
     _minSup = str()
-    _maxPer = float()
-    _finalPatterns = {}
     _iFile = " "
-    _oFile = " "
     _nFile = " "
-    _memoryUSS = float()
-    _memoryRSS = float()
     _sep = "\t"
-    _transactions = []
-    _fuzzyValues = []
 
     def __init__(self, iFile, nFile, minSup, sep="\t"):
         super().__init__(iFile, nFile, minSup, sep)
