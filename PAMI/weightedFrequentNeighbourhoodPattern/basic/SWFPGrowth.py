@@ -1,13 +1,16 @@
 # SWFPGrowth is an algorithm to mine the weighted spatial frequent patterns in spatiotemporal databases.
 #
 # **Importing this algorithm into a python program**
-# -------------------------------------------------------
 #
 #             from PAMI.weightFrequentNeighbourhoodPattern.basic import SWFPGrowth as alg
 #
+#             iFile = 'sampleDB.txt'
+#
+#             minSup = 10  # can also be specified between 0 and 1
+#
 #             obj = alg.SWFPGrowth(iFile, wFile, nFile, minSup, minWeight, sep)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             frequentPatterns = obj.getPatterns()
 #
@@ -31,8 +34,6 @@
 #
 
 
-
-
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -48,8 +49,6 @@ __copyright__ = """
 
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-     Copyright (C)  2021 Rage Uday Kiran
-
 """
 
 from PAMI.weightedFrequentNeighbourhoodPattern.basic import abstract as _fp
@@ -73,6 +72,7 @@ class _WeightedItem:
 
         item: str
             storing item of the frequent pattern
+
         weight: float
             stores the weight of the item
 
@@ -90,10 +90,13 @@ class _Node:
 
         itemId: int
             storing item of a node
+
         counter: int
             To maintain the support of node
+
         parent: node
             To maintain the parent of node
+
         children: list
             To maintain the children of node
 
@@ -133,8 +136,10 @@ class _Tree:
 
         root : Node
             The first node of the tree set to Null.
+
         summaries : dictionary
             Stores the nodes itemId which shares same itemId
+
         info : dictionary
             frequency of items in the transactions
 
@@ -320,12 +325,14 @@ class _Tree:
 
 class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
     """
+    About this algorithm
+    ====================
+
     :Description: SWFPGrowth is an algorithm to mine the weighted spatial frequent patterns in spatiotemporal databases.
 
-    :Reference:
-        R. Uday Kiran, P. P. C. Reddy, K. Zettsu, M. Toyoda, M. Kitsuregawa and P. Krishna Reddy,
-        "Discovering Spatial Weighted Frequent Itemsets in Spatiotemporal Databases," 2019 International
-        Conference on Data Mining Workshops (ICDMW), 2019, pp. 987-996, doi: 10.1109/ICDMW.2019.00143.
+    :Reference: R. Uday Kiran, P. P. C. Reddy, K. Zettsu, M. Toyoda, M. Kitsuregawa and P. Krishna Reddy,
+                "Discovering Spatial Weighted Frequent Itemsets in Spatiotemporal Databases," 2019 International
+                Conference on Data Mining Workshops (ICDMW), 2019, pp. 987-996, doi: 10.1109/ICDMW.2019.00143.
 
     :param  iFile: str :
                    Name of the Input file to mine complete set of weighted Frequent Neighbourhood Patterns.
@@ -343,43 +350,56 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
         iFile : file
             Input file name or path of the input file
+
         minWS: float or int or str
             The user can specify minWS either in count or proportion of database size.
             If the program detects the data type of minWS is integer, then it treats minWS is expressed in count.
             Otherwise, it will be treated as float.
             Example: minWS=10 will be treated as integer, while minWS=10.0 will be treated as float
+
         minWeight: float or int or str
             The user can specify minWeight either in count or proportion of database size.
             If the program detects the data type of minWeight is integer, then it treats minWeight is expressed in count.
             Otherwise, it will be treated as float.
             Example: minWeight=10 will be treated as integer, while minWeight=10.0 will be treated as float
+
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
             However, the users can override their default separator.
+
         oFile : file
             Name of the output file or the path of the output file
+
         startTime:float
             To record the start time of the mining process
+
         endTime:float
             To record the completion time of the mining process
+
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
+
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
+
         Database : list
             To store the transactions of a database in list
+
         mapSupport : Dictionary
             To maintain the information of item and their frequency
+
         lno : int
             it represents the total no of transactions
+
         tree : class
             it represents the Tree class
+
         finalPatterns : dict
             it represents to store the patterns
 
     :Methods :
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -398,10 +418,14 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
         frequentOneItem()
             Extracts the one-frequent patterns from transactions
 
-    **Methods to execute code on terminal**
-    -------------------------------------------
-    .. code-block:: console
+    Execution methods
+    =================
 
+
+    **Terminal command**
+
+
+    .. code-block:: console
 
        Format:
 
@@ -411,19 +435,22 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
        (.venv) $ python3 SWFPGrowth.py sampleDB.txt weightFile.txt patterns.txt 10  2
 
+    .. note:: minSup will be considered in support count or frequency
 
-               .. note:: minSup will be considered in support count or frequency
 
+    **Calling from a python program**
 
-    **Importing this algorithm into a python program**
-    ----------------------------------------------------
     .. code-block:: python
 
             from PAMI.weightFrequentNeighbourhoodPattern.basic import SWFPGrowth as alg
 
             obj = alg.SWFPGrowth(iFile, wFile, nFile, minSup, minWeight, seperator)
 
-            obj.startMine()
+            iFile = 'sampleDB.txt'
+
+            minSup = 10  # can also be specified between 0 and 1
+
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -445,11 +472,13 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    **Credits:**
-    --------------
-    The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+    Credits
+    =======
 
-        """
+
+            The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+
+    """
 
     __startTime = float()
     __endTime = float()
@@ -475,6 +504,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
     def __creatingItemSets(self) -> None:
         """
         Storing the complete transactions of the database/input file in a database variable
+
         :return: None
         """
         self._Database = []
@@ -512,6 +542,11 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
                     quit()
 
     def _scanNeighbours(self) -> None:
+        """
+        Scans the neighbors file and creates a dictionary of items and their corresponding neighbor lists.
+
+        :return: None
+        """
         self._neighbourList = {}
         if isinstance(self._nFile, _fp._pd.DataFrame):
             data, items = [], []
@@ -548,7 +583,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
     def __convert(self, value: Union[int, float, str]) -> Union[int, float]:
         """
-        to convert the type of user specified minWS value
+        To convert the type of user specified minWS value
 
         :param value: user specified minWS value
         :return: converted type
@@ -568,6 +603,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
     def __frequentOneItem(self) -> List[str]:
         """
         Generating One frequent items sets
+
         :return: None
         """
         global _maxWeight
@@ -589,6 +625,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
     def __updateTransactions(self, itemSet: List[str]) -> List[List[_WeightedItem]]:
         """
         Updates the items in transactions with rank of items according to their support
+
         :Example: oneLength = {'a':7, 'b': 5, 'c':'4', 'd':3}
                   rank = {'a':0, 'b':1, 'c':2, 'd':3}
         :param itemSet: list of one-frequent items
@@ -637,17 +674,13 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
     @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self) -> None:
         """
-        main program to start the operation
-        :return : None
-
+        Frequent pattern mining process will start from here
         """
         self.mine()
 
     def mine(self) -> None:
         """
-        main program to start the operation
-        :return : None
-
+        Frequent pattern mining process will start from here
         """
         global _minWS, _neighbourList, _rank
         self.__startTime = _fp._time.time()
@@ -687,6 +720,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
     def getMemoryUSS(self) -> float:
         """
+
         Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -697,6 +731,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
     def getMemoryRSS(self) -> float:
         """
+
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -707,8 +742,8 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
     def getRuntime(self) -> float:
         """
-        Calculating the total amount of runtime taken by the mining process
 
+        Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
@@ -718,6 +753,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
     def getPatternsAsDataFrame(self) -> _fp._pd.DataFrame:
         """
+
         Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -733,6 +769,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
     def save(self, outFile: str) -> None:
         """
+
         Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
@@ -747,6 +784,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
     def getPatterns(self) -> Dict[str, float]:
         """
+
         Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -757,7 +795,6 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
     def printResults(self) -> None:
         """
         This function is used to print the results
-        :return: None
         """
         print("Total number of  Weighted Spatial Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
