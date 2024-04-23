@@ -1,34 +1,38 @@
 # PUFGrowth is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database using PUF-Tree.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
 #
-#     from PAMI.uncertainFrequentPattern.basic import puf as alg
+#             from PAMI.uncertainFrequentPattern.basic import puf as alg
 #
-#     obj = alg.PUFGrowth(iFile, minSup)
+#             iFile = 'sampleDB.txt'
 #
-#     obj.startMine()
+#             minSup = 10  # can also be specified between 0 and 1
 #
-#     frequentPatterns = obj.getPatterns()
+#             obj = alg.PUFGrowth(iFile, minSup)
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             obj.mine()
 #
-#     obj.save(oFile)
+#             frequentPatterns = obj.getPatterns()
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     memUSS = obj.getMemoryUSS()
+#             obj.save(oFile)
 #
-#     print("Total Memory in USS:", memUSS)
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     memRSS = obj.getMemoryRSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     run = obj.getRuntime()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total Memory in RSS", memRSS)
 #
+#             run = obj.getRuntime()
+#
+#             print("Total ExecutionTime in seconds:", run)
+#
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -36,15 +40,15 @@ __copyright__ = """
      it under the terms of the GNU General Public License as published by
      the Free Software Foundation, either version 3 of the License, or
      (at your option) any later version.
+     
      This program is distributed in the hope that it will be useful,
      but WITHOUT ANY WARRANTY; without even the implied warranty of
      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
      GNU General Public License for more details.
+     
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-     Copyright (C)  2021 Rage Uday Kiran
 """
-
 
 from PAMI.uncertainFrequentPattern.basic import abstract as _ab
 from typing import List, Tuple
@@ -58,11 +62,14 @@ _finalPatterns = {}
 class _Item:
     """
     A class used to represent the item with probability in transaction of dataset
+
     :Attributes:
-    item : int or word
-        Represents the name of the item
-    probability : float
-        Represent the existential probability(likelihood presence) of an item
+
+        item : int or word
+          Represents the name of the item
+
+        probability : float
+          Represent the existential probability(likelihood presence) of an item
     """
 
     def __init__(self, item, probability) -> None:
@@ -73,15 +80,21 @@ class _Item:
 class _Node(object):
     """
     A class used to represent the node of frequentPatternTree
+
     :Attributes:
-    item : int
-        storing item of a node
-    probability : int
-        To maintain the expected support of node
-    parent : node
-        To maintain the parent of every node
-    children : list
-        To maintain the children of node
+
+        item : int
+          storing item of a node
+
+        probability : int
+          To maintain the expected support of node
+
+        parent : node
+          To maintain the parent of every node
+
+        children : list
+          To maintain the children of node
+
     :Methods:
         addChild(itemName)
             storing the children to their respective parent nodes
@@ -95,7 +108,12 @@ class _Node(object):
 
     def addChild(self, node) -> None:
         """
-        This function is used to add a child
+        This method adds a child node to the current node in the frequent pattern tree. It updates the children
+        dictionary of the current node with the new child node and sets the parent of the child node to the current node.
+
+        :param node: The child node to be added.
+        :type node: _Node
+        :return: None
         """
         self.children[node.item] = node
         node.parent = self
@@ -104,13 +122,18 @@ class _Node(object):
 class _Tree(object):
     """
     A class used to represent the frequentPatternGrowth tree structure
+
     Attributes:
-    root : Node
-        Represents the root node of the tree
-    summaries : dictionary
-        storing the nodes with same item name
-    info : dictionary
-        stores the support of items
+
+        root : Node
+          Represents the root node of the tree
+
+        summaries : dictionary
+          storing the nodes with same item name
+
+        info : dictionary
+          stores the support of items
+
     :Methods:
         addTransaction(transaction)
             creating transaction as a branch in frequentPatternTree
@@ -135,6 +158,7 @@ class _Tree(object):
     def addTransaction(self, transaction) -> None:
         """
         Adding transaction into tree
+
         :param transaction : it represents the one self.Database in database
         :type transaction : list
         """
@@ -173,6 +197,7 @@ class _Tree(object):
     def addConditionalPattern(self, transaction, sup) -> None:
         """
         Constructing conditional tree from prefixPaths
+
         :param transaction : it represents the one self.Database in database
         :type transaction : list
         :param sup : support of prefixPath taken at last child of the path
@@ -198,6 +223,7 @@ class _Tree(object):
     def conditionalPatterns(self, alpha) -> Tuple[List, List, dict]:
         """
         Generates all the conditional patterns of respective node
+
         :param alpha : it represents the Node in tree
         :type alpha : _Node
         """
@@ -220,6 +246,7 @@ class _Tree(object):
     def removeNode(self, nodeValue) -> None:
         """
         Removing the node from tree
+
         :param nodeValue : it represents the node in tree
         :type nodeValue : node
         """
@@ -230,6 +257,7 @@ class _Tree(object):
     def conditionalTransactions(self, condPatterns, support) -> Tuple[List, List, dict]:
         """
         It generates the conditional patterns with frequent items
+
         :param condPatterns : conditionalPatterns generated from conditionalPattern method for respective node
         :type condPatterns : list
         :support : the support of conditional pattern in tree
@@ -260,6 +288,7 @@ class _Tree(object):
     def generatePatterns(self, prefix) -> None:
         """
         Generates the patterns
+
         :param prefix : forms the combination of items
         :type prefix : list
         """
@@ -285,48 +314,64 @@ class _Tree(object):
 
 class PUFGrowth(_ab._frequentPatterns):
     """
+    About this algorithm
+    ====================
+
     :Description: It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database using PUF-Tree.
 
-    :Reference:
-        Carson Kai-Sang Leung, Syed Khairuzzaman Tanbeer, "PUF-Tree: A Compact Tree Structure for Frequent Pattern Mining of Uncertain Data",
-        Pacific-Asia Conference on Knowledge Discovery and Data Mining(PAKDD 2013), https://link.springer.com/chapter/10.1007/978-3-642-37453-1_2
+    :Reference:  Carson Kai-Sang Leung, Syed Khairuzzaman Tanbeer, "PUF-Tree: A Compact Tree Structure for Frequent Pattern Mining of Uncertain Data",
+                 Pacific-Asia Conference on Knowledge Discovery and Data Mining(PAKDD 2013), https://link.springer.com/chapter/10.1007/978-3-642-37453-1_2
 
     :Attributes:
+
         iFile : file
             Name of the Input file or path of the input file
+
         oFile : file
             Name of the output file or path of the output file
+
         minSup : float or int or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
+
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
+
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
+
         startTime : float
             To record the start time of the mining process
+
         endTime : float
             To record the completion time of the mining process
+
         Database : list
             To store the transactions of a database in list
+
         mapSupport : Dictionary
             To maintain the information of item and their frequency
+
         lno : int
             To represent the total no of transaction
+
         tree : class
             To represents the Tree class
+
         itemSetCount : int
             To represents the total no of patterns
+
         finalPatterns : dict
             To store the complete patterns
 
     :Methods:
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -353,23 +398,38 @@ class PUFGrowth(_ab._frequentPatterns):
         startMine()
             Mining process will start from this function
 
-    **Methods to execute code on terminal**
-    -----------------------------------------
-            Format:
-                    >>> python3 PUFGrowth.py <inputFile> <outputFile> <minSup>
-            Example:
-                     >>>  python3 PUFGrowth.py sampleTDB.txt patterns.txt 3
+    Execution methods
+    =================
 
-            .. note:: minSup  will be considered in support count or frequency
 
-    **Importing this algorithm into a python program**
-    -----------------------------------------------------
+    **Terminal command**
+
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 PUFGrowth.py <inputFile> <outputFile> <minSup>
+
+      Example Usage:
+
+      (.venv) $ python3 PUFGrowth.py sampleDB.txt patterns.txt 10.0
+
+    .. note:: minSup can be specified  in support count or a value between 0 and 1.
+
+
+    **Calling from a python program**
+
     .. code-block:: python
+
             from PAMI.uncertainFrequentPattern.basic import puf as alg
+
+            iFile = 'sampleDB.txt'
+
+            minSup = 10  # can also be specified between 0 and 1
 
             obj = alg.PUFGrowth(iFile, minSup)
 
-            obj.startMine()
+            obj.startmine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -391,10 +451,13 @@ class PUFGrowth(_ab._frequentPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    **Credits:**
-    --------------------
+    Credits
+    =======
+
+
              The complete program was written by  P.Likhitha  under the supervision of Professor Rage Uday Kiran.
-"""
+    """
+
     _startTime = float()
     _endTime = float()
     _minSup = str()
@@ -471,6 +534,7 @@ class PUFGrowth(_ab._frequentPatterns):
     def _frequentOneItem(self) -> Tuple[dict, List]:
         """
         Takes the self.Database and calculates the support of each item in the dataset and assign the ranks to the items by decreasing support and returns the frequent items list
+
         :param self.Database : it represents the one self.Database in database
         :type self.Database : list
         """
@@ -490,7 +554,8 @@ class PUFGrowth(_ab._frequentPatterns):
     @staticmethod
     def _buildTree(data, info) -> '_Tree':
         """
-        it takes the self.Database and support of each item and construct the main tree with setting root node as null
+        It takes the self.Database and support of each item and construct the main tree with setting root node as null
+
         :param data : it represents the one self.Database in database
         :type data : list
         :param info : it represents the support of each item
@@ -505,7 +570,8 @@ class PUFGrowth(_ab._frequentPatterns):
 
     def _updateTransactions(self, dict1) -> List:
         """
-        remove the items which are not frequent from self.Database and updates the self.Database with rank of items
+        Remove the items which are not frequent from self.Database and updates the self.Database with rank of items
+
         :param dict1 : frequent items with support
         :type dict1 : dictionary
         """
@@ -527,6 +593,7 @@ class PUFGrowth(_ab._frequentPatterns):
     def _check(i, x) -> int:
         """
         To check the presence of item or pattern in transaction
+
         :param x: it represents the pattern
         :type x : list
         :param i : represents the uncertain self.Database
@@ -546,6 +613,7 @@ class PUFGrowth(_ab._frequentPatterns):
     def _convert(self, value) -> float:
         """
         To convert the type of user specified minSup value
+
         :param value: user specified minSup value
         :return: converted type minSup value
         """
@@ -563,6 +631,7 @@ class PUFGrowth(_ab._frequentPatterns):
     def _removeFalsePositives(self) -> None:
         """
         To remove the false positive patterns generated in frequent patterns
+
         :return: patterns with accurate probability
         """
         global _finalPatterns
@@ -589,7 +658,8 @@ class PUFGrowth(_ab._frequentPatterns):
                     sample = sample + i + "\t"
                 self._finalPatterns[sample] = y
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated(
+        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
@@ -622,7 +692,9 @@ class PUFGrowth(_ab._frequentPatterns):
 
     def getMemoryUSS(self) -> float:
         """
+
         Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -631,7 +703,9 @@ class PUFGrowth(_ab._frequentPatterns):
 
     def getMemoryRSS(self) -> float:
         """
+
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -640,7 +714,9 @@ class PUFGrowth(_ab._frequentPatterns):
 
     def getRuntime(self) -> float:
         """
+
         Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -649,7 +725,9 @@ class PUFGrowth(_ab._frequentPatterns):
 
     def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """
+
         Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -663,7 +741,9 @@ class PUFGrowth(_ab._frequentPatterns):
 
     def save(self, outFile: str) -> None:
         """
+
         Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
         :type outFile: csv file
         """
@@ -675,7 +755,9 @@ class PUFGrowth(_ab._frequentPatterns):
 
     def getPatterns(self) -> dict:
         """
+
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """
