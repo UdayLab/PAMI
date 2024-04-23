@@ -683,7 +683,8 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
             temp = temp + self._rankDup[i] + "\t"
         return temp
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated(
+        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         Frequent pattern mining process will start from here
