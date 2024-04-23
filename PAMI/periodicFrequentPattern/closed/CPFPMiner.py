@@ -59,9 +59,11 @@ from deprecated import deprecated
 
 from PAMI.periodicFrequentPattern.closed import abstract as _ab
 
-
 class CPFPMiner(_ab._periodicFrequentPatterns):
-    """ 
+    """
+    About this algorithm
+    ====================
+
     :Description:   CPFPMiner algorithm is used to discover the closed periodic frequent patterns in temporal databases.
                     It uses depth-first search.
 
@@ -127,10 +129,15 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
 
-    **Methods to execute code on terminal**
-    --------------------------------------------
-    .. code-block:: console
 
+    Execution methods
+    =================
+
+
+    **Terminal command**
+
+
+    .. code-block:: console
 
        Format:
 
@@ -140,14 +147,13 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
 
        (.venv) $ python3 CPFPMiner.py sampleTDB.txt patterns.txt 0.3 0.4
 
+     .. note:: minSup will be considered in percentage of database transactions
         
-               .. note:: minSup will be considered in percentage of database transactions
         
-        
-    **Importing this algorithm into a python program**
-    -------------------------------------------------------
+    **Calling from a python program**
+
     .. code-block:: python
-        
+
                     from PAMI.periodicFrequentPattern.closed import CPFPMiner as alg
         
                     obj = alg.CPFPMiner("../basic/sampleTDB.txt", "2", "6")
@@ -224,6 +230,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
     def _scanDatabase(self):
         """
         To scan the database and extracts the 1-length periodic-frequent items
+
         :return:   Returns the 1-length periodic-frequent items
         """
         Database = []
@@ -381,7 +388,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
 
     def _processEquivalenceClass(self, prefix, itemSets, tidSets):
         """
-
+        identifies and saves closed periodic patterns of length more than 2 in a dataset, by processing equivalence classes of item sets that satisfy a minimum support condition.
         :param prefix: Prefix class of an itemSet
         :param itemSets: suffix items in periodicFrequentItems that satisfies the minSup condition
         :param tidSets: timeStamps of items in itemSets respectively

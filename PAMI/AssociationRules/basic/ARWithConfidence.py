@@ -1,4 +1,4 @@
-#  This code uses "confidence" metric to extract the association rules from given frequent patterns.
+# This code uses "confidence" metric to extract the association rules from given frequent patterns.
 #
 # **Importing this algorithm into a python program**
 # ----------------------------------------------------
@@ -89,6 +89,7 @@ class _Confidence:
     def _generation(self, prefix, suffix):
         """
         To generate the combinations all association rules.
+
         :param prefix: the prefix of association rule.
         :type prefix: str
         :param suffix: the suffix of association rule.
@@ -107,6 +108,7 @@ class _Confidence:
     def _generateWithConfidence(self, lhs, rhs):
         """
         To find association rules satisfying user-specified minConf
+
         :param lhs: the prefix of association rule.
         :type lhs: str
         :param rhs: the suffix of association rule.
@@ -139,6 +141,9 @@ class _Confidence:
 
 class ARWithConfidence:
     """
+    About this algorithm
+    ====================
+
     :Description: Association Rules are derived from frequent patterns using "confidence" metric.
 
     :Reference:
@@ -156,7 +161,6 @@ class ARWithConfidence:
         
     :Attributes:
 
-
         startTime : float
             To record the start time of the mining process
 
@@ -173,8 +177,10 @@ class ARWithConfidence:
             To store the total amount of RSS memory consumed by the program
 
 
-    **Methods to execute code on terminal**
-    ----------------------------------------------------
+    Execution methods
+    =================
+
+    **Terminal command**
 
     .. code-block:: console
 
@@ -186,11 +192,11 @@ class ARWithConfidence:
 
       (.venv) $ python3 ARWithConfidence.py sampleDB.txt patterns.txt 0.5 ' '
 
-    .. note:: minConf will be considered only in 0 to 1.
+    .. note:: minConf can be specified in a value between 0 and 1.
     
     
-    **Importing this algorithm into a python program**
-    ----------------------------------------------------
+    **Calling from a python program**
+
     .. code-block:: python
 
             import PAMI.AssociationRules.basic import ARWithConfidence as alg
@@ -220,8 +226,8 @@ class ARWithConfidence:
             print("Total ExecutionTime in seconds:", run)
 
 
-    **Credits:**
-    -------------
+    Credits
+    =======
 
             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
     """
@@ -323,6 +329,7 @@ class ARWithConfidence:
     def getMemoryUSS(self):
         """
         Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -332,6 +339,7 @@ class ARWithConfidence:
     def getMemoryRSS(self):
         """
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -341,6 +349,7 @@ class ARWithConfidence:
     def getRuntime(self):
         """
         Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -350,6 +359,7 @@ class ARWithConfidence:
     def getPatternsAsDataFrame(self):
         """
         Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -365,6 +375,7 @@ class ARWithConfidence:
     def save(self, outFile):
         """
         Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the outputfile
         :type outFile: file
         """
@@ -377,6 +388,7 @@ class ARWithConfidence:
     def getPatterns(self):
         """
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """

@@ -52,15 +52,16 @@ from deprecated import deprecated
 class _FFList:
     """
     A class represent a Fuzzy List of an element
+
     :Attributes:
 
-         item: int
+         item : int
              the item name
-         sumIUtil: float
+         sumIUtil : float
              the sum of utilities of a fuzzy item in database
-         sumRUtil: float
+         sumRUtil : float
              the sum of resting values of a fuzzy item in database
-         elements: list
+         elements : list
              a list of elements contain tid,Utility and resting values of element in each transaction
 
     :Methods:
@@ -105,7 +106,7 @@ class _Element:
 
         tid : int
             keep tact of transaction id
-        iUtils: float
+        iUtils : float
             the utility of a fuzzy item in the transaction
         rUtils : float
             the neighbourhood resting value of a fuzzy item in the transaction
@@ -159,31 +160,23 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             Name of the oFile file to store complete set of fuzzy spatial frequent patterns
         minSup : float
             The user given minimum support
-        neighbors: map
+        neighbors : map
             keep track of neighbours of elements
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-        startTime:float
+        startTime : float
             To record the start time of the mining process
-        endTime:float
+        endTime : float
             To record the completion time of the mining process
-        itemsCnt: int
+        itemsCnt : int
             To record the number of fuzzy spatial itemSets generated
-        mapItemsLowSum: map
-            To keep track of low region values of items
-        mapItemsMidSum: map
-            To keep track of middle region values of items
-        mapItemsHighSum: map
-            To keep track of high region values of items
-        mapItemSum: map
+        mapItemSum : map
             To keep track of sum of Fuzzy Values of items
-        mapItemRegions: map
-            To Keep track of fuzzy regions of item
-        jointCnt: int
+        joinsCnt : int
             To keep track of the number of FFI-list that was constructed
-        BufferSize: int
+        BufferSize : int
             represent the size of Buffer
-        itemBuffer list
+        itemSetBuffer list
             to keep track of items in buffer
 
     :Methods:
@@ -202,7 +195,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
-        convert(value):
+        convert(value)
             To convert the given user specified value
         FSFIMining( prefix, prefixLen, fsFim, minSup)
             Method generate FFI from prefix
@@ -293,15 +286,10 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         A Function that sort all FFI-list in ascending order of Support
 
         :param o1: First FFI-list
-
         :type o1: _FFList
-
         :param o2: Second FFI-list
-
-        :type o1: _FFList
-
-        :return: Comparision Value
-
+        :type o2: _FFList
+        :return: Comparison Value
         :rtype: int
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
@@ -315,11 +303,8 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         To convert the given user specified value
 
         :param value: user specified value
-
         :type value: int or float or str
-
         :return: converted value
-
         :rtype: float
         """
         if type(value) is int:

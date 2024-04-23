@@ -638,7 +638,6 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
-
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:

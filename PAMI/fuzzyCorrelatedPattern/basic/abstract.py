@@ -106,7 +106,6 @@ class _corelatedFuzzyFrequentPatterns(_ABC):
         :param sep: separator used to distinguish items from each other. The default separator is tab space. However, users can override the default separator
         :type sep: str
         """
-
         self._iFile = iFile
         self._minSup = minSup
         self._minAllConf = minAllConf
@@ -125,7 +124,7 @@ class _corelatedFuzzyFrequentPatterns(_ABC):
     @_abstractmethod
     def getPatterns(self):
         """Complete set of frequent patterns generated will be retrieved from this function"""
-
+        
         pass
 
     @_abstractmethod

@@ -30,6 +30,9 @@ from urllib.request import urlopen as _urlopen
 
 class _periodicCorrelatedPatterns(_ABC):
     """
+    About this algorithm
+    ====================
+
     :Description:   This abstract base class defines the variables and methods that every periodic-frequent pattern mining algorithm must
         employ in PAMI
 

@@ -205,13 +205,13 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         fmFile : string
             Name of the fuzzy membership file to mine complete set of fuzzy  frequent patterns
         oFile : string
-               Name of the oFile file to store complete set of fuzzy  frequent patterns
+            Name of the oFile file to store complete set of fuzzy  frequent patterns
         minSup : float
             The user given minimum support
         memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
+            To store the total amount of RSS memory consumed by the program
         startTime:float
-               To record the start time of the mining process
+            To record the start time of the mining process
         endTime:float
             To record the completion time of the mining process
         itemsCnt: int
@@ -249,7 +249,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
             Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
-        convert(value):
+        convert(value)
             To convert the given user specified value
         compareItems(o1, o2)
             A Function that sort all ffi-list in ascending order of Support
@@ -352,15 +352,10 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         A Function that sort all ffi-list in ascending order of Support
 
         :param o1: First FFI-list
-
         :type o1: _FFList
-
         :param o2: Second FFI-list
-
-        :type o1: _FFList
-
-        :return: Comparision Value
-
+        :type o2: _FFList
+        :return: Comparison Value
         :rtype: int
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
@@ -379,11 +374,8 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         To convert the given user specified value
 
         :param value: user specified value
-
         :type value: int or float or str
-
         :return: converted value
-
         :rtype: float
         """
         if type(value) is int:
@@ -473,9 +465,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
     def _Regions(self, quantity: float) -> None:
         """
         :param quantity: Quantity to calculate regions
-
         :type quantity: float
-
         :return: None
         """
         self.list = [0] * len(self._LabelKey)
@@ -631,7 +621,6 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
-
         :rtype: float
         """
 

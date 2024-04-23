@@ -80,14 +80,14 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
 
         iFile : str
             Input file name or path of the input file
-        nFile: str:
+        nFile : str
            Name of Neighbourhood file name
-        maxIAT: float or int or str
+        maxIAT : float or int or str
             The user can specify maxIAT either in count or proportion of database size.
             If the program detects the data type of maxIAT is integer, then it treats maxIAT is expressed in count.
             Otherwise, it will be treated as float.
             Example: maxIAT=10 will be treated as integer, while maxIAT=10.0 will be treated as float
-        minPS: float or int or str
+        minPS : float or int or str
             The user can specify minPS either in count or proportion of database size.
             If the program detects the data type of minPS is integer, then it treats minPS is expressed in count.
             Otherwise, it will be treated as float.
@@ -95,11 +95,11 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
             However, the users can override their default separator.
-        startTime:float
+        startTime : float
             To record the start time of the mining process
-        endTime:float
+        endTime : float
             To record the completion time of the mining process
-        finalPatterns: dict
+        finalPatterns : dict
             Storing the complete set of patterns in a dictionary variable
         oFile : str
             Name of the output file to store complete set of frequent patterns
@@ -132,9 +132,9 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
             Generating one frequent patterns
         convert(value):
             To convert the given user specified value
-        getNeighbourItems(keySet):
+        getNeighbourItems(keySet)
             A function to get common neighbours of a itemSet
-         mapNeighbours(file):
+        mapNeighbours(file)
             A function to map items to their neighbours
 
     **Executing the code on terminal :**
@@ -370,10 +370,10 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         """
         A function to get Neighbours of an item
 
-        :param keySet:itemSet
-        :type keySet:str or tuple
+        :param keySet: itemSet
+        :type keySet: str or tuple
         :return: set of common neighbours
-        :rtype:set
+        :rtype: set
         """
         itemNeighbours = self._NeighboursMap.keys()
         if isinstance(keySet, str):
@@ -474,6 +474,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     def getMemoryUSS(self):
         """
         Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -483,6 +484,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     def getMemoryRSS(self):
         """
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -492,6 +494,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     def getRuntime(self):
         """
         Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -501,6 +504,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     def getPatternsAsDataFrame(self):
         """
         Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -518,6 +522,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     def save(self, outFile):
         """
         Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
         :type outFile: csv file
         """
@@ -533,6 +538,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     def getPatterns(self):
         """
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """

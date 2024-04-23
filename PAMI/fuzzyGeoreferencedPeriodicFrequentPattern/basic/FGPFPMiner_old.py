@@ -52,13 +52,13 @@ class _FFList:
 
     :Attributes:
 
-         item: int
+         item : int
              the item name
-         sumIUtil: float
+         sumIUtil : float
              the sum of utilities of a fuzzy item in database
-         sumRUtil: float
+         sumRUtil : float
              the sum of resting values of a fuzzy item in database
-         elements: list
+         elements : list
              a list of elements contain tid,Utility and resting values of element in each transaction
     :Methods:
 
@@ -102,7 +102,7 @@ class _Element:
 
         tid : int
             keep tact of transaction id
-        iUtils: float
+        iUtils : float
             the utility of a fuzzy item in the transaction
         rUtils : float
             the neighbourhood resting value of a fuzzy item in the transaction
@@ -157,31 +157,25 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             Name of the oFile file to store complete set of fuzzy spatial frequent patterns
         minSup : float
             The user given minimum support
-        neighbors: map
+        neighbors : map
             keep track of neighbours of elements
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-        startTime:float
+        startTime : float
             To record the start time of the mining process
-        endTime:float
+        endTime : float
             To record the completion time of the mining process
-        itemsCnt: int
+        itemsCnt : int
             To record the number of fuzzy spatial itemSets generated
-        mapItemsLowSum: map
-            To keep track of low region values of items
-        mapItemsMidSum: map
-            To keep track of middle region values of items
-        mapItemsHighSum: map
-            To keep track of high region values of items
-        mapItemSum: map
+        mapItemSum : map
             To keep track of sum of Fuzzy Values of items
-        mapItemRegions: map
+        mapItemRegions : map
             To Keep track of fuzzy regions of item
-        jointCnt: int
+        joinsCnt : int
             To keep track of the number of FFI-list that was constructed
-        BufferSize: int
+        BufferSize : int
             represent the size of Buffer
-        itemBuffer list
+        itemSetBuffer list
             to keep track of items in buffer
 
     :Methods:
@@ -200,7 +194,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
-        convert(value):
+        convert(value)
             To convert the given user specified value
         FSFIMining( prefix, prefixLen, fsFim, minSup)
             Method generate FFI from prefix
@@ -296,15 +290,10 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         A Function that sort all FFI-list in ascending order of Support
 
         :param o1: First FFI-list
-
         :type o1: _FFList
-
         :param o2: Second FFI-list
-
-        :type o1: _FFList
-
-        :return: Comparision Value
-
+        :type o2: _FFList
+        :return: Comparison Value
         :rtype: int
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
@@ -318,11 +307,8 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         To convert the given user specified value
 
         :param value: user specified value
-
         :type value: int or float or str
-
         :return: converted value
-
         :rtype: float
         """
         if type(value) is int:
@@ -337,7 +323,6 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         return value
 
     def _fuzzyMembershipFunc(self):
-
         try:
             with open(self._FuzFile, 'r', encoding='utf-8') as f:
                 count = 0
@@ -403,6 +388,9 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                     quit()
 
     def _mapNeighbours(self):
+        """
+        A function to map items to their Neighbours
+        """
         self._mapItemNeighbours = {}
         if isinstance(self._nFile, _ab._pd.DataFrame):
             data, items = [], []
@@ -598,7 +586,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         :param FSFIM: the Fuzzy list of prefix itemSets
         :type FSFIM: list
         :param minSup: the minimum support of
-        :type minSup:int
+        :type minSup: int
         :param itemNeighbours: the set of common neighbours of prefix
         :type itemNeighbours: list or set
         """
@@ -625,8 +613,8 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         :type neighbourX: set or list
         :param neighbourY: the set of neighbours of itemSet 2
         :type neighbourY: set or list
-        :return : set of common neighbours of 2 itemSets
-        :rtype :set
+        :return: set of common neighbours of 2 itemSets
+        :rtype: set
         """
         result = []
         if neighbourX is None or neighbourY is None:
@@ -668,12 +656,12 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         """
         A function to construct a new Fuzzy itemSet from 2 fuzzy itemSets
 
-        :param _FFListObject1:the itemSet px
-        :type _FFListObject1:FFI-List
-        :param _FFListObject2:itemSet py
-        :type _FFListObject2:FFI-List
-        :return :the itemSet of pxy(px and py)
-        :rtype :FFI-List
+        :param _FFListObject1: the itemSet px
+        :type _FFListObject1: FFI-List
+        :param _FFListObject2: itemSet py
+        :type _FFListObject2: FFI-List
+        :return: the itemSet of pxy(px and py)
+        :rtype: FFI-List
         """
         recent_occur, first_occur, tid = 0, 0, 0
         periodlist = []
@@ -703,11 +691,11 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         """
         To find element with same tid as given
 
-        :param uList:fuzzyList
-        :type uList:FFI-List
-        :param tid:transaction id
-        :type tid:int
-        :return:element tid as given
+        :param uList: fuzzyList
+        :type uList: FFI-List
+        :param tid: transaction id
+        :type tid: int
+        :return: element tid as given
         :rtype: element if exist or None
         """
         List = uList.elements
