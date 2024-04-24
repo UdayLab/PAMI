@@ -86,6 +86,7 @@ Total number of algorithms: 83
 - [Discussion and Development](#Discussion-and-Development)
 - [Contribution to PAMI](#Contribution-to-PAMI)
 - [Tutorials](#Tutorials)
+- [Real-World Case Studies](#real-world-case-studies)
 
 
 # Maintenance
@@ -555,5 +556,40 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 | Basic                                                                                                                                                                                                                                      | topk                                                                                                                                                                                                                                  |
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
  | Gspan <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/subgraphMining/basic/gspan.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> | TKG <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/subgraphMining/topk/tkg.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
+
+## 12. Additional Features
+
+#### 12.1. Creation of synthetic databases
+
+| Database type                                                                                                                                                                                                                                                                        |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Transactional database <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/extras/syntheticDataGenerators/TransactionalDatabase.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> | |
+| Temporal database <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/extras/syntheticDataGenerators/TemporalDatabase.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>           |
+| Utility database (coming soon)                                                                                                                                                                                                                                                       |
+
+#### 12.2. Converting a dataframe into a specific database type
+| Approaches                                  |
+|---------------------------------------------|
+| Dense dataframe to databases (coming soon)  |
+| Sparse dataframe to databases (coming soon) |
+
+#### 12.3. Gathering the statistical details of a database
+| Approaches                           |
+|--------------------------------------|
+| Transactional database (coming soon) |
+| Temporal database (coming soon)      |
+| Utility database (coming soon)       |
+
+#### 12.4. Generating Latex code for the experimental results
+| Approaches               |
+|--------------------------|
+| Latex code (coming soon) |
+
+***
+
+# Real World Case Studies
+
+1. Air pollution analytics <a target="_blank" href="https://colab.research.google.com/github/vanithakattumuri/PAMI/blob/main/notebooks/airPollutionAnalytics.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
 
 [Go to Top](#table-of-content)
