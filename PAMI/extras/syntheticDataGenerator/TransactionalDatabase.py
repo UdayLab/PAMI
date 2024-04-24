@@ -87,7 +87,7 @@ class TransactionalDatabase:
     
     """
 
-    def __init__(self, databaseSize, avgItemsPerTransaction, numItems) -> None:
+    def __init__(self, databaseSize, avgItemsPerTransaction, numItems,seperator) -> None:
         """
         Initialize the transactional database with the given parameters
 
@@ -97,11 +97,14 @@ class TransactionalDatabase:
         :type avgItemsPerTransaction: int
         :param numItems: total number of items
         :type numItems: int
+        :param seperator: separator to distinguish the items in a transaction
+        :type seperator: str
         """
 
         self.databaseSize = databaseSize
         self.avgItemsPerTransaction = avgItemsPerTransaction
         self.numItems = numItems
+        self.seperator = seperator
         self.db = []
     
     def _tuning(self, array, sumRes) -> list:
@@ -196,7 +199,7 @@ class TransactionalDatabase:
 
         with open(filename, 'w') as f:
             for line in self.db:
-                f.write(','.join(map(str, line)) + '\n')
+                f.write(str(self.seperator).join(map(str, line)) + '\n')
 
     def getTransactions(self) -> pd.DataFrame:
         """
