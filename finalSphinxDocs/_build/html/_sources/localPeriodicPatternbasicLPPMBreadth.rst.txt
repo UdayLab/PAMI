@@ -1,0 +1,7 @@
+LPPMBreadth
+--------------
+
+.. automodule:: PAMI.localPeriodicPattern.basic.LPPMBreadth
+   :members:
+   :undoc-members:
+   :show-inheritance:

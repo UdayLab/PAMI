@@ -1,0 +1,14 @@
+Fuzzy frequent patterns (FFPs) are patterns that capture the inherent uncertainty or fuzziness in data by allowing for partial matching of items or events.
+Unlike traditional frequent patterns, which require exact matches between items or events,
+fuzzy frequent patterns accommodate variations in the degree of membership or similarity between items, making them suitable for data with uncertain or imprecise information
+
+Applications: Medical Data Mining, Financial Analysis, Manufacturing and Quality Control.
+
+Basic
+======
+
+
+.. toctree::
+   :maxdepth: 1
+
+   fuzzyFrequentPatternbasicFFIMiner
