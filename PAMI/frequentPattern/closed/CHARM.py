@@ -212,7 +212,6 @@ class CHARM(_ab._frequentPatterns):
         """
         Storing the complete frequent patterns of the database/input file in a database variable
         """
-        self._mapSupport = {}
         self._tidList = {}
         self._lno = 0
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -240,11 +239,9 @@ class CHARM(_ab._frequentPatterns):
                     temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
                     for j in temp:
-                        if j not in self._mapSupport:
-                            self._mapSupport[j] = 1
+                        if j not in self._tidList:
                             self._tidList[j] = [self._lno]
                         else:
-                            self._mapSupport[j] += 1
                             self._tidList[j].append(self._lno)
             else:
                 try:
@@ -254,24 +251,17 @@ class CHARM(_ab._frequentPatterns):
                             i = [x for x in i if x]
                             self._lno += 1
                             for j in i:
-                                if j not in self._mapSupport:
-                                    self._mapSupport[j] = 1
+                                if j not in self._tidList:
                                     self._tidList[j] = [self._lno]
                                 else:
-                                    self._mapSupport[j] += 1
                                     self._tidList[j].append(self._lno)
                 except IOError:
                     print("File Not Found")
         self._minSup = self._convert(self._minSup)
-        self._mapSupport = {k: v for k, v in self._mapSupport.items() if v >= self._minSup}
-        _flist = {}
-        self._tidList = {k: v for k, v in self._tidList.items() if k in self._mapSupport}
-        for x, y in self._tidList.items():
-            t1 = 0
-            for i in y:
-                t1 += i
-            _flist[x] = t1
-        _flist = [key for key, value in sorted(_flist.items(), key=lambda x: x[1])]
+        self._tidList = {k: set(v) for k, v in self._tidList.items() if len(v) >= self._minSup}
+
+        # return keys based off the sum of their location appearances in the database
+        _flist = [key for key, value in sorted(self._tidList.items(), key=lambda x: sum(x[1]), reverse=False)]
         return _flist
 
     def _calculate(self, tidSet):
@@ -285,12 +275,7 @@ class CHARM(_ab._frequentPatterns):
         :rtype: int
         """
 
-        hashcode = 0
-        for i in tidSet:
-            hashcode += i
-        if hashcode < 0:
-            hashcode = abs(0 - hashcode)
-        return hashcode % self._tableSize
+        return abs(sum(tidSet)) % self._tableSize
 
     def _contains(self, itemSet, value, hashcode):
         """
@@ -368,7 +353,8 @@ class CHARM(_ab._frequentPatterns):
             tidSetX = tidSets[0]
             itemY = itemSets[1]
             tidSetY = tidSets[1]
-            y1 = list(set(tidSetX).intersection(tidSetY))
+            # y1 = list(set(tidSetX).intersection(tidSetY))
+            y1 = tidSetX.intersection(tidSetY)
             if len(y1) >= self._minSup:
                 suffix = []
                 suffix += [itemX, itemY]
@@ -392,7 +378,7 @@ class CHARM(_ab._frequentPatterns):
                 if itemY is None:
                     continue
                 tidSetY = tidSets[j]
-                y = list(set(tidSetX).intersection(tidSetY))
+                y = tidSetX.intersection(tidSetY)
                 if len(y) < self._minSup:
                     continue
                 if len(tidSetX) == len(tidSetY) and len(y) == len(tidSetX):
@@ -409,7 +395,7 @@ class CHARM(_ab._frequentPatterns):
                 else:
                     classItemSets.append(itemY)
                     classTidSets.append(y)
-            if len(classItemSets) > 0:
+            if len(classItemSets):
                 newPrefix = list(set(itemSetx)) + prefix
                 self._processEquivalenceClass(newPrefix, classItemSets, classTidSets)
                 self._save(prefix, list(set(itemSetx)), tidSetX)
@@ -444,7 +430,7 @@ class CHARM(_ab._frequentPatterns):
                 if itemY is None:
                     continue
                 tidSetY = self._tidList[itemY]
-                y1 = list(set(tidSetx).intersection(tidSetY))
+                y1 = tidSetx.intersection(tidSetY)
                 if len(y1) < self._minSup:
                     continue
                 if len(tidSetx) == len(tidSetY) and len(y1) == len(tidSetx):
