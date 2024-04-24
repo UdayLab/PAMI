@@ -90,33 +90,23 @@ Total number of algorithms: 83
   
   1. Installing basic pami package (recommended)
 
-
          pip install pami
-
 
   2. Installing pami package in a GPU machine that supports CUDA
 
-
          pip install 'pami[gpu]'
-
 
   3. Installing pami package in a distributed network environment supporting Spark
 
-
          pip install 'pami[spark]'
 
-
   4. Installing pami package for developing purpose
-          
 
          pip install 'pami[dev]'
 
-
-  5. Installing complete Library of pami 
-
+  5. Installing complete Library of pami
 
          pip install 'pami[all]'
-
 
   __Upgradation__
 
@@ -172,7 +162,7 @@ Memory (USS): 475353088
 
 1. we compared three different Python libraries such as PAMI, mlxtend and efficient-apriori for Apriori.
 2. (Transactional_T10I4D100K.csv)is a transactional database downloaded from PAMI and
-used as a input file for all libraries.
+used as an input file for all libraries.
 3. Minimum support values and seperator are also same.
 
 * The performance of the **Apriori algorithm** is shown in the graphical results below:
@@ -216,7 +206,7 @@ has been under active development since then.
 ***
 # Getting Help
 
-For any queries, the best place to go to is github Issues [GithubIssues](https://github.com/orgs/UdayLab/discussions/categories/q-a).
+For any queries, the best place to go to is Github Issues [GithubIssues](https://github.com/orgs/UdayLab/discussions/categories/q-a).
 
 ***
 # Discussion and Development
