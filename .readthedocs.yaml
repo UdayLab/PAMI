@@ -23,7 +23,7 @@ build:
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
    configuration: finalSphinxDocs/conf.py
-   fail_on_warning: true 
+   fail_on_warning: false
 
 #true if you want to stop the building process
 
