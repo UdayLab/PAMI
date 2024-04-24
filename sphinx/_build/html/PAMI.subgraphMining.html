@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.subgraphMining package &mdash; PAMI 2024.04.23 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=391540b0"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PAMI.subgraphMining.basic package" href="PAMI.subgraphMining.basic.html" />
+    <link rel="prev" title="PAMI.stablePeriodicFrequentPattern.topK package" href="PAMI.stablePeriodicFrequentPattern.topK.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PAMI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="PAMI.html">PAMI package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="PAMI.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.html">PAMI.AssociationRules package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedPattern.html">PAMI.correlatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.coveragePattern.html">PAMI.coveragePattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.html">PAMI.extras package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.html">PAMI.faultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.html">PAMI.frequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.html">PAMI.fuzzyCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentPattern.html">PAMI.fuzzyFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedFrequentPattern.html">PAMI.fuzzyGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.html">PAMI.fuzzyGeoreferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPartialPeriodicPatterns.html">PAMI.fuzzyPartialPeriodicPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.html">PAMI.fuzzyPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.html">PAMI.geoReferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentPattern.html">PAMI.georeferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentSequencePattern.html">PAMI.georeferencedFrequentSequencePattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedPartialPeriodicPattern.html">PAMI.georeferencedPartialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentPattern.html">PAMI.highUtilityFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityGeoreferencedFrequentPattern.html">PAMI.highUtilityGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.html">PAMI.highUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPatternsInStreams.html">PAMI.highUtilityPatternsInStreams package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html">PAMI.highUtilitySpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.html">PAMI.localPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.html">PAMI.multipleMinimumSupportBasedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.html">PAMI.partialPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.html">PAMI.partialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html">PAMI.partialPeriodicPatternInMultipleTimeSeries package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.html">PAMI.periodicCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.html">PAMI.periodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.recurringPattern.html">PAMI.recurringPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeFrequentPattern.html">PAMI.relativeFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeHighUtilityPattern.html">PAMI.relativeHighUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequence.html">PAMI.sequence package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.html">PAMI.sequentialPatternMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.html">PAMI.stablePeriodicFrequentPattern package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">PAMI.subgraphMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html">PAMI.uncertainFaultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.html">PAMI.uncertainFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainGeoreferencedFrequentPattern.html">PAMI.uncertainGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.html">PAMI.uncertainPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.html">PAMI.weightedFrequentNeighbourhoodPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentPattern.html">PAMI.weightedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.html">PAMI.weightedFrequentRegularPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.html">PAMI.weightedUncertainFrequentPattern package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.html#module-PAMI">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PAMI</a></li>
+          <li class="breadcrumb-item"><a href="PAMI.html">PAMI package</a></li>
+      <li class="breadcrumb-item active">PAMI.subgraphMining package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PAMI.subgraphMining.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pami-subgraphmining-package">
+<h1>PAMI.subgraphMining package<a class="headerlink" href="#pami-subgraphmining-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.subgraphMining.basic.html">PAMI.subgraphMining.basic package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic.abstract">PAMI.subgraphMining.basic.abstract module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic.dfsCode">PAMI.subgraphMining.basic.dfsCode module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode"><code class="docutils literal notranslate"><span class="pre">DFSCode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.add"><code class="docutils literal notranslate"><span class="pre">DFSCode.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.containEdge"><code class="docutils literal notranslate"><span class="pre">DFSCode.containEdge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.copy"><code class="docutils literal notranslate"><span class="pre">DFSCode.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.getAllVLabels"><code class="docutils literal notranslate"><span class="pre">DFSCode.getAllVLabels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.getAt"><code class="docutils literal notranslate"><span class="pre">DFSCode.getAt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.getEeList"><code class="docutils literal notranslate"><span class="pre">DFSCode.getEeList()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.getRightMost"><code class="docutils literal notranslate"><span class="pre">DFSCode.getRightMost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.getRightMostPath"><code class="docutils literal notranslate"><span class="pre">DFSCode.getRightMostPath()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.isEmpty"><code class="docutils literal notranslate"><span class="pre">DFSCode.isEmpty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.notPreOfRm"><code class="docutils literal notranslate"><span class="pre">DFSCode.notPreOfRm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.onRightMostPath"><code class="docutils literal notranslate"><span class="pre">DFSCode.onRightMostPath()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic.edge">PAMI.subgraphMining.basic.edge module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.edge.Edge"><code class="docutils literal notranslate"><span class="pre">Edge</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.edge.Edge.another"><code class="docutils literal notranslate"><span class="pre">Edge.another()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.edge.Edge.getEdgeLabel"><code class="docutils literal notranslate"><span class="pre">Edge.getEdgeLabel()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic.extendedEdge">PAMI.subgraphMining.basic.extendedEdge module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge"><code class="docutils literal notranslate"><span class="pre">ExtendedEdge</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.getEdgeLabel"><code class="docutils literal notranslate"><span class="pre">ExtendedEdge.getEdgeLabel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.getV1"><code class="docutils literal notranslate"><span class="pre">ExtendedEdge.getV1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.getV2"><code class="docutils literal notranslate"><span class="pre">ExtendedEdge.getV2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.getVLabel1"><code class="docutils literal notranslate"><span class="pre">ExtendedEdge.getVLabel1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.getVLabel2"><code class="docutils literal notranslate"><span class="pre">ExtendedEdge.getVLabel2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.pairSmallerThan"><code class="docutils literal notranslate"><span class="pre">ExtendedEdge.pairSmallerThan()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.smallerThan"><code class="docutils literal notranslate"><span class="pre">ExtendedEdge.smallerThan()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.smallerThanOriginal"><code class="docutils literal notranslate"><span class="pre">ExtendedEdge.smallerThanOriginal()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic.frequentSubgraph">PAMI.subgraphMining.basic.frequentSubgraph module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.frequentSubgraph.FrequentSubgraph"><code class="docutils literal notranslate"><span class="pre">FrequentSubgraph</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic.graph">PAMI.subgraphMining.basic.graph module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.graph.Graph"><code class="docutils literal notranslate"><span class="pre">Graph</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.graph.Graph.emptyIntegerArray"><code class="docutils literal notranslate"><span class="pre">Graph.emptyIntegerArray</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.graph.Graph.emptyVertexList"><code class="docutils literal notranslate"><span class="pre">Graph.emptyVertexList</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.graph.Graph.findAllWithLabel"><code class="docutils literal notranslate"><span class="pre">Graph.findAllWithLabel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.graph.Graph.getAllNeighbors"><code class="docutils literal notranslate"><span class="pre">Graph.getAllNeighbors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.graph.Graph.getAllVertices"><code class="docutils literal notranslate"><span class="pre">Graph.getAllVertices()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.graph.Graph.getEdge"><code class="docutils literal notranslate"><span class="pre">Graph.getEdge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.graph.Graph.getEdgeCount"><code class="docutils literal notranslate"><span class="pre">Graph.getEdgeCount()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.graph.Graph.getEdgeLabel"><code class="docutils literal notranslate"><span class="pre">Graph.getEdgeLabel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.graph.Graph.getId"><code class="docutils literal notranslate"><span class="pre">Graph.getId()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.graph.Graph.getNonPrecalculatedAllVertices"><code class="docutils literal notranslate"><span class="pre">Graph.getNonPrecalculatedAllVertices()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.graph.Graph.getVLabel"><code class="docutils literal notranslate"><span class="pre">Graph.getVLabel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.graph.Graph.isNeighboring"><code class="docutils literal notranslate"><span class="pre">Graph.isNeighboring()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.graph.Graph.precalculateLabelsToVertices"><code class="docutils literal notranslate"><span class="pre">Graph.precalculateLabelsToVertices()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.graph.Graph.precalculateVertexList"><code class="docutils literal notranslate"><span class="pre">Graph.precalculateVertexList()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.graph.Graph.precalculateVertexNeighbors"><code class="docutils literal notranslate"><span class="pre">Graph.precalculateVertexNeighbors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.graph.Graph.removeInfrequentLabel"><code class="docutils literal notranslate"><span class="pre">Graph.removeInfrequentLabel()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic.gspan">PAMI.subgraphMining.basic.gspan module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan"><code class="docutils literal notranslate"><span class="pre">GSpan</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.Pair"><code class="docutils literal notranslate"><span class="pre">GSpan.Pair</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.edge_count_pruning"><code class="docutils literal notranslate"><span class="pre">GSpan.edge_count_pruning</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.eliminate_infrequent_edge_labels"><code class="docutils literal notranslate"><span class="pre">GSpan.eliminate_infrequent_edge_labels</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.eliminate_infrequent_vertex_pairs"><code class="docutils literal notranslate"><span class="pre">GSpan.eliminate_infrequent_vertex_pairs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.eliminate_infrequent_vertices"><code class="docutils literal notranslate"><span class="pre">GSpan.eliminate_infrequent_vertices</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.findAllOnlyOneVertex"><code class="docutils literal notranslate"><span class="pre">GSpan.findAllOnlyOneVertex()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.gSpan"><code class="docutils literal notranslate"><span class="pre">GSpan.gSpan()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.getFrequentSubgraphs"><code class="docutils literal notranslate"><span class="pre">GSpan.getFrequentSubgraphs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.getMemoryRSS"><code class="docutils literal notranslate"><span class="pre">GSpan.getMemoryRSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.getMemoryUSS"><code class="docutils literal notranslate"><span class="pre">GSpan.getMemoryUSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.getRuntime"><code class="docutils literal notranslate"><span class="pre">GSpan.getRuntime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.gspanDFS"><code class="docutils literal notranslate"><span class="pre">GSpan.gspanDFS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.isCanonical"><code class="docutils literal notranslate"><span class="pre">GSpan.isCanonical()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.readGraphs"><code class="docutils literal notranslate"><span class="pre">GSpan.readGraphs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.removeInfrequentVertexPairs"><code class="docutils literal notranslate"><span class="pre">GSpan.removeInfrequentVertexPairs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.rightMostPathExtensions"><code class="docutils literal notranslate"><span class="pre">GSpan.rightMostPathExtensions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.rightMostPathExtensionsFromSingle"><code class="docutils literal notranslate"><span class="pre">GSpan.rightMostPathExtensionsFromSingle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.save"><code class="docutils literal notranslate"><span class="pre">GSpan.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.startMine"><code class="docutils literal notranslate"><span class="pre">GSpan.startMine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.gspan.GSpan.subgraphIsomorphisms"><code class="docutils literal notranslate"><span class="pre">GSpan.subgraphIsomorphisms()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic.sparseTriangularMatrix">PAMI.subgraphMining.basic.sparseTriangularMatrix module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.sparseTriangularMatrix.SparseTriangularMatrix"><code class="docutils literal notranslate"><span class="pre">SparseTriangularMatrix</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.sparseTriangularMatrix.SparseTriangularMatrix.getSupportForItems"><code class="docutils literal notranslate"><span class="pre">SparseTriangularMatrix.getSupportForItems()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.sparseTriangularMatrix.SparseTriangularMatrix.incrementCount"><code class="docutils literal notranslate"><span class="pre">SparseTriangularMatrix.incrementCount()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.sparseTriangularMatrix.SparseTriangularMatrix.removeInfrequentEntriesFromMatrix"><code class="docutils literal notranslate"><span class="pre">SparseTriangularMatrix.removeInfrequentEntriesFromMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.sparseTriangularMatrix.SparseTriangularMatrix.setSupport"><code class="docutils literal notranslate"><span class="pre">SparseTriangularMatrix.setSupport()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic.vertex">PAMI.subgraphMining.basic.vertex module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.vertex.Vertex"><code class="docutils literal notranslate"><span class="pre">Vertex</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.vertex.Vertex.addEdge"><code class="docutils literal notranslate"><span class="pre">Vertex.addEdge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.vertex.Vertex.getEdgeList"><code class="docutils literal notranslate"><span class="pre">Vertex.getEdgeList()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.vertex.Vertex.getId"><code class="docutils literal notranslate"><span class="pre">Vertex.getId()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.vertex.Vertex.getLabel"><code class="docutils literal notranslate"><span class="pre">Vertex.getLabel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.vertex.Vertex.removeEdge"><code class="docutils literal notranslate"><span class="pre">Vertex.removeEdge()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.subgraphMining.topK.html">PAMI.subgraphMining.topK package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.topK.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.DFSCode">PAMI.subgraphMining.topK.DFSCode module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSCode.DfsCode"><code class="docutils literal notranslate"><span class="pre">DfsCode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSCode.DfsCode.add"><code class="docutils literal notranslate"><span class="pre">DfsCode.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSCode.DfsCode.containEdge"><code class="docutils literal notranslate"><span class="pre">DfsCode.containEdge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSCode.DfsCode.copy"><code class="docutils literal notranslate"><span class="pre">DfsCode.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSCode.DfsCode.getAllVLabels"><code class="docutils literal notranslate"><span class="pre">DfsCode.getAllVLabels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSCode.DfsCode.getAt"><code class="docutils literal notranslate"><span class="pre">DfsCode.getAt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSCode.DfsCode.getEeList"><code class="docutils literal notranslate"><span class="pre">DfsCode.getEeList()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSCode.DfsCode.getRightMost"><code class="docutils literal notranslate"><span class="pre">DfsCode.getRightMost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSCode.DfsCode.getRightMostPath"><code class="docutils literal notranslate"><span class="pre">DfsCode.getRightMostPath()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSCode.DfsCode.isEmpty"><code class="docutils literal notranslate"><span class="pre">DfsCode.isEmpty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSCode.DfsCode.notPreOfRm"><code class="docutils literal notranslate"><span class="pre">DfsCode.notPreOfRm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSCode.DfsCode.onRightMostPath"><code class="docutils literal notranslate"><span class="pre">DfsCode.onRightMostPath()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.DFSThread">PAMI.subgraphMining.topK.DFSThread module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSThread.DfsThread"><code class="docutils literal notranslate"><span class="pre">DfsThread</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSThread.DfsThread.run"><code class="docutils literal notranslate"><span class="pre">DfsThread.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.abstract">PAMI.subgraphMining.topK.abstract module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.edge">PAMI.subgraphMining.topK.edge module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.edge.Edge"><code class="docutils literal notranslate"><span class="pre">Edge</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.edge.Edge.another"><code class="docutils literal notranslate"><span class="pre">Edge.another()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.edge.Edge.getEdgeLabel"><code class="docutils literal notranslate"><span class="pre">Edge.getEdgeLabel()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.extendedEdge">PAMI.subgraphMining.topK.extendedEdge module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge"><code class="docutils literal notranslate"><span class="pre">ExtendedEdge</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getEdgeLabel"><code class="docutils literal notranslate"><span class="pre">ExtendedEdge.getEdgeLabel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getV1"><code class="docutils literal notranslate"><span class="pre">ExtendedEdge.getV1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getV2"><code class="docutils literal notranslate"><span class="pre">ExtendedEdge.getV2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getVLabel1"><code class="docutils literal notranslate"><span class="pre">ExtendedEdge.getVLabel1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getVLabel2"><code class="docutils literal notranslate"><span class="pre">ExtendedEdge.getVLabel2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.pairSmallerThan"><code class="docutils literal notranslate"><span class="pre">ExtendedEdge.pairSmallerThan()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.smallerThan"><code class="docutils literal notranslate"><span class="pre">ExtendedEdge.smallerThan()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.smallerThanOriginal"><code class="docutils literal notranslate"><span class="pre">ExtendedEdge.smallerThanOriginal()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.frequentSubgraph">PAMI.subgraphMining.topK.frequentSubgraph module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.frequentSubgraph.FrequentSubgraph"><code class="docutils literal notranslate"><span class="pre">FrequentSubgraph</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.graph">PAMI.subgraphMining.topK.graph module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.graph.Graph"><code class="docutils literal notranslate"><span class="pre">Graph</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.graph.Graph.EMPTY_INTEGER_ARRAY"><code class="docutils literal notranslate"><span class="pre">Graph.EMPTY_INTEGER_ARRAY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.graph.Graph.EMPTY_VERTEX_LIST"><code class="docutils literal notranslate"><span class="pre">Graph.EMPTY_VERTEX_LIST</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.graph.Graph.findAllWithLabel"><code class="docutils literal notranslate"><span class="pre">Graph.findAllWithLabel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.graph.Graph.getAllNeighbors"><code class="docutils literal notranslate"><span class="pre">Graph.getAllNeighbors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.graph.Graph.getAllVertices"><code class="docutils literal notranslate"><span class="pre">Graph.getAllVertices()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.graph.Graph.getEdge"><code class="docutils literal notranslate"><span class="pre">Graph.getEdge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.graph.Graph.getEdgeCount"><code class="docutils literal notranslate"><span class="pre">Graph.getEdgeCount()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.graph.Graph.getEdgeLabel"><code class="docutils literal notranslate"><span class="pre">Graph.getEdgeLabel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.graph.Graph.getId"><code class="docutils literal notranslate"><span class="pre">Graph.getId()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.graph.Graph.getNonPrecalculatedAllVertices"><code class="docutils literal notranslate"><span class="pre">Graph.getNonPrecalculatedAllVertices()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.graph.Graph.getVLabel"><code class="docutils literal notranslate"><span class="pre">Graph.getVLabel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.graph.Graph.isNeighboring"><code class="docutils literal notranslate"><span class="pre">Graph.isNeighboring()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.graph.Graph.precalculateLabelsToVertices"><code class="docutils literal notranslate"><span class="pre">Graph.precalculateLabelsToVertices()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.graph.Graph.precalculateVertexList"><code class="docutils literal notranslate"><span class="pre">Graph.precalculateVertexList()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.graph.Graph.precalculateVertexNeighbors"><code class="docutils literal notranslate"><span class="pre">Graph.precalculateVertexNeighbors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.graph.Graph.removeInfrequentLabel"><code class="docutils literal notranslate"><span class="pre">Graph.removeInfrequentLabel()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.sparseTriangularMatrix">PAMI.subgraphMining.topK.sparseTriangularMatrix module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.sparseTriangularMatrix.SparseTriangularMatrix"><code class="docutils literal notranslate"><span class="pre">SparseTriangularMatrix</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.sparseTriangularMatrix.SparseTriangularMatrix.getSupportForItems"><code class="docutils literal notranslate"><span class="pre">SparseTriangularMatrix.getSupportForItems()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.sparseTriangularMatrix.SparseTriangularMatrix.incrementCount"><code class="docutils literal notranslate"><span class="pre">SparseTriangularMatrix.incrementCount()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.sparseTriangularMatrix.SparseTriangularMatrix.removeInfrequentEntriesFromMatrix"><code class="docutils literal notranslate"><span class="pre">SparseTriangularMatrix.removeInfrequentEntriesFromMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.sparseTriangularMatrix.SparseTriangularMatrix.setSupport"><code class="docutils literal notranslate"><span class="pre">SparseTriangularMatrix.setSupport()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.tkg">PAMI.subgraphMining.topK.tkg module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG"><code class="docutils literal notranslate"><span class="pre">TKG</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.DYNAMIC_SEARCH"><code class="docutils literal notranslate"><span class="pre">TKG.DYNAMIC_SEARCH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.EDGE_COUNT_PRUNING"><code class="docutils literal notranslate"><span class="pre">TKG.EDGE_COUNT_PRUNING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.ELIMINATE_INFREQUENT_EDGE_LABELS"><code class="docutils literal notranslate"><span class="pre">TKG.ELIMINATE_INFREQUENT_EDGE_LABELS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.ELIMINATE_INFREQUENT_VERTEX_PAIRS"><code class="docutils literal notranslate"><span class="pre">TKG.ELIMINATE_INFREQUENT_VERTEX_PAIRS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.ELIMINATE_INFREQUENT_VERTICES"><code class="docutils literal notranslate"><span class="pre">TKG.ELIMINATE_INFREQUENT_VERTICES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.Pair"><code class="docutils literal notranslate"><span class="pre">TKG.Pair</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.THREADED_DYNAMIC_SEARCH"><code class="docutils literal notranslate"><span class="pre">TKG.THREADED_DYNAMIC_SEARCH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.findAllOnlyOneVertex"><code class="docutils literal notranslate"><span class="pre">TKG.findAllOnlyOneVertex()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.gSpan"><code class="docutils literal notranslate"><span class="pre">TKG.gSpan()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.getKSubgraphs"><code class="docutils literal notranslate"><span class="pre">TKG.getKSubgraphs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.getMemoryRSS"><code class="docutils literal notranslate"><span class="pre">TKG.getMemoryRSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.getMemoryUSS"><code class="docutils literal notranslate"><span class="pre">TKG.getMemoryUSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.getMinSupport"><code class="docutils literal notranslate"><span class="pre">TKG.getMinSupport()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.getQueueSize"><code class="docutils literal notranslate"><span class="pre">TKG.getQueueSize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.getRuntime"><code class="docutils literal notranslate"><span class="pre">TKG.getRuntime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.getSubgraphs"><code class="docutils literal notranslate"><span class="pre">TKG.getSubgraphs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.gspanDfs"><code class="docutils literal notranslate"><span class="pre">TKG.gspanDfs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.gspanDynamicDFS"><code class="docutils literal notranslate"><span class="pre">TKG.gspanDynamicDFS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.isCanonical"><code class="docutils literal notranslate"><span class="pre">TKG.isCanonical()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.readGraphs"><code class="docutils literal notranslate"><span class="pre">TKG.readGraphs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.registerAsCandidate"><code class="docutils literal notranslate"><span class="pre">TKG.registerAsCandidate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.removeInfrequentVertexPairs"><code class="docutils literal notranslate"><span class="pre">TKG.removeInfrequentVertexPairs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.rightMostPathExtensions"><code class="docutils literal notranslate"><span class="pre">TKG.rightMostPathExtensions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.rightMostPathExtensionsFromSingle"><code class="docutils literal notranslate"><span class="pre">TKG.rightMostPathExtensionsFromSingle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.save"><code class="docutils literal notranslate"><span class="pre">TKG.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.savePattern"><code class="docutils literal notranslate"><span class="pre">TKG.savePattern()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.startMine"><code class="docutils literal notranslate"><span class="pre">TKG.startMine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.startThreads"><code class="docutils literal notranslate"><span class="pre">TKG.startThreads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.subgraphIsomorphisms"><code class="docutils literal notranslate"><span class="pre">TKG.subgraphIsomorphisms()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.vertex">PAMI.subgraphMining.topK.vertex module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.vertex.Vertex"><code class="docutils literal notranslate"><span class="pre">Vertex</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.vertex.Vertex.addEdge"><code class="docutils literal notranslate"><span class="pre">Vertex.addEdge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.vertex.Vertex.getEdgeList"><code class="docutils literal notranslate"><span class="pre">Vertex.getEdgeList()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.vertex.Vertex.getId"><code class="docutils literal notranslate"><span class="pre">Vertex.getId()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.vertex.Vertex.getLabel"><code class="docutils literal notranslate"><span class="pre">Vertex.getLabel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.vertex.Vertex.removeEdge"><code class="docutils literal notranslate"><span class="pre">Vertex.removeEdge()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-PAMI.subgraphMining">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.subgraphMining" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="PAMI.stablePeriodicFrequentPattern.topK.html" class="btn btn-neutral float-left" title="PAMI.stablePeriodicFrequentPattern.topK package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="PAMI.subgraphMining.basic.html" class="btn btn-neutral float-right" title="PAMI.subgraphMining.basic package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE Uday Kiran.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

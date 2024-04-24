@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.fuzzyPeriodicFrequentPattern.basic package &mdash; PAMI 2024.04.23 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=391540b0"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PAMI.geoReferencedPeriodicFrequentPattern package" href="PAMI.geoReferencedPeriodicFrequentPattern.html" />
+    <link rel="prev" title="PAMI.fuzzyPeriodicFrequentPattern package" href="PAMI.fuzzyPeriodicFrequentPattern.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PAMI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="PAMI.html">PAMI package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="PAMI.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.html">PAMI.AssociationRules package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedPattern.html">PAMI.correlatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.coveragePattern.html">PAMI.coveragePattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.html">PAMI.extras package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.html">PAMI.faultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.html">PAMI.frequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.html">PAMI.fuzzyCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentPattern.html">PAMI.fuzzyFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedFrequentPattern.html">PAMI.fuzzyGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.html">PAMI.fuzzyGeoreferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPartialPeriodicPatterns.html">PAMI.fuzzyPartialPeriodicPatterns package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.html">PAMI.fuzzyPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.html">PAMI.geoReferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentPattern.html">PAMI.georeferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentSequencePattern.html">PAMI.georeferencedFrequentSequencePattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedPartialPeriodicPattern.html">PAMI.georeferencedPartialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentPattern.html">PAMI.highUtilityFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityGeoreferencedFrequentPattern.html">PAMI.highUtilityGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.html">PAMI.highUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPatternsInStreams.html">PAMI.highUtilityPatternsInStreams package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html">PAMI.highUtilitySpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.html">PAMI.localPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.html">PAMI.multipleMinimumSupportBasedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.html">PAMI.partialPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.html">PAMI.partialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html">PAMI.partialPeriodicPatternInMultipleTimeSeries package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.html">PAMI.periodicCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.html">PAMI.periodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.recurringPattern.html">PAMI.recurringPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeFrequentPattern.html">PAMI.relativeFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeHighUtilityPattern.html">PAMI.relativeHighUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequence.html">PAMI.sequence package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.html">PAMI.sequentialPatternMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.html">PAMI.stablePeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.html">PAMI.subgraphMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html">PAMI.uncertainFaultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.html">PAMI.uncertainFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainGeoreferencedFrequentPattern.html">PAMI.uncertainGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.html">PAMI.uncertainPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.html">PAMI.weightedFrequentNeighbourhoodPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentPattern.html">PAMI.weightedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.html">PAMI.weightedFrequentRegularPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.html">PAMI.weightedUncertainFrequentPattern package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.html#module-PAMI">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PAMI</a></li>
+          <li class="breadcrumb-item"><a href="PAMI.html">PAMI package</a></li>
+          <li class="breadcrumb-item"><a href="PAMI.fuzzyPeriodicFrequentPattern.html">PAMI.fuzzyPeriodicFrequentPattern package</a></li>
+      <li class="breadcrumb-item active">PAMI.fuzzyPeriodicFrequentPattern.basic package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PAMI.fuzzyPeriodicFrequentPattern.basic.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pami-fuzzyperiodicfrequentpattern-basic-package">
+<h1>PAMI.fuzzyPeriodicFrequentPattern.basic package<a class="headerlink" href="#pami-fuzzyperiodicfrequentpattern-basic-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner">
+<span id="pami-fuzzyperiodicfrequentpattern-basic-fpfpminer-module"></span><h2>PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner module<a class="headerlink" href="#module-PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.</span></span><span class="sig-name descname"><span class="pre">FPFPMiner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner.html#FPFPMiner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_fuzzyPeriodicFrequentPatterns</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Fuzzy Periodic Frequent Pattern Miner is desired to find all fuzzy periodic frequent patterns which is
+on-trivial and challenging problem to its huge search space.we are using efficient pruning
+techniques to reduce the search space.</p>
+</dd>
+<dt class="field-even">Reference<span class="colon">:</span></dt>
+<dd class="field-even"><p>R. U. Kiran et al., “Discovering Fuzzy Periodic-Frequent Patterns in Quantitative Temporal Databases,”
+2020 IEEE International Conference on Fuzzy Systems (FUZZ-IEEE), Glasgow, UK, 2020, pp.
+1-8, doi: 10.1109/FUZZ48607.2020.9177579.</p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of frequent patterns</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of frequent patterns</p></li>
+<li><p><strong>minSup</strong> – int or float or str :
+The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.</p></li>
+<li><p><strong>maxPer</strong> – float :
+The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the input file to mine complete set of fuzzy spatial frequent patterns</p>
+</dd>
+<dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the oFile file to store complete set of fuzzy spatial frequent patterns</p>
+</dd>
+<dt>minSup<span class="classifier">float</span></dt><dd><p>The user given support</p>
+</dd>
+<dt>period: int</dt><dd><p>periodicity of an element</p>
+</dd>
+<dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
+</dd>
+<dt>startTime:float</dt><dd><p>To record the start time of the mining process</p>
+</dd>
+<dt>endTime:float</dt><dd><p>To record the completion time of the mining process</p>
+</dd>
+<dt>itemsCnt: int</dt><dd><p>To record the number of fuzzy spatial itemSets generated</p>
+</dd>
+<dt>mapItemsLowSum: map</dt><dd><p>To keep track of low region values of items</p>
+</dd>
+<dt>mapItemsMidSum: map</dt><dd><p>To keep track of middle region values of items</p>
+</dd>
+<dt>mapItemsHighSum: map</dt><dd><p>To keep track of high region values of items</p>
+</dd>
+<dt>mapItemSum: map</dt><dd><p>To keep track of sum of Fuzzy Values of items</p>
+</dd>
+<dt>mapItemRegions: map</dt><dd><p>To Keep track of fuzzy regions of item</p>
+</dd>
+<dt>jointCnt: int</dt><dd><p>To keep track of the number of FFI-list that was constructed</p>
+</dd>
+<dt>BufferSize: int</dt><dd><p>represent the size of Buffer</p>
+</dd>
+<dt>itemBuffer list</dt><dd><p>to keep track of items in buffer</p>
+</dd>
+<dt>maxTID: int</dt><dd><p>represent the maximum tid of the database</p>
+</dd>
+<dt>lastTIDs: map</dt><dd><p>represent the last tid of fuzzy items</p>
+</dd>
+<dt>itemsToRegion: map</dt><dd><p>represent items with respective regions</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>mine()</dt><dd><p>Mining process will start from here</p>
+</dd>
+<dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
+</dd>
+<dt>save(oFile)</dt><dd><p>Complete set of frequent patterns will be loaded in to a output file</p>
+</dd>
+<dt>getPatternsAsDataFrame()</dt><dd><p>Complete set of frequent patterns will be loaded in to a dataframe</p>
+</dd>
+<dt>getMemoryUSS()</dt><dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getMemoryRSS()</dt><dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getRuntime()</dt><dd><p>Total amount of runtime taken by the mining process will be retrieved from this function</p>
+</dd>
+<dt>convert(value):</dt><dd><p>To convert the given user specified value</p>
+</dd>
+<dt>FSFIMining( prefix, prefixLen, fsFim, minSup)</dt><dd><p>Method generate FFI from prefix</p>
+</dd>
+<dt>construct(px, py)</dt><dd><p>A function to construct Fuzzy itemSet from 2 fuzzy itemSets</p>
+</dd>
+<dt>findElementWithTID(UList, tid)</dt><dd><p>To find element with same tid as given</p>
+</dd>
+<dt>WriteOut(prefix, prefixLen, item, sumIUtil,period)</dt><dd><p>To Store the patten</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="executing-the-code-on-terminal">
+<h3><strong>Executing the code on terminal :</strong><a class="headerlink" href="#executing-the-code-on-terminal" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>FPFPMiner.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;<span class="w"> </span>&lt;maxPer&gt;<span class="w"> </span>&lt;sep&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w">  </span>FPFPMiner.py<span class="w"> </span>sampleTDB.txt<span class="w"> </span>output.txt<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup will be considered in percentage of database transactions</p>
+</div>
+</section>
+<section id="sample-run-of-importing-the-code">
+<h3><strong>Sample run of importing the code:</strong><a class="headerlink" href="#sample-run-of-importing-the-code" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>from PAMI.fuzzyPeriodicFrequentPattern.basic import FPFPMiner as alg</p>
+<p>obj =alg.FPFPMiner(“input.txt”,2,3)</p>
+<p>obj.mine()</p>
+<p>periodicFrequentPatterns = obj.getPatterns()</p>
+<p>print(“Total number of Fuzzy Periodic Frequent Patterns:”, len(periodicFrequentPatterns))</p>
+<p>obj.save(“output.txt”)</p>
+<p>memUSS = obj.getMemoryUSS()</p>
+<p>print(“Total Memory in USS:”, memUSS)</p>
+<p>memRSS = obj.getMemoryRSS()</p>
+<p>print(“Total Memory in RSS”, memRSS)</p>
+<p>run = obj.getRuntime()</p>
+<p>print(“Total ExecutionTime in seconds:”, run)</p>
+</div></blockquote>
+</section>
+<section id="credits">
+<h3><strong>Credits:</strong><a class="headerlink" href="#credits" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>The complete program was written by Sai Chitra.B under the supervision of Professor Rage Uday Kiran.</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.getMemoryRSS">
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner.html#FPFPMiner.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.getMemoryRSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning RSS memory consumed by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.getMemoryUSS">
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner.html#FPFPMiner.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.getMemoryUSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning USS memory consumed by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.getPatterns">
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner.html#FPFPMiner.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.getPatterns" title="Link to this definition"></a></dt>
+<dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning frequent patterns</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.getPatternsAsDataFrame">
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner.html#FPFPMiner.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<dd><p>Storing final frequent patterns in a dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning frequent patterns in a dataframe</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.getRuntime">
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner.html#FPFPMiner.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.getRuntime" title="Link to this definition"></a></dt>
+<dd><p>Calculating the total amount of runtime taken by the mining process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning total amount of runtime taken by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.mine">
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner.html#FPFPMiner.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.mine" title="Link to this definition"></a></dt>
+<dd><p>Fuzzy periodic Frequent pattern mining process will start from here</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.printResults">
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner.html#FPFPMiner.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.printResults" title="Link to this definition"></a></dt>
+<dd><p>This function is used to print the results</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner.html#FPFPMiner.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.save" title="Link to this definition"></a></dt>
+<dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outFile</strong> (<em>csv file</em>) – name of the output file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.startMine">
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner.html#FPFPMiner.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.startMine" title="Link to this definition"></a></dt>
+<dd><p>Fuzzy periodic Frequent pattern mining process will start from here</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old">
+<span id="pami-fuzzyperiodicfrequentpattern-basic-fpfpminer-old-module"></span><h2>PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old module<a class="headerlink" href="#module-PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.</span></span><span class="sig-name descname"><span class="pre">FPFPMiner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner_old.html#FPFPMiner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_fuzzyPeriodicFrequentPatterns</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Fuzzy Periodic Frequent Pattern Miner is desired to find all fuzzy periodic frequent patterns which is
+on-trivial and challenging problem to its huge search space.we are using efficient pruning
+techniques to reduce the search space.</p>
+</dd>
+<dt class="field-even">Reference<span class="colon">:</span></dt>
+<dd class="field-even"><p></p></dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of frequent patterns</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of frequent patterns</p></li>
+<li><p><strong>minSup</strong> – int or float or str :
+The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.</p></li>
+<li><p><strong>maxPer</strong> – float :
+The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the input file to mine complete set of fuzzy spatial frequent patterns</p>
+</dd>
+<dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the oFile file to store complete set of fuzzy spatial frequent patterns</p>
+</dd>
+<dt>minSup<span class="classifier">float</span></dt><dd><p>The user given support</p>
+</dd>
+<dt>period<span class="classifier">int</span></dt><dd><p>periodicity of an element</p>
+</dd>
+<dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
+</dd>
+<dt>startTime<span class="classifier">float</span></dt><dd><p>To record the start time of the mining process</p>
+</dd>
+<dt>endTime<span class="classifier">float</span></dt><dd><p>To record the completion time of the mining process</p>
+</dd>
+<dt>itemsCnt<span class="classifier">int</span></dt><dd><p>To record the number of fuzzy spatial itemSets generated</p>
+</dd>
+<dt>mapItemsLowSum<span class="classifier">map</span></dt><dd><p>To keep track of low region values of items</p>
+</dd>
+<dt>mapItemsMidSum<span class="classifier">map</span></dt><dd><p>To keep track of middle region values of items</p>
+</dd>
+<dt>mapItemsHighSum<span class="classifier">map</span></dt><dd><p>To keep track of high region values of items</p>
+</dd>
+<dt>mapItemSum<span class="classifier">map</span></dt><dd><p>To keep track of sum of Fuzzy Values of items</p>
+</dd>
+<dt>mapItemRegions<span class="classifier">map</span></dt><dd><p>To Keep track of fuzzy regions of item</p>
+</dd>
+<dt>joinsCnt<span class="classifier">int</span></dt><dd><p>To keep track of the number of FFI-list that was constructed</p>
+</dd>
+<dt>BufferSize<span class="classifier">int</span></dt><dd><p>represent the size of Buffer</p>
+</dd>
+<dt>itemSetBuffer list</dt><dd><p>to keep track of items in buffer</p>
+</dd>
+<dt>maxTID<span class="classifier">int</span></dt><dd><p>represent the maximum tid of the database</p>
+</dd>
+<dt>lastTIDs<span class="classifier">map</span></dt><dd><p>represent the last tid of fuzzy items</p>
+</dd>
+<dt>itemsToRegion<span class="classifier">map</span></dt><dd><p>represent items with respective regions</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>mine()</dt><dd><p>Mining process will start from here</p>
+</dd>
+<dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
+</dd>
+<dt>save(oFile)</dt><dd><p>Complete set of frequent patterns will be loaded in to a output file</p>
+</dd>
+<dt>getPatternsAsDataFrame()</dt><dd><p>Complete set of frequent patterns will be loaded in to a dataframe</p>
+</dd>
+<dt>getMemoryUSS()</dt><dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getMemoryRSS()</dt><dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getRuntime()</dt><dd><p>Total amount of runtime taken by the mining process will be retrieved from this function</p>
+</dd>
+<dt>convert(value)</dt><dd><p>To convert the given user specified value</p>
+</dd>
+<dt>FSFIMining( prefix, prefixLen, fsFim, minSup)</dt><dd><p>Method generate FFI from prefix</p>
+</dd>
+<dt>construct(px, py)</dt><dd><p>A function to construct Fuzzy itemSet from 2 fuzzy itemSets</p>
+</dd>
+<dt>findElementWithTID(UList, tid)</dt><dd><p>To find element with same tid as given</p>
+</dd>
+<dt>WriteOut(prefix, prefixLen, item, sumIUtil,period)</dt><dd><p>To Store the patten</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="id1">
+<h3><strong>Executing the code on terminal :</strong><a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>FPFPMiner_old.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;<span class="w"> </span>&lt;maxPer&gt;<span class="w"> </span>&lt;sep&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w">  </span>FPFPMiner_old.py<span class="w"> </span>sampleTDB.txt<span class="w"> </span>output.txt<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup will be considered in percentage of database transactions</p>
+</div>
+</section>
+<section id="id2">
+<h3><strong>Sample run of importing the code:</strong><a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>from PAMI.fuzzyPeriodicFrequentPattern.basic import FPFPMiner as alg</p>
+<p>obj =alg.FPFPMiner(“input.txt”,2,3)</p>
+<p>obj.mine()</p>
+<p>periodicFrequentPatterns = obj.getPatterns()</p>
+<p>print(“Total number of Fuzzy Periodic Frequent Patterns:”, len(periodicFrequentPatterns))</p>
+<p>obj.save(“output.txt”)</p>
+<p>memUSS = obj.getMemoryUSS()</p>
+<p>print(“Total Memory in USS:”, memUSS)</p>
+<p>memRSS = obj.getMemoryRSS()</p>
+<p>print(“Total Memory in RSS”, memRSS)</p>
+<p>run = obj.getRuntime()</p>
+<p>print(“Total ExecutionTime in seconds:”, run)</p>
+</div></blockquote>
+</section>
+<section id="id3">
+<h3><strong>Credits:</strong><a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>The complete program was written by Sai Chitra.B under the supervision of Professor Rage Uday Kiran.</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getMemoryRSS">
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner_old.html#FPFPMiner.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getMemoryRSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning RSS memory consumed by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getMemoryUSS">
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner_old.html#FPFPMiner.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getMemoryUSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning USS memory consumed by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getPatterns">
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner_old.html#FPFPMiner.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getPatterns" title="Link to this definition"></a></dt>
+<dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning frequent patterns</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getPatternsAsDataFrame">
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner_old.html#FPFPMiner.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<dd><p>Storing final frequent patterns in a dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning frequent patterns in a dataframe</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getRuntime">
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner_old.html#FPFPMiner.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getRuntime" title="Link to this definition"></a></dt>
+<dd><p>Calculating the total amount of runtime taken by the mining process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning total amount of runtime taken by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.mine">
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner_old.html#FPFPMiner.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.mine" title="Link to this definition"></a></dt>
+<dd><p>Fuzzy periodic Frequent pattern mining process will start from here</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.printResults">
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner_old.html#FPFPMiner.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.printResults" title="Link to this definition"></a></dt>
+<dd><p>This function is used to print the results</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner_old.html#FPFPMiner.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.save" title="Link to this definition"></a></dt>
+<dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outFile</strong> (<em>csv ile</em>) – name of the output file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.startMine">
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner_old.html#FPFPMiner.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.startMine" title="Link to this definition"></a></dt>
+<dd><p>Fuzzy periodic Frequent pattern mining process will start from here</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.fuzzyPeriodicFrequentPattern.basic.abstract">
+<span id="pami-fuzzyperiodicfrequentpattern-basic-abstract-module"></span><h2>PAMI.fuzzyPeriodicFrequentPattern.basic.abstract module<a class="headerlink" href="#module-PAMI.fuzzyPeriodicFrequentPattern.basic.abstract" title="Link to this heading"></a></h2>
+</section>
+<section id="module-PAMI.fuzzyPeriodicFrequentPattern.basic">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.fuzzyPeriodicFrequentPattern.basic" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="PAMI.fuzzyPeriodicFrequentPattern.html" class="btn btn-neutral float-left" title="PAMI.fuzzyPeriodicFrequentPattern package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="PAMI.geoReferencedPeriodicFrequentPattern.html" class="btn btn-neutral float-right" title="PAMI.geoReferencedPeriodicFrequentPattern package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE Uday Kiran.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

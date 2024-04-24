@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.extras.DF2DB package &mdash; PAMI 2024.04.23 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=391540b0"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PAMI.extras.calculateMISValues package" href="PAMI.extras.calculateMISValues.html" />
+    <link rel="prev" title="PAMI.extras package" href="PAMI.extras.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PAMI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="PAMI.html">PAMI package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="PAMI.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.html">PAMI.AssociationRules package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedPattern.html">PAMI.correlatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.coveragePattern.html">PAMI.coveragePattern package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="PAMI.extras.html">PAMI.extras package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.html">PAMI.faultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.html">PAMI.frequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.html">PAMI.fuzzyCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentPattern.html">PAMI.fuzzyFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedFrequentPattern.html">PAMI.fuzzyGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.html">PAMI.fuzzyGeoreferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPartialPeriodicPatterns.html">PAMI.fuzzyPartialPeriodicPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.html">PAMI.fuzzyPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.html">PAMI.geoReferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentPattern.html">PAMI.georeferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentSequencePattern.html">PAMI.georeferencedFrequentSequencePattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedPartialPeriodicPattern.html">PAMI.georeferencedPartialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentPattern.html">PAMI.highUtilityFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityGeoreferencedFrequentPattern.html">PAMI.highUtilityGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.html">PAMI.highUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPatternsInStreams.html">PAMI.highUtilityPatternsInStreams package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html">PAMI.highUtilitySpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.html">PAMI.localPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.html">PAMI.multipleMinimumSupportBasedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.html">PAMI.partialPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.html">PAMI.partialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html">PAMI.partialPeriodicPatternInMultipleTimeSeries package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.html">PAMI.periodicCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.html">PAMI.periodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.recurringPattern.html">PAMI.recurringPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeFrequentPattern.html">PAMI.relativeFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeHighUtilityPattern.html">PAMI.relativeHighUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequence.html">PAMI.sequence package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.html">PAMI.sequentialPatternMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.html">PAMI.stablePeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.html">PAMI.subgraphMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html">PAMI.uncertainFaultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.html">PAMI.uncertainFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainGeoreferencedFrequentPattern.html">PAMI.uncertainGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.html">PAMI.uncertainPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.html">PAMI.weightedFrequentNeighbourhoodPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentPattern.html">PAMI.weightedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.html">PAMI.weightedFrequentRegularPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.html">PAMI.weightedUncertainFrequentPattern package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.html#module-PAMI">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PAMI</a></li>
+          <li class="breadcrumb-item"><a href="PAMI.html">PAMI package</a></li>
+          <li class="breadcrumb-item"><a href="PAMI.extras.html">PAMI.extras package</a></li>
+      <li class="breadcrumb-item active">PAMI.extras.DF2DB package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PAMI.extras.DF2DB.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pami-extras-df2db-package">
+<h1>PAMI.extras.DF2DB package<a class="headerlink" href="#pami-extras-df2db-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-PAMI.extras.DF2DB.DF2DB">
+<span id="pami-extras-df2db-df2db-module"></span><h2>PAMI.extras.DF2DB.DF2DB module<a class="headerlink" href="#module-PAMI.extras.DF2DB.DF2DB" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.DF2DB.DF2DB">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.DF2DB.DF2DB.</span></span><span class="sig-name descname"><span class="pre">DF2DB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholdValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DFtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sparse'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/DF2DB.html#DF2DB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.DF2DB.DF2DB" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This class will create database for given DataFrame based on Threshold values and conditions are defined in the class.
+Converts Dataframe into sparse or dense dataframes.</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">param inputDF<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame :
+It is sparse or dense DataFrame</p>
+</dd>
+<dt class="field-even">param thresholdValue<span class="colon">:</span></dt>
+<dd class="field-even"><p>int or float :
+It is threshold value of all item</p>
+</dd>
+<dt class="field-odd">param condition<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str :
+It is condition of all item</p>
+</dd>
+<dt class="field-even">param DFtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>str :
+It is DataFrame type. It should be sparse or dense. Default DF is sparse.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="importing-this-algorithm-into-a-python-program">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#importing-this-algorithm-into-a-python-program" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.DF2DB</span> <span class="kn">import</span> <span class="n">DF2DB</span> <span class="k">as</span> <span class="n">db</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">DF2DB</span><span class="p">(</span><span class="n">idf</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="s2">&quot;sparse/dense&quot;</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">getTransactional</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create transactional database</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">getTemporal</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create temporal database</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">getUtility</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create utility database</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.DF2DB.DF2DB.getTemporalDatabase">
+<span class="sig-name descname"><span class="pre">getTemporalDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/DF2DB.html#DF2DB.getTemporalDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.DF2DB.DF2DB.getTemporalDatabase" title="Link to this definition"></a></dt>
+<dd><p>create temporal database and return outputFile name
+:param outputFile: file name or path to store database
+:type outputFile: str
+:return: outputFile name
+:rtype: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.DF2DB.DF2DB.getTransactionalDatabase">
+<span class="sig-name descname"><span class="pre">getTransactionalDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/DF2DB.html#DF2DB.getTransactionalDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.DF2DB.DF2DB.getTransactionalDatabase" title="Link to this definition"></a></dt>
+<dd><p>create transactional database and return outputFileName
+:param outputFile: file name or path to store database
+:type outputFile: str
+:return: outputFile name
+:rtype: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.DF2DB.DF2DB.getUtilityDatabase">
+<span class="sig-name descname"><span class="pre">getUtilityDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/DF2DB.html#DF2DB.getUtilityDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.DF2DB.DF2DB.getUtilityDatabase" title="Link to this definition"></a></dt>
+<dd><p>create utility database and return outputFile name
+:param outputFile:  file name or path to store database
+:type outputFile: str
+:return: outputFile name
+:rtype: str</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="pami-extras-df2db-df2dbplus-module">
+<h2>PAMI.extras.DF2DB.DF2DBPlus module<a class="headerlink" href="#pami-extras-df2db-df2dbplus-module" title="Link to this heading"></a></h2>
+</section>
+<section id="module-PAMI.extras.DF2DB.DenseFormatDF">
+<span id="pami-extras-df2db-denseformatdf-module"></span><h2>PAMI.extras.DF2DB.DenseFormatDF module<a class="headerlink" href="#module-PAMI.extras.DF2DB.DenseFormatDF" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.DenseFormatDF.DenseFormatDF">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.DF2DB.DenseFormatDF.</span></span><span class="sig-name descname"><span class="pre">DenseFormatDF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputDF</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/DenseFormatDF.html#DenseFormatDF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.DenseFormatDF.DenseFormatDF" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This class create Data Base from DataFrame.</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">param inputDF<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe :
+It is dense DataFrame</p>
+</dd>
+<dt class="field-even">param condition<span class="colon">:</span></dt>
+<dd class="field-even"><p>str :
+It is condition to judge the value in dataframe</p>
+</dd>
+<dt class="field-odd">param thresholdValue<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int or float :
+User defined value.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="id1">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.DF2DB</span> <span class="kn">import</span> <span class="n">DenseFormatDF</span> <span class="k">as</span> <span class="n">db</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">DenseFormatDF</span><span class="p">(</span><span class="n">iDdf</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="mi">16</span> <span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">convert2TransactionalDatabase</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create transactional database</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">convert2TemporalDatabase</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create temporal database</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">convert2MultipleTimeSeries</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create Multiple TimeSeries database</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">convert2UtilityDatabase</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create utility database</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">getFileName</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To get file name of the database</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.DenseFormatDF.DenseFormatDF.convert2MultipleTimeSeries">
+<span class="sig-name descname"><span class="pre">convert2MultipleTimeSeries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholdValue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/DenseFormatDF.html#DenseFormatDF.convert2MultipleTimeSeries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.DenseFormatDF.DenseFormatDF.convert2MultipleTimeSeries" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Create the multiple time series database.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>outputFile</strong> (<em>str</em>) – Write multiple time series database into outputFile.</p></li>
+<li><p><strong>interval</strong> (<em>int</em>) – Breaks the given timeseries into intervals.</p></li>
+<li><p><strong>condition</strong> – It is condition to judge the value in dataframe</p></li>
+<li><p><strong>thresholdValue</strong> (<em>int</em><em> or </em><em>float</em>) – User defined value.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.DenseFormatDF.DenseFormatDF.convert2TemporalDatabase">
+<span class="sig-name descname"><span class="pre">convert2TemporalDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholdValue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/DenseFormatDF.html#DenseFormatDF.convert2TemporalDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.DenseFormatDF.DenseFormatDF.convert2TemporalDatabase" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Create temporal database</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>outputFile</strong> (<em>str</em>) – Write temporal database into outputFile</p></li>
+<li><p><strong>condition</strong> (<em>str</em>) – It is condition to judge the value in dataframe</p></li>
+<li><p><strong>thresholdValue</strong> (<em>Union</em>) – User defined value.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.DenseFormatDF.DenseFormatDF.convert2TransactionalDatabase">
+<span class="sig-name descname"><span class="pre">convert2TransactionalDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholdValue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/DenseFormatDF.html#DenseFormatDF.convert2TransactionalDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.DenseFormatDF.DenseFormatDF.convert2TransactionalDatabase" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Create transactional data base</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">param outputFile<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Write transactional database into outputFile</p>
+</dd>
+<dt class="field-even">type outputFile<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">param condition<span class="colon">:</span></dt>
+<dd class="field-odd"><p>It is condition to judge the value in dataframe</p>
+</dd>
+<dt class="field-even">type condition<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">param thresholdValue<span class="colon">:</span></dt>
+<dd class="field-odd"><p>User defined value.</p>
+</dd>
+<dt class="field-even">type thresholdValue<span class="colon">:</span></dt>
+<dd class="field-even"><p>Union[int, float]</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.DenseFormatDF.DenseFormatDF.convert2UncertainTransactional">
+<span class="sig-name descname"><span class="pre">convert2UncertainTransactional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholdValue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/DenseFormatDF.html#DenseFormatDF.convert2UncertainTransactional"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.DenseFormatDF.DenseFormatDF.convert2UncertainTransactional" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.DenseFormatDF.DenseFormatDF.convert2UtilityDatabase">
+<span class="sig-name descname"><span class="pre">convert2UtilityDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/DenseFormatDF.html#DenseFormatDF.convert2UtilityDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.DenseFormatDF.DenseFormatDF.convert2UtilityDatabase" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Create the utility database.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>outputFile</strong> (<em>str</em>) – Write utility database into outputFile</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.DenseFormatDF.DenseFormatDF.getFileName">
+<span class="sig-name descname"><span class="pre">getFileName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/DenseFormatDF.html#DenseFormatDF.getFileName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.DenseFormatDF.DenseFormatDF.getFileName" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>outputFile name</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras.DF2DB.SparseFormatDF">
+<span id="pami-extras-df2db-sparseformatdf-module"></span><h2>PAMI.extras.DF2DB.SparseFormatDF module<a class="headerlink" href="#module-PAMI.extras.DF2DB.SparseFormatDF" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.SparseFormatDF.SparseFormatDF">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.DF2DB.SparseFormatDF.</span></span><span class="sig-name descname"><span class="pre">SparseFormatDF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholdValue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/SparseFormatDF.html#SparseFormatDF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.SparseFormatDF.SparseFormatDF" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This class create Data Base from DataFrame.</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">param inputDF<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe :
+It is dense DataFrame</p>
+</dd>
+<dt class="field-even">param condition<span class="colon">:</span></dt>
+<dd class="field-even"><p>str :
+It is condition to judge the value in dataframe</p>
+</dd>
+<dt class="field-odd">param thresholdValue<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int or float :
+User defined value.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="id2">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.DF2DB</span> <span class="kn">import</span> <span class="n">SparseFormatDF</span> <span class="k">as</span> <span class="n">db</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">SparseFormatDF</span><span class="p">(</span><span class="n">iDdf</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">createTransactional</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create transactional database</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">createTemporal</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create temporal database</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">createUtility</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create utility database</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">getFileName</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To get file name of the database</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.SparseFormatDF.SparseFormatDF.createTemporal">
+<span class="sig-name descname"><span class="pre">createTemporal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/SparseFormatDF.html#SparseFormatDF.createTemporal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.SparseFormatDF.SparseFormatDF.createTemporal" title="Link to this definition"></a></dt>
+<dd><p>Create temporal data base
+:param outputFile: Write temporal data base into outputFile
+:type outputFile: str
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.SparseFormatDF.SparseFormatDF.createTransactional">
+<span class="sig-name descname"><span class="pre">createTransactional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/SparseFormatDF.html#SparseFormatDF.createTransactional"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.SparseFormatDF.SparseFormatDF.createTransactional" title="Link to this definition"></a></dt>
+<dd><p>Create transactional data base
+:param outputFile: Write transactional data base into outputFile
+:type outputFile: str
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.SparseFormatDF.SparseFormatDF.createUtility">
+<span class="sig-name descname"><span class="pre">createUtility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/SparseFormatDF.html#SparseFormatDF.createUtility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.SparseFormatDF.SparseFormatDF.createUtility" title="Link to this definition"></a></dt>
+<dd><p>Create the utility database.
+:param outputFile: Write utility database into outputFile
+:type outputFile: str
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.SparseFormatDF.SparseFormatDF.getFileName">
+<span class="sig-name descname"><span class="pre">getFileName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/SparseFormatDF.html#SparseFormatDF.getFileName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.SparseFormatDF.SparseFormatDF.getFileName" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras.DF2DB.createTDB">
+<span id="pami-extras-df2db-createtdb-module"></span><h2>PAMI.extras.DF2DB.createTDB module<a class="headerlink" href="#module-PAMI.extras.DF2DB.createTDB" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.createTDB.createTDB">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.DF2DB.createTDB.</span></span><span class="sig-name descname"><span class="pre">createTDB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/createTDB.html#createTDB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.createTDB.createTDB" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This class will create Transactional database.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>df</strong> (<em>list</em>) – It represents the dataframe</p>
+</dd>
+</dl>
+<p>:param threshold : It is the threshold value of all item.
+:type threshold: int or float</p>
+<section id="id3">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.frequentPattern.basic</span> <span class="kn">import</span> <span class="n">FPGrowth</span> <span class="k">as</span> <span class="n">fp</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">createTDB</span><span class="p">(</span><span class="n">idf</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span> <span class="p">)</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.createTDB.createTDB.createTDB">
+<span class="sig-name descname"><span class="pre">createTDB</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/createTDB.html#createTDB.createTDB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.createTDB.createTDB.createTDB" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>To Create transactional database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.createTDB.createTDB.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/createTDB.html#createTDB.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.createTDB.createTDB.save" title="Link to this definition"></a></dt>
+<dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outFile</strong> (<em>csv file</em>) – name of the output file</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras.DF2DB.denseDF2DBPlus">
+<span id="pami-extras-df2db-densedf2dbplus-module"></span><h2>PAMI.extras.DF2DB.denseDF2DBPlus module<a class="headerlink" href="#module-PAMI.extras.DF2DB.denseDF2DBPlus" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.denseDF2DBPlus.DenseFormatDFPlus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.DF2DB.denseDF2DBPlus.</span></span><span class="sig-name descname"><span class="pre">DenseFormatDFPlus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholdConditionDF</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/denseDF2DBPlus.html#DenseFormatDFPlus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.denseDF2DBPlus.DenseFormatDFPlus" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This class create Data Base from DataFrame.</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">param inputDF<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe :
+It is dense DataFrame</p>
+</dd>
+<dt class="field-even">param thresholdConditionDF<span class="colon">:</span></dt>
+<dd class="field-even"><p>str or int or float:
+It is condition to judge the value in dataframe</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="id4">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.DF2DB</span> <span class="kn">import</span> <span class="n">DenseFormatDFPlus</span> <span class="k">as</span> <span class="n">db</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">DenseFormatDFPlus</span><span class="p">(</span><span class="n">iDdf</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">createTransactional</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create transactional database</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">createTemporal</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create temporal database</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">createUtility</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create utility database</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">getFileName</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To get file name of the database</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.denseDF2DBPlus.DenseFormatDFPlus.createTemporal">
+<span class="sig-name descname"><span class="pre">createTemporal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/denseDF2DBPlus.html#DenseFormatDFPlus.createTemporal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.denseDF2DBPlus.DenseFormatDFPlus.createTemporal" title="Link to this definition"></a></dt>
+<dd><p>Create temporal data base
+:param outputFile: Write temporal data base into outputFile
+:type outputFile: str
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.denseDF2DBPlus.DenseFormatDFPlus.createTransactional">
+<span class="sig-name descname"><span class="pre">createTransactional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/denseDF2DBPlus.html#DenseFormatDFPlus.createTransactional"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.denseDF2DBPlus.DenseFormatDFPlus.createTransactional" title="Link to this definition"></a></dt>
+<dd><p>Create transactional data base
+:param outputFile: Write transactional data base into outputFile
+:type outputFile: str
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.denseDF2DBPlus.DenseFormatDFPlus.createUtility">
+<span class="sig-name descname"><span class="pre">createUtility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/denseDF2DBPlus.html#DenseFormatDFPlus.createUtility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.denseDF2DBPlus.DenseFormatDFPlus.createUtility" title="Link to this definition"></a></dt>
+<dd><p>Create the utility data base.
+:param outputFile: Write utility data base into outputFile
+:type outputFile: str
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.denseDF2DBPlus.DenseFormatDFPlus.getFileName">
+<span class="sig-name descname"><span class="pre">getFileName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/denseDF2DBPlus.html#DenseFormatDFPlus.getFileName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.denseDF2DBPlus.DenseFormatDFPlus.getFileName" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras.DF2DB.denseDF2DB_dump">
+<span id="pami-extras-df2db-densedf2db-dump-module"></span><h2>PAMI.extras.DF2DB.denseDF2DB_dump module<a class="headerlink" href="#module-PAMI.extras.DF2DB.denseDF2DB_dump" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.denseDF2DB_dump.DenseFormatDF">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.DF2DB.denseDF2DB_dump.</span></span><span class="sig-name descname"><span class="pre">DenseFormatDF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholdValue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/denseDF2DB_dump.html#DenseFormatDF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.denseDF2DB_dump.DenseFormatDF" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This class create Data Base from DataFrame.</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">param inputDF<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe :
+It is dense DataFrame</p>
+</dd>
+<dt class="field-even">param condition<span class="colon">:</span></dt>
+<dd class="field-even"><p>str :
+It is condition to judge the value in dataframe</p>
+</dd>
+<dt class="field-odd">param thresholdValue<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int or float :
+User defined value.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="id5">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.DF2DB</span> <span class="kn">import</span> <span class="n">DenseFormatDF_dump</span> <span class="k">as</span> <span class="n">db</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">DenseFormatDF_dump</span><span class="p">(</span><span class="n">iDdf</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">createTransactional</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create transactional database</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">createTemporal</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create temporal database</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">createUtility</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create utility database</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">getFileName</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To get file name of the database</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.denseDF2DB_dump.DenseFormatDF.createTemporal">
+<span class="sig-name descname"><span class="pre">createTemporal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/denseDF2DB_dump.html#DenseFormatDF.createTemporal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.denseDF2DB_dump.DenseFormatDF.createTemporal" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Create temporal data base</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>outputFile</strong> (<em>str</em>) – Write temporal data base into outputFile</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.denseDF2DB_dump.DenseFormatDF.createTransactional">
+<span class="sig-name descname"><span class="pre">createTransactional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/denseDF2DB_dump.html#DenseFormatDF.createTransactional"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.denseDF2DB_dump.DenseFormatDF.createTransactional" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Create transactional data base</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>outputFile</strong> (<em>str</em>) – Write transactional data base into outputFile</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.denseDF2DB_dump.DenseFormatDF.createUtility">
+<span class="sig-name descname"><span class="pre">createUtility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/denseDF2DB_dump.html#DenseFormatDF.createUtility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.denseDF2DB_dump.DenseFormatDF.createUtility" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Create the utility database.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>outputFile</strong> (<em>str</em>) – Write utility database into outputFile</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.denseDF2DB_dump.DenseFormatDF.getFileName">
+<span class="sig-name descname"><span class="pre">getFileName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/denseDF2DB_dump.html#DenseFormatDF.getFileName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.denseDF2DB_dump.DenseFormatDF.getFileName" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>outputFile name</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras.DF2DB.sparseDF2DBPlus">
+<span id="pami-extras-df2db-sparsedf2dbplus-module"></span><h2>PAMI.extras.DF2DB.sparseDF2DBPlus module<a class="headerlink" href="#module-PAMI.extras.DF2DB.sparseDF2DBPlus" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.sparseDF2DBPlus.SparseFormatDFPlus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.DF2DB.sparseDF2DBPlus.</span></span><span class="sig-name descname"><span class="pre">SparseFormatDFPlus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholdConditionDF</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/sparseDF2DBPlus.html#SparseFormatDFPlus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.sparseDF2DBPlus.SparseFormatDFPlus" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This class create Data Base from DataFrame.</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">param inputDF<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe :
+It is dense DataFrame</p>
+</dd>
+<dt class="field-even">param thresholdConditionDF<span class="colon">:</span></dt>
+<dd class="field-even"><p>str :
+It is condition to judge the value in dataframe</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="id6">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.DF2DB</span> <span class="kn">import</span> <span class="n">SparseFormatDFPlus</span> <span class="k">as</span> <span class="n">db</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">SparseFormatDFPlus</span><span class="p">(</span><span class="n">iDdf</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">createTransactional</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create transactional database</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">createTemporal</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create temporal database</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">createUtility</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create utility database</span>
+
+ <span class="n">obj</span><span class="o">.</span><span class="n">getFileName</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To get file name of the database</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.sparseDF2DBPlus.SparseFormatDFPlus.createTemporal">
+<span class="sig-name descname"><span class="pre">createTemporal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/sparseDF2DBPlus.html#SparseFormatDFPlus.createTemporal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.sparseDF2DBPlus.SparseFormatDFPlus.createTemporal" title="Link to this definition"></a></dt>
+<dd><p>Create temporal data base
+:param outputFile: Write temporal data base into outputFile
+:type outputFile: str
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.sparseDF2DBPlus.SparseFormatDFPlus.createTransactional">
+<span class="sig-name descname"><span class="pre">createTransactional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/sparseDF2DBPlus.html#SparseFormatDFPlus.createTransactional"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.sparseDF2DBPlus.SparseFormatDFPlus.createTransactional" title="Link to this definition"></a></dt>
+<dd><p>Create transactional data base
+:param outputFile: Write transactional data base into outputFile
+:type outputFile: str
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.sparseDF2DBPlus.SparseFormatDFPlus.createUtility">
+<span class="sig-name descname"><span class="pre">createUtility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/sparseDF2DBPlus.html#SparseFormatDFPlus.createUtility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.sparseDF2DBPlus.SparseFormatDFPlus.createUtility" title="Link to this definition"></a></dt>
+<dd><p>Create the utility data base.
+:param outputFile: Write utility data base into outputFile
+:type outputFile: str
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.sparseDF2DBPlus.SparseFormatDFPlus.getFileName">
+<span class="sig-name descname"><span class="pre">getFileName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/sparseDF2DBPlus.html#SparseFormatDFPlus.getFileName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.sparseDF2DBPlus.SparseFormatDFPlus.getFileName" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras.DF2DB">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.extras.DF2DB" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="PAMI.extras.html" class="btn btn-neutral float-left" title="PAMI.extras package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="PAMI.extras.calculateMISValues.html" class="btn btn-neutral float-right" title="PAMI.extras.calculateMISValues package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE Uday Kiran.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

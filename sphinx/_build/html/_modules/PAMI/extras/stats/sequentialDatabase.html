@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.extras.stats.sequentialDatabase &mdash; PAMI 2024.04.23 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=391540b0"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">PAMI</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">PAMI.extras.stats.sequentialDatabase</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for PAMI.extras.stats.sequentialDatabase</h1><div class="highlight"><pre>
+<span></span><span class="c1"># SequentialDatabase is to get stats of database like avarage, minimun, maximum  and so on</span>
+<span class="c1">#</span>
+<span class="c1"># **Importing this algorithm into a python program**</span>
+<span class="c1"># --------------------------------------------------------</span>
+<span class="c1">#</span>
+<span class="c1">#             from PAMI.extras.stats import sequentialDatabase as db</span>
+<span class="c1">#</span>
+<span class="c1">#             obj = db.sequentialDatabase(iFile, &quot;\t&quot;)</span>
+<span class="c1">#</span>
+<span class="c1">#             obj.save(oFile)</span>
+<span class="c1">#</span>
+<span class="c1">#             obj.run()</span>
+<span class="c1">#</span>
+<span class="c1">#             obj.printStats()</span>
+<span class="c1">#</span>
+
+
+
+
+
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Copyright (C)  2021 Rage Uday Kiran</span>
+
+<span class="s2">     This program is free software: you can redistribute it and/or modify</span>
+<span class="s2">     it under the terms of the GNU General Public License as published by</span>
+<span class="s2">     the Free Software Foundation, either version 3 of the License, or</span>
+<span class="s2">     (at your option) any later version.</span>
+
+<span class="s2">     This program is distributed in the hope that it will be useful,</span>
+<span class="s2">     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="s2">     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="s2">     GNU General Public License for more details.</span>
+
+<span class="s2">     You should have received a copy of the GNU General Public License</span>
+<span class="s2">     along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">statistics</span>
+<span class="kn">import</span> <span class="nn">validators</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
+<span class="kn">import</span> <span class="nn">PAMI.extras.graph.plotLineGraphFromDictionary</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generator</span>
+
+
+<div class="viewcode-block" id="sequentialDatabase">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase">[docs]</a>
+<span class="k">class</span> <span class="nc">sequentialDatabase</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    SequentialDatabase is to get stats of database like avarage, minimun, maximum  and so on.</span>
+
+<span class="sd">    :Attributes:</span>
+
+<span class="sd">        :param inputFile: file :</span>
+<span class="sd">               input file path</span>
+<span class="sd">        :param sep: str</span>
+<span class="sd">               separator in file. Default is tab space.</span>
+
+<span class="sd">    :Methods:</span>
+
+<span class="sd">        readDatabase():</span>
+<span class="sd">            read sequential database from input file and store into database and size of each sequence and subsequences.</span>
+<span class="sd">        getDatabaseSize(self):</span>
+<span class="sd">            get the size of database</span>
+<span class="sd">        getTotalNumberOfItems(self):</span>
+<span class="sd">            get the number of items in database.</span>
+<span class="sd">        getMinimumSequenceLength(self):</span>
+<span class="sd">            get the minimum sequence length</span>
+<span class="sd">        getAverageSubsequencePerSequenceLength(self):</span>
+<span class="sd">            get the average subsequence length per sequence length. It is sum of all subsequence length divided by sequence length.</span>
+<span class="sd">        getAverageItemPerSubsequenceLength(self):</span>
+<span class="sd">            get the average Item length per subsequence. It is sum of all item length divided by subsequence length.</span>
+<span class="sd">        getMaximumSequenceLength(self):</span>
+<span class="sd">            get the maximum sequence length</span>
+<span class="sd">        getStandardDeviationSubsequenceLength(self):</span>
+<span class="sd">            get the standard deviation subsequence length</span>
+<span class="sd">        getVarianceSequenceLength(self):</span>
+<span class="sd">            get the variance Sequence length</span>
+<span class="sd">        getSequenceSize(self):</span>
+<span class="sd">            get the size of sequence</span>
+<span class="sd">        getMinimumSubsequenceLength(self):</span>
+<span class="sd">            get the minimum subsequence length</span>
+<span class="sd">        getAverageItemPerSequenceLength(self):</span>
+<span class="sd">            get the average item length per sequence. It is sum of all item length divided by sequence length.</span>
+<span class="sd">        getMaximumSubsequenceLength(self):</span>
+<span class="sd">            get the maximum subsequence length</span>
+<span class="sd">        getStandardDeviationSubsequenceLength(self):</span>
+<span class="sd">            get the standard deviation subsequence length</span>
+<span class="sd">        getVarianceSubsequenceLength(self):</span>
+<span class="sd">            get the variance subSequence length</span>
+<span class="sd">        getSortedListOfItemFrequencies(self):</span>
+<span class="sd">            get sorted list of item frequencies</span>
+<span class="sd">        getFrequenciesInRange(self):</span>
+<span class="sd">            get sorted list of item frequencies in some range</span>
+<span class="sd">        getSequencialLengthDistribution(self):</span>
+<span class="sd">            get Sequence length Distribution</span>
+<span class="sd">        getSubsequencialLengthDistribution(self):</span>
+<span class="sd">            get subSequence length distribution</span>
+<span class="sd">        printStats(self):</span>
+<span class="sd">            to print the all status of sequence database</span>
+<span class="sd">        plotGraphs(self):</span>
+<span class="sd">            to plot the  distribution about items, subsequences in sequence and items in subsequence</span>
+
+<span class="sd">    **Importing this algorithm into a python program**</span>
+<span class="sd">    --------------------------------------------------------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">            from PAMI.extras.dbStats import SequentialDatabase as db</span>
+
+<span class="sd">            obj = db.SequentialDatabase(iFile, &quot;\t&quot;)</span>
+
+<span class="sd">            obj.save(oFile)</span>
+
+<span class="sd">            obj.run()</span>
+
+<span class="sd">            obj.printStats()</span>
+
+
+<span class="sd">    **Executing the code on terminal:**</span>
+<span class="sd">    -------------------------------------------------</span>
+
+<span class="sd">    .. code-block:: console</span>
+
+<span class="sd">      Format:</span>
+
+<span class="sd">      (.venv) $ python3 sequentialDatabase.py &lt;inputFile&gt;</span>
+
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3 sequentialDatabase.py sampleDB.txt</span>
+
+
+
+<span class="sd">    **Sample run of the importing code:**</span>
+<span class="sd">    ----------------------------------------------------</span>
+<span class="sd">        import PAMI.extra.DBstats.SequentialDatabase as alg</span>
+<span class="sd">        _ap=alg.SequentialDatabase(inputfile,sep)</span>
+<span class="sd">        _ap.readDatabase()</span>
+<span class="sd">        _ap.printStats()</span>
+<span class="sd">        _ap.plotGraphs()</span>
+<span class="sd">    **Credits:**</span>
+<span class="sd">    ---------------------</span>
+<span class="sd">        The complete program was written by Shota Suzuki  under the supervision of Professor Rage Uday Kiran.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sep</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param inputFile: input file name or path</span>
+<span class="sd">        :type inputFile: str</span>
+<span class="sd">        :param sep: separator character for input file</span>
+<span class="sd">        :type sep: str</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inputFile</span> <span class="o">=</span> <span class="n">inputFile</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subSeqLengthList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sep</span> <span class="o">=</span> <span class="n">sep</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">database</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="sequentialDatabase.readDatabase">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.readDatabase">[docs]</a>
+    <span class="k">def</span> <span class="nf">readDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        read sequential database from input file and store into database and size of each sequence and subsequences.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputFile</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">validators</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputFile</span><span class="p">):</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputFile</span><span class="p">)</span>
+                <span class="n">rowNum</span><span class="o">=</span><span class="mi">0</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-1&#39;</span><span class="p">)]</span>
+                    <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">temp</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+                    <span class="n">temp</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                    <span class="n">seq</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">temp</span><span class="p">))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">subSeqLengthList</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">temp</span><span class="p">])</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">temp</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="n">tempSorted</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">())))</span>
+                            <span class="n">seq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tempSorted</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">seq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                    <span class="n">rowNum</span><span class="o">+=</span><span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">seq</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">[</span><span class="n">rowNum</span><span class="p">]</span><span class="o">=</span><span class="n">seq</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputFile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">rowNum</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-1&#39;</span><span class="p">)]</span>
+                        <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">temp</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+                        <span class="n">temp</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                        <span class="n">seq</span> <span class="o">=</span> <span class="p">[]</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">temp</span><span class="p">))</span>
+                        <span class="n">subseq</span><span class="o">=</span><span class="p">[]</span>
+                        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">temp</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                                <span class="n">tempSorted</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">())))</span>
+                                <span class="n">subseq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tempSorted</span><span class="p">))</span>
+                                <span class="n">seq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tempSorted</span><span class="p">)</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">seq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                                <span class="n">subseq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                        <span class="k">if</span> <span class="n">subseq</span><span class="o">!=</span><span class="p">[]:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">subSeqLengthList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subseq</span><span class="p">)</span>
+                        <span class="n">rowNum</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">if</span> <span class="n">seq</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">[</span><span class="n">rowNum</span><span class="p">]</span> <span class="o">=</span> <span class="n">seq</span></div>
+
+
+
+<div class="viewcode-block" id="sequentialDatabase.getDatabaseSize">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getDatabaseSize">[docs]</a>
+    <span class="k">def</span> <span class="nf">getDatabaseSize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get the size of database</span>
+<span class="sd">        :return: dataset size</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.getTotalNumberOfItems">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getTotalNumberOfItems">[docs]</a>
+    <span class="k">def</span> <span class="nf">getTotalNumberOfItems</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get the number of items in database.</span>
+<span class="sd">        :return: number of items</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getSortedListOfItemFrequencies</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.getMinimumSequenceLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getMinimumSequenceLength">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMinimumSequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get the minimum sequence length</span>
+<span class="sd">        :return: minimum sequence length</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.getAverageSubsequencePerSequenceLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getAverageSubsequencePerSequenceLength">[docs]</a>
+    <span class="k">def</span> <span class="nf">getAverageSubsequencePerSequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get the average subsequence length per sequence length. It is sum of all subsequence length divided by sequence length.</span>
+<span class="sd">        :return: average subsequence length per sequence length</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">totalLength</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">totalLength</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.getAverageItemPerSubsequenceLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getAverageItemPerSubsequenceLength">[docs]</a>
+    <span class="k">def</span> <span class="nf">getAverageItemPerSubsequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get the average Item length per subsequence. It is sum of all item length divided by subsequence length.</span>
+<span class="sd">        :return: average Item length per subsequence</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">totalLength</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">sum</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">subSeqLengthList</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">totalLength</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.getMaximumSequenceLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getMaximumSequenceLength">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMaximumSequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get the maximum sequence length</span>
+<span class="sd">        :return: maximum sequence length</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.getStandardDeviationSequenceLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getStandardDeviationSequenceLength">[docs]</a>
+    <span class="k">def</span> <span class="nf">getStandardDeviationSequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get the standard deviation sequence length</span>
+<span class="sd">        :return: standard deviation sequence length</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">statistics</span><span class="o">.</span><span class="n">pstdev</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.getVarianceSequenceLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getVarianceSequenceLength">[docs]</a>
+    <span class="k">def</span> <span class="nf">getVarianceSequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get the variance Sequence length</span>
+<span class="sd">        :return: variance Sequence length</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">statistics</span><span class="o">.</span><span class="n">variance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.getSequenceSize">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getSequenceSize">[docs]</a>
+    <span class="k">def</span> <span class="nf">getSequenceSize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get the size of sequence</span>
+<span class="sd">        :return: sequences size</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.getMinimumSubsequenceLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getMinimumSubsequenceLength">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMinimumSubsequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get the minimum subsequence length</span>
+<span class="sd">        :return: minimum subsequence length</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">min</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">subSeqLengthList</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.getAverageItemPerSequenceLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getAverageItemPerSequenceLength">[docs]</a>
+    <span class="k">def</span> <span class="nf">getAverageItemPerSequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get the average item length per sequence. It is sum of all item length divided by sequence length.</span>
+<span class="sd">        :return: average item length per sequence</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">totalLength</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">sum</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">subSeqLengthList</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">totalLength</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.getMaximumSubsequenceLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getMaximumSubsequenceLength">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMaximumSubsequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get the maximum subsequence length</span>
+<span class="sd">        :return: maximum subsequence length</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">max</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">subSeqLengthList</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.getStandardDeviationSubsequenceLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getStandardDeviationSubsequenceLength">[docs]</a>
+    <span class="k">def</span> <span class="nf">getStandardDeviationSubsequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get the standard deviation subsequence length</span>
+<span class="sd">        :return: standard deviation subsequence length</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">allList</span><span class="o">=</span><span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSeqLengthList</span><span class="p">:</span>
+            <span class="n">allList</span><span class="o">=</span><span class="n">allList</span><span class="o">+</span><span class="n">i</span>
+        <span class="k">return</span> <span class="n">statistics</span><span class="o">.</span><span class="n">pstdev</span><span class="p">(</span><span class="n">allList</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.getVarianceSubsequenceLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getVarianceSubsequenceLength">[docs]</a>
+    <span class="k">def</span> <span class="nf">getVarianceSubsequenceLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get the variance subSequence length</span>
+<span class="sd">        :return: variance subSequence length</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">allList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSeqLengthList</span><span class="p">:</span>
+            <span class="n">allList</span> <span class="o">=</span> <span class="n">allList</span> <span class="o">+</span> <span class="n">i</span>
+        <span class="k">return</span> <span class="n">statistics</span><span class="o">.</span><span class="n">variance</span><span class="p">(</span><span class="n">allList</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.getSortedListOfItemFrequencies">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getSortedListOfItemFrequencies">[docs]</a>
+    <span class="k">def</span> <span class="nf">getSortedListOfItemFrequencies</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get sorted list of item frequencies</span>
+<span class="sd">        :return: item frequencies</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">itemFrequencies</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">[</span><span class="n">seq</span><span class="p">]:</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sub</span><span class="p">:</span>
+                    <span class="n">itemFrequencies</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">itemFrequencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="n">itemFrequencies</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">itemFrequencies</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)}</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.getFrequenciesInRange">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getFrequenciesInRange">[docs]</a>
+    <span class="k">def</span> <span class="nf">getFrequenciesInRange</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get sorted list of item frequencies in some range</span>
+<span class="sd">        :return: item separated by its frequencies</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fre</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSortedListOfItemFrequencies</span><span class="p">()</span>
+        <span class="n">rangeFrequencies</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">maximum</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">fre</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">maximum</span> <span class="o">/</span> <span class="mi">6</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)]</span>
+        <span class="n">va</span> <span class="o">=</span> <span class="nb">len</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="n">val</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">fre</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">val</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]})</span>
+        <span class="n">rangeFrequencies</span><span class="p">[</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">va</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)):</span>
+            <span class="n">va</span> <span class="o">=</span> <span class="nb">len</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="n">val</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">fre</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">and</span> <span class="n">val</span> <span class="o">&gt;</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]})</span>
+            <span class="n">rangeFrequencies</span><span class="p">[</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">va</span>
+        <span class="k">return</span> <span class="n">rangeFrequencies</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.getSequencialLengthDistribution">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getSequencialLengthDistribution">[docs]</a>
+    <span class="k">def</span> <span class="nf">getSequencialLengthDistribution</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get Sequence length Distribution</span>
+<span class="sd">        :return: Sequence length</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">transactionLength</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">length</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">seqLengthList</span><span class="p">:</span>
+            <span class="n">transactionLength</span><span class="p">[</span><span class="n">length</span><span class="p">]</span> <span class="o">=</span> <span class="n">transactionLength</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">transactionLength</span><span class="p">[</span><span class="n">length</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">transactionLength</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])}</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.getSubsequencialLengthDistribution">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getSubsequencialLengthDistribution">[docs]</a>
+    <span class="k">def</span> <span class="nf">getSubsequencialLengthDistribution</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get subSequence length distribution</span>
+<span class="sd">        :return: subSequence length</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">transactionLength</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">sublen</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSeqLengthList</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">length</span> <span class="ow">in</span> <span class="n">sublen</span><span class="p">:</span>
+                <span class="n">transactionLength</span><span class="p">[</span><span class="n">length</span><span class="p">]</span> <span class="o">=</span> <span class="n">transactionLength</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">transactionLength</span><span class="p">[</span><span class="n">length</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">transactionLength</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])}</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.run">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.run">[docs]</a>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">readDatabase</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.printStats">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.printStats">[docs]</a>
+    <span class="k">def</span> <span class="nf">printStats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To print the all status of sequence database</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Database size (total no of sequence) : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">getDatabaseSize</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Number of items : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">getTotalNumberOfItems</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Minimum Sequence Size : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">getMinimumSequenceLength</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Average Sequence Size : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">getAverageSubsequencePerSequenceLength</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Maximum Sequence Size : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">getMaximumSequenceLength</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Standard Deviation Sequence Size : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">getStandardDeviationSequenceLength</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Variance in Sequence Sizes : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">getVarianceSequenceLength</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Sequence size (total no of subsequence) : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">getSequenceSize</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Minimum subSequence Size : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">getMinimumSubsequenceLength</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Average subSequence Size : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">getAverageItemPerSubsequenceLength</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Maximum subSequence Size : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">getMaximumSubsequenceLength</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Standard Deviation Sequence Size : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">getStandardDeviationSubsequenceLength</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Variance in Sequence Sizes : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">getVarianceSubsequenceLength</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="sequentialDatabase.plotGraphs">
+<a class="viewcode-back" href="../../../../PAMI.extras.stats.html#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.plotGraphs">[docs]</a>
+    <span class="k">def</span> <span class="nf">plotGraphs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To plot the  distribution about items, subsequences in sequence and items in subsequence</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">itemFrequencies</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getFrequenciesInRange</span><span class="p">()</span>
+        <span class="n">seqLen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSequencialLengthDistribution</span><span class="p">()</span>
+        <span class="n">subLen</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getSubsequencialLengthDistribution</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plotLineGraphFromDictionary</span><span class="p">(</span><span class="n">itemFrequencies</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;Frequency&#39;</span><span class="p">,</span> <span class="s1">&#39;No of items&#39;</span><span class="p">,</span> <span class="s1">&#39;frequency&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plotLineGraphFromDictionary</span><span class="p">(</span><span class="n">seqLen</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;sequence length&#39;</span><span class="p">,</span> <span class="s1">&#39;sequence length&#39;</span><span class="p">,</span> <span class="s1">&#39;frequency&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plotLineGraphFromDictionary</span><span class="p">(</span><span class="n">subLen</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;subsequence length&#39;</span><span class="p">,</span> <span class="s1">&#39;subsequence length&#39;</span><span class="p">,</span> <span class="s1">&#39;frequency&#39;</span><span class="p">)</span></div>
+</div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">_ap</span><span class="o">=</span><span class="nb">str</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span><span class="o">==</span><span class="mi">3</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span><span class="o">==</span><span class="mi">3</span><span class="p">:</span>
+            <span class="n">_ap</span><span class="o">=</span><span class="n">sequentialDatabase</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">_ap</span> <span class="o">=</span> <span class="n">sequentialDatabase</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">printStats</span><span class="p">()</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">plotGraphs</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error! The number of input parameters do not match the total number of parameters provided&quot;</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE Uday Kiran.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

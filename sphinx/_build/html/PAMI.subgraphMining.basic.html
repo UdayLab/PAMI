@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.subgraphMining.basic package &mdash; PAMI 2024.04.23 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=391540b0"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PAMI.subgraphMining.topK package" href="PAMI.subgraphMining.topK.html" />
+    <link rel="prev" title="PAMI.subgraphMining package" href="PAMI.subgraphMining.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PAMI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="PAMI.html">PAMI package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="PAMI.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.html">PAMI.AssociationRules package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedPattern.html">PAMI.correlatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.coveragePattern.html">PAMI.coveragePattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.html">PAMI.extras package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.html">PAMI.faultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.html">PAMI.frequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.html">PAMI.fuzzyCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentPattern.html">PAMI.fuzzyFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedFrequentPattern.html">PAMI.fuzzyGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.html">PAMI.fuzzyGeoreferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPartialPeriodicPatterns.html">PAMI.fuzzyPartialPeriodicPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.html">PAMI.fuzzyPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.html">PAMI.geoReferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentPattern.html">PAMI.georeferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentSequencePattern.html">PAMI.georeferencedFrequentSequencePattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedPartialPeriodicPattern.html">PAMI.georeferencedPartialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentPattern.html">PAMI.highUtilityFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityGeoreferencedFrequentPattern.html">PAMI.highUtilityGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.html">PAMI.highUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPatternsInStreams.html">PAMI.highUtilityPatternsInStreams package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html">PAMI.highUtilitySpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.html">PAMI.localPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.html">PAMI.multipleMinimumSupportBasedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.html">PAMI.partialPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.html">PAMI.partialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html">PAMI.partialPeriodicPatternInMultipleTimeSeries package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.html">PAMI.periodicCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.html">PAMI.periodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.recurringPattern.html">PAMI.recurringPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeFrequentPattern.html">PAMI.relativeFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeHighUtilityPattern.html">PAMI.relativeHighUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequence.html">PAMI.sequence package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.html">PAMI.sequentialPatternMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.html">PAMI.stablePeriodicFrequentPattern package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="PAMI.subgraphMining.html">PAMI.subgraphMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html">PAMI.uncertainFaultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.html">PAMI.uncertainFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainGeoreferencedFrequentPattern.html">PAMI.uncertainGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.html">PAMI.uncertainPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.html">PAMI.weightedFrequentNeighbourhoodPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentPattern.html">PAMI.weightedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.html">PAMI.weightedFrequentRegularPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.html">PAMI.weightedUncertainFrequentPattern package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.html#module-PAMI">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PAMI</a></li>
+          <li class="breadcrumb-item"><a href="PAMI.html">PAMI package</a></li>
+          <li class="breadcrumb-item"><a href="PAMI.subgraphMining.html">PAMI.subgraphMining package</a></li>
+      <li class="breadcrumb-item active">PAMI.subgraphMining.basic package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PAMI.subgraphMining.basic.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pami-subgraphmining-basic-package">
+<h1>PAMI.subgraphMining.basic package<a class="headerlink" href="#pami-subgraphmining-basic-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-PAMI.subgraphMining.basic.abstract">
+<span id="pami-subgraphmining-basic-abstract-module"></span><h2>PAMI.subgraphMining.basic.abstract module<a class="headerlink" href="#module-PAMI.subgraphMining.basic.abstract" title="Link to this heading"></a></h2>
+</section>
+<section id="module-PAMI.subgraphMining.basic.dfsCode">
+<span id="pami-subgraphmining-basic-dfscode-module"></span><h2>PAMI.subgraphMining.basic.dfsCode module<a class="headerlink" href="#module-PAMI.subgraphMining.basic.dfsCode" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.dfsCode.DFSCode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.subgraphMining.basic.dfsCode.</span></span><span class="sig-name descname"><span class="pre">DFSCode</span></span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/dfsCode.html#DFSCode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.dfsCode.DFSCode" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.dfsCode.DFSCode.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ee</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/dfsCode.html#DFSCode.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.dfsCode.DFSCode.add" title="Link to this definition"></a></dt>
+<dd><p>The <cite>add</cite> function in adds elements to the EE list while updating the rightmost element and path
+based on certain conditions.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.dfsCode.DFSCode.containEdge">
+<span class="sig-name descname"><span class="pre">containEdge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/dfsCode.html#DFSCode.containEdge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.dfsCode.DFSCode.containEdge" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.dfsCode.DFSCode.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/dfsCode.html#DFSCode.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.dfsCode.DFSCode.copy" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.dfsCode.DFSCode.getAllVLabels">
+<span class="sig-name descname"><span class="pre">getAllVLabels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/dfsCode.html#DFSCode.getAllVLabels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.dfsCode.DFSCode.getAllVLabels" title="Link to this definition"></a></dt>
+<dd><p>This function retrieves all vertex labels from the extended edge list and returns them in a list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.dfsCode.DFSCode.getAt">
+<span class="sig-name descname"><span class="pre">getAt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/dfsCode.html#DFSCode.getAt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.dfsCode.DFSCode.getAt" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.dfsCode.DFSCode.getEeList">
+<span class="sig-name descname"><span class="pre">getEeList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/dfsCode.html#DFSCode.getEeList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.dfsCode.DFSCode.getEeList" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.dfsCode.DFSCode.getRightMost">
+<span class="sig-name descname"><span class="pre">getRightMost</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/dfsCode.html#DFSCode.getRightMost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.dfsCode.DFSCode.getRightMost" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.dfsCode.DFSCode.getRightMostPath">
+<span class="sig-name descname"><span class="pre">getRightMostPath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/dfsCode.html#DFSCode.getRightMostPath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.dfsCode.DFSCode.getRightMostPath" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.dfsCode.DFSCode.isEmpty">
+<span class="sig-name descname"><span class="pre">isEmpty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/dfsCode.html#DFSCode.isEmpty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.dfsCode.DFSCode.isEmpty" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.dfsCode.DFSCode.notPreOfRm">
+<span class="sig-name descname"><span class="pre">notPreOfRm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/dfsCode.html#DFSCode.notPreOfRm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.dfsCode.DFSCode.notPreOfRm" title="Link to this definition"></a></dt>
+<dd><p>This function checks if a given value is not the second-to-last element on the
+<cite>rightMostPath</cite> given a vertex.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.dfsCode.DFSCode.onRightMostPath">
+<span class="sig-name descname"><span class="pre">onRightMostPath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/dfsCode.html#DFSCode.onRightMostPath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.dfsCode.DFSCode.onRightMostPath" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-PAMI.subgraphMining.basic.edge">
+<span id="pami-subgraphmining-basic-edge-module"></span><h2>PAMI.subgraphMining.basic.edge module<a class="headerlink" href="#module-PAMI.subgraphMining.basic.edge" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.edge.Edge">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.subgraphMining.basic.edge.</span></span><span class="sig-name descname"><span class="pre">Edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgeLabel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/edge.html#Edge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.edge.Edge" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.edge.Edge.another">
+<span class="sig-name descname"><span class="pre">another</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/edge.html#Edge.another"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.edge.Edge.another" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.edge.Edge.getEdgeLabel">
+<span class="sig-name descname"><span class="pre">getEdgeLabel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/edge.html#Edge.getEdgeLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.edge.Edge.getEdgeLabel" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-PAMI.subgraphMining.basic.extendedEdge">
+<span id="pami-subgraphmining-basic-extendededge-module"></span><h2>PAMI.subgraphMining.basic.extendedEdge module<a class="headerlink" href="#module-PAMI.subgraphMining.basic.extendedEdge" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.subgraphMining.basic.extendedEdge.</span></span><span class="sig-name descname"><span class="pre">ExtendedEdge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vLabel1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vLabel2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgeLabel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/extendedEdge.html#ExtendedEdge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.getEdgeLabel">
+<span class="sig-name descname"><span class="pre">getEdgeLabel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/extendedEdge.html#ExtendedEdge.getEdgeLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.getEdgeLabel" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.getV1">
+<span class="sig-name descname"><span class="pre">getV1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/extendedEdge.html#ExtendedEdge.getV1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.getV1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.getV2">
+<span class="sig-name descname"><span class="pre">getV2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/extendedEdge.html#ExtendedEdge.getV2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.getV2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.getVLabel1">
+<span class="sig-name descname"><span class="pre">getVLabel1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/extendedEdge.html#ExtendedEdge.getVLabel1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.getVLabel1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.getVLabel2">
+<span class="sig-name descname"><span class="pre">getVLabel2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/extendedEdge.html#ExtendedEdge.getVLabel2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.getVLabel2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.pairSmallerThan">
+<span class="sig-name descname"><span class="pre">pairSmallerThan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/extendedEdge.html#ExtendedEdge.pairSmallerThan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.pairSmallerThan" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.smallerThan">
+<span class="sig-name descname"><span class="pre">smallerThan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">that</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/extendedEdge.html#ExtendedEdge.smallerThan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.smallerThan" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.smallerThanOriginal">
+<span class="sig-name descname"><span class="pre">smallerThanOriginal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">that</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/extendedEdge.html#ExtendedEdge.smallerThanOriginal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge.smallerThanOriginal" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-PAMI.subgraphMining.basic.frequentSubgraph">
+<span id="pami-subgraphmining-basic-frequentsubgraph-module"></span><h2>PAMI.subgraphMining.basic.frequentSubgraph module<a class="headerlink" href="#module-PAMI.subgraphMining.basic.frequentSubgraph" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.frequentSubgraph.FrequentSubgraph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.subgraphMining.basic.frequentSubgraph.</span></span><span class="sig-name descname"><span class="pre">FrequentSubgraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dfsCode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">setOfGraphsIds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">support</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/frequentSubgraph.html#FrequentSubgraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.frequentSubgraph.FrequentSubgraph" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.subgraphMining.basic.graph">
+<span id="pami-subgraphmining-basic-graph-module"></span><h2>PAMI.subgraphMining.basic.graph module<a class="headerlink" href="#module-PAMI.subgraphMining.basic.graph" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.graph.Graph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.subgraphMining.basic.graph.</span></span><span class="sig-name descname"><span class="pre">Graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vMap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfsCode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/graph.html#Graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.graph.Graph" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.graph.Graph.emptyIntegerArray">
+<span class="sig-name descname"><span class="pre">emptyIntegerArray</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#PAMI.subgraphMining.basic.graph.Graph.emptyIntegerArray" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.graph.Graph.emptyVertexList">
+<span class="sig-name descname"><span class="pre">emptyVertexList</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#PAMI.subgraphMining.basic.graph.Graph.emptyVertexList" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.graph.Graph.findAllWithLabel">
+<span class="sig-name descname"><span class="pre">findAllWithLabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">targetLabel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/graph.html#Graph.findAllWithLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.graph.Graph.findAllWithLabel" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.graph.Graph.getAllNeighbors">
+<span class="sig-name descname"><span class="pre">getAllNeighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/graph.html#Graph.getAllNeighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.graph.Graph.getAllNeighbors" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.graph.Graph.getAllVertices">
+<span class="sig-name descname"><span class="pre">getAllVertices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/graph.html#Graph.getAllVertices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.graph.Graph.getAllVertices" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.graph.Graph.getEdge">
+<span class="sig-name descname"><span class="pre">getEdge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/graph.html#Graph.getEdge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.graph.Graph.getEdge" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.graph.Graph.getEdgeCount">
+<span class="sig-name descname"><span class="pre">getEdgeCount</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/graph.html#Graph.getEdgeCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.graph.Graph.getEdgeCount" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.graph.Graph.getEdgeLabel">
+<span class="sig-name descname"><span class="pre">getEdgeLabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/graph.html#Graph.getEdgeLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.graph.Graph.getEdgeLabel" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.graph.Graph.getId">
+<span class="sig-name descname"><span class="pre">getId</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/graph.html#Graph.getId"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.graph.Graph.getId" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.graph.Graph.getNonPrecalculatedAllVertices">
+<span class="sig-name descname"><span class="pre">getNonPrecalculatedAllVertices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/graph.html#Graph.getNonPrecalculatedAllVertices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.graph.Graph.getNonPrecalculatedAllVertices" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.graph.Graph.getVLabel">
+<span class="sig-name descname"><span class="pre">getVLabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/graph.html#Graph.getVLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.graph.Graph.getVLabel" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.graph.Graph.isNeighboring">
+<span class="sig-name descname"><span class="pre">isNeighboring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/graph.html#Graph.isNeighboring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.graph.Graph.isNeighboring" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.graph.Graph.precalculateLabelsToVertices">
+<span class="sig-name descname"><span class="pre">precalculateLabelsToVertices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/graph.html#Graph.precalculateLabelsToVertices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.graph.Graph.precalculateLabelsToVertices" title="Link to this definition"></a></dt>
+<dd><p>This function precalculates and stores mappings of vertex labels to their corresponding vertex IDs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.graph.Graph.precalculateVertexList">
+<span class="sig-name descname"><span class="pre">precalculateVertexList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/graph.html#Graph.precalculateVertexList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.graph.Graph.precalculateVertexList" title="Link to this definition"></a></dt>
+<dd><p>The function precalculateVertexList creates a list of vertices by iterating through a dictionary of
+vertices.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.graph.Graph.precalculateVertexNeighbors">
+<span class="sig-name descname"><span class="pre">precalculateVertexNeighbors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/graph.html#Graph.precalculateVertexNeighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.graph.Graph.precalculateVertexNeighbors" title="Link to this definition"></a></dt>
+<dd><p>The function precalculates the neighbors of each vertex in a graph and stores them in a cache.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.graph.Graph.removeInfrequentLabel">
+<span class="sig-name descname"><span class="pre">removeInfrequentLabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/graph.html#Graph.removeInfrequentLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.graph.Graph.removeInfrequentLabel" title="Link to this definition"></a></dt>
+<dd><p>The function removes vertices with a specific label from the graph and updates the edges accordingly.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-PAMI.subgraphMining.basic.gspan">
+<span id="pami-subgraphmining-basic-gspan-module"></span><h2>PAMI.subgraphMining.basic.gspan module<a class="headerlink" href="#module-PAMI.subgraphMining.basic.gspan" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.subgraphMining.basic.gspan.</span></span><span class="sig-name descname"><span class="pre">GSpan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSupport</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputSingleVertices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxNumberOfEdges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputGraphIds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/gspan.html#GSpan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_gSpan</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.Pair">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Pair</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/gspan.html#GSpan.Pair"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.Pair" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.edge_count_pruning">
+<span class="sig-name descname"><span class="pre">edge_count_pruning</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.edge_count_pruning" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.eliminate_infrequent_edge_labels">
+<span class="sig-name descname"><span class="pre">eliminate_infrequent_edge_labels</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.eliminate_infrequent_edge_labels" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.eliminate_infrequent_vertex_pairs">
+<span class="sig-name descname"><span class="pre">eliminate_infrequent_vertex_pairs</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.eliminate_infrequent_vertex_pairs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.eliminate_infrequent_vertices">
+<span class="sig-name descname"><span class="pre">eliminate_infrequent_vertices</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.eliminate_infrequent_vertices" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.findAllOnlyOneVertex">
+<span class="sig-name descname"><span class="pre">findAllOnlyOneVertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graphDb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputFrequentVertices</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/gspan.html#GSpan.findAllOnlyOneVertex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.findAllOnlyOneVertex" title="Link to this definition"></a></dt>
+<dd><p>The function <cite>findAllOnlyOneVertex</cite> iterates through a graph database to find frequent vertices
+based on a minimum support threshold, storing the results and optionally removing infrequent
+vertices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>graphDb</strong> – The <cite>graphDb</cite> parameter  refers to a graph database that the algorithm is</p>
+</dd>
+</dl>
+<p>operating on.
+:param outputFrequentVertices: The <cite>outputFrequentVertices</cite> parameter is a boolean flag that
+determines whether the frequent vertices should be included in the output or not.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.gSpan">
+<span class="sig-name descname"><span class="pre">gSpan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graphDb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputFrequentVertices</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/gspan.html#GSpan.gSpan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.gSpan" title="Link to this definition"></a></dt>
+<dd><p>The gSpan function in Python processes a graph database by precalculating vertex lists, removing
+infrequent vertex pairs, and performing a depth-first search algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>graphDb</strong> – The <cite>graphDb</cite> parameter  refers to a graph database that the algorithm is</p>
+</dd>
+</dl>
+<p>operating on.
+:param outputFrequentVertices: The <cite>outputFrequentVertices</cite> parameter is a boolean flag that
+determines whether the frequent vertices should be output or not.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.getFrequentSubgraphs">
+<span class="sig-name descname"><span class="pre">getFrequentSubgraphs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/gspan.html#GSpan.getFrequentSubgraphs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.getFrequentSubgraphs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.getMemoryRSS">
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/gspan.html#GSpan.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.getMemoryRSS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.getMemoryUSS">
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/gspan.html#GSpan.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.getMemoryUSS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.getRuntime">
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/gspan.html#GSpan.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.getRuntime" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.gspanDFS">
+<span class="sig-name descname"><span class="pre">gspanDFS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#PAMI.subgraphMining.basic.dfsCode.DFSCode" title="PAMI.subgraphMining.basic.dfsCode.DFSCode"><span class="pre">DFSCode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphDb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subgraphId</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/gspan.html#GSpan.gspanDFS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.gspanDFS" title="Link to this definition"></a></dt>
+<dd><p>The <cite>gspanDFS</cite> function recursively explores graph patterns using the gSpan algorithm to find
+frequent subgraphs in a graph database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>c</strong> – In the provided code snippet, the parameter <cite>c</cite> is an instance of the <cite>_ab.DFSCode</cite> class.</p>
+</dd>
+</dl>
+<p>It is used as an input to the <cite>gspanDFS</cite> method for performing Depth-First Search (DFS) traversal in
+a graph mining algorithm. The <cite>c</cite> parameter represents
+:type c: _ab.DFSCode
+:param graphDb: The <cite>graphDb</cite> parameter  refers to a graph database that the algorithm is
+operating on.
+:param subgraphId: The <cite>subgraphId</cite> parameter in the <cite>gspanDFS</cite> method refers to an
+ID represents a specific subgraph within the graph database <cite>graphDb</cite>.
+:return: The <cite>gspanDFS</cite> method is a recursive function that is called within itself to explore the graph
+structure and find frequent subgraphs. The function does not have a return value, but it modifies
+the <cite>self.frequentSubgraphs</cite> list by appending new frequent subgraphs found during the DFS traversal.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.isCanonical">
+<span class="sig-name descname"><span class="pre">isCanonical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#PAMI.subgraphMining.basic.dfsCode.DFSCode" title="PAMI.subgraphMining.basic.dfsCode.DFSCode"><span class="pre">DFSCode</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/gspan.html#GSpan.isCanonical"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.isCanonical" title="Link to this definition"></a></dt>
+<dd><p>The function <cite>isCanonical</cite> checks if a given DFS code is canonical by comparing it with its
+rightmost path extensions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>c</strong> (<em>_ab.DFSCode</em>) – The parameter <cite>c</cite> is an instance of the <cite>_ab.DFSCode</cite> class</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a boolean value. It returns True if the input DFSCode <cite>c</cite> is canonical, and False if it is</p>
+</dd>
+</dl>
+<p>not canonical.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.readGraphs">
+<span class="sig-name descname"><span class="pre">readGraphs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/gspan.html#GSpan.readGraphs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.readGraphs" title="Link to this definition"></a></dt>
+<dd><p>The <cite>readGraphs</cite> function reads graph data from a file and constructs a list of graphs with vertices
+and edges.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> – The <cite>path</cite> parameter in the <cite>readGraphs</cite> method is the file path to the text file</p>
+</dd>
+</dl>
+<p>containing the graph data that needs to be read and processed. This method reads the graph data from
+the specified file and constructs a list of graphs represented by vertices and edges based on the
+information in the
+:return: The <cite>readGraphs</cite> method reads graph data from a file specified by the <cite>path</cite> parameter. It
+parses the data to create a list of graph objects and returns this list. Each graph object contains
+information about vertices and edges within the graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.removeInfrequentVertexPairs">
+<span class="sig-name descname"><span class="pre">removeInfrequentVertexPairs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graphDb</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/gspan.html#GSpan.removeInfrequentVertexPairs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.removeInfrequentVertexPairs" title="Link to this definition"></a></dt>
+<dd><p>The function <cite>removeInfrequentVertexPairs</cite> processes a graph database by removing infrequent vertex
+pairs and edge labels based on specified support thresholds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>graphDb</strong> – The <cite>graphDb</cite> parameter  refers to a graph database that the algorithm is</p>
+</dd>
+</dl>
+<p>operating on.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.rightMostPathExtensions">
+<span class="sig-name descname"><span class="pre">rightMostPathExtensions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#PAMI.subgraphMining.basic.dfsCode.DFSCode" title="PAMI.subgraphMining.basic.dfsCode.DFSCode"><span class="pre">DFSCode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphDb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphIds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/gspan.html#GSpan.rightMostPathExtensions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.rightMostPathExtensions" title="Link to this definition"></a></dt>
+<dd><p>The function <cite>rightMostPathExtensions</cite> generates extensions for a given DFS code by considering
+rightmost paths in a graph database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>c</strong> – The parameter <cite>c</cite> in the <cite>rightMostPathExtensions</cite> method is of type <cite>_ab.DFSCode</cite>. It</p>
+</dd>
+</dl>
+<p>seems to represent a Depth-First Search code used in graph algorithms. The method is responsible
+for generating extensions based on the rightmost path in a graph
+:param graphDb: The <cite>graphDb</cite> parameter in the <cite>rightMostPathExtensions</cite> method is a
+database that stores graph data. It is used to retrieve graph objects based on
+their IDs, which are provided in the <cite>graphIds</cite> parameter. The method then performs operations on
+these graph objects to generate
+:param graphIds: The <cite>graphIds</cite> parameter in the <cite>rightMostPathExtensions</cite> function represents a
+list of graph identifiers. These identifiers are used to retrieve specific graphs from the
+<cite>graphDb</cite> database in order to perform operations on them within the function. Each ID in the
+<cite>graphIds</cite> list corresponds to an identifier.
+:return: The function <cite>rightMostPathExtensions</cite> returns a dictionary <cite>extensions</cite> containing
+extended edges as keys and sets of graph IDs as values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.rightMostPathExtensionsFromSingle">
+<span class="sig-name descname"><span class="pre">rightMostPathExtensionsFromSingle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#PAMI.subgraphMining.basic.dfsCode.DFSCode" title="PAMI.subgraphMining.basic.dfsCode.DFSCode"><span class="pre">DFSCode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#PAMI.subgraphMining.basic.graph.Graph" title="PAMI.subgraphMining.basic.graph.Graph"><span class="pre">Graph</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/gspan.html#GSpan.rightMostPathExtensionsFromSingle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.rightMostPathExtensionsFromSingle" title="Link to this definition"></a></dt>
+<dd><p>The function <cite>rightMostPathExtensionsFromSingle</cite> generates extensions for a given DFS code and
+graph, focusing on the rightmost path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>c</strong> – The parameter <cite>c</cite> is of type <cite>_ab.DFSCode</cite>, which seems to represent a Depth-First Search</p>
+</dd>
+</dl>
+<p>code. It is used in the <cite>rightMostPathExtensionsFromSingle</cite> method to perform operations related to
+DFS codes
+:param g: The parameter <cite>g</cite> in the provided code snippet represents a graph object. It seems to be
+an instance of a graph data structure that contains vertices and edges. The code is designed to
+find and return extensions from a given DFS code <cite>c</cite> based on the provided graph <cite>g</cite>. The function
+`
+:return: The function <cite>rightMostPathExtensionsFromSingle</cite> returns a dictionary <cite>extensions</cite>
+containing extended edges as keys and sets of graph IDs as values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/gspan.html#GSpan.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.save" title="Link to this definition"></a></dt>
+<dd><p>The <cite>save</cite> function writes information about frequent subgraphs to a specified
+output file in a specific format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outputPath</strong> – The <cite>save</cite> method is used to write the results of frequent</p>
+</dd>
+</dl>
+<p>subgraphs to a file specified by the <cite>outputPath</cite> parameter. The method iterates over each
+frequent subgraph in <cite>self.frequentSubgraphs</cite> and writes the subgraph information to the file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.startMine">
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/gspan.html#GSpan.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.startMine" title="Link to this definition"></a></dt>
+<dd><p>Run the gSpan algorithm.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.gspan.GSpan.subgraphIsomorphisms">
+<span class="sig-name descname"><span class="pre">subgraphIsomorphisms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#PAMI.subgraphMining.basic.dfsCode.DFSCode" title="PAMI.subgraphMining.basic.dfsCode.DFSCode"><span class="pre">DFSCode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#PAMI.subgraphMining.basic.graph.Graph" title="PAMI.subgraphMining.basic.graph.Graph"><span class="pre">Graph</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/gspan.html#GSpan.subgraphIsomorphisms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.gspan.GSpan.subgraphIsomorphisms" title="Link to this definition"></a></dt>
+<dd><p>The function <cite>subgraphIsomorphisms</cite> takes a DFS code and a graph as input, and finds all subgraph
+isomorphisms between the DFS code and the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>c</strong> – The parameter <cite>c</cite> in the <cite>subgraphIsomorphisms</cite> function is of type <cite>_ab.DFSCode</cite>, which</p>
+</dd>
+</dl>
+<p>seems to represent a Depth-First Search code.
+:param g: The parameter <cite>g</cite> in the <cite>subgraphIsomorphisms</cite> function represents a graph object. The
+function is trying to find subgraph isomorphisms between a given DFS code <cite>c</cite> and the graph <cite>g</cite>. It
+iterates through the vertices of the graph starting with a specific
+:return: The function <cite>subgraphIsomorphisms</cite> returns a list of dictionaries, where each dictionary
+represents a subgraph isomorphism mapping between the input DFS code <cite>c</cite> and the input graph <cite>g</cite>.
+Each dictionary in the list maps vertex IDs from the DFS code to corresponding vertex IDs in the
+graph, indicating a valid subgraph isomorphism.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-PAMI.subgraphMining.basic.sparseTriangularMatrix">
+<span id="pami-subgraphmining-basic-sparsetriangularmatrix-module"></span><h2>PAMI.subgraphMining.basic.sparseTriangularMatrix module<a class="headerlink" href="#module-PAMI.subgraphMining.basic.sparseTriangularMatrix" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.sparseTriangularMatrix.SparseTriangularMatrix">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.subgraphMining.basic.sparseTriangularMatrix.</span></span><span class="sig-name descname"><span class="pre">SparseTriangularMatrix</span></span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/sparseTriangularMatrix.html#SparseTriangularMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.sparseTriangularMatrix.SparseTriangularMatrix" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.sparseTriangularMatrix.SparseTriangularMatrix.getSupportForItems">
+<span class="sig-name descname"><span class="pre">getSupportForItems</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/sparseTriangularMatrix.html#SparseTriangularMatrix.getSupportForItems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.sparseTriangularMatrix.SparseTriangularMatrix.getSupportForItems" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.sparseTriangularMatrix.SparseTriangularMatrix.incrementCount">
+<span class="sig-name descname"><span class="pre">incrementCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/sparseTriangularMatrix.html#SparseTriangularMatrix.incrementCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.sparseTriangularMatrix.SparseTriangularMatrix.incrementCount" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.sparseTriangularMatrix.SparseTriangularMatrix.removeInfrequentEntriesFromMatrix">
+<span class="sig-name descname"><span class="pre">removeInfrequentEntriesFromMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">minsup</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/sparseTriangularMatrix.html#SparseTriangularMatrix.removeInfrequentEntriesFromMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.sparseTriangularMatrix.SparseTriangularMatrix.removeInfrequentEntriesFromMatrix" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.sparseTriangularMatrix.SparseTriangularMatrix.setSupport">
+<span class="sig-name descname"><span class="pre">setSupport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">support</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/sparseTriangularMatrix.html#SparseTriangularMatrix.setSupport"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.sparseTriangularMatrix.SparseTriangularMatrix.setSupport" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-PAMI.subgraphMining.basic.vertex">
+<span id="pami-subgraphmining-basic-vertex-module"></span><h2>PAMI.subgraphMining.basic.vertex module<a class="headerlink" href="#module-PAMI.subgraphMining.basic.vertex" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.vertex.Vertex">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.subgraphMining.basic.vertex.</span></span><span class="sig-name descname"><span class="pre">Vertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vLabel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/vertex.html#Vertex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.vertex.Vertex" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.vertex.Vertex.addEdge">
+<span class="sig-name descname"><span class="pre">addEdge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/vertex.html#Vertex.addEdge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.vertex.Vertex.addEdge" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.vertex.Vertex.getEdgeList">
+<span class="sig-name descname"><span class="pre">getEdgeList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/vertex.html#Vertex.getEdgeList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.vertex.Vertex.getEdgeList" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.vertex.Vertex.getId">
+<span class="sig-name descname"><span class="pre">getId</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/vertex.html#Vertex.getId"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.vertex.Vertex.getId" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.vertex.Vertex.getLabel">
+<span class="sig-name descname"><span class="pre">getLabel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/vertex.html#Vertex.getLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.vertex.Vertex.getLabel" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.basic.vertex.Vertex.removeEdge">
+<span class="sig-name descname"><span class="pre">removeEdge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edgeToRemove</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/basic/vertex.html#Vertex.removeEdge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.basic.vertex.Vertex.removeEdge" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-PAMI.subgraphMining.basic">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.subgraphMining.basic" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="PAMI.subgraphMining.html" class="btn btn-neutral float-left" title="PAMI.subgraphMining package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="PAMI.subgraphMining.topK.html" class="btn btn-neutral float-right" title="PAMI.subgraphMining.topK package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE Uday Kiran.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
