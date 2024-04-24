@@ -695,14 +695,6 @@ class TubeS(_fp._frequentPatterns):
                     sample = sample + i + "\t"
                 self._finalPatterns[sample] = y
 
-    @deprecated(
-        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
-    def startMine(self):
-        """
-        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
-        """
-        self.mine()
-
     def mine(self):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
@@ -817,7 +809,6 @@ if __name__ == "__main__":
             _ap = TubeS(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4])
         if len(_fp._sys.argv) == 4:
             _ap = TubeS(_fp._sys.argv[1], _fp._sys.argv[3])
-        _ap.startMine()
         _ap.mine()
         print("Total number of Uncertain Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_fp._sys.argv[2])

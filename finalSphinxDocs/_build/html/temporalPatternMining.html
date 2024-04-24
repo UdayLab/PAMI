@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Temporal Database &mdash; PAMI 2024.04.23 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=391540b0"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Periodic Frequent Pattern Mining" href="PeriodicFrequentPatternMining1.html" />
+    <link rel="prev" title="CPPG" href="coveragePatternBasicCPPG.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="transactionalPatternMining.html">Transactional Database</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Temporal Database</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PeriodicFrequentPatternMining1.html">Periodic Frequent Pattern Mining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LocalPeriodicPatternMining1.html">Local Periodic Pattern Mining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PartialPeriodicFrequentPatternMining1.html">Partial Periodic Frequent Pattern Mining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PartialPeriodicPatternMining1.html">Partial Periodic Pattern Mining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PeriodicCorrelatedPatternMining1.html">Periodic correlated pattern mining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StablePeriodicPatternMining1.html">Stable Periodic Pattern Mining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RecurringPatternMining1.html">Recurring Pattern Mining</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="utilityPatternMining.html">Utility Pattern mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="uncertainPatternMining.html">Uncertain Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sequentialPatternMining.html">Sequential Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contiguousPatternMining.html">Contiguous Patterns</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Temporal Database</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/temporalPatternMining.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="temporal-database">
+<h1>Temporal Database<a class="headerlink" href="#temporal-database" title="Link to this heading"></a></h1>
+<blockquote>
+<div><p>A temporal database is a collection of transactions ordered by their timestamps. A sample temporal database generated from the set of items, I={a,b,c,d,e,f}, is shown in below table:</p>
+<blockquote>
+<div><table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>TID</p></th>
+<th class="head"><p>Timestamp</p></th>
+<th class="head"><p>Transactions</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>a, b, c</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>d, e</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>4</p></td>
+<td><p>a, e, f</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>7</p></td>
+<td><p>d, f, g</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Types of temporal databases:</p>
+<blockquote>
+<div><ul>
+<li><p>Regular temporal database: Uniform time gap exists between any two transactions.</p></li>
+<li><p>Irregular temporal database: Non-uniform time gap exists between any two transactions.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Type-1 irregular temporal database: Every transaction will have a distinct timestamp.</p></li>
+<li><p>Type-2 irregular temporal database: Multiple transactions can have a common timestamp.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<p>Rules to create a temporal database:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Since TID of a transaction implicitly represents the row number, this information can be ignored to save space.</p></li>
+<li><p>The first column in the database must represent a timestamp.</p></li>
+<li><p>The timestamp of the first transaction must always start from 1. The timestamps of remaining transactions follow thereafter. In other words, the timestamps in a temporal database must be relative to each other, rather than being absolute timestamps.</p></li>
+<li><p>Irregular time gaps can exist between the transactions.</p></li>
+<li><p>Multiple transactions can have a same timestamp. In other words, multiple transactions can occur at a particular timestamp. (Please note that some pattern mining algorithms, especially variants of ECLAT, may not work properly if multiple transactions share a common timestamp.)</p></li>
+<li><p>All items in a transaction must be seperated with a separator.</p></li>
+<li><p>The items in a temporal database can be integers or strings.</p></li>
+<li><p>‘ Tab space ’ is the default seperator. However, temporal databases can be constructed using other seperators, such as comma and space.</p></li>
+</ul>
+</div></blockquote>
+<p>Format of a temporal database:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">timestamp</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">item1</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">item2</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;...&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">itemN</span>
+</pre></div>
+</div>
+<p>Examples:</p>
+<ul>
+<li><p>Regular temporal database: Uniform time gap exists between the transactions.</p>
+<blockquote>
+<div><p>1   a   b   c</p>
+<p>2   d   e</p>
+<p>4   a   e   f</p>
+<p>7   d   f   g</p>
+</div></blockquote>
+</li>
+<li><p>Irregular temporal database (Type-1): Non-uniform time gap exists between the transactions. More important, every transaction contains a unique timestamp.</p>
+<blockquote>
+<div><p>1   a   b   c</p>
+<p>2   d   e</p>
+<p>4   a   e   f</p>
+<p>7   d   f   g</p>
+</div></blockquote>
+</li>
+<li><p>Irregular temporal database (Type-2): Non-uniform time gap exists between the transactions. More important, multiple transactions can have same timestamps.</p>
+<blockquote>
+<div><p>1   a   b   c</p>
+<p>1   d   e</p>
+<p>4   a   e   f</p>
+<p>8   d   f   g</p>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="PeriodicFrequentPatternMining1.html">Periodic Frequent Pattern Mining</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="LocalPeriodicPatternMining1.html">Local Periodic Pattern Mining</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="PartialPeriodicFrequentPatternMining1.html">Partial Periodic Frequent Pattern Mining</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="PartialPeriodicPatternMining1.html">Partial Periodic Pattern Mining</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="PeriodicCorrelatedPatternMining1.html">Periodic correlated pattern mining</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="StablePeriodicPatternMining1.html">Stable Periodic Pattern Mining</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="RecurringPatternMining1.html">Recurring Pattern Mining</a></li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="coveragePatternBasicCPPG.html" class="btn btn-neutral float-left" title="CPPG" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="PeriodicFrequentPatternMining1.html" class="btn btn-neutral float-right" title="Periodic Frequent Pattern Mining" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE Uday Kiran.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
