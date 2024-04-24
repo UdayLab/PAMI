@@ -585,9 +585,9 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 |--------------------------|
 | Latex code (coming soon) |
 
-***
 
 # Real World Case Studies
+***
 
 1. Air pollution analytics <a target="_blank" href="https://colab.research.google.com/github/vanithakattumuri/PAMI/blob/main/notebooks/airPollutionAnalytics.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
