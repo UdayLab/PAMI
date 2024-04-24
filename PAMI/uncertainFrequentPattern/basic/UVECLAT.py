@@ -457,8 +457,7 @@ class UVEclat(_ab._frequentPatterns):
             self._Generation(newPrefix, classItemSets, classTidSets)
             self._save(prefix, list(set(itemSetX)), tidSetI)
 
-    @deprecated(
-        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
