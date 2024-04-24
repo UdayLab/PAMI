@@ -76,7 +76,7 @@ class TransactionalDatabase:
     --------------------------------------------------------
         from PAMI.extras.syntheticDataGenerator import TransactionalDatabase as db
 
-        obj = db(10, 5, 10)
+        obj = db.TransactionalDatabase(10, 5, 10)
 
         obj.create()
 
@@ -87,24 +87,24 @@ class TransactionalDatabase:
     
     """
 
-    def __init__(self, numLines, avgItemsPerLine, numItems) -> None:
+    def __init__(self, databaseSize, avgItemsPerTransaction, numItems) -> None:
         """
         Initialize the transactional database with the given parameters
 
-        :param numLines: number of lines
-        :type numLines: int
-        :param avgItemsPerLine: average number of items per line
-        :type avgItemsPerLine: int
+        :param databaseSize: total number of transactions in the database
+        :type databaseSize: int
+        :param avgItemsPerTransaction: average number of items per transaction
+        :type avgItemsPerTransaction: int
         :param numItems: total number of items
         :type numItems: int
         """
 
-        self.numLines = numLines
-        self.avgItemsPerLine = avgItemsPerLine
+        self.databaseSize = databaseSize
+        self.avgItemsPerTransaction = avgItemsPerTransaction
         self.numItems = numItems
         self.db = []
     
-    def tuning(self, array, sumRes) -> list:
+    def _tuning(self, array, sumRes) -> list:
         """
         Tune the array so that the sum of the values is equal to sumRes
 
@@ -130,7 +130,7 @@ class TransactionalDatabase:
         return array
         
 
-    def generateArray(self, nums, avg, maxItems) -> list:
+    def _generateArray(self, nums, avg, maxItems) -> list:
         """
         Generate a random array of length n whose values average to m
 
@@ -150,26 +150,26 @@ class TransactionalDatabase:
 
         sumRes = nums * avg
 
-        self.tuning(values, sumRes)
+        self._tuning(values, sumRes)
 
         # if any value is less than 1, increase it and tune the array again
         while np.any(values < 1):
             for i in range(nums):
                 if values[i] < 1:
                     values[i] += 1
-            self.tuning(values, sumRes)
+            self._tuning(values, sumRes)
 
         while np.any(values > maxItems):
             for i in range(nums):
                 if values[i] > maxItems:
                     values[i] -= 1
-            self.tuning(values, sumRes)
+            self._tuning(values, sumRes)
 
 
         # if all values are same then randomly increase one value and decrease another
         while np.all(values == values[0]):
             values[np.random.randint(0, nums)] += 1
-            self.tuning(values, sumRes)
+            self._tuning(values, sumRes)
 
         return values
 
@@ -180,7 +180,7 @@ class TransactionalDatabase:
         """
         db = set()
 
-        values = self.generate_array(self.numLines, self.avgItemsPerLine, self.numItems)
+        values = self._generateArray(self.databaseSize, self.avgItemsPerTransaction, self.numItems)
 
         for value in values:
             line = np.random.choice(range(1, self.numItems + 1), value, replace=False)
