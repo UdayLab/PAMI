@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth &mdash; PAMI 2024.04.23 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=391540b0"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">PAMI</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth</h1><div class="highlight"><pre>
+<span></span><span class="c1"># GFPGrowth algorithm is used to discover geo-referenced frequent patterns in a uncertain transactional database using GFP-Tree.</span>
+<span class="c1">#</span>
+<span class="c1"># **Importing this algorithm into a python program**</span>
+<span class="c1"># --------------------------------------------------------</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1">#             from PAMI.uncertainGeoreferencedFrequentPattern.basic import GFPGrowth as alg</span>
+<span class="c1">#</span>
+<span class="c1">#             obj = alg.GFPGrowth(iFile, nFile, minSup,sep, oFile)</span>
+<span class="c1">#</span>
+<span class="c1">#             obj.startMine()</span>
+<span class="c1">#</span>
+<span class="c1">#             Patterns = obj.getPatterns()</span>
+<span class="c1">#</span>
+<span class="c1">#             print(&quot;Total number of  Patterns:&quot;, len(Patterns))</span>
+<span class="c1">#</span>
+<span class="c1">#             obj.save(oFile)</span>
+<span class="c1">#</span>
+<span class="c1">#             Df = obj.getPatternsAsDataFrame()</span>
+<span class="c1">#</span>
+<span class="c1">#             memUSS = obj.getMemoryUSS()</span>
+<span class="c1">#</span>
+<span class="c1">#             print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="c1">#</span>
+<span class="c1">#             memRSS = obj.getMemoryRSS()</span>
+<span class="c1">#</span>
+<span class="c1">#             print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="c1">#</span>
+<span class="c1">#             run = obj.getRuntime()</span>
+<span class="c1">#</span>
+<span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
+
+
+
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
+
+<span class="s2">     This program is free software: you can redistribute it and/or modify</span>
+<span class="s2">     it under the terms of the GNU General Public License as published by</span>
+<span class="s2">     the Free Software Foundation, either version 3 of the License, or</span>
+<span class="s2">     (at your option) any later version.</span>
+
+<span class="s2">     This program is distributed in the hope that it will be useful,</span>
+<span class="s2">     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="s2">     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="s2">     GNU General Public License for more details.</span>
+
+<span class="s2">     You should have received a copy of the GNU General Public License</span>
+<span class="s2">     along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="s2">     Copyright (C)  2021 Rage Uday Kiran</span>
+
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">PAMI.uncertainGeoreferencedFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
+
+<span class="n">_minSup</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+<span class="n">_neighbourList</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">setrecursionlimit</span><span class="p">(</span><span class="mi">20000</span><span class="p">)</span>
+<span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+<span class="k">class</span> <span class="nc">_Item</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class used to represent the item with probability in transaction of dataset</span>
+
+<span class="sd">    :Attributes:</span>
+
+<span class="sd">        item : int or word</span>
+<span class="sd">            Represents the name of the item</span>
+<span class="sd">        probability : float</span>
+<span class="sd">            Represent the existential probability(likelihood presence) of an item</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">probability</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">item</span> <span class="o">=</span> <span class="n">item</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">probability</span> <span class="o">=</span> <span class="n">probability</span>
+
+
+<span class="k">class</span> <span class="nc">_Node</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class used to represent the node of frequentPatternTree</span>
+
+<span class="sd">    :Attributes:</span>
+
+<span class="sd">        item : int</span>
+<span class="sd">            storing item of a node</span>
+<span class="sd">        probability : int</span>
+<span class="sd">            To maintain the expected support of node</span>
+<span class="sd">        parent : node</span>
+<span class="sd">            To maintain the parent of every node</span>
+<span class="sd">        children : list</span>
+<span class="sd">            To maintain the children of node</span>
+
+<span class="sd">    :Methods:</span>
+
+<span class="sd">        addChild(itemName)</span>
+<span class="sd">            storing the children to their respective parent nodes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">children</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">item</span> <span class="o">=</span> <span class="n">item</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">probability</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="n">children</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">addChild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span>
+
+
+<span class="k">class</span> <span class="nc">_Tree</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class used to represent the frequentPatternGrowth tree structure</span>
+
+<span class="sd">    :Attributes:</span>
+
+<span class="sd">        root : Node</span>
+<span class="sd">            Represents the root node of the tree</span>
+<span class="sd">        summaries : dictionary</span>
+<span class="sd">            storing the nodes with same item name</span>
+<span class="sd">        info : dictionary</span>
+<span class="sd">            stores the support of items</span>
+<span class="sd">    :Methods:</span>
+
+<span class="sd">        addTransaction(transaction)</span>
+<span class="sd">            creating transaction as a branch in frequentPatternTree</span>
+<span class="sd">        addConditionalPattern(prefixPaths, supportOfItems)</span>
+<span class="sd">            construct the conditional tree for prefix paths</span>
+<span class="sd">        conditionalPatterns(Node)</span>
+<span class="sd">            generates the conditional patterns from tree for specific node</span>
+<span class="sd">        conditionalTransactions(prefixPaths,Support)</span>
+<span class="sd">            takes the prefixPath of a node and support at child of the path and extract the frequent items from</span>
+<span class="sd">            prefixPaths and generates prefixPaths with items which are frequent</span>
+<span class="sd">        remove(Node)</span>
+<span class="sd">            removes the node from tree once after generating all the patterns respective to the node</span>
+<span class="sd">        generatePatterns(Node)</span>
+<span class="sd">            starts from the root node of the tree and mines the frequent patterns</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">_Node</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">addTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adding transaction into tree</span>
+
+<span class="sd">        :param transaction : it represents the one self.Database in database</span>
+<span class="sd">        :type transaction : list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">global</span> <span class="n">_neighbourList</span>
+        <span class="n">currentNode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+                <span class="n">newNode</span> <span class="o">=</span> <span class="n">_Node</span><span class="p">(</span><span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">,</span> <span class="p">{})</span>
+                <span class="n">nei</span> <span class="o">=</span> <span class="n">_neighbourList</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
+                <span class="n">l1</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="n">lp</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">while</span> <span class="n">l1</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">nei</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">break</span>
+                    <span class="k">if</span> <span class="n">transaction</span><span class="p">[</span><span class="n">l1</span><span class="p">]</span><span class="o">.</span><span class="n">item</span> <span class="ow">in</span> <span class="n">nei</span><span class="p">:</span>
+                        <span class="n">lp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">transaction</span><span class="p">[</span><span class="n">l1</span><span class="p">]</span><span class="o">.</span><span class="n">probability</span><span class="p">)</span>
+                    <span class="n">l1</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lp</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">newNode</span><span class="o">.</span><span class="n">probability</span> <span class="o">=</span> <span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">probability</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">newNode</span><span class="o">.</span><span class="n">probability</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">lp</span><span class="p">)</span> <span class="o">*</span> <span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">probability</span>
+                <span class="n">currentNode</span><span class="o">.</span><span class="n">addChild</span><span class="p">(</span><span class="n">newNode</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">[</span><span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newNode</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">[</span><span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">newNode</span><span class="p">]</span>
+                <span class="n">currentNode</span> <span class="o">=</span> <span class="n">newNode</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">currentNode</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">]</span>
+                <span class="n">l1</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="n">lp</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">while</span> <span class="n">l1</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">lp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">transaction</span><span class="p">[</span><span class="n">l1</span><span class="p">]</span><span class="o">.</span><span class="n">probability</span><span class="p">)</span>
+                    <span class="n">l1</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lp</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">currentNode</span><span class="o">.</span><span class="n">probability</span> <span class="o">+=</span> <span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">probability</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">currentNode</span><span class="o">.</span><span class="n">probability</span> <span class="o">+=</span> <span class="nb">max</span><span class="p">(</span><span class="n">lp</span><span class="p">)</span> <span class="o">*</span> <span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">probability</span>
+
+    <span class="k">def</span> <span class="nf">addConditionalPattern</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">,</span> <span class="n">sup</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        constructing conditional tree from prefixPaths</span>
+
+<span class="sd">        :param transaction : it represents the one self.Database in database</span>
+<span class="sd">        :type transaction : list</span>
+<span class="sd">        :param sup : support of prefixPath taken at last child of the path</span>
+<span class="sd">        :type sup : int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># This method takes transaction, support and constructs the conditional tree</span>
+        <span class="n">currentNode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+                <span class="n">newNode</span> <span class="o">=</span> <span class="n">_Node</span><span class="p">(</span><span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">{})</span>
+                <span class="n">newNode</span><span class="o">.</span><span class="n">probability</span> <span class="o">=</span> <span class="n">sup</span>
+                <span class="n">currentNode</span><span class="o">.</span><span class="n">addChild</span><span class="p">(</span><span class="n">newNode</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">[</span><span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newNode</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">[</span><span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="n">newNode</span><span class="p">]</span>
+                <span class="n">currentNode</span> <span class="o">=</span> <span class="n">newNode</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">currentNode</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+                <span class="n">currentNode</span><span class="o">.</span><span class="n">probability</span> <span class="o">+=</span> <span class="n">sup</span>
+
+    <span class="k">def</span> <span class="nf">conditionalPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates all the conditional patterns of respective node</span>
+
+<span class="sd">        :param alpha : it represents the Node in tree</span>
+<span class="sd">        :type alpha : _Node</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># This method generates conditional patterns of node by traversing the tree</span>
+        <span class="k">global</span> <span class="n">_neighbourList</span>
+        <span class="n">finalPatterns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">sup</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">[</span><span class="n">alpha</span><span class="p">]:</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">item</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">probability</span>
+            <span class="n">set2</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">while</span> <span class="n">i</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">_neighbourList</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="c1">#print(_neighbourList.get(j))</span>
+                    <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">item</span> <span class="ow">in</span> <span class="n">_neighbourList</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                        <span class="n">set2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">parent</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">set2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">set2</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+                <span class="n">finalPatterns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">set2</span><span class="p">)</span>
+                <span class="n">sup</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="n">finalPatterns</span><span class="p">,</span> <span class="n">support</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conditionalTransactions</span><span class="p">(</span><span class="n">finalPatterns</span><span class="p">,</span> <span class="n">sup</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">finalPatterns</span><span class="p">,</span> <span class="n">support</span><span class="p">,</span> <span class="n">info</span>
+
+    <span class="k">def</span> <span class="nf">removeNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeValue</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removing the node from tree</span>
+
+<span class="sd">        :param nodeValue : it represents the node in tree</span>
+<span class="sd">        :type nodeValue : node</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">[</span><span class="n">nodeValue</span><span class="p">]:</span>
+            <span class="k">del</span> <span class="n">i</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">nodeValue</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">conditionalTransactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condPatterns</span><span class="p">,</span> <span class="n">support</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        It generates the conditional patterns with frequent items</span>
+
+<span class="sd">        :param condPatterns : conditionalPatterns generated from conditionalPattern method for respective node</span>
+<span class="sd">        :type condPatterns : list</span>
+<span class="sd">        :support : the support of conditional pattern in tree</span>
+<span class="sd">        :support : int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">global</span> <span class="n">minSup</span>
+        <span class="n">pat</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">sup</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">condPatterns</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">condPatterns</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">count</span><span class="p">:</span>
+                    <span class="n">count</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">support</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">count</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">support</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">updatedDict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">updatedDict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">count</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="n">minSup</span><span class="p">}</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">condPatterns</span><span class="p">:</span>
+            <span class="n">p1</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">p</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">updatedDict</span><span class="p">]</span>
+            <span class="n">trans</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">updatedDict</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">trans</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">pat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trans</span><span class="p">)</span>
+                <span class="n">sup</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">support</span><span class="p">[</span><span class="n">count</span><span class="p">])</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">pat</span><span class="p">,</span> <span class="n">sup</span><span class="p">,</span> <span class="n">updatedDict</span>
+
+    <span class="k">def</span> <span class="nf">generatePatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates the patterns</span>
+
+<span class="sd">        :param prefix : forms the combination of items</span>
+<span class="sd">        :type prefix : list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">global</span> <span class="n">_finalPatterns</span><span class="p">,</span> <span class="n">minSup</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">x</span><span class="p">))):</span>
+            <span class="n">pattern</span> <span class="o">=</span> <span class="n">prefix</span><span class="p">[:]</span>
+            <span class="n">pattern</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="n">x</span><span class="o">.</span><span class="n">probability</span>
+            <span class="n">_finalPatterns</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">pattern</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">s</span> <span class="o">&gt;=</span> <span class="n">minSup</span><span class="p">:</span>
+                <span class="n">patterns</span><span class="p">,</span> <span class="n">support</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conditionalPatterns</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">conditionalTree</span> <span class="o">=</span> <span class="n">_Tree</span><span class="p">()</span>
+                <span class="n">conditionalTree</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">pat</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">patterns</span><span class="p">)):</span>
+                    <span class="n">conditionalTree</span><span class="o">.</span><span class="n">addConditionalPattern</span><span class="p">(</span><span class="n">patterns</span><span class="p">[</span><span class="n">pat</span><span class="p">],</span> <span class="n">support</span><span class="p">[</span><span class="n">pat</span><span class="p">])</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">patterns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">conditionalTree</span><span class="o">.</span><span class="n">generatePatterns</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">removeNode</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="GFPGrowth">
+<a class="viewcode-back" href="../../../../PAMI.uncertainGeoreferencedFrequentPattern.basic.html#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth">[docs]</a>
+<span class="k">class</span> <span class="nc">GFPGrowth</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_frequentPatterns</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :Description: GFPGrowth algorithm is used to discover geo-referenced frequent patterns in a uncertain transactional database using GFP-Tree.</span>
+
+<span class="sd">    :Reference:</span>
+<span class="sd">         Palla Likhitha,Pamalla Veena, Rage, Uday Kiran, Koji Zettsu (2023).</span>
+<span class="sd">         &quot;Discovering Geo-referenced Frequent Patterns in Uncertain Geo-referenced</span>
+<span class="sd">         Transactional Databases&quot;.  PAKDD 2023.</span>
+<span class="sd">         https://doi.org/10.1007/978-3-031-33380-4_3</span>
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of uncertain Geo referenced Frequent Patterns</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of Uncertain Geo referenced frequent patterns</span>
+<span class="sd">    :param  minSup: str:</span>
+<span class="sd">                   minimum support thresholds were tuned to find the appropriate ranges in the limited memory</span>
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
+<span class="sd">    :Attributes:</span>
+
+<span class="sd">        iFile : file</span>
+<span class="sd">            Name of the Input file or path of the input file</span>
+<span class="sd">        oFile : file</span>
+<span class="sd">            Name of the output file or path of the output file</span>
+<span class="sd">        minSup: float or int or str</span>
+<span class="sd">            The user can specify minSup either in count or proportion of database size.</span>
+<span class="sd">            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.</span>
+<span class="sd">            Otherwise, it will be treated as float.</span>
+<span class="sd">            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float</span>
+<span class="sd">        sep : str</span>
+<span class="sd">            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.</span>
+<span class="sd">            However, the users can override their default separator.</span>
+<span class="sd">        memoryUSS : float</span>
+<span class="sd">            To store the total amount of USS memory consumed by the program</span>
+<span class="sd">        memoryRSS : float</span>
+<span class="sd">            To store the total amount of RSS memory consumed by the program</span>
+<span class="sd">        startTime:float</span>
+<span class="sd">            To record the start time of the mining process</span>
+<span class="sd">        endTime:float</span>
+<span class="sd">            To record the completion time of the mining process</span>
+<span class="sd">        Database : list</span>
+<span class="sd">            To store the transactions of a database in list</span>
+<span class="sd">        mapSupport : Dictionary</span>
+<span class="sd">            To maintain the information of item and their frequency</span>
+<span class="sd">        lno : int</span>
+<span class="sd">            To represent the total no of transaction</span>
+<span class="sd">        tree : class</span>
+<span class="sd">            To represents the Tree class</span>
+<span class="sd">        itemSetCount : int</span>
+<span class="sd">            To represents the total no of patterns</span>
+<span class="sd">        finalPatterns : dict</span>
+<span class="sd">            To store the complete patterns</span>
+
+<span class="sd">    :Methods:</span>
+
+<span class="sd">        startMine()</span>
+<span class="sd">            Mining process will start from here</span>
+<span class="sd">        getPatterns()</span>
+<span class="sd">            Complete set of patterns will be retrieved with this function</span>
+<span class="sd">        savePatterns(oFile)</span>
+<span class="sd">            Complete set of frequent patterns will be loaded in to a output file</span>
+<span class="sd">        getPatternsAsDataFrame()</span>
+<span class="sd">            Complete set of frequent patterns will be loaded in to a dataframe</span>
+<span class="sd">        getMemoryUSS()</span>
+<span class="sd">            Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
+<span class="sd">        getMemoryRSS()</span>
+<span class="sd">            Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
+<span class="sd">        getRuntime()</span>
+<span class="sd">            Total amount of runtime taken by the mining process will be retrieved from this function</span>
+<span class="sd">        creatingItemSets(fileName)</span>
+<span class="sd">            Scans the dataset and stores in a list format</span>
+<span class="sd">        frequentOneItem()</span>
+<span class="sd">            Extracts the one-length frequent patterns from database</span>
+<span class="sd">        updateTransactions()</span>
+<span class="sd">            Update the transactions by removing non-frequent items and sort the Database by item decreased support</span>
+<span class="sd">        buildTree()</span>
+<span class="sd">            After updating the Database, remaining items will be added into the tree by setting root node as null</span>
+<span class="sd">        convert()</span>
+<span class="sd">            to convert the user specified value</span>
+<span class="sd">        startMine()</span>
+<span class="sd">            Mining process will start from this function</span>
+
+<span class="sd">    **Executing the code on terminal**:</span>
+<span class="sd">    ------------------------------------------</span>
+
+<span class="sd">    .. code-block:: console</span>
+
+
+<span class="sd">       Format:</span>
+
+<span class="sd">       (.venv) $ python3 GFPGrowth.py &lt;inputFile&gt; &lt;neighborFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
+
+<span class="sd">       Examples usage:</span>
+
+<span class="sd">       (.venv) $ python3 GFPGrowth.py sampleTDB.txt sampleNeighbor.txt patterns.txt 3</span>
+
+
+<span class="sd">               .. note:: minSup  will be considered in support count or frequency</span>
+<span class="sd">    </span>
+<span class="sd">    **Sample run of importing the code**:</span>
+<span class="sd">    ----------------------------------------</span>
+<span class="sd">     .. code-block:: python</span>
+
+<span class="sd">            from PAMI.uncertainGeoreferencedFrequentPattern.basic import GFPGrowth as alg</span>
+
+<span class="sd">            obj = alg.GFPGrowth(iFile, nFile, minSup)</span>
+
+<span class="sd">            obj.startMine()</span>
+
+<span class="sd">            Patterns = obj.getPatterns()</span>
+
+<span class="sd">            print(&quot;Total number of  Patterns:&quot;, len(Patterns))</span>
+
+<span class="sd">            obj.save(oFile)</span>
+
+<span class="sd">            Df = obj.getPatternsAsDataFrame()</span>
+
+<span class="sd">            memUSS = obj.getMemoryUSS()</span>
+
+<span class="sd">            print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+
+<span class="sd">            memRSS = obj.getMemoryRSS()</span>
+
+<span class="sd">            print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+
+<span class="sd">            run = obj.getRuntime()</span>
+
+<span class="sd">            print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="sd">        </span>
+<span class="sd">    **Credits**:</span>
+<span class="sd">    -------------</span>
+<span class="sd">        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+    <span class="n">_startTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_endTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_minSup</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+    <span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_iFile</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">_oFile</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">_sep</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_Database</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">_rank</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iFile</span><span class="p">,</span> <span class="n">nFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">nFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_creatingItemSets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Scans the uncertain transactional dataset</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="n">uncertain</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;its empty..&quot;</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;Transactions&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">[</span><span class="s1">&#39;Transactions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;uncertain&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                <span class="n">uncertain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">[</span><span class="s1">&#39;uncertain&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+                <span class="n">tr</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">])):</span>
+                    <span class="n">product</span> <span class="o">=</span> <span class="n">_Item</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">uncertain</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+                    <span class="n">tr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
+
+            <span class="c1"># print(self.Database)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_validators</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">):</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_urlopen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="n">temp1</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="n">temp1</span> <span class="o">=</span> <span class="n">temp1</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+                    <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">temp1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)]</span>
+                    <span class="n">uncertain</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">temp1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)]</span>
+                    <span class="n">tr</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">temp</span><span class="p">)):</span>
+                        <span class="n">item</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                        <span class="n">probability</span> <span class="o">=</span> <span class="n">uncertain</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                        <span class="n">product</span> <span class="o">=</span> <span class="n">_Item</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">probability</span><span class="p">)</span>
+                        <span class="n">tr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                            <span class="n">temp1</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                            <span class="n">temp1</span> <span class="o">=</span> <span class="n">temp1</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+                            <span class="c1">#temp1[0], temp1[1] = [i for i in temp1[0] if i], [i for i in temp1[1] if i]</span>
+                            <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">temp1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span><span class="p">]</span>
+                            <span class="n">uncertain</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">temp1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span><span class="p">]</span>
+                            <span class="n">tr</span> <span class="o">=</span> <span class="p">[]</span>
+                            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">temp</span><span class="p">)):</span>
+                                <span class="n">item</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                                <span class="n">probability</span> <span class="o">=</span> <span class="n">uncertain</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                                <span class="n">product</span> <span class="o">=</span> <span class="n">_Item</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">probability</span><span class="p">)</span>
+                                <span class="n">tr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File Not Found&quot;</span><span class="p">)</span>
+                    
+    <span class="k">def</span> <span class="nf">_creatingNeighbours</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Scans the uncertain transactional dataset</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">global</span> <span class="n">_neighbourList</span>
+        <span class="n">_neighbourList</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nFile</span><span class="p">,</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="n">uncertain</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;its empty..&quot;</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;Transactions&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">[</span><span class="s1">&#39;Transactions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;uncertain&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                <span class="n">uncertain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">[</span><span class="s1">&#39;uncertain&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+                <span class="n">tr</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">])):</span>
+                    <span class="n">product</span> <span class="o">=</span> <span class="n">_Item</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">uncertain</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+                    <span class="n">tr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
+
+            <span class="c1"># print(self.Database)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nFile</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_validators</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">):</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_urlopen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                    <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)]</span>
+                    <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">temp</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+                    <span class="n">tr</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">temp</span><span class="p">:</span>
+                        <span class="n">i1</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">)</span>
+                        <span class="n">i2</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">)</span>
+                        <span class="n">item</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">i1</span><span class="p">]</span>
+                        <span class="n">probability</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="n">i1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span><span class="n">i2</span><span class="p">])</span>
+                        <span class="n">product</span> <span class="o">=</span> <span class="n">_Item</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">probability</span><span class="p">)</span>
+                        <span class="n">tr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nFile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                            <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)]</span>
+                            <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">temp</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+                            <span class="n">_neighbourList</span><span class="p">[</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+                <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File Not Found&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_frequentOneItem</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Takes the self.Database and calculates the support of each item in the dataset and assign the ranks to the items by decreasing support and returns the frequent items list</span>
+
+<span class="sd">        :param self.Database : it represents the one self.Database in database</span>
+<span class="sd">        :type self.Database : list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">mapSupport</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">j</span><span class="o">.</span><span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mapSupport</span><span class="p">:</span>
+                    <span class="n">mapSupport</span><span class="p">[</span><span class="n">j</span><span class="o">.</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span><span class="o">.</span><span class="n">probability</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">mapSupport</span><span class="p">[</span><span class="n">j</span><span class="o">.</span><span class="n">item</span><span class="p">]</span> <span class="o">+=</span> <span class="n">j</span><span class="o">.</span><span class="n">probability</span>
+        <span class="n">mapSupport</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">mapSupport</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">}</span>
+        <span class="n">plist</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">mapSupport</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">index</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">plist</span><span class="p">)])</span>
+        <span class="k">return</span> <span class="n">mapSupport</span><span class="p">,</span> <span class="n">plist</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_buildTree</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        It takes the self.Database and support of each item and construct the main tree with setting root node as null</span>
+
+<span class="sd">        :param data : it represents the one self.Database in database</span>
+<span class="sd">        :type data : list</span>
+<span class="sd">        :param info : it represents the support of each item</span>
+<span class="sd">        :type info : dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">rootNode</span> <span class="o">=</span> <span class="n">_Tree</span><span class="p">()</span>
+        <span class="n">rootNode</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+            <span class="n">rootNode</span><span class="o">.</span><span class="n">addTransaction</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">rootNode</span>
+
+    <span class="k">def</span> <span class="nf">_updateTransactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dict1</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove the items which are not frequent from self.Database and updates the self.Database with rank of items</span>
+
+<span class="sd">        :param dict1 : frequent items with support</span>
+<span class="sd">        :type dict1 : dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">list1</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">:</span>
+            <span class="n">list2</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tr</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">tr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">item</span> <span class="ow">in</span> <span class="n">dict1</span><span class="p">:</span>
+                    <span class="n">list2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">list2</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">basket</span> <span class="o">=</span> <span class="n">list2</span>
+                <span class="n">basket</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">val</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[</span><span class="n">val</span><span class="o">.</span><span class="n">item</span><span class="p">])</span>
+                <span class="n">list2</span> <span class="o">=</span> <span class="n">basket</span>
+                <span class="n">list1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">list2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">list1</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_check</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To check the presence of item or pattern in transaction</span>
+
+<span class="sd">        :param x: it represents the pattern</span>
+<span class="sd">        :type x : list</span>
+<span class="sd">        :param i : represents the uncertain self.Database</span>
+<span class="sd">        :type i : list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># This method taken a transaction as input and returns the tree</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="n">n</span><span class="o">.</span><span class="n">item</span><span class="p">:</span>
+                    <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To convert the type of user specified minSup value</span>
+
+<span class="sd">        :param value: user specified minSup value</span>
+<span class="sd">        :return: converted type minSup value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">)</span> <span class="o">*</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">)</span> <span class="o">*</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">_removeFalsePositives</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To remove the false positive patterns generated in frequent patterns.</span>
+
+<span class="sd">        :return: patterns with accurate probability</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">global</span> <span class="n">_finalPatterns</span>
+        <span class="n">periods</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">_finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">periods</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">s</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="n">check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">check</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">j</span><span class="o">.</span><span class="n">item</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+                                <span class="n">s</span> <span class="o">*=</span> <span class="n">j</span><span class="o">.</span><span class="n">probability</span>
+                        <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">periods</span><span class="p">:</span>
+                            <span class="n">periods</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+=</span> <span class="n">s</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">periods</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">periods</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">y</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">:</span>
+                <span class="n">sample</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+                    <span class="n">sample</span> <span class="o">=</span> <span class="n">sample</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">sample</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+
+<div class="viewcode-block" id="GFPGrowth.startMine">
+<a class="viewcode-back" href="../../../../PAMI.uncertainGeoreferencedFrequentPattern.basic.html#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.startMine">[docs]</a>
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use mine() instead of startMine() for mining process&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="GFPGrowth.mine">
+<a class="viewcode-back" href="../../../../PAMI.uncertainGeoreferencedFrequentPattern.basic.html#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.mine">[docs]</a>
+    <span class="k">def</span> <span class="nf">mine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">global</span> <span class="n">minSup</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_creatingItemSets</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_creatingNeighbours</span><span class="p">()</span>
+        <span class="c1"># self._minSup = self._convert(self._minSup)</span>
+        <span class="n">minSup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">mapSupport</span><span class="p">,</span> <span class="n">plist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frequentOneItem</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Database1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updateTransactions</span><span class="p">(</span><span class="n">mapSupport</span><span class="p">)</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">mapSupport</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">Tree1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buildTree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Database1</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span>
+        <span class="n">Tree1</span><span class="o">.</span><span class="n">generatePatterns</span><span class="p">([])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_removeFalsePositives</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Geo-Referenced Frequent patterns were generated from uncertain databases successfully using GFP algorithm&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span></div>
+
+
+<div class="viewcode-block" id="GFPGrowth.getMemoryUSS">
+<a class="viewcode-back" href="../../../../PAMI.uncertainGeoreferencedFrequentPattern.basic.html#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getMemoryUSS">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
+
+<span class="sd">        :return: returning USS memory consumed by the mining process</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span></div>
+
+
+<div class="viewcode-block" id="GFPGrowth.getMemoryRSS">
+<a class="viewcode-back" href="../../../../PAMI.uncertainGeoreferencedFrequentPattern.basic.html#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getMemoryRSS">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
+
+<span class="sd">        :return: returning RSS memory consumed by the mining process</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">memoryRSS</span></div>
+
+
+<div class="viewcode-block" id="GFPGrowth.getRuntime">
+<a class="viewcode-back" href="../../../../PAMI.uncertainGeoreferencedFrequentPattern.basic.html#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getRuntime">[docs]</a>
+    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculating the total amount of runtime taken by the mining process</span>
+
+<span class="sd">        :return: returning total amount of runtime taken by the mining process</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span></div>
+
+
+<div class="viewcode-block" id="GFPGrowth.getPatternsAsDataFrame">
+<a class="viewcode-back" href="../../../../PAMI.uncertainGeoreferencedFrequentPattern.basic.html#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getPatternsAsDataFrame">[docs]</a>
+    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Storing final frequent patterns in a dataframe</span>
+
+<span class="sd">        :return: returning frequent patterns in a dataframe</span>
+<span class="sd">        :rtype: pd.DataFrame</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">dataframe</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">])</span>
+            <span class="n">dataframe</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;Support&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">dataframe</span></div>
+
+
+<div class="viewcode-block" id="GFPGrowth.save">
+<a class="viewcode-back" href="../../../../PAMI.uncertainGeoreferencedFrequentPattern.basic.html#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.save">[docs]</a>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Complete set of frequent patterns will be loaded in to an output file</span>
+
+<span class="sd">        :param outFile: name of the output file</span>
+<span class="sd">        :type outFile: csv file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oFile</span> <span class="o">=</span> <span class="n">outFile</span>
+        <span class="n">writer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oFile</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">s1</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">s1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GFPGrowth.getPatterns">
+<a class="viewcode-back" href="../../../../PAMI.uncertainGeoreferencedFrequentPattern.basic.html#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getPatterns">[docs]</a>
+    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function to send the set of frequent patterns after completion of the mining process</span>
+
+<span class="sd">        :return: returning frequent patterns</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span></div>
+
+    
+<div class="viewcode-block" id="GFPGrowth.printResults">
+<a class="viewcode-back" href="../../../../PAMI.uncertainGeoreferencedFrequentPattern.basic.html#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.printResults">[docs]</a>
+    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;patterns.txt&quot;</span><span class="p">)</span>
+        <span class="n">memUSS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+        <span class="n">memRSS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+        <span class="n">run</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span></div>
+</div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">_ap</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
+            <span class="n">_ap</span> <span class="o">=</span> <span class="n">GFPGrowth</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="n">_ap</span> <span class="o">=</span> <span class="n">GFPGrowth</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
+        <span class="n">_Patterns</span> <span class="o">=</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">_Patterns</span><span class="p">))</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">_memUSS</span> <span class="o">=</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">_memUSS</span><span class="p">)</span>
+        <span class="n">_memRSS</span> <span class="o">=</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">_memRSS</span><span class="p">)</span>
+        <span class="n">_run</span> <span class="o">=</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="n">_run</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error! The number of input parameters do not match the total number of parameters provided&quot;</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE Uday Kiran.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

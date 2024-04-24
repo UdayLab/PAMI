@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM &mdash; PAMI 2024.04.23 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=391540b0"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">PAMI</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Spatial High Utility Frequent ItemSet Mining (SHUFIM) aims to discover all itemSets in a spatioTemporal database</span>
+<span class="c1"># that satisfy the user-specified minimum utility, minimum support and maximum distance constraints</span>
+<span class="c1">#</span>
+<span class="c1"># **Importing this algorithm into a python program**</span>
+<span class="c1"># --------------------------------------------------------</span>
+<span class="c1">#</span>
+<span class="c1">#             from PAMI.highUtilityGeoreferencedFrequentPattern.basic import SHUFIM as alg</span>
+<span class="c1">#</span>
+<span class="c1">#             obj=alg.SHUFIM(&quot;input.txt&quot;,&quot;Neighbours.txt&quot;,35,20)</span>
+<span class="c1">#</span>
+<span class="c1">#             obj.mine()</span>
+<span class="c1">#</span>
+<span class="c1">#             patterns = obj.getPatterns()</span>
+<span class="c1">#</span>
+<span class="c1">#             print(&quot;Total number of Spatial high utility frequent Patterns:&quot;, len(patterns))</span>
+<span class="c1">#</span>
+<span class="c1">#             obj.save(&quot;output&quot;)</span>
+<span class="c1">#</span>
+<span class="c1">#             memUSS = obj.getMemoryUSS()</span>
+<span class="c1">#</span>
+<span class="c1">#             print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="c1">#</span>
+<span class="c1">#             memRSS = obj.getMemoryRSS()</span>
+<span class="c1">#</span>
+<span class="c1">#             print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="c1">#</span>
+<span class="c1">#             run = obj.getRuntime()</span>
+<span class="c1">#</span>
+<span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
+
+
+
+
+
+
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Copyright (C)  2021 Rage Uday Kiran</span>
+
+<span class="s2">     This program is free software: you can redistribute it and/or modify</span>
+<span class="s2">     it under the terms of the GNU General Public License as published by</span>
+<span class="s2">     the Free Software Foundation, either version 3 of the License, or</span>
+<span class="s2">     (at your option) any later version.</span>
+
+<span class="s2">     This program is distributed in the hope that it will be useful,</span>
+<span class="s2">     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="s2">     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="s2">     GNU General Public License for more details.</span>
+
+<span class="s2">     You should have received a copy of the GNU General Public License</span>
+<span class="s2">     along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="s2">     Copyright (C)  2021 Rage Uday Kiran</span>
+
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">PAMI.highUtilityGeoreferencedFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">cmp_to_key</span> <span class="k">as</span> <span class="n">_comToKey</span>
+<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
+
+<span class="k">class</span> <span class="nc">_Transaction</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to store Transaction of a database</span>
+
+<span class="sd">    :Attributes:</span>
+
+<span class="sd">        items: list</span>
+<span class="sd">            A list of items in transaction </span>
+<span class="sd">        utilities: list</span>
+<span class="sd">            A list of utilites of items in transaction</span>
+<span class="sd">        transactionUtility: int</span>
+<span class="sd">            represent total sum of all utilities in the database</span>
+<span class="sd">        pmus: list</span>
+<span class="sd">            represent the pmu (probable maximum utility) of each element in the transaction</span>
+<span class="sd">        prefixutility:</span>
+<span class="sd">            prefix Utility values of item</span>
+<span class="sd">        offset:</span>
+<span class="sd">            an offset pointer, used by projected transactions</span>
+<span class="sd">        support:</span>
+<span class="sd">            maintains the support of the transaction</span>
+<span class="sd">    :Methods:</span>
+
+<span class="sd">        projectedTransaction(offsetE):</span>
+<span class="sd">            A method to create new Transaction from existing till offsetE</span>
+<span class="sd">        getItems():</span>
+<span class="sd">            return items in transaction</span>
+<span class="sd">        getUtilities():</span>
+<span class="sd">            return utilities in transaction</span>
+<span class="sd">        getPmus():</span>
+<span class="sd">            return pmus in transaction</span>
+<span class="sd">        getLastPosition():</span>
+<span class="sd">            return last position in a transaction</span>
+<span class="sd">        removeUnpromisingItems():</span>
+<span class="sd">            A method to remove items with low Utility than minUtil</span>
+<span class="sd">        insertionSort():</span>
+<span class="sd">            A method to sort all items in the transaction</span>
+<span class="sd">        getSupport():</span>
+<span class="sd">            returns the support of the transaction</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">prefixUtility</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">support</span> <span class="o">=</span> <span class="mi">1</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">,</span> <span class="n">utilities</span><span class="p">,</span> <span class="n">transactionUtility</span><span class="p">,</span> <span class="n">pmus</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items</span> <span class="o">=</span> <span class="n">items</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">utilities</span> <span class="o">=</span> <span class="n">utilities</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transactionUtility</span> <span class="o">=</span> <span class="n">transactionUtility</span>
+        <span class="k">if</span> <span class="n">pmus</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pmus</span> <span class="o">=</span> <span class="n">pmus</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">support</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">projectTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offsetE</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method to create new Transaction from existing till offsetE</span>
+<span class="sd">        :param offsetE: an offset over the original transaction for projecting the transaction</span>
+<span class="sd">        :type offsetE: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">newTransaction</span> <span class="o">=</span> <span class="n">_Transaction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">utilities</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">transactionUtility</span><span class="p">)</span>
+        <span class="n">utilityE</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">utilities</span><span class="p">[</span><span class="n">offsetE</span><span class="p">]</span>
+        <span class="n">newTransaction</span><span class="o">.</span><span class="n">prefixUtility</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefixUtility</span> <span class="o">+</span> <span class="n">utilityE</span>
+        <span class="n">newTransaction</span><span class="o">.</span><span class="n">transactionUtility</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transactionUtility</span> <span class="o">-</span> <span class="n">utilityE</span>
+        <span class="n">newTransaction</span><span class="o">.</span><span class="n">support</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">support</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="n">offsetE</span><span class="p">):</span>
+            <span class="n">newTransaction</span><span class="o">.</span><span class="n">transactionUtility</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">utilities</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">newTransaction</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">offsetE</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">newTransaction</span>
+
+    <span class="k">def</span> <span class="nf">getItems</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method to return items in transaction</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span>
+
+    <span class="k">def</span> <span class="nf">getPmus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method to return pmus in transaction</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pmus</span>
+
+    <span class="k">def</span> <span class="nf">getUtilities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method to return utilities in transaction</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">utilities</span>
+
+    <span class="c1"># get the last position in this transaction</span>
+    <span class="k">def</span> <span class="nf">getLastPosition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method to return last position in a transaction</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">getSupport</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method to return support of a transaction (number of transactions in the original database having the items present in this transaction)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">support</span>
+
+    <span class="k">def</span> <span class="nf">removeUnpromisingItems</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oldNamesToNewNames</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method to remove items with low Utility than minUtil</span>
+<span class="sd">        :param oldNamesToNewNames: A map represent old names to new names</span>
+<span class="sd">        :type oldNamesToNewNames: map</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tempItems</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">tempUtilities</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">oldNamesToNewNames</span><span class="p">:</span>
+                <span class="n">tempItems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">oldNamesToNewNames</span><span class="p">[</span><span class="n">item</span><span class="p">])</span>
+                <span class="n">tempUtilities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">utilities</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">transactionUtility</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">utilities</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items</span> <span class="o">=</span> <span class="n">tempItems</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">utilities</span> <span class="o">=</span> <span class="n">tempUtilities</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">insertionSort</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">insertionSort</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method to sort items in order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">)):</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">utilityJ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">utilities</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">while</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">utilities</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">utilities</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">utilities</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">utilityJ</span>
+
+
+<span class="k">class</span> <span class="nc">_Dataset</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class represent the list of transactions in this dataset</span>
+
+<span class="sd">    :Attributes:</span>
+
+<span class="sd">        transactions :</span>
+<span class="sd">            the list of transactions in this dataset</span>
+<span class="sd">        maxItem:</span>
+<span class="sd">            the largest item name</span>
+<span class="sd">        </span>
+<span class="sd">    :methods:</span>
+
+<span class="sd">        createTransaction(line):</span>
+<span class="sd">            Create a transaction object from a line from the input file</span>
+<span class="sd">        getMaxItem():</span>
+<span class="sd">            return Maximum Item</span>
+<span class="sd">        getTransactions():</span>
+<span class="sd">            return transactions in database</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">transactions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">maxItem</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datasetPath</span><span class="p">,</span> <span class="n">sep</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">strToInt</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">intToStr</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sep</span> <span class="o">=</span> <span class="n">sep</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transactions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">createItemSets</span><span class="p">(</span><span class="n">datasetPath</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">createItemSets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datasetPath</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Storing the complete transactions of the database/input file in a database variable</span>
+
+<span class="sd">        :param datasetPath: Path to the input file</span>
+
+<span class="sd">        :type datasetPath: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pmuString</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">datasetPath</span><span class="p">,</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="n">utilities</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">utilitySum</span><span class="p">,</span> <span class="n">pmuString</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">datasetPath</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;its empty..&quot;</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">datasetPath</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;Transactions&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">datasetPath</span><span class="p">[</span><span class="s1">&#39;Transactions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;Utilities&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                <span class="n">utilities</span> <span class="o">=</span> <span class="n">datasetPath</span><span class="p">[</span><span class="s1">&#39;Utilities&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;UtilitySum&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                <span class="n">utilitySum</span> <span class="o">=</span> <span class="n">datasetPath</span><span class="p">[</span><span class="s1">&#39;UtilitySum&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;pmuString&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                <span class="n">utilitySum</span> <span class="o">=</span> <span class="n">datasetPath</span><span class="p">[</span><span class="s1">&#39;pmuString&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">transactions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">createTransaction</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">utilities</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">utilitySum</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">pmuString</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">datasetPath</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_validators</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="n">datasetPath</span><span class="p">):</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_urlopen</span><span class="p">(</span><span class="n">datasetPath</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                    <span class="n">trans_list</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+                    <span class="n">transactionUtility</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">trans_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="n">itemsString</span> <span class="o">=</span> <span class="n">trans_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
+                    <span class="n">itemsString</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">itemsString</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+                    <span class="n">utilityString</span> <span class="o">=</span> <span class="n">trans_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
+                    <span class="n">utilityString</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">utilityString</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">trans_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                        <span class="n">pmuString</span> <span class="o">=</span> <span class="n">trans_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
+                        <span class="n">pmuString</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">pmuString</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">transactions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">createTransaction</span><span class="p">(</span><span class="n">itemsString</span><span class="p">,</span> <span class="n">utilityString</span><span class="p">,</span> <span class="n">transactionUtility</span><span class="p">,</span> <span class="n">pmuString</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">datasetPath</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                            <span class="n">trans_list</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+                            <span class="n">transactionUtility</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">trans_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                            <span class="n">itemsString</span> <span class="o">=</span> <span class="n">trans_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
+                            <span class="n">itemsString</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">itemsString</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+                            <span class="n">utilityString</span> <span class="o">=</span> <span class="n">trans_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
+                            <span class="n">utilityString</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">utilityString</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+                            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">trans_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                                <span class="n">pmuString</span> <span class="o">=</span> <span class="n">trans_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
+                                <span class="n">pmuString</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">pmuString</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">transactions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">createTransaction</span><span class="p">(</span><span class="n">itemsString</span><span class="p">,</span> <span class="n">utilityString</span><span class="p">,</span> <span class="n">transactionUtility</span><span class="p">,</span> <span class="n">pmuString</span><span class="p">))</span>
+                <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File Not Found&quot;</span><span class="p">)</span>
+                    <span class="n">quit</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">createTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">,</span> <span class="n">utilities</span><span class="p">,</span> <span class="n">utilitySum</span><span class="p">,</span> <span class="n">pmustring</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method to create Transaction from dataset given</span>
+<span class="sd">        :param items: represent a utility items in a transaction</span>
+<span class="sd">        :type items: list</span>
+<span class="sd">        :param utilities: represent utility of an item in transaction</span>
+<span class="sd">        :type utilities: list</span>
+<span class="sd">        :param utilitySum: represent utility sum of  transaction</span>
+<span class="sd">        :type utilitySum: int</span>
+<span class="sd">        :param pmustring: represent a pmustring in a given dataset</span>
+<span class="sd">        :type pmustring: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">transactionUtility</span> <span class="o">=</span> <span class="n">utilitySum</span>
+        <span class="n">itemsString</span> <span class="o">=</span> <span class="n">items</span>
+        <span class="n">utilityString</span> <span class="o">=</span> <span class="n">utilities</span>
+        <span class="n">pmuString</span> <span class="o">=</span> <span class="n">pmustring</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">utilities</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">pmus</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">itemsString</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">strToInt</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">strToInt</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">intToStr</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">itemInt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">strToInt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">itemInt</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxItem</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">maxItem</span> <span class="o">=</span> <span class="n">itemInt</span>
+            <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">itemInt</span><span class="p">)</span>
+            <span class="n">utilities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">utilityString</span><span class="p">[</span><span class="n">idx</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="n">pmuString</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">pmus</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">pmuString</span><span class="p">[</span><span class="n">idx</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="n">pmuString</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">pmus</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">_Transaction</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">utilities</span><span class="p">,</span> <span class="n">transactionUtility</span><span class="p">,</span> <span class="n">pmus</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getMaxItem</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method to return name of the largest item</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxItem</span>
+
+    <span class="k">def</span> <span class="nf">getTransactions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method to return transactions from database</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transactions</span>
+
+
+<div class="viewcode-block" id="SHUFIM">
+<a class="viewcode-back" href="../../../../PAMI.highUtilityGeoreferencedFrequentPattern.basic.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM">[docs]</a>
+<span class="k">class</span> <span class="nc">SHUFIM</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_utilityPatterns</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :Description:  Spatial High Utility Frequent ItemSet Mining (SHUFIM) aims to discover all itemSets in a spatioTemporal database</span>
+<span class="sd">                   that satisfy the user-specified minimum utility, minimum support and maximum distance constraints</span>
+
+<span class="sd">    :Reference:    10.1007/978-3-030-37188-3_17</span>
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of Geo-referenced frequent sequence patterns</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of Geo-referenced frequent sequence patterns</span>
+<span class="sd">    :param  minSup: int or float or str :</span>
+<span class="sd">                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.</span>
+<span class="sd">    :param minUtil: int :</span>
+<span class="sd">                   The user given minUtil value.</span>
+<span class="sd">    :param candidateCount: int</span>
+<span class="sd">                   Number of candidates</span>
+<span class="sd">    :param maxMemory: int</span>
+<span class="sd">                   Maximum memory used by this program for running</span>
+<span class="sd">    :param nFile: str :</span>
+<span class="sd">                   Name of the input file to mine complete set of Geo-referenced frequent sequence patterns</span>
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
+
+<span class="sd">    :Attributes:</span>
+
+<span class="sd">        iFile : file</span>
+<span class="sd">            Name of the input file to mine complete set of frequent patterns</span>
+<span class="sd">        nFile : file</span>
+<span class="sd">            Name of the Neighbours file that contain neighbours of items</span>
+<span class="sd">        oFile : file</span>
+<span class="sd">            Name of the output file to store complete set of frequent patterns</span>
+<span class="sd">        memoryRSS : float</span>
+<span class="sd">            To store the total amount of RSS memory consumed by the program</span>
+<span class="sd">        startTime:float</span>
+<span class="sd">            To record the start time of the mining process</span>
+<span class="sd">        endTime:float</span>
+<span class="sd">            To record the completion time of the mining process</span>
+<span class="sd">        minUtil : int</span>
+<span class="sd">            The user given minUtil</span>
+<span class="sd">        minSup : float</span>
+<span class="sd">            The user given minSup value</span>
+<span class="sd">        highUtilityFrequentSpatialItemSets: map</span>
+<span class="sd">            set of high utility itemSets</span>
+<span class="sd">        candidateCount: int</span>
+<span class="sd">             Number of candidates </span>
+<span class="sd">        utilityBinArrayLU: list</span>
+<span class="sd">             A map to hold the pmu values of the items in database</span>
+<span class="sd">        utilityBinArraySU: list</span>
+<span class="sd">            A map to hold the subtree utility values of the items is database</span>
+<span class="sd">        oldNamesToNewNames: list</span>
+<span class="sd">            A map to hold the subtree utility values of the items is database</span>
+<span class="sd">        newNamesToOldNames: list</span>
+<span class="sd">            A map to store the old name corresponding to new name</span>
+<span class="sd">        Neighbours : map</span>
+<span class="sd">            A dictionary to store the neighbours of a item</span>
+<span class="sd">        maxMemory: float</span>
+<span class="sd">            Maximum memory used by this program for running</span>
+<span class="sd">        patternCount: int</span>
+<span class="sd">            Number of SHUFI&#39;s (Spatial High Utility Frequent Itemsets)</span>
+<span class="sd">        itemsToKeep: list</span>
+<span class="sd">            keep only the promising items ie items whose supersets can be required patterns</span>
+<span class="sd">        itemsToExplore: list</span>
+<span class="sd">            keep items that subtreeUtility grater than minUtil</span>
+
+<span class="sd">    :Methods :</span>
+
+<span class="sd">        mine()</span>
+<span class="sd">                Mining process will start from here</span>
+<span class="sd">        getPatterns()</span>
+<span class="sd">                Complete set of patterns will be retrieved with this function</span>
+<span class="sd">        save(oFile)</span>
+<span class="sd">                Complete set of frequent patterns will be loaded in to a output file</span>
+<span class="sd">        getPatternsAsDataFrame()</span>
+<span class="sd">                Complete set of frequent patterns will be loaded in to a dataframe</span>
+<span class="sd">        getMemoryUSS()</span>
+<span class="sd">                Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
+<span class="sd">        getMemoryRSS()</span>
+<span class="sd">                Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
+<span class="sd">        getRuntime()</span>
+<span class="sd">               Total amount of runtime taken by the mining process will be retrieved from this function</span>
+<span class="sd">        calculateNeighbourIntersection(self, prefixLength)</span>
+<span class="sd">               A method to return common Neighbours of items</span>
+<span class="sd">        backtrackingEFIM(transactionsOfP, itemsToKeep, itemsToExplore, prefixLength)</span>
+<span class="sd">               A method to mine the SHUIs Recursively</span>
+<span class="sd">        useUtilityBinArraysToCalculateUpperBounds(transactionsPe, j, itemsToKeep, neighbourhoodList)</span>
+<span class="sd">               A method to  calculate the sub-tree utility and local utility of all items that can extend itemSet P and e</span>
+<span class="sd">        output(tempPosition, utility)</span>
+<span class="sd">               A method ave a high-utility itemSet to file or memory depending on what the user chose</span>
+<span class="sd">        isEqual(transaction1, transaction2)</span>
+<span class="sd">               A method to Check if two transaction are identical</span>
+<span class="sd">        intersection(lst1, lst2)</span>
+<span class="sd">               A method that return the intersection of 2 list</span>
+<span class="sd">        useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(dataset)</span>
+<span class="sd">              Scan the initial database to calculate the subtree utility of each items using a utility-bin array</span>
+<span class="sd">        sortDatabase(self, transactions)</span>
+<span class="sd">              A Method to sort transaction in the order of PMU</span>
+<span class="sd">        sortTransaction(self, trans1, trans2)</span>
+<span class="sd">              A Method to sort transaction in the order of PMU</span>
+<span class="sd">        useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset)</span>
+<span class="sd">             A method to scan the database using utility bin array to calculate the pmus</span>
+
+<span class="sd">    **Executing the code on terminal :**</span>
+<span class="sd">    -----------------------------------------</span>
+
+<span class="sd">    .. code-block:: console</span>
+
+<span class="sd">      Format:</span>
+
+<span class="sd">      (.venv) $ python3 SHUFIM.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;Neighbours&gt; &lt;minUtil&gt; &lt;minSup&gt; &lt;sep&gt;</span>
+
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3 SHUFIM.py sampleTDB.txt output.txt sampleN.txt 35 20</span>
+
+<span class="sd">    .. note:: minSup will be considered in percentage of database transactions</span>
+
+
+<span class="sd">    **Sample run of importing the code:**</span>
+<span class="sd">    -----------------------------------------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">            from PAMI.highUtilityGeoreferencedFrequentPattern.basic import SHUFIM as alg</span>
+
+<span class="sd">            obj=alg.SHUFIM(&quot;input.txt&quot;,&quot;Neighbours.txt&quot;,35,20)</span>
+
+<span class="sd">            obj.mine()</span>
+
+<span class="sd">            patterns = obj.getPatterns()</span>
+
+<span class="sd">            print(&quot;Total number of Spatial high utility frequent Patterns:&quot;, len(patterns))</span>
+
+<span class="sd">            obj.save(&quot;output&quot;)</span>
+
+<span class="sd">            memUSS = obj.getMemoryUSS()</span>
+
+<span class="sd">            print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+
+<span class="sd">            memRSS = obj.getMemoryRSS()</span>
+
+<span class="sd">            print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+
+<span class="sd">            run = obj.getRuntime()</span>
+
+<span class="sd">            print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+
+<span class="sd">    **Credits:**</span>
+<span class="sd">    ---------------------</span>
+
+<span class="sd">            The complete program was written by Pradeep Pallikila under the supervision of Professor Rage Uday Kiran.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_candidateCount</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">_utilityBinArrayLU</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_utilityBinArraySU</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_oldNamesToNewNames</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_newNamesToOldNames</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_singleItemSetsSupport</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_singleItemSetsUtility</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_strToint</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_intTostr</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_Neighbours</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_temp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5000</span>
+    <span class="n">_maxMemory</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">_startTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_endTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_minSup</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+    <span class="n">_maxPer</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_iFile</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">_oFile</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">_nFile</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">_sep</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span>
+    <span class="n">_minUtil</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iFile</span><span class="p">,</span> <span class="n">nFile</span><span class="p">,</span> <span class="n">minUtil</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">nFile</span><span class="p">,</span> <span class="n">minUtil</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To convert the type of user specified minSup value</span>
+
+<span class="sd">        :param value: user specified minSup value</span>
+<span class="sd">        :type value: int o float or str</span>
+<span class="sd">        :return: converted type</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">getTransactions</span><span class="p">())</span> <span class="o">*</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">getTransactions</span><span class="p">())</span> <span class="o">*</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span>
+
+<div class="viewcode-block" id="SHUFIM.startMine">
+<a class="viewcode-back" href="../../../../PAMI.highUtilityGeoreferencedFrequentPattern.basic.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.startMine">[docs]</a>
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use &#39;mine()&#39; instead of &#39;startMine()&#39; for mining process. Starting from January 2025, &#39;startMine()&#39; will be completely terminated.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        High Utility Frequent Pattern mining start here</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SHUFIM.mine">
+<a class="viewcode-back" href="../../../../PAMI.highUtilityGeoreferencedFrequentPattern.basic.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.mine">[docs]</a>
+    <span class="k">def</span> <span class="nf">mine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        High Utility Frequent Pattern mining start here</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_patternCount</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span> <span class="o">=</span> <span class="n">_Dataset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_singleItemSetsSupport</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_singleItemSetsUtility</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minUtil</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_minUtil</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nFile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">o</span><span class="p">:</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">line_split</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">strToInt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">lst</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">line_split</span><span class="p">)):</span>
+                    <span class="n">lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">strToInt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_Neighbours</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">lst</span>
+        <span class="n">o</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">InitialMemory</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">virtual_memory</span><span class="p">()[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_useUtilityBinArrayToCalculateLocalUtilityFirstTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="p">)</span>
+        <span class="n">_itemsToKeep</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArrayLU</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArrayLU</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minUtil</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_singleItemSetsSupport</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">:</span>
+                <span class="n">_itemsToKeep</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="c1"># sorting items in decreasing order of their utilities</span>
+        <span class="n">_itemsToKeep</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">_itemsToKeep</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_singleItemSetsUtility</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">_currentName</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">_itemsToKeep</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_oldNamesToNewNames</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">_currentName</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_newNamesToOldNames</span><span class="p">[</span><span class="n">_currentName</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
+            <span class="n">_itemsToKeep</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">_currentName</span>
+            <span class="n">_currentName</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">getTransactions</span><span class="p">():</span>
+            <span class="n">transaction</span><span class="o">.</span><span class="n">removeUnpromisingItems</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oldNamesToNewNames</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sortDatabase</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">getTransactions</span><span class="p">())</span>
+        <span class="n">_emptyTransactionCount</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">getTransactions</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="o">.</span><span class="n">getItems</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">_emptyTransactionCount</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">transactions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">transactions</span><span class="p">[</span><span class="n">_emptyTransactionCount</span><span class="p">:]</span>
+        <span class="c1"># calculating neighborhood suffix utility values</span>
+        <span class="n">_secondary</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">_itemsToKeep</span><span class="p">):</span>
+            <span class="n">_cumulativeUtility</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_singleItemSetsUtility</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_newNamesToOldNames</span><span class="p">[</span><span class="n">item</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_newNamesToOldNames</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Neighbours</span><span class="p">:</span>
+                <span class="n">neighbors</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_oldNamesToNewNames</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Neighbours</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_newNamesToOldNames</span><span class="p">[</span><span class="n">item</span><span class="p">]]</span> <span class="k">if</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oldNamesToNewNames</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">_itemsToKeep</span><span class="p">)):</span>
+                    <span class="n">_nextItem</span> <span class="o">=</span> <span class="n">_itemsToKeep</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">_nextItem</span> <span class="ow">in</span> <span class="n">neighbors</span><span class="p">:</span>
+                        <span class="n">_cumulativeUtility</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_singleItemSetsUtility</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_newNamesToOldNames</span><span class="p">[</span><span class="n">_nextItem</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="n">_cumulativeUtility</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minUtil</span><span class="p">:</span>
+                <span class="n">_secondary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_useUtilityBinArrayToCalculateSubtreeUtilityFirstTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="p">)</span>
+        <span class="n">_itemsToExplore</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">_secondary</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArraySU</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minUtil</span><span class="p">:</span>
+                <span class="n">_itemsToExplore</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">_commonitems</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">maxItem</span><span class="p">):</span>
+            <span class="n">_commonitems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backtrackingEFIM</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">getTransactions</span><span class="p">(),</span> <span class="n">_itemsToKeep</span><span class="p">,</span> <span class="n">_itemsToExplore</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">_finalMemory</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">virtual_memory</span><span class="p">()[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">memory</span> <span class="o">=</span> <span class="p">(</span><span class="n">_finalMemory</span> <span class="o">-</span> <span class="n">InitialMemory</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10000</span>
+        <span class="k">if</span> <span class="n">memory</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxMemory</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_maxMemory</span> <span class="o">=</span> <span class="n">memory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Spatial High Utility Frequent Itemsets generated successfully using SHUFIM algorithm&#39;</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_backtrackingEFIM</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactionsOfP</span><span class="p">,</span> <span class="n">itemsToKeep</span><span class="p">,</span> <span class="n">itemsToExplore</span><span class="p">,</span> <span class="n">prefixLength</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method to mine the SHUFIs Recursively</span>
+<span class="sd">        :param transactionsOfP: the list of transactions containing the current prefix P</span>
+<span class="sd">        :type transactionsOfP: list</span>
+<span class="sd">        :param itemsToKeep: the list of secondary items in the p-projected database</span>
+<span class="sd">        :type itemsToKeep: list</span>
+<span class="sd">        :param itemsToExplore: the list of primary items in the p-projected database</span>
+<span class="sd">        :type itemsToExplore: list</span>
+<span class="sd">        :param prefixLength: current prefixLength</span>
+<span class="sd">        :type prefixLength: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_candidateCount</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">itemsToExplore</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">itemsToExplore</span><span class="p">):</span>
+            <span class="n">initialMemory</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">virtual_memory</span><span class="p">()[</span><span class="mi">3</span><span class="p">]</span>
+            <span class="n">transactionsPe</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">utilityPe</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">supportPe</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">previousTransaction</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">consecutiveMergeCount</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="n">transactionsOfP</span><span class="p">:</span>
+                <span class="n">items</span> <span class="o">=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">getItems</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+                    <span class="n">positionE</span> <span class="o">=</span> <span class="n">items</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">transaction</span><span class="o">.</span><span class="n">getLastPosition</span><span class="p">()</span> <span class="o">==</span> <span class="n">positionE</span><span class="p">:</span>
+                        <span class="n">utilityPe</span> <span class="o">+=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">getUtilities</span><span class="p">()[</span><span class="n">positionE</span><span class="p">]</span> <span class="o">+</span> <span class="n">transaction</span><span class="o">.</span><span class="n">prefixUtility</span>
+                        <span class="n">supportPe</span> <span class="o">+=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">getSupport</span><span class="p">()</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">projectedTransaction</span> <span class="o">=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">projectTransaction</span><span class="p">(</span><span class="n">positionE</span><span class="p">)</span>
+                        <span class="n">utilityPe</span> <span class="o">+=</span> <span class="n">projectedTransaction</span><span class="o">.</span><span class="n">prefixUtility</span>
+                        <span class="k">if</span> <span class="n">previousTransaction</span> <span class="o">==</span> <span class="p">[]:</span>
+                            <span class="n">previousTransaction</span> <span class="o">=</span> <span class="n">projectedTransaction</span>
+                        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_isEqual</span><span class="p">(</span><span class="n">projectedTransaction</span><span class="p">,</span> <span class="n">previousTransaction</span><span class="p">):</span>
+                            <span class="k">if</span> <span class="n">consecutiveMergeCount</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                                <span class="n">items</span> <span class="o">=</span> <span class="n">previousTransaction</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="n">previousTransaction</span><span class="o">.</span><span class="n">offset</span><span class="p">:]</span>
+                                <span class="n">utilities</span> <span class="o">=</span> <span class="n">previousTransaction</span><span class="o">.</span><span class="n">utilities</span><span class="p">[</span><span class="n">previousTransaction</span><span class="o">.</span><span class="n">offset</span><span class="p">:]</span>
+                                <span class="n">support</span> <span class="o">=</span> <span class="n">previousTransaction</span><span class="o">.</span><span class="n">getSupport</span><span class="p">()</span>
+                                <span class="n">itemsCount</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+                                <span class="n">positionPrevious</span> <span class="o">=</span> <span class="mi">0</span>
+                                <span class="n">positionProjection</span> <span class="o">=</span> <span class="n">projectedTransaction</span><span class="o">.</span><span class="n">offset</span>
+                                <span class="k">while</span> <span class="n">positionPrevious</span> <span class="o">&lt;</span> <span class="n">itemsCount</span><span class="p">:</span>
+                                    <span class="n">utilities</span><span class="p">[</span><span class="n">positionPrevious</span><span class="p">]</span> <span class="o">+=</span> <span class="n">projectedTransaction</span><span class="o">.</span><span class="n">utilities</span><span class="p">[</span><span class="n">positionProjection</span><span class="p">]</span>
+                                    <span class="n">positionPrevious</span> <span class="o">+=</span> <span class="mi">1</span>
+                                    <span class="n">positionProjection</span> <span class="o">+=</span> <span class="mi">1</span>
+                                <span class="n">previousTransaction</span><span class="o">.</span><span class="n">prefixUtility</span> <span class="o">+=</span> <span class="n">projectedTransaction</span><span class="o">.</span><span class="n">prefixUtility</span>
+                                <span class="n">sumUtilities</span> <span class="o">=</span> <span class="n">previousTransaction</span><span class="o">.</span><span class="n">prefixUtility</span>
+                                <span class="n">previousTransaction</span> <span class="o">=</span> <span class="n">_Transaction</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">utilities</span><span class="p">,</span> <span class="n">previousTransaction</span><span class="o">.</span><span class="n">transactionUtility</span> <span class="o">+</span> <span class="n">projectedTransaction</span><span class="o">.</span><span class="n">transactionUtility</span><span class="p">)</span>
+                                <span class="n">previousTransaction</span><span class="o">.</span><span class="n">prefixUtility</span> <span class="o">=</span> <span class="n">sumUtilities</span>
+                                <span class="n">previousTransaction</span><span class="o">.</span><span class="n">support</span> <span class="o">=</span> <span class="n">support</span>
+                                <span class="n">previousTransaction</span><span class="o">.</span><span class="n">support</span> <span class="o">+=</span> <span class="n">projectedTransaction</span><span class="o">.</span><span class="n">getSupport</span><span class="p">()</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">positionPrevious</span> <span class="o">=</span> <span class="mi">0</span>
+                                <span class="n">positionProjected</span> <span class="o">=</span> <span class="n">projectedTransaction</span><span class="o">.</span><span class="n">offset</span>
+                                <span class="n">itemsCount</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">previousTransaction</span><span class="o">.</span><span class="n">items</span><span class="p">)</span>
+                                <span class="k">while</span> <span class="n">positionPrevious</span> <span class="o">&lt;</span> <span class="n">itemsCount</span><span class="p">:</span>
+                                    <span class="n">previousTransaction</span><span class="o">.</span><span class="n">utilities</span><span class="p">[</span><span class="n">positionPrevious</span><span class="p">]</span> <span class="o">+=</span> <span class="n">projectedTransaction</span><span class="o">.</span><span class="n">utilities</span><span class="p">[</span>
+                                        <span class="n">positionProjected</span><span class="p">]</span>
+                                    <span class="n">positionPrevious</span> <span class="o">+=</span> <span class="mi">1</span>
+                                    <span class="n">positionProjected</span> <span class="o">+=</span> <span class="mi">1</span>
+                                <span class="n">previousTransaction</span><span class="o">.</span><span class="n">transactionUtility</span> <span class="o">+=</span> <span class="n">projectedTransaction</span><span class="o">.</span><span class="n">transactionUtility</span>
+                                <span class="n">previousTransaction</span><span class="o">.</span><span class="n">prefixUtility</span> <span class="o">+=</span> <span class="n">projectedTransaction</span><span class="o">.</span><span class="n">prefixUtility</span>
+                                <span class="n">previousTransaction</span><span class="o">.</span><span class="n">support</span> <span class="o">+=</span> <span class="n">projectedTransaction</span><span class="o">.</span><span class="n">getSupport</span><span class="p">()</span>
+                            <span class="n">consecutiveMergeCount</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">transactionsPe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">previousTransaction</span><span class="p">)</span>
+                            <span class="n">supportPe</span> <span class="o">+=</span> <span class="n">previousTransaction</span><span class="o">.</span><span class="n">getSupport</span><span class="p">()</span>
+                            <span class="n">previousTransaction</span> <span class="o">=</span> <span class="n">projectedTransaction</span>
+                            <span class="n">consecutiveMergeCount</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="n">transaction</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">positionE</span>
+            <span class="k">if</span> <span class="n">previousTransaction</span> <span class="o">!=</span> <span class="p">[]:</span>
+                <span class="n">transactionsPe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">previousTransaction</span><span class="p">)</span>
+                <span class="n">supportPe</span> <span class="o">+=</span> <span class="n">previousTransaction</span><span class="o">.</span><span class="n">getSupport</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_temp</span><span class="p">[</span><span class="n">prefixLength</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_newNamesToOldNames</span><span class="p">[</span><span class="n">e</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">utilityPe</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minUtil</span> <span class="ow">and</span> <span class="n">supportPe</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="p">(</span><span class="n">prefixLength</span><span class="p">,</span> <span class="n">utilityPe</span><span class="p">,</span> <span class="n">supportPe</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">supportPe</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">:</span>
+                <span class="n">neighbourhoodList</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculateNeighbourIntersection</span><span class="p">(</span><span class="n">prefixLength</span><span class="p">)</span>
+                <span class="c1">#print(neighbourhoodList)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_useUtilityBinArraysToCalculateUpperBounds</span><span class="p">(</span><span class="n">transactionsPe</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">itemsToKeep</span><span class="p">,</span> <span class="n">neighbourhoodList</span><span class="p">)</span>
+                <span class="n">newItemsToKeep</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">newItemsToExplore</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">itemsToKeep</span><span class="p">)):</span>
+                    <span class="n">itemK</span> <span class="o">=</span> <span class="n">itemsToKeep</span><span class="p">[</span><span class="n">l</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArraySU</span><span class="p">[</span><span class="n">itemK</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minUtil</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">itemK</span> <span class="ow">in</span> <span class="n">neighbourhoodList</span><span class="p">:</span>
+                            <span class="n">newItemsToExplore</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">itemK</span><span class="p">)</span>
+                            <span class="n">newItemsToKeep</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">itemK</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArrayLU</span><span class="p">[</span><span class="n">itemK</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minUtil</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">itemK</span> <span class="ow">in</span> <span class="n">neighbourhoodList</span><span class="p">:</span>
+                            <span class="n">newItemsToKeep</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">itemK</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_backtrackingEFIM</span><span class="p">(</span><span class="n">transactionsPe</span><span class="p">,</span> <span class="n">newItemsToKeep</span><span class="p">,</span> <span class="n">newItemsToExplore</span><span class="p">,</span> <span class="n">prefixLength</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">finalMemory</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">virtual_memory</span><span class="p">()[</span><span class="mi">3</span><span class="p">]</span>
+            <span class="n">memory</span> <span class="o">=</span> <span class="p">(</span><span class="n">finalMemory</span> <span class="o">-</span> <span class="n">initialMemory</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10000</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxMemory</span> <span class="o">&lt;</span> <span class="n">memory</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_maxMemory</span> <span class="o">=</span> <span class="n">memory</span>
+
+    <span class="k">def</span> <span class="nf">_useUtilityBinArraysToCalculateUpperBounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactionsPe</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">itemsToKeep</span><span class="p">,</span> <span class="n">neighbourhoodList</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method to  calculate the subtree utility and local utility of all items that can extend itemSet P U {e}</span>
+
+<span class="sd">        :Attributes:</span>
+
+<span class="sd">        :param transactionsPe: transactions the projected database for P U {e}</span>
+<span class="sd">        :type transactionsPe: list</span>
+<span class="sd">        :param j:the position of j in the list of promising items</span>
+<span class="sd">        :type j:int</span>
+<span class="sd">        :param itemsToKeep :the list of promising items</span>
+<span class="sd">        :type itemsToKeep: list</span>
+<span class="sd">        :param neighbourhoodList : the list of promising items that can extend itemSet P U {e}</span>
+<span class="sd">        :type neighbourhoodList: list</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">itemsToKeep</span><span class="p">)):</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="n">itemsToKeep</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArrayLU</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArraySU</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="n">transactionsPe</span><span class="p">:</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="o">.</span><span class="n">getItems</span><span class="p">())</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">length</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">while</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">offset</span><span class="p">:</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">getItems</span><span class="p">()[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">itemsToKeep</span><span class="p">:</span>
+                    <span class="n">remainingUtility</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_newNamesToOldNames</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Neighbours</span><span class="p">:</span>
+                        <span class="n">itemNeighbours</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Neighbours</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_newNamesToOldNames</span><span class="p">[</span><span class="n">item</span><span class="p">]]</span>
+                        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+                            <span class="n">transaction_item</span> <span class="o">=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">getItems</span><span class="p">()[</span><span class="n">k</span><span class="p">]</span>
+                            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_newNamesToOldNames</span><span class="p">[</span><span class="n">transaction_item</span><span class="p">]</span> <span class="ow">in</span> <span class="n">itemNeighbours</span> <span class="ow">and</span> <span class="n">transaction_item</span> <span class="ow">in</span> <span class="n">neighbourhoodList</span><span class="p">:</span>
+                                <span class="n">remainingUtility</span> <span class="o">+=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">getUtilities</span><span class="p">()[</span><span class="n">k</span><span class="p">]</span>
+
+                    <span class="n">remainingUtility</span> <span class="o">+=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">getUtilities</span><span class="p">()[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArraySU</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">+=</span> <span class="n">remainingUtility</span> <span class="o">+</span> <span class="n">transaction</span><span class="o">.</span><span class="n">prefixUtility</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArrayLU</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">+=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">transactionUtility</span> <span class="o">+</span> <span class="n">transaction</span><span class="o">.</span><span class="n">prefixUtility</span>
+                <span class="n">i</span> <span class="o">-=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">_calculateNeighbourIntersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefixLength</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method to find common Neighbours</span>
+<span class="sd">        :param prefixLength: the prefix itemSet</span>
+<span class="sd">        :type prefixLength:int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">intersectionList</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Neighbours</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_temp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">prefixLength</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">intersectionList</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_intersection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Neighbours</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_temp</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">intersectionList</span><span class="p">)</span>
+        <span class="n">finalIntersectionList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">intersectionList</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">finalIntersectionList</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">intersectionList</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oldNamesToNewNames</span><span class="p">:</span>
+                <span class="n">finalIntersectionList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oldNamesToNewNames</span><span class="p">[</span><span class="n">item</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">finalIntersectionList</span>
+    
+    <span class="k">def</span> <span class="nf">_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tempPosition</span><span class="p">,</span> <span class="n">utility</span><span class="p">,</span> <span class="n">support</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">         A method save all high-utility itemSet to file or memory depending on what the user chose</span>
+<span class="sd">         :param tempPosition: position of last item</span>
+<span class="sd">         :type tempPosition : int </span>
+<span class="sd">         :param utility: total utility of itemSet</span>
+<span class="sd">         :type utility: int</span>
+<span class="sd">         :param support: support of an itemSet</span>
+<span class="sd">         :type support: int</span>
+<span class="sd">         &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_patternCount</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">s1</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tempPosition</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">s1</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">intToStr</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_temp</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">tempPosition</span><span class="p">:</span>
+                <span class="n">s1</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">s1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">utility</span><span class="p">,</span> <span class="n">support</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_isEqual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction1</span><span class="p">,</span> <span class="n">transaction2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method to Check if two transaction are identical</span>
+<span class="sd">        :param  transaction1: the first transaction</span>
+<span class="sd">        :type  transaction1: Trans</span>
+<span class="sd">        :param  transaction2:   the second transaction</span>
+<span class="sd">        :type  transaction2: Trans</span>
+<span class="sd">        :return : whether both are identical or not</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">length1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction1</span><span class="o">.</span><span class="n">items</span><span class="p">)</span> <span class="o">-</span> <span class="n">transaction1</span><span class="o">.</span><span class="n">offset</span>
+        <span class="n">length2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction2</span><span class="o">.</span><span class="n">items</span><span class="p">)</span> <span class="o">-</span> <span class="n">transaction2</span><span class="o">.</span><span class="n">offset</span>
+        <span class="k">if</span> <span class="n">length1</span> <span class="o">!=</span> <span class="n">length2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">position1</span> <span class="o">=</span> <span class="n">transaction1</span><span class="o">.</span><span class="n">offset</span>
+        <span class="n">position2</span> <span class="o">=</span> <span class="n">transaction2</span><span class="o">.</span><span class="n">offset</span>
+        <span class="k">while</span> <span class="n">position1</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction1</span><span class="o">.</span><span class="n">items</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">transaction1</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="n">position1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">transaction2</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="n">position2</span><span class="p">]:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="n">position1</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">position2</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    
+    <span class="k">def</span> <span class="nf">_intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lst1</span><span class="p">,</span> <span class="n">lst2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method that return the intersection of 2 list</span>
+
+<span class="sd">        :param  lst1: items neighbour to item1</span>
+<span class="sd">        :type lst1: list</span>
+<span class="sd">        :param lst2: items neighbour to item2</span>
+<span class="sd">        :type lst2: list</span>
+<span class="sd">        :return :intersection of two lists</span>
+<span class="sd">        :rtype : list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">lst2</span><span class="p">)</span>
+        <span class="n">lst3</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">lst1</span> <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">temp</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">lst3</span>
+
+    <span class="k">def</span> <span class="nf">_useUtilityBinArrayToCalculateSubtreeUtilityFirstTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Scan the initial database to calculate the subtree utility of each item using a utility-bin array</span>
+<span class="sd">        :param dataset: the transaction database</span>
+<span class="sd">        :type dataset: Dataset</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">getTransactions</span><span class="p">():</span>
+            <span class="n">items</span> <span class="o">=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">getItems</span><span class="p">()</span>
+            <span class="n">utilities</span> <span class="o">=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">getUtilities</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArraySU</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArraySU</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_newNamesToOldNames</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Neighbours</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArraySU</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">+=</span> <span class="n">utilities</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+                    <span class="k">continue</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="n">sumSu</span> <span class="o">=</span> <span class="n">utilities</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+                <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_newNamesToOldNames</span><span class="p">[</span><span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Neighbours</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_newNamesToOldNames</span><span class="p">[</span><span class="n">item</span><span class="p">]]:</span>
+                        <span class="n">sumSu</span> <span class="o">+=</span> <span class="n">utilities</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArraySU</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">+=</span> <span class="n">sumSu</span>
+
+    <span class="k">def</span> <span class="nf">_sortDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactions</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A Method to sort transaction in the order of PMU</span>
+<span class="sd">        :param transactions: transaction of items</span>
+<span class="sd">        :type transactions: Transaction</span>
+<span class="sd">        :return: sorted transaction</span>
+<span class="sd">        :rtype: Trans</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cmp_items</span> <span class="o">=</span> <span class="n">_comToKey</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sortTransaction</span><span class="p">)</span>
+        <span class="n">transactions</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">cmp_items</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_sortTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trans1</span><span class="p">,</span> <span class="n">trans2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A Method to sort transaction in the order of PMU</span>
+<span class="sd">        :param trans1: the first transaction</span>
+<span class="sd">        :type trans1: Trans</span>
+<span class="sd">        :param trans2:the second transaction</span>
+<span class="sd">        :type trans2: Trans</span>
+<span class="sd">        :return: sorted transaction</span>
+<span class="sd">        :rtype: Trans</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">trans1_items</span> <span class="o">=</span> <span class="n">trans1</span><span class="o">.</span><span class="n">getItems</span><span class="p">()</span>
+        <span class="n">trans2_items</span> <span class="o">=</span> <span class="n">trans2</span><span class="o">.</span><span class="n">getItems</span><span class="p">()</span>
+        <span class="n">pos1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">trans1_items</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">pos2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">trans2_items</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">trans1_items</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">trans2_items</span><span class="p">):</span>
+            <span class="k">while</span> <span class="n">pos1</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">sub</span> <span class="o">=</span> <span class="n">trans2_items</span><span class="p">[</span><span class="n">pos2</span><span class="p">]</span> <span class="o">-</span> <span class="n">trans1_items</span><span class="p">[</span><span class="n">pos1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">sub</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">sub</span>
+                <span class="n">pos1</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="n">pos2</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">trans1_items</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">trans2_items</span><span class="p">):</span>
+            <span class="k">while</span> <span class="n">pos2</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">sub</span> <span class="o">=</span> <span class="n">trans2_items</span><span class="p">[</span><span class="n">pos2</span><span class="p">]</span> <span class="o">-</span> <span class="n">trans1_items</span><span class="p">[</span><span class="n">pos1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">sub</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">sub</span>
+                <span class="n">pos1</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="n">pos2</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">pos2</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">sub</span> <span class="o">=</span> <span class="n">trans2_items</span><span class="p">[</span><span class="n">pos2</span><span class="p">]</span> <span class="o">-</span> <span class="n">trans1_items</span><span class="p">[</span><span class="n">pos1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">sub</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">sub</span>
+                <span class="n">pos1</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="n">pos2</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">_useUtilityBinArrayToCalculateLocalUtilityFirstTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method to scan the database using utility bin array to calculate the pmus</span>
+<span class="sd">        :param dataset: the transaction database</span>
+<span class="sd">        :type dataset: dataset</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">getTransactions</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">transaction</span><span class="o">.</span><span class="n">getItems</span><span class="p">()):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_singleItemSetsSupport</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_singleItemSetsUtility</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">+=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">getUtilities</span><span class="p">()[</span><span class="n">idx</span><span class="p">]</span>
+                <span class="n">pmu</span> <span class="o">=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">getUtilities</span><span class="p">()[</span><span class="n">idx</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Neighbours</span><span class="p">:</span>
+                    <span class="n">neighbors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Neighbours</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">transaction</span><span class="o">.</span><span class="n">getItems</span><span class="p">()):</span>
+                        <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">neighbors</span><span class="p">:</span>
+                            <span class="n">pmu</span> <span class="o">+=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">getUtilities</span><span class="p">()[</span><span class="n">idx</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArrayLU</span><span class="p">:</span>
+                    <span class="c1"># self._utilityBinArrayLU[item] += transaction.getPmus()[idx]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArrayLU</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pmu</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># self._utilityBinArrayLU[item] = transaction.getPmus()[idx]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArrayLU</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">pmu</span>
+
+<div class="viewcode-block" id="SHUFIM.getPatternsAsDataFrame">
+<a class="viewcode-back" href="../../../../PAMI.highUtilityGeoreferencedFrequentPattern.basic.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.getPatternsAsDataFrame">[docs]</a>
+    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Storing final patterns in a dataframe</span>
+<span class="sd">        :return: returning patterns in a dataframe</span>
+<span class="sd">        :rtype: pd.DataFrame</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dataFrame</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">a</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">),</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+            <span class="n">dataFrame</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;Utility&#39;</span><span class="p">,</span> <span class="s1">&#39;Support&#39;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">dataFrame</span></div>
+
+    
+<div class="viewcode-block" id="SHUFIM.getPatterns">
+<a class="viewcode-back" href="../../../../PAMI.highUtilityGeoreferencedFrequentPattern.basic.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.getPatterns">[docs]</a>
+    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function to send the set of patterns after completion of the mining process</span>
+
+<span class="sd">        :return: returning patterns</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span></div>
+
+
+<div class="viewcode-block" id="SHUFIM.save">
+<a class="viewcode-back" href="../../../../PAMI.highUtilityGeoreferencedFrequentPattern.basic.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.save">[docs]</a>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Complete set of patterns will be loaded in to an output file</span>
+
+<span class="sd">        :param outFile: name of the output file</span>
+<span class="sd">        :type outFile: csv file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oFile</span> <span class="o">=</span> <span class="n">outFile</span>
+        <span class="n">writer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oFile</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">patternsAndSupport</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">patternsAndSupport</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SHUFIM.getMemoryUSS">
+<a class="viewcode-back" href="../../../../PAMI.highUtilityGeoreferencedFrequentPattern.basic.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.getMemoryUSS">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
+
+<span class="sd">        :return: returning USS memory consumed by the mining process</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span></div>
+
+
+<div class="viewcode-block" id="SHUFIM.getMemoryRSS">
+<a class="viewcode-back" href="../../../../PAMI.highUtilityGeoreferencedFrequentPattern.basic.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.getMemoryRSS">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
+
+<span class="sd">        :return: returning RSS memory consumed by the mining process</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span></div>
+
+
+<div class="viewcode-block" id="SHUFIM.getRuntime">
+<a class="viewcode-back" href="../../../../PAMI.highUtilityGeoreferencedFrequentPattern.basic.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.getRuntime">[docs]</a>
+    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculating the total amount of runtime taken by the mining process</span>
+
+<span class="sd">        :return: returning total amount of runtime taken by the mining process</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span></div>
+
+    
+<div class="viewcode-block" id="SHUFIM.printResults">
+<a class="viewcode-back" href="../../../../PAMI.highUtilityGeoreferencedFrequentPattern.basic.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.printResults">[docs]</a>
+    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function is used to print the results</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Spatial High Utility Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div>
+</div>
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../../../../PAMI.highUtilityGeoreferencedFrequentPattern.basic.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.main">[docs]</a>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">inputFile</span> <span class="o">=</span> <span class="s1">&#39;/home/nakamura/workspace/labwork/PAMI/PAMI/highUtilityGeoreferencedFrequentPattern/basic/mushroom_utility_spmf.txt&#39;</span>
+    <span class="n">neighborFile</span> <span class="o">=</span> <span class="s1">&#39;/home/nakamura/workspace/labwork/PAMI/PAMI/highUtilityGeoreferencedFrequentPattern/basic/mushroom_utility_spmf.txt&#39;</span>
+
+    <span class="n">minUtilCount</span> <span class="o">=</span> <span class="mi">10000</span>
+    <span class="n">minSup</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">seperator</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span>  
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">SHUFIM</span><span class="p">(</span><span class="n">iFile</span><span class="o">=</span><span class="n">inputFile</span><span class="p">,</span> <span class="n">nFile</span><span class="o">=</span><span class="n">neighborFile</span><span class="p">,</span> <span class="n">minUtil</span><span class="o">=</span><span class="n">minUtilCount</span><span class="p">,</span> <span class="n">minSup</span><span class="o">=</span><span class="n">minSup</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="n">seperator</span><span class="p">)</span>    <span class="c1">#initialize</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">printResults</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">())</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+    <span class="c1"># _ap = str()</span>
+    <span class="c1"># if len(_ab._sys.argv) == 6 or len(_ab._sys.argv) == 7:</span>
+    <span class="c1">#     if len(_ab._sys.argv) == 7:</span>
+    <span class="c1">#         _ap = SHUFIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]), _ab._sys.argv[5], _ab._sys.argv[6])</span>
+    <span class="c1">#     if len(_ab._sys.argv) == 6:</span>
+    <span class="c1">#         _ap = SHUFIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]), _ab._sys.argv[5])</span>
+    <span class="c1">#     _ap.startMine()</span>
+    <span class="c1">#     _ap.mine()</span>
+    <span class="c1">#     print(&quot;Total number of Spatial High Utility Frequent Patterns:&quot;, len(_ap.getPatterns()))</span>
+    <span class="c1">#     _ap.save(_ab._sys.argv[2])</span>
+    <span class="c1">#     print(&quot;Total Memory in USS:&quot;, _ap.getMemoryUSS())</span>
+    <span class="c1">#     print(&quot;Total Memory in RSS&quot;, _ap.getMemoryRSS())</span>
+    <span class="c1">#     print(&quot;Total ExecutionTime in seconds:&quot;, _ap.getRuntime())</span>
+    <span class="c1"># else:</span>
+    <span class="c1">#     print(&quot;Error! The number of input parameters do not match the total number of parameters provided&quot;)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE Uday Kiran.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

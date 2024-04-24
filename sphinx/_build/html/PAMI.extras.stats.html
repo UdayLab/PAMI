@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.extras.stats package &mdash; PAMI 2024.04.23 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=391540b0"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PAMI.extras.syntheticDataGenerator package" href="PAMI.extras.syntheticDataGenerator.html" />
+    <link rel="prev" title="PAMI.extras.sampleDatasets package" href="PAMI.extras.sampleDatasets.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PAMI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="PAMI.html">PAMI package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="PAMI.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.html">PAMI.AssociationRules package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedPattern.html">PAMI.correlatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.coveragePattern.html">PAMI.coveragePattern package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="PAMI.extras.html">PAMI.extras package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.html">PAMI.faultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.html">PAMI.frequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.html">PAMI.fuzzyCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentPattern.html">PAMI.fuzzyFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedFrequentPattern.html">PAMI.fuzzyGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.html">PAMI.fuzzyGeoreferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPartialPeriodicPatterns.html">PAMI.fuzzyPartialPeriodicPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.html">PAMI.fuzzyPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.html">PAMI.geoReferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentPattern.html">PAMI.georeferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentSequencePattern.html">PAMI.georeferencedFrequentSequencePattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedPartialPeriodicPattern.html">PAMI.georeferencedPartialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentPattern.html">PAMI.highUtilityFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityGeoreferencedFrequentPattern.html">PAMI.highUtilityGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.html">PAMI.highUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPatternsInStreams.html">PAMI.highUtilityPatternsInStreams package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html">PAMI.highUtilitySpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.html">PAMI.localPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.html">PAMI.multipleMinimumSupportBasedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.html">PAMI.partialPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.html">PAMI.partialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html">PAMI.partialPeriodicPatternInMultipleTimeSeries package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.html">PAMI.periodicCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.html">PAMI.periodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.recurringPattern.html">PAMI.recurringPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeFrequentPattern.html">PAMI.relativeFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeHighUtilityPattern.html">PAMI.relativeHighUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequence.html">PAMI.sequence package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.html">PAMI.sequentialPatternMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.html">PAMI.stablePeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.html">PAMI.subgraphMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html">PAMI.uncertainFaultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.html">PAMI.uncertainFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainGeoreferencedFrequentPattern.html">PAMI.uncertainGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.html">PAMI.uncertainPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.html">PAMI.weightedFrequentNeighbourhoodPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentPattern.html">PAMI.weightedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.html">PAMI.weightedFrequentRegularPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.html">PAMI.weightedUncertainFrequentPattern package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.html#module-PAMI">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PAMI</a></li>
+          <li class="breadcrumb-item"><a href="PAMI.html">PAMI package</a></li>
+          <li class="breadcrumb-item"><a href="PAMI.extras.html">PAMI.extras package</a></li>
+      <li class="breadcrumb-item active">PAMI.extras.stats package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PAMI.extras.stats.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pami-extras-stats-package">
+<h1>PAMI.extras.stats package<a class="headerlink" href="#pami-extras-stats-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-PAMI.extras.stats.TransactionalDatabase">
+<span id="pami-extras-stats-transactionaldatabase-module"></span><h2>PAMI.extras.stats.TransactionalDatabase module<a class="headerlink" href="#module-PAMI.extras.stats.TransactionalDatabase" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.stats.TransactionalDatabase.</span></span><span class="sig-name descname"><span class="pre">TransactionalDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/stats/TransactionalDatabase.html#TransactionalDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>TransactionalDatabase is class to get stats of database.</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">param inputFile<span class="colon">:</span></dt>
+<dd class="field-odd"><p>file :
+input file path</p>
+</dd>
+<dt class="field-even">param sep<span class="colon">:</span></dt>
+<dd class="field-even"><p>str
+separator in file. Default is tab space.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>run()</dt><dd><p>execute readDatabase function</p>
+</dd>
+<dt>readDatabase()</dt><dd><p>read database from input file</p>
+</dd>
+<dt>getDatabaseSize()</dt><dd><p>get the size of database</p>
+</dd>
+<dt>getMinimumTransactionLength()</dt><dd><p>get the minimum transaction length</p>
+</dd>
+<dt>getAverageTransactionLength()</dt><dd><p>get the average transaction length. It is sum of all transaction length divided by database length.</p>
+</dd>
+<dt>getMaximumTransactionLength()</dt><dd><p>get the maximum transaction length</p>
+</dd>
+<dt>getStandardDeviationTransactionLength()</dt><dd><p>get the standard deviation of transaction length</p>
+</dd>
+<dt>getSortedListOfItemFrequencies()</dt><dd><p>get sorted list of item frequencies</p>
+</dd>
+<dt>getSortedListOfTransactionLength()</dt><dd><p>get sorted list of transaction length</p>
+</dd>
+<dt>save(data, outputFile)</dt><dd><p>store data into outputFile</p>
+</dd>
+<dt>getMinimumPeriod()</dt><dd><p>get the minimum period</p>
+</dd>
+<dt>getAveragePeriod()</dt><dd><p>get the average period</p>
+</dd>
+<dt>getMaximumPeriod()</dt><dd><p>get the maximum period</p>
+</dd>
+<dt>getStandardDeviationPeriod()</dt><dd><p>get the standard deviation period</p>
+</dd>
+<dt>getNumberOfTransactionsPerTimestamp()</dt><dd><p>get number of transactions per time stamp. This time stamp range is 1 to max period.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="importing-this-algorithm-into-a-python-program">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#importing-this-algorithm-into-a-python-program" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.stats</span> <span class="kn">import</span> <span class="n">TransactionalDatabase</span> <span class="k">as</span> <span class="n">db</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">TransactionalDatabase</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="s2">&quot;     &quot;</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">printStats</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.convertDataIntoMatrix">
+<span class="sig-name descname"><span class="pre">convertDataIntoMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/TransactionalDatabase.html#TransactionalDatabase.convertDataIntoMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.convertDataIntoMatrix" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getAverageTransactionLength">
+<span class="sig-name descname"><span class="pre">getAverageTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/TransactionalDatabase.html#TransactionalDatabase.getAverageTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getAverageTransactionLength" title="Link to this definition"></a></dt>
+<dd><p>get the average transaction length. It is sum of all transaction length divided by database length.
+:return: average transaction length
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getDatabaseSize">
+<span class="sig-name descname"><span class="pre">getDatabaseSize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/TransactionalDatabase.html#TransactionalDatabase.getDatabaseSize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getDatabaseSize" title="Link to this definition"></a></dt>
+<dd><p>get the size of database
+:return: dataset size
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getDensity">
+<span class="sig-name descname"><span class="pre">getDensity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/TransactionalDatabase.html#TransactionalDatabase.getDensity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getDensity" title="Link to this definition"></a></dt>
+<dd><p>get the sparsity of database. sparsity is percentage of 0 of database.
+:return: database sparsity
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getFrequenciesInRange">
+<span class="sig-name descname"><span class="pre">getFrequenciesInRange</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/TransactionalDatabase.html#TransactionalDatabase.getFrequenciesInRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getFrequenciesInRange" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getMaximumTransactionLength">
+<span class="sig-name descname"><span class="pre">getMaximumTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/TransactionalDatabase.html#TransactionalDatabase.getMaximumTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getMaximumTransactionLength" title="Link to this definition"></a></dt>
+<dd><p>get the maximum transaction length
+:return: maximum transaction length
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getMinimumTransactionLength">
+<span class="sig-name descname"><span class="pre">getMinimumTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/TransactionalDatabase.html#TransactionalDatabase.getMinimumTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getMinimumTransactionLength" title="Link to this definition"></a></dt>
+<dd><p>get the minimum transaction length
+:return: minimum transaction length
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getNumberOfItems">
+<span class="sig-name descname"><span class="pre">getNumberOfItems</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/TransactionalDatabase.html#TransactionalDatabase.getNumberOfItems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getNumberOfItems" title="Link to this definition"></a></dt>
+<dd><p>get the number of items in database.
+:return: number of items
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getSortedListOfItemFrequencies">
+<span class="sig-name descname"><span class="pre">getSortedListOfItemFrequencies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/TransactionalDatabase.html#TransactionalDatabase.getSortedListOfItemFrequencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getSortedListOfItemFrequencies" title="Link to this definition"></a></dt>
+<dd><p>get sorted list of item frequencies
+:return: item frequencies
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getSparsity">
+<span class="sig-name descname"><span class="pre">getSparsity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/TransactionalDatabase.html#TransactionalDatabase.getSparsity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getSparsity" title="Link to this definition"></a></dt>
+<dd><p>get the sparsity of database. sparsity is percentage of 0 of database.
+:return: database sparsity
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getStandardDeviationTransactionLength">
+<span class="sig-name descname"><span class="pre">getStandardDeviationTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/TransactionalDatabase.html#TransactionalDatabase.getStandardDeviationTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getStandardDeviationTransactionLength" title="Link to this definition"></a></dt>
+<dd><p>get the standard deviation transaction length
+:return: standard deviation transaction length
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getTotalNumberOfItems">
+<span class="sig-name descname"><span class="pre">getTotalNumberOfItems</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/TransactionalDatabase.html#TransactionalDatabase.getTotalNumberOfItems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getTotalNumberOfItems" title="Link to this definition"></a></dt>
+<dd><p>get the number of items in database.
+:return: number of items
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getTransanctionalLengthDistribution">
+<span class="sig-name descname"><span class="pre">getTransanctionalLengthDistribution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/TransactionalDatabase.html#TransactionalDatabase.getTransanctionalLengthDistribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getTransanctionalLengthDistribution" title="Link to this definition"></a></dt>
+<dd><p>Get transaction length
+:return: a dictionary with transaction
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getVarianceTransactionLength">
+<span class="sig-name descname"><span class="pre">getVarianceTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/TransactionalDatabase.html#TransactionalDatabase.getVarianceTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.getVarianceTransactionLength" title="Link to this definition"></a></dt>
+<dd><p>get the variance transaction length
+:return: variance transaction length
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.plotGraphs">
+<span class="sig-name descname"><span class="pre">plotGraphs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/TransactionalDatabase.html#TransactionalDatabase.plotGraphs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.plotGraphs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.printStats">
+<span class="sig-name descname"><span class="pre">printStats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/TransactionalDatabase.html#TransactionalDatabase.printStats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.printStats" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/TransactionalDatabase.html#TransactionalDatabase.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.run" title="Link to this definition"></a></dt>
+<dd><p>read database from input file and store into database and size of each transaction.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/TransactionalDatabase.html#TransactionalDatabase.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.TransactionalDatabase.TransactionalDatabase.save" title="Link to this definition"></a></dt>
+<dd><p>store data into outputFile
+:param data: input data
+:type data: dict
+:param outputFile: output file name or path to store
+:type outputFile: str
+:return: None</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras.stats.graphDatabase">
+<span id="pami-extras-stats-graphdatabase-module"></span><h2>PAMI.extras.stats.graphDatabase module<a class="headerlink" href="#module-PAMI.extras.stats.graphDatabase" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.stats.graphDatabase.graphDatabase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.stats.graphDatabase.</span></span><span class="sig-name descname"><span class="pre">graphDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/stats/graphDatabase.html#graphDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.graphDatabase.graphDatabase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.graphDatabase.graphDatabase.plotEdgeDistribution">
+<span class="sig-name descname"><span class="pre">plotEdgeDistribution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/stats/graphDatabase.html#graphDatabase.plotEdgeDistribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.graphDatabase.graphDatabase.plotEdgeDistribution" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.graphDatabase.graphDatabase.plotNodeDistribution">
+<span class="sig-name descname"><span class="pre">plotNodeDistribution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/stats/graphDatabase.html#graphDatabase.plotNodeDistribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.graphDatabase.graphDatabase.plotNodeDistribution" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.graphDatabase.graphDatabase.printGraphDatabaseStatistics">
+<span class="sig-name descname"><span class="pre">printGraphDatabaseStatistics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/stats/graphDatabase.html#graphDatabase.printGraphDatabaseStatistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.graphDatabase.graphDatabase.printGraphDatabaseStatistics" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.graphDatabase.graphDatabase.printIndividualGraphStats">
+<span class="sig-name descname"><span class="pre">printIndividualGraphStats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/stats/graphDatabase.html#graphDatabase.printIndividualGraphStats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.graphDatabase.graphDatabase.printIndividualGraphStats" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras.stats.sequentialDatabase">
+<span id="pami-extras-stats-sequentialdatabase-module"></span><h2>PAMI.extras.stats.sequentialDatabase module<a class="headerlink" href="#module-PAMI.extras.stats.sequentialDatabase" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.stats.sequentialDatabase.</span></span><span class="sig-name descname"><span class="pre">sequentialDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>SequentialDatabase is to get stats of database like avarage, minimun, maximum  and so on.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="field-list simple">
+<dt class="field-odd">param inputFile<span class="colon">:</span></dt>
+<dd class="field-odd"><p>file :
+input file path</p>
+</dd>
+<dt class="field-even">param sep<span class="colon">:</span></dt>
+<dd class="field-even"><p>str
+separator in file. Default is tab space.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Methods<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>readDatabase():</dt><dd><p>read sequential database from input file and store into database and size of each sequence and subsequences.</p>
+</dd>
+<dt>getDatabaseSize(self):</dt><dd><p>get the size of database</p>
+</dd>
+<dt>getTotalNumberOfItems(self):</dt><dd><p>get the number of items in database.</p>
+</dd>
+<dt>getMinimumSequenceLength(self):</dt><dd><p>get the minimum sequence length</p>
+</dd>
+<dt>getAverageSubsequencePerSequenceLength(self):</dt><dd><p>get the average subsequence length per sequence length. It is sum of all subsequence length divided by sequence length.</p>
+</dd>
+<dt>getAverageItemPerSubsequenceLength(self):</dt><dd><p>get the average Item length per subsequence. It is sum of all item length divided by subsequence length.</p>
+</dd>
+<dt>getMaximumSequenceLength(self):</dt><dd><p>get the maximum sequence length</p>
+</dd>
+<dt>getStandardDeviationSubsequenceLength(self):</dt><dd><p>get the standard deviation subsequence length</p>
+</dd>
+<dt>getVarianceSequenceLength(self):</dt><dd><p>get the variance Sequence length</p>
+</dd>
+<dt>getSequenceSize(self):</dt><dd><p>get the size of sequence</p>
+</dd>
+<dt>getMinimumSubsequenceLength(self):</dt><dd><p>get the minimum subsequence length</p>
+</dd>
+<dt>getAverageItemPerSequenceLength(self):</dt><dd><p>get the average item length per sequence. It is sum of all item length divided by sequence length.</p>
+</dd>
+<dt>getMaximumSubsequenceLength(self):</dt><dd><p>get the maximum subsequence length</p>
+</dd>
+<dt>getStandardDeviationSubsequenceLength(self):</dt><dd><p>get the standard deviation subsequence length</p>
+</dd>
+<dt>getVarianceSubsequenceLength(self):</dt><dd><p>get the variance subSequence length</p>
+</dd>
+<dt>getSortedListOfItemFrequencies(self):</dt><dd><p>get sorted list of item frequencies</p>
+</dd>
+<dt>getFrequenciesInRange(self):</dt><dd><p>get sorted list of item frequencies in some range</p>
+</dd>
+<dt>getSequencialLengthDistribution(self):</dt><dd><p>get Sequence length Distribution</p>
+</dd>
+<dt>getSubsequencialLengthDistribution(self):</dt><dd><p>get subSequence length distribution</p>
+</dd>
+<dt>printStats(self):</dt><dd><p>to print the all status of sequence database</p>
+</dd>
+<dt>plotGraphs(self):</dt><dd><p>to plot the  distribution about items, subsequences in sequence and items in subsequence</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="id1">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.dbStats</span> <span class="kn">import</span> <span class="n">SequentialDatabase</span> <span class="k">as</span> <span class="n">db</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">SequentialDatabase</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="s2">&quot;        &quot;</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">printStats</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="executing-the-code-on-terminal">
+<h3><strong>Executing the code on terminal:</strong><a class="headerlink" href="#executing-the-code-on-terminal" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>sequentialDatabase.py<span class="w"> </span>&lt;inputFile&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>sequentialDatabase.py<span class="w"> </span>sampleDB.txt
+</pre></div>
+</div>
+</section>
+<section id="sample-run-of-the-importing-code">
+<h3><strong>Sample run of the importing code:</strong><a class="headerlink" href="#sample-run-of-the-importing-code" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>import PAMI.extra.DBstats.SequentialDatabase as alg
+_ap=alg.SequentialDatabase(inputfile,sep)
+_ap.readDatabase()
+_ap.printStats()
+_ap.plotGraphs()</p>
+</div></blockquote>
+</section>
+<section id="credits">
+<h3><strong>Credits:</strong><a class="headerlink" href="#credits" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>The complete program was written by Shota Suzuki  under the supervision of Professor Rage Uday Kiran.</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getAverageItemPerSequenceLength">
+<span class="sig-name descname"><span class="pre">getAverageItemPerSequenceLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.getAverageItemPerSequenceLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getAverageItemPerSequenceLength" title="Link to this definition"></a></dt>
+<dd><p>get the average item length per sequence. It is sum of all item length divided by sequence length.
+:return: average item length per sequence
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getAverageItemPerSubsequenceLength">
+<span class="sig-name descname"><span class="pre">getAverageItemPerSubsequenceLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.getAverageItemPerSubsequenceLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getAverageItemPerSubsequenceLength" title="Link to this definition"></a></dt>
+<dd><p>get the average Item length per subsequence. It is sum of all item length divided by subsequence length.
+:return: average Item length per subsequence
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getAverageSubsequencePerSequenceLength">
+<span class="sig-name descname"><span class="pre">getAverageSubsequencePerSequenceLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.getAverageSubsequencePerSequenceLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getAverageSubsequencePerSequenceLength" title="Link to this definition"></a></dt>
+<dd><p>get the average subsequence length per sequence length. It is sum of all subsequence length divided by sequence length.
+:return: average subsequence length per sequence length
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getDatabaseSize">
+<span class="sig-name descname"><span class="pre">getDatabaseSize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.getDatabaseSize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getDatabaseSize" title="Link to this definition"></a></dt>
+<dd><p>get the size of database
+:return: dataset size
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getFrequenciesInRange">
+<span class="sig-name descname"><span class="pre">getFrequenciesInRange</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.getFrequenciesInRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getFrequenciesInRange" title="Link to this definition"></a></dt>
+<dd><p>get sorted list of item frequencies in some range
+:return: item separated by its frequencies
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getMaximumSequenceLength">
+<span class="sig-name descname"><span class="pre">getMaximumSequenceLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.getMaximumSequenceLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getMaximumSequenceLength" title="Link to this definition"></a></dt>
+<dd><p>get the maximum sequence length
+:return: maximum sequence length
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getMaximumSubsequenceLength">
+<span class="sig-name descname"><span class="pre">getMaximumSubsequenceLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.getMaximumSubsequenceLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getMaximumSubsequenceLength" title="Link to this definition"></a></dt>
+<dd><p>get the maximum subsequence length
+:return: maximum subsequence length
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getMinimumSequenceLength">
+<span class="sig-name descname"><span class="pre">getMinimumSequenceLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.getMinimumSequenceLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getMinimumSequenceLength" title="Link to this definition"></a></dt>
+<dd><p>get the minimum sequence length
+:return: minimum sequence length
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getMinimumSubsequenceLength">
+<span class="sig-name descname"><span class="pre">getMinimumSubsequenceLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.getMinimumSubsequenceLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getMinimumSubsequenceLength" title="Link to this definition"></a></dt>
+<dd><p>get the minimum subsequence length
+:return: minimum subsequence length
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getSequenceSize">
+<span class="sig-name descname"><span class="pre">getSequenceSize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.getSequenceSize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getSequenceSize" title="Link to this definition"></a></dt>
+<dd><p>get the size of sequence
+:return: sequences size
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getSequencialLengthDistribution">
+<span class="sig-name descname"><span class="pre">getSequencialLengthDistribution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.getSequencialLengthDistribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getSequencialLengthDistribution" title="Link to this definition"></a></dt>
+<dd><p>get Sequence length Distribution
+:return: Sequence length
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getSortedListOfItemFrequencies">
+<span class="sig-name descname"><span class="pre">getSortedListOfItemFrequencies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.getSortedListOfItemFrequencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getSortedListOfItemFrequencies" title="Link to this definition"></a></dt>
+<dd><p>get sorted list of item frequencies
+:return: item frequencies
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getStandardDeviationSequenceLength">
+<span class="sig-name descname"><span class="pre">getStandardDeviationSequenceLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.getStandardDeviationSequenceLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getStandardDeviationSequenceLength" title="Link to this definition"></a></dt>
+<dd><p>get the standard deviation sequence length
+:return: standard deviation sequence length
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getStandardDeviationSubsequenceLength">
+<span class="sig-name descname"><span class="pre">getStandardDeviationSubsequenceLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.getStandardDeviationSubsequenceLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getStandardDeviationSubsequenceLength" title="Link to this definition"></a></dt>
+<dd><p>get the standard deviation subsequence length
+:return: standard deviation subsequence length
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getSubsequencialLengthDistribution">
+<span class="sig-name descname"><span class="pre">getSubsequencialLengthDistribution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.getSubsequencialLengthDistribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getSubsequencialLengthDistribution" title="Link to this definition"></a></dt>
+<dd><p>get subSequence length distribution
+:return: subSequence length
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getTotalNumberOfItems">
+<span class="sig-name descname"><span class="pre">getTotalNumberOfItems</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.getTotalNumberOfItems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getTotalNumberOfItems" title="Link to this definition"></a></dt>
+<dd><p>get the number of items in database.
+:return: number of items
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getVarianceSequenceLength">
+<span class="sig-name descname"><span class="pre">getVarianceSequenceLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.getVarianceSequenceLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getVarianceSequenceLength" title="Link to this definition"></a></dt>
+<dd><p>get the variance Sequence length
+:return: variance Sequence length
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getVarianceSubsequenceLength">
+<span class="sig-name descname"><span class="pre">getVarianceSubsequenceLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.getVarianceSubsequenceLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.getVarianceSubsequenceLength" title="Link to this definition"></a></dt>
+<dd><p>get the variance subSequence length
+:return: variance subSequence length
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.plotGraphs">
+<span class="sig-name descname"><span class="pre">plotGraphs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.plotGraphs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.plotGraphs" title="Link to this definition"></a></dt>
+<dd><p>To plot the  distribution about items, subsequences in sequence and items in subsequence</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.printStats">
+<span class="sig-name descname"><span class="pre">printStats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.printStats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.printStats" title="Link to this definition"></a></dt>
+<dd><p>To print the all status of sequence database</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.readDatabase">
+<span class="sig-name descname"><span class="pre">readDatabase</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.readDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.readDatabase" title="Link to this definition"></a></dt>
+<dd><p>read sequential database from input file and store into database and size of each sequence and subsequences.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.sequentialDatabase.sequentialDatabase.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/sequentialDatabase.html#sequentialDatabase.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.sequentialDatabase.sequentialDatabase.run" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras.stats.temporalDatabase">
+<span id="pami-extras-stats-temporaldatabase-module"></span><h2>PAMI.extras.stats.temporalDatabase module<a class="headerlink" href="#module-PAMI.extras.stats.temporalDatabase" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.stats.temporalDatabase.</span></span><span class="sig-name descname"><span class="pre">temporalDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>TemporalDatabase is class to get stats of database.</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>:param inputFile<span class="classifier">file</span></dt><dd><p>input file path</p>
+</dd>
+<dt>:param sep<span class="classifier">str</span></dt><dd><p>separator in file. Default is tab space.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>run()</dt><dd><p>execute readDatabase function</p>
+</dd>
+<dt>readDatabase()</dt><dd><p>read database from input file</p>
+</dd>
+<dt>getDatabaseSize()</dt><dd><p>get the size of database</p>
+</dd>
+<dt>getMinimumTransactionLength()</dt><dd><p>get the minimum transaction length</p>
+</dd>
+<dt>getAverageTransactionLength()</dt><dd><p>get the average transaction length. It is sum of all transaction length divided by database length.</p>
+</dd>
+<dt>getMaximumTransactionLength()</dt><dd><p>get the maximum transaction length</p>
+</dd>
+<dt>getStandardDeviationTransactionLength()</dt><dd><p>get the standard deviation of transaction length</p>
+</dd>
+<dt>getSortedListOfItemFrequencies()</dt><dd><p>get sorted list of item frequencies</p>
+</dd>
+<dt>getSortedListOfTransactionLength()</dt><dd><p>get sorted list of transaction length</p>
+</dd>
+<dt>save(data, outputFile)</dt><dd><p>store data into outputFile</p>
+</dd>
+<dt>getMinimumPeriod()</dt><dd><p>get the minimum period</p>
+</dd>
+<dt>getAveragePeriod()</dt><dd><p>get the average period</p>
+</dd>
+<dt>getMaximumPeriod()</dt><dd><p>get the maximum period</p>
+</dd>
+<dt>getStandardDeviationPeriod()</dt><dd><p>get the standard deviation period</p>
+</dd>
+<dt>getNumberOfTransactionsPerTimestamp()</dt><dd><p>get number of transactions per time stamp. This time stamp range is 1 to max period.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="id2">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.dbStats</span> <span class="kn">import</span> <span class="n">TemporalDatabase</span> <span class="k">as</span> <span class="n">db</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">TemporalDatabase</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="s2">&quot;  &quot;</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">printStats</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.convertDataIntoMatrix">
+<span class="sig-name descname"><span class="pre">convertDataIntoMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.convertDataIntoMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.convertDataIntoMatrix" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getAverageInterArrivalPeriod">
+<span class="sig-name descname"><span class="pre">getAverageInterArrivalPeriod</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getAverageInterArrivalPeriod"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getAverageInterArrivalPeriod" title="Link to this definition"></a></dt>
+<dd><p>get the average inter arrival period. It is sum of all period divided by number of period.
+:return: average inter arrival period
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getAveragePeriodOfItem">
+<span class="sig-name descname"><span class="pre">getAveragePeriodOfItem</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getAveragePeriodOfItem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getAveragePeriodOfItem" title="Link to this definition"></a></dt>
+<dd><p>get the average period of the item
+:return: average period
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getAverageTransactionLength">
+<span class="sig-name descname"><span class="pre">getAverageTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getAverageTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getAverageTransactionLength" title="Link to this definition"></a></dt>
+<dd><p>get the average transaction length. It is sum of all transaction length divided by database length.
+:return: average transaction length
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getDatabaseSize">
+<span class="sig-name descname"><span class="pre">getDatabaseSize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getDatabaseSize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getDatabaseSize" title="Link to this definition"></a></dt>
+<dd><p>get the size of database
+:return: dataset size
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getDensity">
+<span class="sig-name descname"><span class="pre">getDensity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getDensity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getDensity" title="Link to this definition"></a></dt>
+<dd><p>get the sparsity of database. sparsity is percentage of 0 of database.
+:return: database sparsity
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getFrequenciesInRange">
+<span class="sig-name descname"><span class="pre">getFrequenciesInRange</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getFrequenciesInRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getFrequenciesInRange" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getMaximumInterArrivalPeriod">
+<span class="sig-name descname"><span class="pre">getMaximumInterArrivalPeriod</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getMaximumInterArrivalPeriod"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getMaximumInterArrivalPeriod" title="Link to this definition"></a></dt>
+<dd><p>get the maximum inter arrival period
+:return: maximum inter arrival period
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getMaximumPeriodOfItem">
+<span class="sig-name descname"><span class="pre">getMaximumPeriodOfItem</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getMaximumPeriodOfItem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getMaximumPeriodOfItem" title="Link to this definition"></a></dt>
+<dd><p>get the maximum period of the item
+:return: maximum period
+:rtype:int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getMaximumTransactionLength">
+<span class="sig-name descname"><span class="pre">getMaximumTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getMaximumTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getMaximumTransactionLength" title="Link to this definition"></a></dt>
+<dd><p>get the maximum transaction length
+:return: maximum transaction length
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getMinimumInterArrivalPeriod">
+<span class="sig-name descname"><span class="pre">getMinimumInterArrivalPeriod</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getMinimumInterArrivalPeriod"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getMinimumInterArrivalPeriod" title="Link to this definition"></a></dt>
+<dd><p>get the minimum inter arrival period
+:return: minimum inter arrival period
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getMinimumPeriodOfItem">
+<span class="sig-name descname"><span class="pre">getMinimumPeriodOfItem</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getMinimumPeriodOfItem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getMinimumPeriodOfItem" title="Link to this definition"></a></dt>
+<dd><p>get the minimum period of the item
+:return: minimum period
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getMinimumTransactionLength">
+<span class="sig-name descname"><span class="pre">getMinimumTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getMinimumTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getMinimumTransactionLength" title="Link to this definition"></a></dt>
+<dd><p>get the minimum transaction length
+:return: minimum transaction length
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getNumberOfTransactionsPerTimestamp">
+<span class="sig-name descname"><span class="pre">getNumberOfTransactionsPerTimestamp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getNumberOfTransactionsPerTimestamp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getNumberOfTransactionsPerTimestamp" title="Link to this definition"></a></dt>
+<dd><p>get number of transactions per time stamp
+:return: number of transactions per time stamp as dict
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getPeriodsInRange">
+<span class="sig-name descname"><span class="pre">getPeriodsInRange</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getPeriodsInRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getPeriodsInRange" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getSortedListOfItemFrequencies">
+<span class="sig-name descname"><span class="pre">getSortedListOfItemFrequencies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getSortedListOfItemFrequencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getSortedListOfItemFrequencies" title="Link to this definition"></a></dt>
+<dd><p>get sorted list of item frequencies
+:return: item frequencies
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getSparsity">
+<span class="sig-name descname"><span class="pre">getSparsity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getSparsity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getSparsity" title="Link to this definition"></a></dt>
+<dd><p>get the sparsity of database. sparsity is percentage of 0 of database.
+:return: database sparsity
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getStandardDeviationPeriod">
+<span class="sig-name descname"><span class="pre">getStandardDeviationPeriod</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getStandardDeviationPeriod"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getStandardDeviationPeriod" title="Link to this definition"></a></dt>
+<dd><p>get the standard deviation period
+:return: standard deviation period
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getStandardDeviationTransactionLength">
+<span class="sig-name descname"><span class="pre">getStandardDeviationTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getStandardDeviationTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getStandardDeviationTransactionLength" title="Link to this definition"></a></dt>
+<dd><p>get the standard deviation transaction length
+:return: standard deviation transaction length
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getTotalNumberOfItems">
+<span class="sig-name descname"><span class="pre">getTotalNumberOfItems</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getTotalNumberOfItems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getTotalNumberOfItems" title="Link to this definition"></a></dt>
+<dd><p>get the number of items in database.
+:return: number of items
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getTransanctionalLengthDistribution">
+<span class="sig-name descname"><span class="pre">getTransanctionalLengthDistribution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getTransanctionalLengthDistribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getTransanctionalLengthDistribution" title="Link to this definition"></a></dt>
+<dd><p>get transaction length
+:return: transactional length
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.getVarianceTransactionLength">
+<span class="sig-name descname"><span class="pre">getVarianceTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.getVarianceTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.getVarianceTransactionLength" title="Link to this definition"></a></dt>
+<dd><p>get the variance transaction length
+:return: variance transaction length
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.plotGraphs">
+<span class="sig-name descname"><span class="pre">plotGraphs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.plotGraphs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.plotGraphs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.printStats">
+<span class="sig-name descname"><span class="pre">printStats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.printStats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.printStats" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.readDatabase">
+<span class="sig-name descname"><span class="pre">readDatabase</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.readDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.readDatabase" title="Link to this definition"></a></dt>
+<dd><p>read database from input file and store into database and size of each transaction.
+And store the period between transactions as list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.run" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.temporalDatabase.temporalDatabase.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/temporalDatabase.html#temporalDatabase.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.temporalDatabase.temporalDatabase.save" title="Link to this definition"></a></dt>
+<dd><p>store data into outputFile
+:param data: input data
+:type data: dict
+:param outputFile: output file name or path to store
+:type outputFile: str
+:return: None</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras.stats.utilityDatabase">
+<span id="pami-extras-stats-utilitydatabase-module"></span><h2>PAMI.extras.stats.utilityDatabase module<a class="headerlink" href="#module-PAMI.extras.stats.utilityDatabase" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.stats.utilityDatabase.</span></span><span class="sig-name descname"><span class="pre">utilityDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>UtilityDatabase is class to get stats of database.</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">param inputFile<span class="colon">:</span></dt>
+<dd class="field-odd"><p>file :
+input file path</p>
+</dd>
+<dt class="field-even">param sep<span class="colon">:</span></dt>
+<dd class="field-even"><p>str
+separator in file. Default is tab space.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="id3">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.dbStats</span> <span class="kn">import</span> <span class="n">UtilityDatabase</span> <span class="k">as</span> <span class="n">db</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">UtilityDatabase</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="s2">&quot;   &quot;</span> <span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">printStats</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.creatingItemSets">
+<span class="sig-name descname"><span class="pre">creatingItemSets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.creatingItemSets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.creatingItemSets" title="Link to this definition"></a></dt>
+<dd><p>Storing the complete transactions of the database/input file in a database variable</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.getAverageTransactionLength">
+<span class="sig-name descname"><span class="pre">getAverageTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.getAverageTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.getAverageTransactionLength" title="Link to this definition"></a></dt>
+<dd><p>get the average transaction length. It is sum of all transaction length divided by database length.
+:return: average transaction length
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.getAverageUtility">
+<span class="sig-name descname"><span class="pre">getAverageUtility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.getAverageUtility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.getAverageUtility" title="Link to this definition"></a></dt>
+<dd><p>get the average utility
+:return: average utility
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.getDatabaseSize">
+<span class="sig-name descname"><span class="pre">getDatabaseSize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.getDatabaseSize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.getDatabaseSize" title="Link to this definition"></a></dt>
+<dd><p>get the size of database
+:return: size of database after reading from database
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.getFrequenciesInRange">
+<span class="sig-name descname"><span class="pre">getFrequenciesInRange</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.getFrequenciesInRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.getFrequenciesInRange" title="Link to this definition"></a></dt>
+<dd><p>This function is used to get the Frequencies in range
+:return: Frequencies In Range
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.getMaximumTransactionLength">
+<span class="sig-name descname"><span class="pre">getMaximumTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.getMaximumTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.getMaximumTransactionLength" title="Link to this definition"></a></dt>
+<dd><p>get the maximum transaction length
+:return: maximum transaction length
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.getMaximumUtility">
+<span class="sig-name descname"><span class="pre">getMaximumUtility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.getMaximumUtility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.getMaximumUtility" title="Link to this definition"></a></dt>
+<dd><p>get the maximum utility
+:return: maximum utility
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.getMinimumTransactionLength">
+<span class="sig-name descname"><span class="pre">getMinimumTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.getMinimumTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.getMinimumTransactionLength" title="Link to this definition"></a></dt>
+<dd><p>get the minimum transaction length
+:return: minimum transaction length
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.getMinimumUtility">
+<span class="sig-name descname"><span class="pre">getMinimumUtility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.getMinimumUtility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.getMinimumUtility" title="Link to this definition"></a></dt>
+<dd><p>get the minimum utility
+:return: minimum utility
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.getNumberOfItems">
+<span class="sig-name descname"><span class="pre">getNumberOfItems</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.getNumberOfItems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.getNumberOfItems" title="Link to this definition"></a></dt>
+<dd><p>get the number of items in database.
+:return: number of items
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.getSortedListOfItemFrequencies">
+<span class="sig-name descname"><span class="pre">getSortedListOfItemFrequencies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.getSortedListOfItemFrequencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.getSortedListOfItemFrequencies" title="Link to this definition"></a></dt>
+<dd><p>get sorted list of item frequencies
+:return: item frequencies
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.getSortedUtilityValuesOfItem">
+<span class="sig-name descname"><span class="pre">getSortedUtilityValuesOfItem</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.getSortedUtilityValuesOfItem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.getSortedUtilityValuesOfItem" title="Link to this definition"></a></dt>
+<dd><p>get sorted utility value each item. key is item and value is utility of item
+:return: sorted dictionary utility value of item
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.getSparsity">
+<span class="sig-name descname"><span class="pre">getSparsity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.getSparsity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.getSparsity" title="Link to this definition"></a></dt>
+<dd><p>get the sparsity of database
+:return: sparsity of database after reading from database
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.getStandardDeviationTransactionLength">
+<span class="sig-name descname"><span class="pre">getStandardDeviationTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.getStandardDeviationTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.getStandardDeviationTransactionLength" title="Link to this definition"></a></dt>
+<dd><p>get the standard deviation transaction length
+:return: standard deviation transaction length
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.getTotalNumberOfItems">
+<span class="sig-name descname"><span class="pre">getTotalNumberOfItems</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.getTotalNumberOfItems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.getTotalNumberOfItems" title="Link to this definition"></a></dt>
+<dd><p>get the number of items in database.
+:return: number of items
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.getTotalUtility">
+<span class="sig-name descname"><span class="pre">getTotalUtility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.getTotalUtility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.getTotalUtility" title="Link to this definition"></a></dt>
+<dd><p>get sum of utility
+:return: total utility
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.getTransanctionalLengthDistribution">
+<span class="sig-name descname"><span class="pre">getTransanctionalLengthDistribution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.getTransanctionalLengthDistribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.getTransanctionalLengthDistribution" title="Link to this definition"></a></dt>
+<dd><p>get transaction length
+:return: Transanctional Length Distribution
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.getVarianceTransactionLength">
+<span class="sig-name descname"><span class="pre">getVarianceTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.getVarianceTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.getVarianceTransactionLength" title="Link to this definition"></a></dt>
+<dd><p>get the variance transaction length
+:return: variance transaction length
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.plotGraphs">
+<span class="sig-name descname"><span class="pre">plotGraphs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.plotGraphs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.plotGraphs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.printStats">
+<span class="sig-name descname"><span class="pre">printStats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.printStats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.printStats" title="Link to this definition"></a></dt>
+<dd><p>This function is used to print the results</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.readDatabase">
+<span class="sig-name descname"><span class="pre">readDatabase</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.readDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.readDatabase" title="Link to this definition"></a></dt>
+<dd><p>read database from input file and store into database and size of each transaction.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.run" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.stats.utilityDatabase.utilityDatabase.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputFile</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/stats/utilityDatabase.html#utilityDatabase.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.stats.utilityDatabase.utilityDatabase.save" title="Link to this definition"></a></dt>
+<dd><p>store data into outputFile
+:param data: input data
+:type data: dict
+:param outputFile: output file name or path to store
+:type outputFile: str
+:return: None</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras.stats">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.extras.stats" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="PAMI.extras.sampleDatasets.html" class="btn btn-neutral float-left" title="PAMI.extras.sampleDatasets package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="PAMI.extras.syntheticDataGenerator.html" class="btn btn-neutral float-right" title="PAMI.extras.syntheticDataGenerator package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE Uday Kiran.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

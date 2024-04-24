@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI package &mdash; PAMI 2024.04.23 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=391540b0"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PAMI.AssociationRules package" href="PAMI.AssociationRules.html" />
+    <link rel="prev" title="PAMI" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PAMI</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">PAMI package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.html">PAMI.AssociationRules package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedPattern.html">PAMI.correlatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.coveragePattern.html">PAMI.coveragePattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.html">PAMI.extras package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.html">PAMI.faultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.html">PAMI.frequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.html">PAMI.fuzzyCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentPattern.html">PAMI.fuzzyFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedFrequentPattern.html">PAMI.fuzzyGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.html">PAMI.fuzzyGeoreferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPartialPeriodicPatterns.html">PAMI.fuzzyPartialPeriodicPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.html">PAMI.fuzzyPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.html">PAMI.geoReferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentPattern.html">PAMI.georeferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentSequencePattern.html">PAMI.georeferencedFrequentSequencePattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedPartialPeriodicPattern.html">PAMI.georeferencedPartialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentPattern.html">PAMI.highUtilityFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityGeoreferencedFrequentPattern.html">PAMI.highUtilityGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.html">PAMI.highUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPatternsInStreams.html">PAMI.highUtilityPatternsInStreams package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html">PAMI.highUtilitySpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.html">PAMI.localPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.html">PAMI.multipleMinimumSupportBasedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.html">PAMI.partialPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.html">PAMI.partialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html">PAMI.partialPeriodicPatternInMultipleTimeSeries package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.html">PAMI.periodicCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.html">PAMI.periodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.recurringPattern.html">PAMI.recurringPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeFrequentPattern.html">PAMI.relativeFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeHighUtilityPattern.html">PAMI.relativeHighUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequence.html">PAMI.sequence package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.html">PAMI.sequentialPatternMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.html">PAMI.stablePeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.html">PAMI.subgraphMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html">PAMI.uncertainFaultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.html">PAMI.uncertainFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainGeoreferencedFrequentPattern.html">PAMI.uncertainGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.html">PAMI.uncertainPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.html">PAMI.weightedFrequentNeighbourhoodPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentPattern.html">PAMI.weightedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.html">PAMI.weightedFrequentRegularPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.html">PAMI.weightedUncertainFrequentPattern package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-PAMI">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PAMI</a></li>
+      <li class="breadcrumb-item active">PAMI package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PAMI.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pami-package">
+<h1>PAMI package<a class="headerlink" href="#pami-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.AssociationRules.html">PAMI.AssociationRules package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.AssociationRules.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.AssociationRules.basic.html">PAMI.AssociationRules.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.basic.html#module-PAMI.AssociationRules.basic.ARWithConfidence">PAMI.AssociationRules.basic.ARWithConfidence module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.basic.html#module-PAMI.AssociationRules.basic.ARWithLeverage">PAMI.AssociationRules.basic.ARWithLeverage module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.basic.html#module-PAMI.AssociationRules.basic.ARWithLift">PAMI.AssociationRules.basic.ARWithLift module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.basic.html#module-PAMI.AssociationRules.basic.RuleMiner">PAMI.AssociationRules.basic.RuleMiner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.basic.html#module-PAMI.AssociationRules.basic.abstract">PAMI.AssociationRules.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.basic.html#module-PAMI.AssociationRules.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.AssociationRules.html#module-PAMI.AssociationRules">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.correlatedPattern.html">PAMI.correlatedPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.correlatedPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.correlatedPattern.basic.html">PAMI.correlatedPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedPattern.basic.html#module-PAMI.correlatedPattern.basic.CoMine">PAMI.correlatedPattern.basic.CoMine module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedPattern.basic.html#module-PAMI.correlatedPattern.basic.CoMinePlus">PAMI.correlatedPattern.basic.CoMinePlus module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedPattern.basic.html#module-PAMI.correlatedPattern.basic.abstract">PAMI.correlatedPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedPattern.basic.html#module-PAMI.correlatedPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.correlatedPattern.html#module-PAMI.correlatedPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.coveragePattern.html">PAMI.coveragePattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.coveragePattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.coveragePattern.basic.html">PAMI.coveragePattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.coveragePattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.coveragePattern.basic.html#module-PAMI.coveragePattern.basic.CMine">PAMI.coveragePattern.basic.CMine module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.coveragePattern.basic.html#module-PAMI.coveragePattern.basic.CPPG">PAMI.coveragePattern.basic.CPPG module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.coveragePattern.basic.html#module-PAMI.coveragePattern.basic.abstract">PAMI.coveragePattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.coveragePattern.basic.html#module-PAMI.coveragePattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.coveragePattern.html#module-PAMI.coveragePattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.html">PAMI.extras package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.DF2DB.html">PAMI.extras.DF2DB package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.DF2DB">PAMI.extras.DF2DB.DF2DB module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#pami-extras-df2db-df2dbplus-module">PAMI.extras.DF2DB.DF2DBPlus module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.DenseFormatDF">PAMI.extras.DF2DB.DenseFormatDF module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.SparseFormatDF">PAMI.extras.DF2DB.SparseFormatDF module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.createTDB">PAMI.extras.DF2DB.createTDB module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.denseDF2DBPlus">PAMI.extras.DF2DB.denseDF2DBPlus module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.denseDF2DB_dump">PAMI.extras.DF2DB.denseDF2DB_dump module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.sparseDF2DBPlus">PAMI.extras.DF2DB.sparseDF2DBPlus module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.calculateMISValues.html">PAMI.extras.calculateMISValues package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#module-PAMI.extras.calculateMISValues.usingBeta">PAMI.extras.calculateMISValues.usingBeta module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#module-PAMI.extras.calculateMISValues.usingSD">PAMI.extras.calculateMISValues.usingSD module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#module-PAMI.extras.calculateMISValues">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.dbStats.html">PAMI.extras.dbStats package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats.FuzzyDatabase">PAMI.extras.dbStats.FuzzyDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats.MultipleTimeSeriesFuzzyDatabaseStats">PAMI.extras.dbStats.MultipleTimeSeriesFuzzyDatabaseStats module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats.SequentialDatabase">PAMI.extras.dbStats.SequentialDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats.TemporalDatabase">PAMI.extras.dbStats.TemporalDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats.TransactionalDatabase">PAMI.extras.dbStats.TransactionalDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats.UncertainTemporalDatabase">PAMI.extras.dbStats.UncertainTemporalDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats.UncertainTransactionalDatabase">PAMI.extras.dbStats.UncertainTransactionalDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats.UtilityDatabase">PAMI.extras.dbStats.UtilityDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html">PAMI.extras.fuzzyTransformation package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#module-PAMI.extras.fuzzyTransformation.abstract">PAMI.extras.fuzzyTransformation.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#module-PAMI.extras.fuzzyTransformation.temporalToFuzzy">PAMI.extras.fuzzyTransformation.temporalToFuzzy module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#module-PAMI.extras.fuzzyTransformation.transactionalToFuzzy">PAMI.extras.fuzzyTransformation.transactionalToFuzzy module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#pami-extras-fuzzytransformation-utilitytofuzzy-module">PAMI.extras.fuzzyTransformation.utilityToFuzzy module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#module-PAMI.extras.fuzzyTransformation">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.generateDatabase.html">PAMI.extras.generateDatabase package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.generateDatabase.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.generateDatabase.html#module-PAMI.extras.generateDatabase.generateSpatioTemporalDatabase">PAMI.extras.generateDatabase.generateSpatioTemporalDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.generateDatabase.html#module-PAMI.extras.generateDatabase.generateTemporalDatabase">PAMI.extras.generateDatabase.generateTemporalDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.generateDatabase.html#module-PAMI.extras.generateDatabase.generateTransactionalDatabase">PAMI.extras.generateDatabase.generateTransactionalDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.generateDatabase.html#module-PAMI.extras.generateDatabase">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.graph.html">PAMI.extras.graph package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.graph.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.graph.html#module-PAMI.extras.graph.DF2Fig">PAMI.extras.graph.DF2Fig module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.graph.html#pami-extras-graph-df2tex-module">PAMI.extras.graph.DF2Tex module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.graph.html#module-PAMI.extras.graph.plotLineGraphFromDictionary">PAMI.extras.graph.plotLineGraphFromDictionary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.graph.html#module-PAMI.extras.graph.plotLineGraphsFromDataFrame">PAMI.extras.graph.plotLineGraphsFromDataFrame module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.graph.html#module-PAMI.extras.graph.visualizeFuzzyPatterns">PAMI.extras.graph.visualizeFuzzyPatterns module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.graph.html#module-PAMI.extras.graph.visualizePatterns">PAMI.extras.graph.visualizePatterns module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.graph.html#module-PAMI.extras.graph">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.image2Database.html">PAMI.extras.image2Database package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.image2Database.html#module-PAMI.extras.image2Database">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.imageProcessing.html">PAMI.extras.imageProcessing package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.imageProcessing.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.imageProcessing.html#module-PAMI.extras.imageProcessing.imagery2Databases">PAMI.extras.imageProcessing.imagery2Databases module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.imageProcessing.html#module-PAMI.extras.imageProcessing">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.messaging.html">PAMI.extras.messaging package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.messaging.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.messaging.html#module-PAMI.extras.messaging.discord">PAMI.extras.messaging.discord module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.messaging.html#module-PAMI.extras.messaging.gmail">PAMI.extras.messaging.gmail module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.messaging.html#module-PAMI.extras.messaging">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.neighbours.html">PAMI.extras.neighbours package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.neighbours.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.neighbours.html#module-PAMI.extras.neighbours.findNeighborsUsingEuclideanDistanceforPointInfo">PAMI.extras.neighbours.findNeighborsUsingEuclideanDistanceforPointInfo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.neighbours.html#module-PAMI.extras.neighbours.findNeighboursUsingEuclidean">PAMI.extras.neighbours.findNeighboursUsingEuclidean module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.neighbours.html#module-PAMI.extras.neighbours.findNeighboursUsingGeodesic">PAMI.extras.neighbours.findNeighboursUsingGeodesic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.neighbours.html#module-PAMI.extras.neighbours">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.sampleDatasets.html">PAMI.extras.sampleDatasets package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.sampleDatasets.html#module-PAMI.extras.sampleDatasets">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.stats.html">PAMI.extras.stats package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.stats.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.stats.html#module-PAMI.extras.stats.TransactionalDatabase">PAMI.extras.stats.TransactionalDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.stats.html#module-PAMI.extras.stats.graphDatabase">PAMI.extras.stats.graphDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.stats.html#module-PAMI.extras.stats.sequentialDatabase">PAMI.extras.stats.sequentialDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.stats.html#module-PAMI.extras.stats.temporalDatabase">PAMI.extras.stats.temporalDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.stats.html#module-PAMI.extras.stats.utilityDatabase">PAMI.extras.stats.utilityDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.stats.html#module-PAMI.extras.stats">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html">PAMI.extras.syntheticDataGenerator package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.TemporalDatabase">PAMI.extras.syntheticDataGenerator.TemporalDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.TransactionalDatabase">PAMI.extras.syntheticDataGenerator.TransactionalDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.createSyntheticGeoreferentialTemporal">PAMI.extras.syntheticDataGenerator.createSyntheticGeoreferentialTemporal module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.createSyntheticGeoreferentialTransactions">PAMI.extras.syntheticDataGenerator.createSyntheticGeoreferentialTransactions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.createSyntheticGeoreferentialUncertainTransaction">PAMI.extras.syntheticDataGenerator.createSyntheticGeoreferentialUncertainTransaction module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.createSyntheticTemporal">PAMI.extras.syntheticDataGenerator.createSyntheticTemporal module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.createSyntheticTransactions">PAMI.extras.syntheticDataGenerator.createSyntheticTransactions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.createSyntheticUncertainTemporal">PAMI.extras.syntheticDataGenerator.createSyntheticUncertainTemporal module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.createSyntheticUncertainTransactions">PAMI.extras.syntheticDataGenerator.createSyntheticUncertainTransactions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.createSyntheticUtility">PAMI.extras.syntheticDataGenerator.createSyntheticUtility module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.fuzzyDatabase">PAMI.extras.syntheticDataGenerator.fuzzyDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.generateTemporal">PAMI.extras.syntheticDataGenerator.generateTemporal module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.generateTransactional">PAMI.extras.syntheticDataGenerator.generateTransactional module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.generateUncertainTemporal">PAMI.extras.syntheticDataGenerator.generateUncertainTemporal module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.generateUncertainTransactional">PAMI.extras.syntheticDataGenerator.generateUncertainTransactional module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.generateUtilityTemporal">PAMI.extras.syntheticDataGenerator.generateUtilityTemporal module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.generateUtilityTransactional">PAMI.extras.syntheticDataGenerator.generateUtilityTransactional module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.georeferencedTemporalDatabase">PAMI.extras.syntheticDataGenerator.georeferencedTemporalDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.georeferencedTransactionalDatabase">PAMI.extras.syntheticDataGenerator.georeferencedTransactionalDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.syntheticUtilityDatabase">PAMI.extras.syntheticDataGenerator.syntheticUtilityDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.temporalDatabaseGen">PAMI.extras.syntheticDataGenerator.temporalDatabaseGen module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator.utilityDatabase">PAMI.extras.syntheticDataGenerator.utilityDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.syntheticDataGenerator.html#module-PAMI.extras.syntheticDataGenerator">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.visualize.html">PAMI.extras.visualize package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.visualize.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.visualize.html#module-PAMI.extras.visualize.graphs">PAMI.extras.visualize.graphs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.visualize.html#module-PAMI.extras.visualize">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.html#pami-extras-convertmultitsintofuzzy-module">PAMI.extras.convertMultiTSIntoFuzzy module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.html#module-PAMI.extras.generateLatexGraphFile">PAMI.extras.generateLatexGraphFile module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.html#PAMI.extras.generateLatexGraphFile.generateLatexCode"><code class="docutils literal notranslate"><span class="pre">generateLatexCode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.html#PAMI.extras.generateLatexGraphFile.generateLatexGraphFile"><code class="docutils literal notranslate"><span class="pre">generateLatexGraphFile</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.html#module-PAMI.extras.plotPointOnMap">PAMI.extras.plotPointOnMap module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.html#PAMI.extras.plotPointOnMap.plotPointOnMap"><code class="docutils literal notranslate"><span class="pre">plotPointOnMap</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.html#PAMI.extras.plotPointOnMap.plotPointOnMap.convertPOINT"><code class="docutils literal notranslate"><span class="pre">plotPointOnMap.convertPOINT()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.html#PAMI.extras.plotPointOnMap.plotPointOnMap.findTopKPatterns"><code class="docutils literal notranslate"><span class="pre">plotPointOnMap.findTopKPatterns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.html#PAMI.extras.plotPointOnMap.plotPointOnMap.plotPointInMap"><code class="docutils literal notranslate"><span class="pre">plotPointOnMap.plotPointInMap()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.html#module-PAMI.extras.plotPointOnMap_dump">PAMI.extras.plotPointOnMap_dump module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.html#PAMI.extras.plotPointOnMap_dump.plotPointOnMap"><code class="docutils literal notranslate"><span class="pre">plotPointOnMap</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.html#PAMI.extras.plotPointOnMap_dump.plotPointOnMap.convertPOINT"><code class="docutils literal notranslate"><span class="pre">plotPointOnMap.convertPOINT()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.html#PAMI.extras.plotPointOnMap_dump.plotPointOnMap.findTopKPatterns"><code class="docutils literal notranslate"><span class="pre">plotPointOnMap.findTopKPatterns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.html#PAMI.extras.plotPointOnMap_dump.plotPointOnMap.plotPointInMap"><code class="docutils literal notranslate"><span class="pre">plotPointOnMap.plotPointInMap()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.html#module-PAMI.extras.scatterPlotSpatialPoints">PAMI.extras.scatterPlotSpatialPoints module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.html#PAMI.extras.scatterPlotSpatialPoints.scatterPlotSpatialPoints"><code class="docutils literal notranslate"><span class="pre">scatterPlotSpatialPoints</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.html#PAMI.extras.scatterPlotSpatialPoints.scatterPlotSpatialPoints.scatterPlotSpatialPoints"><code class="docutils literal notranslate"><span class="pre">scatterPlotSpatialPoints.scatterPlotSpatialPoints()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.html#module-PAMI.extras.topKPatterns">PAMI.extras.topKPatterns module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.html#PAMI.extras.topKPatterns.topKPatterns"><code class="docutils literal notranslate"><span class="pre">topKPatterns</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.html#PAMI.extras.topKPatterns.topKPatterns.getTopKPatterns"><code class="docutils literal notranslate"><span class="pre">topKPatterns.getTopKPatterns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.html#PAMI.extras.topKPatterns.topKPatterns.save"><code class="docutils literal notranslate"><span class="pre">topKPatterns.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.html#module-PAMI.extras.uncertaindb_convert">PAMI.extras.uncertaindb_convert module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.html#PAMI.extras.uncertaindb_convert.predictedClass2Transaction"><code class="docutils literal notranslate"><span class="pre">predictedClass2Transaction</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.html#PAMI.extras.uncertaindb_convert.predictedClass2Transaction.getBinaryTransaction"><code class="docutils literal notranslate"><span class="pre">predictedClass2Transaction.getBinaryTransaction()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.html#module-PAMI.extras">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.html">PAMI.faultTolerantFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.basic.html">PAMI.faultTolerantFrequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.basic.html#module-PAMI.faultTolerantFrequentPattern.basic.FTApriori">PAMI.faultTolerantFrequentPattern.basic.FTApriori module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.basic.html#module-PAMI.faultTolerantFrequentPattern.basic.FTFPGrowth">PAMI.faultTolerantFrequentPattern.basic.FTFPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.basic.html#module-PAMI.faultTolerantFrequentPattern.basic.abstract">PAMI.faultTolerantFrequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.basic.html#module-PAMI.faultTolerantFrequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.html#module-PAMI.faultTolerantFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.frequentPattern.html">PAMI.frequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.frequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.frequentPattern.basic.html">PAMI.frequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.basic.html#module-PAMI.frequentPattern.basic.Apriori">PAMI.frequentPattern.basic.Apriori module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.basic.html#module-PAMI.frequentPattern.basic.ECLAT">PAMI.frequentPattern.basic.ECLAT module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.basic.html#module-PAMI.frequentPattern.basic.ECLATDiffset">PAMI.frequentPattern.basic.ECLATDiffset module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.basic.html#module-PAMI.frequentPattern.basic.ECLATbitset">PAMI.frequentPattern.basic.ECLATbitset module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.basic.html#module-PAMI.frequentPattern.basic.FPGrowth">PAMI.frequentPattern.basic.FPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.basic.html#module-PAMI.frequentPattern.basic.abstract">PAMI.frequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.basic.html#module-PAMI.frequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.frequentPattern.closed.html">PAMI.frequentPattern.closed package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.closed.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.closed.html#module-PAMI.frequentPattern.closed.CHARM">PAMI.frequentPattern.closed.CHARM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.closed.html#module-PAMI.frequentPattern.closed.abstract">PAMI.frequentPattern.closed.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.closed.html#module-PAMI.frequentPattern.closed">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.frequentPattern.cuda.html">PAMI.frequentPattern.cuda package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.cuda.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.cuda.html#pami-frequentpattern-cuda-abstract-module">PAMI.frequentPattern.cuda.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.cuda.html#pami-frequentpattern-cuda-cuapriori-module">PAMI.frequentPattern.cuda.cuApriori module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.cuda.html#pami-frequentpattern-cuda-cuaprioribit-module">PAMI.frequentPattern.cuda.cuAprioriBit module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.cuda.html#pami-frequentpattern-cuda-cueclat-module">PAMI.frequentPattern.cuda.cuEclat module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.cuda.html#pami-frequentpattern-cuda-cueclatbit-module">PAMI.frequentPattern.cuda.cuEclatBit module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.cuda.html#pami-frequentpattern-cuda-cudaapriorigct-module">PAMI.frequentPattern.cuda.cudaAprioriGCT module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.cuda.html#pami-frequentpattern-cuda-cudaaprioritid-module">PAMI.frequentPattern.cuda.cudaAprioriTID module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.cuda.html#pami-frequentpattern-cuda-cudaeclatgct-module">PAMI.frequentPattern.cuda.cudaEclatGCT module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.cuda.html#module-PAMI.frequentPattern.cuda">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.frequentPattern.maximal.html">PAMI.frequentPattern.maximal package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.maximal.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.maximal.html#module-PAMI.frequentPattern.maximal.MaxFPGrowth">PAMI.frequentPattern.maximal.MaxFPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.maximal.html#module-PAMI.frequentPattern.maximal.abstract">PAMI.frequentPattern.maximal.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.maximal.html#module-PAMI.frequentPattern.maximal">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.frequentPattern.pyspark.html">PAMI.frequentPattern.pyspark package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.pyspark.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.pyspark.html#pami-frequentpattern-pyspark-abstract-module">PAMI.frequentPattern.pyspark.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.pyspark.html#pami-frequentpattern-pyspark-parallelapriori-module">PAMI.frequentPattern.pyspark.parallelApriori module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.pyspark.html#pami-frequentpattern-pyspark-paralleleclat-module">PAMI.frequentPattern.pyspark.parallelECLAT module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.pyspark.html#pami-frequentpattern-pyspark-parallelfpgrowth-module">PAMI.frequentPattern.pyspark.parallelFPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.pyspark.html#module-PAMI.frequentPattern.pyspark">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.frequentPattern.topk.html">PAMI.frequentPattern.topk package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.topk.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.topk.html#module-PAMI.frequentPattern.topk.FAE">PAMI.frequentPattern.topk.FAE module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.topk.html#module-PAMI.frequentPattern.topk.abstract">PAMI.frequentPattern.topk.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.topk.html#module-PAMI.frequentPattern.topk">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.frequentPattern.html#module-PAMI.frequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.html">PAMI.fuzzyCorrelatedPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.basic.html">PAMI.fuzzyCorrelatedPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.basic.html#module-PAMI.fuzzyCorrelatedPattern.basic.FCPGrowth">PAMI.fuzzyCorrelatedPattern.basic.FCPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.basic.html#module-PAMI.fuzzyCorrelatedPattern.basic.abstract">PAMI.fuzzyCorrelatedPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.basic.html#module-PAMI.fuzzyCorrelatedPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.html#module-PAMI.fuzzyCorrelatedPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.fuzzyFrequentPattern.html">PAMI.fuzzyFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.fuzzyFrequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.fuzzyFrequentPattern.basic.html">PAMI.fuzzyFrequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentPattern.basic.html#module-PAMI.fuzzyFrequentPattern.basic.FFIMiner">PAMI.fuzzyFrequentPattern.basic.FFIMiner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentPattern.basic.html#module-PAMI.fuzzyFrequentPattern.basic.FFIMiner_old">PAMI.fuzzyFrequentPattern.basic.FFIMiner_old module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentPattern.basic.html#module-PAMI.fuzzyFrequentPattern.basic.abstract">PAMI.fuzzyFrequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentPattern.basic.html#module-PAMI.fuzzyFrequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.fuzzyFrequentPattern.html#module-PAMI.fuzzyFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.fuzzyGeoreferencedFrequentPattern.html">PAMI.fuzzyGeoreferencedFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.fuzzyGeoreferencedFrequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.fuzzyGeoreferencedFrequentPattern.basic.html">PAMI.fuzzyGeoreferencedFrequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedFrequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedFrequentPattern.basic.html#module-PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner">PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedFrequentPattern.basic.html#module-PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner_old">PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner_old module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedFrequentPattern.basic.html#module-PAMI.fuzzyGeoreferencedFrequentPattern.basic.abstract">PAMI.fuzzyGeoreferencedFrequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedFrequentPattern.basic.html#module-PAMI.fuzzyGeoreferencedFrequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.fuzzyGeoreferencedFrequentPattern.html#module-PAMI.fuzzyGeoreferencedFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.html">PAMI.fuzzyGeoreferencedPeriodicFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html">PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#module-PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner">PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#module-PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old">PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#module-PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.abstract">PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#module-PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.html#module-PAMI.fuzzyGeoreferencedPeriodicFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.fuzzyPartialPeriodicPatterns.html">PAMI.fuzzyPartialPeriodicPatterns package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.fuzzyPartialPeriodicPatterns.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.fuzzyPartialPeriodicPatterns.basic.html">PAMI.fuzzyPartialPeriodicPatterns.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPartialPeriodicPatterns.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPartialPeriodicPatterns.basic.html#module-PAMI.fuzzyPartialPeriodicPatterns.basic.F3PMiner">PAMI.fuzzyPartialPeriodicPatterns.basic.F3PMiner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPartialPeriodicPatterns.basic.html#module-PAMI.fuzzyPartialPeriodicPatterns.basic.abstract">PAMI.fuzzyPartialPeriodicPatterns.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPartialPeriodicPatterns.basic.html#module-PAMI.fuzzyPartialPeriodicPatterns.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.fuzzyPartialPeriodicPatterns.html#module-PAMI.fuzzyPartialPeriodicPatterns">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.html">PAMI.fuzzyPeriodicFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.basic.html">PAMI.fuzzyPeriodicFrequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.basic.html#module-PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner">PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.basic.html#module-PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old">PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.basic.html#module-PAMI.fuzzyPeriodicFrequentPattern.basic.abstract">PAMI.fuzzyPeriodicFrequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.basic.html#module-PAMI.fuzzyPeriodicFrequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.html#module-PAMI.fuzzyPeriodicFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.html">PAMI.geoReferencedPeriodicFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.basic.html">PAMI.geoReferencedPeriodicFrequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.basic.html#module-PAMI.geoReferencedPeriodicFrequentPattern.basic.GPFPMiner">PAMI.geoReferencedPeriodicFrequentPattern.basic.GPFPMiner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.basic.html#module-PAMI.geoReferencedPeriodicFrequentPattern.basic.abstract">PAMI.geoReferencedPeriodicFrequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.basic.html#module-PAMI.geoReferencedPeriodicFrequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.html#module-PAMI.geoReferencedPeriodicFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.georeferencedFrequentPattern.html">PAMI.georeferencedFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.georeferencedFrequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.georeferencedFrequentPattern.basic.html">PAMI.georeferencedFrequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentPattern.basic.html#pami-georeferencedfrequentpattern-basic-fspgrowth-module">PAMI.georeferencedFrequentPattern.basic.FSPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentPattern.basic.html#module-PAMI.georeferencedFrequentPattern.basic.SpatialECLAT">PAMI.georeferencedFrequentPattern.basic.SpatialECLAT module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentPattern.basic.html#module-PAMI.georeferencedFrequentPattern.basic.abstract">PAMI.georeferencedFrequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentPattern.basic.html#module-PAMI.georeferencedFrequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.georeferencedFrequentPattern.html#module-PAMI.georeferencedFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.georeferencedFrequentSequencePattern.html">PAMI.georeferencedFrequentSequencePattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.georeferencedFrequentSequencePattern.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.georeferencedFrequentSequencePattern.html#module-PAMI.georeferencedFrequentSequencePattern.abstract">PAMI.georeferencedFrequentSequencePattern.abstract module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.georeferencedFrequentSequencePattern.html#module-PAMI.georeferencedFrequentSequencePattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.georeferencedPartialPeriodicPattern.html">PAMI.georeferencedPartialPeriodicPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.georeferencedPartialPeriodicPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.georeferencedPartialPeriodicPattern.basic.html">PAMI.georeferencedPartialPeriodicPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedPartialPeriodicPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedPartialPeriodicPattern.basic.html#module-PAMI.georeferencedPartialPeriodicPattern.basic.STEclat">PAMI.georeferencedPartialPeriodicPattern.basic.STEclat module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedPartialPeriodicPattern.basic.html#module-PAMI.georeferencedPartialPeriodicPattern.basic.abstract">PAMI.georeferencedPartialPeriodicPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedPartialPeriodicPattern.basic.html#module-PAMI.georeferencedPartialPeriodicPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.georeferencedPartialPeriodicPattern.html#module-PAMI.georeferencedPartialPeriodicPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.highUtilityFrequentPattern.html">PAMI.highUtilityFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilityFrequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.highUtilityFrequentPattern.basic.html">PAMI.highUtilityFrequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentPattern.basic.html#module-PAMI.highUtilityFrequentPattern.basic.HUFIM">PAMI.highUtilityFrequentPattern.basic.HUFIM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentPattern.basic.html#module-PAMI.highUtilityFrequentPattern.basic.abstract">PAMI.highUtilityFrequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentPattern.basic.html#module-PAMI.highUtilityFrequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilityFrequentPattern.html#module-PAMI.highUtilityFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.highUtilityGeoreferencedFrequentPattern.html">PAMI.highUtilityGeoreferencedFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilityGeoreferencedFrequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.highUtilityGeoreferencedFrequentPattern.basic.html">PAMI.highUtilityGeoreferencedFrequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityGeoreferencedFrequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityGeoreferencedFrequentPattern.basic.html#module-PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM">PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityGeoreferencedFrequentPattern.basic.html#module-PAMI.highUtilityGeoreferencedFrequentPattern.basic.abstract">PAMI.highUtilityGeoreferencedFrequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityGeoreferencedFrequentPattern.basic.html#module-PAMI.highUtilityGeoreferencedFrequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilityGeoreferencedFrequentPattern.html#module-PAMI.highUtilityGeoreferencedFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.highUtilityPattern.html">PAMI.highUtilityPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilityPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.highUtilityPattern.basic.html">PAMI.highUtilityPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.basic.html#module-PAMI.highUtilityPattern.basic.EFIM">PAMI.highUtilityPattern.basic.EFIM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.basic.html#module-PAMI.highUtilityPattern.basic.HMiner">PAMI.highUtilityPattern.basic.HMiner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.basic.html#module-PAMI.highUtilityPattern.basic.UPGrowth">PAMI.highUtilityPattern.basic.UPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.basic.html#module-PAMI.highUtilityPattern.basic.abstract">PAMI.highUtilityPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.basic.html#pami-highutilitypattern-basic-efimparallel-module">PAMI.highUtilityPattern.basic.efimParallel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.basic.html#module-PAMI.highUtilityPattern.basic">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.highUtilityPattern.parallel.html">PAMI.highUtilityPattern.parallel package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.parallel.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.parallel.html#module-PAMI.highUtilityPattern.parallel.abstract">PAMI.highUtilityPattern.parallel.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.parallel.html#pami-highutilitypattern-parallel-efimparallel-module">PAMI.highUtilityPattern.parallel.efimparallel module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.parallel.html#module-PAMI.highUtilityPattern.parallel">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilityPattern.html#module-PAMI.highUtilityPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.highUtilityPatternsInStreams.html">PAMI.highUtilityPatternsInStreams package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilityPatternsInStreams.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilityPatternsInStreams.html#pami-highutilitypatternsinstreams-hupms-module">PAMI.highUtilityPatternsInStreams.HUPMS module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilityPatternsInStreams.html#pami-highutilitypatternsinstreams-shugrowth-module">PAMI.highUtilityPatternsInStreams.SHUGrowth module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilityPatternsInStreams.html#module-PAMI.highUtilityPatternsInStreams.abstract">PAMI.highUtilityPatternsInStreams.abstract module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilityPatternsInStreams.html#module-PAMI.highUtilityPatternsInStreams">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html">PAMI.highUtilitySpatialPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html">PAMI.highUtilitySpatialPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#module-PAMI.highUtilitySpatialPattern.basic.HDSHUIM">PAMI.highUtilitySpatialPattern.basic.HDSHUIM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#module-PAMI.highUtilitySpatialPattern.basic.SHUIM">PAMI.highUtilitySpatialPattern.basic.SHUIM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#module-PAMI.highUtilitySpatialPattern.basic.abstract">PAMI.highUtilitySpatialPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#module-PAMI.highUtilitySpatialPattern.basic">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html">PAMI.highUtilitySpatialPattern.topk package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#module-PAMI.highUtilitySpatialPattern.topk.TKSHUIM">PAMI.highUtilitySpatialPattern.topk.TKSHUIM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#module-PAMI.highUtilitySpatialPattern.topk.abstract">PAMI.highUtilitySpatialPattern.topk.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#module-PAMI.highUtilitySpatialPattern.topk">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#module-PAMI.highUtilitySpatialPattern.abstract">PAMI.highUtilitySpatialPattern.abstract module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns"><code class="docutils literal notranslate"><span class="pre">utilityPatterns</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.endTime"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.endTime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.finalPatterns"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.finalPatterns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getMemoryRSS"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.getMemoryRSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getMemoryUSS"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.getMemoryUSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getPatterns"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.getPatterns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getPatternsAsDataFrame"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.getPatternsAsDataFrame()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getRuntime"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.getRuntime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.iFile"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.iFile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.memoryRSS"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.memoryRSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.memoryUSS"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.memoryUSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.minUtil"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.minUtil()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.nFile"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.nFile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.oFile"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.oFile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.save"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.startMine"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.startMine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.startTime"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.startTime()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html#module-PAMI.highUtilitySpatialPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.localPeriodicPattern.html">PAMI.localPeriodicPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.localPeriodicPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.localPeriodicPattern.basic.html">PAMI.localPeriodicPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.basic.html#module-PAMI.localPeriodicPattern.basic.LPPGrowth">PAMI.localPeriodicPattern.basic.LPPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.basic.html#module-PAMI.localPeriodicPattern.basic.LPPMBreadth">PAMI.localPeriodicPattern.basic.LPPMBreadth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.basic.html#module-PAMI.localPeriodicPattern.basic.LPPMDepth">PAMI.localPeriodicPattern.basic.LPPMDepth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.basic.html#module-PAMI.localPeriodicPattern.basic.abstract">PAMI.localPeriodicPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.basic.html#module-PAMI.localPeriodicPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.localPeriodicPattern.html#module-PAMI.localPeriodicPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.html">PAMI.multipleMinimumSupportBasedFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.basic.html">PAMI.multipleMinimumSupportBasedFrequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.basic.html#module-PAMI.multipleMinimumSupportBasedFrequentPattern.basic.CFPGrowth">PAMI.multipleMinimumSupportBasedFrequentPattern.basic.CFPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.basic.html#module-PAMI.multipleMinimumSupportBasedFrequentPattern.basic.CFPGrowthPlus">PAMI.multipleMinimumSupportBasedFrequentPattern.basic.CFPGrowthPlus module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.basic.html#module-PAMI.multipleMinimumSupportBasedFrequentPattern.basic.abstract">PAMI.multipleMinimumSupportBasedFrequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.basic.html#module-PAMI.multipleMinimumSupportBasedFrequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.html#module-PAMI.multipleMinimumSupportBasedFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.html">PAMI.partialPeriodicFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.basic.html">PAMI.partialPeriodicFrequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.basic.html#pami-partialperiodicfrequentpattern-basic-gpfgrowth-module">PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.basic.html#pami-partialperiodicfrequentpattern-basic-ppf-dfs-module">PAMI.partialPeriodicFrequentPattern.basic.PPF_DFS module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.basic.html#module-PAMI.partialPeriodicFrequentPattern.basic.abstract">PAMI.partialPeriodicFrequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.basic.html#module-PAMI.partialPeriodicFrequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.html#module-PAMI.partialPeriodicFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.partialPeriodicPattern.html">PAMI.partialPeriodicPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html">PAMI.partialPeriodicPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#pami-partialperiodicpattern-basic-gthreepgrowth-module">PAMI.partialPeriodicPattern.basic.GThreePGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#module-PAMI.partialPeriodicPattern.basic.Gabstract">PAMI.partialPeriodicPattern.basic.Gabstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#module-PAMI.partialPeriodicPattern.basic.PPPGrowth">PAMI.partialPeriodicPattern.basic.PPPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#module-PAMI.partialPeriodicPattern.basic.PPP_ECLAT">PAMI.partialPeriodicPattern.basic.PPP_ECLAT module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#module-PAMI.partialPeriodicPattern.basic.abstract">PAMI.partialPeriodicPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#module-PAMI.partialPeriodicPattern.basic">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html">PAMI.partialPeriodicPattern.closed package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html#module-PAMI.partialPeriodicPattern.closed.PPPClose">PAMI.partialPeriodicPattern.closed.PPPClose module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html#module-PAMI.partialPeriodicPattern.closed.abstract">PAMI.partialPeriodicPattern.closed.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html#module-PAMI.partialPeriodicPattern.closed">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.partialPeriodicPattern.maximal.html">PAMI.partialPeriodicPattern.maximal package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.maximal.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.maximal.html#pami-partialperiodicpattern-maximal-max3pgrowth-module">PAMI.partialPeriodicPattern.maximal.Max3PGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.maximal.html#module-PAMI.partialPeriodicPattern.maximal.abstract">PAMI.partialPeriodicPattern.maximal.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.maximal.html#module-PAMI.partialPeriodicPattern.maximal">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.partialPeriodicPattern.pyspark.html">PAMI.partialPeriodicPattern.pyspark package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.pyspark.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.pyspark.html#module-PAMI.partialPeriodicPattern.pyspark.abstract">PAMI.partialPeriodicPattern.pyspark.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.pyspark.html#pami-partialperiodicpattern-pyspark-parallel3pgrowth-module">PAMI.partialPeriodicPattern.pyspark.parallel3PGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.pyspark.html#module-PAMI.partialPeriodicPattern.pyspark">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html">PAMI.partialPeriodicPattern.topk package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#module-PAMI.partialPeriodicPattern.topk.abstract">PAMI.partialPeriodicPattern.topk.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#module-PAMI.partialPeriodicPattern.topk.k3PMiner">PAMI.partialPeriodicPattern.topk.k3PMiner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#module-PAMI.partialPeriodicPattern.topk">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.html#module-PAMI.partialPeriodicPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html">PAMI.partialPeriodicPatternInMultipleTimeSeries package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html#module-PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth">PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth"><code class="docutils literal notranslate"><span class="pre">PPGrowth</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.Mine"><code class="docutils literal notranslate"><span class="pre">PPGrowth.Mine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getMemoryRSS"><code class="docutils literal notranslate"><span class="pre">PPGrowth.getMemoryRSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getMemoryUSS"><code class="docutils literal notranslate"><span class="pre">PPGrowth.getMemoryUSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getPatterns"><code class="docutils literal notranslate"><span class="pre">PPGrowth.getPatterns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getPatternsAsDataFrame"><code class="docutils literal notranslate"><span class="pre">PPGrowth.getPatternsAsDataFrame()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getRuntime"><code class="docutils literal notranslate"><span class="pre">PPGrowth.getRuntime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.printResults"><code class="docutils literal notranslate"><span class="pre">PPGrowth.printResults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.save"><code class="docutils literal notranslate"><span class="pre">PPGrowth.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.startMine"><code class="docutils literal notranslate"><span class="pre">PPGrowth.startMine()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html#module-PAMI.partialPeriodicPatternInMultipleTimeSeries.abstract">PAMI.partialPeriodicPatternInMultipleTimeSeries.abstract module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html#module-PAMI.partialPeriodicPatternInMultipleTimeSeries">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.html">PAMI.periodicCorrelatedPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.basic.html">PAMI.periodicCorrelatedPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.basic.html#module-PAMI.periodicCorrelatedPattern.basic.EPCPGrowth">PAMI.periodicCorrelatedPattern.basic.EPCPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.basic.html#module-PAMI.periodicCorrelatedPattern.basic.abstract">PAMI.periodicCorrelatedPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.basic.html#module-PAMI.periodicCorrelatedPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.html#module-PAMI.periodicCorrelatedPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.periodicFrequentPattern.html">PAMI.periodicFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.periodicFrequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.periodicFrequentPattern.basic.html">PAMI.periodicFrequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.basic.html#module-PAMI.periodicFrequentPattern.basic.PFECLAT">PAMI.periodicFrequentPattern.basic.PFECLAT module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.basic.html#module-PAMI.periodicFrequentPattern.basic.PFPGrowth">PAMI.periodicFrequentPattern.basic.PFPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.basic.html#module-PAMI.periodicFrequentPattern.basic.PFPGrowthPlus">PAMI.periodicFrequentPattern.basic.PFPGrowthPlus module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.basic.html#module-PAMI.periodicFrequentPattern.basic.PFPMC">PAMI.periodicFrequentPattern.basic.PFPMC module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.basic.html#module-PAMI.periodicFrequentPattern.basic.PSGrowth">PAMI.periodicFrequentPattern.basic.PSGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.basic.html#module-PAMI.periodicFrequentPattern.basic.abstract">PAMI.periodicFrequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.basic.html#pami-periodicfrequentpattern-basic-parallelpfpgrowth-module">PAMI.periodicFrequentPattern.basic.parallelPFPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.basic.html#module-PAMI.periodicFrequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.periodicFrequentPattern.closed.html">PAMI.periodicFrequentPattern.closed package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.closed.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.closed.html#module-PAMI.periodicFrequentPattern.closed.CPFPMiner">PAMI.periodicFrequentPattern.closed.CPFPMiner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.closed.html#module-PAMI.periodicFrequentPattern.closed.abstract">PAMI.periodicFrequentPattern.closed.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.closed.html#module-PAMI.periodicFrequentPattern.closed">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.periodicFrequentPattern.cuda.html">PAMI.periodicFrequentPattern.cuda package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.cuda.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.cuda.html#pami-periodicfrequentpattern-cuda-abstract-module">PAMI.periodicFrequentPattern.cuda.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.cuda.html#pami-periodicfrequentpattern-cuda-cugpfminer-module">PAMI.periodicFrequentPattern.cuda.cuGPFMiner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.cuda.html#pami-periodicfrequentpattern-cuda-gpfminerbit-module">PAMI.periodicFrequentPattern.cuda.gPFMinerBit module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.cuda.html#module-PAMI.periodicFrequentPattern.cuda">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.periodicFrequentPattern.maximal.html">PAMI.periodicFrequentPattern.maximal package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.maximal.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.maximal.html#module-PAMI.periodicFrequentPattern.maximal.MaxPFGrowth">PAMI.periodicFrequentPattern.maximal.MaxPFGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.maximal.html#module-PAMI.periodicFrequentPattern.maximal.abstract">PAMI.periodicFrequentPattern.maximal.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.maximal.html#module-PAMI.periodicFrequentPattern.maximal">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.periodicFrequentPattern.pyspark.html">PAMI.periodicFrequentPattern.pyspark package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.pyspark.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.pyspark.html#pami-periodicfrequentpattern-pyspark-abstract-module">PAMI.periodicFrequentPattern.pyspark.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.pyspark.html#pami-periodicfrequentpattern-pyspark-parallelpfpgrowth-module">PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.pyspark.html#module-PAMI.periodicFrequentPattern.pyspark">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.periodicFrequentPattern.topk.html">PAMI.periodicFrequentPattern.topk package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.topk.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.topk.html#module-PAMI.periodicFrequentPattern.topk">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.periodicFrequentPattern.html#module-PAMI.periodicFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.recurringPattern.html">PAMI.recurringPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.recurringPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.recurringPattern.basic.html">PAMI.recurringPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.recurringPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.recurringPattern.basic.html#module-PAMI.recurringPattern.basic.RPGrowth">PAMI.recurringPattern.basic.RPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.recurringPattern.basic.html#module-PAMI.recurringPattern.basic.abstract">PAMI.recurringPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.recurringPattern.basic.html#module-PAMI.recurringPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.recurringPattern.html#module-PAMI.recurringPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.relativeFrequentPattern.html">PAMI.relativeFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.relativeFrequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.relativeFrequentPattern.basic.html">PAMI.relativeFrequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeFrequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeFrequentPattern.basic.html#module-PAMI.relativeFrequentPattern.basic.RSFPGrowth">PAMI.relativeFrequentPattern.basic.RSFPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeFrequentPattern.basic.html#module-PAMI.relativeFrequentPattern.basic.abstract">PAMI.relativeFrequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeFrequentPattern.basic.html#module-PAMI.relativeFrequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.relativeFrequentPattern.html#module-PAMI.relativeFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.relativeHighUtilityPattern.html">PAMI.relativeHighUtilityPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.relativeHighUtilityPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.relativeHighUtilityPattern.basic.html">PAMI.relativeHighUtilityPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeHighUtilityPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeHighUtilityPattern.basic.html#module-PAMI.relativeHighUtilityPattern.basic.RHUIM">PAMI.relativeHighUtilityPattern.basic.RHUIM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeHighUtilityPattern.basic.html#module-PAMI.relativeHighUtilityPattern.basic.abstract">PAMI.relativeHighUtilityPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeHighUtilityPattern.basic.html#module-PAMI.relativeHighUtilityPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.relativeHighUtilityPattern.html#module-PAMI.relativeHighUtilityPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.sequence.html">PAMI.sequence package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.sequence.html#module-PAMI.sequence">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.sequentialPatternMining.html">PAMI.sequentialPatternMining package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.sequentialPatternMining.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.sequentialPatternMining.basic.html">PAMI.sequentialPatternMining.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.basic.html#module-PAMI.sequentialPatternMining.basic.SPADE">PAMI.sequentialPatternMining.basic.SPADE module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.basic.html#module-PAMI.sequentialPatternMining.basic.SPAM">PAMI.sequentialPatternMining.basic.SPAM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.basic.html#module-PAMI.sequentialPatternMining.basic.abstract">PAMI.sequentialPatternMining.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.basic.html#module-PAMI.sequentialPatternMining.basic.prefixSpan">PAMI.sequentialPatternMining.basic.prefixSpan module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.basic.html#module-PAMI.sequentialPatternMining.basic">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.sequentialPatternMining.closed.html">PAMI.sequentialPatternMining.closed package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.closed.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.closed.html#module-PAMI.sequentialPatternMining.closed.abstract">PAMI.sequentialPatternMining.closed.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.closed.html#module-PAMI.sequentialPatternMining.closed.bide">PAMI.sequentialPatternMining.closed.bide module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.closed.html#module-PAMI.sequentialPatternMining.closed">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.sequentialPatternMining.html#module-PAMI.sequentialPatternMining">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.html">PAMI.stablePeriodicFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.basic.html">PAMI.stablePeriodicFrequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.basic.html#module-PAMI.stablePeriodicFrequentPattern.basic.SPPEclat">PAMI.stablePeriodicFrequentPattern.basic.SPPEclat module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.basic.html#pami-stableperiodicfrequentpattern-basic-sppgrowth-module">PAMI.stablePeriodicFrequentPattern.basic.SPPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.basic.html#pami-stableperiodicfrequentpattern-basic-sppgrowthdump-module">PAMI.stablePeriodicFrequentPattern.basic.SPPGrowthDump module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.basic.html#module-PAMI.stablePeriodicFrequentPattern.basic.abstract">PAMI.stablePeriodicFrequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.basic.html#module-PAMI.stablePeriodicFrequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.topK.html">PAMI.stablePeriodicFrequentPattern.topK package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.topK.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.topK.html#module-PAMI.stablePeriodicFrequentPattern.topK.TSPIN">PAMI.stablePeriodicFrequentPattern.topK.TSPIN module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.topK.html#module-PAMI.stablePeriodicFrequentPattern.topK.abstract">PAMI.stablePeriodicFrequentPattern.topK.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.topK.html#module-PAMI.stablePeriodicFrequentPattern.topK">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.html#module-PAMI.stablePeriodicFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.subgraphMining.html">PAMI.subgraphMining package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.subgraphMining.basic.html">PAMI.subgraphMining.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic.abstract">PAMI.subgraphMining.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic.dfsCode">PAMI.subgraphMining.basic.dfsCode module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic.edge">PAMI.subgraphMining.basic.edge module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic.extendedEdge">PAMI.subgraphMining.basic.extendedEdge module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic.frequentSubgraph">PAMI.subgraphMining.basic.frequentSubgraph module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic.graph">PAMI.subgraphMining.basic.graph module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic.gspan">PAMI.subgraphMining.basic.gspan module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic.sparseTriangularMatrix">PAMI.subgraphMining.basic.sparseTriangularMatrix module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic.vertex">PAMI.subgraphMining.basic.vertex module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.basic.html#module-PAMI.subgraphMining.basic">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.subgraphMining.topK.html">PAMI.subgraphMining.topK package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.DFSCode">PAMI.subgraphMining.topK.DFSCode module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.DFSThread">PAMI.subgraphMining.topK.DFSThread module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.abstract">PAMI.subgraphMining.topK.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.edge">PAMI.subgraphMining.topK.edge module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.extendedEdge">PAMI.subgraphMining.topK.extendedEdge module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.frequentSubgraph">PAMI.subgraphMining.topK.frequentSubgraph module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.graph">PAMI.subgraphMining.topK.graph module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.sparseTriangularMatrix">PAMI.subgraphMining.topK.sparseTriangularMatrix module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.tkg">PAMI.subgraphMining.topK.tkg module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK.vertex">PAMI.subgraphMining.topK.vertex module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.topK.html#module-PAMI.subgraphMining.topK">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.subgraphMining.html#module-PAMI.subgraphMining">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html">PAMI.uncertainFaultTolerantFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html#module-PAMI.uncertainFaultTolerantFrequentPattern.VBFTMine">PAMI.uncertainFaultTolerantFrequentPattern.VBFTMine module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html#PAMI.uncertainFaultTolerantFrequentPattern.VBFTMine.VBFTMine"><code class="docutils literal notranslate"><span class="pre">VBFTMine</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html#PAMI.uncertainFaultTolerantFrequentPattern.VBFTMine.VBFTMine.getMemoryRSS"><code class="docutils literal notranslate"><span class="pre">VBFTMine.getMemoryRSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html#PAMI.uncertainFaultTolerantFrequentPattern.VBFTMine.VBFTMine.getMemoryUSS"><code class="docutils literal notranslate"><span class="pre">VBFTMine.getMemoryUSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html#PAMI.uncertainFaultTolerantFrequentPattern.VBFTMine.VBFTMine.getPatterns"><code class="docutils literal notranslate"><span class="pre">VBFTMine.getPatterns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html#PAMI.uncertainFaultTolerantFrequentPattern.VBFTMine.VBFTMine.getPatternsAsDataFrame"><code class="docutils literal notranslate"><span class="pre">VBFTMine.getPatternsAsDataFrame()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html#PAMI.uncertainFaultTolerantFrequentPattern.VBFTMine.VBFTMine.getRuntime"><code class="docutils literal notranslate"><span class="pre">VBFTMine.getRuntime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html#PAMI.uncertainFaultTolerantFrequentPattern.VBFTMine.VBFTMine.mine"><code class="docutils literal notranslate"><span class="pre">VBFTMine.mine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html#PAMI.uncertainFaultTolerantFrequentPattern.VBFTMine.VBFTMine.printResults"><code class="docutils literal notranslate"><span class="pre">VBFTMine.printResults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html#PAMI.uncertainFaultTolerantFrequentPattern.VBFTMine.VBFTMine.save"><code class="docutils literal notranslate"><span class="pre">VBFTMine.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html#PAMI.uncertainFaultTolerantFrequentPattern.VBFTMine.VBFTMine.startMine"><code class="docutils literal notranslate"><span class="pre">VBFTMine.startMine()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html#module-PAMI.uncertainFaultTolerantFrequentPattern.abstract">PAMI.uncertainFaultTolerantFrequentPattern.abstract module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html#module-PAMI.uncertainFaultTolerantFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.uncertainFrequentPattern.html">PAMI.uncertainFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.uncertainFrequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.uncertainFrequentPattern.basic.html">PAMI.uncertainFrequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.basic.html#module-PAMI.uncertainFrequentPattern.basic.CUFPTree">PAMI.uncertainFrequentPattern.basic.CUFPTree module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.basic.html#pami-uncertainfrequentpattern-basic-pufgrowth-module">PAMI.uncertainFrequentPattern.basic.PUFGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.basic.html#pami-uncertainfrequentpattern-basic-tufp-module">PAMI.uncertainFrequentPattern.basic.TUFP module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.basic.html#pami-uncertainfrequentpattern-basic-tubep-module">PAMI.uncertainFrequentPattern.basic.TubeP module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.basic.html#pami-uncertainfrequentpattern-basic-tubes-module">PAMI.uncertainFrequentPattern.basic.TubeS module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.basic.html#pami-uncertainfrequentpattern-basic-ufgrowth-module">PAMI.uncertainFrequentPattern.basic.UFGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.basic.html#pami-uncertainfrequentpattern-basic-uveclat-module">PAMI.uncertainFrequentPattern.basic.UVECLAT module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.basic.html#module-PAMI.uncertainFrequentPattern.basic.abstract">PAMI.uncertainFrequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.basic.html#module-PAMI.uncertainFrequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.uncertainFrequentPattern.html#module-PAMI.uncertainFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.uncertainGeoreferencedFrequentPattern.html">PAMI.uncertainGeoreferencedFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.uncertainGeoreferencedFrequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.uncertainGeoreferencedFrequentPattern.basic.html">PAMI.uncertainGeoreferencedFrequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainGeoreferencedFrequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainGeoreferencedFrequentPattern.basic.html#module-PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth">PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainGeoreferencedFrequentPattern.basic.html#module-PAMI.uncertainGeoreferencedFrequentPattern.basic.abstract">PAMI.uncertainGeoreferencedFrequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainGeoreferencedFrequentPattern.basic.html#module-PAMI.uncertainGeoreferencedFrequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.uncertainGeoreferencedFrequentPattern.html#module-PAMI.uncertainGeoreferencedFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.html">PAMI.uncertainPeriodicFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.basic.html">PAMI.uncertainPeriodicFrequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.basic.html#module-PAMI.uncertainPeriodicFrequentPattern.basic.UPFPGrowth">PAMI.uncertainPeriodicFrequentPattern.basic.UPFPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.basic.html#module-PAMI.uncertainPeriodicFrequentPattern.basic.UPFPGrowthPlus">PAMI.uncertainPeriodicFrequentPattern.basic.UPFPGrowthPlus module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.basic.html#module-PAMI.uncertainPeriodicFrequentPattern.basic.abstract">PAMI.uncertainPeriodicFrequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.basic.html#module-PAMI.uncertainPeriodicFrequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.html#module-PAMI.uncertainPeriodicFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.html">PAMI.weightedFrequentNeighbourhoodPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.basic.html">PAMI.weightedFrequentNeighbourhoodPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.basic.html#module-PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth">PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.basic.html#module-PAMI.weightedFrequentNeighbourhoodPattern.basic.abstract">PAMI.weightedFrequentNeighbourhoodPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.basic.html#module-PAMI.weightedFrequentNeighbourhoodPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.html#module-PAMI.weightedFrequentNeighbourhoodPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.weightedFrequentPattern.html">PAMI.weightedFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.weightedFrequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.weightedFrequentPattern.basic.html">PAMI.weightedFrequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentPattern.basic.html#module-PAMI.weightedFrequentPattern.basic.WFIM">PAMI.weightedFrequentPattern.basic.WFIM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentPattern.basic.html#module-PAMI.weightedFrequentPattern.basic.abstract">PAMI.weightedFrequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentPattern.basic.html#module-PAMI.weightedFrequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.weightedFrequentPattern.html#module-PAMI.weightedFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.html">PAMI.weightedFrequentRegularPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.basic.html">PAMI.weightedFrequentRegularPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.basic.html#module-PAMI.weightedFrequentRegularPattern.basic.WFRIMiner">PAMI.weightedFrequentRegularPattern.basic.WFRIMiner module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.basic.html#module-PAMI.weightedFrequentRegularPattern.basic.abstract">PAMI.weightedFrequentRegularPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.basic.html#module-PAMI.weightedFrequentRegularPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.html#module-PAMI.weightedFrequentRegularPattern">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.html">PAMI.weightedUncertainFrequentPattern package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.basic.html">PAMI.weightedUncertainFrequentPattern.basic package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.basic.html#module-PAMI.weightedUncertainFrequentPattern.basic.WUFIM">PAMI.weightedUncertainFrequentPattern.basic.WUFIM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.basic.html#module-PAMI.weightedUncertainFrequentPattern.basic.abstract">PAMI.weightedUncertainFrequentPattern.basic.abstract module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.basic.html#module-PAMI.weightedUncertainFrequentPattern.basic">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.html#module-PAMI.weightedUncertainFrequentPattern">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-PAMI">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI" title="Link to this heading"></a></h2>
+<p>PAMI</p>
+<p>A PAttern MIning python library.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="PAMI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="PAMI.AssociationRules.html" class="btn btn-neutral float-right" title="PAMI.AssociationRules package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE Uday Kiran.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

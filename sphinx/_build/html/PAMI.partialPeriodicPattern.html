@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.partialPeriodicPattern package &mdash; PAMI 2024.04.23 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=391540b0"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PAMI.partialPeriodicPattern.basic package" href="PAMI.partialPeriodicPattern.basic.html" />
+    <link rel="prev" title="PAMI.partialPeriodicFrequentPattern.basic package" href="PAMI.partialPeriodicFrequentPattern.basic.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PAMI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="PAMI.html">PAMI package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="PAMI.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.html">PAMI.AssociationRules package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedPattern.html">PAMI.correlatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.coveragePattern.html">PAMI.coveragePattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.html">PAMI.extras package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.html">PAMI.faultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.html">PAMI.frequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.html">PAMI.fuzzyCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentPattern.html">PAMI.fuzzyFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedFrequentPattern.html">PAMI.fuzzyGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.html">PAMI.fuzzyGeoreferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPartialPeriodicPatterns.html">PAMI.fuzzyPartialPeriodicPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.html">PAMI.fuzzyPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.html">PAMI.geoReferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentPattern.html">PAMI.georeferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentSequencePattern.html">PAMI.georeferencedFrequentSequencePattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedPartialPeriodicPattern.html">PAMI.georeferencedPartialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentPattern.html">PAMI.highUtilityFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityGeoreferencedFrequentPattern.html">PAMI.highUtilityGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.html">PAMI.highUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPatternsInStreams.html">PAMI.highUtilityPatternsInStreams package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html">PAMI.highUtilitySpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.html">PAMI.localPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.html">PAMI.multipleMinimumSupportBasedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.html">PAMI.partialPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">PAMI.partialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html">PAMI.partialPeriodicPatternInMultipleTimeSeries package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.html">PAMI.periodicCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.html">PAMI.periodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.recurringPattern.html">PAMI.recurringPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeFrequentPattern.html">PAMI.relativeFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeHighUtilityPattern.html">PAMI.relativeHighUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequence.html">PAMI.sequence package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.html">PAMI.sequentialPatternMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.html">PAMI.stablePeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.html">PAMI.subgraphMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html">PAMI.uncertainFaultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.html">PAMI.uncertainFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainGeoreferencedFrequentPattern.html">PAMI.uncertainGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.html">PAMI.uncertainPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.html">PAMI.weightedFrequentNeighbourhoodPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentPattern.html">PAMI.weightedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.html">PAMI.weightedFrequentRegularPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.html">PAMI.weightedUncertainFrequentPattern package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.html#module-PAMI">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PAMI</a></li>
+          <li class="breadcrumb-item"><a href="PAMI.html">PAMI package</a></li>
+      <li class="breadcrumb-item active">PAMI.partialPeriodicPattern package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PAMI.partialPeriodicPattern.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pami-partialperiodicpattern-package">
+<h1>PAMI.partialPeriodicPattern package<a class="headerlink" href="#pami-partialperiodicpattern-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html">PAMI.partialPeriodicPattern.basic package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#pami-partialperiodicpattern-basic-gthreepgrowth-module">PAMI.partialPeriodicPattern.basic.GThreePGrowth module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#module-PAMI.partialPeriodicPattern.basic.Gabstract">PAMI.partialPeriodicPattern.basic.Gabstract module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#module-PAMI.partialPeriodicPattern.basic.PPPGrowth">PAMI.partialPeriodicPattern.basic.PPPGrowth module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPPGrowth.PPPGrowth"><code class="docutils literal notranslate"><span class="pre">PPPGrowth</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPPGrowth.PPPGrowth.getMemoryRSS"><code class="docutils literal notranslate"><span class="pre">PPPGrowth.getMemoryRSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPPGrowth.PPPGrowth.getMemoryUSS"><code class="docutils literal notranslate"><span class="pre">PPPGrowth.getMemoryUSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPPGrowth.PPPGrowth.getPatterns"><code class="docutils literal notranslate"><span class="pre">PPPGrowth.getPatterns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPPGrowth.PPPGrowth.getPatternsAsDataFrame"><code class="docutils literal notranslate"><span class="pre">PPPGrowth.getPatternsAsDataFrame()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPPGrowth.PPPGrowth.getRuntime"><code class="docutils literal notranslate"><span class="pre">PPPGrowth.getRuntime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPPGrowth.PPPGrowth.mine"><code class="docutils literal notranslate"><span class="pre">PPPGrowth.mine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPPGrowth.PPPGrowth.printResults"><code class="docutils literal notranslate"><span class="pre">PPPGrowth.printResults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPPGrowth.PPPGrowth.save"><code class="docutils literal notranslate"><span class="pre">PPPGrowth.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPPGrowth.PPPGrowth.startMine"><code class="docutils literal notranslate"><span class="pre">PPPGrowth.startMine()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#module-PAMI.partialPeriodicPattern.basic.PPP_ECLAT">PAMI.partialPeriodicPattern.basic.PPP_ECLAT module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT"><code class="docutils literal notranslate"><span class="pre">PPP_ECLAT</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.Mine"><code class="docutils literal notranslate"><span class="pre">PPP_ECLAT.Mine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.getMemoryRSS"><code class="docutils literal notranslate"><span class="pre">PPP_ECLAT.getMemoryRSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.getMemoryUSS"><code class="docutils literal notranslate"><span class="pre">PPP_ECLAT.getMemoryUSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.getPatterns"><code class="docutils literal notranslate"><span class="pre">PPP_ECLAT.getPatterns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.getPatternsAsDataFrame"><code class="docutils literal notranslate"><span class="pre">PPP_ECLAT.getPatternsAsDataFrame()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.getRuntime"><code class="docutils literal notranslate"><span class="pre">PPP_ECLAT.getRuntime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.printResults"><code class="docutils literal notranslate"><span class="pre">PPP_ECLAT.printResults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.save"><code class="docutils literal notranslate"><span class="pre">PPP_ECLAT.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.startMine"><code class="docutils literal notranslate"><span class="pre">PPP_ECLAT.startMine()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#module-PAMI.partialPeriodicPattern.basic.abstract">PAMI.partialPeriodicPattern.basic.abstract module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.basic.html#module-PAMI.partialPeriodicPattern.basic">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html">PAMI.partialPeriodicPattern.closed package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html#module-PAMI.partialPeriodicPattern.closed.PPPClose">PAMI.partialPeriodicPattern.closed.PPPClose module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html#PAMI.partialPeriodicPattern.closed.PPPClose.PPPClose"><code class="docutils literal notranslate"><span class="pre">PPPClose</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html#PAMI.partialPeriodicPattern.closed.PPPClose.PPPClose.getMemoryRSS"><code class="docutils literal notranslate"><span class="pre">PPPClose.getMemoryRSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html#PAMI.partialPeriodicPattern.closed.PPPClose.PPPClose.getMemoryUSS"><code class="docutils literal notranslate"><span class="pre">PPPClose.getMemoryUSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html#PAMI.partialPeriodicPattern.closed.PPPClose.PPPClose.getPatterns"><code class="docutils literal notranslate"><span class="pre">PPPClose.getPatterns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html#PAMI.partialPeriodicPattern.closed.PPPClose.PPPClose.getPatternsAsDataFrame"><code class="docutils literal notranslate"><span class="pre">PPPClose.getPatternsAsDataFrame()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html#PAMI.partialPeriodicPattern.closed.PPPClose.PPPClose.getRuntime"><code class="docutils literal notranslate"><span class="pre">PPPClose.getRuntime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html#PAMI.partialPeriodicPattern.closed.PPPClose.PPPClose.mine"><code class="docutils literal notranslate"><span class="pre">PPPClose.mine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html#PAMI.partialPeriodicPattern.closed.PPPClose.PPPClose.printResults"><code class="docutils literal notranslate"><span class="pre">PPPClose.printResults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html#PAMI.partialPeriodicPattern.closed.PPPClose.PPPClose.save"><code class="docutils literal notranslate"><span class="pre">PPPClose.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html#PAMI.partialPeriodicPattern.closed.PPPClose.PPPClose.startMine"><code class="docutils literal notranslate"><span class="pre">PPPClose.startMine()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html#module-PAMI.partialPeriodicPattern.closed.abstract">PAMI.partialPeriodicPattern.closed.abstract module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.closed.html#module-PAMI.partialPeriodicPattern.closed">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.partialPeriodicPattern.maximal.html">PAMI.partialPeriodicPattern.maximal package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.maximal.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.maximal.html#pami-partialperiodicpattern-maximal-max3pgrowth-module">PAMI.partialPeriodicPattern.maximal.Max3PGrowth module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.maximal.html#module-PAMI.partialPeriodicPattern.maximal.abstract">PAMI.partialPeriodicPattern.maximal.abstract module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.maximal.html#module-PAMI.partialPeriodicPattern.maximal">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.partialPeriodicPattern.pyspark.html">PAMI.partialPeriodicPattern.pyspark package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.pyspark.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.pyspark.html#module-PAMI.partialPeriodicPattern.pyspark.abstract">PAMI.partialPeriodicPattern.pyspark.abstract module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.pyspark.html#pami-partialperiodicpattern-pyspark-parallel3pgrowth-module">PAMI.partialPeriodicPattern.pyspark.parallel3PGrowth module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.pyspark.html#module-PAMI.partialPeriodicPattern.pyspark">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html">PAMI.partialPeriodicPattern.topk package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#module-PAMI.partialPeriodicPattern.topk.abstract">PAMI.partialPeriodicPattern.topk.abstract module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns"><code class="docutils literal notranslate"><span class="pre">partialPeriodicPatterns</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.getMemoryRSS"><code class="docutils literal notranslate"><span class="pre">partialPeriodicPatterns.getMemoryRSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.getMemoryUSS"><code class="docutils literal notranslate"><span class="pre">partialPeriodicPatterns.getMemoryUSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.getPatterns"><code class="docutils literal notranslate"><span class="pre">partialPeriodicPatterns.getPatterns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.getPatternsAsDataFrame"><code class="docutils literal notranslate"><span class="pre">partialPeriodicPatterns.getPatternsAsDataFrame()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.getRuntime"><code class="docutils literal notranslate"><span class="pre">partialPeriodicPatterns.getRuntime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.printResults"><code class="docutils literal notranslate"><span class="pre">partialPeriodicPatterns.printResults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.save"><code class="docutils literal notranslate"><span class="pre">partialPeriodicPatterns.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.startMine"><code class="docutils literal notranslate"><span class="pre">partialPeriodicPatterns.startMine()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#module-PAMI.partialPeriodicPattern.topk.k3PMiner">PAMI.partialPeriodicPattern.topk.k3PMiner module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.k3PMiner.k3PMiner"><code class="docutils literal notranslate"><span class="pre">k3PMiner</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.k3PMiner.k3PMiner.getMemoryRSS"><code class="docutils literal notranslate"><span class="pre">k3PMiner.getMemoryRSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.k3PMiner.k3PMiner.getMemoryUSS"><code class="docutils literal notranslate"><span class="pre">k3PMiner.getMemoryUSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.k3PMiner.k3PMiner.getPatterns"><code class="docutils literal notranslate"><span class="pre">k3PMiner.getPatterns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.k3PMiner.k3PMiner.getPatternsAsDataFrame"><code class="docutils literal notranslate"><span class="pre">k3PMiner.getPatternsAsDataFrame()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.k3PMiner.k3PMiner.getRuntime"><code class="docutils literal notranslate"><span class="pre">k3PMiner.getRuntime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.k3PMiner.k3PMiner.mine"><code class="docutils literal notranslate"><span class="pre">k3PMiner.mine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.k3PMiner.k3PMiner.printResults"><code class="docutils literal notranslate"><span class="pre">k3PMiner.printResults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.k3PMiner.k3PMiner.save"><code class="docutils literal notranslate"><span class="pre">k3PMiner.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.k3PMiner.k3PMiner.startMine"><code class="docutils literal notranslate"><span class="pre">k3PMiner.startMine()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.partialPeriodicPattern.topk.html#module-PAMI.partialPeriodicPattern.topk">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-PAMI.partialPeriodicPattern">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.partialPeriodicPattern" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="PAMI.partialPeriodicFrequentPattern.basic.html" class="btn btn-neutral float-left" title="PAMI.partialPeriodicFrequentPattern.basic package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="PAMI.partialPeriodicPattern.basic.html" class="btn btn-neutral float-right" title="PAMI.partialPeriodicPattern.basic package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE Uday Kiran.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

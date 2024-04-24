@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.extras.graph package &mdash; PAMI 2024.04.23 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=391540b0"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PAMI.extras.image2Database package" href="PAMI.extras.image2Database.html" />
+    <link rel="prev" title="PAMI.extras.generateDatabase package" href="PAMI.extras.generateDatabase.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PAMI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="PAMI.html">PAMI package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="PAMI.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.html">PAMI.AssociationRules package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedPattern.html">PAMI.correlatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.coveragePattern.html">PAMI.coveragePattern package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="PAMI.extras.html">PAMI.extras package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.html">PAMI.faultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.html">PAMI.frequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.html">PAMI.fuzzyCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentPattern.html">PAMI.fuzzyFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedFrequentPattern.html">PAMI.fuzzyGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.html">PAMI.fuzzyGeoreferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPartialPeriodicPatterns.html">PAMI.fuzzyPartialPeriodicPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.html">PAMI.fuzzyPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.html">PAMI.geoReferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentPattern.html">PAMI.georeferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentSequencePattern.html">PAMI.georeferencedFrequentSequencePattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedPartialPeriodicPattern.html">PAMI.georeferencedPartialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentPattern.html">PAMI.highUtilityFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityGeoreferencedFrequentPattern.html">PAMI.highUtilityGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.html">PAMI.highUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPatternsInStreams.html">PAMI.highUtilityPatternsInStreams package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html">PAMI.highUtilitySpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.html">PAMI.localPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.html">PAMI.multipleMinimumSupportBasedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.html">PAMI.partialPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.html">PAMI.partialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html">PAMI.partialPeriodicPatternInMultipleTimeSeries package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.html">PAMI.periodicCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.html">PAMI.periodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.recurringPattern.html">PAMI.recurringPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeFrequentPattern.html">PAMI.relativeFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeHighUtilityPattern.html">PAMI.relativeHighUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequence.html">PAMI.sequence package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.html">PAMI.sequentialPatternMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.html">PAMI.stablePeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.html">PAMI.subgraphMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html">PAMI.uncertainFaultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.html">PAMI.uncertainFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainGeoreferencedFrequentPattern.html">PAMI.uncertainGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.html">PAMI.uncertainPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.html">PAMI.weightedFrequentNeighbourhoodPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentPattern.html">PAMI.weightedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.html">PAMI.weightedFrequentRegularPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.html">PAMI.weightedUncertainFrequentPattern package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.html#module-PAMI">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PAMI</a></li>
+          <li class="breadcrumb-item"><a href="PAMI.html">PAMI package</a></li>
+          <li class="breadcrumb-item"><a href="PAMI.extras.html">PAMI.extras package</a></li>
+      <li class="breadcrumb-item active">PAMI.extras.graph package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PAMI.extras.graph.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pami-extras-graph-package">
+<h1>PAMI.extras.graph package<a class="headerlink" href="#pami-extras-graph-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-PAMI.extras.graph.DF2Fig">
+<span id="pami-extras-graph-df2fig-module"></span><h2>PAMI.extras.graph.DF2Fig module<a class="headerlink" href="#module-PAMI.extras.graph.DF2Fig" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.graph.DF2Fig.DF2Fig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.graph.DF2Fig.</span></span><span class="sig-name descname"><span class="pre">DF2Fig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataFrame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/graph/DF2Fig.html#DF2Fig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.graph.DF2Fig.DF2Fig" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrameInToFigures is used to convert the given dataframe into figures.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>dataFrame</strong> – Name of the input dataframe</p></li>
+<li><p><strong>algorithm</strong> – Specify the column name containing the algorithms</p></li>
+<li><p><strong>xcolumn</strong> – Specify the name of the X-axis</p></li>
+<li><p><strong>ycolumn</strong> – Specify the name of the Y-axis</p></li>
+</ul>
+</dd>
+</dl>
+<section id="importing-this-algorithm-into-a-python-program">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#importing-this-algorithm-into-a-python-program" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.graph</span> <span class="kn">import</span> <span class="n">dataframeInToFigures</span> <span class="k">as</span> <span class="n">fig</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">dataframeInToFigures</span><span class="p">(</span><span class="n">idf</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">plotGraphsFromDataFrame</span><span class="p">(</span><span class="s2">&quot;minSup&quot;</span><span class="p">,</span> <span class="s2">&quot;patterns&quot;</span><span class="p">,</span> <span class="s2">&quot;algorithms&quot;</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">plotGraphsFromDataFrame</span><span class="p">(</span><span class="s2">&quot;minSup&quot;</span><span class="p">,</span> <span class="s2">&quot;memory&quot;</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">plotGraphsFromDataFrame</span><span class="p">(</span><span class="s2">&quot;minSup&quot;</span><span class="p">,</span> <span class="s2">&quot;runtime&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.graph.DF2Fig.DF2Fig.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xColumn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yColumn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/graph/DF2Fig.html#DF2Fig.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.graph.DF2Fig.DF2Fig.plot" title="Link to this definition"></a></dt>
+<dd><p>To plot graphs from given dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xColumn</strong> (<em>str</em>) – Name of the X-axis of the dataframe</p></li>
+<li><p><strong>yColumn</strong> (<em>str</em>) – Name of the Y-axis of the dataframe</p></li>
+<li><p><strong>algorithm</strong> (<em>str</em>) – Specify the column name containing the algorithms</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="pami-extras-graph-df2tex-module">
+<h2>PAMI.extras.graph.DF2Tex module<a class="headerlink" href="#pami-extras-graph-df2tex-module" title="Link to this heading"></a></h2>
+</section>
+<section id="module-PAMI.extras.graph.plotLineGraphFromDictionary">
+<span id="pami-extras-graph-plotlinegraphfromdictionary-module"></span><h2>PAMI.extras.graph.plotLineGraphFromDictionary module<a class="headerlink" href="#module-PAMI.extras.graph.plotLineGraphFromDictionary" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.graph.plotLineGraphFromDictionary.plotLineGraphFromDictionary">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.graph.plotLineGraphFromDictionary.</span></span><span class="sig-name descname"><span class="pre">plotLineGraphFromDictionary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/graph/plotLineGraphFromDictionary.html#plotLineGraphFromDictionary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.graph.plotLineGraphFromDictionary.plotLineGraphFromDictionary" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class plot graph of input data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>:param data : dict: store input data as dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>plotLineGraph()</dt><dd><p>draw line graph of input data. input data’s key is x and value is y.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="id1">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.graph</span> <span class="kn">import</span> <span class="n">plotLineGraphFromDictionary</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plotLineGraphFromDictionary</span><span class="p">(</span><span class="n">idict</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras.graph.plotLineGraphsFromDataFrame">
+<span id="pami-extras-graph-plotlinegraphsfromdataframe-module"></span><h2>PAMI.extras.graph.plotLineGraphsFromDataFrame module<a class="headerlink" href="#module-PAMI.extras.graph.plotLineGraphsFromDataFrame" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.graph.plotLineGraphsFromDataFrame.plotGraphsFromDataFrame">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.graph.plotLineGraphsFromDataFrame.</span></span><span class="sig-name descname"><span class="pre">plotGraphsFromDataFrame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataFrame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/graph/plotLineGraphsFromDataFrame.html#plotGraphsFromDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.graph.plotLineGraphsFromDataFrame.plotGraphsFromDataFrame" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>plotLineGraphFromDataFrame is used to convert the given dataframe into plotLineGraph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>:param dataFrame<span class="classifier">DataFrame</span></dt><dd><p>store input data as DataFrame</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Methods<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>plotLineGraphFromDatFrame()</dt><dd><p>draw line graph of input data. input data’s key is x and value is y.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="id2">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.graph</span> <span class="kn">import</span> <span class="n">plotLineGraphsFromDataframe</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plotLineGraphsFromDataFrame</span><span class="p">(</span><span class="n">idf</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.graph.plotLineGraphsFromDataFrame.plotGraphsFromDataFrame.plotGraphsFromDataFrame">
+<span class="sig-name descname"><span class="pre">plotGraphsFromDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/graph/plotLineGraphsFromDataFrame.html#plotGraphsFromDataFrame.plotGraphsFromDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.graph.plotLineGraphsFromDataFrame.plotGraphsFromDataFrame.plotGraphsFromDataFrame" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras.graph.visualizeFuzzyPatterns">
+<span id="pami-extras-graph-visualizefuzzypatterns-module"></span><h2>PAMI.extras.graph.visualizeFuzzyPatterns module<a class="headerlink" href="#module-PAMI.extras.graph.visualizeFuzzyPatterns" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.graph.visualizeFuzzyPatterns.visualizeFuzzyPatterns">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.graph.visualizeFuzzyPatterns.</span></span><span class="sig-name descname"><span class="pre">visualizeFuzzyPatterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/graph/visualizeFuzzyPatterns.html#visualizeFuzzyPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.graph.visualizeFuzzyPatterns.visualizeFuzzyPatterns" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>visualizeFuzzyPatterns is used to visualize points produced by pattern miner .</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<p>:param file : file:   store input data as file
+:param topk : int:     Takes the value int as input</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.graph</span> <span class="kn">import</span> <span class="n">visualizeFuzzyPatterns</span> <span class="k">as</span> <span class="n">viz</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">viz</span><span class="o">.</span><span class="n">visualizeFuzzyPatterns</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">topk</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.graph.visualizeFuzzyPatterns.visualizeFuzzyPatterns.visualize">
+<span class="sig-name descname"><span class="pre">visualize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">markerSize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoom</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/graph/visualizeFuzzyPatterns.html#visualizeFuzzyPatterns.visualize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.graph.visualizeFuzzyPatterns.visualizeFuzzyPatterns.visualize" title="Link to this definition"></a></dt>
+<dd><p>Visualize points produced by pattern miner.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>markerSize</strong> (<em>int</em>) – Size of the marker</p></li>
+<li><p><strong>zoom</strong> (<em>int</em>) – Zoom level</p></li>
+<li><p><strong>width</strong> (<em>int</em>) – Width of the graph</p></li>
+<li><p><strong>height</strong> – Height of the graph on the screen</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras.graph.visualizePatterns">
+<span id="pami-extras-graph-visualizepatterns-module"></span><h2>PAMI.extras.graph.visualizePatterns module<a class="headerlink" href="#module-PAMI.extras.graph.visualizePatterns" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.graph.visualizePatterns.visualizePatterns">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.graph.visualizePatterns.</span></span><span class="sig-name descname"><span class="pre">visualizePatterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/graph/visualizePatterns.html#visualizePatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.graph.visualizePatterns.visualizePatterns" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>visualizePatterns is used to visualize points produced by pattern miner .</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>:param file<span class="classifier">file</span></dt><dd><p>store input data as file</p>
+</dd>
+<dt>:param topk<span class="classifier">int</span></dt><dd><p>Takes the value int as input</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="id3">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.graph</span> <span class="kn">import</span> <span class="n">visualizePatterns</span> <span class="k">as</span> <span class="n">viz</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">viz</span><span class="o">.</span><span class="n">visualizePatterns</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">topk</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.graph.visualizePatterns.visualizePatterns.visualize">
+<span class="sig-name descname"><span class="pre">visualize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">markerSize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoom</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/graph/visualizePatterns.html#visualizePatterns.visualize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.graph.visualizePatterns.visualizePatterns.visualize" title="Link to this definition"></a></dt>
+<dd><p>Visualize points produced by pattern miner.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>markerSize</strong> (<em>int</em>) – Size of the marker</p></li>
+<li><p><strong>zoom</strong> (<em>int</em>) – Zoom level</p></li>
+<li><p><strong>width</strong> (<em>int</em>) – Width of the graph</p></li>
+<li><p><strong>height</strong> – Height of the graph on the screen</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras.graph">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.extras.graph" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="PAMI.extras.generateDatabase.html" class="btn btn-neutral float-left" title="PAMI.extras.generateDatabase package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="PAMI.extras.image2Database.html" class="btn btn-neutral float-right" title="PAMI.extras.image2Database package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE Uday Kiran.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

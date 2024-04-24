@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.highUtilitySpatialPattern package &mdash; PAMI 2024.04.23 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=391540b0"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PAMI.highUtilitySpatialPattern.basic package" href="PAMI.highUtilitySpatialPattern.basic.html" />
+    <link rel="prev" title="PAMI.highUtilityPatternsInStreams package" href="PAMI.highUtilityPatternsInStreams.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PAMI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="PAMI.html">PAMI package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="PAMI.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.html">PAMI.AssociationRules package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedPattern.html">PAMI.correlatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.coveragePattern.html">PAMI.coveragePattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.html">PAMI.extras package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.html">PAMI.faultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.html">PAMI.frequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.html">PAMI.fuzzyCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentPattern.html">PAMI.fuzzyFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedFrequentPattern.html">PAMI.fuzzyGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.html">PAMI.fuzzyGeoreferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPartialPeriodicPatterns.html">PAMI.fuzzyPartialPeriodicPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.html">PAMI.fuzzyPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.html">PAMI.geoReferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentPattern.html">PAMI.georeferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentSequencePattern.html">PAMI.georeferencedFrequentSequencePattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedPartialPeriodicPattern.html">PAMI.georeferencedPartialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentPattern.html">PAMI.highUtilityFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityGeoreferencedFrequentPattern.html">PAMI.highUtilityGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.html">PAMI.highUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPatternsInStreams.html">PAMI.highUtilityPatternsInStreams package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">PAMI.highUtilitySpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.html">PAMI.localPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.html">PAMI.multipleMinimumSupportBasedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.html">PAMI.partialPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.html">PAMI.partialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html">PAMI.partialPeriodicPatternInMultipleTimeSeries package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.html">PAMI.periodicCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.html">PAMI.periodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.recurringPattern.html">PAMI.recurringPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeFrequentPattern.html">PAMI.relativeFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeHighUtilityPattern.html">PAMI.relativeHighUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequence.html">PAMI.sequence package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.html">PAMI.sequentialPatternMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.html">PAMI.stablePeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.subgraphMining.html">PAMI.subgraphMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html">PAMI.uncertainFaultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.html">PAMI.uncertainFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainGeoreferencedFrequentPattern.html">PAMI.uncertainGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.html">PAMI.uncertainPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.html">PAMI.weightedFrequentNeighbourhoodPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentPattern.html">PAMI.weightedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.html">PAMI.weightedFrequentRegularPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.html">PAMI.weightedUncertainFrequentPattern package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.html#module-PAMI">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PAMI</a></li>
+          <li class="breadcrumb-item"><a href="PAMI.html">PAMI package</a></li>
+      <li class="breadcrumb-item active">PAMI.highUtilitySpatialPattern package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PAMI.highUtilitySpatialPattern.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pami-highutilityspatialpattern-package">
+<h1>PAMI.highUtilitySpatialPattern package<a class="headerlink" href="#pami-highutilityspatialpattern-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html">PAMI.highUtilitySpatialPattern.basic package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#module-PAMI.highUtilitySpatialPattern.basic.HDSHUIM">PAMI.highUtilitySpatialPattern.basic.HDSHUIM module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.HDSHUIM.HDSHUIM"><code class="docutils literal notranslate"><span class="pre">HDSHUIM</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.HDSHUIM.HDSHUIM.getMemoryRSS"><code class="docutils literal notranslate"><span class="pre">HDSHUIM.getMemoryRSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.HDSHUIM.HDSHUIM.getMemoryUSS"><code class="docutils literal notranslate"><span class="pre">HDSHUIM.getMemoryUSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.HDSHUIM.HDSHUIM.getPatterns"><code class="docutils literal notranslate"><span class="pre">HDSHUIM.getPatterns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.HDSHUIM.HDSHUIM.getPatternsAsDataFrame"><code class="docutils literal notranslate"><span class="pre">HDSHUIM.getPatternsAsDataFrame()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.HDSHUIM.HDSHUIM.getRuntime"><code class="docutils literal notranslate"><span class="pre">HDSHUIM.getRuntime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.HDSHUIM.HDSHUIM.mine"><code class="docutils literal notranslate"><span class="pre">HDSHUIM.mine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.HDSHUIM.HDSHUIM.printResults"><code class="docutils literal notranslate"><span class="pre">HDSHUIM.printResults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.HDSHUIM.HDSHUIM.save"><code class="docutils literal notranslate"><span class="pre">HDSHUIM.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.HDSHUIM.HDSHUIM.startMine"><code class="docutils literal notranslate"><span class="pre">HDSHUIM.startMine()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#module-PAMI.highUtilitySpatialPattern.basic.SHUIM">PAMI.highUtilitySpatialPattern.basic.SHUIM module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.SHUIM.SHUIM"><code class="docutils literal notranslate"><span class="pre">SHUIM</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.SHUIM.SHUIM.getMemoryRSS"><code class="docutils literal notranslate"><span class="pre">SHUIM.getMemoryRSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.SHUIM.SHUIM.getMemoryUSS"><code class="docutils literal notranslate"><span class="pre">SHUIM.getMemoryUSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.SHUIM.SHUIM.getPatterns"><code class="docutils literal notranslate"><span class="pre">SHUIM.getPatterns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.SHUIM.SHUIM.getPatternsAsDataFrame"><code class="docutils literal notranslate"><span class="pre">SHUIM.getPatternsAsDataFrame()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.SHUIM.SHUIM.getRuntime"><code class="docutils literal notranslate"><span class="pre">SHUIM.getRuntime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.SHUIM.SHUIM.mine"><code class="docutils literal notranslate"><span class="pre">SHUIM.mine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.SHUIM.SHUIM.printResults"><code class="docutils literal notranslate"><span class="pre">SHUIM.printResults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.SHUIM.SHUIM.save"><code class="docutils literal notranslate"><span class="pre">SHUIM.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.SHUIM.SHUIM.startMine"><code class="docutils literal notranslate"><span class="pre">SHUIM.startMine()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#module-PAMI.highUtilitySpatialPattern.basic.abstract">PAMI.highUtilitySpatialPattern.basic.abstract module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.basic.html#module-PAMI.highUtilitySpatialPattern.basic">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html">PAMI.highUtilitySpatialPattern.topk package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#module-PAMI.highUtilitySpatialPattern.topk.TKSHUIM">PAMI.highUtilitySpatialPattern.topk.TKSHUIM module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Dataset"><code class="docutils literal notranslate"><span class="pre">Dataset</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Dataset.createTransaction"><code class="docutils literal notranslate"><span class="pre">Dataset.createTransaction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Dataset.getMaxItem"><code class="docutils literal notranslate"><span class="pre">Dataset.getMaxItem()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Dataset.getTransactions"><code class="docutils literal notranslate"><span class="pre">Dataset.getTransactions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Dataset.maxItem"><code class="docutils literal notranslate"><span class="pre">Dataset.maxItem</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Dataset.transactions"><code class="docutils literal notranslate"><span class="pre">Dataset.transactions</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM"><code class="docutils literal notranslate"><span class="pre">TKSHUIM</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.Neighbours"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.Neighbours</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.additemset"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.additemset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.backtrackingEFIM"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.backtrackingEFIM()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.calculateNeighbourIntersection"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.calculateNeighbourIntersection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.candidateCount"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.candidateCount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.endTime"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.endTime</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.finalPatterns"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.finalPatterns</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.getMemoryRSS"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.getMemoryRSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.getMemoryUSS"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.getMemoryUSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.getPatterns"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.getPatterns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.getPatternsAsDataFrame"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.getPatternsAsDataFrame()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.getRuntime"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.getRuntime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.heapList"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.heapList</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.iFile"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.iFile</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.intTostr"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.intTostr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.intersection"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.intersection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.is_equal"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.is_equal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.maxMemory"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.maxMemory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.memoryRSS"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.memoryRSS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.memoryUSS"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.memoryUSS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.minUtil"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.minUtil</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.mine"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.mine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.nFile"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.nFile</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.newNamesToOldNames"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.newNamesToOldNames</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.oFile"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.oFile</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.oldNamesToNewNames"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.oldNamesToNewNames</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.output"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.output()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.printResults"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.printResults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.save"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.sep"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.sep</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.sortDatabase"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.sortDatabase()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.sort_transaction"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.sort_transaction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.startMine"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.startMine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.startTime"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.startTime</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.strToint"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.strToint</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.temp"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.temp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.useUtilityBinArrayToCalculateLocalUtilityFirstTime"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.useUtilityBinArrayToCalculateLocalUtilityFirstTime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.useUtilityBinArrayToCalculateSubtreeUtilityFirstTime"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.useUtilityBinArrayToCalculateSubtreeUtilityFirstTime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.useUtilityBinArraysToCalculateUpperBounds"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.useUtilityBinArraysToCalculateUpperBounds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.utilityBinArrayLU"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.utilityBinArrayLU</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.utilityBinArraySU"><code class="docutils literal notranslate"><span class="pre">TKSHUIM.utilityBinArraySU</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction"><code class="docutils literal notranslate"><span class="pre">Transaction</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.getItems"><code class="docutils literal notranslate"><span class="pre">Transaction.getItems()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.getLastPosition"><code class="docutils literal notranslate"><span class="pre">Transaction.getLastPosition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.getPmus"><code class="docutils literal notranslate"><span class="pre">Transaction.getPmus()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.getUtilities"><code class="docutils literal notranslate"><span class="pre">Transaction.getUtilities()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.insertionSort"><code class="docutils literal notranslate"><span class="pre">Transaction.insertionSort()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.offset"><code class="docutils literal notranslate"><span class="pre">Transaction.offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.prefixUtility"><code class="docutils literal notranslate"><span class="pre">Transaction.prefixUtility</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.projectTransaction"><code class="docutils literal notranslate"><span class="pre">Transaction.projectTransaction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.removeUnpromisingItems"><code class="docutils literal notranslate"><span class="pre">Transaction.removeUnpromisingItems()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#module-PAMI.highUtilitySpatialPattern.topk.abstract">PAMI.highUtilitySpatialPattern.topk.abstract module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.abstract.utilityPatterns"><code class="docutils literal notranslate"><span class="pre">utilityPatterns</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.abstract.utilityPatterns.endTime"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.endTime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.abstract.utilityPatterns.finalPatterns"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.finalPatterns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.abstract.utilityPatterns.getMemoryRSS"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.getMemoryRSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.abstract.utilityPatterns.getMemoryUSS"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.getMemoryUSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.abstract.utilityPatterns.getPatterns"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.getPatterns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.abstract.utilityPatterns.getPatternsAsDataFrame"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.getPatternsAsDataFrame()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.abstract.utilityPatterns.getRuntime"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.getRuntime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.abstract.utilityPatterns.iFile"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.iFile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.abstract.utilityPatterns.memoryRSS"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.memoryRSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.abstract.utilityPatterns.memoryUSS"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.memoryUSS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.abstract.utilityPatterns.nFile"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.nFile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.abstract.utilityPatterns.oFile"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.oFile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.abstract.utilityPatterns.printResults"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.printResults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.abstract.utilityPatterns.save"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.abstract.utilityPatterns.startMine"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.startMine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.abstract.utilityPatterns.startTime"><code class="docutils literal notranslate"><span class="pre">utilityPatterns.startTime()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.topk.html#module-PAMI.highUtilitySpatialPattern.topk">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-PAMI.highUtilitySpatialPattern.abstract">
+<span id="pami-highutilityspatialpattern-abstract-module"></span><h2>PAMI.highUtilitySpatialPattern.abstract module<a class="headerlink" href="#module-PAMI.highUtilitySpatialPattern.abstract" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.abstract.utilityPatterns">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.highUtilitySpatialPattern.abstract.</span></span><span class="sig-name descname"><span class="pre">utilityPatterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minUtil</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/abstract.html#utilityPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
+employ in PAMI</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>iFile<span class="classifier">str</span></dt><dd><p>Input file name or path of the input file</p>
+</dd>
+<dt>minUtil: integer</dt><dd><p>The user can specify minUtil either in count</p>
+</dd>
+<dt>sep<span class="classifier">str</span></dt><dd><p>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or         .
+However, the users can override their default separator</p>
+</dd>
+<dt>startTime:float</dt><dd><p>To record the start time of the algorithm</p>
+</dd>
+<dt>endTime:float</dt><dd><p>To record the completion time of the algorithm</p>
+</dd>
+<dt>finalPatterns: dict</dt><dd><p>Storing the complete set of patterns in a dictionary variable</p>
+</dd>
+<dt>oFile<span class="classifier">str</span></dt><dd><p>Name of the output file to store complete set of frequent patterns</p>
+</dd>
+<dt>memoryUSS<span class="classifier">float</span></dt><dd><p>To store the total amount of USS memory consumed by the program</p>
+</dd>
+<dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>startMine()</dt><dd><p>Calling this function will start the actual mining process</p>
+</dd>
+<dt>getPatterns()</dt><dd><p>This function will output all interesting patterns discovered by an algorithm</p>
+</dd>
+<dt>save(oFile)</dt><dd><p>This function will store the discovered patterns in an output file specified by the user</p>
+</dd>
+<dt>getPatternsAsDataFrame()</dt><dd><p>The function outputs the patterns generated by an algorithm as a data frame</p>
+</dd>
+<dt>getMemoryUSS()</dt><dd><p>This function outputs the total amount of USS memory consumed by a mining algorithm</p>
+</dd>
+<dt>getMemoryRSS()</dt><dd><p>This function outputs the total amount of RSS memory consumed by a mining algorithm</p>
+</dd>
+<dt>getRuntime()</dt><dd><p>This function outputs the total runtime of a mining algorithm</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.endTime">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">endTime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/abstract.html#utilityPatterns.endTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.endTime" title="Link to this definition"></a></dt>
+<dd><p>Variable to store the end time of the complete program</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.finalPatterns">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">finalPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/abstract.html#utilityPatterns.finalPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.finalPatterns" title="Link to this definition"></a></dt>
+<dd><p>Variable to store the complete set of patterns in a dictionary</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getMemoryRSS">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/abstract.html#utilityPatterns.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getMemoryRSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of RSS memory consumed by the program will be retrieved from this function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getMemoryUSS">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/abstract.html#utilityPatterns.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getMemoryUSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of USS memory consumed by the program will be retrieved from this function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getPatterns">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/abstract.html#utilityPatterns.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getPatterns" title="Link to this definition"></a></dt>
+<dd><p>Complete set of frequent patterns generated will be retrieved from this function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getPatternsAsDataFrame">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/abstract.html#utilityPatterns.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<dd><p>Complete set of frequent patterns will be loaded in to data frame from this function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getRuntime">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/abstract.html#utilityPatterns.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getRuntime" title="Link to this definition"></a></dt>
+<dd><p>Total amount of runtime taken by the program will be retrieved from this function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.iFile">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">iFile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/abstract.html#utilityPatterns.iFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.iFile" title="Link to this definition"></a></dt>
+<dd><p>Variable to store the input file path/file name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.memoryRSS">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">memoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/abstract.html#utilityPatterns.memoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.memoryRSS" title="Link to this definition"></a></dt>
+<dd><p>Variable to store RSS memory consumed by the program</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.memoryUSS">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">memoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/abstract.html#utilityPatterns.memoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.memoryUSS" title="Link to this definition"></a></dt>
+<dd><p>Variable to store USS memory consumed by the program</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.minUtil">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">minUtil</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/abstract.html#utilityPatterns.minUtil"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.minUtil" title="Link to this definition"></a></dt>
+<dd><p>Variable to store the user-specified minimum support value</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.nFile">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nFile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/abstract.html#utilityPatterns.nFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.nFile" title="Link to this definition"></a></dt>
+<dd><p>Variable to store the neighbourhood file path/file name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.oFile">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">oFile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/abstract.html#utilityPatterns.oFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.oFile" title="Link to this definition"></a></dt>
+<dd><p>Variable to store the name of the output file to store the complete set of frequent patterns</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.save">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/abstract.html#utilityPatterns.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.save" title="Link to this definition"></a></dt>
+<dd><p>Complete set of frequent patterns will be saved in to an output file from this function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>oFile</strong> (<em>csv file</em>) – Name of the output file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.startMine">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/abstract.html#utilityPatterns.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.startMine" title="Link to this definition"></a></dt>
+<dd><p>Code for the mining process will start from this function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.startTime">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">startTime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/abstract.html#utilityPatterns.startTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.startTime" title="Link to this definition"></a></dt>
+<dd><p>Variable to store the start time of the mining process</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-PAMI.highUtilitySpatialPattern">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.highUtilitySpatialPattern" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="PAMI.highUtilityPatternsInStreams.html" class="btn btn-neutral float-left" title="PAMI.highUtilityPatternsInStreams package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="PAMI.highUtilitySpatialPattern.basic.html" class="btn btn-neutral float-right" title="PAMI.highUtilitySpatialPattern.basic package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE Uday Kiran.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

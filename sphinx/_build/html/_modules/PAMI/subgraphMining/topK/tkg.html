@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.subgraphMining.topK.tkg &mdash; PAMI 2024.04.23 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=391540b0"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">PAMI</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">PAMI.subgraphMining.topK.tkg</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for PAMI.subgraphMining.topK.tkg</h1><div class="highlight"><pre>
+<span></span><span class="c1"># from PAMI.subgraphMining.topK import tkg as alg</span>
+
+<span class="c1"># obj = alg.TKG(iFile, k)</span>
+
+<span class="c1"># obj.startMine()</span>
+
+<span class="c1"># frequentGraphs = obj.getKSubgraphs()</span>
+
+<span class="c1"># memUSS = obj.getMemoryUSS()</span>
+
+<span class="c1"># obj.save(oFile)</span>
+
+<span class="c1"># print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+
+<span class="c1"># memRSS = obj.getMemoryRSS()</span>
+
+<span class="c1"># print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+
+<span class="c1"># run = obj.getRuntime()</span>
+
+<span class="c1"># print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+
+<span class="c1"># minSup = obj.getMinSupport()</span>
+
+<span class="c1"># print(&quot;Minimum support:&quot;, minSup)</span>
+
+
+<span class="kn">from</span> <span class="nn">PAMI.subgraphMining.topK</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
+
+
+<div class="viewcode-block" id="TKG">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG">[docs]</a>
+<span class="k">class</span> <span class="nc">TKG</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_TKG</span><span class="p">):</span>
+    <span class="n">ELIMINATE_INFREQUENT_VERTICES</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">ELIMINATE_INFREQUENT_VERTEX_PAIRS</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">ELIMINATE_INFREQUENT_EDGE_LABELS</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">EDGE_COUNT_PRUNING</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">DYNAMIC_SEARCH</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">THREADED_DYNAMIC_SEARCH</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iFile</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">maxNumberOfEdges</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">),</span> <span class="n">outputSingleVertices</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">outputGraphIds</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iFile</span> <span class="o">=</span> <span class="n">iFile</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outputGraphIds</span> <span class="o">=</span> <span class="n">outputGraphIds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outputSingleVertices</span> <span class="o">=</span> <span class="n">outputSingleVertices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxNumberOfEdges</span> <span class="o">=</span> <span class="n">maxNumberOfEdges</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frequentSubgraphs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">graphCount</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">patternCount</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frequentVertexLabels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">infrequentVerticesRemovedCount</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">infrequentVertexPairsRemovedCount</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">skipStrategyCount</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threadCount</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">edgeRemovedByLabel</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eliminatedWithMaxSize</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">emptyGraphsRemoved</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pruneByEdgeCount</span> <span class="o">=</span> <span class="mi">0</span>
+
+
+<div class="viewcode-block" id="TKG.startMine">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.startMine">[docs]</a>
+    <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This Python function starts a mining process on a graph database, calculates runtime, pattern count,</span>
+<span class="sd">        and memory usage metrics.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxNumberOfEdges</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">kSubgraphs</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">PriorityQueue</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">candidates</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">PriorityQueue</span><span class="p">()</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">runtime</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">graphDb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">readGraphs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iFile</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">minSup</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">gSpan</span><span class="p">(</span><span class="n">graphDb</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">outputSingleVertices</span><span class="p">)</span>
+
+        <span class="n">t2</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">runtime</span> <span class="o">=</span> <span class="n">t2</span> <span class="o">-</span> <span class="n">t1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">patternCount</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getQueueSize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kSubgraphs</span><span class="p">)</span>
+
+        <span class="n">process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span></div>
+
+
+
+
+<div class="viewcode-block" id="TKG.readGraphs">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.readGraphs">[docs]</a>
+    <span class="k">def</span> <span class="nf">readGraphs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The `readGraphs` function reads graph data from a file and constructs a list of graphs with vertices</span>
+<span class="sd">        and edges.</span>
+<span class="sd">        </span>
+<span class="sd">        :param path: This method reads the graph data from the specified file and constructs a list of graphs </span>
+<span class="sd">        represented by vertices and edges</span>
+<span class="sd">        :return: The `readGraphs` method returns a list of `_ab.Graph` objects, which represent graphs read</span>
+<span class="sd">        from the file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">br</span><span class="p">:</span>
+            <span class="n">graphDatabase</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">vMap</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">gId</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">br</span><span class="p">:</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">vMap</span><span class="p">:</span>
+                        <span class="n">graphDatabase</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">gId</span><span class="p">,</span> <span class="n">vMap</span><span class="p">))</span>
+                        <span class="n">vMap</span> <span class="o">=</span> <span class="p">{}</span>
+                    <span class="n">gId</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;v&quot;</span><span class="p">):</span>
+                    <span class="n">items</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                    <span class="n">vId</span><span class="p">,</span> <span class="n">vLabel</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                    <span class="n">vMap</span><span class="p">[</span><span class="n">vId</span><span class="p">]</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">Vertex</span><span class="p">(</span><span class="n">vId</span><span class="p">,</span> <span class="n">vLabel</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;e&quot;</span><span class="p">):</span>
+                    <span class="n">items</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                    <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">,</span> <span class="n">eLabel</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+                    <span class="n">edge</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">Edge</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">,</span> <span class="n">eLabel</span><span class="p">)</span>
+                    <span class="n">vMap</span><span class="p">[</span><span class="n">v1</span><span class="p">]</span><span class="o">.</span><span class="n">addEdge</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+                    <span class="n">vMap</span><span class="p">[</span><span class="n">v2</span><span class="p">]</span><span class="o">.</span><span class="n">addEdge</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">vMap</span><span class="p">:</span>
+                <span class="n">graphDatabase</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">gId</span><span class="p">,</span> <span class="n">vMap</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">graphCount</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">graphDatabase</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">graphDatabase</span></div>
+
+
+<div class="viewcode-block" id="TKG.save">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.save">[docs]</a>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oFile</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The `save` function writes subgraph information to a file in a specific format.</span>
+<span class="sd">        </span>
+<span class="sd">        :param oFile: The `oFile` parameter in the `save` method is the file path where the output will be</span>
+<span class="sd">        saved. This method writes the subgraphs information to the specified file in a specific format</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">subgraphsList</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSubgraphsList</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">oFile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">bw</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">subgraph</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">subgraphsList</span><span class="p">):</span>
+                <span class="n">sb</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">dfsCode</span> <span class="o">=</span> <span class="n">subgraph</span><span class="o">.</span><span class="n">dfsCode</span>
+
+                <span class="n">sb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;t # </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> * </span><span class="si">{</span><span class="n">subgraph</span><span class="o">.</span><span class="n">support</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dfsCode</span><span class="o">.</span><span class="n">eeList</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">ee</span> <span class="o">=</span> <span class="n">dfsCode</span><span class="o">.</span><span class="n">eeList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">sb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;v 0 </span><span class="si">{</span><span class="n">ee</span><span class="o">.</span><span class="n">vLabel1</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">ee</span><span class="o">.</span><span class="n">edgeLabel</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                        <span class="n">sb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;v 1 </span><span class="si">{</span><span class="n">ee</span><span class="o">.</span><span class="n">vLabel2</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="n">sb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;e 0 1 </span><span class="si">{</span><span class="n">ee</span><span class="o">.</span><span class="n">edgeLabel</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">vLabels</span> <span class="o">=</span> <span class="n">dfsCode</span><span class="o">.</span><span class="n">getAllVLabels</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">vLabel</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vLabels</span><span class="p">):</span>
+                        <span class="n">sb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;v </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">vLabel</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">ee</span> <span class="ow">in</span> <span class="n">dfsCode</span><span class="o">.</span><span class="n">eeList</span><span class="p">:</span>
+                        <span class="n">sb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;e </span><span class="si">{</span><span class="n">ee</span><span class="o">.</span><span class="n">v1</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ee</span><span class="o">.</span><span class="n">v2</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ee</span><span class="o">.</span><span class="n">edgeLabel</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">outputGraphIds</span><span class="p">:</span>
+                    <span class="n">sb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;x &quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">subgraph</span><span class="o">.</span><span class="n">setOfGraphsIds</span><span class="p">))</span>
+                <span class="n">sb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">bw</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sb</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="TKG.savePattern">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.savePattern">[docs]</a>
+    <span class="k">def</span> <span class="nf">savePattern</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subgraph</span><span class="p">):</span>        
+        <span class="c1"># previousMinSup = self.minSup</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">kSubgraphs</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">subgraph</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kSubgraphs</span><span class="o">.</span><span class="n">qsize</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">:</span>
+            <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">kSubgraphs</span><span class="o">.</span><span class="n">qsize</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">:</span>
+                <span class="n">lower</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kSubgraphs</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+                <span class="k">if</span> <span class="n">lower</span><span class="o">.</span><span class="n">support</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">minSup</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">minSup</span> <span class="o">=</span> <span class="n">lower</span><span class="o">.</span><span class="n">support</span></div>
+
+
+
+<div class="viewcode-block" id="TKG.getQueueSize">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.getQueueSize">[docs]</a>
+    <span class="k">def</span> <span class="nf">getQueueSize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">):</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">tempQueue</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">PriorityQueue</span><span class="p">()</span>
+        
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">queue</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">tempQueue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">tempQueue</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
+            <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">tempQueue</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+        
+        <span class="k">return</span> <span class="n">size</span></div>
+
+
+<div class="viewcode-block" id="TKG.subgraphIsomorphisms">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.subgraphIsomorphisms">[docs]</a>
+    <span class="k">def</span> <span class="nf">subgraphIsomorphisms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
+        <span class="n">isoms</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">startLabel</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">getEeList</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">vLabel1</span>
+        <span class="k">for</span> <span class="n">vId</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">findAllWithLabel</span><span class="p">(</span><span class="n">startLabel</span><span class="p">):</span>
+            <span class="n">isoms</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="n">vId</span><span class="p">})</span>
+        
+        <span class="k">for</span> <span class="n">ee</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">getEeList</span><span class="p">():</span>
+            <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">,</span> <span class="n">v2Label</span><span class="p">,</span> <span class="n">eLabel</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">v1</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">v2</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">vLabel2</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">edgeLabel</span>
+            <span class="n">updateIsoms</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">iso</span> <span class="ow">in</span> <span class="n">isoms</span><span class="p">:</span>
+                <span class="n">mappedV1</span> <span class="o">=</span> <span class="n">iso</span><span class="p">[</span><span class="n">v1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">v1</span> <span class="o">&lt;</span> <span class="n">v2</span><span class="p">:</span>
+                    <span class="n">mappedVertices</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">iso</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+                    <span class="k">for</span> <span class="n">mappedV2</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">getAllNeighbors</span><span class="p">(</span><span class="n">mappedV1</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="n">v2Label</span> <span class="o">==</span> <span class="n">mappedV2</span><span class="o">.</span><span class="n">getLabel</span><span class="p">()</span> <span class="ow">and</span> <span class="n">mappedV2</span><span class="o">.</span><span class="n">getId</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mappedVertices</span> <span class="ow">and</span> <span class="n">eLabel</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">getEdgeLabel</span><span class="p">(</span><span class="n">mappedV1</span><span class="p">,</span> <span class="n">mappedV2</span><span class="o">.</span><span class="n">getId</span><span class="p">()):</span>
+                            <span class="n">tempIso</span> <span class="o">=</span> <span class="n">iso</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                            <span class="n">tempIso</span><span class="p">[</span><span class="n">v2</span><span class="p">]</span> <span class="o">=</span> <span class="n">mappedV2</span><span class="o">.</span><span class="n">getId</span><span class="p">()</span>
+                            <span class="n">updateIsoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tempIso</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">mappedV2</span> <span class="o">=</span> <span class="n">iso</span><span class="p">[</span><span class="n">v2</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">isNeighboring</span><span class="p">(</span><span class="n">mappedV1</span><span class="p">,</span> <span class="n">mappedV2</span><span class="p">)</span> <span class="ow">and</span> <span class="n">eLabel</span> <span class="o">==</span> <span class="n">g</span><span class="o">.</span><span class="n">getEdgeLabel</span><span class="p">(</span><span class="n">mappedV1</span><span class="p">,</span> <span class="n">mappedV2</span><span class="p">):</span>
+                        <span class="n">updateIsoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">iso</span><span class="p">)</span>
+            <span class="n">isoms</span> <span class="o">=</span> <span class="n">updateIsoms</span>
+        <span class="k">return</span> <span class="n">isoms</span></div>
+
+
+
+
+<div class="viewcode-block" id="TKG.rightMostPathExtensionsFromSingle">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.rightMostPathExtensionsFromSingle">[docs]</a>
+    <span class="k">def</span> <span class="nf">rightMostPathExtensionsFromSingle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
+        <span class="n">gid</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">getId</span><span class="p">()</span>
+        <span class="n">extensions</span> <span class="o">=</span> <span class="p">{}</span>
+    
+        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">vertices</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">vertex</span><span class="o">.</span><span class="n">getEdgeList</span><span class="p">():</span>
+                    <span class="n">v1Label</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">getVLabel</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">v1</span><span class="p">)</span>
+                    <span class="n">v2Label</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">getVLabel</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">v2</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">v1Label</span> <span class="o">&lt;</span> <span class="n">v2Label</span><span class="p">:</span>
+                        <span class="n">ee1</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">ExtendedEdge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">v1Label</span><span class="p">,</span> <span class="n">v2Label</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">getEdgeLabel</span><span class="p">())</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">ee1</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">ExtendedEdge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">v2Label</span><span class="p">,</span> <span class="n">v1Label</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">getEdgeLabel</span><span class="p">())</span>
+                    <span class="n">extensions</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">ee1</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gid</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rightMost</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">getRightMost</span><span class="p">()</span>
+            <span class="n">isoms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subgraphIsomorphisms</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">iso</span> <span class="ow">in</span> <span class="n">isoms</span><span class="p">:</span>
+                <span class="n">invertedIsom</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">iso</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+                <span class="n">mappedRm</span> <span class="o">=</span> <span class="n">iso</span><span class="p">[</span><span class="n">rightMost</span><span class="p">]</span>
+                <span class="n">mappedRmLabel</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">getVLabel</span><span class="p">(</span><span class="n">mappedRm</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">getAllNeighbors</span><span class="p">(</span><span class="n">mappedRm</span><span class="p">):</span>
+                    <span class="n">invertedX</span> <span class="o">=</span> <span class="n">invertedIsom</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">getId</span><span class="p">())</span>
+                    <span class="k">if</span> <span class="n">invertedX</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">c</span><span class="o">.</span><span class="n">onRightMostPath</span><span class="p">(</span><span class="n">invertedX</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">containEdge</span><span class="p">(</span><span class="n">rightMost</span><span class="p">,</span> <span class="n">invertedX</span><span class="p">):</span>
+                        <span class="n">ee</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">ExtendedEdge</span><span class="p">(</span><span class="n">rightMost</span><span class="p">,</span> <span class="n">invertedX</span><span class="p">,</span> <span class="n">mappedRmLabel</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">getLabel</span><span class="p">(),</span> <span class="n">g</span><span class="o">.</span><span class="n">getEdgeLabel</span><span class="p">(</span><span class="n">mappedRm</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">getId</span><span class="p">()))</span>
+                        <span class="n">extensions</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">ee</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gid</span><span class="p">)</span>
+                <span class="n">mappedVertices</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">iso</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">getRightMostPath</span><span class="p">():</span>
+                    <span class="n">mappedV</span> <span class="o">=</span> <span class="n">iso</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+                    <span class="n">mappedVLabel</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">getVLabel</span><span class="p">(</span><span class="n">mappedV</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">getAllNeighbors</span><span class="p">(</span><span class="n">mappedV</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">getId</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mappedVertices</span><span class="p">:</span>
+                            <span class="n">ee</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">ExtendedEdge</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">rightMost</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mappedVLabel</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">getLabel</span><span class="p">(),</span> <span class="n">g</span><span class="o">.</span><span class="n">getEdgeLabel</span><span class="p">(</span><span class="n">mappedV</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">getId</span><span class="p">()))</span>
+                            <span class="n">extensions</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">ee</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gid</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">extensions</span></div>
+
+
+<div class="viewcode-block" id="TKG.rightMostPathExtensions">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.rightMostPathExtensions">[docs]</a>
+    <span class="k">def</span> <span class="nf">rightMostPathExtensions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">graphDB</span><span class="p">,</span> <span class="n">graphIds</span><span class="p">):</span>
+        <span class="n">extensions</span> <span class="o">=</span> <span class="p">{}</span>
+    
+        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">graphId</span> <span class="ow">in</span> <span class="n">graphIds</span><span class="p">:</span>
+                <span class="n">g</span> <span class="o">=</span> <span class="n">graphDB</span><span class="p">[</span><span class="n">graphId</span><span class="p">]</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">EDGE_COUNT_PRUNING</span> <span class="ow">and</span> <span class="n">c</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;=</span> <span class="n">g</span><span class="o">.</span><span class="n">getEdgeCount</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">pruneByEdgeCount</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">continue</span>
+                <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">vertices</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">vertex</span><span class="o">.</span><span class="n">getEdgeList</span><span class="p">():</span>
+                        <span class="n">v1Label</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">getVLabel</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">v1</span><span class="p">)</span>
+                        <span class="n">v2Label</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">getVLabel</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">v2</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">v1Label</span> <span class="o">&lt;</span> <span class="n">v2Label</span><span class="p">:</span>
+                            <span class="n">ee1</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">ExtendedEdge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">v1Label</span><span class="p">,</span> <span class="n">v2Label</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">getEdgeLabel</span><span class="p">())</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">ee1</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">ExtendedEdge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">v2Label</span><span class="p">,</span> <span class="n">v1Label</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">getEdgeLabel</span><span class="p">())</span>
+                        <span class="n">extensions</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">ee1</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">graphId</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rightMost</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">getRightMost</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">graphId</span> <span class="ow">in</span> <span class="n">graphIds</span><span class="p">:</span>
+                <span class="n">g</span> <span class="o">=</span> <span class="n">graphDB</span><span class="p">[</span><span class="n">graphId</span><span class="p">]</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">EDGE_COUNT_PRUNING</span> <span class="ow">and</span> <span class="n">c</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;=</span> <span class="n">g</span><span class="o">.</span><span class="n">getEdgeCount</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">pruneByEdgeCount</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">continue</span>
+                <span class="n">isoms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subgraphIsomorphisms</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">isom</span> <span class="ow">in</span> <span class="n">isoms</span><span class="p">:</span>
+                    <span class="n">invertedIsom</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">isom</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+                    <span class="n">mappedRm</span> <span class="o">=</span> <span class="n">isom</span><span class="p">[</span><span class="n">rightMost</span><span class="p">]</span>
+                    <span class="n">mappedRmLabel</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">getVLabel</span><span class="p">(</span><span class="n">mappedRm</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">getAllNeighbors</span><span class="p">(</span><span class="n">mappedRm</span><span class="p">):</span>
+                        <span class="n">invertedX</span> <span class="o">=</span> <span class="n">invertedIsom</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">getId</span><span class="p">())</span>
+                        <span class="k">if</span> <span class="n">invertedX</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">c</span><span class="o">.</span><span class="n">onRightMostPath</span><span class="p">(</span><span class="n">invertedX</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">containEdge</span><span class="p">(</span><span class="n">rightMost</span><span class="p">,</span> <span class="n">invertedX</span><span class="p">):</span>
+                            <span class="n">ee</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">ExtendedEdge</span><span class="p">(</span><span class="n">rightMost</span><span class="p">,</span> <span class="n">invertedX</span><span class="p">,</span> <span class="n">mappedRmLabel</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">getLabel</span><span class="p">(),</span> <span class="n">g</span><span class="o">.</span><span class="n">getEdgeLabel</span><span class="p">(</span><span class="n">mappedRm</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">getId</span><span class="p">()))</span>
+                            <span class="n">extensions</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">ee</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">getId</span><span class="p">())</span>
+                    <span class="n">mappedVertices</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">isom</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+                    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">getRightMostPath</span><span class="p">():</span>
+                        <span class="n">mappedV</span> <span class="o">=</span> <span class="n">isom</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+                        <span class="n">mappedVLabel</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">getVLabel</span><span class="p">(</span><span class="n">mappedV</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">getAllNeighbors</span><span class="p">(</span><span class="n">mappedV</span><span class="p">):</span>
+                            <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">getId</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mappedVertices</span><span class="p">:</span>
+                                <span class="n">ee</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">ExtendedEdge</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">rightMost</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mappedVLabel</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">getLabel</span><span class="p">(),</span> <span class="n">g</span><span class="o">.</span><span class="n">getEdgeLabel</span><span class="p">(</span><span class="n">mappedV</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">getId</span><span class="p">()))</span>
+                                <span class="n">extensions</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">ee</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">getId</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">extensions</span></div>
+
+
+
+
+<div class="viewcode-block" id="TKG.gSpan">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.gSpan">[docs]</a>
+    <span class="k">def</span> <span class="nf">gSpan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graphDB</span><span class="p">,</span> <span class="n">outputFrequentVertices</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">outputFrequentVertices</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">ELIMINATE_INFREQUENT_VERTICES</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">findAllOnlyOneVertex</span><span class="p">(</span><span class="n">graphDB</span><span class="p">,</span> <span class="n">outputFrequentVertices</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">graphDB</span><span class="p">:</span>
+            <span class="n">g</span><span class="o">.</span><span class="n">precalculateVertexList</span><span class="p">()</span>
+    
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ELIMINATE_INFREQUENT_VERTEX_PAIRS</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">ELIMINATE_INFREQUENT_EDGE_LABELS</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">removeInfrequentVertexPairs</span><span class="p">(</span><span class="n">graphDB</span><span class="p">)</span>
+    
+        <span class="n">graphIds</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">graphDB</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">vertices</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">infrequentVerticesRemovedCount</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">g</span><span class="o">.</span><span class="n">precalculateVertexList</span><span class="p">()</span>
+    
+                <span class="n">graphIds</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">g</span><span class="o">.</span><span class="n">precalculateVertexNeighbors</span><span class="p">()</span>
+                <span class="n">g</span><span class="o">.</span><span class="n">precalculateLabelsToVertices</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">emptyGraphsRemoved</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">outputFrequentVertices</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequentVertexLabels</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">DYNAMIC_SEARCH</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gspanDynamicDFS</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">DfsCode</span><span class="p">(),</span> <span class="n">graphDB</span><span class="p">,</span> <span class="n">graphIds</span><span class="p">)</span>
+                
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">THREADED_DYNAMIC_SEARCH</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">startThreads</span><span class="p">(</span><span class="n">graphDB</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">candidates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minSup</span><span class="p">)</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">candidates</span><span class="p">:</span>
+                        <span class="n">candidate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">candidates</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidate</span><span class="o">.</span><span class="n">setOfGraphsIds</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">minSup</span><span class="p">:</span>
+                            <span class="k">continue</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">gspanDynamicDFS</span><span class="p">(</span><span class="n">candidate</span><span class="o">.</span><span class="n">dfsCode</span><span class="p">,</span> <span class="n">graphDB</span><span class="p">,</span> <span class="n">candidate</span><span class="o">.</span><span class="n">setOfGraphsIds</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gspanDfs</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">DfsCode</span><span class="p">(),</span> <span class="n">graphDB</span><span class="p">,</span> <span class="n">graphIds</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TKG.startThreads">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.startThreads">[docs]</a>
+    <span class="k">def</span> <span class="nf">startThreads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graphDB</span><span class="p">,</span> <span class="n">candidates</span><span class="p">,</span> <span class="n">minSup</span><span class="p">):</span>
+        <span class="n">threads</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">threadCount</span><span class="p">):</span>
+            <span class="n">thread</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">DfsThread</span><span class="p">(</span><span class="n">graphDB</span><span class="p">,</span> <span class="n">candidates</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+            <span class="n">threads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">thread</span><span class="p">)</span>
+    
+        <span class="k">for</span> <span class="n">thread</span> <span class="ow">in</span> <span class="n">threads</span><span class="p">:</span>
+            <span class="n">thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="TKG.gspanDfs">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.gspanDfs">[docs]</a>
+    <span class="k">def</span> <span class="nf">gspanDfs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="n">_ab</span><span class="o">.</span><span class="n">DfsCode</span><span class="p">,</span> <span class="n">graphDB</span><span class="p">,</span> <span class="n">subgraphId</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxNumberOfEdges</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">extensions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rightMostPathExtensions</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">graphDB</span><span class="p">,</span> <span class="n">subgraphId</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">extension</span><span class="p">,</span> <span class="n">newGraphIds</span> <span class="ow">in</span> <span class="n">extensions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">sup</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">newGraphIds</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">sup</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">minSup</span><span class="p">:</span>
+                <span class="n">newC</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">newC</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">extension</span><span class="p">)</span>
+    
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isCanonical</span><span class="p">(</span><span class="n">newC</span><span class="p">):</span>
+                    <span class="n">subgraph</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">FrequentSubgraph</span><span class="p">(</span><span class="n">newC</span><span class="p">,</span> <span class="n">newGraphIds</span><span class="p">,</span> <span class="n">sup</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">frequentSubgraphs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subgraph</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">gspanDfs</span><span class="p">(</span><span class="n">newC</span><span class="p">,</span> <span class="n">graphDB</span><span class="p">,</span> <span class="n">newGraphIds</span><span class="p">)</span></div>
+
+
+    
+<div class="viewcode-block" id="TKG.gspanDynamicDFS">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.gspanDynamicDFS">[docs]</a>
+    <span class="k">def</span> <span class="nf">gspanDynamicDFS</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">graphDB</span><span class="p">,</span> <span class="n">graphIds</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxNumberOfEdges</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">extensions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rightMostPathExtensions</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">graphDB</span><span class="p">,</span> <span class="n">graphIds</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">extension</span><span class="p">,</span> <span class="n">newGraphIds</span> <span class="ow">in</span> <span class="n">extensions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">support</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">newGraphIds</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">support</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">minSup</span><span class="p">:</span>
+                <span class="n">newC</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">newC</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">extension</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isCanonical</span><span class="p">(</span><span class="n">newC</span><span class="p">):</span>
+                    <span class="n">subgraph</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">FrequentSubgraph</span><span class="p">(</span><span class="n">newC</span><span class="p">,</span> <span class="n">newGraphIds</span><span class="p">,</span> <span class="n">support</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">savePattern</span><span class="p">(</span><span class="n">subgraph</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">registerAsCandidate</span><span class="p">(</span><span class="n">subgraph</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="TKG.registerAsCandidate">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.registerAsCandidate">[docs]</a>
+    <span class="k">def</span> <span class="nf">registerAsCandidate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subgraph</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">candidates</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="o">-</span><span class="n">subgraph</span><span class="o">.</span><span class="n">support</span><span class="p">,</span> <span class="n">subgraph</span><span class="p">))</span></div>
+
+
+    
+<div class="viewcode-block" id="TKG.isCanonical">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.isCanonical">[docs]</a>
+    <span class="k">def</span> <span class="nf">isCanonical</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="n">_ab</span><span class="o">.</span><span class="n">DfsCode</span><span class="p">):</span>
+        <span class="n">canC</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">DfsCode</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+            <span class="n">extensions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rightMostPathExtensionsFromSingle</span><span class="p">(</span><span class="n">canC</span><span class="p">,</span> <span class="n">_ab</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+            <span class="n">minEe</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">ee</span> <span class="ow">in</span> <span class="n">extensions</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">minEe</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ee</span><span class="o">.</span><span class="n">smallerThan</span><span class="p">(</span><span class="n">minEe</span><span class="p">):</span>
+                    <span class="n">minEe</span> <span class="o">=</span> <span class="n">ee</span>
+
+            <span class="k">if</span> <span class="n">minEe</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">minEe</span><span class="o">.</span><span class="n">smallerThan</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">getAt</span><span class="p">(</span><span class="n">i</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            
+            <span class="k">if</span> <span class="n">minEe</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">canC</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">minEe</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+
+<div class="viewcode-block" id="TKG.Pair">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.Pair">[docs]</a>
+    <span class="k">class</span> <span class="nc">Pair</span><span class="p">:</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">y</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
+
+        <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">TKG</span><span class="o">.</span><span class="n">Pair</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">x</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">y</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">100</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span></div>
+
+
+
+<div class="viewcode-block" id="TKG.findAllOnlyOneVertex">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.findAllOnlyOneVertex">[docs]</a>
+    <span class="k">def</span> <span class="nf">findAllOnlyOneVertex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graphDB</span><span class="p">,</span> <span class="n">outputFrequentVertices</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frequentVertexLabels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">labelM</span> <span class="o">=</span> <span class="p">{}</span> 
+        <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">graphDB</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">getNonPrecalculatedAllVertices</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">getEdgeList</span><span class="p">():</span>
+                    <span class="n">vLabel</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">getLabel</span><span class="p">()</span>
+                    <span class="n">labelM</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">vLabel</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">getId</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">tempSupG</span> <span class="ow">in</span> <span class="n">labelM</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>                
+            <span class="n">sup</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tempSupG</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">sup</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">minSup</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">frequentVertexLabels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">outputFrequentVertices</span><span class="p">:</span>
+                    <span class="n">tempD</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">DfsCode</span><span class="p">()</span>
+                    <span class="n">tempD</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">ExtendedEdge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">frequentSubgraphs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">FrequentSubgraph</span><span class="p">(</span><span class="n">tempD</span><span class="p">,</span> <span class="n">tempSupG</span><span class="p">,</span> <span class="n">sup</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">TKG</span><span class="o">.</span><span class="n">ELIMINATE_INFREQUENT_VERTICES</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">graphId</span> <span class="ow">in</span> <span class="n">tempSupG</span><span class="p">:</span>
+                    <span class="n">g</span> <span class="o">=</span> <span class="n">graphDB</span><span class="p">[</span><span class="n">graphId</span><span class="p">]</span>
+                    <span class="n">g</span><span class="o">.</span><span class="n">removeInfrequentLabel</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">infrequentVerticesRemovedCount</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="TKG.removeInfrequentVertexPairs">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.removeInfrequentVertexPairs">[docs]</a>
+    <span class="k">def</span> <span class="nf">removeInfrequentVertexPairs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graphDB</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">TKG</span><span class="o">.</span><span class="n">ELIMINATE_INFREQUENT_EDGE_LABELS</span><span class="p">:</span>
+            <span class="n">matrix</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">SparseTriangularMatrix</span><span class="p">()</span>
+            <span class="n">alreadySeenPair</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">TKG</span><span class="o">.</span><span class="n">ELIMINATE_INFREQUENT_EDGE_LABELS</span><span class="p">:</span>
+            <span class="n">mapEdgeLabelToSupport</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">alreadySeenEdgeLabel</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">graphDB</span><span class="p">:</span>
+            <span class="n">vertices</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">getAllVertices</span><span class="p">()</span>
+
+            <span class="k">for</span> <span class="n">v1</span> <span class="ow">in</span> <span class="n">vertices</span><span class="p">:</span>
+                <span class="n">labelV1</span> <span class="o">=</span> <span class="n">v1</span><span class="o">.</span><span class="n">getLabel</span><span class="p">()</span>
+
+                <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">v1</span><span class="o">.</span><span class="n">getEdgeList</span><span class="p">():</span>
+                    <span class="n">v2</span> <span class="o">=</span> <span class="n">edge</span><span class="o">.</span><span class="n">another</span><span class="p">(</span><span class="n">v1</span><span class="o">.</span><span class="n">getId</span><span class="p">())</span>
+                    <span class="n">labelV2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">getVLabel</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">TKG</span><span class="o">.</span><span class="n">ELIMINATE_INFREQUENT_EDGE_LABELS</span><span class="p">:</span>
+                        <span class="n">pair</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Pair</span><span class="p">(</span><span class="n">labelV1</span><span class="p">,</span> <span class="n">labelV2</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">pair</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">alreadySeenPair</span><span class="p">:</span>
+                            <span class="n">matrix</span><span class="o">.</span><span class="n">incrementCount</span><span class="p">(</span><span class="n">labelV1</span><span class="p">,</span> <span class="n">labelV2</span><span class="p">)</span>
+                            <span class="n">alreadySeenPair</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">TKG</span><span class="o">.</span><span class="n">ELIMINATE_INFREQUENT_EDGE_LABELS</span><span class="p">:</span>
+                        <span class="n">edgeLabel</span> <span class="o">=</span> <span class="n">edge</span><span class="o">.</span><span class="n">getEdgeLabel</span><span class="p">()</span>
+                        <span class="k">if</span> <span class="n">edgeLabel</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">alreadySeenEdgeLabel</span><span class="p">:</span>
+                            <span class="n">alreadySeenEdgeLabel</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">edgeLabel</span><span class="p">)</span>
+                            <span class="n">edgeSupport</span> <span class="o">=</span> <span class="n">mapEdgeLabelToSupport</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">edgeLabel</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                            <span class="n">mapEdgeLabelToSupport</span><span class="p">[</span><span class="n">edgeLabel</span><span class="p">]</span> <span class="o">=</span> <span class="n">edgeSupport</span> <span class="o">+</span> <span class="mi">1</span>
+
+            <span class="k">if</span> <span class="n">TKG</span><span class="o">.</span><span class="n">ELIMINATE_INFREQUENT_VERTEX_PAIRS</span><span class="p">:</span>
+                <span class="n">alreadySeenPair</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">TKG</span><span class="o">.</span><span class="n">ELIMINATE_INFREQUENT_EDGE_LABELS</span><span class="p">:</span>
+                <span class="n">alreadySeenEdgeLabel</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">TKG</span><span class="o">.</span><span class="n">ELIMINATE_INFREQUENT_VERTEX_PAIRS</span><span class="p">:</span>
+            <span class="n">matrix</span><span class="o">.</span><span class="n">removeInfrequentEntriesFromMatrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minSup</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">TKG</span><span class="o">.</span><span class="n">ELIMINATE_INFREQUENT_VERTEX_PAIRS</span> <span class="ow">or</span> <span class="n">TKG</span><span class="o">.</span><span class="n">ELIMINATE_INFREQUENT_EDGE_LABELS</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">graphDB</span><span class="p">:</span>
+                <span class="n">vertices</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">getAllVertices</span><span class="p">()</span>
+
+                <span class="k">for</span> <span class="n">v1</span> <span class="ow">in</span> <span class="n">vertices</span><span class="p">:</span>
+                    <span class="n">iterEdges</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">v1</span><span class="o">.</span><span class="n">getEdgeList</span><span class="p">())</span>
+                    <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">iterEdges</span><span class="p">:</span>
+                        <span class="n">v2</span> <span class="o">=</span> <span class="n">edge</span><span class="o">.</span><span class="n">another</span><span class="p">(</span><span class="n">v1</span><span class="o">.</span><span class="n">getId</span><span class="p">())</span>
+                        <span class="n">labelV2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">getVLabel</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span>
+                        <span class="n">count</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">getSupportForItems</span><span class="p">(</span><span class="n">v1</span><span class="o">.</span><span class="n">getLabel</span><span class="p">(),</span> <span class="n">labelV2</span><span class="p">)</span>
+
+                        <span class="k">if</span> <span class="n">TKG</span><span class="o">.</span><span class="n">ELIMINATE_INFREQUENT_VERTEX_PAIRS</span> <span class="ow">and</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">minSup</span><span class="p">:</span>
+                            <span class="n">v1</span><span class="o">.</span><span class="n">removeEdge</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">infrequentVertexPairsRemoved</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                        <span class="k">elif</span> <span class="n">TKG</span><span class="o">.</span><span class="n">ELIMINATE_INFREQUENT_EDGE_LABELS</span> <span class="ow">and</span> \
+                                <span class="n">mapEdgeLabelToSupport</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">edge</span><span class="o">.</span><span class="n">getEdgeLabel</span><span class="p">(),</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">minSup</span><span class="p">:</span>
+                            <span class="n">v1</span><span class="o">.</span><span class="n">removeEdge</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">edgeRemovedByLabel</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="TKG.getMemoryRSS">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.getMemoryRSS">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span></div>
+
+
+<div class="viewcode-block" id="TKG.getMemoryUSS">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.getMemoryUSS">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span></div>
+
+
+<div class="viewcode-block" id="TKG.getRuntime">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.getRuntime">[docs]</a>
+    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">runtime</span></div>
+
+    
+<div class="viewcode-block" id="TKG.getMinSupport">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.getMinSupport">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMinSupport</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">minSup</span></div>
+
+    
+<div class="viewcode-block" id="TKG.getKSubgraphs">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.getKSubgraphs">[docs]</a>
+    <span class="k">def</span> <span class="nf">getKSubgraphs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">subgraphsList</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSubgraphsList</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">subgraph</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">subgraphsList</span><span class="p">):</span>
+            <span class="n">sb</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">dfsCode</span> <span class="o">=</span> <span class="n">subgraph</span><span class="o">.</span><span class="n">dfsCode</span>
+
+            <span class="n">sb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;t # </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> * </span><span class="si">{</span><span class="n">subgraph</span><span class="o">.</span><span class="n">support</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dfsCode</span><span class="o">.</span><span class="n">eeList</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">ee</span> <span class="o">=</span> <span class="n">dfsCode</span><span class="o">.</span><span class="n">eeList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">sb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;v 0 </span><span class="si">{</span><span class="n">ee</span><span class="o">.</span><span class="n">vLabel1</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">ee</span><span class="o">.</span><span class="n">edgeLabel</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                    <span class="n">sb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;v 1 </span><span class="si">{</span><span class="n">ee</span><span class="o">.</span><span class="n">vLabel2</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">sb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;e 0 1 </span><span class="si">{</span><span class="n">ee</span><span class="o">.</span><span class="n">edgeLabel</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">vLabels</span> <span class="o">=</span> <span class="n">dfsCode</span><span class="o">.</span><span class="n">getAllVLabels</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">vLabel</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vLabels</span><span class="p">):</span>
+                    <span class="n">sb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;v </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">vLabel</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">ee</span> <span class="ow">in</span> <span class="n">dfsCode</span><span class="o">.</span><span class="n">eeList</span><span class="p">:</span>
+                    <span class="n">sb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;e </span><span class="si">{</span><span class="n">ee</span><span class="o">.</span><span class="n">v1</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ee</span><span class="o">.</span><span class="n">v2</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ee</span><span class="o">.</span><span class="n">edgeLabel</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">outputGraphIds</span><span class="p">:</span>
+                <span class="n">sb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;x &quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">subgraph</span><span class="o">.</span><span class="n">setOfGraphsIds</span><span class="p">))</span>
+            <span class="n">sb</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sb</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="TKG.getSubgraphs">
+<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.tkg.TKG.getSubgraphs">[docs]</a>
+    <span class="k">def</span> <span class="nf">getSubgraphs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates a copy of the queue&#39;s contents without emptying the original queue.&quot;&quot;&quot;</span>
+        <span class="n">subgraphsList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kSubgraphs</span><span class="o">.</span><span class="n">queue</span><span class="p">)</span>
+        <span class="n">subgraphsList</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">sg</span><span class="p">:</span> <span class="n">sg</span><span class="o">.</span><span class="n">support</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">subgraphsList</span></div>
+</div>
+
+
+
+    
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE Uday Kiran.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

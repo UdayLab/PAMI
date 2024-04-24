@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.georeferencedFrequentPattern.basic.SpatialECLAT &mdash; PAMI 2024.04.23 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=391540b0"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">PAMI</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">PAMI.georeferencedFrequentPattern.basic.SpatialECLAT</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for PAMI.georeferencedFrequentPattern.basic.SpatialECLAT</h1><div class="highlight"><pre>
+<span></span><span class="c1">#  SpatialEclat is an Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up</span>
+<span class="c1">#  Lattice Traversal.It is one of the popular methods of Association Rule mining. It is a more efficient and</span>
+<span class="c1">#  scalable version of the Apriori algorithm.</span>
+<span class="c1">#</span>
+<span class="c1">#  **Importing this algorithm into a python program**</span>
+<span class="c1">#  ---------------------------------------------------</span>
+<span class="c1">#</span>
+<span class="c1">#             from PAMI.georeferencedFrequentPattern.basic import SpatialECLAT as alg</span>
+<span class="c1">#</span>
+<span class="c1">#             obj = alg.SpatialECLAT(&quot;sampleTDB.txt&quot;, &quot;sampleN.txt&quot;, 5)</span>
+<span class="c1">#</span>
+<span class="c1">#             obj.mine()</span>
+<span class="c1">#</span>
+<span class="c1">#             spatialFrequentPatterns = obj.getPatterns()</span>
+<span class="c1">#</span>
+<span class="c1">#             print(&quot;Total number of Spatial Frequent Patterns:&quot;, len(spatialFrequentPatterns))</span>
+<span class="c1">#</span>
+<span class="c1">#             obj.save(&quot;outFile&quot;)</span>
+<span class="c1">#</span>
+<span class="c1">#             memUSS = obj.getMemoryUSS()</span>
+<span class="c1">#</span>
+<span class="c1">#             print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="c1">#</span>
+<span class="c1">#             memRSS = obj.getMemoryRSS()</span>
+<span class="c1">#</span>
+<span class="c1">#             print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="c1">#</span>
+<span class="c1">#             run = obj.getRuntime()</span>
+<span class="c1">#</span>
+<span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
+
+
+
+
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Copyright (C)  2021 Rage Uday Kiran</span>
+
+<span class="s2">     This program is free software: you can redistribute it and/or modify</span>
+<span class="s2">     it under the terms of the GNU General Public License as published by</span>
+<span class="s2">     the Free Software Foundation, either version 3 of the License, or</span>
+<span class="s2">     (at your option) any later version.</span>
+
+<span class="s2">     This program is distributed in the hope that it will be useful,</span>
+<span class="s2">     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="s2">     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="s2">     GNU General Public License for more details.</span>
+
+<span class="s2">     You should have received a copy of the GNU General Public License</span>
+<span class="s2">     along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="s2">     Copyright (C)  2021 Rage Uday Kiran</span>
+
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">PAMI.georeferencedFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
+<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
+
+
+<div class="viewcode-block" id="SpatialECLAT">
+<a class="viewcode-back" href="../../../../PAMI.georeferencedFrequentPattern.basic.html#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT">[docs]</a>
+<span class="k">class</span> <span class="nc">SpatialECLAT</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_spatialFrequentPatterns</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :Description:   Spatial Eclat is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up</span>
+<span class="sd">                    Lattice Traversal.It is one of the popular methods of Association Rule mining. It is a more efficient and</span>
+<span class="sd">                    scalable version of the Apriori algorithm.</span>
+
+<span class="sd">    :Reference:   Rage, Uday &amp; Fournier Viger, Philippe &amp; Zettsu, Koji &amp; Toyoda, Masashi &amp; Kitsuregawa, Masaru. (2020).</span>
+<span class="sd">                  Discovering Frequent Spatial Patterns in Very Large Spatiotemporal Databases.</span>
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of Geo-referenced frequent patterns</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of Geo-referenced frequent patterns</span>
+<span class="sd">    :param  minSup: int or float or str :</span>
+<span class="sd">                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.</span>
+<span class="sd">    :param maxPer: float :</span>
+<span class="sd">                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.</span>
+<span class="sd">    :param nFile: str :</span>
+<span class="sd">                   Name of the input file to mine complete set of Geo-referenced frequent patterns</span>
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
+
+<span class="sd">    :Attributes:</span>
+
+<span class="sd">        iFile : str</span>
+<span class="sd">            Input file name or path of the input file</span>
+<span class="sd">        nFile : str</span>
+<span class="sd">            Name of Neighbourhood file name</span>
+<span class="sd">        minSup : int or float or str</span>
+<span class="sd">            The user can specify minSup either in count or proportion of database size.</span>
+<span class="sd">            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.</span>
+<span class="sd">            Otherwise, it will be treated as float.</span>
+<span class="sd">            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float</span>
+<span class="sd">        startTime : float</span>
+<span class="sd">            To record the start time of the mining process</span>
+<span class="sd">        endTime : float</span>
+<span class="sd">            To record the completion time of the mining process</span>
+<span class="sd">        finalPatterns : dict</span>
+<span class="sd">            Storing the complete set of patterns in a dictionary variable</span>
+<span class="sd">        oFile : str</span>
+<span class="sd">            Name of the output file to store complete set of frequent patterns</span>
+<span class="sd">        memoryUSS : float</span>
+<span class="sd">            To store the total amount of USS memory consumed by the program</span>
+<span class="sd">        memoryRSS : float</span>
+<span class="sd">            To store the total amount of RSS memory consumed by the program</span>
+<span class="sd">        Database : list</span>
+<span class="sd">            To store the complete set of transactions available in the input database/file</span>
+
+<span class="sd">    :Methods:</span>
+
+<span class="sd">        mine()</span>
+<span class="sd">            Mining process will start from here</span>
+<span class="sd">        getPatterns()</span>
+<span class="sd">            Complete set of patterns will be retrieved with this function</span>
+<span class="sd">        save(oFile)</span>
+<span class="sd">            Complete set of frequent patterns will be loaded in to a output file</span>
+<span class="sd">        getPatternsAsDataFrame()</span>
+<span class="sd">            Complete set of frequent patterns will be loaded in to a dataframe</span>
+<span class="sd">        getMemoryUSS()</span>
+<span class="sd">            Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
+<span class="sd">        getMemoryRSS()</span>
+<span class="sd">            Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
+<span class="sd">        getRuntime()</span>
+<span class="sd">            Total amount of runtime taken by the mining process will be retrieved from this function</span>
+<span class="sd">        creatingItemSets(iFileName)</span>
+<span class="sd">            Storing the complete transactions of the database/input file in a database variable</span>
+<span class="sd">        frequentOneItem()</span>
+<span class="sd">            Generating one frequent patterns</span>
+<span class="sd">        dictKeysToInt(iList)</span>
+<span class="sd">            Converting dictionary keys to integer elements</span>
+<span class="sd">        eclatGeneration(cList)</span>
+<span class="sd">            It will generate the combinations of frequent items</span>
+<span class="sd">        generateSpatialFrequentPatterns(tidList)</span>
+<span class="sd">            It will generate the combinations of frequent items from a list of items</span>
+<span class="sd">        convert(value)</span>
+<span class="sd">            To convert the given user specified value    </span>
+<span class="sd">        getNeighbourItems(keySet)</span>
+<span class="sd">            A function to get common neighbours of a itemSet</span>
+<span class="sd">        mapNeighbours(file)</span>
+<span class="sd">            A function to map items to their neighbours</span>
+
+<span class="sd">    **Executing the code on terminal :**</span>
+<span class="sd">    ----------------------------------------</span>
+
+<span class="sd">    .. code-block:: console</span>
+
+<span class="sd">      Format:</span>
+
+<span class="sd">      (.venv) $ python3 SpatialECLAT.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;neighbourFile&gt; &lt;minSup&gt;</span>
+
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3 SpatialECLAT.py sampleTDB.txt output.txt sampleN.txt 0.5</span>
+
+<span class="sd">    .. note:: minSup will be considered in percentage of database transactions</span>
+
+
+
+<span class="sd">    **Sample run of importing the code :**</span>
+<span class="sd">    ------------------------------------------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        from PAMI.georeferencedFrequentPattern.basic import SpatialECLAT as alg</span>
+<span class="sd">        </span>
+<span class="sd">        obj = alg.SpatialECLAT(&quot;sampleTDB.txt&quot;, &quot;sampleN.txt&quot;, 5)</span>
+
+<span class="sd">        obj.mine()</span>
+
+<span class="sd">        spatialFrequentPatterns = obj.getPatterns()</span>
+
+<span class="sd">        print(&quot;Total number of Spatial Frequent Patterns:&quot;, len(spatialFrequentPatterns))</span>
+
+<span class="sd">        obj.save(&quot;outFile&quot;)</span>
+
+<span class="sd">        memUSS = obj.getMemoryUSS()</span>
+
+<span class="sd">        print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+
+<span class="sd">        memRSS = obj.getMemoryRSS()</span>
+
+<span class="sd">        print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+
+<span class="sd">        run = obj.getRuntime()</span>
+
+<span class="sd">        print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+
+
+<span class="sd">    **Credits:**</span>
+<span class="sd">    ----------------</span>
+<span class="sd">        The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_minSup</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_startTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_endTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_iFile</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">_oFile</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">_nFile</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_Database</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">_sep</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iFile</span><span class="p">,</span> <span class="n">nFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">nFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_NeighboursMap</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">_creatingItemSets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Storing the complete transactions of the database/input file in a database variable</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;its empty..&quot;</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;Transactions&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">[</span><span class="s1">&#39;Transactions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;Patterns&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_validators</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">):</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_urlopen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                    <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)]</span>
+                    <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">temp</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                            <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                            <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)]</span>
+                            <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">temp</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File Not Found&quot;</span><span class="p">)</span>
+                    <span class="n">quit</span><span class="p">()</span>
+
+    <span class="c1"># function to get frequent one pattern</span>
+    <span class="k">def</span> <span class="nf">_frequentOneItem</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generating one frequent patterns</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">candidate</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">[</span><span class="n">i</span><span class="p">])):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">candidate</span><span class="p">:</span>
+                    <span class="n">candidate</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">candidate</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]]</span> <span class="o">+=</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{</span><span class="n">keys</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">keys</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">candidate</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To convert the given user specified value</span>
+
+<span class="sd">        :param value: user specified value</span>
+<span class="sd">        :type value: int or float or str</span>
+<span class="sd">        :return: converted value</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">)</span> <span class="o">*</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">)</span> <span class="o">*</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_dictKeysToInt</span><span class="p">(</span><span class="n">iList</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converting dictionary keys to integer elements</span>
+
+<span class="sd">        :param iList: Dictionary with patterns as keys and their support count as a value</span>
+<span class="sd">        :type iList: dict</span>
+<span class="sd">        :returns: list of integer patterns to represent dictionary keys</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">temp</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ite</span> <span class="ow">in</span> <span class="n">iList</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">ite</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ite</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;[]&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)]</span>
+            <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ite</span><span class="p">)</span>
+            <span class="c1"># print(sorted(temp))</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_eclatGeneration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cList</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;It will generate the combinations of frequent items</span>
+
+<span class="sd">        :param cList :it represents the items with their respective transaction identifiers</span>
+<span class="sd">        :type cList: dictionary</span>
+<span class="sd">        :return: returning transaction dictionary</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># to generate all</span>
+        <span class="n">tidList</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">cList</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)):</span>
+            <span class="n">NeighboursItems</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getNeighbourItems</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)):</span>
+                <span class="c1"># print(c[key[i]],c[key[j]])</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="ow">in</span> <span class="n">NeighboursItems</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">intersectionList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">cList</span><span class="p">[</span><span class="n">key</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">cList</span><span class="p">[</span><span class="n">key</span><span class="p">[</span><span class="n">j</span><span class="p">]])))</span>
+                <span class="n">itemList</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">itemList</span> <span class="o">+=</span> <span class="n">key</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">itemList</span> <span class="o">+=</span> <span class="n">key</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">intersectionList</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">:</span>
+                    <span class="n">itemList</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">itemList</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tidList</span><span class="p">:</span>
+                        <span class="n">tidList</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">itemList</span><span class="p">))]</span> <span class="o">=</span> <span class="n">intersectionList</span>
+        <span class="k">return</span> <span class="n">tidList</span>
+
+    <span class="k">def</span> <span class="nf">_generateSpatialFrequentPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tidList</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        It will generate the combinations of frequent items from a list of items</span>
+
+<span class="sd">        :param tidList: it represents the items with their respective transaction identifiers</span>
+<span class="sd">        :type tidList: dictionary</span>
+<span class="sd">        :return: returning transaction dictionary</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tidList1</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tidList</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There are no more candidate sets&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tidList</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)):</span>
+                <span class="n">NeighboursItems</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getNeighbourItems</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)):</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="ow">in</span> <span class="n">NeighboursItems</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="n">intersectionList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">tidList</span><span class="p">[</span><span class="n">key</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">tidList</span><span class="p">[</span><span class="n">key</span><span class="p">[</span><span class="n">j</span><span class="p">]])))</span>
+                    <span class="n">itemList</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">intersectionList</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">:</span>
+                        <span class="n">itemList</span> <span class="o">+=</span> <span class="n">key</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">key</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                        <span class="n">itemList</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+                        <span class="n">tidList1</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">itemList</span><span class="p">)]</span> <span class="o">=</span> <span class="n">intersectionList</span>
+
+        <span class="k">return</span> <span class="n">tidList1</span>
+
+    <span class="k">def</span> <span class="nf">_getNeighbourItems</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keySet</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A function to get Neighbours of a item</span>
+
+<span class="sd">        :param keySet: itemSet</span>
+<span class="sd">        :type keySet: str or tuple</span>
+<span class="sd">        :return: set of common neighbours</span>
+<span class="sd">        :rtype: set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">itemNeighbours</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_NeighboursMap</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">keySet</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_NeighboursMap</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">keySet</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[]</span>
+            <span class="n">itemNeighbours</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">itemNeighbours</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_NeighboursMap</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">keySet</span><span class="p">))))</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">keySet</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="n">keySet</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">keySet</span><span class="p">)</span>
+            <span class="c1"># print(keySet)</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">keySet</span><span class="p">)):</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="n">keySet</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">itemNeighbours</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">itemNeighbours</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_NeighboursMap</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">))))</span>
+        <span class="k">return</span> <span class="n">itemNeighbours</span>
+
+    <span class="k">def</span> <span class="nf">_mapNeighbours</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A function to map items to their Neighbours</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_NeighboursMap</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nFile</span><span class="p">,</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="n">data</span><span class="p">,</span> <span class="n">items</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nFile</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;its empty..&quot;</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nFile</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;item&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nFile</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;Neighbours&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nFile</span><span class="p">[</span><span class="s1">&#39;Neighbours&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_NeighboursMap</span><span class="p">[</span><span class="n">items</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="c1"># print(self.Database)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nFile</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_validators</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nFile</span><span class="p">):</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_urlopen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nFile</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                    <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)]</span>
+                    <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">temp</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_NeighboursMap</span><span class="p">[</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nFile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                            <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                            <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)]</span>
+                            <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">temp</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_NeighboursMap</span><span class="p">[</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+                <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File Not Found&quot;</span><span class="p">)</span>
+                    <span class="n">quit</span><span class="p">()</span>
+
+<div class="viewcode-block" id="SpatialECLAT.startMine">
+<a class="viewcode-back" href="../../../../PAMI.georeferencedFrequentPattern.basic.html#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.startMine">[docs]</a>
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use &#39;mine()&#39; instead of &#39;startMine()&#39; for mining process. Starting from January 2025, &#39;startMine()&#39; will be completely terminated.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Frequent pattern mining process will start from here</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SpatialECLAT.mine">
+<a class="viewcode-back" href="../../../../PAMI.georeferencedFrequentPattern.basic.html#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.mine">[docs]</a>
+    <span class="k">def</span> <span class="nf">mine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Frequent pattern mining process will start from here</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># global items_sets, endTime, startTime</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Please enter the file path or file name:&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_creatingItemSets</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mapNeighbours</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_frequentOneItem</span><span class="p">()</span>
+        <span class="n">frequentSet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generateSpatialFrequentPatterns</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">frequentSet</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">frequentSet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eclatGeneration</span><span class="p">(</span><span class="n">frequentSet</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">frequentSet</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentSet</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Spatial Frequent patterns were generated successfully using SpatialECLAT algorithm&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SpatialECLAT.getMemoryUSS">
+<a class="viewcode-back" href="../../../../PAMI.georeferencedFrequentPattern.basic.html#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getMemoryUSS">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
+
+<span class="sd">        :return: returning USS memory consumed by the mining process</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span></div>
+
+
+<div class="viewcode-block" id="SpatialECLAT.getMemoryRSS">
+<a class="viewcode-back" href="../../../../PAMI.georeferencedFrequentPattern.basic.html#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getMemoryRSS">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
+
+<span class="sd">        :return: returning RSS memory consumed by the mining process</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span></div>
+
+
+<div class="viewcode-block" id="SpatialECLAT.getRuntime">
+<a class="viewcode-back" href="../../../../PAMI.georeferencedFrequentPattern.basic.html#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getRuntime">[docs]</a>
+    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculating the total amount of runtime taken by the mining process</span>
+
+<span class="sd">        :return: returning total amount of runtime taken by the mining process</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span></div>
+
+
+<div class="viewcode-block" id="SpatialECLAT.getPatternsAsDataFrame">
+<a class="viewcode-back" href="../../../../PAMI.georeferencedFrequentPattern.basic.html#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getPatternsAsDataFrame">[docs]</a>
+    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Storing final frequent patterns in a dataframe</span>
+
+<span class="sd">        :return: returning frequent patterns in a dataframe</span>
+<span class="sd">        :rtype: pd.DataFrame</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">dataFrame</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">pat</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+                <span class="n">pat</span> <span class="o">=</span> <span class="n">a</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
+                    <span class="n">pat</span> <span class="o">=</span> <span class="n">pat</span> <span class="o">+</span> <span class="n">a</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">pat</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">b</span><span class="p">])</span>
+            <span class="n">dataFrame</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;Support&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">dataFrame</span></div>
+
+
+<div class="viewcode-block" id="SpatialECLAT.save">
+<a class="viewcode-back" href="../../../../PAMI.georeferencedFrequentPattern.basic.html#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.save">[docs]</a>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Complete set of frequent patterns will be loaded in to a output file</span>
+
+<span class="sd">        :param outFile: name of the output file</span>
+<span class="sd">        :type outFile: csv file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span> <span class="o">=</span> <span class="n">outFile</span>
+        <span class="n">writer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">pat</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+                <span class="n">pat</span> <span class="o">=</span> <span class="n">x</span> 
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+                    <span class="n">pat</span> <span class="o">=</span> <span class="n">pat</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span>
+            <span class="n">patternsAndSupport</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">patternsAndSupport</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SpatialECLAT.getPatterns">
+<a class="viewcode-back" href="../../../../PAMI.georeferencedFrequentPattern.basic.html#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getPatterns">[docs]</a>
+    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function to send the set of frequent patterns after completion of the mining process</span>
+
+<span class="sd">        :return: returning frequent patterns</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span></div>
+
+
+<div class="viewcode-block" id="SpatialECLAT.printResults">
+<a class="viewcode-back" href="../../../../PAMI.georeferencedFrequentPattern.basic.html#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.printResults">[docs]</a>
+    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function is used to print the results</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Spatial Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div>
+</div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">_ap</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
+            <span class="n">_ap</span> <span class="o">=</span> <span class="n">SpatialECLAT</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="n">_ap</span> <span class="o">=</span> <span class="n">SpatialECLAT</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Spatial Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ap</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error! The number of input parameters do not match the total number of parameters provided&quot;</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE Uday Kiran.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

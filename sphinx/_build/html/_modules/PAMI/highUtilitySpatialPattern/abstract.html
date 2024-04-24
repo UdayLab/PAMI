@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.highUtilitySpatialPattern.abstract &mdash; PAMI 2024.04.23 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=391540b0"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">PAMI</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">PAMI.highUtilitySpatialPattern.abstract</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for PAMI.highUtilitySpatialPattern.abstract</h1><div class="highlight"><pre>
+<span></span><span class="c1">#  Copyright (C)  2021 Rage Uday Kiran</span>
+<span class="c1">#</span>
+<span class="c1">#      This program is free software: you can redistribute it and/or modify</span>
+<span class="c1">#      it under the terms of the GNU General Public License as published by</span>
+<span class="c1">#      the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1">#      (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#      This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#      but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#      GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#      You should have received a copy of the GNU General Public License</span>
+<span class="c1">#      along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+<span class="c1">#      This program is free software: you can redistribute it and/or modify</span>
+<span class="c1">#      it under the terms of the GNU General Public License as published by</span>
+<span class="c1">#      the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1">#      (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#      This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#      but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#      GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#      You should have received a copy of the GNU General Public License</span>
+<span class="c1">#      along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">validators</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span> <span class="k">as</span> <span class="n">c</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">import</span> <span class="nn">psutil</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">validators</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
+
+
+<div class="viewcode-block" id="utilityPatterns">
+<a class="viewcode-back" href="../../../PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns">[docs]</a>
+<span class="k">class</span> <span class="nc">utilityPatterns</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :Description:   This abstract base class defines the variables and methods that every frequent pattern mining algorithm must</span>
+<span class="sd">        employ in PAMI</span>
+
+<span class="sd">    :Attributes:</span>
+
+<span class="sd">        iFile : str</span>
+<span class="sd">            Input file name or path of the input file</span>
+<span class="sd">        minUtil: integer </span>
+<span class="sd">            The user can specify minUtil either in count</span>
+<span class="sd">        sep : str</span>
+<span class="sd">            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.</span>
+<span class="sd">            However, the users can override their default separator</span>
+<span class="sd">        startTime:float</span>
+<span class="sd">            To record the start time of the algorithm</span>
+<span class="sd">        endTime:float</span>
+<span class="sd">            To record the completion time of the algorithm</span>
+<span class="sd">        finalPatterns: dict</span>
+<span class="sd">            Storing the complete set of patterns in a dictionary variable</span>
+<span class="sd">        oFile : str</span>
+<span class="sd">            Name of the output file to store complete set of frequent patterns</span>
+<span class="sd">        memoryUSS : float</span>
+<span class="sd">            To store the total amount of USS memory consumed by the program</span>
+<span class="sd">        memoryRSS : float</span>
+<span class="sd">            To store the total amount of RSS memory consumed by the program</span>
+
+<span class="sd">    :Methods:</span>
+
+<span class="sd">        startMine()</span>
+<span class="sd">            Calling this function will start the actual mining process</span>
+<span class="sd">        getPatterns()</span>
+<span class="sd">            This function will output all interesting patterns discovered by an algorithm</span>
+<span class="sd">        save(oFile)</span>
+<span class="sd">            This function will store the discovered patterns in an output file specified by the user</span>
+<span class="sd">        getPatternsAsDataFrame()</span>
+<span class="sd">            The function outputs the patterns generated by an algorithm as a data frame</span>
+<span class="sd">        getMemoryUSS()</span>
+<span class="sd">            This function outputs the total amount of USS memory consumed by a mining algorithm</span>
+<span class="sd">        getMemoryRSS()</span>
+<span class="sd">            This function outputs the total amount of RSS memory consumed by a mining algorithm</span>
+<span class="sd">        getRuntime()</span>
+<span class="sd">            This function outputs the total runtime of a mining algorithm</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iFile</span><span class="p">,</span> <span class="n">nFile</span><span class="p">,</span> <span class="n">minUtil</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param iFile: Input file name or path of the input file</span>
+<span class="sd">        :type iFile: str</span>
+<span class="sd">        :param nFile: Input file name or path of the neighbourhood file</span>
+<span class="sd">        :type nFile: str</span>
+<span class="sd">        :param minUtil: The user can specify minUtil in count </span>
+<span class="sd">        :type minUtil: int </span>
+<span class="sd">        :param sep: separator used to distinguish items from each other. The default separator is tab space. However, users can override the default separator</span>
+<span class="sd">        :type sep: str</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">iFile</span> <span class="o">=</span> <span class="n">iFile</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sep</span> <span class="o">=</span> <span class="n">sep</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nFile</span> <span class="o">=</span> <span class="n">nFile</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">minUtil</span> <span class="o">=</span> <span class="n">minUtil</span>
+
+<div class="viewcode-block" id="utilityPatterns.iFile">
+<a class="viewcode-back" href="../../../PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.iFile">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">iFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Variable to store the input file path/file name&quot;&quot;&quot;</span>
+
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="utilityPatterns.nFile">
+<a class="viewcode-back" href="../../../PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.nFile">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">nFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Variable to store the neighbourhood file path/file name&quot;&quot;&quot;</span>
+
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="utilityPatterns.minUtil">
+<a class="viewcode-back" href="../../../PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.minUtil">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">minUtil</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Variable to store the user-specified minimum support value&quot;&quot;&quot;</span>
+
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="utilityPatterns.startTime">
+<a class="viewcode-back" href="../../../PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.startTime">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">startTime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Variable to store the start time of the mining process&quot;&quot;&quot;</span>
+
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="utilityPatterns.endTime">
+<a class="viewcode-back" href="../../../PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.endTime">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">endTime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Variable to store the end time of the complete program&quot;&quot;&quot;</span>
+
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="utilityPatterns.memoryUSS">
+<a class="viewcode-back" href="../../../PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.memoryUSS">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">memoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Variable to store USS memory consumed by the program&quot;&quot;&quot;</span>
+
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="utilityPatterns.memoryRSS">
+<a class="viewcode-back" href="../../../PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.memoryRSS">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">memoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Variable to store RSS memory consumed by the program&quot;&quot;&quot;</span>
+
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="utilityPatterns.finalPatterns">
+<a class="viewcode-back" href="../../../PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.finalPatterns">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">finalPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Variable to store the complete set of patterns in a dictionary&quot;&quot;&quot;</span>
+
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="utilityPatterns.oFile">
+<a class="viewcode-back" href="../../../PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.oFile">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">oFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Variable to store the name of the output file to store the complete set of frequent patterns&quot;&quot;&quot;</span>
+
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="utilityPatterns.startMine">
+<a class="viewcode-back" href="../../../PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.startMine">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Code for the mining process will start from this function&quot;&quot;&quot;</span>
+
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="utilityPatterns.getPatterns">
+<a class="viewcode-back" href="../../../PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getPatterns">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Complete set of frequent patterns generated will be retrieved from this function&quot;&quot;&quot;</span>
+
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="utilityPatterns.save">
+<a class="viewcode-back" href="../../../PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.save">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oFile</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Complete set of frequent patterns will be saved in to an output file from this function</span>
+
+<span class="sd">        :param oFile: Name of the output file</span>
+<span class="sd">        :type oFile: csv file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="utilityPatterns.getPatternsAsDataFrame">
+<a class="viewcode-back" href="../../../PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getPatternsAsDataFrame">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Complete set of frequent patterns will be loaded in to data frame from this function&quot;&quot;&quot;</span>
+
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="utilityPatterns.getMemoryUSS">
+<a class="viewcode-back" href="../../../PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getMemoryUSS">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of USS memory consumed by the program will be retrieved from this function&quot;&quot;&quot;</span>
+
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="utilityPatterns.getMemoryRSS">
+<a class="viewcode-back" href="../../../PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getMemoryRSS">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of RSS memory consumed by the program will be retrieved from this function&quot;&quot;&quot;</span>
+
+        <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="utilityPatterns.getRuntime">
+<a class="viewcode-back" href="../../../PAMI.highUtilitySpatialPattern.html#PAMI.highUtilitySpatialPattern.abstract.utilityPatterns.getRuntime">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of runtime taken by the program will be retrieved from this function&quot;&quot;&quot;</span>
+
+        <span class="k">pass</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE Uday Kiran.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
