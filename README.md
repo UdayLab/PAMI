@@ -19,7 +19,6 @@
 
 # Table of Contents
 
-
 - [Introduction](#introduction)
 - [Recent updates](#recent-updates)
 - [Features](#features)
@@ -568,4 +567,4 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 1. Air pollution analytics <a target="_blank" href="https://colab.research.google.com/github/vanithakattumuri/PAMI/blob/main/notebooks/airPollutionAnalytics.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 
-[Go to Top](#table-of-content)
+[Go to Top](#table-of-contents)
