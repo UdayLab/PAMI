@@ -7,6 +7,16 @@
 #
 #             from PAMI.fuzzyGeoreferencedPeriodicFrequentPattern import FGPFPMiner as alg
 #
+#             minSup = str()
+#
+#             maxPer = float()
+#
+#             iFile = " "
+#
+#             nFile = " "
+#
+#             sep = "\t"
+
 #             obj = alg.FFSPMiner("input.txt", "neighbours.txt", 3, 4)
 #
 #             obj.mine()
@@ -21,7 +31,6 @@
 #
 #             print("Total ExecutionTime in seconds:", obj.getRuntime())
 #
-
 
 
 
@@ -52,15 +61,16 @@ from deprecated import deprecated
 class _FFList:
     """
     A class represent a Fuzzy List of an element
+
     :Attributes:
 
-         item: int
+         item : int
              the item name
-         sumIUtil: float
+         sumIUtil : float
              the sum of utilities of a fuzzy item in database
-         sumRUtil: float
+         sumRUtil : float
              the sum of resting values of a fuzzy item in database
-         elements: list
+         elements : list
              a list of elements contain tid,Utility and resting values of element in each transaction
 
     :Methods:
@@ -105,7 +115,7 @@ class _Element:
 
         tid : int
             keep tact of transaction id
-        iUtils: float
+        iUtils : float
             the utility of a fuzzy item in the transaction
         rUtils : float
             the neighbourhood resting value of a fuzzy item in the transaction
@@ -129,6 +139,9 @@ class _Pair:
 
 class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
     """
+    About this algorithm
+    ====================
+
     :Description:   Fuzzy Frequent Spatial Pattern-Miner is desired to find all Spatially frequent fuzzy patterns
                     which is on-trivial and challenging problem to its huge search space.we are using efficient pruning
                     techniques to reduce the search space.
@@ -159,31 +172,23 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             Name of the oFile file to store complete set of fuzzy spatial frequent patterns
         minSup : float
             The user given minimum support
-        neighbors: map
+        neighbors : map
             keep track of neighbours of elements
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-        startTime:float
+        startTime : float
             To record the start time of the mining process
-        endTime:float
+        endTime : float
             To record the completion time of the mining process
-        itemsCnt: int
+        itemsCnt : int
             To record the number of fuzzy spatial itemSets generated
-        mapItemsLowSum: map
-            To keep track of low region values of items
-        mapItemsMidSum: map
-            To keep track of middle region values of items
-        mapItemsHighSum: map
-            To keep track of high region values of items
-        mapItemSum: map
+        mapItemSum : map
             To keep track of sum of Fuzzy Values of items
-        mapItemRegions: map
-            To Keep track of fuzzy regions of item
-        jointCnt: int
+        joinsCnt : int
             To keep track of the number of FFI-list that was constructed
-        BufferSize: int
+        BufferSize : int
             represent the size of Buffer
-        itemBuffer list
+        itemSetBuffer list
             to keep track of items in buffer
 
     :Methods:
@@ -202,7 +207,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
-        convert(value):
+        convert(value)
             To convert the given user specified value
         FSFIMining( prefix, prefixLen, fsFim, minSup)
             Method generate FFI from prefix
@@ -215,8 +220,8 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         WriteOut(prefix, prefixLen, item, sumIUtil,period)
             To Store the patten
 
-    **Executing the code on terminal :**
-    --------------------------------------------
+    Execution methods
+    =================-
 
     .. code-block:: console
 
@@ -231,8 +236,8 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
     .. note:: minSup will be considered in percentage of database transactions
 
 
-    **Sample run of importing the code:**
-    ----------------------------------------
+    **Calling from a python program**
+
     .. code-block:: python
     
         from PAMI.fuzzyGeoreferencedPeriodicFrequentPattern import FGPFPMiner as alg
@@ -251,26 +256,17 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         
         print("Total ExecutionTime in seconds:", obj.getRuntime())
     
-    **Credits:**
-    ----------------
-            The complete program was written by B.Sai Chitra and Kundai Kwangwari under the supervision of Professor Rage Uday Kiran.
+    Credits
+    =======
+            The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
     """
 
-    _startTime = float()
-    _endTime = float()
     _minSup = str()
     _maxPer = float()
-    _finalPatterns = {}
     _iFile = " "
-    _oFile = " "
     _nFile = " "
-    _FuzFile = " "
-    _memoryUSS = float()
-    _memoryRSS = float()
     _sep = "\t"
-    _transactionsDB = []
-    _fuzzyValuesDB = []
-    _ts = []
+
 
     def __init__(self, iFile, nFile, minSup, maxPer, sep):
         super().__init__(iFile, nFile, minSup, maxPer, sep)
@@ -293,15 +289,10 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         A Function that sort all FFI-list in ascending order of Support
 
         :param o1: First FFI-list
-
         :type o1: _FFList
-
         :param o2: Second FFI-list
-
-        :type o1: _FFList
-
-        :return: Comparision Value
-
+        :type o2: _FFList
+        :return: Comparison Value
         :rtype: int
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
@@ -315,11 +306,8 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         To convert the given user specified value
 
         :param value: user specified value
-
         :type value: int or float or str
-
         :return: converted value
-
         :rtype: float
         """
         if type(value) is int:
@@ -428,98 +416,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
-        self._startTime = _ab._time.time()
-        self._mapNeighbours()
-        self._creatingItemSets()
-        self._finalPatterns = {}
-        recent_occur = {}
-        for line in range(len(self._transactionsDB)):
-            item_list = self._transactionsDB[line]
-            fuzzyValues_list = self._fuzzyValuesDB[line]
-            ts = self._ts[line]
-            self._dbLen += 1
-            """
-            The section below is for:
-            1.Finding the support of each item's region in the entire database
-            2.Finding the periodic patterns of the data
-            3.Trimming off the patterns whose support is less than minSupport
-            """
-            for i in range(0, len(item_list)):
-                item = item_list[i]
-                if item in self._tidList:
-                    self._tidList[item].append(ts - recent_occur[item][-1])
-                    recent_occur[item].append(ts)
-                else:
-                    self._tidList[item] = [ts]
-                    recent_occur[item] = [ts]
-                fuzzy_ref = fuzzyValues_list[i]
-                if item[0] in self._mapItemNeighbours:
-                    if item in self._itemSupData.keys():
-                        self._itemSupData[item] += fuzzy_ref
-                    else:
-                        self._itemSupData[item] = fuzzy_ref
-        for item in self._tidList.keys():
-            self._tidList[item].append(len(self._transactionsDB) - recent_occur[item][-1])
-        del recent_occur
-        """
-        Using Maximum Scalar Cardinality Value strategy to narrow down search space and generate candidate fuzzy periodic-frequent items. 
-        Step1. Identify the regional representative (region with max support). This is the representative that will be tested to see if its greater than given minSup
-        Step2. prune out all items whose regional support is less than the given minSup
-        Step3. At the end, sort the list of stored Candidate Frequent-Periodic Patterns in ascending order
-        """
-
-        listOfFFList = []
-        mapItemsToFFLIST = {}
-        region_label = []
-        #self._minSup = self._convert(self._minSup)
-        for item in self._itemSupData.keys():
-            if self._itemSupData[item] >= self._minSup:
-                self._mapItemSum[item] = self._itemSupData[item]
-                fuList = _FFList(item)
-                if int(self._maxPer) >= max(self._tidList[item]):
-                    fuList.isPeriodic = True
-                mapItemsToFFLIST[item] = fuList
-                listOfFFList.append(fuList)
-        del self._itemSupData
-        del self._tidList
-        listOfFFList.sort(key=_ab._functools.cmp_to_key(self._compareItems))
-        tid = 0
-        for j in range(len(self._transactionsDB)):
-            item_list = list(set(self._transactionsDB[j]).intersection(set(self._mapItemSum.keys())))
-            fuzzy_list = [self._fuzzyValuesDB[j][i] for i in range(len(self._fuzzyValuesDB[j])) if self._transactionsDB[j][i] in self._mapItemSum.keys()]
-            revisedTransaction = []
-            for i in range(0, len(item_list)):
-                pair = _Pair()
-                pair.item = item_list[i]
-                fuzzy_ref = fuzzy_list[i]
-                pair.quantity = fuzzy_ref
-                if pair.quantity > 0:
-                    revisedTransaction.append(pair)
-            revisedTransaction.sort(key=_ab._functools.cmp_to_key(self._compareItems))
-            qaunt = {}
-            for i in range(len(revisedTransaction) - 1, -1, -1):
-                pair = revisedTransaction[i]
-                qaunt[pair.item[0]] = pair.quantity
-                remainUtil = 0
-                temp = list(set(self._mapItemNeighbours[pair.item[0]]).intersection(set(qaunt.keys())))
-                # print(temp, self._mapItemNeighbours[pair.item[0]], qaunt)
-                for j in temp:
-                    remainUtil += float(qaunt[j])
-                del temp
-                remainingUtility = remainUtil
-                FFListObject = mapItemsToFFLIST[pair.item]
-                element = _Element(tid, pair.quantity, remainingUtility)
-                FFListObject.addElement(element)
-            del qaunt
-            tid += 1
-        itemNeighbours = list(self._mapItemNeighbours.keys())
-        self._FSFIMining(self._itemSetBuffer, 0, listOfFFList, self._minSup, itemNeighbours)
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
+        self.mine()
 
     def mine(self):
         """

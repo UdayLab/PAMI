@@ -56,8 +56,6 @@ from PAMI.partialPeriodicPattern.topk import abstract as _abstract
 import validators as _validators
 from urllib.request import urlopen as _urlopen
 import sys as _sys
-
-from PAMI.partialPeriodicPattern.basic import abstract as _ab
 import pandas as pd
 from deprecated import deprecated
 
@@ -402,37 +400,9 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
         Main function of the program
 
         """
-        self._startTime = _abstract._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        if self._k is None:
-            raise Exception("Please enter the Minimum Support")
-        self._creatingItemSets()
-        plist = self._frequentOneItem()
-        for i in range(len(plist)):
-            itemI = plist[i]
-            tidSetI = self._tidList[itemI]
-            itemSetX = [itemI]
-            itemSets = []
-            tidSets = []
-            for j in range(i + 1, len(plist)):
-                itemJ = plist[j]
-                tidSetJ = self._tidList[itemJ]
-                y1 = list(set(tidSetI).intersection(tidSetJ))
-                val = self._getSupportAndPeriod(y1)
-                if val > self._minimum:
-                    itemSets.append(itemJ)
-                    tidSets.append(y1)
-            self._Generation(itemSetX, itemSets, tidSets)
-        print("TopK partial periodic patterns were generated successfully")
-        self._endTime = _abstract._time.time()
-        process = _abstract._psutil.Process(_abstract._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
+        self.mine()
 
-    def Mine(self):
+    def mine(self):
             """
             Main function of the program
 

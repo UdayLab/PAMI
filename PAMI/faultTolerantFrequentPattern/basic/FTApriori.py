@@ -301,23 +301,8 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         """
         Fault-tolerant frequent pattern mining process will start from here
         """
-        self._Database = []
-        self._startTime = _ab._time.time()
-        self._creatingItemSets()
-        self._minSup = self._convert(self._minSup)
-        self._itemSup = self._convert(self._itemSup)
-        self._minLength = int(self._minLength)
-        self._faultTolerance = int(self._faultTolerance)
-        self._oneLengthFrequentItems()
 
-        self._getFaultPatterns()
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Fault-Tolerant Frequent patterns were generated successfully using FTApriori algorithm ")
+        self.mine()
 
     def mine(self) -> None:
         """

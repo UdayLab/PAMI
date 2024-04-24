@@ -1,15 +1,16 @@
-# WFRIMiner is one of the fundamental algorithm to discover weighted frequent regular patterns in a transactional database.
-# It stores the database in compressed WFRI-tree decreasing the memory usage and extracts the patterns from tree.It employs downward closure property to  reduce the search space effectively.
+# WFRIMiner is one of the fundamental algorithm to discover weighted frequent regular patterns in a transactional database. It stores the database in compressed WFRI-tree decreasing the memory usage and extracts the patterns from tree.It employs downward closure property to  reduce the search space effectively.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
-#
 #
 #             from PAMI.weightedFrequentRegularPattern.basic import WFRIMiner as alg
 #
+#             iFile = 'sampleDB.txt'
+#
+#             minSup = 10  # can also be specified between 0 and 1
+#
 #             obj = alg.WFRIMiner(iFile, WS, regularity)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             weightedFrequentRegularPatterns = obj.getPatterns()
 #
@@ -48,8 +49,6 @@ __copyright__ = """
 
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-     Copyright (C)  2021 Rage Uday Kiran
-
 """
 
 from PAMI.weightedFrequentRegularPattern.basic import abstract as _fp
@@ -71,16 +70,21 @@ class _Node:
     A class used to represent the node of frequentPatternTree
 
     :Attributes:
+
         itemId: int
             storing item of a node
+
         counter: int
             To maintain the support of node
+
         parent: node
             To maintain the parent of node
+
         children: list
             To maintain the children of node
 
     :Methods:
+
         addChild(node)
             Updates the nodes children list and parent for the given node
 
@@ -119,10 +123,13 @@ class _Tree:
     A class used to represent the frequentPatternGrowth tree structure
 
     :Attributes:
+
         root : Node
             The first node of the tree set to Null.
+
         summaries : dictionary
             Stores the nodes itemId which shares same itemId
+
         info : dictionary
             frequency of items in the transactions
 
@@ -320,13 +327,15 @@ class _Tree:
 
 class WFRIMiner(_fp._weightedFrequentRegularPatterns):
     """
+    About this algorithm
+    ====================
+
     :Description: WFRIMiner is one of the fundamental algorithm to discover weighted frequent regular patterns in a transactional database.
        * It stores the database in compressed WFRI-tree decreasing the memory usage and extracts the patterns from tree.It employs downward closure property to  reduce the search space effectively.
 
-    :Reference:
-           K. Klangwisan and K. Amphawan, "Mining weighted-frequent-regular itemsets from transactional database,"
-           2017 9th International Conference on Knowledge and Smart Technology (KST), 2017, pp. 66-71,
-           doi: 10.1109/KST.2017.7886090.
+    :Reference:  K. Klangwisan and K. Amphawan, "Mining weighted-frequent-regular itemsets from transactional database,"
+                 2017 9th International Conference on Knowledge and Smart Technology (KST), 2017, pp. 66-71,
+                 doi: 10.1109/KST.2017.7886090.
 
     :param  iFile: str :
                    Name of the Input file to mine complete set of Weighted Frequent Regular Patterns.
@@ -335,43 +344,58 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
     :param  wFile: str :
-                This is a weighted file.
+                   This is a weighted file.
+
+
 
     :Attributes:
 
         iFile : file
             Input file name or path of the input file
+
         WS: float or int or str
             The user can specify WS either in count or proportion of database size.
             If the program detects the data type of WS is integer, then it treats WS is expressed in count.
             Otherwise, it will be treated as float.
             Example: WS=10 will be treated as integer, while WS=10.0 will be treated as float
+
         regularity: float or int or str
             The user can specify regularity either in count or proportion of database size.
             If the program detects the data type of regularity is integer, then it treats regularity is expressed in count.
             Otherwise, it will be treated as float.
             Example: regularity=10 will be treated as integer, while regularity=10.0 will be treated as float
+
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
             However, the users can override their default separator.
+
         oFile : file
             Name of the output file or the path of the output file
+
         startTime:float
             To record the start time of the mining process
+
         endTime:float
             To record the completion time of the mining process
+
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
+
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
+
         Database : list
             To store the transactions of a database in list
+
         mapSupport : Dictionary
             To maintain the information of item and their frequency
+
         lno : int
             it represents the total no of transactions
+
         tree : class
             it represents the Tree class
+
         finalPatterns : dict
             it represents to store the patterns
 
@@ -396,10 +420,14 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         frequentOneItem()
             Extracts the one-frequent patterns from transactions
 
-    **Methods to execute code on terminal**
-    -------------------------------------------
-    .. code-block:: console
 
+    Execution methods
+    =================
+
+
+    **Terminal command**
+
+    .. code-block:: console
 
       Format:
 
@@ -409,19 +437,22 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
 
       (.venv) $ python3 WFRIMiner.py sampleDB.txt patterns.txt 10 5
 
+    .. note:: WS & regularity will be considered in support count or frequency
 
-              .. note:: WS & regularity will be considered in support count or frequency
 
+    **Calling from a python program**
 
-    **Importing this algorithm into a python program**
-    ----------------------------------------------------
     .. code-block:: python
 
             from PAMI.weightedFrequentRegularpattern.basic import WFRIMiner as alg
 
+            iFile = 'sampleDB.txt'
+
+            minSup = 10  # can also be specified between 0 and 1
+
             obj = alg.WFRIMiner(iFile, WS, regularity)
 
-            obj.startMine()
+            obj.mine()
 
             weightedFrequentRegularPatterns = obj.getPatterns()
 
@@ -443,11 +474,12 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    **Credits:**
-    ----------------
+    Credits
+    =======
+
              The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
-        """
+    """
 
     _startTime = float()
     _endTime = float()
@@ -474,6 +506,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
     def _creatingItemSets(self) -> None:
         """
         Storing the complete transactions of the database/input file in a database variable
+
         :return: None
         """
         self._Database = []
@@ -562,6 +595,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
     def _frequentOneItem(self) -> List[str]:
         """
         Generating One frequent items sets
+
         :return: list
         """
         global _lno, _wf, _weights
@@ -600,9 +634,8 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         """
         Updates the items in transactions with rank of items according to their support
 
-        :Example:
-        oneLength = {'a':7, 'b': 5, 'c':'4', 'd':3}
-        rank = {'a':0, 'b':1, 'c':2, 'd':3}
+        :Example: oneLength = {'a':7, 'b': 5, 'c':'4', 'd':3}
+                  rank = {'a':0, 'b':1, 'c':2, 'd':3}
 
         :param itemSet: list of one-frequent items
         :return: None
@@ -650,47 +683,17 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
             temp = temp + self._rankDup[i] + "\t"
         return temp
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated(
+        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
         """
-        main program to start the operation
-        :return: None
+        Frequent pattern mining process will start from here
         """
-        global _WS, _regularity, _weights
-        self._startTime = _fp._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        if self._WS is None:
-            raise Exception("Please enter the Minimum Support")
-        self._creatingItemSets()
-        self._WS = self._convert(self._WS)
-        self._regularity = self._convert(self._regularity)
-        _WS, _regularity, _weights = self._WS, self._regularity, self._weight
-        itemSet = self._frequentOneItem()
-        updatedTransactions = self._updateTransactions(itemSet)
-        for x, y in self._rank.items():
-            self._rankDup[y] = x
-        info = {self._rank[k]: v for k, v in self._mapSupport.items()}
-        _Tree = self._buildTree(updatedTransactions, info)
-        patterns = _Tree.generatePatterns([])
-        self._finalPatterns = {}
-        for k in patterns:
-            s = self._savePeriodic(k[0])
-            self._finalPatterns[str(s)] = k[1]
-        print("Weighted Frequent Regular patterns were generated successfully using WFRIM algorithm")
-        self._endTime = _fp._time.time()
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        process = _fp._psutil.Process(_fp._os.getpid())
-        self._memoryRSS = float()
-        self._memoryUSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
+        self.mine()
 
-    def Mine(self) -> None:
+    def mine(self) -> None:
         """
-        main program to start the operation
-        :return: None
+        Frequent pattern mining process will start from here
         """
         global _WS, _regularity, _weights
         self._startTime = _fp._time.time()
@@ -725,6 +728,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
 
     def getMemoryUSS(self) -> float:
         """
+
         Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -735,6 +739,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
 
     def getMemoryRSS(self) -> float:
         """
+
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -745,6 +750,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
 
     def getRuntime(self) -> float:
         """
+
         Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
@@ -755,6 +761,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
 
     def getPatternsAsDataFrame(self) -> _fp._pd.DataFrame:
         """
+
         Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -770,6 +777,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
 
     def save(self, outFile: str) -> None:
         """
+
         Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
@@ -784,6 +792,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
 
     def getPatterns(self) -> Dict[str, float]:
         """
+
         Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -794,7 +803,6 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
     def printResults(self) -> None:
         """
         This function is used to print the results
-        :return: None
         """
         print("Total number of  Weighted Frequent Regular Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
@@ -810,6 +818,7 @@ if __name__ == "__main__":
         if len(_fp._sys.argv) == 5:
             _ap = WFRIMiner(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4], _fp._sys.argv[5])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Weighted Frequent Regular Patterns:", len(_ap.getPatterns()))
         _ap.save(_fp._sys.argv[2])
         print("Total Memory in USS:",  _ap.getMemoryUSS())

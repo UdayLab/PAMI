@@ -1,14 +1,16 @@
 # GFPGrowth algorithm is used to discover geo-referenced frequent patterns in a uncertain transactional database using GFP-Tree.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
-#
 #
 #             from PAMI.uncertainGeoreferencedFrequentPattern.basic import GFPGrowth as alg
 #
+#             iFile = 'sampleDB.txt'
+#
+#             minSup = 10  # can also be specified between 0 and 1
+#
 #             obj = alg.GFPGrowth(iFile, nFile, minSup,sep, oFile)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             Patterns = obj.getPatterns()
 #
@@ -48,9 +50,8 @@ __copyright__ = """
 
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-     Copyright (C)  2021 Rage Uday Kiran
-
 """
+
 from PAMI.uncertainGeoreferencedFrequentPattern.basic import abstract as _ab
 import pandas as pd
 from deprecated import deprecated
@@ -69,6 +70,7 @@ class _Item:
 
         item : int or word
             Represents the name of the item
+
         probability : float
             Represent the existential probability(likelihood presence) of an item
     """
@@ -86,10 +88,13 @@ class _Node(object):
 
         item : int
             storing item of a node
+
         probability : int
             To maintain the expected support of node
+
         parent : node
             To maintain the parent of every node
+
         children : list
             To maintain the children of node
 
@@ -106,6 +111,14 @@ class _Node(object):
         self.parent = None
 
     def addChild(self, node):
+        """
+        This method adds a child node to the current node in the frequent pattern tree. It updates the children
+        dictionary of the current node with the new child node and sets the parent of the child node to the current node.
+
+        :param node: The child node to be added.
+        :type node: _Node
+        :return: None
+        """
         self.children[node.item] = node
         node.parent = self
 
@@ -118,10 +131,13 @@ class _Tree(object):
 
         root : Node
             Represents the root node of the tree
+
         summaries : dictionary
             storing the nodes with same item name
+
         info : dictionary
             stores the support of items
+
     :Methods:
 
         addTransaction(transaction)
@@ -314,13 +330,16 @@ class _Tree(object):
 
 class GFPGrowth(_ab._frequentPatterns):
     """
+    About this algorithm
+    ====================
+
     :Description: GFPGrowth algorithm is used to discover geo-referenced frequent patterns in a uncertain transactional database using GFP-Tree.
 
-    :Reference:
-         Palla Likhitha,Pamalla Veena, Rage, Uday Kiran, Koji Zettsu (2023).
-         "Discovering Geo-referenced Frequent Patterns in Uncertain Geo-referenced
-         Transactional Databases".  PAKDD 2023.
-         https://doi.org/10.1007/978-3-031-33380-4_3
+    :Reference:  Palla Likhitha,Pamalla Veena, Rage, Uday Kiran, Koji Zettsu (2023).
+                 "Discovering Geo-referenced Frequent Patterns in Uncertain Geo-referenced
+                 Transactional Databases".  PAKDD 2023.
+                 https://doi.org/10.1007/978-3-031-33380-4_3
+
 
     :param  iFile: str :
                    Name of the Input file to mine complete set of uncertain Geo referenced Frequent Patterns
@@ -335,34 +354,47 @@ class GFPGrowth(_ab._frequentPatterns):
 
         iFile : file
             Name of the Input file or path of the input file
+
         oFile : file
             Name of the output file or path of the output file
+
         minSup: float or int or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
+
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
+
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
+
         startTime:float
             To record the start time of the mining process
+
         endTime:float
             To record the completion time of the mining process
+
         Database : list
             To store the transactions of a database in list
+
         mapSupport : Dictionary
             To maintain the information of item and their frequency
+
         lno : int
             To represent the total no of transaction
+
         tree : class
             To represents the Tree class
+
         itemSetCount : int
             To represents the total no of patterns
+
         finalPatterns : dict
             To store the complete patterns
 
@@ -395,11 +427,14 @@ class GFPGrowth(_ab._frequentPatterns):
         startMine()
             Mining process will start from this function
 
-    **Executing the code on terminal**:
-    ------------------------------------------
+    Execution methods
+    =================
+
+
+    **Terminal command**
+
 
     .. code-block:: console
-
 
        Format:
 
@@ -409,18 +444,21 @@ class GFPGrowth(_ab._frequentPatterns):
 
        (.venv) $ python3 GFPGrowth.py sampleTDB.txt sampleNeighbor.txt patterns.txt 3
 
-
-               .. note:: minSup  will be considered in support count or frequency
+    .. note:: minSup  will be considered in support count or frequency
     
-    **Sample run of importing the code**:
-    ----------------------------------------
+    **Calling from a python program**:
+
      .. code-block:: python
 
             from PAMI.uncertainGeoreferencedFrequentPattern.basic import GFPGrowth as alg
 
+            iFile = 'sampleDB.txt'
+
+            minSup = 10  # can also be specified between 0 and 1
+
             obj = alg.GFPGrowth(iFile, nFile, minSup)
 
-            obj.startMine()
+            obj.mine()
 
             Patterns = obj.getPatterns()
 
@@ -442,10 +480,15 @@ class GFPGrowth(_ab._frequentPatterns):
 
             print("Total ExecutionTime in seconds:", run)
         
-    **Credits**:
-    -------------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
-        """
+    Credits
+    =======
+
+
+            The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+
+    """
+
+
     _startTime = float()
     _endTime = float()
     _minSup = str()
@@ -694,34 +737,15 @@ class GFPGrowth(_ab._frequentPatterns):
                     sample = sample + i + "\t"
                 self._finalPatterns[sample] = y
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated(
+        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
-        global minSup
-        global minSup
-        self._startTime = _ab._time.time()
-        self._creatingItemSets()
-        self._creatingNeighbours()
-        #self._minSup = self._convert(self._minSup)
-        minSup = self._minSup
-        self._finalPatterns = {}
-        mapSupport, plist = self._frequentOneItem()
-        self.Database1 = self._updateTransactions(mapSupport)
-        info = {k: v for k, v in mapSupport.items()}
-        Tree1 = self._buildTree(self.Database1, info)
-        Tree1.generatePatterns([])
-        self._removeFalsePositives()
-        print("Geo-Referenced Frequent patterns were generated from uncertain databases successfully using GFP algorithm")
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self.memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+        self.mine()
 
-    def Mine(self):
+    def mine(self):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
@@ -748,6 +772,7 @@ class GFPGrowth(_ab._frequentPatterns):
 
     def getMemoryUSS(self):
         """
+
         Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -758,6 +783,7 @@ class GFPGrowth(_ab._frequentPatterns):
 
     def getMemoryRSS(self):
         """
+
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -768,6 +794,7 @@ class GFPGrowth(_ab._frequentPatterns):
 
     def getRuntime(self):
         """
+
         Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
@@ -778,6 +805,7 @@ class GFPGrowth(_ab._frequentPatterns):
 
     def getPatternsAsDataFrame(self):
         """
+
         Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -793,6 +821,7 @@ class GFPGrowth(_ab._frequentPatterns):
 
     def save(self, outFile):
         """
+
         Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
@@ -806,6 +835,7 @@ class GFPGrowth(_ab._frequentPatterns):
 
     def getPatterns(self):
         """
+
         Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -814,6 +844,9 @@ class GFPGrowth(_ab._frequentPatterns):
         return self._finalPatterns
     
     def printResults(self):
+        """
+        This function is used to print the result
+        """
         print("Total number of Patterns:", len(self.getPatterns()))
         self.save("patterns.txt")
         memUSS = self.getMemoryUSS()
@@ -832,6 +865,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = GFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
+        _ap.mine()
         _Patterns = _ap.getPatterns()
         print("Total number of Patterns:", len(_Patterns))
         _ap.save(_ab._sys.argv[2])

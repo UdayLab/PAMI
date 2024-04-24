@@ -1,0 +1,7 @@
+FAE
+-----
+
+.. automodule:: PAMI.frequentPattern.topk.FAE
+   :members:
+   :undoc-members:
+   :show-inheritance:

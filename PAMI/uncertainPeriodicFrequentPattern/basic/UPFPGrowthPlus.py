@@ -1,14 +1,18 @@
 # UPFPGrowthPlus is used to discover periodic-frequent patterns in an uncertain temporal database.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
-#
 #
 #             from PAMI.uncertainPeriodicFrequentPattern.basic import UPFPGrowthPlus as alg
 #
+#             iFile = 'sampleDB.txt'
+#
+#             minSup = 10  # can also be specified between 0 and 1
+#
+#             maxPer = 3   # can also be specified between 0 and 1
+#
 #             obj = alg.UPFPGrowthPlus(iFile, minSup, maxPer)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             periodicFrequentPatterns = obj.getPatterns()
 #
@@ -47,8 +51,6 @@ __copyright__ = """
 
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-     Copyright (C)  2021 Rage Uday Kiran
-
 """
 
 
@@ -71,10 +73,11 @@ class _Item:
 
     :Attributes:
 
-    item : int or string
-        Represents the name of the item
-    probability : float
-        Represent the existential probability(likelihood presence) of an item
+        item : int or string
+          Represents the name of the item
+
+        probability : float
+          Represent the existential probability(likelihood presence) of an item
     """
 
     def __init__(self, item, probability):
@@ -85,8 +88,6 @@ class _Item:
 def printTree(root):
     """
     To print the tree with nodes with item name, probability, timestamps, and second probability respectively.
-
-    Attributes:
 
     :param root: Node
     :return: print all Tree with nodes with items, probability, parent item, timestamps, second probability respectively.
@@ -104,10 +105,13 @@ class _Node(object):
 
         item : int
             storing item of a node
+
         probability : int
             To maintain the expected support of node
+
         parent : node
             To maintain the parent of every node
+
         children : list
             To maintain the children of node
 
@@ -145,8 +149,10 @@ class _Tree(object):
 
         root: Node
             Represents the root node of the tree
+
         summaries: dictionary
             storing the nodes with same item name
+
         info: dictionary
             stores the support of items
 
@@ -399,13 +405,16 @@ class _Tree(object):
 
 class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
     """
+    About this algorithm
+    ====================
+
     :Description: Basic Plus is  to discover periodic-frequent patterns in a uncertain temporal database.
 
-    :Reference:
-          Palla Likhitha, Rage Veena,Rage Uday Kiran, Koji Zettsu, Masashi Toyoda, Philippe Fournier-Viger, (2023). 
-          UPFP-growth++: An Efficient Algorithm to Find Periodic-Frequent Patterns in Uncertain Temporal Databases. 
-          ICONIP 2022. Communications in Computer and Information Science, vol 1792. Springer, Singapore.
-          https://doi.org/10.1007/978-981-99-1642-9_16
+    :Reference:  Palla Likhitha, Rage Veena,Rage Uday Kiran, Koji Zettsu, Masashi Toyoda, Philippe Fournier-Viger, (2023).
+                 UPFP-growth++: An Efficient Algorithm to Find Periodic-Frequent Patterns in Uncertain Temporal Databases.
+                 ICONIP 2022. Communications in Computer and Information Science, vol 1792. Springer, Singapore.
+                 https://doi.org/10.1007/978-981-99-1642-9_16
+
 
     :param  iFile: str :
                    Name of the Input file to mine complete set of Uncertain Periodic Frequent Patterns
@@ -423,39 +432,53 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
 
         iFile: file
             Name of the Input file or path of input file
+
         oFile: file
             Name of the output file or path of output file
+
         minSup: int or float or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+
         maxPer: int or float or str
             The user can specify maxPer either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
             Otherwise, it will be treated as float.
             Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
+
         sep: str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
+
         memoryUSS: float
             To store the total amount of USS memory consumed by the program
+
         memoryRSS: float
             To store the total amount of RSS memory consumed by the program
+
         startTime: float
             To record the start time of the mining process
+
         endTime: float
             To record the completion time of the mining process
+
         Database: list
             To store the transactions of a database in list
+
         mapSupport: Dictionary
             To maintain the information of item and their frequency
+
         lno: int
             To represent the total no of transaction
+
         tree: class
             To represents the Tree class
+
         itemSetCount: int
             To represents the total no of patterns
+
         finalPatterns: dict
             To store the complete patterns
 
@@ -486,11 +509,14 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
         PeriodicFrequentOneItems()
             To extract the one-length periodic-frequent items
 
-    **Executing the code on terminal**:
-    --------------------------------------------
+    Execution methods
+    =================
+
+
+    **Terminal command**
+
 
     .. code-block:: console
-
 
        Format:
 
@@ -500,19 +526,24 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
 
        (.venv) $ python3 UPFPGrowthPlus.py sampleTDB.txt patterns.txt 0.3 4
 
+    .. note:: minSup and maxPer will be considered in support count or frequency
 
-               .. note:: minSup and maxPer will be considered in support count or frequency
 
+    **Calling from a python program**
 
-    **Importing this algorithm into a python program**
-    -----------------------------------------------------------------
     .. code-block:: python
 
             from PAMI.uncertainPeriodicFrequentPattern import UPFPGrowthPlus as alg
 
+            iFile = 'sampleDB.txt'
+
+            minSup = 10  # can also be specified between 0 and 1
+
+            maxPer = 2   # can also be specified between 0 and 1
+
             obj = alg.UPFPGrowthPlus(iFile, minSup, maxPer)
 
-            obj.startMine()
+            obj.mine()
 
             periodicFrequentPatterns = obj.getPatterns()
 
@@ -703,7 +734,6 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
 
     def _convert(self, value):
         """
-
         To convert the given user specified value
 
         :param value: user specified value
@@ -723,6 +753,7 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
     def _removeFalsePositives(self):
         """
         To remove false positives in generated patterns
+
         :return: original patterns
         """
         periods = {}
@@ -751,34 +782,15 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
                 self._finalPatterns[sample] = y
         #print("Total false patterns generated:", len(self._periodic) - count)
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated(
+         "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
-        global _minSup, _maxPer, _first, _last, _lno
-        self._startTime = _ab._time.time()
-        self._creatingItemSets()
-        self._minSup = self._convert(self._minSup)
-        self._maxPer = self._convert(self._maxPer)
-        self._finalPatterns = {}
-        _minSup, _maxPer, _lno = self._minSup, self._maxPer, len(self._Database)
-        mapSupport, plist = self._PeriodicFrequentOneItems()
-        updatedTrans = self._updateTransactions(mapSupport)
-        info = {k: v for k, v in mapSupport.items()}
-        root = self._buildTree(updatedTrans, info)
-        self._periodic = {}
-        root.generatePatterns([], self._periodic)
-        self._removeFalsePositives()
-        print("Periodic Frequent patterns were generated successfully using UPFP-Growth++ algorithm")
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
+        self.mine()
 
-    def Mine(self):
+    def mine(self):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
@@ -806,7 +818,9 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
 
     def getMemoryUSS(self):
         """
+
         Total amount of USS memory consumed by the mining process will be retrieved from this function.
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -815,6 +829,7 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
 
     def getMemoryRSS(self):
         """
+
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -825,6 +840,7 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
 
     def getRuntime(self):
         """
+
         Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
@@ -834,6 +850,7 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
 
     def getPatternsAsDataFrame(self):
         """
+
         Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -849,6 +866,7 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
 
     def save(self, outFile):
         """
+
         Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
@@ -862,6 +880,7 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
 
     def getPatterns(self):
         """
+
         Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -887,6 +906,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = UPFPGrowthPlus(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
+        _ap.mine()
         _Patterns = _ap.getPatterns()
         print("Total number of Patterns:", len(_Patterns))
         _ap.savePatterns(_ab._sys.argv[2])

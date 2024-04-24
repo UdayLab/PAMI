@@ -1,0 +1,59 @@
+Basic
+========
+
+.. toctree::
+   :maxdepth: 1
+
+   frequentPatternBasicApriori
+   frequentPatternBasicECLAT
+   frequentPatternBasicECLATDiffset
+   frequentPatternBasicECLATbitset
+   frequentPatternBasicFPGrowth
+
+Closed
+========
+
+.. toctree::
+   :maxdepth: 1
+
+   frequentPatternclosedCHARM
+
+Maximal
+=========
+
+.. toctree::
+   :maxdepth: 1
+
+   frequentPatternMaximalmaxFPGrowth
+
+CUDA
+=========
+
+.. toctree::
+   :maxdepth: 1
+
+   frequentPatternCUDAcuApriori
+   frequentPatternCUDAcuAprioriBit
+   frequentPatternCUDAcuECLAT
+   frequentPatternCUDAcuECLATBit
+   frequentPatternCUDAcuAprioriGCT
+   frequentPatternCUDAcuAprioriTID
+   frequentPatternCUDAcuECLATGCT
+
+Pyspark
+=========
+
+.. toctree::
+   :maxdepth: 1
+
+   frequentPatternPysparkParallelApriori
+   frequentPatternPysparkParallelECLAT
+   frequentPatternPysparkParallelFPGrowth
+
+Top K
+=========
+
+.. toctree::
+   :maxdepth: 1
+
+   frequentPatternTopkFAE

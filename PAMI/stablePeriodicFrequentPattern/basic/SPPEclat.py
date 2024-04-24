@@ -353,23 +353,9 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
         """
         Method to start the mining of patterns
         """
-        self._startTime = _ab._time.time()
-        self._creatingItemsets()
-        self._minSup = self._convert(self._minSup)
-        self._maxPer = self._convert(self._maxPer)
-        self._maxLa = self._convert(self._maxLa)
-        self._finalPatterns = {}
-        #print(self._minSup, self._maxPer, self._maxLa)
-        self._createSPPList()
-        self._endTime = _ab._time.time()
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Stable Periodic Frequent patterns were generated successfully using basic algorithm ")
+        self.mine()
 
-    def Mine(self):
+    def mine(self):
         """
         Method to start the mining of patterns
         """
@@ -471,6 +457,7 @@ if __name__ == '__main__':
         if len(_ab._sys.argv) == 6:
             _ap = SPPEclat(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

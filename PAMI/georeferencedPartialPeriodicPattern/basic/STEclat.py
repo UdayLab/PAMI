@@ -80,14 +80,14 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
 
         iFile : str
             Input file name or path of the input file
-        nFile: str:
+        nFile : str
            Name of Neighbourhood file name
-        maxIAT: float or int or str
+        maxIAT : float or int or str
             The user can specify maxIAT either in count or proportion of database size.
             If the program detects the data type of maxIAT is integer, then it treats maxIAT is expressed in count.
             Otherwise, it will be treated as float.
             Example: maxIAT=10 will be treated as integer, while maxIAT=10.0 will be treated as float
-        minPS: float or int or str
+        minPS : float or int or str
             The user can specify minPS either in count or proportion of database size.
             If the program detects the data type of minPS is integer, then it treats minPS is expressed in count.
             Otherwise, it will be treated as float.
@@ -95,11 +95,11 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
             However, the users can override their default separator.
-        startTime:float
+        startTime : float
             To record the start time of the mining process
-        endTime:float
+        endTime : float
             To record the completion time of the mining process
-        finalPatterns: dict
+        finalPatterns : dict
             Storing the complete set of patterns in a dictionary variable
         oFile : str
             Name of the output file to store complete set of frequent patterns
@@ -132,9 +132,9 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
             Generating one frequent patterns
         convert(value):
             To convert the given user specified value
-        getNeighbourItems(keySet):
+        getNeighbourItems(keySet)
             A function to get common neighbours of a itemSet
-         mapNeighbours(file):
+        mapNeighbours(file)
             A function to map items to their neighbours
 
     **Executing the code on terminal :**
@@ -370,10 +370,10 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         """
         A function to get Neighbours of an item
 
-        :param keySet:itemSet
-        :type keySet:str or tuple
+        :param keySet: itemSet
+        :type keySet: str or tuple
         :return: set of common neighbours
-        :rtype:set
+        :rtype: set
         """
         itemNeighbours = self._NeighboursMap.keys()
         if isinstance(keySet, str):
@@ -428,41 +428,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         Frequent pattern mining process will start from here
         """
 
-        # global items_sets, endTime, startTime
-        self._startTime = _ab._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        self._creatingItemSets()
-        #self._minSup = self._convert(self._minSup)
-        self.mapNeighbours()
-        self._finalPatterns = {}
-        plist = self._frequentOneItem()
-        for i in range(len(plist)):
-            itemX = plist[i]
-            tidSetX = self._tidList[itemX]
-            itemSetX = [itemX]
-            itemSets = []
-            tidSets = []
-            neighboursItems = self._getNeighbourItems(plist[i])
-            for j in range(i + 1, len(plist)):
-                if not plist[j] in neighboursItems:
-                    continue
-                itemJ = plist[j]
-                tidSetJ = self._tidList[itemJ]
-                y1 = list(set(tidSetX).intersection(tidSetJ))
-                val = self._getPeriodicSupport(y1)
-                if val >= self._minPS:
-                    itemSets.append(itemJ)
-                    tidSets.append(y1)
-            self._Generation(itemSetX, itemSets, tidSets)
-            self._save(None, itemSetX, tidSetX)
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Spatial Periodic Frequent patterns were generated successfully using SpatialEclat algorithm")
+        self.mine()
 
     def mine(self):
         """
@@ -508,6 +474,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     def getMemoryUSS(self):
         """
         Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -517,6 +484,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     def getMemoryRSS(self):
         """
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -526,6 +494,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     def getRuntime(self):
         """
         Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -535,6 +504,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     def getPatternsAsDataFrame(self):
         """
         Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -552,6 +522,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     def save(self, outFile):
         """
         Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
         :type outFile: csv file
         """
@@ -567,6 +538,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     def getPatterns(self):
         """
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """

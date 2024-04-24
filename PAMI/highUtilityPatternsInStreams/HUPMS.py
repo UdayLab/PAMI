@@ -752,77 +752,7 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
         """
         This function will start the mining process
         """
-        global _minUtil
-        self.__startTime = _hus._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        if self._minUtil is None:
-            raise Exception("Please enter the Minimum Support")
-        if self._windowSize is None:
-            raise Exception("Please enter the Window Size")
-        if self._paneSize is None:
-            raise Exception("Please enter the Pane Size")
-        self.__windowSize = int(self._windowSize)
-        self.__paneSize = int(self._paneSize)
-        
-        self._createItemsets()
-        self._minUtil = float(self._minUtil)
-        self.__tree = _HUSTree(self.__windowSize, self.__paneSize)
-        
-        transactionwiseUtility = []
-
-        for i in range(len(self._transactions)):
-            curTrans = {}
-            for j in range(len(self._transactions[i])):
-                curTrans[self._transactions[i][j]] = self._utilities[i][j]
-            transactionwiseUtility.append(curTrans)
-
-        for i in range(0, self.__windowSize):
-            self.__tree.batchIndex = i
-            for j in range(0, self.__paneSize):
-                self.__tree.addTransaction(self._transactions[i * self.__paneSize + j], self._utilitySum[i * self.__paneSize + j])
-
-        startIndex = 0
-        endIndex = self.__windowSize * self.__paneSize
-
-        while(endIndex <= len(self._transactions)):
-            
-            filteredItemsets = {}
-
-            self.treeGenerations(self.__tree, self._minUtil, filteredItemsets)
-
-            results = []
-
-            for itemSetLen in filteredItemsets:
-                for itemSet in filteredItemsets[itemSetLen]:
-                    itemSetUtility = 0
-                    for transId in range(startIndex, endIndex):
-                        if(self.contains(list(transactionwiseUtility[transId].keys()), itemSet)):
-                            for item in itemSet:
-                                itemSetUtility += transactionwiseUtility[transId][item]
-                        
-                    if(itemSetUtility >= self._minUtil):
-                        results.append([itemSet, itemSetUtility])
-
-            self.__finalPatterns[(startIndex, endIndex)] = results
-
-            if(endIndex >= len(self._transactions)):
-                break
-
-            self.__tree.removeBatch()
-
-            for i in range(0, self.__paneSize):
-                self.__tree.addTransaction(self._transactions[endIndex + i], self._utilitySum[endIndex + i])
-
-            startIndex += self.__paneSize
-            endIndex += self.__paneSize
-
-        self.__endTime = _hus._time.time()
-        self.__memoryUSS = float()
-        self.__memoryRSS = float()
-        process = _hus._psutil.Process(_hus._os.getpid())
-        self.__memoryUSS = process.memory_full_info().uss
-        self.__memoryRSS = process.memory_info().rss
+        self.mine()
 
     def mine(self):
         """

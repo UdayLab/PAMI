@@ -438,64 +438,7 @@ class TKSHUIM(utilityPatterns):
         """
         Main function of the program.
         """
-        self.startTime = time.time()
-        self.finalPatterns = {}
-        self.dataset = Dataset(self.iFile, self.sep)
-        with open(self.nFile, 'r') as o:
-            lines = o.readlines()
-            for line in lines:
-                line = line.split("\n")[0]
-                line_split = line.split(self.sep)
-                item = self.dataset.strToint.get(line_split[0])
-                lst = []
-                for i in range(1, len(line_split)):
-                    lst.append(self.dataset.strToint.get(line_split[i]))
-                self.Neighbours[item] = lst
-        o.close()
-        InitialMemory = psutil.virtual_memory()[3]
-        self.useUtilityBinArrayToCalculateLocalUtilityFirstTime(self.dataset)
-        itemsToKeep = []
-        for key in self.utilityBinArrayLU.keys():
-            if self.utilityBinArrayLU[key] >= self.minUtil:
-                itemsToKeep.append(key)
-        itemsToKeep = sorted(itemsToKeep, key=lambda x: self.utilityBinArrayLU[x])
-        currentName = 1
-        for idx, item in enumerate(itemsToKeep):
-            self.oldNamesToNewNames[item] = currentName
-            self.newNamesToOldNames[currentName] = item
-            itemsToKeep[idx] = currentName
-            currentName += 1
-        for transaction in self.dataset.getTransactions():
-            transaction.removeUnpromisingItems(self.oldNamesToNewNames)
-        self.sortDatabase(self.dataset.getTransactions())
-        emptyTransactionCount = 0
-        for transaction in self.dataset.getTransactions():
-            if len(transaction.getItems()) == 0:
-                emptyTransactionCount += 1
-        self.dataset.transactions = self.dataset.transactions[emptyTransactionCount:]
-        self.useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self.dataset)
-        self.heapList = []
-        itemsToExplore = []
-        for item in itemsToKeep:
-            if self.utilityBinArraySU[item] >= self.minUtil:
-                itemsToExplore.append(item)
-        commonitems = []
-        for i in range(self.dataset.maxItem):
-            commonitems.append(i)
-        self.backtrackingEFIM(self.dataset.getTransactions(), itemsToKeep, itemsToExplore, 0)
-        finalMemory = psutil.virtual_memory()[3]
-        memory = (finalMemory - InitialMemory) / 10000
-        if memory > self.maxMemory:
-            self.maxMemory = memory
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
-        for item in self.heapList:
-            self.finalPatterns[item[1]] = item[0]
-        print('TOP-K mining process is completed by TKSHUIM')
+        self.mine()
 
     def mine(self):
         """

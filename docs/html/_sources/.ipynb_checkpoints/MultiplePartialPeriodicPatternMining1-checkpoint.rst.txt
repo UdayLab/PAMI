@@ -1,0 +1,14 @@
+Multiple Partial Periodic Pattern Mining
+=========================================
+
+Multiple partial periodic pattern mining is a data mining technique focused on identifying recurring patterns or
+sequences of events that occur periodically but may not cover the entire duration of the periodic cycle.
+It involves analyzing datasets where multiple partial periodic patterns exist, with each pattern representing a subset of events recurring at regular intervals.
+
+Applications: Stock Market Analysis, Healthcare Monitoring, Internet Traffic Analysis.
+
+
+.. toctree::
+   :maxdepth: 1
+
+   multiplePartialPeriodicPatternMining

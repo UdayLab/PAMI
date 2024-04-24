@@ -1,34 +1,36 @@
 # UVEclat is one of the fundamental algorithm to discover frequent patterns in an uncertain transactional database using PUF-Tree.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
 #
+#             from PAMI.uncertainFrequentPattern.basic import UVECLAT as alg
 #
-#     from PAMI.uncertainFrequentPattern.basic import UVECLAT as alg
+#             iFile = 'sampleDB.txt'
 #
-#     obj = alg.UVEclat(iFile, minSup)
+#             minSup = 10  # can also be specified between 0 and 1
 #
-#     obj.startMine()
+#             obj = alg.UVEclat(iFile, minSup)
 #
-#     frequentPatterns = obj.getPatterns()
+#             obj.mine()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             frequentPatterns = obj.getPatterns()
 #
-#     obj.save(oFile)
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             obj.save(oFile)
 #
-#     memUSS = obj.getMemoryUSS()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     print("Total Memory in USS:", memUSS)
+#             memUSS = obj.getMemoryUSS()
 #
-#     memRSS = obj.getMemoryRSS()
+#             print("Total Memory in USS:", memUSS)
 #
-#     print("Total Memory in RSS", memRSS)
+#             memRSS = obj.getMemoryRSS()
 #
-#     run = obj.getRuntime()
+#             print("Total Memory in RSS", memRSS)
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             run = obj.getRuntime()
+#
+#             print("Total ExecutionTime in seconds:", run)
 #
 
 __copyright__ = """
@@ -37,18 +39,19 @@ __copyright__ = """
      it under the terms of the GNU General Public License as published by
      the Free Software Foundation, either version 3 of the License, or
      (at your option) any later version.
+     
      This program is distributed in the hope that it will be useful,
      but WITHOUT ANY WARRANTY; without even the implied warranty of
      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
      GNU General Public License for more details.
+     
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-     Copyright (C)  2021 Rage Uday Kiran
 """
 
 import operator as _operator
 from PAMI.uncertainFrequentPattern.basic import abstract as _ab
-
+import deprecated
 
 _minSup = float()
 _finalPatterns = {}
@@ -57,11 +60,14 @@ _finalPatterns = {}
 class _Item:
     """
     A class used to represent the item with probability in transaction of dataset
+
     :Attributes:
+
         item : int or word
-            Represents the name of the item
+          Represents the name of the item
+
         probability : float
-            Represent the existential probability(likelihood presence) of an item
+          Represent the existential probability(likelihood presence) of an item
     """
 
     def __init__(self, item, probability):
@@ -71,46 +77,65 @@ class _Item:
 
 class UVEclat(_ab._frequentPatterns):
     """
+    About this algorithm
+    ====================
+
     :Description: It is one of the fundamental algorithm to discover frequent patterns in an uncertain transactional database using PUF-Tree.
-    :Reference:
-    Carson Kai-Sang Leung, Lijing Sun: "Equivalence class transformation based mining of frequent itemsets from uncertain data",
-    SAC '11: Proceedings of the 2011 ACM Symposium on Applied ComputingMarch, 2011, Pages 983–984,
-    https://doi.org/10.1145/1982185.1982399
+
+    :Reference:  Carson Kai-Sang Leung, Lijing Sun: "Equivalence class transformation based mining of frequent itemsets from uncertain data",
+                 SAC '11: Proceedings of the 2011 ACM Symposium on Applied ComputingMarch, 2011, Pages 983–984,
+                 https://doi.org/10.1145/1982185.1982399
+
     :Attributes:
+
         iFile : file
             Name of the Input file or path of the input file
+
         oFile : file
             Name of the output file or path of the output file
+
         minSup : float or int or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
+
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
+
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
+
         startTime:float
             To record the start time of the mining process
+
         endTime:float
             To record the completion time of the mining process
+
         Database : list
             To store the transactions of a database in list
+
         mapSupport : Dictionary
             To maintain the information of item and their frequency
+
         lno : int
             To represent the total no of transaction
+
         tree : class
-            To represents the Tree class
+            To represent the Tree class
+
         itemSetCount : int
             To represents the total no of patterns
+
         finalPatterns : dict
             To store the complete patterns
+
     :Methods:
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -128,32 +153,65 @@ class UVEclat(_ab._frequentPatterns):
             Scans the dataset and stores in a list format
         frequentOneItem()
             Extracts the one-length frequent patterns from database
-    **Methods to execute code on terminal**
-    ------------------------------------------
-            Format:
-                      >>> python3 uveclat.py <inputFile> <outputFile> <minSup>
-            Example:
-                      >>>  python3 uveclat.py sampleTDB.txt patterns.txt 3
-                      .. note:: minSup  will be considered in support count or frequency
-    **Importing this algorithm into a python program**
+
+    Execution methods
+    =================
+
+
+    **Terminal command**
+
+
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 uveclat.py <inputFile> <outputFile> <minSup>
+
+      Example Usage:
+
+      (.venv) $ python3 uveclat.py sampleDB.txt patterns.txt 3
+
+    .. note:: minSup can be specified  in support count or a value between 0 and 1.
+
+
+    **Calling from a python program**
     ---------------------------------------------------
     .. code-block:: python
+
             from PAMI.uncertainFrequentPattern.basic import UVECLAT as alg
+
+            iFile = 'sampleDB.txt'
+
+            minSup = 10  # can also be specified between 0 and 1
+
             obj = alg.UVEclat(iFile, minSup)
-            obj.startMine()
+
+            obj.mine()
+
             frequentPatterns = obj.getPatterns()
+
             print("Total number of Frequent Patterns:", len(frequentPatterns))
+
             obj.save(oFile)
+
             Df = obj.getPatternsAsDataFrame()
+
             memUSS = obj.getmemoryUSS()
+
             print("Total Memory in USS:", memUSS)
+
             memRSS = obj.getMemoryRSS()
+
             print("Total Memory in RSS", memRSS)
+
             run = obj.getRuntime()
+
             print("Total ExecutionTime in seconds:", run)
-    **Credits:**
-    ---------------
-         The complete program was written by   P.Likhitha    under the supervision of Professor Rage Uday Kiran.
+
+    Credits
+    =======
+
+             The complete program was written by   P.Likhitha   under the supervision of Professor Rage Uday Kiran.
     """
     _startTime = float()
     _endTime = float()
@@ -227,9 +285,8 @@ class UVEclat(_ab._frequentPatterns):
 
     def _frequentOneItem(self):
         """
-        takes the self.Database and calculates the support of each item in the dataset and assign the ranks to the items by decreasing support and returns the frequent items list
+        Takes the self.Database and calculates the support of each item in the dataset and assign the ranks to the items by decreasing support and returns the frequent items list
         """
-
         mapSupport = {}
         k = 0
         for i in self._Database:
@@ -249,6 +306,7 @@ class UVEclat(_ab._frequentPatterns):
     def _check(i, x):
         """
         To check the presence of item or pattern in transaction
+
         :param x: it represents the pattern
         :type x : list
         :param i : represents the uncertain self.Database
@@ -269,6 +327,7 @@ class UVEclat(_ab._frequentPatterns):
     def _convert(value):
         """
         To convert the type of user specified minSup value
+
         :param value: user specified minSup value
         :return: converted type minSup value
         """
@@ -286,6 +345,7 @@ class UVEclat(_ab._frequentPatterns):
     def _removeFalsePositives(self):
         """
         To remove the false positive patterns generated in frequent patterns
+
         :return: patterns with accurate probability
         """
         global _finalPatterns
@@ -316,6 +376,7 @@ class UVEclat(_ab._frequentPatterns):
     def _Intersection(tidSetx, tidSetY):
         """
         This function is used to find the intersection
+
         :param tidSetx: the timestamp of a patterns
         :type tidSetx: dict
         :param tidSetY: the timestamp of a patterns
@@ -335,6 +396,7 @@ class UVEclat(_ab._frequentPatterns):
     def _calculateExpSup(self, tidList):
         """
         This function is used to calculate support of tidList
+
         :param tidList: timestamp of a list.
         :type tidList: List
         """
@@ -343,6 +405,7 @@ class UVEclat(_ab._frequentPatterns):
     def _save(self, prefix, suffix, tidSetI):
         """
         Saves the patterns that satisfy the periodic frequent property.
+
         :param prefix: the prefix of a pattern
         :type prefix: list
         :param suffix: the suffix of a patterns
@@ -362,6 +425,7 @@ class UVEclat(_ab._frequentPatterns):
     def _Generation(self, prefix, itemSets, tidSets):
         """
         Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.
+
         :param prefix:  main equivalence prefix
         :type prefix: periodic-frequent item or pattern
         :param itemSets: patterns which are items combined with prefix and satisfying the periodicity and frequent with their timestamps
@@ -393,7 +457,15 @@ class UVEclat(_ab._frequentPatterns):
             self._Generation(newPrefix, classItemSets, classTidSets)
             self._save(prefix, list(set(itemSetX)), tidSetI)
 
+    @deprecated(
+        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
+        """
+        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
+        """
+        self.mine()
+
+    def mine(self):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
@@ -428,7 +500,10 @@ class UVEclat(_ab._frequentPatterns):
         self._memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -436,7 +511,10 @@ class UVEclat(_ab._frequentPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -444,7 +522,10 @@ class UVEclat(_ab._frequentPatterns):
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+
+        Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -452,7 +533,10 @@ class UVEclat(_ab._frequentPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+
+        Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -465,7 +549,10 @@ class UVEclat(_ab._frequentPatterns):
         return dataframe
 
     def save(self, oFile):
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+
+        Complete set of frequent patterns will be loaded in to an output file
+
         :param oFile: name of the output file
         :type oFile: csv file
         """
@@ -476,7 +563,10 @@ class UVEclat(_ab._frequentPatterns):
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+
+        Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """
@@ -500,6 +590,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = UVEclat(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

@@ -476,105 +476,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         """ 
         Frequent pattern mining process will startTime from here
         """
-        self._startTime = _ab._time.time()
-        self._creatingItemSets()
-        for tr in range(len(self._transactions)):
-            items = self._transactions[tr]
-            quantities = self._fuzzyValues[tr]
-            for i in range(0, len(items)):
-                item = items[i]
-                regions = _Regions(item, float(quantities[i]), 3, self._mapItemRegionSum)
-                if item in self._mapItemsLowSum.keys():
-                    low = self._mapItemsLowSum[item]
-                    low += regions.low
-                    self._mapItemsLowSum[item] = low
-                else:
-                    self._mapItemsLowSum[item] = regions.low
-                if item in self._mapItemsMidSum.keys():
-                    mid = self._mapItemsMidSum[item]
-                    mid += regions.middle
-                    self._mapItemsMidSum[item] = mid
-                else:
-                    self._mapItemsMidSum[item] = regions.middle
-                if item in self._mapItemsHighSum.keys():
-                    high = self._mapItemsHighSum[item]
-                    high += regions.high
-                    self._mapItemsHighSum[item] = high
-                else:
-                    self._mapItemsHighSum[item] = regions.high
-        listOfFFIList = []
-        mapItemsToFFLIST = {}
-        self._minSup = self._convert(self._minSup)
-        #minSup = self._minSup
-        self._minAllConf = float(self._minAllConf)
-        for item1 in self._mapItemsLowSum.keys():
-            item = item1
-            region = 'N'
-            low = self._mapItemsLowSum[item]
-            mid = self._mapItemsMidSum[item]
-            high = self._mapItemsHighSum[item]
-            if low >= mid and low >= high:
-                self._mapItemSum[item] = low
-                self._mapItemRegions[item] = "L"
-                region = 'L'
-            elif mid >= low and mid >= high:
-                self._mapItemSum[item] = mid
-                self._mapItemRegions[item] = "M"
-                region = 'M'
-            elif high >= low and high >= mid:
-                self._mapItemRegions[item] = "H"
-                region = 'H'
-                self._mapItemSum[item] = high
-            if self._mapItemSum[item] >= self._minSup:
-                fuList = _FFList(item, region)
-                mapItemsToFFLIST[item] = fuList
-                listOfFFIList.append(fuList)
-        listOfFFIList.sort(key=_ab._functools.cmp_to_key(self._compareItems))
-        tid = 0
-        for tr in range(len(self._transactions)):
-            items = self._transactions[tr]
-            quantities = self._fuzzyValues[tr]
-            revisedTransaction = []
-            for i in range(0, len(items)):
-                pair = _Pair()
-                pair.item = items[i]
-                regions = _Regions(pair.item, float(quantities[i]), 3, self._temp)
-                item = pair.item
-                if self._mapItemSum[item] >= self._minSup:
-                    if self._mapItemRegions[pair.item] == "L":
-                        pair.quantity = regions.low
-                        pair.region = 'L'
-                    elif self._mapItemRegions[pair.item] == "M":
-                        pair.region = 'M'
-                        pair.quantity = regions.middle
-                    elif self._mapItemRegions[pair.item] == "H":
-                        pair.quantity = regions.high
-                        pair.region = 'H'
-                    if pair.quantity > 0:
-                        revisedTransaction.append(pair)
-            revisedTransaction.sort(key=_ab._functools.cmp_to_key(self._compareItems))
-            for i in range(len(revisedTransaction) - 1, -1, -1):
-                pair = revisedTransaction[i]
-                remainUtil = 0
-                for j in range(len(revisedTransaction) - 1, i - 1, -1):
-                    remainUtil += revisedTransaction[j].quantity
-                if pair.quantity > remainUtil:
-                    remainingUtility = pair.quantity
-                else:
-                    remainingUtility = remainUtil
-                if mapItemsToFFLIST.get(pair.item) is not None:
-                    FFListOfItem = mapItemsToFFLIST[pair.item]
-                    element = Element(tid, pair.quantity, remainingUtility)
-                    FFListOfItem.addElement(element)
-            tid += 1
-        self._FSFIMining(self._itemSetBuffer, 0, listOfFFIList, self._minSup)
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Fuzzy Correlated Patterns Successfully generated using FCPGrowth algorithms")
+        self.mine()
 
 
     def mine(self) -> None:
@@ -736,7 +638,6 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
-
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:

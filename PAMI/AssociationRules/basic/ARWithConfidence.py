@@ -1,8 +1,7 @@
-#  This code uses "confidence" metric to extract the association rules from given frequent patterns.
+# This code uses "confidence" metric to extract the association rules from given frequent patterns.
 #
 # **Importing this algorithm into a python program**
 # ----------------------------------------------------
-#
 #
 #             import PAMI.AssociationRules.basic import ARWithConfidence as alg
 #
@@ -33,8 +32,6 @@
 
 
 
-
-
 __copyright__ = """
 Copyright (C)  2021 Rage Uday Kiran
 
@@ -54,13 +51,8 @@ Copyright (C)  2021 Rage Uday Kiran
      
 """
 
-
-
-
 from PAMI.AssociationRules.basic import abstract as _ab
 from deprecated import deprecated
-
-
 
 class _Confidence:
     """
@@ -89,6 +81,7 @@ class _Confidence:
     def _generation(self, prefix, suffix):
         """
         To generate the combinations all association rules.
+
         :param prefix: the prefix of association rule.
         :type prefix: str
         :param suffix: the suffix of association rule.
@@ -107,6 +100,7 @@ class _Confidence:
     def _generateWithConfidence(self, lhs, rhs):
         """
         To find association rules satisfying user-specified minConf
+
         :param lhs: the prefix of association rule.
         :type lhs: str
         :param rhs: the suffix of association rule.
@@ -139,42 +133,29 @@ class _Confidence:
 
 class ARWithConfidence:
     """
-    :Description: Association Rules are derived from frequent patterns using "confidence" metric.
+    About this algorithm
+    ====================
 
-    :Reference:
+    :**Description**: Association Rules are derived from frequent patterns using "confidence" metric.
 
-    :param  iFile: str :
-                   Name of the Input file to mine complete set of association rules
-    :param  oFile: str :
-                   Name of the output file to store complete set of association rules
-    :param  minConf: float :
-                   The user can specify the minConf in float between the range of 0 to 1.
-    :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :**Reference**:
 
+    :**Parameters**:    - **iFile** (*str*) -- *Name of the Input file to mine complete set of association rules*
+                        - **oFile** (*str*) -- *Name of the Output file to write association rules*
+                        - **minConf** (*float*) -- *Minimum confidence to mine all the satisfying association rules. The user can specify the minConf in float between the range of 0 to 1.*
+                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
 
-        
-    :Attributes:
-
-
-        startTime : float
-            To record the start time of the mining process
-
-        endTime : float
-            To record the completion time of the mining process
-
-        finalPatterns : dict
-            Storing the complete set of patterns in a dictionary variable
-
-        memoryUSS : float
-            To store the total amount of USS memory consumed by the program
-
-        memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
+    :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*
+                        - **endTime** (*float*) -- *To record the completion time of the mining process.*
+                        - **finalPatterns** (*dict*) -- *Storing the complete set of patterns in a dictionary variable.*
+                        - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
+                        - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
 
 
-    **Methods to execute code on terminal**
-    ----------------------------------------------------
+    Execution methods
+    =================
+
+    **Terminal command**
 
     .. code-block:: console
 
@@ -186,11 +167,11 @@ class ARWithConfidence:
 
       (.venv) $ python3 ARWithConfidence.py sampleDB.txt patterns.txt 0.5 ' '
 
-    .. note:: minConf will be considered only in 0 to 1.
+    .. note:: minConf can be specified in a value between 0 and 1.
     
     
-    **Importing this algorithm into a python program**
-    ----------------------------------------------------
+    **Calling from a python program**
+
     .. code-block:: python
 
             import PAMI.AssociationRules.basic import ARWithConfidence as alg
@@ -220,10 +201,11 @@ class ARWithConfidence:
             print("Total ExecutionTime in seconds:", run)
 
 
-    **Credits:**
-    -------------
+    Credits
+    =======
 
-            The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+            The complete program was written by P. Likhitha  under the supervision of Professor Rage Uday Kiran.
+
     """
 
     _minConf = float()
@@ -299,18 +281,7 @@ class ARWithConfidence:
         """
         Association rule mining process will start from here
         """
-        self._startTime = _ab._time.time()
-        k = self._readPatterns()
-        a = _Confidence(self._frequentPatterns, k, self._minConf)
-        a.run()
-        self._finalPatterns = a._finalPatterns
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Association rules successfully  generated from frequent patterns ")
+        self.mine()
 
 
 
@@ -334,6 +305,7 @@ class ARWithConfidence:
     def getMemoryUSS(self):
         """
         Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -343,6 +315,7 @@ class ARWithConfidence:
     def getMemoryRSS(self):
         """
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -352,6 +325,7 @@ class ARWithConfidence:
     def getRuntime(self):
         """
         Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -361,6 +335,7 @@ class ARWithConfidence:
     def getPatternsAsDataFrame(self):
         """
         Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -376,6 +351,7 @@ class ARWithConfidence:
     def save(self, outFile):
         """
         Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the outputfile
         :type outFile: file
         """
@@ -388,6 +364,7 @@ class ARWithConfidence:
     def getPatterns(self):
         """
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """

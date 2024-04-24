@@ -467,63 +467,7 @@ class SHUIM(_ab._utilityPatterns):
         """
         main program to start the operation
         """
-        self._startTime = _ab._time.time()
-        self._patternCount = 0
-        self._finalPatterns = {}
-        self._dataset = _Dataset(self._iFile, self._sep)
-        with open(self._nFile, 'r') as o:
-            lines = o.readlines()
-            for line in lines:
-                line = line.split("\n")[0]
-                line_split = line.split(self._sep)
-                line_split = [i.strip() for i in line_split]
-                item = self._dataset.strToInt.get(line_split[0])
-                lst = []
-                for i in range(1, len(line_split)):
-                    lst.append(self._dataset.strToInt.get(line_split[i]))
-                self._Neighbours[item] = lst
-        o.close()
-        #print(len(self._Neighbours))
-        InitialMemory = _ab._psutil.virtual_memory()[3]
-        self._useUtilityBinArrayToCalculateLocalUtilityFirstTime(self._dataset)
-        itemsToKeep = []
-        for key in self._utilityBinArrayLU.keys():
-            if self._utilityBinArrayLU[key] >= self._minUtil:
-                itemsToKeep.append(key)
-        itemsToKeep = sorted(itemsToKeep, key=lambda x: self._utilityBinArrayLU[x])
-        currentName = 1
-        for idx, item in enumerate(itemsToKeep):
-            self._oldNamesToNewNames[item] = currentName
-            self._newNamesToOldNames[currentName] = item
-            itemsToKeep[idx] = currentName
-            currentName += 1
-        for transaction in self._dataset.getTransactions():
-            transaction.removeUnpromisingItems(self._oldNamesToNewNames)
-        self._sortDatabase(self._dataset.getTransactions())
-        emptyTransactionCount = 0
-        for transaction in self._dataset.getTransactions():
-            if len(transaction.getItems()) == 0:
-                emptyTransactionCount += 1
-        self._dataset.transactions = self._dataset.transactions[emptyTransactionCount:]
-        self._useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self._dataset)
-        itemsToExplore = []
-        for item in itemsToKeep:
-            if self._utilityBinArraySU[item] >= self._minUtil:
-                itemsToExplore.append(item)
-        commonitems = []
-        for i in range(self._dataset.maxItem):
-            commonitems.append(i)
-        self._backtrackingEFIM(self._dataset.getTransactions(), itemsToKeep, itemsToExplore, 0)
-        finalMemory = _ab._psutil.virtual_memory()[3]
-        memory = (finalMemory - InitialMemory) / 10000
-        if memory > self._maxMemory:
-            self._maxMemory = memory
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
+        self.mine()
 
     def mine(self) -> None:
         """

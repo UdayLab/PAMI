@@ -476,20 +476,7 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
         """
         Mining process start from here.
         """
-        self._localPeriodicPatterns__startTime = _ab._time.time()
-        self.__creatingItemSets()
-        self._localPeriodicPatterns__maxPer = self.__convert(self._localPeriodicPatterns__maxPer)
-        self._localPeriodicPatterns__maxSoPer = self.__convert(self._localPeriodicPatterns__maxSoPer)
-        self._localPeriodicPatterns__minDur = self.__convert(self._localPeriodicPatterns__minDur)
-        self._localPeriodicPatterns__finalPatterns = {}
-        self.__createTSList()
-        self.__generateLPP()
-        self._localPeriodicPatterns__endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._localPeriodicPatterns__memoryUSS = float()
-        self._localPeriodicPatterns__memoryRSS = float()
-        self._localPeriodicPatterns__memoryUSS = process.memory_full_info().uss
-        self._localPeriodicPatterns__memoryRSS = process.memory_info().rss
+        self.mine()
 
     def mine(self) -> None:
         """

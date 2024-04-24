@@ -5,6 +5,12 @@
 #
 #             from PAMI.fuzzyGeoreferencedFrequentPattern import FFSPMiner as alg
 #
+#             minSup = str()
+#
+#             iFile = " "
+#
+#             sep = "\t"
+#
 #             obj = alg.FFSPMiner("input.txt", "neighbours.txt", 2)
 #
 #             obj.mine()
@@ -27,7 +33,6 @@
 #
 #             print("Total ExecutionTime in seconds:", run)
 #
-
 
 
 
@@ -111,7 +116,7 @@ class _Element:
 
         tid : int
             keep tact of transaction id
-        iUtils: float
+        iUtils : float
             the utility of a fuzzy item in the transaction
         rUtils : float
             the neighbourhood resting value of a fuzzy item in the transaction
@@ -131,7 +136,7 @@ class _Regions:
 
         low : int
             low region value
-        middle: int
+        middle : int
             middle region value
         high : int
             high region values
@@ -171,7 +176,10 @@ class _Pair:
 
 
 class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
-    """
+     """
+    About this algorithm
+    ====================
+
     :Description:   Fuzzy Frequent Spatial Pattern-Miner is desired to find all Spatially frequent fuzzy patterns
                     which is on-trivial and challenging problem to its huge search space.we are using efficient pruning
                     techniques to reduce the search space.
@@ -202,31 +210,31 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
             Name of the oFile file to store complete set of fuzzy spatial frequent patterns
         minSup : float
             The user given minimum support
-        neighbors: map
+        neighbors : map
             keep track of neighbours of elements
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-        startTime:float
+        startTime : float
             To record the start time of the mining process
-        endTime:float
+        endTime : float
             To record the completion time of the mining process
-        itemsCnt: int
+        itemsCnt : int
             To record the number of fuzzy spatial itemSets generated
-        mapItemsLowSum: map
+        mapItemsLowSum : map
             To keep track of low region values of items
-        mapItemsMidSum: map
+        mapItemsMidSum : map
             To keep track of middle region values of items
-        mapItemsHighSum: map
+        mapItemsHighSum : map
             To keep track of high region values of items
-        mapItemSum: map
+        mapItemSum : map
             To keep track of sum of Fuzzy Values of items
-        mapItemRegions: map
+        mapItemRegions : map
             To Keep track of fuzzy regions of item
-        jointCnt: int
+        joinsCnt : int
             To keep track of the number of FFI-list that was constructed
-        BufferSize: int
+        BufferSize : int
             represent the size of Buffer
-        itemBuffer list
+        itemSetBuffer : list
             to keep track of items in buffer
 
     :Methods:
@@ -245,7 +253,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
             Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function            
-        convert(value):
+        convert(value)
             To convert the given user specified value
         FSFIMining( prefix, prefixLen, fsFim, minSup)
             Method generate FFI from prefix
@@ -258,9 +266,11 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         WriteOut(prefix, prefixLen, item, sumIUtil,period)
             To Store the patten
     
-    **Executing the code on terminal :**
-    ----------------------------------------
+    Execution methods
+    =================
 
+
+    **Terminal command**
     .. code-block:: console
 
       Format:
@@ -305,24 +315,16 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    **Credits:**
-    ---------------
+    Credits
+    =======
             The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
     """
-    
-    _startTime = float()
-    _endTime = float()
+
+
     _minSup = str()
-    _maxPer = float()
-    _finalPatterns = {}
     _iFile = " "
-    _oFile = " "
     _nFile = " "
-    _memoryUSS = float()
-    _memoryRSS = float()
     _sep = "\t"
-    _transactions = []
-    _fuzzyValues = []
 
     def __init__(self, iFile, nFile, minSup, sep="\t"):
         super().__init__(iFile, nFile, minSup, sep)
@@ -461,99 +463,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
-        self._startTime = _ab._time.time()
-        self._creatingItemSets()
-        self._finalPatterns = {}
-        self._mapNeighbours()
-        for line in range(len(self._transactions)):
-            items = self._transactions[line]
-            quantities = self._fuzzyValues[line]
-            self._dbLen += 1
-            for i in range(0, len(items)):
-                regions = _Regions(int(quantities[i]), 3)
-                item = items[i]
-                if item in self._mapItemsLowSum.keys():
-                    low = self._mapItemsLowSum[item]
-                    low += regions.low
-                    self._mapItemsLowSum[item] = low
-                else:
-                    self._mapItemsLowSum[item] = regions.low
-                if item in self._mapItemsMidSum.keys():
-                    mid = self._mapItemsMidSum[item]
-                    mid += regions.middle
-                    self._mapItemsMidSum[item] = mid
-                else:
-                    self._mapItemsMidSum[item] = regions.middle
-                if item in self._mapItemsHighSum.keys():
-                    high = self._mapItemsHighSum[item]
-                    high += regions.high
-                    self._mapItemsHighSum[item] = high
-                else:
-                    self._mapItemsHighSum[item] = regions.high
-        listOfFFList = []
-        mapItemsToFFLIST = {}
-        self._minSup = self._convert(self._minSup)
-        for item1 in self._mapItemsLowSum.keys():
-            item = item1
-            low = self._mapItemsLowSum[item]
-            mid = self._mapItemsMidSum[item]
-            high = self._mapItemsHighSum[item]
-            if low >= mid and low >= high:
-                self._mapItemSum[item] = low
-                self._mapItemRegions[item] = "L"
-            elif mid >= low and mid >= high:
-                self._mapItemSum[item] = mid
-                self._mapItemRegions[item] = "M"
-            elif high >= low and high >= mid:
-                self._mapItemRegions[item] = "H"
-                self._mapItemSum[item] = high
-            if self._mapItemSum[item] >= self._minSup:
-                fuList = _FFList(item)
-                mapItemsToFFLIST[item] = fuList
-                listOfFFList.append(fuList)
-        listOfFFList.sort(key=_ab._functools.cmp_to_key(self._compareItems))
-        tid = 0
-        for line in range(len(self._transactions)):
-            items = self._transactions[line]
-            quantities = self._fuzzyValues[line]
-            revisedTransaction = []
-            for i in range(0, len(items)):
-                pair = _Pair()
-                pair.item = items[i]
-                regions = _Regions(int(quantities[i]), 3)
-                item = pair.item
-                if self._mapItemSum[item] >= self._minSup:
-                    if self._mapItemRegions[pair.item] == "L":
-                        pair.quantity = regions.low
-                    elif self._mapItemRegions[pair.item] == "M":
-                        pair.quantity = regions.middle
-                    elif self._mapItemRegions[pair.item] == "H":
-                        pair.quantity = regions.high
-                    if pair.quantity > 0:
-                        revisedTransaction.append(pair)
-            revisedTransaction.sort(key=_ab._functools.cmp_to_key(self._compareItems))
-            for i in range(len(revisedTransaction) - 1, -1, -1):
-                pair = revisedTransaction[i]
-                remainUtil = 0
-                for j in range(len(revisedTransaction) - 1, i, -1):
-                    if self._mapItemNeighbours.get(pair.item) is None:
-                        continue
-                    if revisedTransaction[j].item in self._mapItemNeighbours[pair.item]:
-                        remainUtil += revisedTransaction[j].quantity
-                remainingUtility = remainUtil
-                if mapItemsToFFLIST.get(pair.item) is not None:
-                    FFListOfItem = mapItemsToFFLIST[pair.item]
-                    element = _Element(tid, pair.quantity, remainingUtility)
-                    FFListOfItem.addElement(element)
-            tid += 1
-        itemNeighbours = list(self._mapItemNeighbours.keys())
-        self._FSFIMining(self._itemSetBuffer, 0, listOfFFList, self._minSup, itemNeighbours)
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
+        self.mine()
 
     def mine(self):
         """
@@ -664,7 +574,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         :param FSFIM: the Fuzzy list of prefix itemSets
         :type FSFIM: list
         :param minSup: the minimum support of
-        :type minSup:int
+        :type minSup: int
         :param itemNeighbours: the set of common neighbours of prefix
         :type itemNeighbours: list or set
         """
@@ -691,8 +601,8 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         :type neighbourX: set or list
         :param neighbourY: the set of neighbours of itemSet 2
         :type neighbourY: set or list
-        :return : set of common neighbours of 2 itemSets
-        :rtype :set
+        :return: set of common neighbours of 2 itemSets
+        :rtype: set
         """
         result = []
         if neighbourX is None or neighbourY is None:
@@ -725,7 +635,6 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         """
         Calculating the total amount of runtime taken by the mining process
 
-
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -735,12 +644,12 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         """
         A function to construct a new Fuzzy itemSet from 2 fuzzy itemSets
 
-        :param px:the itemSet px
-        :type px:FFI-List
-        :param py:itemSet py
-        :type py:FFI-List
-        :return :the itemSet of pxy(px and py)
-        :rtype :FFI-List
+        :param px: the itemSet px
+        :type px: FFI-List
+        :param py: itemSet py
+        :type py: FFI-List
+        :return: the itemSet of pxy(px and py)
+        :rtype: FFI-List
         """
         pxyUL = _FFList(py.item)
         for ex in px.elements:
@@ -755,11 +664,11 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         """
         To find element with same tid as given
 
-        :param uList:fuzzyList
-        :type uList:FFI-List
-        :param tid:transaction id
-        :type tid:int
-        :return:element tid as given
+        :param uList: fuzzyList
+        :type uList: FFI-List
+        :param tid: transaction id
+        :type tid: int
+        :return: element tid as given
         :rtype: element if exist or None
         """
         List = uList.elements

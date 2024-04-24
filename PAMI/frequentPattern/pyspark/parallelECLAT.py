@@ -300,51 +300,7 @@ class parallelECLAT(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
-
-        self._startTime = _ab._time.time()
-        conf = SparkConf().setAppName("Parallel ECLAT").setMaster("local[*]")
-        sc = SparkContext(conf=conf)
-
-        data = sc.textFile(self._iFile, self._numPartitions) \
-            .map(lambda line: [int(y) for y in line.rstrip().split(self._sep)]).persist()
-        self._lno = data.count()
-        self._minSup = self._convert(self._minSup)
-
-        frequentItems = None
-        frequentItems = data.zipWithIndex() \
-            .flatMap(lambda x: [(str(item), x[1]) for item in x[0]]) \
-            .groupByKey() \
-            .filter(lambda x: len(x[1]) >= self._minSup) \
-            .sortBy(lambda x: len(x[1])) \
-            .mapValues(set) \
-            .persist()
-        data.unpersist()
-        # elif 'temporal' in self._iFile:
-        #     frequentItems = data.flatMap(lambda trans: [(str(item), trans[0]) for item in trans[1:]]) \
-        #         .groupByKey() \
-        #         .filter(lambda x: len(x[1]) >= self._minSup) \
-        #         .mapValues(set) \
-        #         .persist()
-        #     data.unpersist()
-        # else:
-        #     pass
-        #     # print("may be not able to process the input file")
-
-        freqItems = dict(frequentItems.collect())
-        # print(len(freqItems))
-        self._finalPatterns = {k: len(v) for k, v in freqItems.items()}
-
-        freqPatterns = list(frequentItems.map(lambda x: self._genPatterns(x, x, list(freqItems.items())))
-                            .filter(lambda x: len(x) != 0).collect())
-        for value in freqPatterns:
-            self._finalPatterns.update(value)
-
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Frequent patterns were generated successfully using Parallel ECLAT algorithm")
-        sc.stop()
+        self.mine()
 
     def mine(self):
         """

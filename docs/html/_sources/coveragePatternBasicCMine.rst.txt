@@ -1,0 +1,7 @@
+CMine
+--------
+
+.. automodule:: PAMI.coveragePattern.basic.CMine
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -68,6 +68,7 @@ class Confidence:
     def _generation(self, prefix, suffix):
         """
         To generate the combinations all association rules.
+
         :param prefix: the prefix of association rule.
         :type prefix: str
         :param suffix: the suffix of association rule.
@@ -86,6 +87,7 @@ class Confidence:
     def _generaeWithConfidence(self, lhs, rhs):
         """
         To find association rules satisfying user-specified minConf
+
         :param lhs: the prefix of association rule.
         :type lhs: str
         :param rhs: the suffix of association rule.
@@ -139,6 +141,7 @@ class Lift:
     def _generation(self, prefix, suffix):
         """
         To generate the combinations all association rules.
+
         :param prefix: the prefix of association rule.
         :type prefix: str
         :param suffix: the suffix of association rule.
@@ -157,6 +160,7 @@ class Lift:
     def _generateWithLift(self, lhs, rhs):
         """
         To find association rules satisfying user-specified minConf
+
         :param lhs: the prefix of association rule.
         :type lhs: str
         :param rhs: the suffix of association rule.
@@ -212,6 +216,7 @@ class Leverage:
     def _generation(self, prefix, suffix):
         """
         To generate the combinations all association rules.
+
         :param prefix: the prefix of association rule.
         :type prefix: str
         :param suffix: the suffix of association rule.
@@ -229,6 +234,7 @@ class Leverage:
     def _generateWithLeverage(self, lhs, rhs):
         """
         To find association rules satisfying user-specified minConf
+
         :param lhs: the prefix of association rule.
         :type lhs: str
         :param rhs: the suffix of association rule.
@@ -262,6 +268,9 @@ class Leverage:
 
 class RuleMiner:
     """
+    About this algorithm
+    ====================
+
     :Description: RuleMiner code is used to extract the association rules from given frequent patterns
 
     :Reference:
@@ -301,8 +310,10 @@ class RuleMiner:
             To store the total amount of RSS memory consumed by the program
 
 
-    **Methods to execute code on terminal**
-    ----------------------------------------------------
+    Execution methods
+    =================
+
+    **Terminal command**
 
     .. code-block:: console
 
@@ -314,11 +325,11 @@ class RuleMiner:
 
       (.venv) $ python3 RuleMiner.py sampleDB.txt patterns.txt 0.5 ' '
 
-    .. note:: minConf will be considered only in 0 to 1.
+    .. note:: minConf can be specified in a value between 0 and 1.
 
 
-    **Importing this algorithm into a python program**
-    ----------------------------------------------------
+    **Calling from a python program**
+
     .. code-block:: python
 
             import PAMI.AssociationRules.basic import RuleMiner as alg
@@ -418,27 +429,7 @@ class RuleMiner:
         """
         Association rule mining process will start from here
         """
-        self._startTime = _ab._time.time()
-        k = self._readPatterns()
-        if self._measure == 'confidence':
-            a = Confidence(self._frequentPatterns, k, self._threshold)
-            a.run()
-            self._finalPatterns = a._finalPatterns
-        if self._measure == 'lift':
-            a = Lift(self._frequentPatterns, k, self._threshold)
-            a.run()
-            self._finalPatterns = a._finalPatterns
-        if self._measure == 'leverage':
-            a = Leverage(self._frequentPatterns, k, self._threshold)
-            a.run()
-            self._finalPatterns = a._finalPatterns
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Association rules successfully  generated from frequent patterns ")
+        self.mine()
 
 
     def mine(self):
@@ -470,6 +461,7 @@ class RuleMiner:
     def getMemoryUSS(self):
         """
         Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -479,6 +471,7 @@ class RuleMiner:
     def getMemoryRSS(self):
         """
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -488,6 +481,7 @@ class RuleMiner:
     def getRuntime(self):
         """
         Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -497,6 +491,7 @@ class RuleMiner:
     def getPatternsAsDataFrame(self):
         """
         Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -512,8 +507,9 @@ class RuleMiner:
     def save(self, outFile):
         """
         Complete set of frequent patterns will be loaded in to a output file
+
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -524,6 +520,7 @@ class RuleMiner:
     def getPatterns(self):
         """
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """

@@ -57,23 +57,23 @@ from deprecated import deprecated
 
 
 class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
-    """ 
-    :Description:   GPFPMiner is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up
-                    Lattice Traversal to mine the geo referenced peridoic frequent patterns.
+    """
+    :Description:   GPFPMiner is an Extension of ÉCLAT algorithm,which  stands for Equivalence Class Clustering and
+    bottom-up Lattice Traversal to mine the geo referenced periodic frequent patterns.
         
     :Reference:
 
-    :param  iFile: str :
+    :param  iFile: str
                    Name of the Input file to mine complete set of Geo-referenced periodic frequent patterns
-    :param  oFile: str :
+    :param  oFile: str
                    Name of the output file to store complete set of Geo-referenced periodic frequent patterns
-    :param  minSup: int or float or str :
+    :param  minSup: int or float or str
                    The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
-    :param maxPer: float :
+    :param maxPer: float
                    The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
-    :param nFile: str :
+    :param nFile: str
                    Name of the input file to mine complete set of Geo-referenced periodic frequent patterns
-    :param  sep: str :
+    :param  sep: str
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
 
@@ -81,14 +81,14 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
 
         iFile : str
             Input file name or path of the input file
-        nFile: str:
+        nFile : str
            Name of Neighbourhood file name
-        minSup: float or int or str
+        minSup : float or int or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        maxPer: float or int or str
+        maxPer : float or int or str
             The user can specify maxPer either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
@@ -96,11 +96,11 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
             However, the users can override their default separator.
-        startTime:float
+        startTime : float
             To record the start time of the mining process
-        endTime:float
+        endTime : float
             To record the completion time of the mining process
-        finalPatterns: dict
+        finalPatterns : dict
             Storing the complete set of patterns in a dictionary variable
         oFile : str
             Name of the output file to store complete set of frequent patterns
@@ -131,11 +131,11 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
                 Storing the complete transactions of the database/input file in a database variable
             frequentOneItem()
                 Generating one frequent patterns
-            convert(value):
+            convert(value)
                 To convert the given user specified value    
-            getNeighbourItems(keySet):
+            getNeighbourItems(keySet)
                 A function to get common neighbours of a itemSet
-             mapNeighbours(file):
+            mapNeighbours(file)
                 A function to map items to their neighbours
 
     **Executing the code on terminal :**
@@ -384,10 +384,10 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
         """
         A function to get Neighbours of a item
 
-        :param keySet:itemSet
-        :type keySet:str or tuple
+        :param keySet: itemSet
+        :type keySet: str or tuple
         :return: set of common neighbours
-        :rtype:set
+        :rtype: set
         """
         itemNeighbours = self._NeighboursMap.keys()
         if isinstance(keySet, str):
@@ -442,40 +442,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
         Frequent pattern mining process will start from here
         """
 
-        # global items_sets, endTime, startTime
-        self._startTime = _ab._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        self._creatingItemSets()
-        self._minSup = self._convert(self._minSup)
-        self.mapNeighbours()
-        self._finalPatterns = {}
-        plist = self._frequentOneItem()
-        for i in range(len(plist)):
-            itemX = plist[i]
-            tidSetX = self._tidList[itemX]
-            itemSetX = [itemX]
-            itemSets = []
-            tidSets = []
-            neighboursItems = self._getNeighbourItems(plist[i])
-            for j in range(i + 1, len(plist)):
-                if not plist[j] in neighboursItems:
-                    continue
-                itemJ = plist[j]
-                tidSetJ = self._tidList[itemJ]
-                y1 = list(set(tidSetX).intersection(tidSetJ))
-                if len(y1) >= self._minSup:
-                    itemSets.append(itemJ)
-                    tidSets.append(y1)
-            self._Generation(itemSetX, itemSets, tidSets)
-            self._save(None, itemSetX, tidSetX)
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Spatial Periodic Frequent patterns were generated successfully using SpatialEclat algorithm")
+        self.mine()
 
     def mine(self):
         """

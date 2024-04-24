@@ -58,8 +58,6 @@ from typing import List, Dict, Tuple, Set, Union, Any, Iterable, Generator
 import validators as _validators
 from urllib.request import urlopen as _urlopen
 import sys as _sys
-
-from PAMI.partialPeriodicPattern.basic import abstract as _ab
 import pandas as pd
 from deprecated import deprecated
 
@@ -584,36 +582,12 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
         """
         Main method where the patterns are mined by constructing tree.
         :return: None
-
         """
-        global _minPS, _period, _lno
-        self._startTime = _abstract._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        if self._minPS is None:
-            raise Exception("Please enter the Minimum Support")
-        self._creatingItemSets()
-        generatedItems, pfList = self._partialPeriodicOneItem()
-        _minPS, _period, _lno = self._minPS, self._period, len(self._Database)
-        updatedTransactions = self._updateTransactions(generatedItems)
-        for x, y in self._rank.items():
-            self._rankdup[y] = x
-        info = {self._rank[k]: v for k, v in generatedItems.items()}
-        Tree = self._buildTree(updatedTransactions, info)
-        patterns = Tree._generatePatterns([])
-        self._finalPatterns = {}
-        for i in patterns:
-            s = self._savePeriodic(i[0])
-            self._finalPatterns[s] = i[1]
-        self._endTime = _abstract._time.time()
-        process = _abstract._psutil.Process(_abstract._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Partial Periodic Patterns were generated successfully using 3PGrowth algorithm ")
 
-    def Mine(self) -> None:
+        self.mine()
+
+
+    def mine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree.
         :return: None

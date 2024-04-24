@@ -57,6 +57,7 @@ __copyright__ = """
 
 
 from PAMI.stablePeriodicFrequentPattern.basic import abstract as _ab
+import deprecated
 
 _minSup = int()
 _maxPer = int()
@@ -581,7 +582,15 @@ class SPPGrowth():
                 value = int(value)
         return value
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
+        """
+        Mining process will start from this function
+        """
+
+        self.mine()
+
+    def mine(self):
         """
         Mining process will start from this function
         """
@@ -704,6 +713,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 6:
             _ap = SPPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

@@ -50,7 +50,7 @@ __copyright__ = """
 
 """
 
-import sys
+import deprecated
 from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
 
 orderOfItem = {}
@@ -663,8 +663,12 @@ class GPFgrowth(partialPeriodicPatterns):
                     print("File Not Found")
                     quit()
 
-
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
+
+        self.mine()
+
+    def mine(self):
         self.__inputFile = self._partialPeriodicPatterns__iFile
         self._partialPeriodicPatterns__startTime = time.time()
         self._partialPeriodicPatterns__finalPatterns = {}

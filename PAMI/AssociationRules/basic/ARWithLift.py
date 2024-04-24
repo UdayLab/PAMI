@@ -1,4 +1,4 @@
-#  This code uses "lift" metric to extract the association rules from given frequent patterns.
+# This code uses "lift" metric to extract the association rules from given frequent patterns.
 #
 #
 # **Importing this algorithm into a python program**
@@ -87,6 +87,7 @@ class Lift:
     def _generation(self, prefix, suffix) -> None:
         """
         To generate the combinations all association rules.
+
         :param prefix: the prefix of association rule.
         :type prefix: str
         :param suffix: the suffix of association rule.
@@ -106,6 +107,7 @@ class Lift:
     def _generateWithLift(self, lhs, rhs)  -> float:
         """
         To find association rules satisfying user-specified minConf
+
         :param lhs: the prefix of association rule.
         :type lhs: str
         :param rhs: the suffix of association rule.
@@ -142,6 +144,9 @@ class Lift:
 
 class ARWithLift:
     """
+    About this algorithm
+    ====================
+
     :Description: Association Rules are derived from frequent patterns using "lift" metric.
 
     :Reference:
@@ -157,7 +162,6 @@ class ARWithLift:
 
         
     :Attributes:
-
 
         startTime : float
             To record the start time of the mining process
@@ -175,8 +179,10 @@ class ARWithLift:
             To store the total amount of RSS memory consumed by the program
 
 
-    **Methods to execute code on terminal**
-    ----------------------------------------------------
+    Execution methods
+    =================
+
+    **Terminal command**
 
     .. code-block:: console
 
@@ -188,11 +194,11 @@ class ARWithLift:
 
       (.venv) $ python3 ARWithLift.py sampleDB.txt patterns.txt 0.5 ' '
 
-    .. note:: minConf will be considered only in 0 to 1.
+    .. note:: minConf can be specified in a value between 0 and 1.
     
     
-    **Importing this algorithm into a python program**
-    ----------------------------------------------------
+    **Calling from a python program**
+
     .. code-block:: python
 
             import PAMI.AssociationRules.basic import ARWithLift as alg
@@ -221,8 +227,8 @@ class ARWithLift:
 
             print("Total ExecutionTime in seconds:", run)
             
-    **Credits:**
-    -----------------------
+    Credits
+    =======
 
              The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
@@ -246,6 +252,7 @@ class ARWithLift:
     def _readPatterns(self) -> list:
         """
         Reading the input file and storing all the frequent patterns and their support respectively in a frequentPatterns variable.
+
         :return: list of frequent patterns and their support respectively in a frequentPatterns
         :rtype: list
         """
@@ -294,18 +301,7 @@ class ARWithLift:
         """
         Association rule mining process will start from here
         """
-        self._startTime = _ab._time.time()
-        k = self._readPatterns()
-        a = Lift(self._frequentPatterns, k, self._minConf)
-        a.run()
-        self._finalPatterns = a._finalPatterns
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Association rules successfully  generated from frequent patterns ")
+        self.mine()
 
     def mine(self) -> None:
         """
@@ -327,6 +323,7 @@ class ARWithLift:
     def getMemoryUSS(self) -> float:
         """
         Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -336,6 +333,7 @@ class ARWithLift:
     def getMemoryRSS(self) -> float:
         """
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -345,6 +343,7 @@ class ARWithLift:
     def getRuntime(self) -> float:
         """
         Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -354,6 +353,7 @@ class ARWithLift:
     def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """
         Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -369,6 +369,7 @@ class ARWithLift:
     def save(self, outFile) -> None:
         """
         Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the outputfile
         :type outFile: file
         :return: None
@@ -382,6 +383,7 @@ class ARWithLift:
     def getPatterns(self) -> dict:
         """
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """

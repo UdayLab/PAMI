@@ -205,13 +205,13 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         fmFile : string
             Name of the fuzzy membership file to mine complete set of fuzzy  frequent patterns
         oFile : string
-               Name of the oFile file to store complete set of fuzzy  frequent patterns
+            Name of the oFile file to store complete set of fuzzy  frequent patterns
         minSup : float
             The user given minimum support
         memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
+            To store the total amount of RSS memory consumed by the program
         startTime:float
-               To record the start time of the mining process
+            To record the start time of the mining process
         endTime:float
             To record the completion time of the mining process
         itemsCnt: int
@@ -249,7 +249,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
             Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
-        convert(value):
+        convert(value)
             To convert the given user specified value
         compareItems(o1, o2)
             A Function that sort all ffi-list in ascending order of Support
@@ -352,15 +352,10 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         A Function that sort all ffi-list in ascending order of Support
 
         :param o1: First FFI-list
-
         :type o1: _FFList
-
         :param o2: Second FFI-list
-
-        :type o1: _FFList
-
-        :return: Comparision Value
-
+        :type o2: _FFList
+        :return: Comparison Value
         :rtype: int
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
@@ -379,11 +374,8 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         To convert the given user specified value
 
         :param value: user specified value
-
         :type value: int or float or str
-
         :return: converted value
-
         :rtype: float
         """
         if type(value) is int:
@@ -473,9 +465,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
     def _Regions(self, quantity: float) -> None:
         """
         :param quantity: Quantity to calculate regions
-
         :type quantity: float
-
         :return: None
         """
         self.list = [0] * len(self._LabelKey)
@@ -503,95 +493,8 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         """
         fuzzy-Frequent pattern mining process will start from here
         """
-        self._startTime = _ab._time.time()
-        self._creatingItemsets()
-        for line in range(len(self._transactions)):
-            items = self._transactions[line]
-            quantities = self._fuzzyValues[line]
-            self._dbLen += 1
-            for i in range(0, len(items)):
-                regions = self._Regions(float(quantities[i]))
-                print(regions)
-                item = items[i]
-                if item in self._mapItemsLowSum.keys():
-                    low = self._mapItemsLowSum[item]
-                    low += regions.low
-                    self._mapItemsLowSum[item] = low
-                else:
-                    self._mapItemsLowSum[item] = regions.low
-                if item in self._mapItemsMidSum.keys():
-                    mid = self._mapItemsMidSum[item]
-                    mid += regions.middle
-                    self._mapItemsMidSum[item] = mid
-                else:
-                    self._mapItemsMidSum[item] = regions.middle
-                if item in self._mapItemsHighSum.keys():
-                    high = self._mapItemsHighSum[item]
-                    high += regions.high
-                    self._mapItemsHighSum[item] = high
-                else:
-                    self._mapItemsHighSum[item] = regions.high
-        listOfffilist = []
-        mapItemsToFFLIST = {}
-        self._minSup = self._convert(self._minSup)
-        # minSup = self.minSup
-        for item1 in self._mapItemsLowSum.keys():
-            item = item1
-            low = self._mapItemsLowSum[item]
-            mid = self._mapItemsMidSum[item]
-            high = self._mapItemsHighSum[item]
-            if low >= mid and low >= high:
-                self._mapItemSum[item] = low
-                self._mapItemRegions[item] = "L"
-            elif mid >= low and mid >= high:
-                self._mapItemSum[item] = mid
-                self._mapItemRegions[item] = "M"
-            elif high >= low and high >= mid:
-                self._mapItemRegions[item] = "H"
-                self._mapItemSum[item] = high
-            if self._mapItemSum[item] >= self._minSup:
-                fuList = _FFList(item)
-                mapItemsToFFLIST[item] = fuList
-                listOfffilist.append(fuList)
-        listOfffilist.sort(key=_ab._functools.cmp_to_key(self._compareItems))
-        tid = 0
-        for line in range(len(self._transactions)):
-            items = self._transactions[line]
-            quantities = self._fuzzyValues[line]
-            revisedTransaction = []
-            for i in range(0, len(items)):
-                pair = _Pair()
-                pair.item = items[i]
-                regions = self._Regions(float(quantities[i]), 3)
-                item = pair.item
-                if self._mapItemSum[item] >= self._minSup:
-                    if self._mapItemRegions[pair.item] == "L":
-                        pair.quantity = regions.low
-                    elif self._mapItemRegions[pair.item] == "M":
-                        pair.quantity = regions.middle
-                    elif self._mapItemRegions[pair.item] == "H":
-                        pair.quantity = regions.high
-                    if pair.quantity > 0:
-                        revisedTransaction.append(pair)
-            revisedTransaction.sort(key=_ab._functools.cmp_to_key(self._compareItems))
-            for i in range(len(revisedTransaction) - 1, -1, -1):
-                pair = revisedTransaction[i]
-                remainUtil = 0
-                for j in range(len(revisedTransaction) - 1, i, -1):
-                    remainUtil += revisedTransaction[j].quantity
-                remainingUtility = remainUtil
-                if mapItemsToFFLIST.get(pair.item) is not None:
-                    FFListOfItem = mapItemsToFFLIST[pair.item]
-                    element = _Element(tid, pair.quantity, remainingUtility)
-                    FFListOfItem.addElement(element)
-            tid += 1
-        self._FSFIMining(self._itemSetBuffer, 0, listOfffilist, self._minSup)
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
+        self.mine()
+
 
     def mine(self) -> None:
         """
@@ -718,7 +621,6 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
-
         :rtype: float
         """
 

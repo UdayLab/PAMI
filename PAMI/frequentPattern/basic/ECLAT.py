@@ -280,24 +280,7 @@ class ECLAT(_ab._frequentPatterns):
         Frequent pattern mining process will start from here
         """
 
-        self._startTime = _ab._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        if self._minSup is None:
-            raise Exception("Please enter the Minimum Support")
-        self._creatingItemSets()
-        self._minSup = self._convert(self._minSup)
-        uniqueItemList = self._getUniqueItemList()
-        self._generateFrequentPatterns(uniqueItemList)
-        for x, y in self._finalPatterns.items():
-            self._finalPatterns[x] = len(y[0])
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Frequent patterns were generated successfully using ECLAT algorithm")
+        self.mine()
 
     def mine(self) -> None:
         """

@@ -69,13 +69,18 @@ class Node:
 
 class PositionMining:
     """
+    About this algorithm
+    ====================
+
     :Description:  describe the algorithm
+
     :Reference: provide the reference of the algorithm with URL of the paper, if possible
 
     :param  parameter: parameterType :
                     description of the parameters. Parameters are the variables used in problem definition of the model.
 
     :Attributes:
+
         min_IG: float
                 minimum threshold for information gain
             
@@ -85,8 +90,8 @@ class PositionMining:
         datapath: .csv file consisting of two id,seq fields respectively in order
     
 
-         **Credits:**
-        -------------
+    Credits
+    =======
              The complete program was written by Shiridi kumar under the supervision of Professor uday rage.
 
     """
@@ -109,7 +114,6 @@ class PositionMining:
     def getfreqs(self):
         """
         Initial scan of database where frequent length one candidate will be mined
-        :param : none
         """
         self.symbol_freq={"A":set(),"G":set(),"C":set(),"T":set()}
         self.total_length=0
@@ -135,6 +139,7 @@ class PositionMining:
     def getPatterns(self):
         """
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """
@@ -145,6 +150,7 @@ class PositionMining:
     def getPatternsAsDataFrame(self):
         """
         Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -167,6 +173,7 @@ class PositionMining:
     def save(self, outFile):
         """
         Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
         :type outFile: csv file
         """
@@ -178,8 +185,9 @@ class PositionMining:
     def get_Klength_patterns(self,k):
         """
         Get frequent patterns of klength
+
         :param k : length of the pattern
-        :type dictionary of frequent patterns
+        :type k: dictionary of frequent patterns
         """
 
         dic={i:len(self.table[k][i]) for i in self.table[k]}
@@ -195,6 +203,7 @@ class PositionMining:
     def getMemoryUSS(self):
         """
         Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -204,17 +213,19 @@ class PositionMining:
     def getMemoryRSS(self):
         """
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
-       """
+        """
         return self._memoryRSS
 
     def getRuntime(self):
         """
         Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
-       """
+        """
         return self._endTime-self._startTime
     
     def printResults(self):
@@ -230,11 +241,11 @@ class PositionMining:
     def join(self,db,length):
         """
         Generating l+1 frequent patterns using two l length frequent patterns
-        :param db:current l length frequent patterns table consisiting of their positions
+
+        :param db:current l length frequent patterns table consisting of their positions
         :type db: HashTable
         :param length:current length of the frequent candidates generated
         :type length: positive integer
-
         """
         for seq1 in db:
             for seq2 in db:
@@ -260,7 +271,6 @@ class PositionMining:
     def mineNext_candidates(self):
         """
         Mining frequent patterns along with their positions from length 1 frequent candidates
-        :param : none
         """
         while self.current_candidate<5:
             curr=self.table[self.current_candidate]
@@ -273,28 +283,7 @@ class PositionMining:
         Pattern mining process will start from here
         """
         # pass
-        self._startTime = _ab._time.time()
-        self.table={i:{} for i in range(1,6)}
-        self.readData()
-
-        self.getfreqs()
-        temp=self.symbol_freq
-        self.table.update({1:temp})
-        self.current_candidate=1
-        self.mineNext_candidates()
-        self.frequentPatterns={}
-        for length in self.table:
-            temp=self.table[length]
-            for pattern in temp:
-                self.frequentPatterns.update({pattern:len(temp[pattern])})
-        
-        
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._endTime = _ab._time.time()
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
+        self.mine()
 
     def mine(self):
         """

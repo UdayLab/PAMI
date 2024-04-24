@@ -512,22 +512,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         """
         Start pattern mining from here
         """
-        self._startTime = _ab._time.time()
-        self._finalPatterns = {}
-        self._readDatabase()
-        print(len(self._Database), len(self._neighbourList))
-        self._minSup = self._convert(self._minSup)
-        self._getFrequentItems()
-        self._sortTransaction()
-        _FPTree = self._createFPTree()
-        self._finalPatterns.update(dict(_FPTree.mining(self._minSup, self._neighbourList)))
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Frequent Spatial Patterns successfully generated using FSPGrowth")
+        self.mine()
 
     def mine(self):
         """

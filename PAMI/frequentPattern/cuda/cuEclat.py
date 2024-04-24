@@ -257,42 +257,7 @@ class cuEclat(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
-        self._Database = []
-        self._startTime = _ab._time.time()
-        self._creatingItemSets()
-        self._minSup = self._convert(self._minSup)
-
-        ArraysAndItems = self._arraysAndItems()
-
-        while len(ArraysAndItems) > 0:
-            # print("Total number of ArraysAndItems:", len(ArraysAndItems))
-            newArraysAndItems = {}
-            keys = list(ArraysAndItems.keys())
-            for i in range(len(ArraysAndItems)):
-                iList = list(keys[i])
-                for j in range(i+1, len(ArraysAndItems)):
-                    # print(i, "/", len(ArraysAndItems), end="\r")
-                    jList = list(keys[j])
-                    if iList[:-1] == jList[:-1] and iList[-1] != jList[-1]:
-                        union = iList + [jList[-1]]
-                        union = tuple(union)
-                        intersect = _ab._cp.intersect1d(ArraysAndItems[keys[i]], ArraysAndItems[keys[j]], assume_unique=True)
-                        if len(intersect) >= self._minSup:
-                            newArraysAndItems[union] = intersect
-                            self._finalPatterns[union] = len(intersect)
-                    else: 
-                        break
-
-            ArraysAndItems = newArraysAndItems
-            # print()
-
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Frequent patterns were generated successfully using cuEclat algorithm ")
+        self.mine()
 
     def mine(self):
         """
