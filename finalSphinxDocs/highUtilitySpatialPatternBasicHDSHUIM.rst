@@ -1,0 +1,7 @@
+HDSHUIM
+----------
+
+.. automodule:: PAMI.highUtilitySpatialPattern.basic.HDSHUIM
+   :members:
+   :undoc-members:
+   :show-inheritance:

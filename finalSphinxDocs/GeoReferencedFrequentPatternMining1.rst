@@ -1,0 +1,13 @@
+Geo-referenced Frequent Pattern Mining
+=========================================
+
+Geo-referenced frequent pattern mining is the process of discovering frequent patterns, associations, or relationships among spatially and temporally referenced data.
+It involves analyzing datasets that contain geographic coordinates, timestamps, and possibly other attributes related to spatial and temporal events.
+
+Applications: Location-Based Services , Environmental Monitoring and Conservation, Tourism and Hospitality.
+
+
+.. toctree::
+   :maxdepth: 1
+
+   geoReferencedFrequentPatternMining
