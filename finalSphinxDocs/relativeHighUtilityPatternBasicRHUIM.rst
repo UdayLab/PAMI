@@ -1,0 +1,7 @@
+RHUIM
+----------
+
+.. automodule:: PAMI.relativeHighUtilityPattern.basic.RHUIM
+   :members:
+   :undoc-members:
+   :show-inheritance:

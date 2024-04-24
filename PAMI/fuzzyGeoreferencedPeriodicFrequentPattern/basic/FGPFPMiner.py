@@ -7,6 +7,16 @@
 #
 #             from PAMI.fuzzyGeoreferencedPeriodicFrequentPattern import FGPFPMiner as alg
 #
+#             minSup = str()
+#
+#             maxPer = float()
+#
+#             iFile = " "
+#
+#             nFile = " "
+#
+#             sep = "\t"
+
 #             obj = alg.FFSPMiner("input.txt", "neighbours.txt", 3, 4)
 #
 #             obj.mine()
@@ -21,7 +31,6 @@
 #
 #             print("Total ExecutionTime in seconds:", obj.getRuntime())
 #
-
 
 
 
@@ -130,6 +139,9 @@ class _Pair:
 
 class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
     """
+    About this algorithm
+    ====================
+
     :Description:   Fuzzy Frequent Spatial Pattern-Miner is desired to find all Spatially frequent fuzzy patterns
                     which is on-trivial and challenging problem to its huge search space.we are using efficient pruning
                     techniques to reduce the search space.
@@ -208,8 +220,8 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         WriteOut(prefix, prefixLen, item, sumIUtil,period)
             To Store the patten
 
-    **Executing the code on terminal :**
-    --------------------------------------------
+    Execution methods
+    =================-
 
     .. code-block:: console
 
@@ -224,8 +236,8 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
     .. note:: minSup will be considered in percentage of database transactions
 
 
-    **Sample run of importing the code:**
-    ----------------------------------------
+    **Calling from a python program**
+
     .. code-block:: python
     
         from PAMI.fuzzyGeoreferencedPeriodicFrequentPattern import FGPFPMiner as alg
@@ -244,26 +256,17 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         
         print("Total ExecutionTime in seconds:", obj.getRuntime())
     
-    **Credits:**
-    ----------------
-            The complete program was written by B.Sai Chitra and Kundai Kwangwari under the supervision of Professor Rage Uday Kiran.
+    Credits
+    =======
+            The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
     """
 
-    _startTime = float()
-    _endTime = float()
     _minSup = str()
     _maxPer = float()
-    _finalPatterns = {}
     _iFile = " "
-    _oFile = " "
     _nFile = " "
-    _FuzFile = " "
-    _memoryUSS = float()
-    _memoryRSS = float()
     _sep = "\t"
-    _transactionsDB = []
-    _fuzzyValuesDB = []
-    _ts = []
+
 
     def __init__(self, iFile, nFile, minSup, maxPer, sep):
         super().__init__(iFile, nFile, minSup, maxPer, sep)

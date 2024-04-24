@@ -33,7 +33,6 @@
 
 
 
-
 __copyright__ = """
 Copyright (C)  2021 Rage Uday Kiran
 
@@ -140,6 +139,9 @@ class _Pair:
 
 class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
     """
+    About this algorithm
+    ====================
+
     :Description:   Fuzzy Frequent Spatial Pattern-Miner is desired to find all Spatially frequent fuzzy patterns
                     which is on-trivial and challenging problem to its huge search space.we are using efficient pruning
                     techniques to reduce the search space.
@@ -220,8 +222,11 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         WriteOut(prefix, prefixLen, item, sumIUtil,period)
             To Store the patten
 
-    **Executing the code on terminal :**
-    ----------------------------------------
+    Execution methods
+    =================
+
+
+    **Terminal command**
 
     .. code-block:: console
 
@@ -233,10 +238,10 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
 
       (.venv) $ python3  FFSPMiner.py sampleTDB.txt output.txt sampleN.txt 3
 
-    .. note:: minSup will be considered in percentage of database transactions
+    .. note::  minSup can be specified  in support count or a value between 0 and 1.
 
-    **Sample run of importing the code:**
-    ----------------------------------------
+    **Calling from a python program**
+
     .. code-block:: python
 
             from PAMI.fuzzyGeoreferencedFrequentPattern import FFSPMiner as alg
@@ -263,24 +268,15 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    **Credits:**
-    --------------
+    Credits
+    =======
             The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
     """
 
-    _startTime = float()
-    _endTime = float()
     _minSup = str()
-    _maxPer = float()
-    _finalPatterns = {}
     _iFile = " "
-    _oFile = " "
     _nFile = " "
-    _memoryUSS = float()
-    _memoryRSS = float()
     _sep = "\t"
-    _transactions = []
-    _fuzzyValues = []
 
     def __init__(self, iFile: str, nFile: str, minSup: float, sep: str="\t") -> None:
         super().__init__(iFile, nFile, minSup, sep)
@@ -304,7 +300,6 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         :param o2: Second FFI-list
         :type o2: _FFList
         :return: Comparision Value
-
         :rtype: int
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]

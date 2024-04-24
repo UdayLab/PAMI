@@ -1,33 +1,36 @@
 # TubeS is one of the fastest algorithm to discover frequent patterns in a uncertain transactional database.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
 #
-#     from PAMI.uncertainFrequentPattern.basic import TubeS as alg
+#             from PAMI.uncertainFrequentPattern.basic import TubeS as alg
 #
-#     obj = alg.TubeS(iFile, minSup)
+#             iFile = 'sampleDB.txt'
 #
-#     obj.startMine()
+#             minSup = 10  # can also be specified between 0 and 1
 #
-#     frequentPatterns = obj.getPatterns()
+#             obj = alg.TubeS(iFile, minSup)
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             obj.mine()
 #
-#     obj.save(oFile)
+#             frequentPatterns = obj.getPatterns()
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     memUSS = obj.getMemoryUSS()
+#             obj.save(oFile)
 #
-#     print("Total Memory in USS:", memUSS)
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     memRSS = obj.getMemoryRSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#              print("Total Memory in USS:", memUSS)
 #
-#     run = obj.getRuntime()
+#              memRSS = obj.getMemoryRSS()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#              print("Total Memory in RSS", memRSS)
+#
+#              run = obj.getRuntime()
+#
+#              print("Total ExecutionTime in seconds:", run)
 #
 
 
@@ -37,13 +40,14 @@ __copyright__ = """
      it under the terms of the GNU General Public License as published by
      the Free Software Foundation, either version 3 of the License, or
      (at your option) any later version.
+     
      This program is distributed in the hope that it will be useful,
      but WITHOUT ANY WARRANTY; without even the implied warranty of
      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
      GNU General Public License for more details.
+     
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-     Copyright (C)  2021 Rage Uday Kiran
 """
 
 from PAMI.uncertainFrequentPattern.basic import abstract as _fp
@@ -57,11 +61,14 @@ _finalPatterns = {}
 class _Item:
     """
     A class used to represent the item with probability in transaction of dataset
-    :Attributes
+
+    :Attributes:
+
         item : int or word
-            Represents the name of the item
+          Represents the name of the item
+
         probability : float
-            Represent the existential probability(likelihood presence) of an item
+          Represent the existential probability(likelihood presence) of an item
     """
 
     def __init__(self, item, probability):
@@ -72,16 +79,23 @@ class _Item:
 class _Node(object):
     """
     A class used to represent the node of frequentPatternTree
+
     :Attributes:
+
         item : int
             storing item of a node
+
         probability : int
             To maintain the expected support of node
+
         parent : node
             To maintain the parent of every node
+
         children : list
             To maintain the children of node
+
     :Methods:
+
         addChild(itemName)
              storing the children to their respective parent nodes
     """
@@ -104,6 +118,7 @@ class _Node(object):
 def Second(transaction, i):
     """
     To calculate the second probability of a node in transaction
+
     :param transaction: transaction in a database
     :param i: index of item in transaction
     :return: second probability of a node
@@ -120,6 +135,7 @@ def Second(transaction, i):
 def printTree(root):
     """
     To print the tree with root node through recursion
+
     :param root: root node of  tree
     :return: details of tree
     """
@@ -131,13 +147,18 @@ def printTree(root):
 class _Tree(object):
     """
     A class used to represent the frequentPatternGrowth tree structure
+
     :Attributes:
+
         root : Node
-            Represents the root node of the tree
+          Represents the root node of the tree
+
         summaries : dictionary
-            storing the nodes with same item name
+          storing the nodes with same item name
+
         info : dictionary
-            stores the support of items
+          stores the support of items
+
     :Methods:
         addTransaction(transaction)
             creating transaction as a branch in frequentPatternTree
@@ -161,7 +182,8 @@ class _Tree(object):
 
     def addTransaction(self, transaction):
         """
-        adding transaction into tree
+        Adding transaction into tree
+
         :param transaction : it represents the one transactions in database
         :type transaction : list
         """
@@ -207,7 +229,8 @@ class _Tree(object):
 
     def addConditionalTransaction(self, transaction, sup, second):
         """
-        constructing conditional tree from prefixPaths
+        Constructing conditional tree from prefixPaths
+
         :param transaction : it represents the one transactions in database
         :type transaction : list
         :param sup : support of prefixPath taken at last child of the path
@@ -238,7 +261,8 @@ class _Tree(object):
 
     def conditionalPatterns(self, alpha):
         """
-        generates all the conditional patterns of respective node
+        Generates all the conditional patterns of respective node
+
         :param alpha : it represents the Node in tree
         :type alpha : _Node
         """
@@ -263,6 +287,7 @@ class _Tree(object):
     def conditionalTransactions(self, condPatterns, support):
         """
         It generates the conditional patterns with frequent items
+
         :param condPatterns : conditional patterns generated from conditionalPatterns() method for respective node
         :type condPatterns : list
         :param support : the support of conditional pattern in tree
@@ -292,7 +317,8 @@ class _Tree(object):
 
     def removeNode(self, nodeValue):
         """
-        removing the node from tree
+        Removing the node from tree
+
         :param nodeValue : it represents the node in tree
         :type nodeValue : node
         """
@@ -301,7 +327,8 @@ class _Tree(object):
 
     def generatePatterns(self, prefix):
         """
-        generates the patterns
+        Generates the patterns
+
         :param prefix : forms the combination of items
         :type prefix : list
         """
@@ -335,48 +362,64 @@ class _Tree(object):
 
 class TubeS(_fp._frequentPatterns):
     """
+    About this algorithm
+    ====================
+
     :Description: TubeS is one of the fastest algorithm to discover frequent patterns in a uncertain transactional database.
 
-    :Reference:
-        Carson Kai-Sang Leung and Richard Kyle MacKinnon. 2014. Fast Algorithms for Frequent Itemset Mining from Uncertain Data.
-        In Proceedings of the 2014 IEEE International Conference on Data Mining (ICDM '14). IEEE Computer Society, USA, 893–898. https://doi.org/10.1109/ICDM.2014.146
+    :Reference:  Carson Kai-Sang Leung and Richard Kyle MacKinnon. 2014. Fast Algorithms for Frequent Itemset Mining from Uncertain Data.
+                 In Proceedings of the 2014 IEEE International Conference on Data Mining (ICDM '14). IEEE Computer Society, USA, 893–898. https://doi.org/10.1109/ICDM.2014.146
 
     :Attributes:
+
         iFile : file
             Name of the Input file or path of the input file
+
         oFile : file
             Name of the output file or path of the output file
+
         minSup : float or int or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
+
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
+
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
+
         startTime : float
             To record the start time of the mining process
+
         endTime : float
             To record the completion time of the mining process
+
         Database : list
             To store the transactions of a database in list
+
         mapSupport : Dictionary
             To maintain the information of item and their frequency
+
         lno : int
             To represent the total no of transaction
+
         tree : class
             To represents the Tree class
+
         itemSetCount : int
             To represents the total no of patterns
+
         finalPatterns : dict
             To store the complete patterns
 
     :Methods:
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -401,23 +444,38 @@ class TubeS(_fp._frequentPatterns):
         convert()
             to convert the user specified value
 
-    **Methods to execute code on terminal**
-    --------------------------------------------
-            Format:
-                      >>> python3 TubeS.py <inputFile> <outputFile> <minSup>
-            Example:
-                      >>>  python3 TubeS.py sampleTDB.txt patterns.txt 3
-                    .. note:: minSup  will be considered in support count or frequency
+    Execution methods
+    =================
 
-    **Importing this algorithm into a python program**
-    ---------------------------------------------------
+
+    **Terminal command**
+
+
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 TubeS.py <inputFile> <outputFile> <minSup>
+
+      Example Usage:
+
+      (.venv) $ python3 TubeS.py sampleDB.txt patterns.txt 10.0
+
+    .. note:: minSup can be specified  in support count or a value between 0 and 1.
+
+    **Calling from a python program**
+
     .. code-block:: python
 
             from PAMI.uncertainFrequentPattern.basic import TubeS as alg
 
+            iFile = 'sampleDB.txt'
+
+            minSup = 10  # can also be specified between 0 and 1
+
             obj = alg.TubeS(iFile, minSup)
 
-            obj.startMine()
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -439,10 +497,13 @@ class TubeS(_fp._frequentPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    **Credits:**
-    ---------------
-    The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.
-"""
+    Credits
+    =======
+
+
+            The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.
+    """
+
     _startTime = float()
     _endTime = float()
     _minSup = float()
@@ -535,7 +596,8 @@ class TubeS(_fp._frequentPatterns):
 
     def _buildTree(self, data, info):
         """
-        it takes the transactions and support of each item and construct the main tree with setting root node as null
+        It takes the transactions and support of each item and construct the main tree with setting root node as null
+
         :param data : it represents the one transactions in database
         :type data : list
         :param info : it represents the support of each item
@@ -549,7 +611,8 @@ class TubeS(_fp._frequentPatterns):
 
     def updateTransactions(self, dict1):
         """
-        remove the items which are not frequent from transactions and updates the transactions with rank of items
+        Remove the items which are not frequent from transactions and updates the transactions with rank of items
+
         :param dict1 : frequent items with support
         :type dict1 : dictionary
         """
@@ -569,6 +632,7 @@ class TubeS(_fp._frequentPatterns):
     def _Check(self, i, x):
         """
         To check the presence of item or pattern in transaction
+
         :param x: it represents the pattern
         :type x : list
         :param i : represents the uncertain transactions
@@ -586,6 +650,7 @@ class TubeS(_fp._frequentPatterns):
     def _convert(self, value):
         """
         To convert the type of user specified minSup value
+
         :param value: user specified minSup value
         :return: converted type minSup value
         """
@@ -603,6 +668,7 @@ class TubeS(_fp._frequentPatterns):
     def _removeFalsePositives(self):
         """
         To remove the false positive patterns generated in frequent patterns.
+
         :return: Patterns with accurate probability
         """
         global _finalPatterns
@@ -628,13 +694,6 @@ class TubeS(_fp._frequentPatterns):
                 for i in x:
                     sample = sample + i + "\t"
                 self._finalPatterns[sample] = y
-
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
-    def startMine(self):
-        """
-        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
-        """
-        self.mine()
 
     def mine(self):
         """
@@ -662,7 +721,9 @@ class TubeS(_fp._frequentPatterns):
 
     def getMemoryUSS(self):
         """
+
         Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -671,7 +732,9 @@ class TubeS(_fp._frequentPatterns):
 
     def getMemoryRSS(self):
         """
+
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -680,7 +743,9 @@ class TubeS(_fp._frequentPatterns):
 
     def getRuntime(self):
         """
+
         Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -689,7 +754,9 @@ class TubeS(_fp._frequentPatterns):
 
     def getPatternsAsDataFrame(self):
         """
+
         Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -703,7 +770,9 @@ class TubeS(_fp._frequentPatterns):
 
     def save(self, outFile):
         """
+
         Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -715,7 +784,9 @@ class TubeS(_fp._frequentPatterns):
 
     def getPatterns(self):
         """
+
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """
@@ -738,7 +809,6 @@ if __name__ == "__main__":
             _ap = TubeS(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4])
         if len(_fp._sys.argv) == 4:
             _ap = TubeS(_fp._sys.argv[1], _fp._sys.argv[3])
-        _ap.startMine()
         _ap.mine()
         print("Total number of Uncertain Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_fp._sys.argv[2])

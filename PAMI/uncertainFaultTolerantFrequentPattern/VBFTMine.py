@@ -1,14 +1,22 @@
 # VBFTMine is one of the fundamental algorithm to discover fault-tolerant frequent patterns in an uncertain transactional database based on bitset representation.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
-#
 #
 #             import PAMI.uncertainFaultTolerantFrequentPattern.basic.VBFTMine as alg
 #
+#             iFile = 'sampleDB.txt'
+#
+#             minSup = 10  # can also be specified between 0 and 1
+#
+#             itemSup = 2  # can also be specified between 0 and 1
+#
+#             minLength = 3 # can also be specified between 0 and 1
+#
+#             faultTolerance = 2 # can also be specified between 0 and 1
+#
 #             obj = alg.VBFTMine(iFile, minSup, itemSup, minLength, faultTolerance)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             faultTolerantFrequentPattern = obj.getPatterns()
 #
@@ -56,13 +64,15 @@ from PAMI.faultTolerantFrequentPattern.basic import abstract as _ab
 
 class VBFTMine(_ab._faultTolerantFrequentPatterns):
     """
+    About this algorithm
+    ====================
     
     :Description:  VBFTMine is one of the fundamental algorithm to discover fault tolerant frequent patterns in an uncertain transactional database based on
                    bitset representation.
                    This program employs apriori property (or downward closure property) to  reduce the search space effectively.
 
     :Reference:   Koh, JL., Yo, PW. (2005). An Efficient Approach for Mining Fault-Tolerant Frequent Patterns Based on Bit Vector Representations.
-                  In: Zhou, L., Ooi, B.C., Meng, X. (eds) Database Systems for Advanced Applications. DASFAA 2005. Lecture Notes in Computer Science,
+            In:   Zhou, L., Ooi, B.C., Meng, X. (eds) Database Systems for Advanced Applications. DASFAA 2005. Lecture Notes in Computer Science,
                   vol 3453. Springer, Berlin, Heidelberg. https://doi.org/10.1007/11408079_51
 
     :param  iFile: str :
@@ -70,10 +80,10 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
     :param  oFile: str :
                    Name of the output file to store complete set of uncertain Fault Tolerant FrequentFrequent Patterns
     :param  minSup: float or int or str :
-                    The user can specify minSup either in count or proportion of database size.
-                    If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-                    Otherwise, it will be treated as float.
-                    Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+                   The user can specify minSup either in count or proportion of database size.
+                   If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+                   Otherwise, it will be treated as float.
+                   Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
     :param  itemSup: int or float :
                     Frequency of an item
     :param minLength: int
@@ -104,10 +114,13 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
           To store the transactions of a database in list
 
 
-    **Executing the code on terminal**:
-    ------------------------------------
-    .. code-block:: console
+    Execution methods
+    =================
 
+    **Terminal command**
+
+
+    .. code-block:: console
 
        Format:
 
@@ -117,19 +130,28 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
 
        (.venv) $ python3 VBFTMine.py sampleDB.txt patterns.txt 10.0 3.0 3 1
 
+    .. note:: minSup will be considered in times of minSup and count of database transactions
 
-               .. note:: minSup will be considered in times of minSup and count of database transactions
 
+    **Calling from a python program**
 
-    **Sample run of the importing code**:
-    --------------------------------------------
     .. code-block:: python
     
             import PAMI.faultTolerantFrequentPattern.basic.VBFTMine as alg
 
+            iFile = 'sampleDB.txt'
+
+            minSup = 10  # can also be specified between 0 and 1
+
+            itemSup = 2  # can also be specified between 0 and 1
+
+            minLength = 3 # can also be specified between 0 and 1
+
+            faultTolerance = 2 # can also be specified between 0 and 1
+
             obj = alg.VBFTMine(iFile, minSup, itemSup, minLength, faultTolerance)
 
-            obj.startMine()
+            obj.mine()
 
             faultTolerantFrequentPattern = obj.getPatterns()
 
@@ -139,15 +161,22 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
 
             Df = obj.getPatternInDataFrame()
 
-            print("Total Memory in USS:", obj.getMemoryUSS())
+            memUSS = obj.getMemoryUSS()
 
-            print("Total Memory in RSS", obj.getMemoryRSS())
+            print("Total Memory in USS:", memUSS)
 
-            print("Total ExecutionTime in seconds:", obj.getRuntime())
+            memRSS = obj.getMemoryRSS()
 
-    **Credits**:
-    ------------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+            print("Total Memory in RSS", memRSS)
+
+            run = obj.getRuntime()
+
+            print("Total ExecutionTime in seconds:", run)
+
+    Credits
+    =======
+
+           The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -226,6 +255,14 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
         return value
 
     def _Count(self, tids):
+        """
+        Count the occurrences of 1s in the given list of transaction IDs.
+
+        :param tids: List of transaction IDs.
+        :type tids: List[int]
+        :return: Count of occurrences of 1s in the list.
+        :rtype: int
+        """
         count = 0
         for i in tids:
             if i == 1:
@@ -233,6 +270,17 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
         return count
 
     def _save(self, prefix, suffix, tidsetx):
+        """
+        Save the pattern with its support count if it meets the fault tolerance criteria.
+
+        :param prefix: Prefix part of the pattern.
+        :type prefix: list
+        :param suffix: Suffix part of the pattern.
+        :type suffix: list
+        :param tidsetx: Transaction IDs associated with the pattern.
+        :type tidsetx: list
+        :return: None
+        """
         if (prefix == None):
             prefix = suffix
         else:
@@ -244,6 +292,17 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
             self._finalPatterns[tuple(prefix)] = val
 
     def _processEquivalenceClass(self, prefix, itemsets, tidsets):
+        """
+        Process the equivalence class to generate frequent patterns.
+
+        :param prefix: Prefix part of the pattern.
+        :type prefix: list.
+        :param itemsets: List of itemsets in the equivalence class.
+        :type itemsets: list.
+        :param tidsets: List of transaction IDs associated with each itemset.
+        :type tidsets: list
+        :return: None
+        """
         if (len(itemsets) == 1):
             i = itemsets[0]
             tidi = tidsets[0]
@@ -291,7 +350,8 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
                 items.append(x)
         return Vector, items
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated(
+        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
         """
         Frequent pattern mining process will start from here
@@ -337,6 +397,7 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
 
     def getMemoryUSS(self):
         """
+
         Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -347,6 +408,7 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
 
     def getMemoryRSS(self):
         """
+
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -357,6 +419,7 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
 
     def getRuntime(self):
         """
+
         Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
@@ -367,6 +430,7 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
 
     def getPatternsAsDataFrame(self):
         """
+
         Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -386,6 +450,7 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
 
     def save(self, outFile):
         """
+
         Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
@@ -402,6 +467,7 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
 
     def getPatterns(self):
         """
+
         Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns

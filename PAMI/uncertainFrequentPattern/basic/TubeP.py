@@ -1,33 +1,38 @@
 # TUFP is one of the fundamental algorithm to discover top-k frequent patterns in a uncertain transactional database using CUP-Lists.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
 #
-#     from PAMI.uncertainFrequentPattern.basic import TUFP as alg
+#             from PAMI.uncertainFrequentPattern.basic import TUFP as alg
 #
-#     obj = alg.TUFP(iFile, minSup)
+#             iFile = 'sampleDB.txt'
 #
-#     obj.startMine()
+#             minSup = 10  # can also be specified between 0 and 1
 #
-#     frequentPatterns = obj.getPatterns()
+#             obj = alg.TUFP(iFile, minSup)
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             obj.mine()
 #
-#     obj.save(oFile)
+#             frequentPatterns = obj.getPatterns()
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     memUSS = obj.getMemoryUSS()
+#             obj.save(oFile)
 #
-#     print("Total Memory in USS:", memUSS)
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     memRSS = obj.getMemoryRSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     run = obj.getRuntime()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total Memory in RSS", memRSS)
+#
+#             run = obj.getRuntime()
+#
+#             print("Total ExecutionTime in seconds:", run)
+#
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -35,20 +40,22 @@ __copyright__ = """
      it under the terms of the GNU General Public License as published by
      the Free Software Foundation, either version 3 of the License, or
      (at your option) any later version.
+     
      This program is distributed in the hope that it will be useful,
      but WITHOUT ANY WARRANTY; without even the implied warranty of
      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
      GNU General Public License for more details.
+     
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-     Copyright (C)  2021 Rage Uday Kiran
 """
 
 
 from PAMI.uncertainFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Union
 import pandas as pd
-import deprecated
+from deprecated import deprecated
+
 _minSup = float()
 _finalPatterns = {}
 
@@ -56,11 +63,14 @@ _finalPatterns = {}
 class _Item:
     """
     A class used to represent the item with probability in transaction of dataset
+
     :Attributes:
+
         item : int or word
-            Represents the name of the item
+          Represents the name of the item
+
         probability : float
-            Represent the existential probability(likelihood presence) of an item
+          Represent the existential probability(likelihood presence) of an item
     """
 
     def __init__(self, item, probability) -> None:
@@ -70,48 +80,64 @@ class _Item:
 
 class TUFP(_ab._frequentPatterns):
     """
+    About this algorithm
+    ====================
+
     :Description: It is one of the fundamental algorithm to discover top-k frequent patterns in a uncertain transactional database using CUP-Lists.
 
-    :Reference:
-        Tuong Le, Bay Vo, Van-Nam Huynh, Ngoc Thanh Nguyen, Sung Wook Baik 5, "Mining top-k frequent patterns from uncertain databases",
-        Springer Science+Business Media, LLC, part of Springer Nature 2020, https://doi.org/10.1007/s10489-019-01622-1
+    :Reference:  Tuong Le, Bay Vo, Van-Nam Huynh, Ngoc Thanh Nguyen, Sung Wook Baik 5, "Mining top-k frequent patterns from uncertain databases",
+                 Springer Science+Business Media, LLC, part of Springer Nature 2020, https://doi.org/10.1007/s10489-019-01622-1
 
     :Attributes:
+
         iFile : file
             Name of the Input file or path of the input file
+
         oFile : file
             Name of the output file or path of the output file
+
         minSup : float or int or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
+
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
+
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
+
         startTime : float
             To record the start time of the mining process
+
         endTime : float
             To record the completion time of the mining process
+
         Database : list
             To store the transactions of a database in list
+
         mapSupport : Dictionary
             To maintain the information of item and their frequency
+
         lno : int
             To represent the total no of transaction
+
         tree : class
             To represents the Tree class
+
         itemSetCount : int
             To represents the total no of patterns
+
         finalPatterns : dict
             To store the complete patterns
 
     :Methods:
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -138,23 +164,40 @@ class TUFP(_ab._frequentPatterns):
         startMine()
             Mining process will start from this function
 
-    **Methods to execute code on terminal**
-    -----------------------------------------
-            Format:
-                      >>> python3 TUFP.py <inputFile> <outputFile> <minSup>
-            Example:
-                      >>>  python3 TUFP.py sampleTDB.txt patterns.txt 0.6
+    Execution methods
+    =================
 
-                      .. note:: minSup  will be considered in support count or frequency
 
-    **Importing this algorithm into a python program**
-    ------------------------------------------------------
+    **Terminal command**
+
+
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 TUFP.py <inputFile> <outputFile> <minSup>
+
+      Example Usage:
+
+      (.venv) $ python3 TUFP.py sampleDB.txt patterns.txt 10.0
+
+    .. note:: minSup can be specified  in support count or a value between 0 and 1.
+
+
+    **Calling from a python program**
+
     .. code-block:: python
+
             from PAMI.uncertainFrequentPattern.basic import TUFP as alg
+
+
+            iFile = 'sampleDB.txt'
+
+            minSup = 10  # can also be specified between 0 and 1
 
             obj = alg.TUFP(iFile, minSup)
 
-            obj.startMine()
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -176,9 +219,10 @@ class TUFP(_ab._frequentPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    **Credits:**
-    ---------------
-        The complete program was written by   P.Likhitha   under the supervision of Professor Rage Uday Kiran.
+    Credits
+    =======
+
+            The complete program was written by   P.Likhitha   under the supervision of Professor Rage Uday Kiran.
     """
 
     _startTime = float()
@@ -254,7 +298,8 @@ class TUFP(_ab._frequentPatterns):
 
     def _frequentOneItem(self) -> List[str]:
         """
-        takes the self.Database and calculates the support of each item in the dataset and assign the ranks to the items by decreasing support and returns the frequent items list
+        Takes the self.Database and calculates the support of each item in the dataset and assign the ranks to the items by decreasing support and returns the frequent items list
+
         :param self.Database : it represents the one self.Database in database
         :type self.Database : list
         """
@@ -284,6 +329,7 @@ class TUFP(_ab._frequentPatterns):
     def _convert(value: Union[int, float, str]) -> Union[int, float]:
         """
         To convert the type of user specified minSup value
+
         :param value: user specified minSup value
         :return: converted type minSup value
         """
@@ -301,6 +347,7 @@ class TUFP(_ab._frequentPatterns):
     def _save(self, prefix: List[str], suffix: List[str], tidSetI: Dict[int, float]) -> None:
         """
         Saves the patterns that satisfy the periodic frequent property.
+
         :param prefix: the prefix of a pattern
         :type prefix: list
         :param suffix: the suffix of a patterns
@@ -335,6 +382,7 @@ class TUFP(_ab._frequentPatterns):
     def _Generation(self, prefix: List[str], itemSets: List[str], tidSets: List[Dict[int, float]]) -> None:
         """
         Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.
+
         :param prefix:  main equivalence prefix
         :type prefix: periodic-frequent item or pattern
         :param itemSets: patterns which are items combined with prefix and satisfying the periodicity and frequent with their timestamps
@@ -370,7 +418,7 @@ class TUFP(_ab._frequentPatterns):
             self._Generation(newPrefix, classItemSets, classTidSets)
             #self.save(prefix, list(set(itemSetX)), tidSetI)
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
@@ -412,7 +460,9 @@ class TUFP(_ab._frequentPatterns):
 
     def getMemoryUSS(self) -> float:
         """
+
         Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -421,7 +471,9 @@ class TUFP(_ab._frequentPatterns):
 
     def getMemoryRSS(self) -> float:
         """
+
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -430,7 +482,9 @@ class TUFP(_ab._frequentPatterns):
 
     def getRuntime(self) -> float:
         """
+
         Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -439,7 +493,9 @@ class TUFP(_ab._frequentPatterns):
 
     def getPatternsAsDataFrame(self) -> pd.DataFrame:
         """
+
         Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -453,7 +509,9 @@ class TUFP(_ab._frequentPatterns):
 
     def save(self, outFile: str) -> None:
         """
+
         Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -465,7 +523,9 @@ class TUFP(_ab._frequentPatterns):
 
     def getPatterns(self) -> Dict[str, float]:
         """
+
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """

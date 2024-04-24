@@ -5,6 +5,12 @@
 #
 #             from PAMI.fuzzyGeoreferencedFrequentPattern import FFSPMiner as alg
 #
+#             minSup = str()
+#
+#             iFile = " "
+#
+#             sep = "\t"
+#
 #             obj = alg.FFSPMiner("input.txt", "neighbours.txt", 2)
 #
 #             obj.mine()
@@ -27,7 +33,6 @@
 #
 #             print("Total ExecutionTime in seconds:", run)
 #
-
 
 
 
@@ -172,157 +177,152 @@ class _Pair:
 
 class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
     """
-    :Description:   Fuzzy Frequent Spatial Pattern-Miner is desired to find all Spatially frequent fuzzy patterns
-                    which is on-trivial and challenging problem to its huge search space.we are using efficient pruning
-                    techniques to reduce the search space.
+        About this algorithm
+        ====================
 
-    Reference:   Reference: P. Veena, B. S. Chithra, R. U. Kiran, S. Agarwal and K. Zettsu, "Discovering Fuzzy Frequent
-                 Spatial Patterns in Large Quantitative Spatiotemporal databases," 2021 IEEE International Conference on Fuzzy Systems
-                 (FUZZ-IEEE), 2021, pp. 1-8, doi: 10.1109/FUZZ45933.2021.9494594.
+        :Description:   Fuzzy Frequent Spatial Pattern-Miner is desired to find all Spatially frequent fuzzy patterns
+                        which is on-trivial and challenging problem to its huge search space.we are using efficient pruning
+                        techniques to reduce the search space.
 
-    :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent patterns
-    :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
-    :param  minSup: int or float or str :
-                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
-    :param maxPer: float :
-                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
-    :param nFile: str :
-                   Name of the input file to mine complete set of frequent patterns
-    :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+        Reference:   Reference: P. Veena, B. S. Chithra, R. U. Kiran, S. Agarwal and K. Zettsu, "Discovering Fuzzy Frequent
+                     Spatial Patterns in Large Quantitative Spatiotemporal databases," 2021 IEEE International Conference on Fuzzy Systems
+                     (FUZZ-IEEE), 2021, pp. 1-8, doi: 10.1109/FUZZ45933.2021.9494594.
 
-
-    :Attributes:
-
-        iFile : file
-            Name of the input file to mine complete set of fuzzy spatial frequent patterns
-        oFile : file
-            Name of the oFile file to store complete set of fuzzy spatial frequent patterns
-        minSup : float
-            The user given minimum support
-        neighbors : map
-            keep track of neighbours of elements
-        memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
-        startTime : float
-            To record the start time of the mining process
-        endTime : float
-            To record the completion time of the mining process
-        itemsCnt : int
-            To record the number of fuzzy spatial itemSets generated
-        mapItemsLowSum : map
-            To keep track of low region values of items
-        mapItemsMidSum : map
-            To keep track of middle region values of items
-        mapItemsHighSum : map
-            To keep track of high region values of items
-        mapItemSum : map
-            To keep track of sum of Fuzzy Values of items
-        mapItemRegions : map
-            To Keep track of fuzzy regions of item
-        joinsCnt : int
-            To keep track of the number of FFI-list that was constructed
-        BufferSize : int
-            represent the size of Buffer
-        itemSetBuffer : list
-            to keep track of items in buffer
-
-    :Methods:
-
-        mine()
-            Mining process will start from here
-        getPatterns()
-            Complete set of patterns will be retrieved with this function
-        save(oFile)
-            Complete set of frequent patterns will be loaded in to a output file
-        getPatternsAsDataFrame()
-            Complete set of frequent patterns will be loaded in to a dataframe
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function            
-        convert(value)
-            To convert the given user specified value
-        FSFIMining( prefix, prefixLen, fsFim, minSup)
-            Method generate FFI from prefix
-        construct(px, py)
-            A function to construct Fuzzy itemSet from 2 fuzzy itemSets
-        Intersection(neighbourX,neighbourY)
-            Return common neighbours of 2 itemSet Neighbours
-        findElementWithTID(uList, tid)
-            To find element with same tid as given
-        WriteOut(prefix, prefixLen, item, sumIUtil,period)
-            To Store the patten
-    
-    **Executing the code on terminal :**
-    ----------------------------------------
-
-    .. code-block:: console
-
-      Format:
-
-      (.venv) $ python3 FFSPMiner_old.py <inputFile> <outputFile> <neighbours> <minSup> <sep>
-
-      Example Usage:
-
-      (.venv) $ python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3
-
-      (.venv) $ python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 0.3
-
-      (.venv) $ python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3
-
-    .. note:: minSup will be considered in percentage of database transactions
+        :param  iFile: str :
+                       Name of the Input file to mine complete set of frequent patterns
+        :param  oFile: str :
+                       Name of the output file to store complete set of frequent patterns
+        :param  minSup: int or float or str :
+                       The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+        :param maxPer: float :
+                       The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+        :param nFile: str :
+                       Name of the input file to mine complete set of frequent patterns
+        :param  sep: str :
+                       This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
 
-    **Sample run of importing the code:**
-    ----------------------------------------
-        
-            from PAMI.fuzzyGeoreferencedFrequentPattern import FFSPMiner as alg
+        :Attributes:
 
-            obj = alg.FFSPMiner("input.txt", "neighbours.txt", 2)
+            iFile : file
+                Name of the input file to mine complete set of fuzzy spatial frequent patterns
+            oFile : file
+                Name of the oFile file to store complete set of fuzzy spatial frequent patterns
+            minSup : float
+                The user given minimum support
+            neighbors : map
+                keep track of neighbours of elements
+            memoryRSS : float
+                To store the total amount of RSS memory consumed by the program
+            startTime : float
+                To record the start time of the mining process
+            endTime : float
+                To record the completion time of the mining process
+            itemsCnt : int
+                To record the number of fuzzy spatial itemSets generated
+            mapItemsLowSum : map
+                To keep track of low region values of items
+            mapItemsMidSum : map
+                To keep track of middle region values of items
+            mapItemsHighSum : map
+                To keep track of high region values of items
+            mapItemSum : map
+                To keep track of sum of Fuzzy Values of items
+            mapItemRegions : map
+                To Keep track of fuzzy regions of item
+            joinsCnt : int
+                To keep track of the number of FFI-list that was constructed
+            BufferSize : int
+                represent the size of Buffer
+            itemSetBuffer : list
+                to keep track of items in buffer
 
-            obj.mine()
+        :Methods:
 
-            fuzzySpatialFrequentPatterns = obj.getPatterns()
+            mine()
+                Mining process will start from here
+            getPatterns()
+                Complete set of patterns will be retrieved with this function
+            save(oFile)
+                Complete set of frequent patterns will be loaded in to a output file
+            getPatternsAsDataFrame()
+                Complete set of frequent patterns will be loaded in to a dataframe
+            getMemoryUSS()
+                Total amount of USS memory consumed by the mining process will be retrieved from this function
+            getMemoryRSS()
+                Total amount of RSS memory consumed by the mining process will be retrieved from this function
+            getRuntime()
+                Total amount of runtime taken by the mining process will be retrieved from this function
+            convert(value)
+                To convert the given user specified value
+            FSFIMining( prefix, prefixLen, fsFim, minSup)
+                Method generate FFI from prefix
+            construct(px, py)
+                A function to construct Fuzzy itemSet from 2 fuzzy itemSets
+            Intersection(neighbourX,neighbourY)
+                Return common neighbours of 2 itemSet Neighbours
+            findElementWithTID(uList, tid)
+                To find element with same tid as given
+            WriteOut(prefix, prefixLen, item, sumIUtil,period)
+                To Store the patten
 
-            print("Total number of fuzzy frequent spatial patterns:", len(fuzzySpatialFrequentPatterns))
+        Execution methods
+        =================
 
-            obj.save("outputFile")
 
-            memUSS = obj.getMemoryUSS()
+        **Terminal command**
+        .. code-block:: console
 
-            print("Total Memory in USS:", memUSS)
+          Format:
 
-            memRSS = obj.getMemoryRSS()
+          (.venv) $ python3 FFSPMiner_old.py <inputFile> <outputFile> <neighbours> <minSup> <sep>
 
-            print("Total Memory in RSS", memRSS)
+          Example Usage:
 
-            run = obj.getRuntime()
+          (.venv) $ python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3
 
-            print("Total ExecutionTime in seconds:", run)
+          (.venv) $ python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 0.3
 
-    **Credits:**
-    ---------------
-            The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
+          (.venv) $ python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3
+
+        .. note:: minSup will be considered in percentage of database transactions
+
+
+        **Sample run of importing the code:**
+        ----------------------------------------
+
+                from PAMI.fuzzyGeoreferencedFrequentPattern import FFSPMiner as alg
+
+                obj = alg.FFSPMiner("input.txt", "neighbours.txt", 2)
+
+                obj.mine()
+
+                fuzzySpatialFrequentPatterns = obj.getPatterns()
+
+                print("Total number of fuzzy frequent spatial patterns:", len(fuzzySpatialFrequentPatterns))
+
+                obj.save("outputFile")
+
+                memUSS = obj.getMemoryUSS()
+
+                print("Total Memory in USS:", memUSS)
+
+                memRSS = obj.getMemoryRSS()
+
+                print("Total Memory in RSS", memRSS)
+
+                run = obj.getRuntime()
+
+                print("Total ExecutionTime in seconds:", run)
+
+        Credits
+        =======
+                The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
     """
-    
-    _startTime = float()
-    _endTime = float()
     _minSup = str()
-    _maxPer = float()
-    _finalPatterns = {}
     _iFile = " "
-    _oFile = " "
     _nFile = " "
-    _memoryUSS = float()
-    _memoryRSS = float()
     _sep = "\t"
-    _transactions = []
-    _fuzzyValues = []
 
     def __init__(self, iFile, nFile, minSup, sep="\t"):
         super().__init__(iFile, nFile, minSup, sep)

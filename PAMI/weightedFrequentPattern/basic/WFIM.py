@@ -3,14 +3,16 @@
 # patterns from tree.It employs downward closure property to  reduce the search space effectively.
 #
 # **Importing this algorithm into a python program**
-# ----------------------------------------------------------
-#
 #
 #             from PAMI.weightFrequentPattern.basic import basic as alg
 #
+#             iFile = 'sampleDB.txt'
+#
+#             minSup = 10  # can also be specified between 0 and 1
+#
 #             obj = alg.basic(iFile, wFile, minSup, minWeight)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             frequentPatterns = obj.getPatterns()
 #
@@ -48,8 +50,6 @@ __copyright__ = """
 
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-     Copyright (C)  2021 Rage Uday Kiran
-
 """
 
 from PAMI.weightedFrequentPattern.basic import abstract as _fp
@@ -74,10 +74,13 @@ class _Node:
 
         itemId: int
             storing item of a node
+
         counter: int
             To maintain the support of node
+
         parent: node
             To maintain the parent of node
+
         children: list
             To maintain the children of node
 
@@ -98,7 +101,7 @@ class _Node:
         Retrieving the child from the tree
 
         :param node: Children node
-        :type node: Node
+        :type node: _Node
         :return: Updates the children nodes and parent nodes
         """
         self.children[node.itemId] = node
@@ -113,8 +116,10 @@ class _Tree:
 
         root : Node
             The first node of the tree set to Null.
+
         summaries : dictionary
             Stores the nodes itemId which shares same itemId
+
         info : dictionary
             frequency of items in the transactions
 
@@ -237,14 +242,15 @@ class _Tree:
 
 class WFIM(_fp._weightedFrequentPatterns):
     """
-    :Description:
-       * WFMiner is one of the fundamental algorithm to discover weighted frequent patterns in a transactional database.
-       * It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It employs employs downward closure property to  reduce the search space effectively.
+    About this algorithm
+    ====================
 
-    :Reference :
-           U. Yun and J. J. Leggett, “Wfim: weighted frequent itemset mining with a weight range and a minimum weight,”
-           in Proceedings of the 2005 SIAM International Conference on Data Mining. SIAM, 2005, pp. 636–640.
-           https://epubs.siam.org/doi/pdf/10.1137/1.9781611972757.76
+    :Description: * WFMiner is one of the fundamental algorithm to discover weighted frequent patterns in a transactional database.
+                  * It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It employs employs downward closure property to  reduce the search space effectively.
+
+    :Reference:  U. Yun and J. J. Leggett, “Wfim: weighted frequent itemset mining with a weight range and a minimum weight,”
+           In:   Proceedings of the 2005 SIAM International Conference on Data Mining. SIAM, 2005, pp. 636–640.
+                 https://epubs.siam.org/doi/pdf/10.1137/1.9781611972757.76
 
     :param  iFile: str :
                    Name of the Input file to mine complete set of weighted Frequent Patterns.
@@ -260,43 +266,56 @@ class WFIM(_fp._weightedFrequentPatterns):
 
         iFile : file
             Input file name or path of the input file
+
         minSup: float or int or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+
         minWeight: float or int or str
             The user can specify minWeight either in count or proportion of database size.
             If the program detects the data type of minWeight is integer, then it treats minWeight is expressed in count.
             Otherwise, it will be treated as float.
             Example: minWeight=10 will be treated as integer, while minWeight=10.0 will be treated as float
+
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
             However, the users can override their default separator.
+
         oFile : file
             Name of the output file or the path of the output file
+
         startTime:float
             To record the start time of the mining process
+
         endTime:float
             To record the completion time of the mining process
+
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
+
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
+
         Database : list
             To store the transactions of a database in list
+
         mapSupport : Dictionary
             To maintain the information of item and their frequency
+
         lno : int
             it represents the total no of transactions
+
         tree : class
             it represents the Tree class
+
         finalPatterns : dict
             it represents to store the patterns
 
     :Methods :
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -315,10 +334,14 @@ class WFIM(_fp._weightedFrequentPatterns):
         frequentOneItem()
             Extracts the one-frequent patterns from transactions
 
-    **Methods to execute code on terminal**
-    -------------------------------------------
-    .. code-block:: console
+    Execution methods
+    =================
 
+
+    **Terminal command**
+
+
+    .. code-block:: console
 
        Format:
 
@@ -328,19 +351,22 @@ class WFIM(_fp._weightedFrequentPatterns):
 
        (.venv) $ python3 basic.py sampleDB.txt weightSample.txt patterns.txt 10.0 3.4
 
+    .. note:: minSup and maxPer will be considered in support count or frequency
 
-               .. note:: minSup and maxPer will be considered in support count or frequency
 
+    **Calling from a python program**
 
-    **Importing this algorithm into a python program**
-    -----------------------------------------------------
     .. code-block:: python
 
             from PAMI.weightFrequentPattern.basic import basic as alg
 
+            iFile = 'sampleDB.txt'
+
+            minSup = 10  # can also be specified between 0 and 1
+
             obj = alg.basic(iFile, wFile, minSup, minWeight)
 
-            obj.startMine()
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -362,11 +388,12 @@ class WFIM(_fp._weightedFrequentPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    **Credits:**
-    ----------------------
-             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+    Credits
+    =======
 
-        """
+
+             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+    """
 
     __startTime = float()
     __endTime = float()
@@ -390,6 +417,7 @@ class WFIM(_fp._weightedFrequentPatterns):
     def __creatingItemSets(self) -> None:
         """
         Storing the complete transactions of the database/input file in a database variable
+
         :return: None
         """
         self.__Database = []
@@ -426,6 +454,7 @@ class WFIM(_fp._weightedFrequentPatterns):
     def _scanningWeights(self) -> None:
         """
         Storing the weights of the variables in input file in a weights variable
+
         :return: None
         """
         global _weights
@@ -487,6 +516,7 @@ class WFIM(_fp._weightedFrequentPatterns):
     def __frequentOneItem(self) -> List[str]:
         """
         Generating One frequent items sets
+
         :return: list
         """
         global _maxWeight
@@ -505,6 +535,7 @@ class WFIM(_fp._weightedFrequentPatterns):
     def __updateTransactions(self, itemSet: List[str]) -> List[List[int]]:
         """
         Updates the items in transactions with rank of items according to their support
+
         :Example: oneLength = {'a':7, 'b': 5, 'c':'4', 'd':3}
                     rank = {'a':0, 'b':1, 'c':2, 'd':3}
 
@@ -549,10 +580,12 @@ class WFIM(_fp._weightedFrequentPatterns):
             temp = temp + self.__rankDup[i] + "\t"
         return temp
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated(
+        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         main program to start the operation
+
         :return: None
         """
         self.mine()
@@ -560,6 +593,7 @@ class WFIM(_fp._weightedFrequentPatterns):
     def mine(self) -> None:
         """
         main program to start the operation
+
         :return: None
         """
         global _minSup, _minWeight, _miniWeight, _maxWeight, _weights
@@ -597,6 +631,7 @@ class WFIM(_fp._weightedFrequentPatterns):
 
     def getMemoryUSS(self) -> float:
         """
+
         Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -607,6 +642,7 @@ class WFIM(_fp._weightedFrequentPatterns):
 
     def getMemoryRSS(self) -> float:
         """
+
         Total amount of RSS memory consumed by the mining process will be retrieved from this function.
 
         :return: returning RSS memory consumed by the mining process
@@ -617,6 +653,7 @@ class WFIM(_fp._weightedFrequentPatterns):
 
     def getRuntime(self) -> float:
         """
+
         Calculating the total amount of runtime taken by the mining process.
 
         :return: returning total amount of runtime taken by the mining process
@@ -627,6 +664,7 @@ class WFIM(_fp._weightedFrequentPatterns):
 
     def getPatternsAsDataFrame(self) -> pd.DataFrame:
         """
+
         Storing final frequent patterns in a dataframe.
 
         :return: returning frequent patterns in a dataframe
@@ -642,6 +680,7 @@ class WFIM(_fp._weightedFrequentPatterns):
 
     def save(self, outFile: str) -> None:
         """
+
         Complete set of frequent patterns will be loaded in to an output file.
 
         :param outFile: name of the output file
@@ -656,6 +695,7 @@ class WFIM(_fp._weightedFrequentPatterns):
 
     def getPatterns(self) -> Dict[str, int]:
         """
+
         Function to send the set of frequent patterns after completion of the mining process.
 
         :return: returning frequent patterns
@@ -666,7 +706,6 @@ class WFIM(_fp._weightedFrequentPatterns):
     def printResults(self) -> None:
         """
         This function is used to print the results
-        :return: None
         """
         print("Total number of  Weighted Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
