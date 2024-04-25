@@ -663,11 +663,6 @@ class GPFgrowth(partialPeriodicPatterns):
                     print("File Not Found")
                     quit()
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
-    def startMine(self):
-
-        self.mine()
-
     def mine(self):
         self.__inputFile = self._partialPeriodicPatterns__iFile
         self._partialPeriodicPatterns__startTime = time.time()
@@ -773,7 +768,7 @@ if __name__ == '__main__':
             ap = GPFgrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
         if len(sys.argv) == 6:
             ap = GPFgrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
-        ap.startMine()
+        ap.mine()
         print("Total number of Frequent Patterns:", len(ap.getPatterns()))
         ap.save(sys.argv[2])
         print("Total Memory in USS:", ap.getMemoryUSS())
@@ -782,7 +777,7 @@ if __name__ == '__main__':
     else:
         for i in [1000, 2000, 3000, 4000, 5000]:
             _ap = GPFgrowth('/Users/Likhitha/Downloads/temporal_T10I4D100K.csv', i, 500, 0.7, '\t')
-            _ap.startMine()
+            _ap.mine()
             print("Total number of Maximal Partial Periodic Patterns:", len(_ap.getPatterns()))
             _ap.save('/Users/Likhitha/Downloads/output.txt')
             print("Total Memory in USS:", _ap.getMemoryUSS())

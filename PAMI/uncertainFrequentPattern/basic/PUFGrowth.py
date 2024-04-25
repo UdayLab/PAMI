@@ -52,7 +52,7 @@ __copyright__ = """
 
 from PAMI.uncertainFrequentPattern.basic import abstract as _ab
 from typing import List, Tuple
-import deprecated
+from deprecated import deprecated
 
 _minSup = str()
 _ab._sys.setrecursionlimit(20000)
@@ -658,8 +658,7 @@ class PUFGrowth(_ab._frequentPatterns):
                     sample = sample + i + "\t"
                 self._finalPatterns[sample] = y
 
-    @deprecated(
-        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns

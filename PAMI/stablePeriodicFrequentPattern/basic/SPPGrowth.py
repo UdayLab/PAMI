@@ -57,7 +57,8 @@ __copyright__ = """
 
 
 from PAMI.stablePeriodicFrequentPattern.basic import abstract as _ab
-import deprecated
+from deprecated import deprecated
+
 
 _minSup = int()
 _maxPer = int()

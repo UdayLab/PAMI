@@ -684,14 +684,6 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
             t1.append(self._pfList[i])
         return t1
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
-    def startMine(self):
-        """
-        Mining process will start from this function
-        """
-
-        self.mine()
-
     def mine(self):
         """
         Mining process will start from this function
@@ -816,7 +808,7 @@ if __name__ == "__main__":
             _ap = Max3PGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4], _sys.argv[5])
         if len(_sys.argv) == 5:
             _ap = Max3PGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4])
-        _ap.startMine()
+        _ap.mine()
         print("Total number of Maximal Partial Periodic Patterns:", len(_ap.getPatterns()))
         _ap.save(_sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
@@ -825,7 +817,7 @@ if __name__ == "__main__":
     else:
         for i in [100, 200, 300, 400, 500]:
             _ap = Max3PGrowth('/Users/Likhitha/Downloads/temporal_T10I4D100K.csv', i, 5000, '\t')
-            _ap.startMine()
+            _ap.mine()
             print("Total number of Maximal Partial Periodic Patterns:", len(_ap.getPatterns()))
             _ap.save('/Users/Likhitha/Downloads/output.txt')
             print("Total Memory in USS:", _ap.getMemoryUSS())

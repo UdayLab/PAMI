@@ -1,0 +1,7 @@
+FTApriori
+-------------
+
+.. automodule:: PAMI.faultTolerantFrequentPattern.basic.FTApriori
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,8 +1,6 @@
 # This code uses "lift" metric to extract the association rules from given frequent patterns.
 #
-#
 # **Importing this algorithm into a python program**
-# ----------------------------------------------------
 #
 #             import PAMI.AssociationRules.basic import ARWithLift as alg
 #
@@ -32,9 +30,6 @@
 #
 
 
-
-
-
 __copyright__ = """
 Copyright (C)  2021 Rage Uday Kiran
 
@@ -52,14 +47,12 @@ Copyright (C)  2021 Rage Uday Kiran
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-
-
 from PAMI.AssociationRules.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 from deprecated import deprecated
 
-class Lift:
 
+class Lift:
     """
     :param  patterns: Dictionary containing patterns and its support value.
     :type  patterns: dict
@@ -147,36 +140,20 @@ class ARWithLift:
     About this algorithm
     ====================
 
-    :Description: Association Rules are derived from frequent patterns using "lift" metric.
+    :**Description**: Association Rules are derived from frequent patterns using "lift" metric.
 
-    :Reference:
+    :**Reference**:
 
-    :param  iFile: str :
-                   Name of the Input file to mine complete set of association rules
-    :param  oFile: str :
-                   Name of the output file to store complete set of association rules
-    :param  minConf: float :
-                   The user can specify the minConf in float between the range of 0 to 1.
-    :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :**Parameters**:    - **iFile** (*str*) -- *Name of the Input file to mine complete set of association rules.*
+                        - **oFile** (*str*) -- *Name of the output file to store complete set of association rules.*
+                        - **minConf** (*float*) -- *The user can specify the minConf in float between the range of 0 to 1.*
+                        - **sep** (*str*) --  *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
 
-        
-    :Attributes:
-
-        startTime : float
-            To record the start time of the mining process
-
-        endTime : float
-            To record the completion time of the mining process
-
-        finalPatterns : dict
-            Storing the complete set of patterns in a dictionary variable
-
-        memoryUSS : float
-            To store the total amount of USS memory consumed by the program
-
-        memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
+    :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*
+                        - **endTime** (*float*) -- *To record the completion time of the mining process.*
+                        - **finalPatterns** (*dict*) -- *Storing the complete set of patterns in a dictionary variable.*
+                        - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
+                        - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
 
 
     Execution methods
@@ -226,7 +203,8 @@ class ARWithLift:
             run = obj.getRuntime()
 
             print("Total ExecutionTime in seconds:", run)
-            
+
+
     Credits
     =======
 
