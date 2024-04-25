@@ -241,6 +241,21 @@ class ECLATbitset(_ab._frequentPatterns):
             packed_bits |= 1 << (maxIndex - i)
 
         return packed_bits
+    
+    def __recursive(self, items, cands):
+
+        for i in range(len(cands)):
+            newCands = []
+            for j in range(i + 1, len(cands)):
+                intersection = items[cands[i]] & items[cands[j]]
+                support = int.bit_count(intersection)
+                if support >= self._minSup:
+                    newCand = tuple(cands[i] + tuple([cands[j][-1]]))
+                    newCands.append(newCand)
+                    items[newCand] = intersection
+                    self._finalPatterns[newCand] = support
+            if len(newCands) > 1:
+                self.__recursive(items, newCands)
 
     def mine(self) -> None:
         """
@@ -264,35 +279,18 @@ class ECLATbitset(_ab._frequentPatterns):
             index += 1
 
         # sort by length in descending order
-        items = dict(sorted(items.items(), key=lambda x: len(x[1]), reverse=True))
+        items = dict(sorted(items.items(), key=lambda x: len(x[1]), reverse=False))
         cands = []
         for key in items:
             if len(items[key]) >= self._minSup:
-                self._finalPatterns["\t".join(key)] = len(items[key])
+                self._finalPatterns[key] = len(items[key])
                 cands.append(key)
                 items[key] = self._bitPacker(items[key], index)
-                # print(key, items[key])
-            else:
-                break
 
-        while cands:
-            newCands = []
-            for i in range(len(cands)):
-                for j in range(i + 1, len(cands)):
-                    if cands[i][:-1] == cands[j][:-1]:
-                        newCand = tuple(cands[i] + tuple([cands[j][-1]]))
-                        intersection = items[tuple([newCand[0]])]
-                        for k in range(1, len(newCand)):
-                            intersection &= items[tuple([newCand[k]])]
-                        count = int.bit_count(intersection)
-                        if count >= self._minSup:
-                            newCands.append(newCand)
-                            newCand = "\t".join(newCand)
-                            self._finalPatterns[newCand] = count
-                    else:
-                        break
+        self.__recursive(items, cands)
 
-            cands = newCands
+
+        
 
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
@@ -329,31 +327,48 @@ class ECLATbitset(_ab._frequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
-        """
-        Storing final frequent patterns in a dataframe
-        :return: returning frequent patterns in a dataframe
-        :rtype: pd.DataFrame
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """
 
-        dataFrame = {}
-        data = []
-        for a, b in self._finalPatterns.items():
-            data.append([a.replace('\t', ' '), b])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+        Storing final frequent patterns in a dataframe
+
+        :return: returning frequent patterns in a dataframe
+
+        :rtype: pd.DataFrame
+
+        """
+
+        # time = _ab._time.time()
+        # dataFrame = {}
+        # data = []
+        # for a, b in self._finalPatterns.items():
+        #     # data.append([a.replace('\t', ' '), b])
+        #     data.append([" ".join(a), b])
+        #     dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+        # print("Time taken to convert the frequent patterns into DataFrame is: ", _ab._time.time() - time)
+
+
+        dataFrame = _ab._pd.DataFrame(list(self._finalPatterns.items()), columns=['Patterns', 'Support'])
+
         return dataFrame
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """
+
         Complete set of frequent patterns will be loaded in to an output file
-        :param outFile: name of the outputfile
-        :type outFile: file
+
+        :param outFile: name of the output file
+
+        :type outFile: csvfile
+
+        :return: None
+
         """
-        self._oFile = outFile
-        writer = open(self._oFile, 'w+')
-        for x, y in self._finalPatterns.items():
-            patternsAndSupport = x.strip() + ":" + str(y)
-            writer.write("%s \n" % patternsAndSupport)
+        with open(outFile, 'w') as f:
+            for x, y in self._finalPatterns.items():
+                x = self._sep.join(x)
+                f.write(f"{x} : {y}\n")
+
 
     def getPatterns(self):
         """
