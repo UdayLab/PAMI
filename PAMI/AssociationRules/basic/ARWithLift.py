@@ -180,6 +180,10 @@ class ARWithLift:
 
             import PAMI.AssociationRules.basic import ARWithLift as alg
 
+            iFile = 'sampleDB.txt'
+
+            minSup = 10  # can also be specified between 0 and 1
+
             obj = alg.ARWithLift(iFile, minConf)
 
             obj.mine()
