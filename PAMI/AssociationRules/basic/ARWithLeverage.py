@@ -3,7 +3,6 @@
 # **Importing this algorithm into a python program**
 # ----------------------------------------------------
 #
-#
 #             import PAMI.AssociationRules.basic import ARWithLeverage as alg
 #
 #             obj = alg.ARWithLeverage(iFile, minConf)
@@ -30,9 +29,6 @@
 #
 #             print("Total ExecutionTime in seconds:", run)
 #
-
-
-
 
 
 __copyright__ = """
@@ -162,7 +158,6 @@ class ARWithLeverage:
         
         
     :Attributes:
-
 
         startTime : float
             To record the start time of the mining process
