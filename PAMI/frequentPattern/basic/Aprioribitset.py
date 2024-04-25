@@ -1,11 +1,11 @@
-# ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
+# AprioriBitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
 #
 # **Importing this algorithm into a python program**
 # ---------------------------------------------------------
 #
-#             import PAMI.frequentPattern.basic.ECLATbitset as alg
+#             import PAMI.frequentPattern.basic.AprioriBitset as alg
 #
-#             obj = alg.ECLATbitset(iFile, minSup)
+#             obj = alg.AprioriBitset(iFile, minSup)
 #
 #             obj.mine()
 #
@@ -52,9 +52,9 @@ from PAMI.frequentPattern.basic import abstract as _ab
 from deprecated import deprecated
 
 
-class Aprioribitset(_ab._frequentPatterns):
+class AprioriBitset(_ab._frequentPatterns):
     """
-    :Description:  ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
+    :Description:  AprioriBitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
 
     :Reference:  Mohammed Javeed Zaki: Scalable Algorithms for Association Mining. IEEE Trans. Knowl. Data Eng. 12(3):
             372-390 (2000), https://ieeexplore.ieee.org/document/846291
@@ -96,11 +96,11 @@ class Aprioribitset(_ab._frequentPatterns):
 
       Format:
 
-      (.venv) $ python3 ECLATbitset.py <inputFile> <outputFile> <minSup>
+      (.venv) $ python3 AprioriBitset.py <inputFile> <outputFile> <minSup>
 
       Example Usage:
 
-      (.venv) $ python3 ECLATbitset.py sampleDB.txt patterns.txt 10.0
+      (.venv) $ python3 AprioriBitset.py sampleDB.txt patterns.txt 10.0
 
     .. note:: minSup will be considered in percentage of database transactions
 
@@ -109,9 +109,9 @@ class Aprioribitset(_ab._frequentPatterns):
     ---------------------------------------------------------
     .. code-block:: python
 
-            import PAMI.frequentPattern.basic.ECLATbitset as alg
+            import PAMI.frequentPattern.basic.AprioriBitset as alg
 
-            obj = alg.ECLATbitset(iFile, minSup)
+            obj = alg.AprioriBitset(iFile, minSup)
 
             obj.mine()
 
@@ -377,9 +377,9 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
-            _ap = Aprioribitset(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = AprioriBitset(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
-            _ap = Aprioribitset(_ab._sys.argv[1], _ab._sys.argv[3])
+            _ap = AprioriBitset(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
         _ap.mine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
