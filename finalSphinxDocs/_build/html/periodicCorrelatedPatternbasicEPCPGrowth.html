@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EPCPGrowth &mdash; PAMI 2024.04.23 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=391540b0"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Stable Periodic Pattern Mining" href="StablePeriodicPatternMining1.html" />
+    <link rel="prev" title="Basic" href="periodicCorrelatedPatternMining.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="transactionalPatternMining.html">Transactional Database</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="temporalPatternMining.html">Temporal Database</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="PeriodicFrequentPatternMining1.html">Periodic Frequent Pattern Mining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LocalPeriodicPatternMining1.html">Local Periodic Pattern Mining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PartialPeriodicFrequentPatternMining1.html">Partial Periodic Frequent Pattern Mining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PartialPeriodicPatternMining1.html">Partial Periodic Pattern Mining</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="PeriodicCorrelatedPatternMining1.html">Periodic correlated pattern mining</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="periodicCorrelatedPatternMining.html">Basic</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">EPCPGrowth</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="StablePeriodicPatternMining1.html">Stable Periodic Pattern Mining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RecurringPatternMining1.html">Recurring Pattern Mining</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="utilityPatternMining.html">Utility Pattern mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="uncertainPatternMining.html">Uncertain Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sequentialPatternMining.html">Sequential Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contiguousPatternMining.html">Contiguous Patterns</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="temporalPatternMining.html">Temporal Database</a></li>
+          <li class="breadcrumb-item"><a href="PeriodicCorrelatedPatternMining1.html">Periodic correlated pattern mining</a></li>
+          <li class="breadcrumb-item"><a href="periodicCorrelatedPatternMining.html">Basic</a></li>
+      <li class="breadcrumb-item active">EPCPGrowth</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/periodicCorrelatedPatternbasicEPCPGrowth.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-PAMI.periodicCorrelatedPattern.basic.EPCPGrowth">
+<span id="epcpgrowth"></span><h1>EPCPGrowth<a class="headerlink" href="#module-PAMI.periodicCorrelatedPattern.basic.EPCPGrowth" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.periodicCorrelatedPattern.basic.EPCPGrowth.EPCPGrowth">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.periodicCorrelatedPattern.basic.EPCPGrowth.</span></span><span class="sig-name descname"><span class="pre">EPCPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minAllConf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxPer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxPerAllConf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/periodicCorrelatedPattern/basic/EPCPGrowth.html#EPCPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.periodicCorrelatedPattern.basic.EPCPGrowth.EPCPGrowth" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_periodicCorrelatedPatterns</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>EPCPGrowth is an algorithm to discover periodic-Correlated patterns in a temporal database.</p>
+</dd>
+<dt class="field-even">Reference<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="http://www.tkl.iis.u-tokyo.ac.jp/new/uploads/publication_file/file/897/Venkatesh2018_Chapter_DiscoveringPeriodic-Correlated.pdf">http://www.tkl.iis.u-tokyo.ac.jp/new/uploads/publication_file/file/897/Venkatesh2018_Chapter_DiscoveringPeriodic-Correlated.pdf</a></p>
+</dd>
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
+</dd>
+<dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the output file or path of the output file</p>
+</dd>
+<dt>minSup<span class="classifier">int or float or str</span></dt><dd><p>The user can specify minSup either in count or proportion of database size.
+If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+Otherwise, it will be treated as float.
+Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float</p>
+</dd>
+<dt>minAllConf<span class="classifier">int or float or str</span></dt><dd><p>The user can specify minAllConf either in count or proportion of database size.
+If the program detects the data type of minAllConf is integer, then it treats minAllCOnf is expressed in count.
+Otherwise, it will be treated as float.
+Example: minAllCOnf=10 will be treated as integer, while minAllConf=10.0 will be treated as float</p>
+</dd>
+<dt>maxPer<span class="classifier">int or float or str</span></dt><dd><p>The user can specify maxPer either in count or proportion of database size.
+If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+Otherwise, it will be treated as float.
+Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float</p>
+</dd>
+<dt>maxPerAllConf<span class="classifier">int or float or str</span></dt><dd><p>The user can specify maxPerAllConf either in count or proportion of database size.
+If the program detects the data type of maaxPerAllConf is integer, then it treats maxPerAllConf is expressed in count.
+Otherwise, it will be treated as float.
+Example : maxPerAllConf=10 will be treated as integer, while maxPerAllConf=10.0 will be treated as float</p>
+</dd>
+<dt>sep<span class="classifier">str</span></dt><dd><p>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or         .
+However, the users can override their default separator.</p>
+</dd>
+<dt>memoryUSS<span class="classifier">float</span></dt><dd><p>To store the total amount of USS memory consumed by the program</p>
+</dd>
+<dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
+</dd>
+<dt>startTime<span class="classifier">float</span></dt><dd><p>To record the start time of the mining process</p>
+</dd>
+<dt>endTime<span class="classifier">float</span></dt><dd><p>To record the completion time of the mining process</p>
+</dd>
+<dt>Database<span class="classifier">list</span></dt><dd><p>To store the transactions of a database in list</p>
+</dd>
+<dt>mapSupport<span class="classifier">Dictionary</span></dt><dd><p>To maintain the information of item and their frequency</p>
+</dd>
+<dt>lno<span class="classifier">int</span></dt><dd><p>To represent the total no of transaction</p>
+</dd>
+<dt>tree<span class="classifier">class</span></dt><dd><p>To represents the Tree class</p>
+</dd>
+<dt>itemSetCount<span class="classifier">int</span></dt><dd><p>To represents the total no of patterns</p>
+</dd>
+<dt>finalPatterns<span class="classifier">dict</span></dt><dd><p>To store the complete patterns</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Methods<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>startMine()</dt><dd><p>Mining process will start from here</p>
+</dd>
+<dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
+</dd>
+<dt>save(oFile)</dt><dd><p>Complete set of periodic-frequent patterns will be loaded in to a output file</p>
+</dd>
+<dt>getPatternsAsDataFrame()</dt><dd><p>Complete set of periodic-frequent patterns will be loaded in to a dataframe</p>
+</dd>
+<dt>getMemoryUSS()</dt><dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getMemoryRSS()</dt><dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getRuntime()</dt><dd><p>Total amount of runtime taken by the mining process will be retrieved from this function</p>
+</dd>
+<dt>creatingItemSets(fileName)</dt><dd><p>Scans the dataset and stores in a list format</p>
+</dd>
+<dt>PeriodicFrequentOneItem()</dt><dd><p>Extracts the one-periodic-frequent patterns from database</p>
+</dd>
+<dt>updateDatabases()</dt><dd><p>Update the database by removing aperiodic items and sort the Database by item decreased support</p>
+</dd>
+<dt>buildTree()</dt><dd><p>After updating the Database, remaining items will be added into the tree by setting root node as null</p>
+</dd>
+<dt>convert()</dt><dd><p>to convert the user specified value</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="executing-the-code-on-terminal">
+<h2><strong>Executing the code on terminal:</strong><a class="headerlink" href="#executing-the-code-on-terminal" title="Link to this heading"></a></h2>
+<blockquote>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">PFPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">maxPer</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">PFPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">0.3</span> <span class="mf">0.4</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+<section id="sample-run-of-importing-the-code">
+<h2><strong>Sample run of importing the code:</strong><a class="headerlink" href="#sample-run-of-importing-the-code" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.periodicCorrelatedPattern.basic</span> <span class="kn">import</span> <span class="n">EPCPGrowth</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">EPCPGrowth</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">minAllCOnf</span><span class="p">,</span> <span class="n">maxPer</span><span class="p">,</span> <span class="n">maxPerAllConf</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">periodicCorrelatedPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Periodic Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">periodicCorrelatedPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="credits">
+<h2><strong>Credits:</strong><a class="headerlink" href="#credits" title="Link to this heading"></a></h2>
+<blockquote>
+<div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.periodicCorrelatedPattern.basic.EPCPGrowth.EPCPGrowth.getMemoryRSS">
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/periodicCorrelatedPattern/basic/EPCPGrowth.html#EPCPGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.periodicCorrelatedPattern.basic.EPCPGrowth.EPCPGrowth.getMemoryRSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning RSS memory consumed by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.periodicCorrelatedPattern.basic.EPCPGrowth.EPCPGrowth.getMemoryUSS">
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/periodicCorrelatedPattern/basic/EPCPGrowth.html#EPCPGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.periodicCorrelatedPattern.basic.EPCPGrowth.EPCPGrowth.getMemoryUSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning USS memory consumed by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.periodicCorrelatedPattern.basic.EPCPGrowth.EPCPGrowth.getPatterns">
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/periodicCorrelatedPattern/basic/EPCPGrowth.html#EPCPGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.periodicCorrelatedPattern.basic.EPCPGrowth.EPCPGrowth.getPatterns" title="Link to this definition"></a></dt>
+<dd><p>Function to send the set of periodic-frequent patterns after completion of the mining process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning periodic-frequent patterns</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.periodicCorrelatedPattern.basic.EPCPGrowth.EPCPGrowth.getPatternsAsDataFrame">
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/periodicCorrelatedPattern/basic/EPCPGrowth.html#EPCPGrowth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.periodicCorrelatedPattern.basic.EPCPGrowth.EPCPGrowth.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<dd><p>Storing final periodic-frequent patterns in a dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning periodic-frequent patterns in a dataframe</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.periodicCorrelatedPattern.basic.EPCPGrowth.EPCPGrowth.getRuntime">
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/periodicCorrelatedPattern/basic/EPCPGrowth.html#EPCPGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.periodicCorrelatedPattern.basic.EPCPGrowth.EPCPGrowth.getRuntime" title="Link to this definition"></a></dt>
+<dd><p>Calculating the total amount of runtime taken by the mining process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning total amount of runtime taken by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.periodicCorrelatedPattern.basic.EPCPGrowth.EPCPGrowth.printResults">
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/periodicCorrelatedPattern/basic/EPCPGrowth.html#EPCPGrowth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.periodicCorrelatedPattern.basic.EPCPGrowth.EPCPGrowth.printResults" title="Link to this definition"></a></dt>
+<dd><p>This function is used to print thr results</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.periodicCorrelatedPattern.basic.EPCPGrowth.EPCPGrowth.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/periodicCorrelatedPattern/basic/EPCPGrowth.html#EPCPGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.periodicCorrelatedPattern.basic.EPCPGrowth.EPCPGrowth.save" title="Link to this definition"></a></dt>
+<dd><p>Complete set of periodic-frequent patterns will be loaded in to an output file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outFile</strong> (<em>csv file</em>) – name of the output file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.periodicCorrelatedPattern.basic.EPCPGrowth.EPCPGrowth.startMine">
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/periodicCorrelatedPattern/basic/EPCPGrowth.html#EPCPGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.periodicCorrelatedPattern.basic.EPCPGrowth.EPCPGrowth.startMine" title="Link to this definition"></a></dt>
+<dd><p>Mining process will start from this function</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="periodicCorrelatedPatternMining.html" class="btn btn-neutral float-left" title="Basic" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="StablePeriodicPatternMining1.html" class="btn btn-neutral float-right" title="Stable Periodic Pattern Mining" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE Uday Kiran.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

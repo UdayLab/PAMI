@@ -1,0 +1,7 @@
+HMiner
+--------
+
+.. automodule:: PAMI.highUtilityPattern.basic.HMiner
+   :members:
+   :undoc-members:
+   :show-inheritance:

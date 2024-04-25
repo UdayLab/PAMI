@@ -1,0 +1,7 @@
+cuEclatBit
+-------------
+
+.. automodule:: PAMI.frequentPattern.cuda.cuEclatBit
+   :members:
+   :undoc-members:
+   :show-inheritance:

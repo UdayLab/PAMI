@@ -15,11 +15,29 @@
 [Click here for more information](https://pepy.tech/project/pami)
 
 
+***
 
+# Table of Contents
 
-# Introduction
+- [Introduction](#introduction)
+- [Recent updates](#recent-updates)
+- [Features](#features)
+- [Maintenance](#Maintenance)
+- [Try your first PAMI program](#try-your-first-PAMI-program)
+- [Evaluation](#evaluation)
+- [Reading Material](#Reading-Material)
+- [License](#License)
+- [Documentation](#Documentation)
+- [Background](#Background)
+- [Getting Help](#Getting-Help)
+- [Discussion and Development](#Discussion-and-Development)
+- [Contribution to PAMI](#Contribution-to-PAMI)
+- [Tutorials](#tutorials)
+- [Real-World Case Studies](#real-world-case-studies)
+
 
 ***
+# Introduction
 
 PAttern MIning (PAMI) is a Python library containing several algorithms to discover user interest-based patterns in a wide-spectrum of datasets across multiple computing platforms. Useful links to utilize the services of this library were provided below:
 
@@ -32,9 +50,7 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 
 4. Coders manual https://udaylab.github.io/PAMI/codersManual/index.html
 
-5. Code documentation
-     - [HTML](https://udaylab.github.io/PAMI/html/index.html)  
-     - [Read the docs](https://pami-1.readthedocs.io)
+5. Code documentation https://pami-1.readthedocs.io
 
 6. Datasets   https://u-aizu.ac.jp/~udayrage/datasets.html
 
@@ -42,10 +58,9 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 
 8. Report issues https://github.com/UdayLab/PAMI/issues
 
-
-# Recent Updates  
-
 ***
+
+# Recent Updates
 
 - Version 2023.07.07: New algorithms: cuApriroi, cuAprioriBit, cuEclat, cuEclatBit, gPPMiner, cuGPFMiner, FPStream, HUPMS, SHUPGrowth New codes to generate synthetic databases
 - Version 2023.06.20: Fuzzy Partial Periodic, Periodic Patterns in High Utility, Code Documentation, help() function Update 
@@ -53,10 +68,8 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 
 Total number of algorithms: 83
 
-
-# Features
-
 ***
+# Features
 
 - ✅ Well-tested and production-ready
 - 🔋 Highly optimized to our best effort, light-weight, and energy-efficient
@@ -69,60 +82,31 @@ Total number of algorithms: 83
 - 🐎 Snappy
 - 🐻 Ease of use
 
-
-
-# Table of Content
-
 ***
-
-- [Maintenance](#Maintenance)
-- [Try your first PAMI program](#try-your-first-PAMI-program)
-- [Evaluation](#evaluation)
-- [Reading Material](#Reading-Material)
-- [License](#License)
-- [Documentation](#Documentation)
-- [Background](#Background)
-- [Getting Help](#Getting-Help)
-- [Discussion and Development](#Discussion-and-Development)
-- [Contribution to PAMI](#Contribution-to-PAMI)
-- [Tutorials](#Tutorials)
-
 
 # Maintenance
-
-***
 
   __Installation__
   
   1. Installing basic pami package (recommended)
 
-
          pip install pami
-
 
   2. Installing pami package in a GPU machine that supports CUDA
 
-
          pip install 'pami[gpu]'
-
 
   3. Installing pami package in a distributed network environment supporting Spark
 
-
          pip install 'pami[spark]'
 
-
   4. Installing pami package for developing purpose
-          
 
          pip install 'pami[dev]'
 
-
-  5. Installing complete Library of pami 
-
+  5. Installing complete Library of pami
 
          pip install 'pami[all]'
-
 
   __Upgradation__
 
@@ -141,10 +125,8 @@ Total number of algorithms: 83
 
         pip show pami
 
-
-# *Try your first PAMI program*
-
 ***
+# *Try your first PAMI program*
 
 ```shell
 $ python
@@ -174,13 +156,13 @@ Memory (RSS): 522911744
 Memory (USS): 475353088
 ```
 
-# Evaluation:
-
 ***
+
+# Evaluation:
 
 1. we compared three different Python libraries such as PAMI, mlxtend and efficient-apriori for Apriori.
 2. (Transactional_T10I4D100K.csv)is a transactional database downloaded from PAMI and
-used as a input file for all libraries.
+used as an input file for all libraries.
 3. Minimum support values and seperator are also same.
 
 * The performance of the **Apriori algorithm** is shown in the graphical results below:
@@ -200,60 +182,44 @@ For more information, we have uploaded the evaluation file in two formats:
 - One **ipynb** file format, please check it here. [Evaluation File ipynb](https://github.com/UdayLab/PAMI/blob/main/notebooks/Evaluation-neverDelete.ipynb) 
 - Two **pdf** file format, check here. [Evaluation File Pdf](https://github.com/UdayLab/PAMI/blob/main/notebooks/evaluation.pdf)
 
-# Reading Material
-
 ***
+# Reading Material
 
 For more examples, refer this YouTube link [YouTube](https://www.youtube.com/playlist?list=PLKP768gjVJmDer6MajaLbwtfC9ULVuaCZ)
 
-
+***
 # License
 
-***
-
 [![GitHub license](https://img.shields.io/github/license/UdayLab/PAMI)](https://github.com/UdayLab/PAMI/blob/main/LICENSE)
-
+***
 
 # Documentation
 
-***
-
 The official documentation is hosted on [PAMI](https://pami-1.readthedocs.io).
-
-
+***
 
 # Background
-
-***
 
 The idea and motivation to develop PAMI was from [Kitsuregawa Lab](https://www.tkl.iis.u-tokyo.ac.jp/new/resources?lang=en) at the University of Tokyo. Work on ``PAMI`` started at [University of Aizu](https://u-aizu.ac.jp/en/) in 2020 and
 has been under active development since then.
 
-
+***
 # Getting Help
 
+For any queries, the best place to go to is Github Issues [GithubIssues](https://github.com/orgs/UdayLab/discussions/categories/q-a).
+
 ***
-
-For any queries, the best place to go to is github Issues [GithubIssues](https://github.com/orgs/UdayLab/discussions/categories/q-a).
-
-
 # Discussion and Development
-
-***
 
 In our GitHub repository, the primary platform for discussing development-related matters is the university lab. We encourage our team members and contributors to utilize this platform for a wide range of discussions, including bug reports, feature requests, design decisions, and implementation details.
 
-
-# Contribution to PAMI
-
 ***
+# Contribution to PAMI
 
 We invite and encourage all community members to contribute, report bugs, fix bugs, enhance documentation, propose improvements, and share their creative ideas.
 
-
-# Tutorials 
-
 ***
+# Tutorials
 
 ### 1. Pattern mining in binary transactional databases
 
@@ -556,4 +522,39 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
  | Gspan <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/subgraphMining/basic/gspan.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> | TKG <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/subgraphMining/topk/tkg.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
-[Go to Top](#table-of-content)
+## 12. Additional Features
+
+#### 12.1. Creation of synthetic databases
+
+| Database type                                                                                                                                                                                                                                                                        |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Transactional database <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/extras/syntheticDataGenerators/TransactionalDatabase.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> | |
+| Temporal database <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/extras/syntheticDataGenerators/TemporalDatabase.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>           |
+| Utility database (coming soon)                                                                                                                                                                                                                                                       |
+
+#### 12.2. Converting a dataframe into a specific database type
+| Approaches                                  |
+|---------------------------------------------|
+| Dense dataframe to databases (coming soon)  |
+| Sparse dataframe to databases (coming soon) |
+
+#### 12.3. Gathering the statistical details of a database
+| Approaches                           |
+|--------------------------------------|
+| Transactional database (coming soon) |
+| Temporal database (coming soon)      |
+| Utility database (coming soon)       |
+
+#### 12.4. Generating Latex code for the experimental results
+| Approaches               |
+|--------------------------|
+| Latex code (coming soon) |
+
+***
+
+# Real World Case Studies
+
+1. Air pollution analytics <a target="_blank" href="https://colab.research.google.com/github/vanithakattumuri/PAMI/blob/main/notebooks/airPollutionAnalytics.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
+
+[Go to Top](#table-of-contents)

@@ -54,7 +54,7 @@ __copyright__ = """
 from PAMI.uncertainFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Union
 import pandas as pd
-import deprecated
+from deprecated import deprecated
 
 _minSup = float()
 _finalPatterns = {}
@@ -419,8 +419,7 @@ class TUFP(_ab._frequentPatterns):
             self._Generation(newPrefix, classItemSets, classTidSets)
             # self.save(prefix, list(set(itemSetX)), tidSetI)
 
-    @deprecated(
-        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
