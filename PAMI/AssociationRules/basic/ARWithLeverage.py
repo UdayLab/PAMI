@@ -5,6 +5,10 @@
 #
 #             import PAMI.AssociationRules.basic import ARWithLeverage as alg
 #
+#             iFile = 'sample.txt'
+#
+#             minConf = 10 # can also be specified between 0 and 1
+#
 #             obj = alg.ARWithLeverage(iFile, minConf)
 #
 #             obj.mine()
@@ -82,6 +86,7 @@ class _Leverage:
 
     def _generation(self, prefix, suffix) -> None:
         """
+
         To generate the combinations all association rules.
 
         :param prefix: the prefix of association rule.
@@ -102,6 +107,7 @@ class _Leverage:
 
     def _generateWithLeverage(self, lhs, rhs) -> float:
         """
+
         To find association rules satisfying user-specified minConf
 
         :param lhs: the prefix of association rule.
@@ -143,36 +149,20 @@ class ARWithLeverage:
     About this algorithm
     ====================
 
-    :Description: Association Rules are derived from frequent patterns using "leverage" metric.
+    :**Description**: Association Rules are derived from frequent patterns using "leverage" metric.
 
-    :Reference:
+    :**Reference**:
 
-    :param  iFile: str :
-                   Name of the Input file to mine complete set of association rules
-    :param  oFile: str :
-                   Name of the output file to store complete set of association rules
-    :param  minConf: float :
-                   The user can specify the minConf in float between the range of 0 to 1.
-    :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
-        
-        
-    :Attributes:
+    :**Parameter**:     - **iFile** (*str*) -- *Name of the Input file to mine complete set of association rules*
+                        - **oFile** (*str*) -- *Name of the output file to store complete set of association rules*
+                        - **minConf** (*float*) -- *The user can specify the minConf in float between the range of 0 to 1.*
+                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
 
-        startTime : float
-            To record the start time of the mining process
-
-        endTime : float
-            To record the completion time of the mining process
-
-        finalPatterns : dict
-            Storing the complete set of patterns in a dictionary variable
-
-        memoryUSS : float
-            To store the total amount of USS memory consumed by the program
-
-        memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
+    :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process**
+                        - **endTime** (*float*) -- *To record the completion time of the mining process**
+                        - **finalPatterns** (*dict*) -- *Storing the complete set of patterns in a dictionary variable**
+                        - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program**
+                        - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program**
 
 
     Execution methods
@@ -198,6 +188,10 @@ class ARWithLeverage:
     .. code-block:: python
 
             import PAMI.AssociationRules.basic import ARWithLeverage as alg
+
+            iFile = 'sample.txt'
+
+            minConf = 10  # can also be specified between 0 and 1
 
             obj = alg.ARWithLeverage(iFile, minConf)
 
@@ -247,6 +241,7 @@ class ARWithLeverage:
 
     def _readPatterns(self) -> list:
         """
+
         To read patterns  of leverage
 
         :return: List of patterns
@@ -318,6 +313,7 @@ class ARWithLeverage:
 
     def getMemoryUSS(self) -> float:
         """
+
         Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -328,6 +324,7 @@ class ARWithLeverage:
 
     def getMemoryRSS(self) -> float:
         """
+
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -338,6 +335,7 @@ class ARWithLeverage:
 
     def getRuntime(self) -> float:
         """
+
         Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
@@ -348,6 +346,7 @@ class ARWithLeverage:
 
     def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """
+
         Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -364,6 +363,7 @@ class ARWithLeverage:
 
     def save(self, outFile) -> None:
         """
+
         Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the outputfile
@@ -378,6 +378,7 @@ class ARWithLeverage:
 
     def getPatterns(self) -> dict:
         """
+
         Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
