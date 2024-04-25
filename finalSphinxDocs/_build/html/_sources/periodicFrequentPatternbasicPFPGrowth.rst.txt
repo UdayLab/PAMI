@@ -1,0 +1,7 @@
+PFPGrowth
+-------------
+
+.. automodule:: PAMI.periodicFrequentPattern.basic.PFPGrowth
+   :members:
+   :undoc-members:
+   :show-inheritance:

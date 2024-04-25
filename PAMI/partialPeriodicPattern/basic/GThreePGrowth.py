@@ -571,13 +571,6 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
                 value = int(value)
         return value
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
-    def startMine(self) -> None:
-        """
-        Main method where the patterns are mined by constructing tree.
-
-        """
-        self.mine()
 
     def mine(self) -> None:
         """
@@ -692,7 +685,7 @@ if __name__ == "__main__":
             _ap = GThreePGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4], _sys.argv[5], _sys.argv[6])
         if len(_sys.argv) == 6:
             _ap = GThreePGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4], _sys.argv[5])
-        _ap.startMine()
+        _ap.mine()
         _Patterns = _ap.getPatterns()
         print("Total number of Partial Periodic Patterns:", len(_Patterns))
         _ap.save(_sys.argv[2])
@@ -707,7 +700,7 @@ if __name__ == "__main__":
         l = [0.2, 0.4, 0.6, 0.7, 0.8]
         for i in l:
             ap = GThreePGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv', minPS, 10000, i)
-            ap.startMine()
+            ap.mine()
             Patterns = ap.getPatterns()
             print("Total number of  Patterns:", len(Patterns))
             ap.save('/Users/Likhitha/Downloads/output')
