@@ -6,7 +6,7 @@
 #
 #             iFile = 'sampleDB.txt'
 #
-#             minSup = 10  # can also be specified between 0 and 1
+#             minConf = 0.75  # can also be specified between 0 and 1
 #
 #             obj = alg.ARWithLift(iFile, minConf)
 #
@@ -186,7 +186,7 @@ class ARWithLift:
 
             iFile = 'sampleDB.txt'
 
-            minSup = 10  # can also be specified between 0 and 1
+            minConf = 0.75  # can also be specified between 0 and 1
 
             obj = alg.ARWithLift(iFile, minConf)
 
