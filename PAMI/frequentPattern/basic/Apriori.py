@@ -135,7 +135,7 @@ class Apriori(_ab._frequentPatterns):
     Credits
     =======
 
-            The complete program was written by P. Likhitha  under the supervision of Professor Rage Uday Kiran.
+    The complete program was written by P. Likhitha  and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
     """
 
