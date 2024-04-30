@@ -285,9 +285,6 @@ class ECLATbitset(_ab._frequentPatterns):
 
         self.__recursive(items, cands)
 
-
-        
-
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
@@ -403,3 +400,5 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
+
