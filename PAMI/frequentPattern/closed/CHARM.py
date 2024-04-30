@@ -1,10 +1,12 @@
-# CHARM is an algorithm to discover closed frequent patterns in a transactional database. Closed frequent patterns are patterns if there exists no superset that has the same support count as this original itemset . This algorithm employs depth-first search technique to find the complete set of closed frequent patterns in a
+# CHARM is an algorithm to discover closed frequent patterns in a transactional database. Closed frequent patterns are patterns if there exists no superset that has the same support count as this original itemset . This algorithm employs depth-first search technique to find the complete set of closed frequent patterns in a transactional database.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------------
-#
 #
 #             from PAMI.frequentPattern.closed import CHARM as alg
+#
+#             iFile = 'sampleDB.txt'
+#
+#             minSup = 10  # can also be specified between 0 and 1
 #
 #             obj = alg.CHARM(iFile, minSup)
 #
@@ -32,8 +34,6 @@
 #
 
 
-
-
 __copyright__ = """
 Copyright (C)  2021 Rage Uday Kiran
 
@@ -58,61 +58,33 @@ from deprecated import deprecated
 
 class CHARM(_ab._frequentPatterns):
     """
-    :Description: CHARM is an algorithm to discover closed frequent patterns in a transactional database. Closed frequent patterns are patterns if there exists no superset that has the same support count as this original itemset. This algorithm employs depth-first search technique to find the complete set of closed frequent patterns in a
+    :**Description**: CHARM is an algorithm to discover closed frequent patterns in a transactional database. Closed frequent patterns are patterns if there exists no superset that has the same support count as this original itemset. This algorithm employs depth-first search technique to find the complete set of closed frequent patterns in a transactional database.
+
+    :**Reference**:  Mohammed J. Zaki and Ching-Jui Hsiao, CHARM: An Efficient Algorithm for Closed Itemset Mining,
+                     Proceedings of the 2002 SIAM, SDM. 2002, 457-473, https://doi.org/10.1137/1.9781611972726.27
+
+    :**Parameters**:    - **iFile** (*str or URL or dataFrame*) -- *Name of the Input file to mine complete set of frequent patterns.*
+                        - **oFile** (*str*) -- *Name of the output file to store complete set of frequent patterns.*
+                        - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.*
+                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
+
+    :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*
+                        - **endTime** (*float*) -- *To record the completion time of the mining process.*
+                        - **finalPatterns** (*dict*) -- *Storing the complete set of patterns in a dictionary variable.*
+                        - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
+                        - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
+                        - **Database** (*list*) -- *To store the transactions of a database in list.*
+                        - **mapSupport** (*Dictionary*) -- *To maintain the information of item and their frequency.*
+                        - **tree** (*class*) -- *It represents the Tree class.*
+                        - **itemSetCount** (*int*) -- *It represents the total no of patterns.*
+                        - **tidList** (*dict*) -- *Stores the timestamps of an item.*
+                        - **hashing** (*dict*) -- *Stores the patterns with their support to check for the closed property.*
 
 
-    :Reference:   Mohammed J. Zaki and Ching-Jui Hsiao, CHARM: An Efficient Algorithm for Closed Itemset Mining,
-            Proceedings of the 2002 SIAM, SDM. 2002, 457-473, https://doi.org/10.1137/1.9781611972726.27
+    Execution methods
+    =================
 
-    :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent patterns
-    :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
-    :param  minSup: int or float or str :
-                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-    :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
-
-
-
-    :Attributes:
-
-        startTime : float
-          To record the start time of the mining process
-
-        endTime : float
-          To record the completion time of the mining process
-
-        finalPatterns : dict
-          Storing the complete set of patterns in a dictionary variable
-
-        memoryUSS : float
-          To store the total amount of USS memory consumed by the program
-
-        memoryRSS : float
-          To store the total amount of RSS memory consumed by the program
-
-        Database : list
-          To store the transactions of a database in list
-
-        mapSupport : Dictionary
-            To maintain the information of item and their frequency
-        lno : int
-            it represents the total no of transactions
-        tree : class
-            it represents the Tree class
-        itemSetCount : int
-            it represents the total no of patterns
-        finalPatterns : dict
-            it represents to store the patterns
-        tidList : dict
-            stores the timestamps of an item
-        hashing : dict
-            stores the patterns with their support to check for the closed property
-
-
-    **Methods to execute code on terminal**
-    --------------------------------------------------------------
+    **Terminal command**
 
     .. code-block:: console
 
@@ -124,14 +96,18 @@ class CHARM(_ab._frequentPatterns):
 
       (.venv) $ python3 CHARM.py sampleDB.txt patterns.txt 10.0
 
-    .. note:: minSup will be considered in percentage of database transactions
+    .. note:: minSup can be specified  in support count or a value between 0 and 1.
 
 
-    **Importing this algorithm into a python program**
-    --------------------------------------------------------------
+    **Calling from a python program**
+
     .. code-block:: python
 
             from PAMI.frequentPattern.closed import CHARM as alg
+
+            iFile = 'sampleDB.txt'
+
+            minSup = 10  # can also be specified between 0 and 1
 
             obj = alg.CHARM(iFile, minSup)
 
@@ -158,10 +134,10 @@ class CHARM(_ab._frequentPatterns):
             print("Total ExecutionTime in seconds:", run)
 
 
-    **Credits:**
-    -------------------------------
+    Credits:
+    =======
 
-                 The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+    The complete program was written by P.Likhitha and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -190,11 +166,8 @@ class CHARM(_ab._frequentPatterns):
         To convert the type of user specified minSup value
 
         :param value: user specified minSup value
-
         :type value: int or float or str
-
         :return: converted type
-
         """
         if type(value) is int:
             value = int(value)
@@ -266,12 +239,11 @@ class CHARM(_ab._frequentPatterns):
 
     def _calculate(self, tidSet):
         """
+
         To calculate the hashcode of pattern
 
         :param tidSet: the timestamps of a pattern
-
         :type tidSet: list
-
         :rtype: int
         """
 
@@ -279,8 +251,10 @@ class CHARM(_ab._frequentPatterns):
 
     def _contains(self, itemSet, value, hashcode):
         """
+
         Check for the closed property(patterns with same support) by checking the hashcode(sum of timestamps),
         if hashcode key in hashing dict is none then returns a false, else returns with true.
+
         :param itemSet: frequent pattern
         :type itemSet: list
         :param value: support of the pattern
@@ -298,19 +272,15 @@ class CHARM(_ab._frequentPatterns):
 
     def _save(self, prefix, suffix, tidSetx):
         """
+
         Check for the closed property (patterns with same support), if found deletes the subsets and stores
         supersets and also saves the patterns that satisfy the closed property
 
         :param prefix: the prefix of a pattern
-
         :type prefix: frequent item or pattern
-
         :param suffix: the suffix of a patterns
-
         :type suffix: list
-
         :param tidSetx: the timestamp of a patterns
-
         :type tidSetx: list
         """
         if prefix is None:
@@ -335,7 +305,9 @@ class CHARM(_ab._frequentPatterns):
 
     def _processEquivalenceClass(self, prefix, itemSets, tidSets):
         """
+
         Equivalence class is followed  and check for the patterns which satisfies frequent properties.
+
         :param prefix:  main equivalence prefix
         :type prefix: frequent item or pattern
         :param itemSets: patterns which are items combined with prefix and satisfying the minSup
@@ -458,7 +430,9 @@ class CHARM(_ab._frequentPatterns):
 
     def getMemoryUSS(self):
         """
+
         Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -467,7 +441,9 @@ class CHARM(_ab._frequentPatterns):
 
     def getMemoryRSS(self):
         """
+
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -476,7 +452,9 @@ class CHARM(_ab._frequentPatterns):
 
     def getRuntime(self):
         """
+
         Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -485,7 +463,9 @@ class CHARM(_ab._frequentPatterns):
 
     def getPatternsAsDataFrame(self):
         """
+
         Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -499,7 +479,9 @@ class CHARM(_ab._frequentPatterns):
 
     def save(self, outFile):
         """
+
         Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
         :type outFile: csvfile
         """
@@ -511,7 +493,9 @@ class CHARM(_ab._frequentPatterns):
 
     def getPatterns(self):
         """
+
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """
