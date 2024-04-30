@@ -4,6 +4,10 @@
 #
 #             import PAMI.AssociationRules.basic import ARWithLift as alg
 #
+#             iFile = 'sampleDB.txt'
+#
+#             minConf = 0.75  # can also be specified between 0 and 1
+#
 #             obj = alg.ARWithLift(iFile, minConf)
 #
 #             obj.mine()
@@ -179,6 +183,10 @@ class ARWithLift:
     .. code-block:: python
 
             import PAMI.AssociationRules.basic import ARWithLift as alg
+
+            iFile = 'sampleDB.txt'
+
+            minConf = 0.75  # can also be specified between 0 and 1
 
             obj = alg.ARWithLift(iFile, minConf)
 
