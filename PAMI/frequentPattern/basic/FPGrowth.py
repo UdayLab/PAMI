@@ -1,9 +1,12 @@
 # FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database. It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It  employs downward closure property to  reduce the search space effectively.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
 #
 #             from PAMI.frequentPattern.basic import FPGrowth as alg
+#
+#             iFile = 'sampleDB.txt'
+#
+#             minSup = 10  # can also be specified between 0 and 1
 #
 #             obj = alg.FPGrowth(iFile, minSup)
 #
@@ -31,8 +34,6 @@
 #
 
 
-
-
 __copyright__ = """
 Copyright (C)  2021 Rage Uday Kiran
 
@@ -51,7 +52,7 @@ Copyright (C)  2021 Rage Uday Kiran
 """
 
 from PAMI.frequentPattern.basic import abstract as _fp
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
+from typing import List, Dict, Tuple, Any
 from deprecated import deprecated
 from itertools import combinations
 from collections import Counter
@@ -64,22 +65,12 @@ class _Node:
     """
     A class used to represent the node of frequentPatternTree
 
-    :Attributes:
+    :**Attributes**:    - **itemId** (*int*) -- *storing item of a node.*
+                        - **counter** (*int*) -- *To maintain the support of node.*
+                        - **parent** (*node*) -- *To maintain the parent of node.*
+                        - **children** (*list*) -- *To maintain the children of node.*
 
-        itemId: int
-            storing item of a node
-        counter: int
-            To maintain the support of node
-        parent: node
-            To maintain the parent of node
-        children: list
-            To maintain the children of node
-
-    :Methods:
-
-        addChild(node)
-            Updates the nodes children list and parent for the given node
-
+    :**Methods**:   - **addChild(node)** -- *Updates the nodes children list and parent for the given node.*
     """
 
     def __init__(self, item, count, parent) -> None:
@@ -90,17 +81,15 @@ class _Node:
 
     def addChild(self, item, count = 1) -> Any:
         """
+
         Adds a child node to the current node with the specified item and count.
 
         :param item: The item associated with the child node.
         :type item: List
-
         :param count: The count or support of the item. Default is 1.
         :type count: int
-
         :return: The child node added.
         :rtype: List
-
         """
         if item not in self.children:
             self.children[item] = _Node(item, count, self)
@@ -113,7 +102,6 @@ class _Node:
         Traversing the tree to get the transaction
 
         :return: transaction and count of each item in transaction
-
         :rtype: Tuple, List and int
         """
         transaction = []
@@ -127,55 +115,33 @@ class _Node:
 
 class FPGrowth(_fp._frequentPatterns):
     """
+    About this algorithm
+    ====================
 
-    :Description:   FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database. It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It employs downward closure property to  reduce the search space effectively.
+    :**Description**:   FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database. It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It employs downward closure property to  reduce the search space effectively.
 
-    :Reference:  Han, J., Pei, J., Yin, Y. et al. Mining Frequent Patterns without Candidate Generation: A Frequent-Pattern
-           Tree Approach. Data  Mining and Knowledge Discovery 8, 53–87 (2004). https://doi.org/10.1023
+    :**Reference**:  Han, J., Pei, J., Yin, Y. et al. Mining Frequent Patterns without Candidate Generation: A Frequent-Pattern
+                     Tree Approach. Data  Mining and Knowledge Discovery 8, 53–87 (2004). https://doi.org/10.1023
 
-    :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent patterns
-    :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
-    :param  minSup: int or float or str :
-                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-    :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :**Parameters**:    - **iFile** (*str or URL or dataFrame*) -- *Name of the Input file to mine complete set of frequent patterns.*
+                        - **oFile** (*str*) -- *Name of the output file to store complete set of frequent patterns.*
+                        - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.*
+                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
 
-
-
-    :Attributes:
-
-        startTime : float
-          To record the start time of the mining process
-
-        endTime : float
-          To record the completion time of the mining process
-
-        finalPatterns : dict
-          Storing the complete set of patterns in a dictionary variable
-
-        memoryUSS : float
-          To store the total amount of USS memory consumed by the program
-
-        memoryRSS : float
-          To store the total amount of RSS memory consumed by the program
-
-        Database : list
-          To store the transactions of a database in list
-
-        mapSupport : Dictionary
-            To maintain the information of item and their frequency
-        lno : int
-            it represents the total no of transactions
-        tree : class
-            it represents the Tree class
-        finalPatterns : dict
-            it represents to store the patterns
+    :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*
+                        - **endTime** (*float*) -- *To record the completion time of the mining process.*
+                        - **finalPatterns** (*dict*) -- *Storing the complete set of patterns in a dictionary variable.*
+                        - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
+                        - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
+                        - **Database** (*list*) -- *To store the transactions of a database in list.*
+                        - **mapSupport** (*Dictionary*) -- *To maintain the information of item and their frequency.*
+                        - **tree** (*class*) --  *it represents the Tree class.*
 
 
-    **Methods to execute code on terminal**
-    --------------------------------------------------------
+    Execution methods
+    =================
+
+    **Terminal command**
 
     .. code-block:: console
 
@@ -187,14 +153,18 @@ class FPGrowth(_fp._frequentPatterns):
 
       (.venv) $ python3 FPGrowth.py sampleDB.txt patterns.txt 10.0
 
-    .. note:: minSup will be considered in percentage of database transactions
+    .. note:: minSup can be specified  in support count or a value between 0 and 1.
 
 
-    **Importing this algorithm into a python program**
-    --------------------------------------------------------
+    **Calling from a python program**
+
     .. code-block:: python
 
             from PAMI.frequentPattern.basic import FPGrowth as alg
+
+            iFile = 'sampleDB.txt'
+
+            minSup = 10  # can also be specified between 0 and 1
 
             obj = alg.FPGrowth(iFile, minSup)
 
@@ -221,9 +191,10 @@ class FPGrowth(_fp._frequentPatterns):
             print("Total ExecutionTime in seconds:", run)
 
 
-    **Credits:**
-    ----------------------------
-               The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+    Credits:
+    ========
+
+    The complete program was written by P. Likhitha and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -285,11 +256,8 @@ class FPGrowth(_fp._frequentPatterns):
         To convert the type of user specified minSup value
 
         :param value: user specified minSup value
-
         :return: converted type
-
         :rtype: float
-
         """
         if type(value) is int:
             value = int(value)
@@ -309,13 +277,10 @@ class FPGrowth(_fp._frequentPatterns):
 
         :param items: A dictionary containing item frequencies.
         :type items: Dict
-
         :param data: A list of transactions.
         :type data: List
-
         :param minSup: The minimum support threshold.
         :type minSup: int
-
         :return: The root node of the constructed FP-tree and a dictionary containing information about nodes associated with each item.
         :rtype: Tuple[_Node, Dict]
         """
@@ -339,14 +304,13 @@ class FPGrowth(_fp._frequentPatterns):
 
     def _all_combinations(self, arr):
         """
+
         Generates all possible combinations of items from a given transaction.
 
         :param arr: A list of items in a transaction.
         :type arr: List
-
         :return: A list containing all possible combinations of items.
         :rtype: List
-
         """
 
         all_combinations_list = []
@@ -361,16 +325,12 @@ class FPGrowth(_fp._frequentPatterns):
 
          :param root: The root node of the current subtree.
          :type root: _Node
-
          :param itemNode: A dictionary containing information about the nodes associated with each item.
          :type itemNode: Dict
-
          :param minSup: The minimum support threshold.
          :type minSup: int
-
          :param patterns: A dictionary to store the generated frequent patterns.
          :type patterns: Dict
-
         """
         itemNode = {k: v for k, v in sorted(itemNode.items(), key = lambda x: x[1][1])}
 
@@ -476,10 +436,10 @@ class FPGrowth(_fp._frequentPatterns):
 
     def getMemoryUSS(self) -> float:
         """
+
         Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
-
         :rtype: float
         """
 
@@ -487,7 +447,9 @@ class FPGrowth(_fp._frequentPatterns):
 
     def getMemoryRSS(self) -> float:
         """
+
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -496,10 +458,10 @@ class FPGrowth(_fp._frequentPatterns):
 
     def getRuntime(self) -> float:
         """
+
         Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
-
         :rtype: float
         """
 
@@ -507,10 +469,10 @@ class FPGrowth(_fp._frequentPatterns):
 
     def getPatternsAsDataFrame(self) -> _fp._pd.DataFrame:
         """
+
         Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
-
         :rtype: pd.DataFrame
         """
 
@@ -523,12 +485,11 @@ class FPGrowth(_fp._frequentPatterns):
 
     def save(self, outFile: str) -> None:
         """
+
         Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
-
         :type outFile: csvfile
-
         :return: None
         """
         self._oFile = outFile
@@ -539,7 +500,9 @@ class FPGrowth(_fp._frequentPatterns):
 
     def getPatterns(self) -> Dict[str, int]:
         """
+
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """

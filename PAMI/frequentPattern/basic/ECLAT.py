@@ -76,7 +76,7 @@ class ECLAT(_ab._frequentPatterns):
                         - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
                         - **Database** (*list*) -- *To store the transactions of a database in list.*
 
-     Execution methods
+    Execution methods
     =================
 
     **Terminal command**
