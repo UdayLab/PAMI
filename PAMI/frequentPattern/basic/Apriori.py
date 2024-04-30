@@ -135,7 +135,7 @@ class Apriori(_ab._frequentPatterns):
     Credits
     =======
 
-            The complete program was written by P. Likhitha  under the supervision of Professor Rage Uday Kiran.
+    The complete program was written by P. Likhitha and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -207,8 +207,7 @@ class Apriori(_ab._frequentPatterns):
                 value = int(value)
         return value
 
-    @deprecated(
-        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         Frequent pattern mining process will start from here

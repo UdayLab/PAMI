@@ -1,9 +1,12 @@
 # ECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.
 #
 # **Importing this algorithm into a python program**
-# ------------------------------------------------------------------
 #
 #             import PAMI.frequentPattern.basic.ECLAT as alg
+#
+#             iFile = 'sampleDB.txt'
+#
+#             minSup = 10  # can also be specified between 0 and 1
 #
 #             obj = alg.ECLAT(iFile, minSup)
 #
@@ -31,9 +34,6 @@
 #
 
 
-
-
-
 __copyright__ = """
 Copyright (C)  2021 Rage Uday Kiran
 
@@ -52,48 +52,34 @@ Copyright (C)  2021 Rage Uday Kiran
 """
 
 from PAMI.frequentPattern.basic import abstract as _ab
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
 from deprecated import deprecated
 
 class ECLAT(_ab._frequentPatterns):
     """
-    :Description: ECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.
+    About this algorithm
+    ====================
 
-    :Reference:  Mohammed Javeed Zaki: Scalable Algorithms for Association Mining. IEEE Trans. Knowl. Data Eng. 12(3):
-            372-390 (2000), https://ieeexplore.ieee.org/document/846291
+    :**Description**: *ECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.*
 
-    :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
-    :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
-    :param  minSup: int or float or str :
-                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-    :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :**Reference**:  Mohammed Javeed Zaki: Scalable Algorithms for Association Mining. IEEE Trans. Knowl. Data Eng. 12(3):
+                     372-390 (2000), https://ieeexplore.ieee.org/document/846291
 
-    :Attributes:
+    :**Parameters**:    - **iFile** (*str or URL or dataFrame*) -- *Name of the Input file to mine complete set of frequent patterns.*
+                        - **oFile** (*str*) -- *Name of the Output file to store the frequent patterns.*
+                        - **minSup** (*int or float or str*) -- The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+                        - **sep** (*str*) -- This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
-        startTime : float
-          To record the start time of the mining process
+    :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*
+                        - **endTime** (*float*) -- *To record the end time of the mining process.*
+                        - **finalPatterns** (*dict*) -- *Storing the complete set of patterns in a dictionary variable.*
+                        - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
+                        - **memoryRSS** *(float*) -- *To store the total amount of RSS memory consumed by the program.*
+                        - **Database** (*list*) -- *To store the transactions of a database in list.*
 
-        endTime : float
-          To record the completion time of the mining process
+    Execution methods
+    =================
 
-        finalPatterns : dict
-          Storing the complete set of patterns in a dictionary variable
-
-        memoryUSS : float
-          To store the total amount of USS memory consumed by the program
-
-        memoryRSS : float
-          To store the total amount of RSS memory consumed by the program
-
-        Database : list
-          To store the transactions of a database in list
-
-
-    **Methods to execute code on terminal**
-    ------------------------------------------
+    **Terminal command**
 
     .. code-block:: console
 
@@ -105,14 +91,18 @@ class ECLAT(_ab._frequentPatterns):
 
       (.venv) $ python3 ECLAT.py sampleDB.txt patterns.txt 10.0
 
-    .. note:: minSup will be considered in percentage of database transactions
+    .. note:: minSup can be specified  in support count or a value between 0 and 1.
 
 
-    **Importing this algorithm into a python program**
-    ------------------------------------------------------------------
+    **Calling from a python program**
+
     .. code-block:: python
 
             import PAMI.frequentPattern.basic.ECLAT as alg
+
+            iFile = 'sampleDB.txt'
+
+            minSup = 10  # can also be specified between 0 and 1
 
             obj = alg.ECLAT(iFile, minSup)
 
@@ -139,10 +129,10 @@ class ECLAT(_ab._frequentPatterns):
             print("Total ExecutionTime in seconds:", run)
 
 
-    **Credits:**
-    ----------------------
+    Credits:
+    ========
 
-             The complete program was written by Kundai  under the supervision of Professor Rage Uday Kiran.
+    The complete program was written by Kundai and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -159,10 +149,10 @@ class ECLAT(_ab._frequentPatterns):
 
     def _creatingItemSets(self) -> float:
         """
+
         Storing the complete transactions of the database/input file in a database variable
 
         :return: the complete transactions of the database/input file in a database variable
-
         :rtype: float
         """
         self._Database = []
@@ -199,9 +189,7 @@ class ECLAT(_ab._frequentPatterns):
         Generating one frequent patterns
 
         :return: list of unique patterns
-
         :rtype: list
-
         """
         self._finalPatterns = {}
         candidate = {}
@@ -226,11 +214,8 @@ class ECLAT(_ab._frequentPatterns):
         It will generate the combinations of frequent items
 
         :param candidateFrequent :it represents the items with their respective transaction identifiers
-
         :type candidateFrequent: list
-
         :return: None
-
         """
         new_freqList = []
         for i in range(0, len(candidateFrequent)):
@@ -256,11 +241,8 @@ class ECLAT(_ab._frequentPatterns):
         To convert the user specified minSup value
 
         :param value: user specified minSup value
-
         :return: converted type
-
         :rtype: float
-
         """
         if type(value) is int:
             value = int(value)
@@ -312,9 +294,7 @@ class ECLAT(_ab._frequentPatterns):
         Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
-
         :rtype: float
-
         """
 
         return self._memoryUSS
@@ -325,9 +305,7 @@ class ECLAT(_ab._frequentPatterns):
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
-
         :rtype: float
-
         """
 
         return self._memoryRSS
@@ -337,7 +315,6 @@ class ECLAT(_ab._frequentPatterns):
         Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
-
         :rtype: float
         """
 
@@ -349,9 +326,7 @@ class ECLAT(_ab._frequentPatterns):
         Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
-
         :rtype: pd.DataFrame
-
         """
 
         dataFrame = {}
@@ -367,11 +342,8 @@ class ECLAT(_ab._frequentPatterns):
         Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
-
         :type outFile: csvfile
-
         :return: None
-
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -381,10 +353,10 @@ class ECLAT(_ab._frequentPatterns):
 
     def getPatterns(self) -> dict:
         """
+
         Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
-
         :rtype: dict
         """
         return self._finalPatterns

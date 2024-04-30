@@ -1,9 +1,12 @@
 # ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
 #
 # **Importing this algorithm into a python program**
-# ---------------------------------------------------------
 #
 #             import PAMI.frequentPattern.basic.ECLATbitset as alg
+#
+#             iFile = 'sampleDB.txt'
+#
+#             minSup = 10  # can also be specified between 0 and 1
 #
 #             obj = alg.ECLATbitset(iFile, minSup)
 #
@@ -54,45 +57,27 @@ from deprecated import deprecated
 
 class ECLATbitset(_ab._frequentPatterns):
     """
-    :Description:  ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
+    :*Description*:  ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
 
-    :Reference:  Mohammed Javeed Zaki: Scalable Algorithms for Association Mining. IEEE Trans. Knowl. Data Eng. 12(3):
-            372-390 (2000), https://ieeexplore.ieee.org/document/846291
+    :*Reference*:  Mohammed Javeed Zaki: Scalable Algorithms for Association Mining. IEEE Trans. Knowl. Data Eng. 12(3):
+                   372-390 (2000), https://ieeexplore.ieee.org/document/846291
 
-    :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent patterns
-    :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
-    :param  minSup: int or float or str :
-                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-    :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :**Parameters**:    - **iFile** (*str or URL or dataFrame*) -- *Name of the Input file to mine complete set of frequent patterns.*
+                        - **oFile** (*str*) -- *Name of the output file to store complete set of frequent patterns*
+                        - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.*
+                        - **sep** (*str*) -- **This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.**
 
-    :Attributes:
+    :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*
+                        - **endTime** (*float*) -- *To record the end time of the mining process.*
+                        - **finalPatterns** (*dict*) -- *Storing the complete set of patterns in a dictionary variable.*
+                        - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
+                        - **memoryRSS** *(float*) -- *To store the total amount of RSS memory consumed by the program.*
+                        - **Database** (*list*) -- *To store the transactions of a database in list.*
 
-        startTime : float
-          To record the start time of the mining process
+    Execution methods
+    =================
 
-        endTime : float
-          To record the completion time of the mining process
-
-        finalPatterns : dict
-          Storing the complete set of patterns in a dictionary variable
-
-        memoryUSS : float
-          To store the total amount of USS memory consumed by the program
-
-        memoryRSS : float
-          To store the total amount of RSS memory consumed by the program
-
-        Database : list
-          To store the transactions of a database in list
-
-
-    **Methods to execute code on terminal**
-    ------------------------------------------
-
-    .. code-block:: console
+    **Terminal command**
 
       Format:
 
@@ -102,14 +87,18 @@ class ECLATbitset(_ab._frequentPatterns):
 
       (.venv) $ python3 ECLATbitset.py sampleDB.txt patterns.txt 10.0
 
-    .. note:: minSup will be considered in percentage of database transactions
+    .. note:: minSup can be specified  in support count or a value between 0 and 1.
 
 
-    **Importing this algorithm into a python program**
-    ---------------------------------------------------------
+    **Calling from a python program**
+
     .. code-block:: python
 
             import PAMI.frequentPattern.basic.ECLATbitset as alg
+
+            iFile = 'sampleDB.txt'
+
+            minSup = 10  # can also be specified between 0 and 1
 
             obj = alg.ECLATbitset(iFile, minSup)
 
@@ -135,10 +124,10 @@ class ECLATbitset(_ab._frequentPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    **Credits:**
-    -------------------
+    Credits:
+    ========
 
-               The complete program was written by Yudai Masu under the supervision of Professor Rage Uday Kiran.
+    The complete program was written by Yudai Masu and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -157,14 +146,12 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def _convert(self, value):
         """
+
         To convert the user specified minSup value
 
         :param value: user specified minSup value
-
         :type value: int
-
         :return: converted type
-
         :rtype: int or float or string
         """
         if type(value) is int:
@@ -213,11 +200,11 @@ class ECLATbitset(_ab._frequentPatterns):
                     print("File Not Found")
         self._minSup = self._convert(self._minSup)
 
-    @deprecated(
-        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
         """
         Frequent pattern mining process will start from here
+
         We start with the scanning the itemSets and store the bitsets respectively.
         We form the combinations of single items and  check with minSup condition to check the frequency of patterns
         """
@@ -225,16 +212,13 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def _bitPacker(self, data, maxIndex):
         """
+
         It takes the data and maxIndex as input and generates integer as output value.
 
         :param data: it takes data as input.
-
         :type data: int or float
-
         :param maxIndex: It converts the data into bits By taking the maxIndex value as condition.
-
         :type maxIndex: int
-
         """
         packed_bits = 0
         for i in data:
@@ -304,7 +288,9 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def getMemoryUSS(self):
         """
+
         Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -313,7 +299,9 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def getMemoryRSS(self):
         """
+
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -322,7 +310,9 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def getRuntime(self):
         """
+
         Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -331,7 +321,9 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def getPatternsAsDataFrame(self):
         """
+
         Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -345,7 +337,9 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def save(self, outFile):
         """
+
         Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the outputfile
         :type outFile: file
         """
@@ -357,7 +351,9 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def getPatterns(self):
         """
+
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """
