@@ -62,8 +62,8 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 ***
 # Process Flow Chart
 
-<img width="573" alt="PAMI's production process" src="https://github.com/udayLab/PAMI/images/pamiDevelopmentSteps.png">
-
+![PAMI's production process](https://github.com/udayLab/PAMI/blob/main/images/pamiDevelopmentSteps.png?raw=true)
+ 
 ***
 # Recent Updates
 
