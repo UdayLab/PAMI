@@ -379,8 +379,9 @@ class FPGrowth(_fp._frequentPatterns):
                 break 
 
             newRoot = _Node(root.item + [item], 0, None)
-            pat = "\t".join([str(i) for i in newRoot.item])
-            self.__finalPatterns[pat] = itemNode[item][1]
+            # pat = "\t".join([str(i) for i in newRoot.item])
+            # self.__finalPatterns[pat] = itemNode[item][1]
+            self._finalPatterns[tuple(newRoot.item)] = itemNode[item][1]
             newItemNode = {}
 
             if len(itemNode[item][0]) == 1:
@@ -389,10 +390,10 @@ class FPGrowth(_fp._frequentPatterns):
                     continue
                 combination = self._all_combinations(transaction)
                 for comb in combination:
-                    pat = "\t".join([str(i) for i in comb])
-                    pat = pat + "\t" + "\t".join([str(i) for i in newRoot.item])
-                    self.__finalPatterns[pat] = count
-                    # self._finalPatterns[tuple(list(comb) + newRoot.item)] = count
+                    # pat = "\t".join([str(i) for i in comb])
+                    # pat = pat + "\t" + "\t".join([str(i) for i in newRoot.item])
+                    # self.__finalPatterns[pat] = count
+                    self._finalPatterns[tuple(list(comb) + newRoot.item)] = count
                 pass
 
 
@@ -504,6 +505,7 @@ class FPGrowth(_fp._frequentPatterns):
         """
 
         return self.__endTime - self.__startTime
+    
 
     def getPatternsAsDataFrame(self) -> _fp._pd.DataFrame:
         """
@@ -514,12 +516,13 @@ class FPGrowth(_fp._frequentPatterns):
         :rtype: pd.DataFrame
         """
 
-        dataframe = {}
-        data = []
-        for a, b in self.__finalPatterns.items():
-            data.append([a.replace('\t', ' '), b])
-            dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
-        return dataframe
+        # dataframe = {}
+        # data = []
+        # for a, b in self.__finalPatterns.items():
+        #     data.append([a.replace('\t', ' '), b])
+        #     dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
+        dataFrame = _fp._pd.DataFrame(list(self._finalPatterns.items()), columns=['Patterns', 'Support'])
+        return dataFrame
 
     def save(self, outFile: str) -> None:
         """
@@ -531,11 +534,10 @@ class FPGrowth(_fp._frequentPatterns):
 
         :return: None
         """
-        self._oFile = outFile
-        writer = open(self._oFile, 'w+')
-        for x, y in self.__finalPatterns.items():
-            s1 = x.strip() + ":" + str(y)
-            writer.write("%s \n" % s1)
+        with open(outFile, 'w') as f:
+            for x, y in self._finalPatterns.items():
+                x = self._sep.join(x)
+                f.write(f"{x} : {y}\n")
 
     def getPatterns(self) -> Dict[str, int]:
         """
@@ -543,7 +545,7 @@ class FPGrowth(_fp._frequentPatterns):
         :return: returning frequent patterns
         :rtype: dict
         """
-        return self.__finalPatterns
+        return self._finalPatterns
     
     def printResults(self) -> None:
         """
@@ -571,6 +573,3 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
-    
-    
