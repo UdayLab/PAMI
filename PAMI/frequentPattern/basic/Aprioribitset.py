@@ -268,7 +268,7 @@ class AprioriBitset(_ab._frequentPatterns):
         cands = []
         for key in items:
             if len(items[key]) >= self._minSup:
-                self._finalPatterns["\t".join(key)] = len(items[key])
+                self._finalPatterns[key] = len(items[key])
                 cands.append(key)
                 items[key] = self._bitPacker(items[key], index)
                 # print(key, items[key])
@@ -287,7 +287,6 @@ class AprioriBitset(_ab._frequentPatterns):
                         count = int.bit_count(intersection)
                         if count >= self._minSup:
                             newCands.append(newCand)
-                            newCand = "\t".join(newCand)
                             self._finalPatterns[newCand] = count
                     else:
                         break
@@ -329,31 +328,47 @@ class AprioriBitset(_ab._frequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
-        """
-        Storing final frequent patterns in a dataframe
-        :return: returning frequent patterns in a dataframe
-        :rtype: pd.DataFrame
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """
 
-        dataFrame = {}
-        data = []
-        for a, b in self._finalPatterns.items():
-            data.append([a.replace('\t', ' '), b])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+        Storing final frequent patterns in a dataframe
+
+        :return: returning frequent patterns in a dataframe
+
+        :rtype: pd.DataFrame
+
+        """
+
+        # time = _ab._time.time()
+        # dataFrame = {}
+        # data = []
+        # for a, b in self._finalPatterns.items():
+        #     # data.append([a.replace('\t', ' '), b])
+        #     data.append([" ".join(a), b])
+        #     dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+        # print("Time taken to convert the frequent patterns into DataFrame is: ", _ab._time.time() - time)
+
+
+        dataFrame = _ab._pd.DataFrame(list(self._finalPatterns.items()), columns=['Patterns', 'Support'])
+
         return dataFrame
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """
+
         Complete set of frequent patterns will be loaded in to an output file
-        :param outFile: name of the outputfile
-        :type outFile: file
+
+        :param outFile: name of the output file
+
+        :type outFile: csvfile
+
+        :return: None
+
         """
-        self._oFile = outFile
-        writer = open(self._oFile, 'w+')
-        for x, y in self._finalPatterns.items():
-            patternsAndSupport = x.strip() + ":" + str(y)
-            writer.write("%s \n" % patternsAndSupport)
+        with open(outFile, 'w') as f:
+            for x, y in self._finalPatterns.items():
+                x = self._sep.join(x)
+                f.write(f"{x} : {y}\n")
 
     def getPatterns(self):
         """
@@ -389,3 +404,5 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
+        
