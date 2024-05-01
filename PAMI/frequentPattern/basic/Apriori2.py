@@ -4,6 +4,7 @@ from deprecated import deprecated
 import pandas as pd
 import psutil
 import os
+from itertools import combinations
 
 class Apriori:
     """
@@ -133,4 +134,10 @@ class Apriori:
         data = [[pattern, support] for pattern, support in self.frequentPatterns.items()]
         return pd.DataFrame(data, columns=['Patterns', 'Support'])
 
-    def savePatterns(self, outFile:
+    def save(self, outFile: str) -> None:
+        with open(outFile, 'w') as f:
+            for x, y in self._finalPatterns.items():
+                x = self._sep.join(x)
+                f.write(f"{x} : {y}\n")
+
+
