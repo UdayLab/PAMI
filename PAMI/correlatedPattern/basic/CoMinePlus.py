@@ -5,6 +5,12 @@
 #
 #             from PAMI.correlatedPattern.basic import CoMinePlus as alg
 #
+#             iFile = 'sampleTDB.txt'
+#
+#             minSup = 0.25 # can be specified between 0 and 1
+#
+#             minAllConf = 0.2 # can  be specified between 0 and 1
+#
 #             obj = alg.CoMinePlus(iFile, minSup, minAllConf, sep)
 #
 #             obj.mine()
@@ -29,9 +35,6 @@
 #
 #             print("Total ExecutionTime in seconds:", run)
 #
-
-
-
 
 
 __copyright__ = """
@@ -62,20 +65,13 @@ class _Node:
     """
     A class used to represent the node of correlatedPatternTree
 
-    :Attributes:
+    :**Attributes**:    **itemId** (*int) -- *storing item of a node*
+                        **counter** (*int*) -- **To maintain the support of node**
+                        **parent** (*node) -- **To maintain the parent of every node**
+                        **child** (*list*) -- **To maintain the children of node**
+                        **nodeLink** (*node*) -- **Points to the node with same itemId**
 
-        itemId: int
-            storing item of a node
-        counter: int
-            To maintain the support of node
-        parent: node
-            To maintain the parent of every node
-        child: list
-            To maintain the children of node
-        nodeLink : node
-            Points to the node with same itemId
-
-    :Methods:
+    :**Methods**:
 
         getChild(itemName)
             returns the node with same itemName from correlatedPatternTree
@@ -110,16 +106,12 @@ class _Tree:
 
     :Attributes:
 
-        headerList : list
-            storing the list of items in tree sorted in ascending of their supports
-        mapItemNodes : dictionary
-            storing the nodes with same item name
-        mapItemLastNodes : dictionary
-            representing the map that indicates the last node for each item
-        root : Node
-            representing the root Node in a tree
+        **headerList** (*list*) -- **storing the list of items in tree sorted in ascending of their supports**
+        **mapItemNodes** (*dictionary*) -- **storing the nodes with same item name**
+        **mapItemLastNodes** (*dictionary*) -- **representing the map that indicates the last node for each item**
+        **root** (*Node*) -- **representing the root Node in a tree**
 
-    :Methods:
+    :**Methods**:
 
         createHeaderList(items,minSup)
             takes items only which are greater than minSup and sort the items in ascending order
@@ -203,7 +195,7 @@ class _Tree:
         :param mapSupport: it represents the items with their supports
         :type mapSupport: dictionary
         :param minSup: it represents the minSup
-        :param minSup: float
+        :type minSup: float
         :return: None
         """
         # the correlatedPatternTree always maintains the header table to start the mining from leaf nodes
@@ -221,9 +213,9 @@ class _Tree:
         :param prefix: it represents the prefix items of a Node
         :type prefix: list
         :param mapSupportBeta: it represents the items with their supports
-        :param mapSupportBeta: dictionary
+        :type mapSupportBeta: dictionary
         :param minSup: to check the item meets with minSup
-        :param minSup: float
+        :type minSup: float
         :return: None
         """
         # this method is used to add prefix paths in conditional trees of correlatedPatternTree
@@ -252,56 +244,32 @@ class CoMinePlus(_ab._correlatedPatterns):
     About this algorithm
     ====================
 
-    :Description: CoMinePlus is one of the efficient algorithm to discover correlated patterns in a transactional database. Using Item Support Intervals technique which is generating correlated patterns of higher order by combining only with items that have support within specified interval.
+    :**Description**:   CoMinePlus is one of the efficient algorithm to discover correlated patterns in a transactional database. Using Item Support Intervals technique which is generating correlated patterns of higher order by combining only with items that have support within specified interval.
 
-    :Reference:
-        Uday Kiran R., Kitsuregawa M. (2012) Efficient Discovery of Correlated Patterns in Transactional Databases Using Items’ Support Intervals.
+    :**Reference**:     Uday Kiran R., Kitsuregawa M. (2012) Efficient Discovery of Correlated Patterns in Transactional Databases Using Items’ Support Intervals.
         In: Liddle S.W., Schewe KD., Tjoa A.M., Zhou X. (eds) Database and Expert Systems Applications. DEXA 2012. Lecture Notes in Computer Science, vol 7446. Springer, Berlin, Heidelberg.
         https://doi.org/10.1007/978-3-642-32600-4_18
 
-    :param  iFile: str :
-                   Name of the Input file to mine complete set of correlated patterns
-    :param  oFile: str :
-                   Name of the output file to store complete set of correlated patterns
-    :param  minSup: int or float or str :
-                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-    :param  minAllConf: str :
-                   Name of Neighbourhood file name
+    :**parameters**     **iFile** (*str*) -- **Name of the Input file to mine complete set of correlated patterns**
+                        :**oFile** (*str*) -- **Name of the output file to store complete set of correlated patterns**
+                        :**minSup** (*int or float or str*) -- **The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.**
+                        :**minAllConf** (*str*) -- **Name of Neighbourhood file name**
+                        :**sep** (*str*) -- **This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.**
 
-    :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
-
-
-    :Attributes:
-
-        memoryUSS : float
-            To store the total amount of USS memory consumed by the program
-        memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
-        startTime:float
-            To record the start time of the mining process
-        endTime:float
-            To record the completion time of the mining process
-        minSup : float
-            The user given minSup
-        minAllConf: float
-            The user given minimum all confidence Ratio (should be in range of 0 to 1)
-        Database : list
-            To store the transactions of a database in list
-        mapSupport : Dictionary
-            To maintain the information of item and their frequency
-        lno : int
-            it represents the total no of transactions
-        tree : class
-            it represents the Tree class
-        itemSetCount : int
-            it represents the total no of patterns
-        finalPatterns : dict
-            it represents to store the patterns
-        itemSetBuffer : list
-            it represents the store the items in mining
-        maxPatternLength : int
-           it represents the constraint for pattern length
+    :**Attributes**:    **memoryUSS** (*float*) -- **To store the total amount of USS memory consumed by the program**
+                        **memoryRSS** (*float*) -- **To store the total amount of RSS memory consumed by the program**
+                        **startTime** (*float*) -- **To record the start time of the mining process**
+                        **endTime** (*float*) -- **To record the completion time of the mining process**
+                        **minSup** (*float*) -- **The user given minSup**
+                        **minAllConf** (*float*) -- **The user given minimum all confidence Ratio (should be in range of 0 to 1)**
+                        **Database** (*list*) -- **To store the transactions of a database in list**
+                        **mapSupport** (*Dictionary*) -- **To maintain the information of item and their frequency**
+                        **lno** (*int*) -- **it represents the total no of transactions**
+                        **tree** (*class*) -- **it represents the Tree class**
+                        **itemSetCount** (*int*) -- **it represents the total no of patterns**
+                        **finalPatterns** (*dict*) -- **it represents to store the patterns**
+                        **itemSetBuffer** (*list*) -- **it represents the store the items in mining**
+                        **maxPatternLength** (*int*) -- **it represents the constraint for pattern length**
 
     Execution methods
     =================
@@ -380,7 +348,6 @@ class CoMinePlus(_ab._correlatedPatterns):
     def __init__(self, iFile: Union[str, _pd.DataFrame], minSup: Union[int, float, str], minAllConf: str, sep: str="\t") -> None:
         """
         param iFile: input file name
-
         type iFile: str or DataFrame or url
         param minSup: user-specified minimum support
         type minSup: int or float
@@ -462,6 +429,7 @@ class CoMinePlus(_ab._correlatedPatterns):
         :param tempBuffer: items in a single branch
         :type tempBuffer: list
         :param s: support at leaf node of a branch
+        :type s: int
         :param position: the length of a tempBuffer
         :type position: int
         :param prefix: it represents the list of leaf node
