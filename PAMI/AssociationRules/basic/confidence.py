@@ -53,85 +53,13 @@ Copyright (C)  2021 Rage Uday Kiran
 
 from PAMI.AssociationRules.basic import abstract as _ab
 from deprecated import deprecated
+# increase reucursion depth
+import os
+import sys
+sys.setrecursionlimit(10**4)
+from itertools import combinations
 
-class _Confidence:
-    """
-    :param  patterns: Dictionary containing patterns and its support value.
-    :type patterns: dict
-    :param  singleItems: List containing all the single frequent items.
-    :type singleItems: list
-    :param  minConf: Minimum confidence to mine all the satisfying association rules.
-    :type minConf: int
-    """
-
-    def __init__(self, patterns, singleItems, minConf):
-        """
-        :param patterns: given frequent patterns
-        :type patterns: dict
-        :param singleItems: one-length frequent patterns
-        :type singleItems: list
-        :param minConf: minimum confidence
-        :type minConf: float
-        """
-        self._frequentPatterns = patterns
-        self._singleItems = singleItems
-        self._minConf = minConf
-        self._finalPatterns = {}
-
-    def _generation(self, prefix, suffix):
-        """
-        To generate the combinations all association rules.
-
-        :param prefix: the prefix of association rule.
-        :type prefix: str
-        :param suffix: the suffix of association rule.
-        :type suffix: str
-        """
-        if len(suffix) == 1:
-            conf = self._generateWithConfidence(prefix, suffix[0])
-        for i in range(len(suffix)):
-            suffix1 = suffix[:i] + suffix[i + 1:]
-            prefix1 = prefix + ' ' + suffix[i]
-            for j in range(i + 1, len(suffix)):
-                self._generateWithConfidence(prefix + ' ' + suffix[i], suffix[j])
-                # self._generation(prefix+ ' ' +suffix[i], suffix[i+1:])
-            self._generation(prefix1, suffix1)
-
-    def _generateWithConfidence(self, lhs, rhs):
-        """
-        To find association rules satisfying user-specified minConf
-
-        :param lhs: the prefix of association rule.
-        :type lhs: str
-        :param rhs: the suffix of association rule.
-        :type rhs: str
-        """
-        s = lhs + '\t' + rhs
-        if self._frequentPatterns.get(s) == None:
-            return 0
-        minimum = self._frequentPatterns[s]
-        conf_lhs = minimum / self._frequentPatterns[lhs]
-        conf_rhs = minimum / self._frequentPatterns[rhs]
-        if conf_lhs >= self._minConf:
-            s1 = lhs + '->' + rhs
-            self._finalPatterns[s1] = conf_lhs
-        if conf_rhs >= self._minConf:
-            s1 = rhs + '->' + lhs
-            self._finalPatterns[s1] = conf_rhs
-
-    def run(self):
-        """
-        To generate the combinations all association rules.
-        """
-        for i in range(len(self._singleItems)):
-            suffix = self._singleItems[:i] + self._singleItems[i + 1:]
-            prefix = self._singleItems[i]
-            for j in range(i + 1, len(self._singleItems)):
-                self._generateWithConfidence(self._singleItems[i], self._singleItems[j])
-            self._generation(prefix, suffix)
-
-
-class ARWithConfidence:
+class confidence:
     """
     About this algorithm
     ====================
@@ -237,28 +165,35 @@ class ARWithConfidence:
         Reading the input file and storing all the frequent patterns and their support respectively in a frequentPatterns variable.
         """
         self._frequentPatterns = {}
-        k = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
-            pattern, sup = [], []
+            pattern, support = [], []
             if self._iFile.empty:
                 print("its empty..")
-            i = self._iFile.columns.values.tolist()
-            if 'pattern' in i:
-                pattern = self._iFile['pattern'].tolist()
-            if 'support' in i:
-                support = self._iFile['support'].tolist()
+            cols = self._iFile.columns.values.tolist()
+            for col in cols:
+                if 'pattern' in col.lower():
+                    pattern = self._iFile[col].tolist()
+                    # print("Using column: ", col, "for pattern")
+                if 'support' in col.lower():
+                    support = self._iFile[col].tolist()
+                    # print("Using column: ", col, "for support")
             for i in range(len(pattern)):
-                s = '\t'.join(pattern[i])
-                self._frequentPattern[s] = support[i]
+                # if pattern[i] != tuple(): exit()
+                if pattern[i] != tuple():
+                    raise ValueError("Pattern should be a tuple. PAMI is going through a major revision. Please raise an issue in the github repository regarding this error and provide information regarding input and algorithm.\
+                                     In the meanwhile try saving the patterns to a file using (alg).save() and use the file as input. If that doesn't work, please raise an issue in the github repository.")
+                s = tuple(sorted(pattern[i]))
+                self._frequentPatterns[s] = support[i]
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
-                data = _ab._urlopen(self._iFile)
-                for line in data:
+                f = _ab._urlopen(self._iFile)
+                for line in f:
                     line = line.strip()
                     line = line.split(':')
                     s = line[0].split(self._sep)
-                    s = '\t'.join(s)
-                    self._frequentPatterns[s.strip()] = int(line[1])
+                    s = tuple(sorted(s))
+                    
+                    self._frequentPatterns[s] = int(line[1])
             else:
                 try:
                     with open(self._iFile, 'r', encoding='utf-8') as f:
@@ -266,15 +201,14 @@ class ARWithConfidence:
                             line = line.strip()
                             line = line.split(':')
                             s = line[0].split(self._sep)
-                            for j in s:
-                                if j not in k:
-                                    k.append(j)
-                            s = '\t'.join(s)
-                            self._frequentPatterns[s.strip()] = int(line[1])
+                            s = [x.strip() for x in s]
+                            s = tuple(sorted(s))
+                            self._frequentPatterns[s] = int(line[1])
                 except IOError:
                     print("File Not Found")
                     quit()
-        return k
+        # sorted(k, key=lambda x: self._frequentPatterns[x], reverse=True)
+        # return k
 
     @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
@@ -290,10 +224,20 @@ class ARWithConfidence:
         Association rule mining process will start from here
         """
         self._startTime = _ab._time.time()
-        k = self._readPatterns()
-        a = _Confidence(self._frequentPatterns, k, self._minConf)
-        a.run()
-        self._finalPatterns = a._finalPatterns
+        self._readPatterns()
+
+        keys = list(self._frequentPatterns.keys())
+
+        for i in range(len(self._frequentPatterns)):
+            key = self._frequentPatterns[keys[i]]
+            for idx in range(len(keys[i]) - 1, 0, -1):
+                for c in combinations(keys[i], r=idx):
+                    antecedent = c
+                    # consequent = keys[i] - antecedent
+                    conf = key / self._frequentPatterns[antecedent]
+                    if conf >= self._minConf:
+                        self._finalPatterns[antecedent + tuple(['->']) + keys[i]] = conf
+
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
@@ -340,26 +284,30 @@ class ARWithConfidence:
         :rtype: pd.DataFrame
         """
 
-        dataFrame = {}
-        data = []
-        for a, b in self._finalPatterns.items():
-            data.append([a.replace('\t', ' '), b])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
-        # dataFrame = dataFrame.replace(r'\r+|\n+|\t+',' ', regex=True)
+        # dataFrame = {}
+        # data = []
+        # for a, b in self._finalPatterns.items():
+        #     data.append([a.replace('\t', ' '), b])
+        #     dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+        # # dataFrame = dataFrame.replace(r'\r+|\n+|\t+',' ', regex=True)
+        # return dataFrame
+
+        dataFrame = _ab._pd.DataFrame(list(self._finalPatterns.items()), columns=['Patterns', 'Support'])
         return dataFrame
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """
+
         Complete set of frequent patterns will be loaded in to an output file
 
-        :param outFile: name of the outputfile
-        :type outFile: file
+        :param outFile: name of the output file
+        :type outFile: csvfile
+        :return: None
         """
-        self._oFile = outFile
-        writer = open(self._oFile, 'w+')
-        for x, y in self._finalPatterns.items():
-            s1 = x.strip() + ":" + str(y)
-            writer.write("%s \n" % s1)
+        with open(outFile, 'w') as f:
+            for x, y in self._finalPatterns.items():
+                x = self._sep.join(x)
+                f.write(f"{x} : {y}\n")
 
     def getPatterns(self):
         """
@@ -384,9 +332,9 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
-            _ap = ARWithConfidence(_ab._sys.argv[1], float(_ab._sys.argv[3]), _ab._sys.argv[4])
+            _ap = confidence(_ab._sys.argv[1], float(_ab._sys.argv[3]), _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
-            _ap = ARWithConfidence(_ab._sys.argv[1], _ab._sys.argv[3])
+            _ap = confidence(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
         _ap.mine()
         print("Total number of Association Rules:", len(_ap.getPatterns()))
