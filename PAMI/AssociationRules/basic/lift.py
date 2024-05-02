@@ -179,7 +179,7 @@ class lift:
                     # print("Using column: ", col, "for support")
             for i in range(len(pattern)):
                 # if pattern[i] != tuple(): exit()
-                if pattern[i] != tuple():
+                if type(pattern[i]) != tuple:
                     raise ValueError("Pattern should be a tuple. PAMI is going through a major revision. Please raise an issue in the github repository regarding this error and provide information regarding input and algorithm.\
                                      In the meanwhile try saving the patterns to a file using (alg).save() and use the file as input. If that doesn't work, please raise an issue in the github repository.")
                 s = tuple(sorted(pattern[i]))
