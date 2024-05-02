@@ -1,9 +1,12 @@
 # This code uses "confidence" metric to extract the association rules from given frequent patterns.
 #
 # **Importing this algorithm into a python program**
-# ----------------------------------------------------
 #
 #             import PAMI.AssociationRules.basic import ARWithConfidence as alg
+#
+#             iFile = 'sampleDB.txt'
+#
+#             minConf = 0.5
 #
 #             obj = alg.ARWithConfidence(iFile, minConf)
 #
@@ -103,6 +106,10 @@ class confidence:
     .. code-block:: python
 
             import PAMI.AssociationRules.basic import ARWithConfidence as alg
+
+            iFile = 'sampleDB.txt'
+
+            minConf = 0.5
 
             obj = alg.ARWithConfidence(iFile, minConf)
 
