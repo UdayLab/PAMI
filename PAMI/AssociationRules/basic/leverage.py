@@ -184,7 +184,7 @@ class leverage:
                     raise ValueError("Pattern should be a tuple. PAMI is going through a major revision. Please raise an issue in the github repository regarding this error and provide information regarding input and algorithm.\
                                      In the meanwhile try saving the patterns to a file using (alg).save() and use the file as input. If that doesn't work, please raise an issue in the github repository.")
                 s = tuple(sorted(pattern[i]))
-                self._frequentPatterns[s] = support[i]
+                self._frequentPatterns[s] = support[i] / self._maxTS
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
                 f = _ab._urlopen(self._iFile)
@@ -194,7 +194,7 @@ class leverage:
                     s = line[0].split(self._sep)
                     s = tuple(sorted(s))
                     
-                    self._frequentPatterns[s] = int(line[1])
+                    self._frequentPatterns[s] = int(line[1]) / self._maxTS
             else:
                 try:
                     with open(self._iFile, 'r', encoding='utf-8') as f:
