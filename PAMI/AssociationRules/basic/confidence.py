@@ -179,9 +179,12 @@ class confidence:
                     # print("Using column: ", col, "for support")
             for i in range(len(pattern)):
                 # if pattern[i] != tuple(): exit()
-                if pattern[i] != tuple():
-                    raise ValueError("Pattern should be a tuple. PAMI is going through a major revision. Please raise an issue in the github repository regarding this error and provide information regarding input and algorithm.\
-                                     In the meanwhile try saving the patterns to a file using (alg).save() and use the file as input. If that doesn't work, please raise an issue in the github repository.")
+                if type(pattern[i]) != tuple:
+                    raise ValueError("Pattern should be a tuple. PAMI is going through a major revision.\
+                                      Please raise an issue in the github repository regarding this error and provide information regarding input and algorithm.\
+                                      In the meanwhile try saving the patterns to a file using (alg).save() and use the file as input. \
+                                      If that doesn't work, please raise an issue in the github repository.\
+                                      Got pattern: ", pattern[i], "at index: ", i, "in the dataframe, type: ", type(pattern[i]))
                 s = tuple(sorted(pattern[i]))
                 self._frequentPatterns[s] = support[i]
         if isinstance(self._iFile, str):
@@ -192,7 +195,6 @@ class confidence:
                     line = line.split(':')
                     s = line[0].split(self._sep)
                     s = tuple(sorted(s))
-                    
                     self._frequentPatterns[s] = int(line[1])
             else:
                 try:

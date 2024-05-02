@@ -5,7 +5,7 @@
 #
 #             import PAMI.AssociationRules.basic import ARWithleverage as alg
 #
-#             obj = alg.ARWithleverage(iFile, minConf)
+#             obj = alg.ARWithleverage(iFile, minLev)
 #
 #             obj.mine()
 #
@@ -70,7 +70,7 @@ class leverage:
 
     :**Parameters**:    - **iFile** (*str*) -- *Name of the Input file to mine complete set of association rules*
                         - **oFile** (*str*) -- *Name of the Output file to write association rules*
-                        - **minConf** (*float*) -- *Minimum leverage to mine all the satisfying association rules. The user can specify the minConf in float between the range of 0 to 1.*
+                        - **minLev** (*float*) -- *Minimum leverage to mine all the satisfying association rules. The user can specify the minLev in float between the range of 0 to 1.*
                         - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
 
     :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*
@@ -89,13 +89,13 @@ class leverage:
 
       Format:
 
-      (.venv) $ python3 ARWithleverage.py <inputFile> <outputFile> <minConf> <sep>
+      (.venv) $ python3 ARWithleverage.py <inputFile> <outputFile> <minLev> <sep>
 
       Example Usage:
 
       (.venv) $ python3 ARWithleverage.py sampleDB.txt patterns.txt 0.5 ' '
 
-    .. note:: minConf can be specified in a value between 0 and 1.
+    .. note:: minLev can be specified in a value between 0 and 1.
     
     
     **Calling from a python program**
@@ -104,7 +104,7 @@ class leverage:
 
             import PAMI.AssociationRules.basic import ARWithleverage as alg
 
-            obj = alg.ARWithleverage(iFile, minConf)
+            obj = alg.ARWithleverage(iFile, minLev)
 
             obj.mine()
 
@@ -146,19 +146,20 @@ class leverage:
     _memoryRSS = float()
     _frequentPatterns = {}
 
-    def __init__(self, iFile, minConf, sep):
+    def __init__(self, iFile, minLev, sep, maxTS):
         """
         :param iFile: input file name or path
         :type iFile: str
-        :param minConf: minimum leverage
-        :type minConf: float
+        :param minLev: minimum leverage
+        :type minLev: float
         :param sep: Delimiter of input file
         :type sep: str
         """
         self._iFile = iFile
-        self._minLev = minConf
+        self._minLev = minLev
         self._finalPatterns = {}
         self._sep = sep
+        self._maxTS = maxTS
 
     def _readPatterns(self):
         """
@@ -179,7 +180,7 @@ class leverage:
                     # print("Using column: ", col, "for support")
             for i in range(len(pattern)):
                 # if pattern[i] != tuple(): exit()
-                if pattern[i] != tuple():
+                if type(pattern[i]) != tuple:
                     raise ValueError("Pattern should be a tuple. PAMI is going through a major revision. Please raise an issue in the github repository regarding this error and provide information regarding input and algorithm.\
                                      In the meanwhile try saving the patterns to a file using (alg).save() and use the file as input. If that doesn't work, please raise an issue in the github repository.")
                 s = tuple(sorted(pattern[i]))
@@ -203,7 +204,7 @@ class leverage:
                             s = line[0].split(self._sep)
                             s = [x.strip() for x in s]
                             s = tuple(sorted(s))
-                            self._frequentPatterns[s] = int(line[1])
+                            self._frequentPatterns[s] = int(line[1]) / self._maxTS
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -234,8 +235,9 @@ class leverage:
                 for c in combinations(keys[i], r=idx):
                     antecedent = c
                     # consequent = keys[i] - antecedent
-                    # conf = key / self._frequentPatterns[antecedent]
-                    lev = key - (self._frequentPatterns[antecedent] * self._frequentPatterns[keys[i]])
+                    consequent = tuple(sorted([x for x in keys[i] if x not in antecedent]))
+                    # Lev = key / self._frequentPatterns[antecedent]
+                    lev = key  - self._frequentPatterns[antecedent] * self._frequentPatterns[consequent]
                     if lev >= self._minLev:
                         self._finalPatterns[antecedent + tuple(['->']) + keys[i]] = lev
 
