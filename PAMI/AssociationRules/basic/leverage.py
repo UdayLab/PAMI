@@ -1,21 +1,20 @@
 # This code uses "leverage" metric to extract the association rules from given frequent patterns.
 #
 # **Importing this algorithm into a python program**
-# ----------------------------------------------------
 #
-#             import PAMI.AssociationRules.basic import ARWithleverage as alg
+#             import PAMI.AssociationRules.basic import leverage as alg
 #
-#             obj = alg.ARWithleverage(iFile, minLev)
+#             obj = alg.leverage(iFile, minLev)
 #
 #             obj.mine()
 #
-#             associationRules = obj.getPatterns()
+#             associationRules = obj.getAssociationRules()
 #
 #             print("Total number of Association Rules:", len(associationRules))
 #
 #             obj.save(oFile)
 #
-#             Df = obj.getPatternInDataFrame()
+#             Df = obj.getAssociationRulesAsDataFrame()
 #
 #             memUSS = obj.getMemoryUSS()
 #
@@ -89,11 +88,11 @@ class leverage:
 
       Format:
 
-      (.venv) $ python3 ARWithleverage.py <inputFile> <outputFile> <minLev> <sep>
+      (.venv) $ python3 leverage.py <inputFile> <outputFile> <minLev> <sep>
 
       Example Usage:
 
-      (.venv) $ python3 ARWithleverage.py sampleDB.txt patterns.txt 0.5 ' '
+      (.venv) $ python3 leverage.py sampleDB.txt patterns.txt 0.5 ' '
 
     .. note:: minLev can be specified in a value between 0 and 1.
     
@@ -102,19 +101,19 @@ class leverage:
 
     .. code-block:: python
 
-            import PAMI.AssociationRules.basic import ARWithleverage as alg
+            import PAMI.AssociationRules.basic import leverage as alg
 
-            obj = alg.ARWithleverage(iFile, minLev)
+            obj = alg.leverage(iFile, minLev)
 
             obj.mine()
 
-            associationRules = obj.getPatterns()
+            associationRules = obj.getAssociationRules()
 
             print("Total number of Association Rules:", len(associationRules))
 
             obj.save(oFile)
 
-            Df = obj.getPatternInDataFrame()
+            Df = obj.getAssociationRulesAsDataFrame()
 
             memUSS = obj.getMemoryUSS()
 
@@ -144,7 +143,7 @@ class leverage:
     _Sep = " "
     _memoryUSS = float()
     _memoryRSS = float()
-    _frequentPatterns = {}
+    _associationRules = {}
 
     def __init__(self, iFile, minLev, sep, maxTS):
         """
@@ -157,7 +156,7 @@ class leverage:
         """
         self._iFile = iFile
         self._minLev = minLev
-        self._finalPatterns = {}
+        self._associationRules = {}
         self._sep = sep
         self._maxTS = maxTS
 
@@ -165,7 +164,7 @@ class leverage:
         """
         Reading the input file and storing all the frequent patterns and their support respectively in a frequentPatterns variable.
         """
-        self._frequentPatterns = {}
+        self._associationRules = {}
         if isinstance(self._iFile, _ab._pd.DataFrame):
             pattern, support = [], []
             if self._iFile.empty:
@@ -184,7 +183,7 @@ class leverage:
                     raise ValueError("Pattern should be a tuple. PAMI is going through a major revision. Please raise an issue in the github repository regarding this error and provide information regarding input and algorithm.\
                                      In the meanwhile try saving the patterns to a file using (alg).save() and use the file as input. If that doesn't work, please raise an issue in the github repository.")
                 s = tuple(sorted(pattern[i]))
-                self._frequentPatterns[s] = support[i] / self._maxTS
+                self._associationRules[s] = support[i] / self._maxTS
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
                 f = _ab._urlopen(self._iFile)
@@ -194,7 +193,7 @@ class leverage:
                     s = line[0].split(self._sep)
                     s = tuple(sorted(s))
                     
-                    self._frequentPatterns[s] = int(line[1]) / self._maxTS
+                    self._associationRules[s] = int(line[1]) / self._maxTS
             else:
                 try:
                     with open(self._iFile, 'r', encoding='utf-8') as f:
@@ -204,7 +203,7 @@ class leverage:
                             s = line[0].split(self._sep)
                             s = [x.strip() for x in s]
                             s = tuple(sorted(s))
-                            self._frequentPatterns[s] = int(line[1]) / self._maxTS
+                            self._associationRules[s] = int(line[1]) / self._maxTS
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -227,19 +226,19 @@ class leverage:
         self._startTime = _ab._time.time()
         self._readPatterns()
 
-        keys = list(self._frequentPatterns.keys())
+        keys = list(self._associationRules.keys())
 
-        for i in range(len(self._frequentPatterns)):
-            key = self._frequentPatterns[keys[i]]
+        for i in range(len(self._associationRules)):
+            key = self._associationRules[keys[i]]
             for idx in range(len(keys[i]) - 1, 0, -1):
                 for c in combinations(keys[i], r=idx):
                     antecedent = c
                     # consequent = keys[i] - antecedent
                     consequent = tuple(sorted([x for x in keys[i] if x not in antecedent]))
                     # Lev = key / self._frequentPatterns[antecedent]
-                    lev = key  - self._frequentPatterns[antecedent] * self._frequentPatterns[consequent]
+                    lev = key - self._associationRules[antecedent] * self._associationRules[consequent]
                     if lev >= self._minLev:
-                        self._finalPatterns[antecedent + tuple(['->']) + keys[i]] = lev
+                        self._associationRules[antecedent + tuple(['->']) + keys[i]] = lev
 
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
@@ -279,7 +278,7 @@ class leverage:
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getAssociationRulesAsDataFrame(self):
         """
         Storing final frequent patterns in a dataframe
 
@@ -295,7 +294,7 @@ class leverage:
         # # dataFrame = dataFrame.replace(r'\r+|\n+|\t+',' ', regex=True)
         # return dataFrame
 
-        dataFrame = _ab._pd.DataFrame(list(self._finalPatterns.items()), columns=['Patterns', 'Support'])
+        dataFrame = _ab._pd.DataFrame(list(self._associationRules.items()), columns=['Patterns', 'Support'])
         return dataFrame
 
     def save(self, outFile: str) -> None:
@@ -308,24 +307,24 @@ class leverage:
         :return: None
         """
         with open(outFile, 'w') as f:
-            for x, y in self._finalPatterns.items():
+            for x, y in self._associationRules.items():
                 x = self._sep.join(x)
                 f.write(f"{x} : {y}\n")
 
-    def getPatterns(self):
+    def getAssociationRules(self):
         """
         Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
         :rtype: dict
         """
-        return self._finalPatterns
+        return self._associationRules
 
     def printResults(self):
         """
         Function to send the result after completion of the mining process
         """
-        print("Total number of Association Rules:", len(self.getPatterns()))
+        print("Total number of Association Rules:", len(self.getAssociationRules()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
         print("Total ExecutionTime in ms:", self.getRuntime())
@@ -340,7 +339,7 @@ if __name__ == "__main__":
             _ap = leverage(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
         _ap.mine()
-        print("Total number of Association Rules:", len(_ap.getPatterns()))
+        print("Total number of Association Rules:", len(_ap.getAssociationRules()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
