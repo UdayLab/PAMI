@@ -1,9 +1,12 @@
 # ECLATDiffest uses diffset to extract the frequent patterns in a transactional database.
-
+#
 # **Importing this algorithm into a python program**
-# ---------------------------------------------------------
 #
 #             import PAMI.frequentPattern.basic.ECLATDiffset as alg
+#
+#             iFile = 'sampleDB.txt'
+#
+#             minSup = 10  # can also be specified between 0 and 1
 #
 #             obj = alg.ECLATDiffset(iFile, minSup)
 #
@@ -29,10 +32,6 @@
 #
 #             print("Total ExecutionTime in seconds:", run)
 #
-
-
-
-
 
 
 __copyright__ = """
@@ -61,43 +60,28 @@ from deprecated import deprecated
 
 class ECLATDiffset(_ab._frequentPatterns):
     """
-    :Description:   ECLATDiffset uses diffset to extract the frequent patterns in a transactional database.
+    :**Description**:   ECLATDiffset uses diffset to extract the frequent patterns in a transactional database.
 
-    :Reference:  KDD '03: Proceedings of the ninth ACM SIGKDD international conference on Knowledge discovery and data mining
-            August 2003 Pages 326–335 https://doi.org/10.1145/956750.956788
+    :**Reference**:  KDD '03: Proceedings of the ninth ACM SIGKDD international conference on Knowledge discovery and data mining
+                     August 2003 Pages 326–335 https://doi.org/10.1145/956750.956788
             
-    :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
-    :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
-    :param  minSup: int or float or str :
-                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-    :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
-    
-    :Attributes:
-    
-        startTime : float
-          To record the start time of the mining process
+    :**Parameters**:    - **iFile** (*str or URL or dataFrame*) -- *Name of the Input file to mine complete set of frequent patterns.*
+                        - **oFile** (*str*) -- *Name of the output file to store complete set of frequent patterns*
+                        - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.*
+                        - **sep** (*str*) -- **This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.**
 
-        endTime : float
-          To record the completion time of the mining process
-
-        finalPatterns : dict
-          Storing the complete set of patterns in a dictionary variable
-
-        memoryUSS : float
-          To store the total amount of USS memory consumed by the program
-
-        memoryRSS : float
-          To store the total amount of RSS memory consumed by the program
-        
-        Database : list
-          To store the transactions of a database in list
+    :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*
+                        - **endTime** (*float*) -- *To record the end time of the mining process.*
+                        - **finalPatterns** (*dict*) -- *Storing the complete set of patterns in a dictionary variable.*
+                        - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
+                        - **memoryRSS** *(float*) -- *To store the total amount of RSS memory consumed by the program.*
+                        - **Database** (*list*) -- *To store the transactions of a database in list.*
           
         
-    **Methods to execute code on terminal**
-    ------------------------------------------
+    Execution methods
+    =================
+
+    **Terminal command**
 
     .. code-block:: console
 
@@ -109,14 +93,18 @@ class ECLATDiffset(_ab._frequentPatterns):
 
       (.venv) $ python3 ECLATDiffset.py sampleDB.txt patterns.txt 10.0
 
-    .. note:: minSup will be considered in percentage of database transactions
+    .. note:: minSup can be specified  in support count or a value between 0 and 1.
 
     
-    **Importing this algorithm into a python program**
-    ---------------------------------------------------------
+     **Calling from a python program**
+
     .. code-block:: python
 
             import PAMI.frequentPattern.basic.ECLATDiffset as alg
+
+            iFile = 'sampleDB.txt'
+
+            minSup = 10  # can also be specified between 0 and 1
 
             obj = alg.ECLATDiffset(iFile, minSup)
 
@@ -143,10 +131,10 @@ class ECLATDiffset(_ab._frequentPatterns):
             print("Total ExecutionTime in seconds:", run)
 
 
-    **Credits:**
-    -------------------
+    Credits:
+    ========
 
-               The complete program was written by Kundai under the supervision of Professor Rage Uday Kiran.
+    The complete program was written by Kundai and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -197,7 +185,9 @@ class ECLATDiffset(_ab._frequentPatterns):
 
     def _convert(self, value):
         """
+
         To convert the user specified minSup value
+
         :param value: user specified minSup value
         :return: converted type
         """
@@ -243,7 +233,9 @@ class ECLATDiffset(_ab._frequentPatterns):
 
     def _runDeclat(self, candidateList):
         """
+
         It will generate the combinations of frequent items
+
         :param candidateList :it represents the items with their respective transaction identifiers
         :type candidateList: list
         :return: returning transaction dictionary
@@ -275,7 +267,6 @@ class ECLATDiffset(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
-
         self.mine()
 
     def mine(self):
@@ -310,7 +301,9 @@ class ECLATDiffset(_ab._frequentPatterns):
 
     def getMemoryUSS(self):
         """
+
         Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -319,7 +312,9 @@ class ECLATDiffset(_ab._frequentPatterns):
 
     def getMemoryRSS(self):
         """
+
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -328,7 +323,9 @@ class ECLATDiffset(_ab._frequentPatterns):
 
     def getRuntime(self):
         """
+
         Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -337,7 +334,9 @@ class ECLATDiffset(_ab._frequentPatterns):
 
     def getPatternsAsDataFrame(self):
         """
+
         Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -351,7 +350,9 @@ class ECLATDiffset(_ab._frequentPatterns):
 
     def save(self, outFile):
         """
+
         Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
         :type outFile: csvfile
         """
@@ -363,7 +364,9 @@ class ECLATDiffset(_ab._frequentPatterns):
 
     def getPatterns(self):
         """
+
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """

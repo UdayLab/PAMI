@@ -110,7 +110,7 @@ class _AssociationRules(_ABC):
         self._iFile = iFile
         self._sep = sep
         self._minConf = minConf
-        self._finalPatterns = {}
+        self._associationRules = {}
         self._oFile = str()
         self._memoryUSS = float()
         self._memoryRSS = float()
@@ -126,7 +126,7 @@ class _AssociationRules(_ABC):
         pass
 
     @_abstractmethod
-    def getPatterns(self):
+    def getAssociationRules(self):
         """
         Complete set of frequent patterns generated will be retrieved from this function
         """
@@ -144,7 +144,7 @@ class _AssociationRules(_ABC):
         pass
 
     @_abstractmethod
-    def getPatternsAsDataFrame(self):
+    def getAssociationRulesAsDataFrame(self):
         """
         Complete set of frequent patterns will be loaded in to data frame from this function
         """

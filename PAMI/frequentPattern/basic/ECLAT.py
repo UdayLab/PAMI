@@ -59,21 +59,21 @@ class ECLAT(_ab._frequentPatterns):
     About this algorithm
     ====================
 
-    :**Description**: ECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.
+    :**Description**: *ECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.*
 
     :**Reference**:  Mohammed Javeed Zaki: Scalable Algorithms for Association Mining. IEEE Trans. Knowl. Data Eng. 12(3):
-            372-390 (2000), https://ieeexplore.ieee.org/document/846291
+                     372-390 (2000), https://ieeexplore.ieee.org/document/846291
 
     :**Parameters**:    - **iFile** (*str or URL or dataFrame*) -- *Name of the Input file to mine complete set of frequent patterns.*
-                        - **oFile** (*str*) -- *Name of the output file to store complete set of frequent patterns.*
-                        - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.*
-                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
+                        - **oFile** (*str*) -- *Name of the Output file to store the frequent patterns.*
+                        - **minSup** (*int or float or str*) -- The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+                        - **sep** (*str*) -- This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
     :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*
-                        - **endTime** (*float*) -- *To record the completion time of the mining process.*
+                        - **endTime** (*float*) -- *To record the end time of the mining process.*
                         - **finalPatterns** (*dict*) -- *Storing the complete set of patterns in a dictionary variable.*
                         - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
-                        - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
+                        - **memoryRSS** *(float*) -- *To store the total amount of RSS memory consumed by the program.*
                         - **Database** (*list*) -- *To store the transactions of a database in list.*
 
     Execution methods
@@ -183,6 +183,58 @@ class ECLAT(_ab._frequentPatterns):
                     print("File Not Found")
                     quit()
 
+    def _getUniqueItemList(self) -> list:
+        """
+
+        Generating one frequent patterns
+
+        :return: list of unique patterns
+        :rtype: list
+        """
+        self._finalPatterns = {}
+        candidate = {}
+        uniqueItem = []
+        for i in range(len(self._Database)):
+            for j in range(len(self._Database[i])):
+                if self._Database[i][j] not in candidate:
+                    candidate[self._Database[i][j]] = {i}
+                else:
+                    candidate[self._Database[i][j]].add(i)
+        for key, value in candidate.items():
+            supp = len(value)
+            if supp >= self._minSup:
+                self._finalPatterns[key] = [value]
+                uniqueItem.append(key)
+        uniqueItem.sort()
+        return uniqueItem
+
+    def _generateFrequentPatterns(self, candidateFrequent: list) -> None:
+        """
+
+        It will generate the combinations of frequent items
+
+        :param candidateFrequent :it represents the items with their respective transaction identifiers
+        :type candidateFrequent: list
+        :return: None
+        """
+        new_freqList = []
+        for i in range(0, len(candidateFrequent)):
+            item1 = candidateFrequent[i]
+            i1_list = item1.split()
+            for j in range(i + 1, len(candidateFrequent)):
+                item2 = candidateFrequent[j]
+                i2_list = item2.split()
+                if i1_list[:-1] == i2_list[:-1]:
+                    interSet = self._finalPatterns[item1][0].intersection(self._finalPatterns[item2][0])
+                    if len(interSet) >= self._minSup:
+                        newKey = item1 + "\t" + i2_list[-1]
+                        self._finalPatterns[newKey] = [interSet]
+                        new_freqList.append(newKey)
+                else: break
+
+        if len(new_freqList) > 0:
+                self._generateFrequentPatterns(new_freqList)
+
     def _convert(self, value) -> float:
         """
 
@@ -212,30 +264,6 @@ class ECLAT(_ab._frequentPatterns):
 
         self.mine()
 
-    def __recursive(self, items, cands):
-        """
-
-        This function generates new candidates by taking input as original candidates.
-
-        :param items: A dictionary containing items and their corresponding support values.
-        :type items: dict
-        :param cands: A list of candidate itemsets.
-        :type cands: list
-        :return: None
-        """
-
-        for i in range(len(cands)):
-            newCands = []
-            for j in range(i + 1, len(cands)):
-                intersection = items[cands[i]].intersection(items[cands[j]])
-                if len(intersection) >= self._minSup:
-                    newCand = tuple(cands[i] + tuple([cands[j][-1]]))
-                    newCands.append(newCand)
-                    items[newCand] = intersection
-                    self._finalPatterns[newCand] = len(intersection)
-            if len(newCands) > 1:
-                self.__recursive(items, newCands)
-
     def mine(self) -> None:
         """
         Frequent pattern mining process will start from here
@@ -247,29 +275,11 @@ class ECLAT(_ab._frequentPatterns):
         if self._minSup is None:
             raise Exception("Please enter the Minimum Support")
         self._creatingItemSets()
-
         self._minSup = self._convert(self._minSup)
-
-    
-        items = {}
-        index = 0
-        for line in self._Database:
-            for item in line:
-                if item not in items:
-                    items[item] = []
-                items[item].append(index)
-            index += 1
-        
-        items = {tuple([k]): set(v) for k, v in items.items() if len(v) >= self._minSup}
-        items = {k: v for k, v in sorted(items.items(), key=lambda item: len(item[1]), reverse=False)}
-        for k, v in items.items():
-            self._finalPatterns[k] = len(v)
-
-        cands = list(items.keys())
-
-        self.__recursive(items, cands)
-
-
+        uniqueItemList = self._getUniqueItemList()
+        self._generateFrequentPatterns(uniqueItemList)
+        for x, y in self._finalPatterns.items():
+            self._finalPatterns[x] = len(y[0])
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
@@ -319,18 +329,11 @@ class ECLAT(_ab._frequentPatterns):
         :rtype: pd.DataFrame
         """
 
-        # time = _ab._time.time()
-        # dataFrame = {}
-        # data = []
-        # for a, b in self._finalPatterns.items():
-        #     # data.append([a.replace('\t', ' '), b])
-        #     data.append([" ".join(a), b])
-        #     dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
-        # print("Time taken to convert the frequent patterns into DataFrame is: ", _ab._time.time() - time)
-
-
-        dataFrame = _ab._pd.DataFrame(list(self._finalPatterns.items()), columns=['Patterns', 'Support'])
-
+        dataFrame = {}
+        data = []
+        for a, b in self._finalPatterns.items():
+            data.append([a.replace('\t', ' '), b])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
     def save(self, outFile: str) -> None:
@@ -342,13 +345,15 @@ class ECLAT(_ab._frequentPatterns):
         :type outFile: csvfile
         :return: None
         """
-        with open(outFile, 'w') as f:
-            for x, y in self._finalPatterns.items():
-                x = self._sep.join(x)
-                f.write(f"{x} : {y}\n")
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
+            patternsAndSupport = x.strip() + ":" + str(y)
+            writer.write("%s \n" % patternsAndSupport)
 
     def getPatterns(self) -> dict:
         """
+
         Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -383,6 +388,3 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
-        
-
