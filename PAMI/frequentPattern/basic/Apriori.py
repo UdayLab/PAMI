@@ -135,7 +135,7 @@ class Apriori(_ab._frequentPatterns):
     Credits
     =======
 
-    The complete program was written by P. Likhitha and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
+    The complete program was written by P. Likhitha  and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -207,7 +207,8 @@ class Apriori(_ab._frequentPatterns):
                 value = int(value)
         return value
 
-    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated(
+        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         Frequent pattern mining process will start from here
@@ -243,7 +244,8 @@ class Apriori(_ab._frequentPatterns):
         for key in items:
             if len(items[key]) >= self._minSup:
                 cands.append(key)
-                self._finalPatterns["\t".join(key)] = len(items[key])
+                # self._finalPatterns["\t".join(key)] = len(items[key])
+                self._finalPatterns[key] = len(items[key])
                 fileData[key] = set(items[key])
             else:
                 break
@@ -259,7 +261,7 @@ class Apriori(_ab._frequentPatterns):
                             intersection = intersection.intersection(fileData[tuple([newCand[k]])])
                         if len(intersection) >= self._minSup:
                             newKeys.append(newCand)
-                            newCand = "\t".join(newCand)
+                            # newCand = "\t".join(newCand)
                             self._finalPatterns[newCand] = len(intersection)
             del cands
             cands = newKeys
@@ -312,31 +314,41 @@ class Apriori(_ab._frequentPatterns):
         Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
+
         :rtype: pd.DataFrame
+
         """
 
-        dataFrame = {}
-        data = []
-        for a, b in self._finalPatterns.items():
-            data.append([a.replace('\t', ' '), b])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
-        # dataFrame = dataFrame.replace(r'\r+|\n+|\t+',' ', regex=True)
+        # time = _ab._time.time()
+        # dataFrame = {}
+        # data = []
+        # for a, b in self._finalPatterns.items():
+        #     # data.append([a.replace('\t', ' '), b])
+        #     data.append([" ".join(a), b])
+        #     dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+        # print("Time taken to convert the frequent patterns into DataFrame is: ", _ab._time.time() - time)
+
+
+        dataFrame = _ab._pd.DataFrame(list(self._finalPatterns.items()), columns=['Patterns', 'Support'])
+
         return dataFrame
 
-    def save(self, outFile) -> None:
+    def save(self, outFile: str) -> None:
         """
 
-        This function writes the final patterns into csv file.
+        Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
+
         :type outFile: csvfile
+
         :return: None
+
         """
-        self._oFile = outFile
-        writer = open(self._oFile, 'w+')
-        for x, y in self._finalPatterns.items():
-            s1 = x.strip() + ":" + str(y)
-            writer.write("%s \n" % s1)
+        with open(outFile, 'w') as f:
+            for x, y in self._finalPatterns.items():
+                x = self._sep.join(x)
+                f.write(f"{x} : {y}\n")
 
     def getPatterns(self) -> Dict[str, int]:
         """

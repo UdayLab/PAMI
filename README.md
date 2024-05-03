@@ -20,6 +20,7 @@
 # Table of Contents
 
 - [Introduction](#introduction)
+- [Development process](#process-flow-chart)
 - [Recent updates](#recent-updates)
 - [Features](#features)
 - [Maintenance](#Maintenance)
@@ -59,7 +60,12 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 8. Report issues https://github.com/UdayLab/PAMI/issues
 
 ***
+# Process Flow Chart
 
+![PAMI's production process](./images/pamiDevelopmentSteps.png?raw=true)
+
+<!--- ![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true) ---> 
+***
 # Recent Updates
 
 - Version 2023.07.07: New algorithms: cuApriroi, cuAprioriBit, cuEclat, cuEclatBit, gPPMiner, cuGPFMiner, FPStream, HUPMS, SHUPGrowth New codes to generate synthetic databases
