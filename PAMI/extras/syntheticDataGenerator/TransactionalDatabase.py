@@ -208,8 +208,12 @@ class TransactionalDatabase:
         Returns:
         db: pd.dataFrame - transactional database
         """
-        df = pd.DataFrame(self.db)
-        return df
+        column = "Transactions"
+        db = pd.DataFrame(columns=[column])
+        self.db = [tuple(x) for x in self.db]
+        for i in range(len(self.db)):
+            db.at[i,column] = self.db[i]
+        return db
         
 
 if __name__ == "__main__":
