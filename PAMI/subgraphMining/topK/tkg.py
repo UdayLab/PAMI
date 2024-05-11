@@ -42,7 +42,6 @@ class TKG(_ab._TKG):
         self.outputGraphIds = outputGraphIds
         self.outputSingleVertices = outputSingleVertices
         self.maxNumberOfEdges = maxNumberOfEdges
-        self.frequentSubgraphs = []
         self.graphCount = 0
         self.patternCount = 0
         self.frequentVertexLabels = []
@@ -137,7 +136,7 @@ class TKG(_ab._TKG):
         :param oFile: The `oFile` parameter in the `save` method is the file path where the output will be
         saved. This method writes the subgraphs information to the specified file in a specific format
         """
-        subgraphsList = self.frequentSubgraphs
+        subgraphsList = self.getSubgraphsList()
 
         with open(oFile, 'w') as bw:
             for i, subgraph in enumerate(subgraphsList):
@@ -359,8 +358,7 @@ class TKG(_ab._TKG):
                 newC.add(extension)
     
                 if self.isCanonical(newC):
-                    subgraph = _ab.FrequentSubgraph(newC, newGraphIds, sup)
-                    self.frequentSubgraphs.append(subgraph)
+                    self.savePattern(_ab.FrequentSubgraph(newC, newGraphIds, sup))
                     self.gspanDfs(newC, graphDB, newGraphIds)
 
     
@@ -434,7 +432,7 @@ class TKG(_ab._TKG):
                 if outputFrequentVertices:
                     tempD = _ab.DfsCode()
                     tempD.add(_ab.ExtendedEdge(0, 0, label, label, -1))
-                    self.frequentSubgraphs.append(_ab.FrequentSubgraph(tempD, tempSupG, sup))
+                    self.savePattern(_ab.FrequentSubgraph(tempD, tempSupG, sup))
             elif TKG.ELIMINATE_INFREQUENT_VERTICES:
                 for graphId in tempSupG:
                     g = graphDB[graphId]
@@ -515,7 +513,7 @@ class TKG(_ab._TKG):
     
     def getKSubgraphs(self):
         """ Return the formatted subgraphs as strings. """
-        subgraphsList = self.frequentSubgraphs
+        subgraphsList = self.getSubgraphsList()
         output = []
         for i, subgraph in enumerate(subgraphsList):
             sb = []
