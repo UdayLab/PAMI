@@ -512,31 +512,30 @@ class TKG(_ab._TKG):
         return self.minSup
     
     def getKSubgraphs(self):
-        """ Return the formatted subgraphs as strings. """
-        subgraphsList = self.getSubgraphsList()
-        output = []
+        """ Return the formatted subgraphs as a single string with correct formatting and newlines. """
+        subgraphsList = self.getSubgraphsList()  
+        sb = [] 
         for i, subgraph in enumerate(subgraphsList):
-            sb = []
+            subgraphDescription = [f"t # {i} * {subgraph.support}"]  
             dfsCode = subgraph.dfsCode
-            sb.append(f"t # {i} * {subgraph.support}\n")
             if len(dfsCode.eeList) == 1:
                 ee = dfsCode.eeList[0]
-                sb.append(f"v 0 {ee.vLabel1}\n")
+                subgraphDescription.append(f"v 0 {ee.vLabel1}")
                 if ee.edgeLabel != -1:
-                    sb.append(f"v 1 {ee.vLabel2}\n")
-                    sb.append(f"e 0 1 {ee.edgeLabel}\n")
+                    subgraphDescription.append(f"v 1 {ee.vLabel2}")
+                    subgraphDescription.append(f"e 0 1 {ee.edgeLabel}")
             else:
                 vLabels = dfsCode.getAllVLabels()
                 for j, vLabel in enumerate(vLabels):
-                    sb.append(f"v {j} {vLabel}\n")
+                    subgraphDescription.append(f"v {j} {vLabel}")
                 for ee in dfsCode.eeList:
-                    sb.append(f"e {ee.v1} {ee.v2} {ee.edgeLabel}\n")
+                    subgraphDescription.append(f"e {ee.v1} {ee.v2} {ee.edgeLabel}")
 
-            if self.outputGraphIds:
-                sb.append("x " + " ".join(str(id) for id in subgraph.setOfGraphsIds))
-            sb.append("\n\n")
-            output.append("".join(sb))
-        return output
+            # Include graph IDs if the feature is enabled
+            if self.outputGraphIds and subgraph.setOfGraphsIds:
+                subgraphDescription.append("x " + " ".join(str(id) for id in subgraph.setOfGraphsIds))
+            sb.append('\n'.join(subgraphDescription)) 
+        return '\n\n'.join(sb)  
 
 
 
