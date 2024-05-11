@@ -514,12 +514,13 @@ class TKG(_ab._TKG):
         return self.minSup
     
     def getKSubgraphs(self):
-        subgraphsList = self.getSubgraphsList()
-
+        """ Return the formatted subgraphs as strings. """
+        # subgraphsList = self.getSubgraphsList()
+        subgraphsList = self.frequentSubgraphs
+        output = []
         for i, subgraph in enumerate(subgraphsList):
             sb = []
             dfsCode = subgraph.dfsCode
-
             sb.append(f"t # {i} * {subgraph.support}\n")
             if len(dfsCode.eeList) == 1:
                 ee = dfsCode.eeList[0]
@@ -537,7 +538,9 @@ class TKG(_ab._TKG):
             if self.outputGraphIds:
                 sb.append("x " + " ".join(str(id) for id in subgraph.setOfGraphsIds))
             sb.append("\n\n")
-            print("".join(sb))
+            output.append("".join(sb))
+        return output
+
 
 
     def getSubgraphsList(self):
