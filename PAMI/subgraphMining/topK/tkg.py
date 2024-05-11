@@ -56,7 +56,7 @@ class TKG(_ab._TKG):
         self.pruneByEdgeCount = 0
 
 
-    def startMine(self):
+    def mine(self):
         """
         This Python function starts a mining process on a graph database, calculates runtime, pattern count,
         and memory usage metrics.
