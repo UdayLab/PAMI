@@ -2,7 +2,7 @@
 
 # obj = alg.TKG(iFile, k)
 
-# obj.startMine()
+# obj.mine()
 
 # frequentGraphs = obj.getKSubgraphs()
 
@@ -540,7 +540,7 @@ class TKG(_ab._TKG):
             print("".join(sb))
 
 
-    def getSubgraphs(self):
+    def getSubgraphsList(self):
         """Creates a copy of the queue's contents without emptying the original queue."""
         subgraphsList = list(self.kSubgraphs.queue)
         subgraphsList.sort(key=lambda sg: sg.support, reverse=True)

@@ -8,8 +8,6 @@
 #
 #             obj.startMine()
 #
-#             obj.run()
-#
 #             frequentGraphs = obj.getFrequentSubgraphs()
 #
 #             memUSS = obj.getMemoryUSS()
