@@ -137,7 +137,7 @@ class TKG(_ab._TKG):
         :param oFile: The `oFile` parameter in the `save` method is the file path where the output will be
         saved. This method writes the subgraphs information to the specified file in a specific format
         """
-        subgraphsList = self.getSubgraphsList()
+        subgraphsList = self.frequentSubgraphs
 
         with open(oFile, 'w') as bw:
             for i, subgraph in enumerate(subgraphsList):
@@ -515,7 +515,6 @@ class TKG(_ab._TKG):
     
     def getKSubgraphs(self):
         """ Return the formatted subgraphs as strings. """
-        # subgraphsList = self.getSubgraphsList()
         subgraphsList = self.frequentSubgraphs
         output = []
         for i, subgraph in enumerate(subgraphsList):
