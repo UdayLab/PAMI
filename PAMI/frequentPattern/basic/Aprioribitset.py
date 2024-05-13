@@ -52,7 +52,7 @@ from PAMI.frequentPattern.basic import abstract as _ab
 from deprecated import deprecated
 
 
-class AprioriBitset(_ab._frequentPatterns):
+class Aprioribitset(_ab._frequentPatterns):
     """
     :Description:  AprioriBitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
 
@@ -368,7 +368,7 @@ class AprioriBitset(_ab._frequentPatterns):
         with open(outFile, 'w') as f:
             for x, y in self._finalPatterns.items():
                 x = self._sep.join(x)
-                f.write(f"{x} : {y}\n")
+                f.write(f"{x}:{y}\n")
 
     def getPatterns(self):
         """
@@ -392,9 +392,9 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
-            _ap = AprioriBitset(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = Aprioribitset(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
-            _ap = AprioriBitset(_ab._sys.argv[1], _ab._sys.argv[3])
+            _ap = Aprioribitset(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
         _ap.mine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
