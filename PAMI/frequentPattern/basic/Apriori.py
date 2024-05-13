@@ -348,7 +348,7 @@ class Apriori(_ab._frequentPatterns):
         with open(outFile, 'w') as f:
             for x, y in self._finalPatterns.items():
                 x = self._sep.join(x)
-                f.write(f"{x} : {y}\n")
+                f.write(f"{x}:{y}\n")
 
     def getPatterns(self) -> Dict[str, int]:
         """
