@@ -19,9 +19,9 @@ import time
 class _TKG(ABC):
 
     @abstractmethod
-    def startMine(self):
+    def mine(self):
         """
-        Run the gSpan algorithm.
+        Run the tkg algorithm.
         """
         pass
 

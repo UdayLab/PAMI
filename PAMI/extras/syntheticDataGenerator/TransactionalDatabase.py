@@ -87,7 +87,7 @@ class TransactionalDatabase:
     
     """
 
-    def __init__(self, databaseSize, avgItemsPerTransaction, numItems,seperator) -> None:
+    def __init__(self, databaseSize, avgItemsPerTransaction, numItems,seperator = "\t") -> None:
         """
         Initialize the transactional database with the given parameters
 
@@ -208,14 +208,23 @@ class TransactionalDatabase:
         Returns:
         db: pd.dataFrame - transactional database
         """
-        df = pd.DataFrame(self.db)
-        return df
+        column = "Transactions"
+        db = pd.DataFrame(columns=[column])
+        self.db = [tuple(x) for x in self.db]
+        for i in range(len(self.db)):
+            db.at[i,column] = self.db[i]
+        return db
         
 
 if __name__ == "__main__":
-    # test the class
-    obj = TransactionalDatabase(sys.argv[1], sys.argv[2], sys.argv[3])
-    obj.create()
-    obj.save(sys.argv[4])
-    # print(obj.getTransactions())
+    if len(sys.argv) == 5:
+        obj = TransactionalDatabase(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]))
+        obj.create()
+        obj.save(sys.argv[4])
+    if len(sys.argv) == 6:
+        obj = TransactionalDatabase(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), sys.argv[4])
+        obj.create()
+        obj.save(sys.argv[5])
+    else:
+        raise ValueError("Invalid number of arguments. Args: <numLines> <avgItemsPerLine> <numItems> <filename> or Args: <numLines> <avgItemsPerLine> <numItems> <seperator> <filename>")
     
