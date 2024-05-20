@@ -17,7 +17,6 @@ import numpy as np
 import pandas as pd
 import sys
 
-
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -34,6 +33,7 @@ __copyright__ = """
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
+
 
 class TransactionalDatabase:
     """
@@ -87,7 +87,7 @@ class TransactionalDatabase:
     
     """
 
-    def __init__(self, databaseSize, avgItemsPerTransaction, numItems,seperator = "\t") -> None:
+    def __init__(self, databaseSize, avgItemsPerTransaction, numItems, seperator="\t") -> None:
         """
         Initialize the transactional database with the given parameters
 
@@ -106,7 +106,7 @@ class TransactionalDatabase:
         self.numItems = numItems
         self.seperator = seperator
         self.db = []
-    
+
     def _tuning(self, array, sumRes) -> list:
         """
         Tune the array so that the sum of the values is equal to sumRes
@@ -131,7 +131,6 @@ class TransactionalDatabase:
                 minIndex = np.argmin(array)
                 array[randIndex] += 1
         return array
-        
 
     def _generateArray(self, nums, avg, maxItems) -> list:
         """
@@ -167,7 +166,6 @@ class TransactionalDatabase:
                 if values[i] > maxItems:
                     values[i] -= 1
             self._tuning(values, sumRes)
-
 
         # if all values are same then randomly increase one value and decrease another
         while np.all(values == values[0]):
@@ -210,7 +208,7 @@ class TransactionalDatabase:
         """
         df = pd.DataFrame(self.db)
         return df
-        
+
 
 if __name__ == "__main__":
     if len(sys.argv) == 5:
@@ -222,5 +220,5 @@ if __name__ == "__main__":
         obj.create()
         obj.save(sys.argv[5])
     else:
-        raise ValueError("Invalid number of arguments. Args: <numLines> <avgItemsPerLine> <numItems> <filename> or Args: <numLines> <avgItemsPerLine> <numItems> <seperator> <filename>")
-    
+        raise ValueError(
+            "Invalid number of arguments. Args: <numLines> <avgItemsPerLine> <numItems> <filename> or Args: <numLines> <avgItemsPerLine> <numItems> <seperator> <filename>")
