@@ -6,9 +6,7 @@
 #
 #             obj = alg.GSpan(iFile, minSupport)
 #
-#             obj.startMine()
-#
-#             obj.run()
+#             obj.mine()
 #
 #             frequentGraphs = obj.getFrequentSubgraphs()
 #
@@ -65,7 +63,7 @@ class GSpan(_ab._gSpan):
         self._memoryRSS = float()
 
 
-    def startMine(self):
+    def mine(self):
 
         if self.maxNumberOfEdges <= 0:
             return

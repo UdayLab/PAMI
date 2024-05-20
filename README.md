@@ -144,9 +144,10 @@ from PAMI.frequentPattern.basic import FPGrowth as alg
 fileURL = "https://u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/Transactional_T10I4D100K.csv"
 minSup=300
 obj = alg.FPGrowth(iFile=fileURL, minSup=minSup, sep='\t')
-obj.startMine()
+obj.mine()
 obj.save('frequentPatternsAtMinSupCount300.txt')
 frequentPatternsDF= obj.getPatternsAsDataFrame()
+
 print('Total No of patterns: ' + str(len(frequentPatternsDF))) #print the total number of patterns
 print('Runtime: ' + str(obj.getRuntime())) #measure the runtime
 print('Memory (RSS): ' + str(obj.getMemoryRSS()))

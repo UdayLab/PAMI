@@ -2,7 +2,7 @@
 
 # obj = alg.TKG(iFile, k)
 
-# obj.startMine()
+# obj.mine()
 
 # frequentGraphs = obj.getKSubgraphs()
 
@@ -42,7 +42,6 @@ class TKG(_ab._TKG):
         self.outputGraphIds = outputGraphIds
         self.outputSingleVertices = outputSingleVertices
         self.maxNumberOfEdges = maxNumberOfEdges
-        self.frequentSubgraphs = []
         self.graphCount = 0
         self.patternCount = 0
         self.frequentVertexLabels = []
@@ -56,7 +55,7 @@ class TKG(_ab._TKG):
         self.pruneByEdgeCount = 0
 
 
-    def startMine(self):
+    def mine(self):
         """
         This Python function starts a mining process on a graph database, calculates runtime, pattern count,
         and memory usage metrics.
@@ -359,8 +358,7 @@ class TKG(_ab._TKG):
                 newC.add(extension)
     
                 if self.isCanonical(newC):
-                    subgraph = _ab.FrequentSubgraph(newC, newGraphIds, sup)
-                    self.frequentSubgraphs.append(subgraph)
+                    self.savePattern(_ab.FrequentSubgraph(newC, newGraphIds, sup))
                     self.gspanDfs(newC, graphDB, newGraphIds)
 
     
@@ -434,7 +432,7 @@ class TKG(_ab._TKG):
                 if outputFrequentVertices:
                     tempD = _ab.DfsCode()
                     tempD.add(_ab.ExtendedEdge(0, 0, label, label, -1))
-                    self.frequentSubgraphs.append(_ab.FrequentSubgraph(tempD, tempSupG, sup))
+                    self.savePattern(_ab.FrequentSubgraph(tempD, tempSupG, sup))
             elif TKG.ELIMINATE_INFREQUENT_VERTICES:
                 for graphId in tempSupG:
                     g = graphDB[graphId]
@@ -514,33 +512,34 @@ class TKG(_ab._TKG):
         return self.minSup
     
     def getKSubgraphs(self):
-        subgraphsList = self.getSubgraphsList()
-
+        """ Return the formatted subgraphs as a single string with correct formatting and newlines. """
+        subgraphsList = self.getSubgraphsList()  
+        sb = [] 
         for i, subgraph in enumerate(subgraphsList):
-            sb = []
+            subgraphDescription = [f"t # {i} * {subgraph.support}"]  
             dfsCode = subgraph.dfsCode
-
-            sb.append(f"t # {i} * {subgraph.support}\n")
             if len(dfsCode.eeList) == 1:
                 ee = dfsCode.eeList[0]
-                sb.append(f"v 0 {ee.vLabel1}\n")
+                subgraphDescription.append(f"v 0 {ee.vLabel1}")
                 if ee.edgeLabel != -1:
-                    sb.append(f"v 1 {ee.vLabel2}\n")
-                    sb.append(f"e 0 1 {ee.edgeLabel}\n")
+                    subgraphDescription.append(f"v 1 {ee.vLabel2}")
+                    subgraphDescription.append(f"e 0 1 {ee.edgeLabel}")
             else:
                 vLabels = dfsCode.getAllVLabels()
                 for j, vLabel in enumerate(vLabels):
-                    sb.append(f"v {j} {vLabel}\n")
+                    subgraphDescription.append(f"v {j} {vLabel}")
                 for ee in dfsCode.eeList:
-                    sb.append(f"e {ee.v1} {ee.v2} {ee.edgeLabel}\n")
+                    subgraphDescription.append(f"e {ee.v1} {ee.v2} {ee.edgeLabel}")
 
-            if self.outputGraphIds:
-                sb.append("x " + " ".join(str(id) for id in subgraph.setOfGraphsIds))
-            sb.append("\n\n")
-            print("".join(sb))
+            # Include graph IDs if the feature is enabled
+            if self.outputGraphIds and subgraph.setOfGraphsIds:
+                subgraphDescription.append("x " + " ".join(str(id) for id in subgraph.setOfGraphsIds))
+            sb.append('\n'.join(subgraphDescription)) 
+        return '\n\n'.join(sb)  
 
 
-    def getSubgraphs(self):
+
+    def getSubgraphsList(self):
         """Creates a copy of the queue's contents without emptying the original queue."""
         subgraphsList = list(self.kSubgraphs.queue)
         subgraphsList.sort(key=lambda sg: sg.support, reverse=True)
