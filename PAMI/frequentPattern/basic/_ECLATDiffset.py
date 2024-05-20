@@ -203,37 +203,71 @@ class ECLATDiffset(_ab._frequentPatterns):
                 value = int(value)
         return value
 
+    def _getUniqueItemList(self):
+
+        # tidSets will store all the initial tids
+        tidSets = {}
+        # uniqueItem will store all frequent 1 items
+        uniqueItem = []
+        for line in self._Database:
+                transNum = 0
+                # Database = [set([i.rstrip() for i in transaction.split('\t')]) for transaction in f]
+                for transaction in self._Database:
+                    transNum += 1
+                    self._trans_set.add(transNum)
+                    for item in transaction:
+                        if item in tidSets:
+                            tidSets[item].add(transNum)
+                        else:
+                            tidSets[item] = {transNum}
+        for key, value in tidSets.items():
+            supp = len(value)
+            if supp >= self._minSup:
+                self._diffSets[key] = [supp, self._trans_set.difference(value)]
+                uniqueItem.append(key)
+        # for x, y in self._diffSets.items():
+        #     print(x, y)
+        uniqueItem.sort()
+        # print()
+        return uniqueItem
+
+    def _runDeclat(self, candidateList):
+        """
+
+        It will generate the combinations of frequent items
+
+        :param candidateList :it represents the items with their respective transaction identifiers
+        :type candidateList: list
+        :return: returning transaction dictionary
+        :rtype: dict
+        """
+
+        newList = []
+        for i in range(0, len(candidateList)):
+            item1 = candidateList[i]
+            iList = item1.split()
+            for j in range(i + 1, len(candidateList)):
+                item2 = candidateList[j]
+                jList = item2.split()
+                if iList[:-1] == jList[:-1]:
+                    unionDiffSet = self._diffSets[item2][1].difference(self._diffSets[item1][1])
+                    unionSup = self._diffSets[item1][0] - len(unionDiffSet)
+                    if unionSup >= self._minSup:
+                        newKey = item1 + "\t" + jList[-1]
+                        self._diffSets[newKey] = [unionSup, unionDiffSet]
+                        newList.append(newKey)
+                    else: 
+                        break
+
+        if len(newList) > 0:
+            self._runDeclat(newList)
+
     @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
         """
         Frequent pattern mining process will start from here
         """
         self.mine()
-
-    def __recursive(self, items, cands):
-        """
-
-        This function generates new candidates by taking input as original candidates.
-
-        :param items: A dictionary containing items and their corresponding support values.
-        :type items: dict
-        :param cands: A list of candidate itemsets.
-        :type cands: list
-        :return: None
-        """
-
-        for i in range(len(cands)):
-            newCands = []
-            for j in range(i + 1, len(cands)):
-                intersection = items[cands[i]] | items[cands[j]]
-                supp = len(self._db - intersection)
-                if supp >= self._minSup:
-                    newCand = tuple(cands[i] + tuple([cands[j][-1]]))
-                    newCands.append(newCand)
-                    items[newCand] = intersection
-                    self._finalPatterns[newCand] = supp
-            if len(newCands) > 1:
-                self.__recursive(items, newCands)
 
     def mine(self):
         """
@@ -252,33 +286,11 @@ class ECLATDiffset(_ab._frequentPatterns):
         self._creatingItemSets()
         #print(len(self._Database))
         self._minSup = self._convert(self._minSup)
-
-        items = {}
-        db = set([i for i in range(len(self._Database))])
-        for i in range(len(self._Database)):
-            for item in self._Database[i]:
-                if tuple([item]) in items:
-                    items[tuple([item])].append(i)
-                else:
-                    items[tuple([item])] = [i]
-        
-        items = dict(sorted(items.items(), key=lambda x: len(x[1]), reverse=True))
-
-        keys = []
-        for item in list(items.keys()):
-            if len(items[item]) < self._minSup:
-                del items[item]
-                continue
-            self._finalPatterns[item] = len(items[item])
-            # print(item, len(items[item]))
-            items[item] = db - set(items[item])
-            # print(item, len(items[item]))
-            keys.append(item)
-
-        self._db = db
-
-        self.__recursive(items, keys)
-
+        uniqueItemList = []
+        uniqueItemList = self._getUniqueItemList()
+        self._runDeclat(uniqueItemList)
+        self._finalPatterns = self._diffSets
+        #print(len(self._finalPatterns), len(uniqueItemList))
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()

@@ -216,7 +216,6 @@ class FAE(_ab._frequentPatterns):
                     self._tidList[j].append(i)
         self._finalPatterns = {}
         plist = [key for key, value in sorted(candidate.items(), key=lambda x: x[1], reverse=True)]
-        self._tidList = {k: frozenset(v) for k, v in self._tidList.items()}
         for i in plist:
             if len(self._finalPatterns) >= self._k:
                 break
@@ -243,9 +242,8 @@ class FAE(_ab._frequentPatterns):
             prefix = prefix + suffix
         val = len(tidSetI)
         sample = str()
-        # for i in prefix:
-        #     sample = sample + i + "\t"
-        sample = "\t".join(prefix)
+        for i in prefix:
+            sample = sample + i + "\t"
         if len(self._finalPatterns) < self._k:
             if val > self._minimum:
                 self._finalPatterns[sample] = val
@@ -291,7 +289,7 @@ class FAE(_ab._frequentPatterns):
             for j in range(i + 1, len(itemSets)):
                 itemJ = itemSets[j]
                 tidSetJ = tidSets[j]
-                y = tidSetI.intersection(tidSetJ)
+                y = list(set(tidSetI).intersection(tidSetJ))
                 if len(y) >= self._minimum:
                     classItemSets.append(itemJ)
                     classTidSets.append(y)
@@ -346,7 +344,7 @@ class FAE(_ab._frequentPatterns):
             for j in range(i + 1, len(plist)):
                 itemJ = plist[j]
                 tidSetJ = self._tidList[itemJ]
-                y1 = tidSetI.intersection(tidSetJ)
+                y1 = list(set(tidSetI).intersection(tidSetJ))
                 if len(y1) >= self._minimum:
                     itemSets.append(itemJ)
                     tidSets.append(y1)
