@@ -147,6 +147,7 @@ obj = alg.FPGrowth(iFile=fileURL, minSup=minSup, sep='\t')
 obj.mine()
 obj.save('frequentPatternsAtMinSupCount300.txt')
 frequentPatternsDF= obj.getPatternsAsDataFrame()
+
 print('Total No of patterns: ' + str(len(frequentPatternsDF))) #print the total number of patterns
 print('Runtime: ' + str(obj.getRuntime())) #measure the runtime
 print('Memory (RSS): ' + str(obj.getMemoryRSS()))
