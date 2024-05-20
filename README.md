@@ -68,9 +68,7 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 ***
 # Recent Updates
 
-- Version 2023.07.07: New algorithms: cuApriroi, cuAprioriBit, cuEclat, cuEclatBit, gPPMiner, cuGPFMiner, FPStream, HUPMS, SHUPGrowth New codes to generate synthetic databases
-- Version 2023.06.20: Fuzzy Partial Periodic, Periodic Patterns in High Utility, Code Documentation, help() function Update 
-- Version 2023.03.01: prefixSpan and SPADE   
+- Version 2024.04.1.2: Introduced two new frequent subgraph mining algorithms, namely gspan and TKG. Optimized the frequent pattern mining algorithms.
 
 Total number of algorithms: 83
 
