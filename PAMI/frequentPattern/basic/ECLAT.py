@@ -345,7 +345,7 @@ class ECLAT(_ab._frequentPatterns):
         with open(outFile, 'w') as f:
             for x, y in self._finalPatterns.items():
                 x = self._sep.join(x)
-                f.write(f"{x} : {y}\n")
+                f.write(f"{x}:{y}\n")
 
     def getPatterns(self) -> dict:
         """
@@ -383,6 +383,3 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
-        
-

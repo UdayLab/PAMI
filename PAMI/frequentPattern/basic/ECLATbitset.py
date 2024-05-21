@@ -57,32 +57,27 @@ from deprecated import deprecated
 
 class ECLATbitset(_ab._frequentPatterns):
     """
-    About this algorithm
-    ====================
-
     :*Description*:  ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
 
     :*Reference*:  Mohammed Javeed Zaki: Scalable Algorithms for Association Mining. IEEE Trans. Knowl. Data Eng. 12(3):
-            372-390 (2000), https://ieeexplore.ieee.org/document/846291
+                   372-390 (2000), https://ieeexplore.ieee.org/document/846291
 
     :**Parameters**:    - **iFile** (*str or URL or dataFrame*) -- *Name of the Input file to mine complete set of frequent patterns.*
-                        - **oFile** (*str*) -- *Name of the output file to store complete set of frequent patterns.*
-                        - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.*
-                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
+                        - **oFile** (*str*) -- *Name of the output file to store complete set of frequent patterns*
+                        - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.*
+                        - **sep** (*str*) -- **This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.**
 
     :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*
-                        - **endTime** (*float*) -- *To record the completion time of the mining process.*
+                        - **endTime** (*float*) -- *To record the end time of the mining process.*
                         - **finalPatterns** (*dict*) -- *Storing the complete set of patterns in a dictionary variable.*
                         - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
-                        - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
+                        - **memoryRSS** *(float*) -- *To store the total amount of RSS memory consumed by the program.*
                         - **Database** (*list*) -- *To store the transactions of a database in list.*
 
     Execution methods
     =================
 
     **Terminal command**
-
-    .. code-block:: console
 
       Format:
 
@@ -151,6 +146,7 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def _convert(self, value):
         """
+
         To convert the user specified minSup value
 
         :param value: user specified minSup value
@@ -208,6 +204,7 @@ class ECLATbitset(_ab._frequentPatterns):
     def startMine(self):
         """
         Frequent pattern mining process will start from here
+
         We start with the scanning the itemSets and store the bitsets respectively.
         We form the combinations of single items and  check with minSup condition to check the frequency of patterns
         """
@@ -215,6 +212,7 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def _bitPacker(self, data, maxIndex):
         """
+
         It takes the data and maxIndex as input and generates integer as output value.
 
         :param data: it takes data as input.
@@ -227,31 +225,6 @@ class ECLATbitset(_ab._frequentPatterns):
             packed_bits |= 1 << (maxIndex - i)
 
         return packed_bits
-    
-    def __recursive(self, items, cands):
-        """
-
-        This function generates new candidates by taking input as original candidates.
-
-        :param items: A dictionary containing items and their corresponding support values.
-        :type items: dict
-        :param cands: A list of candidate itemsets.
-        :type cands: list
-        :return: None
-        """
-
-        for i in range(len(cands)):
-            newCands = []
-            for j in range(i + 1, len(cands)):
-                intersection = items[cands[i]] & items[cands[j]]
-                support = int.bit_count(intersection)
-                if support >= self._minSup:
-                    newCand = tuple(cands[i] + tuple([cands[j][-1]]))
-                    newCands.append(newCand)
-                    items[newCand] = intersection
-                    self._finalPatterns[newCand] = support
-            if len(newCands) > 1:
-                self.__recursive(items, newCands)
 
     def mine(self) -> None:
         """
@@ -275,15 +248,35 @@ class ECLATbitset(_ab._frequentPatterns):
             index += 1
 
         # sort by length in descending order
-        items = dict(sorted(items.items(), key=lambda x: len(x[1]), reverse=False))
+        items = dict(sorted(items.items(), key=lambda x: len(x[1]), reverse=True))
         cands = []
         for key in items:
             if len(items[key]) >= self._minSup:
-                self._finalPatterns[key] = len(items[key])
+                self._finalPatterns["\t".join(key)] = len(items[key])
                 cands.append(key)
                 items[key] = self._bitPacker(items[key], index)
+                # print(key, items[key])
+            else:
+                break
 
-        self.__recursive(items, cands)
+        while cands:
+            newCands = []
+            for i in range(len(cands)):
+                for j in range(i + 1, len(cands)):
+                    if cands[i][:-1] == cands[j][:-1]:
+                        newCand = tuple(cands[i] + tuple([cands[j][-1]]))
+                        intersection = items[tuple([newCand[0]])]
+                        for k in range(1, len(newCand)):
+                            intersection &= items[tuple([newCand[k]])]
+                        count = int.bit_count(intersection)
+                        if count >= self._minSup:
+                            newCands.append(newCand)
+                            newCand = "\t".join(newCand)
+                            self._finalPatterns[newCand] = count
+                    else:
+                        break
+
+            cands = newCands
 
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
@@ -326,7 +319,7 @@ class ECLATbitset(_ab._frequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
+    def getPatternsAsDataFrame(self):
         """
 
         Storing final frequent patterns in a dataframe
@@ -335,34 +328,26 @@ class ECLATbitset(_ab._frequentPatterns):
         :rtype: pd.DataFrame
         """
 
-        # time = _ab._time.time()
-        # dataFrame = {}
-        # data = []
-        # for a, b in self._finalPatterns.items():
-        #     # data.append([a.replace('\t', ' '), b])
-        #     data.append([" ".join(a), b])
-        #     dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
-        # print("Time taken to convert the frequent patterns into DataFrame is: ", _ab._time.time() - time)
-
-
-        dataFrame = _ab._pd.DataFrame(list(self._finalPatterns.items()), columns=['Patterns', 'Support'])
-
+        dataFrame = {}
+        data = []
+        for a, b in self._finalPatterns.items():
+            data.append([a.replace('\t', ' '), b])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def save(self, outFile: str) -> None:
+    def save(self, outFile):
         """
 
         Complete set of frequent patterns will be loaded in to an output file
 
-        :param outFile: name of the output file
-        :type outFile: csvfile
-        :return: None
+        :param outFile: name of the outputfile
+        :type outFile: file
         """
-        with open(outFile, 'w') as f:
-            for x, y in self._finalPatterns.items():
-                x = self._sep.join(x)
-                f.write(f"{x} : {y}\n")
-
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
+            patternsAndSupport = x.strip() + ":" + str(y)
+            writer.write("%s \n" % patternsAndSupport)
 
     def getPatterns(self):
         """
@@ -400,5 +385,3 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
-
