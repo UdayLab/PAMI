@@ -68,9 +68,12 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 ***
 # Recent Updates
 
-- Version 2023.07.07: New algorithms: cuApriroi, cuAprioriBit, cuEclat, cuEclatBit, gPPMiner, cuGPFMiner, FPStream, HUPMS, SHUPGrowth New codes to generate synthetic databases
-- Version 2023.06.20: Fuzzy Partial Periodic, Periodic Patterns in High Utility, Code Documentation, help() function Update 
-- Version 2023.03.01: prefixSpan and SPADE   
+- **Version 2024.05.01:** 
+In this latest version, the following updates have been made:
+  - Included two new algorithms, **Gspan and TKG**, for frequent subgraph mining.
+  - Updated three Synthetic Data Generator, **transactional database, temporal database, and geo-referenced transactional database**.
+  - Optimized the following frequent pattern mining algorithms: **Apriori, Aprioribitset, ECLAT, ECLATbitset, FPGrowth, and CHARM**.
+  - startMine() function has been deprecated to mine() function.
 
 Total number of algorithms: 83
 
@@ -226,7 +229,6 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 
 ***
 # Tutorials
-
 ### 0. Association Rule Mining
 
 | Basic                                                                                                                                                                                                                                                |
@@ -234,8 +236,6 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 | Confidence <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/associationRules/basic/confidence.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> |
 | Lift <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/associationRules/basic/lift.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>             |
 | Leverage <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/associationRules/basic/leverage.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>     |
-
-
 
 ### 1. Pattern mining in binary transactional databases
 
