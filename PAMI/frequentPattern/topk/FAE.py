@@ -1,9 +1,12 @@
 # Top - K is and algorithm to discover top frequent patterns in a transactional database.
 #
 # **Importing this algorithm into a python program**
-# ---------------------------------------------------------
 #
 #             import PAMI.frequentPattern.topK.FAE as alg
+#
+#             iFile = 'sampleDB.txt'
+#
+#             K = 2
 #
 #             obj = alg.FAE(iFile, K)
 #
@@ -31,9 +34,6 @@
 #
 
 
-
-
-
 __copyright__ = """
 Copyright (C)  2021 Rage Uday Kiran
 
@@ -57,49 +57,29 @@ from deprecated import deprecated
 
 class FAE(_ab._frequentPatterns):
     """
-    :Description: Top - K is and algorithm to discover top frequent patterns in a transactional database.
+    About this algorithm
+    ====================
 
+    :**Description**: Top - K is and algorithm to discover top frequent patterns in a transactional database.
 
-    :Reference:   Zhi-Hong Deng, Guo-Dong Fang: Mining Top-Rank-K Frequent Patterns: DOI: 10.1109/ICMLC.2007.4370261 · Source: IEEE Xplore
-                  https://ieeexplore.ieee.org/document/4370261
+    :**Reference**:   Zhi-Hong Deng, Guo-Dong Fang: Mining Top-Rank-K Frequent Patterns: DOI: 10.1109/ICMLC.2007.4370261 · Source: IEEE Xplore https://ieeexplore.ieee.org/document/4370261
 
-    :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent patterns
-    :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
-    :param  k: int :
-                    User specified count of top frequent patterns
-    :param minimum: int :
-                    Minimum number of frequent patterns to consider in analysis
+    :**Parameters**:    - **iFile** (*str or URL or dataFrame*) -- *Name of the Input file to mine complete set of frequent patterns.*
+                        - **oFile** (*str*) -- *Name of the output file to store complete set of frequent patterns.*
+                        - **k** (*int*) -- *User specified count of top frequent patterns.*
+                        **minimum** (*int*) -- *Minimum number of frequent patterns to consider in analysis.*
+                        **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
 
-    :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*
+                        - **endTime** (*float*) -- *To record the completion time of the mining process.*
+                        - **finalPatterns** (*dict*) -- *Storing the complete set of patterns in a dictionary variable.*
+                        - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
+                        - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
 
+    Execution methods
+    =================
 
-
-    :Attributes:
-
-        startTime : float
-          To record the start time of the mining process
-
-        endTime : float
-          To record the completion time of the mining process
-
-        finalPatterns : dict
-          Storing the complete set of patterns in a dictionary variable
-
-        memoryUSS : float
-          To store the total amount of USS memory consumed by the program
-
-        memoryRSS : float
-          To store the total amount of RSS memory consumed by the program
-
-        finalPatterns : dict
-            it represents to store the patterns
-
-
-    **Methods to execute code on terminal**
-    -------------------------------------------
+    **Terminal command**
 
     .. code-block:: console
 
@@ -109,45 +89,49 @@ class FAE(_ab._frequentPatterns):
 
       Example Usage:
 
-      (.venv) $ python3 FAE.py sampleDB.txt patterns.txt 10
+      (.venv) $ python3 FAE.py sampleDB.txt patterns.txt 10.0
 
-    .. note:: k will be considered as count of top frequent patterns to consider in analysis
+    .. note:: k will be considered as count of top frequent patterns to consider in analysis.
 
+    **Calling from a python program**
 
-
-    **Importing this algorithm into a python program**
-    ---------------------------------------------------------
     .. code-block:: python
 
-        import PAMI.frequentPattern.topK.FAE as alg
+            import PAMI.frequentPattern.topK.FAE as alg
 
-        obj = alg.FAE(iFile, K)
+            iFile = 'sampleDB.txt'
 
-        obj.mine()
+            K = 2
 
-        topKFrequentPatterns = obj.getPatterns()
+            obj = alg.FAE(iFile, K)
 
-        print("Total number of Frequent Patterns:", len(topKFrequentPatterns))
+            obj.mine()
 
-        obj.save(oFile)
+            topKFrequentPatterns = obj.getPatterns()
 
-        Df = obj.getPatternInDataFrame()
+            print("Total number of Frequent Patterns:", len(topKFrequentPatterns))
 
-        memUSS = obj.getMemoryUSS()
+            obj.save(oFile)
 
-        print("Total Memory in USS:", memUSS)
+            Df = obj.getPatternInDataFrame()
 
-        memRSS = obj.getMemoryRSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in USS:", memUSS)
 
-        run = obj.getRuntime()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total Memory in RSS", memRSS)
 
-    Credits:
-    --------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+            run = obj.getRuntime()
+
+            print("Total ExecutionTime in seconds:", run)
+
+
+    Credits
+    =======
+
+    The complete program was written by P. Likhitha  and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -166,8 +150,7 @@ class FAE(_ab._frequentPatterns):
 
     def _creatingItemSets(self):
         """
-            Storing the complete transactions of the database/input file in a database variable
-
+        Storing the complete transactions of the database/input file in a database variable
         """
 
         self._Database = []
@@ -227,14 +210,15 @@ class FAE(_ab._frequentPatterns):
         return plist
 
     def _save(self, prefix, suffix, tidSetI):
-        """Saves the patterns that satisfy the periodic frequent property.
+        """
+        Saves the patterns that satisfy the periodic frequent property.
 
-            :param prefix: the prefix of a pattern
-            :type prefix: list
-            :param suffix: the suffix of a patterns
-            :type suffix: list
-            :param tidSetI: the timestamp of a patterns
-            :type tidSetI: list
+        :param prefix: the prefix of a pattern
+        :type prefix: list
+        :param suffix: the suffix of a patterns
+        :type suffix: list
+        :param tidSetI: the timestamp of a patterns
+        :type tidSetI: list
         """
 
         if prefix is None:
@@ -263,18 +247,16 @@ class FAE(_ab._frequentPatterns):
                     return
 
     def _Generation(self, prefix, itemSets, tidSets):
-        """Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.
+        """
+        Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.
 
-            :param prefix:  main equivalence prefix
-            :type prefix: periodic-frequent item or pattern
-            :param itemSets: patterns which are items combined with prefix and satisfying the periodicity
-                            and frequent with their timestamps
-            :type itemSets: list
-            :param tidSets: timestamps of the items in the argument itemSets
-            :type tidSets: list
-
-
-                    """
+        :param prefix:  main equivalence prefix
+        :type prefix: periodic-frequent item or pattern
+        :param itemSets: patterns which are items combined with prefix and satisfying the periodicity and frequent with their timestamps
+        :type itemSets: list
+        :param tidSets: timestamps of the items in the argument itemSets
+        :type tidSets: list
+        """
         if len(itemSets) == 1:
             i = itemSets[0]
             tidI = tidSets[0]
@@ -302,6 +284,7 @@ class FAE(_ab._frequentPatterns):
     def _convert(self, value):
         """
         to convert the type of user specified minSup value
+
         :param value: user specified minSup value
         :type value: int or float or str
         :return: converted type
@@ -321,13 +304,13 @@ class FAE(_ab._frequentPatterns):
     @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
         """
-            Main function of the program
+        TopK Frequent pattern mining process will start from here
         """
         self.mine()
 
     def mine(self):
         """
-            Main function of the program
+        TopK Frequent pattern mining process will start from here
         """
         self._startTime = _ab._time.time()
         if self._iFile is None:
@@ -364,7 +347,6 @@ class FAE(_ab._frequentPatterns):
         Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
-
         :rtype: float
         """
 
@@ -375,7 +357,6 @@ class FAE(_ab._frequentPatterns):
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
-
         :rtype: float
         """
 
@@ -386,7 +367,6 @@ class FAE(_ab._frequentPatterns):
         Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
-
         :rtype: float
         """
 
@@ -397,7 +377,6 @@ class FAE(_ab._frequentPatterns):
         Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
-
         :rtype: pd.DataFrame
         """
 
@@ -413,7 +392,6 @@ class FAE(_ab._frequentPatterns):
         Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
-
         :type outFile: file
         """
         self._oFile = outFile
@@ -427,7 +405,6 @@ class FAE(_ab._frequentPatterns):
         Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
-
         :rtype: dict
         """
         return self._finalPatterns
