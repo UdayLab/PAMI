@@ -1,22 +1,22 @@
-# Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
+# ECLATDiffest uses diffset to extract the frequent patterns in a transactional database.
 #
 # **Importing this algorithm into a python program**
 #
-#             import PAMI1.frequentPattern.basic.Apriori as alg
+#             import PAMI.frequentPattern.basic.ECLATDiffset as alg
 #
 #             iFile = 'sampleDB.txt'
 #
 #             minSup = 10  # can also be specified between 0 and 1
 #
-#             obj = alg.Apriori(iFile, minSup)
+#             obj = alg.ECLATDiffset(iFile, minSup)
 #
 #             obj.mine()
 #
-#             frequentPattern = obj.getPatterns()
+#             frequentPatterns = obj.getPatterns()
 #
-#             print("Total number of Frequent Patterns:", len(frequentPattern))
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#             obj.save(oFile)
+#             obj.savePatterns(oFile)
 #
 #             Df = obj.getPatternInDataFrame()
 #
@@ -51,34 +51,33 @@ Copyright (C)  2021 Rage Uday Kiran
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+
+# from abstract import *
+
 from PAMI.frequentPattern.basic import abstract as _ab
-from typing import Dict, Union
 from deprecated import deprecated
 
 
-class Apriori(_ab._frequentPatterns):
+class ECLATDiffset(_ab._frequentPatterns):
     """
-    About this algorithm
-    ====================
+    :**Description**:   ECLATDiffset uses diffset to extract the frequent patterns in a transactional database.
 
-    :**Description**: Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
-
-    :**Reference**:  Agrawal, R., Imieli ́nski, T., Swami, A.: Mining association rules between sets of items in large databases.
-                     In: SIGMOD. pp. 207–216 (1993), https://doi.org/10.1145/170035.170072
-
+    :**Reference**:  KDD '03: Proceedings of the ninth ACM SIGKDD international conference on Knowledge discovery and data mining
+                     August 2003 Pages 326–335 https://doi.org/10.1145/956750.956788
+            
     :**Parameters**:    - **iFile** (*str or URL or dataFrame*) -- *Name of the Input file to mine complete set of frequent patterns.*
-                        - **oFile** (*str*) -- *Name of the output file to store complete set of frequent patterns.*
-                        - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.*
-                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
+                        - **oFile** (*str*) -- *Name of the output file to store complete set of frequent patterns*
+                        - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.*
+                        - **sep** (*str*) -- **This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.**
 
     :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*
-                        - **endTime** (*float*) -- *To record the completion time of the mining process.*
+                        - **endTime** (*float*) -- *To record the end time of the mining process.*
                         - **finalPatterns** (*dict*) -- *Storing the complete set of patterns in a dictionary variable.*
                         - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
-                        - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
+                        - **memoryRSS** *(float*) -- *To store the total amount of RSS memory consumed by the program.*
                         - **Database** (*list*) -- *To store the transactions of a database in list.*
-
-
+          
+        
     Execution methods
     =================
 
@@ -88,34 +87,34 @@ class Apriori(_ab._frequentPatterns):
 
       Format:
 
-      (.venv) $ python3 Apriori.py <inputFile> <outputFile> <minSup>
+      (.venv) $ python3 ECLATDiffset.py <inputFile> <outputFile> <minSup>
 
       Example Usage:
 
-      (.venv) $ python3 Apriori.py sampleDB.txt patterns.txt 10.0
+      (.venv) $ python3 ECLATDiffset.py sampleDB.txt patterns.txt 10.0
 
     .. note:: minSup can be specified  in support count or a value between 0 and 1.
 
-
-    **Calling from a python program**
+    
+     **Calling from a python program**
 
     .. code-block:: python
 
-            import PAMI1.frequentPattern.basic.Apriori as alg
+            import PAMI.frequentPattern.basic.ECLATDiffset as alg
 
             iFile = 'sampleDB.txt'
 
             minSup = 10  # can also be specified between 0 and 1
 
-            obj = alg.Apriori(iFile, minSup)
+            obj = alg.ECLATDiffset(iFile, minSup)
 
             obj.mine()
 
-            frequentPattern = obj.getPatterns()
+            frequentPatterns = obj.getPatterns()
 
-            print("Total number of Frequent Patterns:", len(frequentPattern))
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-            obj.save(oFile)
+            obj.savePatterns(oFile)
 
             Df = obj.getPatternInDataFrame()
 
@@ -132,10 +131,10 @@ class Apriori(_ab._frequentPatterns):
             print("Total ExecutionTime in seconds:", run)
 
 
-    Credits
-    =======
+    Credits:
+    ========
 
-    The complete program was written by P. Likhitha  and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
+    The complete program was written by Kundai and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -149,22 +148,20 @@ class Apriori(_ab._frequentPatterns):
     _memoryUSS = float()
     _memoryRSS = float()
     _Database = []
+    _diffSets = {}
+    _trans_set = set()
 
-    def _creatingItemSets(self) -> None:
+    def _creatingItemSets(self):
         """
         Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
-            temp = []
             if self._iFile.empty:
                 print("its empty..")
             i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
-                temp = self._iFile['Transactions'].tolist()
-
-            for k in temp:
-                self._Database.append(set(k))
+                self._Database = self._iFile['Transactions'].tolist()
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
@@ -173,7 +170,7 @@ class Apriori(_ab._frequentPatterns):
                     line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self._Database.append(set(temp))
+                    self._Database.append(temp)
             else:
                 try:
                     with open(self._iFile, 'r', encoding='utf-8') as f:
@@ -181,19 +178,18 @@ class Apriori(_ab._frequentPatterns):
                             line.strip()
                             temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            self._Database.append(set(temp))
+                            self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def _convert(self, value: Union[int, float, str]) -> Union[int, float]:
+    def _convert(self, value):
         """
+
         To convert the user specified minSup value
 
         :param value: user specified minSup value
-        :type value: int or float or str
         :return: converted type
-        :rtype: int or float
         """
         if type(value) is int:
             value = int(value)
@@ -207,75 +203,103 @@ class Apriori(_ab._frequentPatterns):
                 value = int(value)
         return value
 
-    @deprecated(
-        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
-    def startMine(self) -> None:
+    def _getUniqueItemList(self):
+
+        # tidSets will store all the initial tids
+        tidSets = {}
+        # uniqueItem will store all frequent 1 items
+        uniqueItem = []
+        for line in self._Database:
+                transNum = 0
+                # Database = [set([i.rstrip() for i in transaction.split('\t')]) for transaction in f]
+                for transaction in self._Database:
+                    transNum += 1
+                    self._trans_set.add(transNum)
+                    for item in transaction:
+                        if item in tidSets:
+                            tidSets[item].add(transNum)
+                        else:
+                            tidSets[item] = {transNum}
+        for key, value in tidSets.items():
+            supp = len(value)
+            if supp >= self._minSup:
+                self._diffSets[key] = [supp, self._trans_set.difference(value)]
+                uniqueItem.append(key)
+        # for x, y in self._diffSets.items():
+        #     print(x, y)
+        uniqueItem.sort()
+        # print()
+        return uniqueItem
+
+    def _runDeclat(self, candidateList):
+        """
+
+        It will generate the combinations of frequent items
+
+        :param candidateList :it represents the items with their respective transaction identifiers
+        :type candidateList: list
+        :return: returning transaction dictionary
+        :rtype: dict
+        """
+
+        newList = []
+        for i in range(0, len(candidateList)):
+            item1 = candidateList[i]
+            iList = item1.split()
+            for j in range(i + 1, len(candidateList)):
+                item2 = candidateList[j]
+                jList = item2.split()
+                if iList[:-1] == jList[:-1]:
+                    unionDiffSet = self._diffSets[item2][1].difference(self._diffSets[item1][1])
+                    unionSup = self._diffSets[item1][0] - len(unionDiffSet)
+                    if unionSup >= self._minSup:
+                        newKey = item1 + "\t" + jList[-1]
+                        self._diffSets[newKey] = [unionSup, unionDiffSet]
+                        newList.append(newKey)
+                    else: 
+                        break
+
+        if len(newList) > 0:
+            self._runDeclat(newList)
+
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    def startMine(self):
         """
         Frequent pattern mining process will start from here
         """
         self.mine()
 
-    def mine(self) -> None:
+    def mine(self):
         """
         Frequent pattern mining process will start from here
         """
-        self._Database = []
+
         self._startTime = _ab._time.time()
-
+        self._Database = []
+        self._finalPatterns = {}
+        self._diffSets = {}
+        self._trans_set = set()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        if self._minSup is None:
+            raise Exception("Please enter the Minimum Support")
         self._creatingItemSets()
-
+        #print(len(self._Database))
         self._minSup = self._convert(self._minSup)
-
-        items = {}
-        index = 0
-        for line in self._Database:
-            for item in line:
-                if tuple([item]) in items:
-                    items[tuple([item])].append(index)
-                else:
-                    items[tuple([item])] = [index]
-            index += 1
-
-        # sort by length in descending order
-        items = dict(sorted(items.items(), key=lambda x: len(x[1]), reverse=True))
-
-        cands = []
-        fileData = {}
-        for key in items:
-            if len(items[key]) >= self._minSup:
-                cands.append(key)
-                # self._finalPatterns["\t".join(key)] = len(items[key])
-                self._finalPatterns[key] = len(items[key])
-                fileData[key] = set(items[key])
-            else:
-                break
-
-        while cands:
-            newKeys = []
-            for i in range(len(cands)):
-                for j in range(i + 1, len(cands)):
-                    if cands[i][:-1] == cands[j][:-1]:
-                        newCand = cands[i] + tuple([cands[j][-1]])
-                        intersection = fileData[tuple([newCand[0]])]
-                        for k in range(1, len(newCand)):
-                            intersection = intersection.intersection(fileData[tuple([newCand[k]])])
-                        if len(intersection) >= self._minSup:
-                            newKeys.append(newCand)
-                            # newCand = "\t".join(newCand)
-                            self._finalPatterns[newCand] = len(intersection)
-            del cands
-            cands = newKeys
-            del newKeys
-
-        process = _ab._psutil.Process(_ab._os.getpid())
+        uniqueItemList = []
+        uniqueItemList = self._getUniqueItemList()
+        self._runDeclat(uniqueItemList)
+        self._finalPatterns = self._diffSets
+        #print(len(self._finalPatterns), len(uniqueItemList))
         self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-        print("Frequent patterns were generated successfully using Apriori algorithm ")
+        print("Frequent patterns were generated successfully using ECLAT Diffset algorithm")
 
-    def getMemoryUSS(self) -> float:
+    def getMemoryUSS(self):
         """
 
         Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -286,7 +310,7 @@ class Apriori(_ab._frequentPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self) -> float:
+    def getMemoryRSS(self):
         """
 
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -297,7 +321,7 @@ class Apriori(_ab._frequentPatterns):
 
         return self._memoryRSS
 
-    def getRuntime(self) -> float:
+    def getRuntime(self):
         """
 
         Calculating the total amount of runtime taken by the mining process
@@ -308,49 +332,37 @@ class Apriori(_ab._frequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
+    def getPatternsAsDataFrame(self):
         """
 
         Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
-
         :rtype: pd.DataFrame
-
         """
 
-        # time = _ab._time.time()
-        # dataFrame = {}
-        # data = []
-        # for a, b in self._finalPatterns.items():
-        #     # data.append([a.replace('\t', ' '), b])
-        #     data.append([" ".join(a), b])
-        #     dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
-        # print("Time taken to convert the frequent patterns into DataFrame is: ", _ab._time.time() - time)
-
-
-        dataFrame = _ab._pd.DataFrame(list(self._finalPatterns.items()), columns=['Patterns', 'Support'])
-
+        dataFrame = {}
+        data = []
+        for a, b in self._finalPatterns.items():
+            data.append([a.replace('\t', ' '), b[0]])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def save(self, outFile: str) -> None:
+    def save(self, outFile):
         """
 
         Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
-
         :type outFile: csvfile
-
-        :return: None
-
         """
-        with open(outFile, 'w') as f:
-            for x, y in self._finalPatterns.items():
-                x = self._sep.join(x)
-                f.write(f"{x}:{y}\n")
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
+            patternsAndSupport = x.strip() + ":" + str(y[0])
+            writer.write("%s \n" % patternsAndSupport)
 
-    def getPatterns(self) -> Dict[str, int]:
+    def getPatterns(self):
         """
 
         Function to send the set of frequent patterns after completion of the mining process
@@ -360,29 +372,31 @@ class Apriori(_ab._frequentPatterns):
         """
         return self._finalPatterns
 
-    def printResults(self) -> None:
+    def printResults(self):
         """
-        This function is used to print the result
+        This function is used to print the results
         """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
-        print("Total ExecutionTime in ms:", self.getRuntime())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
 
 
 if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
-            _ap = Apriori(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = ECLATDiffset(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
-            _ap = Apriori(_ab._sys.argv[1], _ab._sys.argv[3])
+            _ap = ECLATDiffset(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
         _ap.mine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.save(_ap._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
+        print(_ap.getPatternsAsDataFrame())
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
