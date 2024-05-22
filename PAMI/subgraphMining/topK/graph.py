@@ -44,7 +44,7 @@ class Graph:
 
         for vertex in self.vMap.values():
             edgesToRemove = [edge for edge in vertex.getEdgeList() 
-                               if edge.v1 not in self.vMap or edge.gv2 not in self.vMap]
+                               if edge.v1 not in self.vMap or edge.v2 not in self.vMap]
 
             for edge in edgesToRemove:
                 vertex.getEdgeList().remove(edge)
