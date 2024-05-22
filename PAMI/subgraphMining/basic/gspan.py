@@ -649,4 +649,17 @@ class GSpan(_ab._gSpan):
             sb.append('\n'.join(subgraphDescription))  
         return '\n'.join(sb)  
 
+    def getSubgraphGraphMapping(self):
+        """
+        Return a list of mappings from subgraphs to the graph IDs they belong to in the format <FID, Clabel, GIDs[]>.
+        """
+        mappings = []
+        for i, subgraph in enumerate(self.frequentSubgraphs):
+            mapping = {
+                "FID": i,
+                "Clabel": str(subgraph.dfsCode),
+                "GIDs": list(subgraph.setOfGraphsIds)
+            }
+            mappings.append(mapping)
+        return mappings
 
