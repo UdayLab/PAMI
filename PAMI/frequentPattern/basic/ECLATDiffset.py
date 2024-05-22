@@ -52,14 +52,13 @@ Copyright (C)  2021 Rage Uday Kiran
 """
 
 
-# from abstract import *
-
 from PAMI.frequentPattern.basic import abstract as _ab
 from deprecated import deprecated
 
 
 class ECLATDiffset(_ab._frequentPatterns):
     """
+
     :**Description**:   ECLATDiffset uses diffset to extract the frequent patterns in a transactional database.
 
     :**Reference**:  KDD '03: Proceedings of the ninth ACM SIGKDD international conference on Knowledge discovery and data mining
@@ -323,7 +322,7 @@ class ECLATDiffset(_ab._frequentPatterns):
     def getPatternsAsDataFrame(self):
         """
 
-        Storing final frequent patterns in a dataframe
+        Storing final frequent patterns in a dataframe.
 
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -339,7 +338,7 @@ class ECLATDiffset(_ab._frequentPatterns):
     def save(self, outFile):
         """
 
-        Complete set of frequent patterns will be loaded in to an output file
+        Complete set of frequent patterns will be loaded in to an output csv file.
 
         :param outFile: name of the output file
         :type outFile: csvfile
@@ -353,7 +352,7 @@ class ECLATDiffset(_ab._frequentPatterns):
     def getPatterns(self):
         """
 
-        Function to send the set of frequent patterns after completion of the mining process
+        This function returns the frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
         :rtype: dict
@@ -362,7 +361,7 @@ class ECLATDiffset(_ab._frequentPatterns):
 
     def printResults(self):
         """
-        This function is used to print the results
+        This function is used to print the results.
         """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
