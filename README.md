@@ -561,11 +561,11 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 | Sparse dataframe to databases (coming soon) |
 
 #### 12.3. Gathering the statistical details of a database
-| Approaches                           |
-|--------------------------------------|
-| Transactional database (coming soon) |
-| Temporal database (coming soon)      |
-| Utility database (coming soon)       |
+| Approaches                                                                                                                                                                                                                                                        |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Transactional database <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/extras/stats/TransactionalDatabase.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> |
+| Temporal database <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/extras/stats/TemporalDatabase.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>           |
+| Utility database (coming soon)                                                                                                                                                                                                                                    |
 
 #### 12.4. Generating Latex code for the experimental results
 | Approaches               |
