@@ -663,3 +663,19 @@ class GSpan(_ab._gSpan):
             mappings.append(mapping)
         return mappings
 
+    def saveSubgraphsByGraphId(self, oFile):
+        """
+        Save subgraphs by graph ID as a flat transaction, such that each row represents the graph ID and each row can contain multiple subgraph IDs.
+        """
+        graph_to_subgraphs = {}
+        
+        for i, subgraph in enumerate(self.frequentSubgraphs):
+            for graph_id in subgraph.setOfGraphsIds:
+                if graph_id not in graph_to_subgraphs:
+                    graph_to_subgraphs[graph_id] = []
+                graph_to_subgraphs[graph_id].append(i)
+        
+        with open(oFile, 'w') as f:
+            for graph_id, subgraph_ids in graph_to_subgraphs.items():
+                f.write(f"{graph_id}: {' '.join(map(str, subgraph_ids))}\n")
+
