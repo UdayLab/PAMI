@@ -547,6 +547,12 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 | Transactional database <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/extras/syntheticDataGenerators/TransactionalDatabase.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> | |
 | Temporal database <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/extras/syntheticDataGenerators/TemporalDatabase.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>           |
 | Utility database (coming soon)                                                                                                                                                                                                                                                       |
+| spatio-transactional database (coming soon)                                                                                                                                                                                                                                          |
+| spatio-temporal database (coming soon)                                                                                                                                                                                                                                               |
+| fuzzy transactional database (coming soon)                                                                                                                                                                                                                                           |
+| fuzzy temporal database (coming soon)                                                                                                                                                                                                                                                |
+| Sequence database generator (coming soon)                                                                                                                                                                                                                                            |
+
 
 #### 12.2. Converting a dataframe into a specific database type
 | Approaches                                  |
