@@ -321,7 +321,7 @@ class CoMine(_ab._correlatedPatterns):
                 itemCounts[item] += count
 
         # print(newRoot.item, itemCounts.keys())
-        itemCounts = {k:v for k, v in itemCounts.items() if v >= self._minSup}
+        itemCounts = {k:v for k, v in itemCounts.items() if v >= self._minSup and v/self._maxSup(newRoot.item, k) >= self._minAllConf}
         if len(itemCounts) == 0:
             return
     
