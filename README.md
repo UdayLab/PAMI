@@ -68,7 +68,12 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 ***
 # Recent Updates
 
-- Version 2024.04.1.2: Introduced two new frequent subgraph mining algorithms, namely gspan and TKG. Optimized the frequent pattern mining algorithms.
+- **Version 2024.05.01:** 
+In this latest version, the following updates have been made:
+  - Included two new algorithms, **Gspan and TKG**, for frequent subgraph mining.
+  - Updated three Synthetic Data Generator, **transactional database, temporal database, and geo-referenced transactional database**.
+  - Optimized the following frequent pattern mining algorithms: **Apriori, Aprioribitset, ECLAT, ECLATbitset, FPGrowth, and CHARM**.
+  - startMine() function has been deprecated to mine() function.
 
 Total number of algorithms: 83
 
@@ -142,10 +147,9 @@ from PAMI.frequentPattern.basic import FPGrowth as alg
 fileURL = "https://u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/Transactional_T10I4D100K.csv"
 minSup=300
 obj = alg.FPGrowth(iFile=fileURL, minSup=minSup, sep='\t')
-obj.mine()
+obj.startMine()
 obj.save('frequentPatternsAtMinSupCount300.txt')
 frequentPatternsDF= obj.getPatternsAsDataFrame()
-
 print('Total No of patterns: ' + str(len(frequentPatternsDF))) #print the total number of patterns
 print('Runtime: ' + str(obj.getRuntime())) #measure the runtime
 print('Memory (RSS): ' + str(obj.getMemoryRSS()))
@@ -225,7 +229,6 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 
 ***
 # Tutorials
-
 ### 0. Association Rule Mining
 
 | Basic                                                                                                                                                                                                                                                |
@@ -233,8 +236,6 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 | Confidence <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/associationRules/basic/confidence.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> |
 | Lift <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/associationRules/basic/lift.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>             |
 | Leverage <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/associationRules/basic/leverage.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>     |
-
-
 
 ### 1. Pattern mining in binary transactional databases
 
@@ -546,6 +547,12 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 | Transactional database <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/extras/syntheticDataGenerators/TransactionalDatabase.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> | |
 | Temporal database <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/extras/syntheticDataGenerators/TemporalDatabase.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>           |
 | Utility database (coming soon)                                                                                                                                                                                                                                                       |
+| spatio-transactional database (coming soon)                                                                                                                                                                                                                                          |
+| spatio-temporal database (coming soon)                                                                                                                                                                                                                                               |
+| fuzzy transactional database (coming soon)                                                                                                                                                                                                                                           |
+| fuzzy temporal database (coming soon)                                                                                                                                                                                                                                                |
+| Sequence database generator (coming soon)                                                                                                                                                                                                                                            |
+
 
 #### 12.2. Converting a dataframe into a specific database type
 | Approaches                                  |
@@ -554,11 +561,11 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 | Sparse dataframe to databases (coming soon) |
 
 #### 12.3. Gathering the statistical details of a database
-| Approaches                           |
-|--------------------------------------|
-| Transactional database (coming soon) |
-| Temporal database (coming soon)      |
-| Utility database (coming soon)       |
+| Approaches                                                                                                                                                                                                                                                        |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Transactional database <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/extras/stats/TransactionalDatabase.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> |
+| Temporal database <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/extras/stats/TemporalDatabase.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>           |
+| Utility database (coming soon)                                                                                                                                                                                                                                    |
 
 #### 12.4. Generating Latex code for the experimental results
 | Approaches               |
@@ -569,7 +576,7 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 
 # Real World Case Studies
 
-1. Air pollution analytics <a target="_blank" href="https://colab.research.google.com/github/vanithakattumuri/PAMI/blob/main/notebooks/airPollutionAnalytics.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+1. Air pollution analytics <a target="_blank" href="https://colab.research.google.com/github/udayLab/PAMI/blob/main/notebooks/airPollutionAnalytics.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 
 [Go to Top](#table-of-contents)
