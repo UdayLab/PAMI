@@ -374,31 +374,38 @@ class FAE(_ab._frequentPatterns):
 
     def getPatternsAsDataFrame(self):
         """
+
         Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
 
-        dataFrame = {}
-        data = []
-        for a, b in self._finalPatterns.items():
-            data.append([a.replace('\t', ' '), b])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
-        return dataFrame
+        # dataframe = {}
+        # data = []
+        # for a, b in self._finalPatterns.items():
+        #     data.append([a.replace('\t', ' '), b])
+        #     dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+
+        dataframe = _ab._pd.DataFrame(list([[x.replace('\t', ' '), y] for x,y in self._finalPatterns.items()]), columns=['Patterns', 'Support'])
+
+        return dataframe
 
     def save(self, outFile):
         """
+
         Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
-        :type outFile: file
+
+        :type outFile: csvfile
+
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            patternsAndSupport = x.strip() + ":" + str(y)
-            writer.write("%s \n" % patternsAndSupport)
+            s1 = x.strip() + ":" + str(y)
+            writer.write("%s \n" % s1)
 
     def getPatterns(self):
         """
@@ -409,7 +416,7 @@ class FAE(_ab._frequentPatterns):
         """
         return self._finalPatterns
 
-    def printTOPK(self):
+    def printResults(self):
         """
         This function is used to print the results
         """
@@ -435,3 +442,4 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
