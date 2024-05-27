@@ -266,18 +266,14 @@ class GSpan(_ab._gSpan):
         """
         # Get the unique identifier for the given graph
         gid = g.getId()
-        # print(gid)
         # Initialize a dictionary to store potential extensions
         extensions = {}
 
         # If the DFS code is empty, consider all edges of the graph for extension
         if c.isEmpty():
-            print('1')
             for vertex in g.vertices:
-                print(vertex)
                 for e in vertex.getEdgeList():
                     # Determine the order of vertex labels to maintain consistency
-                    print(e)
                     v1Label = g.getVLabel(e.v1)
                     v2Label = g.getVLabel(e.v2)
                     if v1Label < v2Label:
@@ -288,11 +284,9 @@ class GSpan(_ab._gSpan):
                     # Update the extensions dictionary with new or existing extended edges
                     setOfGraphIds = extensions.get(ee1, set())
                     setOfGraphIds.add(gid)
-                    # print(f'{ee1}: {setOfGraphIds}')
                     extensions[ee1] = setOfGraphIds
         else:
             # For non-empty DFS code, focus on extending from the rightmost path
-            print('2')
             rightMost = c.getRightMost()
             isoms = self.subgraphIsomorphisms(c, g)
 
@@ -452,9 +446,6 @@ class GSpan(_ab._gSpan):
         canC = _ab.DFSCode()
         for i in range(c.size):
             extensions = self.rightMostPathExtensionsFromSingle(canC, _ab.Graph(-1, None, c))
-            # print('----------')
-            # print(extensions)
-            # print('----------')
             minEe = None
             for ee in extensions.keys():
                 if minEe is None or ee.smallerThan(minEe):
@@ -683,7 +674,9 @@ class GSpan(_ab._gSpan):
                 if graphId not in graphToSubgraphs:
                     graphToSubgraphs[graphId] = []
                 graphToSubgraphs[graphId].append(i)
-        
+
+        graphToSubgraphs = {k: graphToSubgraphs[k] for k in sorted(graphToSubgraphs)}
+
         with open(oFile, 'w') as f:
-            for graphId, subgraphIds in graphToSubgraphs.items():
-                f.write(f"{graphId}: {' '.join(map(str, subgraphIds))}\n")
+            for _, subgraphIds in graphToSubgraphs.items():
+                f.write(f"{' '.join(map(str, subgraphIds))}\n")
