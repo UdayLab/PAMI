@@ -408,7 +408,7 @@ class CoMine(_ab._correlatedPatterns):
 
     def _saveItemSet(self, prefix, prefixLength, support) -> None:
         """
-        To save the correlated patterns mined form correlatedPatternTree
+        To save the correlated patterns mined form correlatedPatternTree and patterns were stored in a global variable finalPatterns.
 
         :param prefix: the correlated pattern
         :type prefix: list
@@ -417,8 +417,6 @@ class CoMine(_ab._correlatedPatterns):
         :param support: the support of a pattern
         :type support :  int
         :return: None
-
-        The correlated patterns were stored in a global variable finalPatterns
         """
         all_conf = self._getRatio(prefix, prefixLength, support)
         if all_conf < self._minAllConf:
