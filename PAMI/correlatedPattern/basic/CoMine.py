@@ -1,7 +1,6 @@
 # CoMine is one of the fundamental algorithm to discover correlated patterns in a transactional database.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
 #
 #             from PAMI.correlatedPattern.basic import CoMine as alg
 #
@@ -15,7 +14,7 @@
 #
 #             obj.mine()
 #
-#             Rules = obj.getPatterns()
+#             Patterns = obj.getPatterns()
 #
 #             print("Total number of  Patterns:", len(Patterns))
 #
@@ -71,9 +70,8 @@ class _Node:
                         **child** (*list*) -- **To maintain the children of node**
                         **nodeLink** (*node*) -- **Points to the node with same itemId**
 
-    :**Methods**:
-            getChild(itemName)
-                returns the node with same itemName from correlatedPatternTree
+    :**Methods**:    **getChild (itemName) -- this method returns the node with same itemName from correlatedPatternTree**
+
     """
 
     def __init__(self) -> None:
@@ -104,18 +102,11 @@ class _Tree:
                         **mapItemLastNodes** (*dictionary*) -- **representing the map that indicates the last node for each item**
                         **root** (*Node*) -- **representing the root Node in a tree**
 
-    :**Methods**:
-
-        createHeaderList(items,minSup)
-            takes items only which are greater than minSup and sort the items in ascending order
-        addTransaction(transaction)
-            creating transaction as a branch in correlatedPatternTree
-        fixNodeLinks(item,newNode)
-            To create the link for nodes with same item
-        printTree(Node)
-            gives the details of node in correlatedPatternGrowth tree
-        addPrefixPath(prefix,port,minSup)
-           It takes the items in prefix pattern whose support is >=minSup and construct a subtree
+    :**Methods**:    **createHeaderList(items,minSup)** -- **takes items only which are greater than minSup and sort the items in ascending order**
+                     **addTransaction(transaction)**-- **creating transaction as a branch in correlatedPatternTree**
+                     **fixNodeLinks(item,newNode)** -- **To create the link for nodes with same item**
+                     **printTree(Node)** -- **gives the details of node in correlatedPatternGrowth tree**
+                     **addPrefixPath(prefix,port,minSup)** -- **It takes the items in prefix pattern whose support is >=minSup and construct a subtree**
     """
 
     def __init__(self) -> None:
@@ -316,7 +307,7 @@ class CoMine(_ab._correlatedPatterns):
     Credits
     =======
 
-             The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
+    The complete program was written by B.Sai Chitra and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
     """
 
