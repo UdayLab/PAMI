@@ -328,26 +328,35 @@ class ECLATDiffset(_ab._frequentPatterns):
         :rtype: pd.DataFrame
         """
 
-        dataFrame = {}
-        data = []
-        for a, b in self._finalPatterns.items():
-            data.append([a.replace('\t', ' '), b[0]])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+        # dataFrame = {}
+        # data = []
+        # for a, b in self._finalPatterns.items():
+        #     data.append([a.replace('\t', ' '), b[0]])
+        #     dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+
+        dataFrame = _ab._pd.DataFrame(list([[" ".join(x), y] for x,y in self._finalPatterns.items()]), columns=['Patterns', 'Support'])
+        
         return dataFrame
 
-    def save(self, outFile):
+    def save(self, outFile: str, seperator = "\t" ) -> None:
         """
 
         Complete set of frequent patterns will be loaded in to an output csv file.
 
         :param outFile: name of the output file
         :type outFile: csvfile
+        :return: None
         """
-        self._oFile = outFile
-        writer = open(self._oFile, 'w+')
-        for x, y in self._finalPatterns.items():
-            patternsAndSupport = x.strip() + ":" + str(y[0])
-            writer.write("%s \n" % patternsAndSupport)
+
+        # self._oFile = outFile
+        # writer = open(self._oFile, 'w+')
+        # for x, y in self._finalPatterns.items():
+        #     patternsAndSupport = x.strip() + ":" + str(y[0])
+        #     writer.write("%s \n" % patternsAndSupport)
+        with open(outFile, 'w') as f:
+            for x, y in self._finalPatterns.items():
+                x = seperator.join(x)
+                f.write(f"{x}:{y}\n")
 
     def getPatterns(self):
         """
