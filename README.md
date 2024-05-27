@@ -547,6 +547,12 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 | Transactional database <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/extras/syntheticDataGenerators/TransactionalDatabase.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> | |
 | Temporal database <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/extras/syntheticDataGenerators/TemporalDatabase.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>           |
 | Utility database (coming soon)                                                                                                                                                                                                                                                       |
+| spatio-transactional database (coming soon)                                                                                                                                                                                                                                          |
+| spatio-temporal database (coming soon)                                                                                                                                                                                                                                               |
+| fuzzy transactional database (coming soon)                                                                                                                                                                                                                                           |
+| fuzzy temporal database (coming soon)                                                                                                                                                                                                                                                |
+| Sequence database generator (coming soon)                                                                                                                                                                                                                                            |
+
 
 #### 12.2. Converting a dataframe into a specific database type
 | Approaches                                  |
@@ -555,11 +561,11 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 | Sparse dataframe to databases (coming soon) |
 
 #### 12.3. Gathering the statistical details of a database
-| Approaches                           |
-|--------------------------------------|
-| Transactional database (coming soon) |
-| Temporal database (coming soon)      |
-| Utility database (coming soon)       |
+| Approaches                                                                                                                                                                                                                                                        |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Transactional database <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/extras/stats/TransactionalDatabase.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> |
+| Temporal database <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/extras/stats/TemporalDatabase.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>           |
+| Utility database (coming soon)                                                                                                                                                                                                                                    |
 
 #### 12.4. Generating Latex code for the experimental results
 | Approaches               |
@@ -570,7 +576,7 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 
 # Real World Case Studies
 
-1. Air pollution analytics <a target="_blank" href="https://colab.research.google.com/github/vanithakattumuri/PAMI/blob/main/notebooks/airPollutionAnalytics.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+1. Air pollution analytics <a target="_blank" href="https://colab.research.google.com/github/udayLab/PAMI/blob/main/notebooks/airPollutionAnalytics.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 
 [Go to Top](#table-of-contents)

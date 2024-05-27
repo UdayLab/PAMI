@@ -348,26 +348,29 @@ class Aprioribitset(_ab._frequentPatterns):
         #     dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         # print("Time taken to convert the frequent patterns into DataFrame is: ", _ab._time.time() - time)
 
-
-        dataFrame = _ab._pd.DataFrame(list(self._finalPatterns.items()), columns=['Patterns', 'Support'])
+        dataFrame = _ab._pd.DataFrame(list([[" ".join(x), y] for x,y in self._finalPatterns.items()]), columns=['Patterns', 'Support'])
+        # dataFrame = _ab._pd.DataFrame(list(self._finalPatterns.items()), columns=['Patterns', 'Support'])
 
         return dataFrame
 
-    def save(self, outFile: str) -> None:
+    def save(self, outFile: str, seperator = "\t" ) -> None:
         """
 
         Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
-
         :type outFile: csvfile
-
         :return: None
-
         """
+
+        # self._oFile = outFile
+        # writer = open(self._oFile, 'w+')
+        # for x, y in self._finalPatterns.items():
+        #     patternsAndSupport = x.strip() + ":" + str(y[0])
+        #     writer.write("%s \n" % patternsAndSupport)
         with open(outFile, 'w') as f:
             for x, y in self._finalPatterns.items():
-                x = self._sep.join(x)
+                x = seperator.join(x)
                 f.write(f"{x}:{y}\n")
 
     def getPatterns(self):
@@ -405,4 +408,3 @@ if __name__ == "__main__":
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
-        

@@ -52,14 +52,13 @@ Copyright (C)  2021 Rage Uday Kiran
 """
 
 
-# from abstract import *
-
 from PAMI.frequentPattern.basic import abstract as _ab
 from deprecated import deprecated
 
 
 class ECLATDiffset(_ab._frequentPatterns):
     """
+
     :**Description**:   ECLATDiffset uses diffset to extract the frequent patterns in a transactional database.
 
     :**Reference**:  KDD '03: Proceedings of the ninth ACM SIGKDD international conference on Knowledge discovery and data mining
@@ -323,37 +322,46 @@ class ECLATDiffset(_ab._frequentPatterns):
     def getPatternsAsDataFrame(self):
         """
 
-        Storing final frequent patterns in a dataframe
+        Storing final frequent patterns in a dataframe.
 
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
 
-        dataFrame = {}
-        data = []
-        for a, b in self._finalPatterns.items():
-            data.append([a.replace('\t', ' '), b[0]])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+        # dataFrame = {}
+        # data = []
+        # for a, b in self._finalPatterns.items():
+        #     data.append([a.replace('\t', ' '), b[0]])
+        #     dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+
+        dataFrame = _ab._pd.DataFrame(list([[" ".join(x), y] for x,y in self._finalPatterns.items()]), columns=['Patterns', 'Support'])
+        
         return dataFrame
 
-    def save(self, outFile):
+    def save(self, outFile: str, seperator = "\t" ) -> None:
         """
 
-        Complete set of frequent patterns will be loaded in to an output file
+        Complete set of frequent patterns will be loaded in to an output csv file.
 
         :param outFile: name of the output file
         :type outFile: csvfile
+        :return: None
         """
-        self._oFile = outFile
-        writer = open(self._oFile, 'w+')
-        for x, y in self._finalPatterns.items():
-            patternsAndSupport = x.strip() + ":" + str(y[0])
-            writer.write("%s \n" % patternsAndSupport)
+
+        # self._oFile = outFile
+        # writer = open(self._oFile, 'w+')
+        # for x, y in self._finalPatterns.items():
+        #     patternsAndSupport = x.strip() + ":" + str(y[0])
+        #     writer.write("%s \n" % patternsAndSupport)
+        with open(outFile, 'w') as f:
+            for x, y in self._finalPatterns.items():
+                x = seperator.join(x)
+                f.write(f"{x}:{y}\n")
 
     def getPatterns(self):
         """
 
-        Function to send the set of frequent patterns after completion of the mining process
+        This function returns the frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
         :rtype: dict
@@ -362,7 +370,7 @@ class ECLATDiffset(_ab._frequentPatterns):
 
     def printResults(self):
         """
-        This function is used to print the results
+        This function is used to print the results.
         """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

@@ -478,15 +478,17 @@ class FPGrowth(_fp._frequentPatterns):
         :rtype: pd.DataFrame
         """
 
-        # dataframe = {}
-        # data = []
-        # for a, b in self.__finalPatterns.items():
-        #     data.append([a.replace('\t', ' '), b])
-        #     dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
-        dataFrame = _fp._pd.DataFrame(list(self._finalPatterns.items()), columns=['Patterns', 'Support'])
+        # # dataframe = {}
+        # # data = []
+        # # for a, b in self.__finalPatterns.items():
+        # #     data.append([a.replace('\t', ' '), b])
+        # #     dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
+        # dataFrame = _fp._pd.DataFrame(list(self._finalPatterns.items()), columns=['Patterns', 'Support'])
+        dataFrame = _fp._pd.DataFrame(list([[" ".join(x), y] for x,y in self._finalPatterns.items()]), columns=['Patterns', 'Support'])
+
         return dataFrame
 
-    def save(self, outFile: str) -> None:
+    def save(self, outFile: str, seperator = "\t" ) -> None:
         """
 
         Complete set of frequent patterns will be loaded in to an output file
@@ -497,7 +499,7 @@ class FPGrowth(_fp._frequentPatterns):
         """
         with open(outFile, 'w') as f:
             for x, y in self._finalPatterns.items():
-                x = self._sep.join(x)
+                x = seperator.join(x)
                 f.write(f"{x}:{y}\n")
 
     def getPatterns(self) -> Dict[str, int]:

@@ -178,10 +178,15 @@ class lift:
                     # print("Using column: ", col, "for support")
             for i in range(len(pattern)):
                 # if pattern[i] != tuple(): exit()
-                if type(pattern[i]) != tuple:
-                    raise ValueError("Pattern should be a tuple. PAMI is going through a major revision. Please raise an issue in the github repository regarding this error and provide information regarding input and algorithm.\
-                                     In the meanwhile try saving the patterns to a file using (alg).save() and use the file as input. If that doesn't work, please raise an issue in the github repository.")
-                s = tuple(sorted(pattern[i]))
+                if type(pattern[i]) != str:
+                    raise ValueError("Pattern should be a tuple. PAMI is going through a major revision.\
+                                      Please raise an issue in the github repository regarding this error and provide information regarding input and algorithm.\
+                                      In the meanwhile try saving the patterns to a file using (alg).save() and use the file as input. \
+                                      If that doesn't work, please raise an issue in the github repository.\
+                                      Got pattern: ", pattern[i], "at index: ", i, "in the dataframe, type: ", type(pattern[i]))
+                # s = tuple(sorted(pattern[i]))
+                s = pattern[i].split(self._sep)
+                s = tuple(sorted(s))
                 self._associationRules[s] = support[i]
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
@@ -276,7 +281,7 @@ class lift:
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getAssociationRulesAsDataFrame(self):
         """
         Storing final frequent patterns in a dataframe
 
@@ -292,7 +297,8 @@ class lift:
         # # dataFrame = dataFrame.replace(r'\r+|\n+|\t+',' ', regex=True)
         # return dataFrame
 
-        dataFrame = _ab._pd.DataFrame(list(self._associationRules.items()), columns=['Patterns', 'Support'])
+        # dataFrame = _ab._pd.DataFrame(list(self._associationRules.items()), columns=['Patterns', 'Support'])
+        dataFrame = _ab._pd.DataFrame(list([[" ".join(x), y] for x, y in self._associationRules.items()]), columns=['Patterns', 'Support'])
         return dataFrame
 
     def save(self, outFile: str) -> None:
