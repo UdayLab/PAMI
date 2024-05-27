@@ -70,7 +70,7 @@ class _Node:
                         **child** (*list*) -- **To maintain the children of node**
                         **nodeLink** (*node*) -- **Points to the node with same itemId**
 
-    :**Methods**:    **getChild (itemName) -- this method returns the node with same itemName from correlatedPatternTree**
+    :**Methods**:    **getChild (itemName)** -- **this method returns the node with same itemName from correlatedPatternTree**
 
     """
 
