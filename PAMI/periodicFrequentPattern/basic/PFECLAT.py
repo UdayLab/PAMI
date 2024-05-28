@@ -99,7 +99,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                         - **getMemoryRSS()** -- *Total amount of RSS memory consumed by the mining process will be retrieved from this function.*
                         - **getRuntime()** -- *Total amount of runtime taken by the mining process will be retrieved from this function.*
                         - **creatingOneItemSets()** -- *Scan the database and store the items with their timestamps which are periodic frequent.*
-                        - **getPeriodAndSupport()()** -- * Calculates the support and period for a list of timestamps.*
+                        - **getPeriodAndSupport()** -- * Calculates the support and period for a list of timestamps.*
                         - **Generation()** -- *Used to implement prefix class equivalence method to generate the periodic patterns recursively*
 
     Execution methods
