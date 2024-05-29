@@ -555,10 +555,11 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 
 
 #### 12.2. Converting a dataframe into a specific database type
-| Approaches                                  |
-|---------------------------------------------|
-| Dense dataframe to databases (coming soon)  |
-| Sparse dataframe to databases (coming soon) |
+| Approaches                                                                                                                                                                                                                                                   |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Dense dataframe to databases <a target="_blank" href="https://colab.research.google.com/github/udayLab/PAMI/blob/main/notebooks/extras/DF2DB/denseDF2DB.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> |
+| Sparse dataframe to databases (coming soon)                                                                                                                                                                                                                  |
+
 
 #### 12.3. Gathering the statistical details of a database
 | Approaches                                                                                                                                                                                                                                                        |
