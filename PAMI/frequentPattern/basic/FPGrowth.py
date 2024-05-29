@@ -227,6 +227,10 @@ class FPGrowth(_fp._frequentPatterns):
             i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
                 self.__Database = self._iFile['Transactions'].tolist()
+                self.__Database = [x.split(self._sep) for x in self.__Database]
+            else:
+                print("The column name should be Transactions and each line should be separated by tab space or a seperator specified by the user")
+                
 
             #print(self.Database)
         if isinstance(self._iFile, str):
