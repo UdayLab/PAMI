@@ -193,6 +193,10 @@ class CHARM(_ab._frequentPatterns):
             i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
                 self._Database = self._iFile['Transactions'].tolist()
+                self._Database = [i.split(self._sep) for i in self._Database]
+
+            else:
+                print("The column name should be Transactions and each line should be separated by tab space or a seperator specified by the user")
             for i in self._Database:
                 self._lno += 1
                 for j in i:

@@ -161,10 +161,10 @@ class Apriori(_ab._frequentPatterns):
                 print("its empty..")
             i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
-                temp = self._iFile['Transactions'].tolist()
-
-            for k in temp:
-                self._Database.append(set(k))
+                self._Database = self._iFile['Transactions'].tolist()
+                self._Database = [x.split(self._sep) for x in self._Database]
+            else:
+                print("The column name should be Transactions and each line should be separated by tab space or a seperator specified by the user")
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
