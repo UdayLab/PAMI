@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PPGrowth &mdash; PAMI 2024.04.23 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=391540b0"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -107,13 +109,11 @@
            <div itemprop="articleBody">
              
   <section id="module-PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth">
-<span id="ppgrowth"></span><h1>PPGrowth<a class="headerlink" href="#module-PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth" title="Link to this heading"></a></h1>
+<span id="ppgrowth"></span><h1>PPGrowth<a class="headerlink" href="#module-PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.</span></span><span class="sig-name descname"><span class="pre">PPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">periodicSupport</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.</span></span><span class="sig-name descname"><span class="pre">PPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">periodicSupport</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_partialPeriodicPatterns</span></code></p>
-<section id="about-this-algorithm">
-<h2>About this algorithm<a class="headerlink" href="#about-this-algorithm" title="Link to this heading"></a></h2>
 <dl class="field-list">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
 <dd class="field-odd"><p>PPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.</p>
@@ -125,17 +125,15 @@
 <div><p>pp. 1020-1028, doi: 10.1109/ICDMW.2019.00147.</p>
 </div></blockquote>
 </dd>
-<dt class="field-odd">param  iFile<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str :
-Name of the Input file to mine complete set of periodic frequent pattern’s</p>
-</dd>
-<dt class="field-even">param  oFile<span class="colon">:</span></dt>
-<dd class="field-even"><p>str :
-Name of the output file to store complete set of periodic frequent pattern’s</p>
-</dd>
-<dt class="field-odd">param  sep<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str :
-This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of periodic frequent pattern’s</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of periodic frequent pattern’s</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Attributes<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
@@ -207,9 +205,6 @@ However, the users can override their default separator.</p>
 </dl>
 </dd>
 </dl>
-</section>
-<section id="execution-methods">
-<h2>Execution methods<a class="headerlink" href="#execution-methods" title="Link to this heading"></a></h2>
 <p><strong>Terminal command</strong></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
@@ -220,8 +215,6 @@ However, the users can override their default separator.</p>
 <span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$  </span>python3<span class="w"> </span>PPGrowth.py<span class="w"> </span>sampleTDB.txt<span class="w"> </span>patterns.txt<span class="w"> </span><span class="m">0</span>.3<span class="w"> </span><span class="m">0</span>.4
 </pre></div>
 </div>
-<section id="sample-run-of-importing-the-code">
-<h3><strong>Sample run of importing the code:</strong><a class="headerlink" href="#sample-run-of-importing-the-code" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>from PAMI.periodicFrequentPattern.basic import PPGrowth as alg</p>
 <p>obj = alg.PPGrowth(iFile, minSup, maxPer)</p>
@@ -237,21 +230,18 @@ However, the users can override their default separator.</p>
 <p>run = obj.getRuntime()</p>
 <p>print(“Total ExecutionTime in seconds:”, run)</p>
 </div></blockquote>
-</section>
-<section id="credits">
-<h3><strong>Credits:</strong><a class="headerlink" href="#credits" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.Mine">
-<span class="sig-name descname"><span class="pre">Mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth.Mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.Mine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">Mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth.Mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.Mine" title="Permalink to this definition"></a></dt>
 <dd><p>Mining process will start from this function</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getMemoryRSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -265,7 +255,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getMemoryUSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -279,7 +269,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of periodic-frequent patterns after completion of the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -293,7 +283,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>Storing final periodic-frequent patterns in a dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -307,7 +297,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getRuntime" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -321,13 +311,13 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.printResults" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.printResults" title="Permalink to this definition"></a></dt>
 <dd><p>This function is used to print the results</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.save" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of periodic-frequent patterns will be loaded in to a output file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -338,12 +328,10 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.startMine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPatternInMultipleTimeSeries/PPGrowth.html#PPGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPatternInMultipleTimeSeries.PPGrowth.PPGrowth.startMine" title="Permalink to this definition"></a></dt>
 <dd><p>Mining process will start from this function</p>
 </dd></dl>
 
-</section>
-</section>
 </dd></dl>
 
 </section>

@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.uncertainFrequentPattern.basic package &mdash; PAMI 2024.04.23 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=391540b0"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -93,18 +95,16 @@
            <div itemprop="articleBody">
              
   <section id="pami-uncertainfrequentpattern-basic-package">
-<h1>PAMI.uncertainFrequentPattern.basic package<a class="headerlink" href="#pami-uncertainfrequentpattern-basic-package" title="Link to this heading"></a></h1>
+<h1>PAMI.uncertainFrequentPattern.basic package<a class="headerlink" href="#pami-uncertainfrequentpattern-basic-package" title="Permalink to this heading"></a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
 </section>
 <section id="module-PAMI.uncertainFrequentPattern.basic.CUFPTree">
-<span id="pami-uncertainfrequentpattern-basic-cufptree-module"></span><h2>PAMI.uncertainFrequentPattern.basic.CUFPTree module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.CUFPTree" title="Link to this heading"></a></h2>
+<span id="pami-uncertainfrequentpattern-basic-cufptree-module"></span><h2>PAMI.uncertainFrequentPattern.basic.CUFPTree module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.CUFPTree" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.CUFPTree.</span></span><span class="sig-name descname"><span class="pre">CUFPTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.CUFPTree.</span></span><span class="sig-name descname"><span class="pre">CUFPTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
-<section id="about-this-algorithm">
-<h3>About this algorithm<a class="headerlink" href="#about-this-algorithm" title="Link to this heading"></a></h3>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
 <dd class="field-odd"><p>It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database using CUFP-Tree.</p>
@@ -113,24 +113,20 @@
 <dd class="field-even"><p>Chun-Wei Lin Tzung-PeiHong, ‘new mining approach for uncertain databases using CUFP trees’,
 Expert Systems with Applications, Volume 39, Issue 4, March 2012, Pages 4084-4093, <a class="reference external" href="https://doi.org/10.1016/j.eswa.2011.09.087">https://doi.org/10.1016/j.eswa.2011.09.087</a></p>
 </dd>
-<dt class="field-odd">param  iFile<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str :
-Name of the Input file to mine complete set of Uncertain Frequent Patterns</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of Uncertain Frequent Patterns</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of Uncertain frequent patterns</p></li>
+<li><p><strong>minSup</strong> – int or float or str :
+minimum support thresholds were tuned to find the appropriate ranges in the limited memory</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
 </dd>
-<dt class="field-even">param  oFile<span class="colon">:</span></dt>
-<dd class="field-even"><p>str :
-Name of the output file to store complete set of Uncertain frequent patterns</p>
-</dd>
-<dt class="field-odd">param  minSup<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int or float or str :
-minimum support thresholds were tuned to find the appropriate ranges in the limited memory</p>
-</dd>
-<dt class="field-even">param  sep<span class="colon">:</span></dt>
-<dd class="field-even"><p>str :
-This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p>
-</dd>
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
 </dd>
 <dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the output file or path of the output file</p>
@@ -165,8 +161,8 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Methods<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
 <dt>mine()</dt><dd><p>Mining process will start from here</p>
 </dd>
 <dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
@@ -196,9 +192,6 @@ However, the users can override their default separator.</p>
 </dl>
 </dd>
 </dl>
-</section>
-<section id="execution-methods">
-<h3>Execution methods<a class="headerlink" href="#execution-methods" title="Link to this heading"></a></h3>
 <p><strong>Terminal command</strong></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
@@ -245,15 +238,12 @@ However, the users can override their default separator.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="credits">
-<h3>Credits<a class="headerlink" href="#credits" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by  P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getMemoryRSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -267,7 +257,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getMemoryUSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -281,7 +271,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -295,7 +285,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>Storing final frequent patterns in a dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -309,7 +299,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getRuntime" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -323,7 +313,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.mine">
-<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.mine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.mine" title="Permalink to this definition"></a></dt>
 <dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -334,13 +324,13 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.printResults" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.printResults" title="Permalink to this definition"></a></dt>
 <dd><p>This function is used to print the results</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.save" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -354,7 +344,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.startMine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.startMine" title="Permalink to this definition"></a></dt>
 <dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -363,18 +353,15 @@ However, the users can override their default separator.</p>
 </dl>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
 <section id="module-PAMI.uncertainFrequentPattern.basic.PUFGrowth">
-<span id="pami-uncertainfrequentpattern-basic-pufgrowth-module"></span><h2>PAMI.uncertainFrequentPattern.basic.PUFGrowth module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.PUFGrowth" title="Link to this heading"></a></h2>
+<span id="pami-uncertainfrequentpattern-basic-pufgrowth-module"></span><h2>PAMI.uncertainFrequentPattern.basic.PUFGrowth module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.PUFGrowth" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.PUFGrowth.</span></span><span class="sig-name descname"><span class="pre">PUFGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.PUFGrowth.</span></span><span class="sig-name descname"><span class="pre">PUFGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
-<section id="id1">
-<h3>About this algorithm<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
 <dd class="field-odd"><p>It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database using PUF-Tree.</p>
@@ -450,9 +437,6 @@ However, the users can override their default separator.</p>
 </dl>
 </dd>
 </dl>
-</section>
-<section id="id2">
-<h3>Execution methods<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
 <p><strong>Terminal command</strong></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
@@ -499,15 +483,12 @@ However, the users can override their default separator.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="id3">
-<h3>Credits<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by  P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getMemoryRSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -521,7 +502,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getMemoryUSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -535,7 +516,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -549,7 +530,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>Storing final frequent patterns in a dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -563,7 +544,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getRuntime" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -577,19 +558,19 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.mine">
-<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.mine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.mine" title="Permalink to this definition"></a></dt>
 <dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.printResults" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.printResults" title="Permalink to this definition"></a></dt>
 <dd><p>This function is used to print the results</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.save" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -600,22 +581,19 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.startMine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.startMine" title="Permalink to this definition"></a></dt>
 <dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</p>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
 <section id="module-PAMI.uncertainFrequentPattern.basic.TUFP">
-<span id="pami-uncertainfrequentpattern-basic-tufp-module"></span><h2>PAMI.uncertainFrequentPattern.basic.TUFP module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.TUFP" title="Link to this heading"></a></h2>
+<span id="pami-uncertainfrequentpattern-basic-tufp-module"></span><h2>PAMI.uncertainFrequentPattern.basic.TUFP module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.TUFP" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.TUFP.</span></span><span class="sig-name descname"><span class="pre">TUFP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.TUFP.</span></span><span class="sig-name descname"><span class="pre">TUFP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
-<section id="id4">
-<h3>About this algorithm<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
 <dd class="field-odd"><p>It is one of the fundamental algorithm to discover top-k frequent patterns in a uncertain transactional database using CUP-Lists.</p>
@@ -691,9 +669,6 @@ However, the users can override their default separator.</p>
 </dl>
 </dd>
 </dl>
-</section>
-<section id="id5">
-<h3>Execution methods<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
 <p><strong>Terminal command</strong></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
@@ -740,15 +715,12 @@ However, the users can override their default separator.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="id6">
-<h3>Credits<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by   P.Likhitha   under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getMemoryRSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -762,7 +734,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getMemoryUSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -776,7 +748,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -790,7 +762,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>Storing final frequent patterns in a dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -804,7 +776,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getRuntime" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -818,19 +790,19 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.mine">
-<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.mine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.mine" title="Permalink to this definition"></a></dt>
 <dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.printResults" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.printResults" title="Permalink to this definition"></a></dt>
 <dd><p>This function is used to print the results</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.save" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -841,22 +813,19 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.startMine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.startMine" title="Permalink to this definition"></a></dt>
 <dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</p>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
 <section id="module-PAMI.uncertainFrequentPattern.basic.TubeP">
-<span id="pami-uncertainfrequentpattern-basic-tubep-module"></span><h2>PAMI.uncertainFrequentPattern.basic.TubeP module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.TubeP" title="Link to this heading"></a></h2>
+<span id="pami-uncertainfrequentpattern-basic-tubep-module"></span><h2>PAMI.uncertainFrequentPattern.basic.TubeP module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.TubeP" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TUFP">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.TubeP.</span></span><span class="sig-name descname"><span class="pre">TUFP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.TubeP.</span></span><span class="sig-name descname"><span class="pre">TUFP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
-<section id="id7">
-<h3>About this algorithm<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
 <dd class="field-odd"><p>It is one of the fundamental algorithm to discover top-k frequent patterns in a uncertain transactional database using CUP-Lists.</p>
@@ -932,9 +901,6 @@ However, the users can override their default separator.</p>
 </dl>
 </dd>
 </dl>
-</section>
-<section id="id8">
-<h3>Execution methods<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
 <p><strong>Terminal command</strong></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
@@ -982,15 +948,12 @@ However, the users can override their default separator.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="id9">
-<h3>Credits<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by   P.Likhitha   under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.getMemoryRSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1004,7 +967,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.getMemoryUSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1018,7 +981,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.getPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1032,7 +995,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>Storing final frequent patterns in a dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1046,7 +1009,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.getRuntime" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1060,19 +1023,19 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.mine">
-<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.mine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.mine" title="Permalink to this definition"></a></dt>
 <dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.printResults" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.printResults" title="Permalink to this definition"></a></dt>
 <dd><p>This function is used to print the results</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.save" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1083,19 +1046,18 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.startMine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TUFP.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.startMine" title="Permalink to this definition"></a></dt>
 <dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</p>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
 <section id="module-PAMI.uncertainFrequentPattern.basic.TubeS">
-<span id="pami-uncertainfrequentpattern-basic-tubes-module"></span><h2>PAMI.uncertainFrequentPattern.basic.TubeS module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.TubeS" title="Link to this heading"></a></h2>
+<span id="pami-uncertainfrequentpattern-basic-tubes-module"></span><h2>PAMI.uncertainFrequentPattern.basic.TubeS module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.TubeS" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.Second">
-<span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.TubeS.</span></span><span class="sig-name descname"><span class="pre">Second</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transaction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#Second"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.Second" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.TubeS.</span></span><span class="sig-name descname"><span class="pre">Second</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transaction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#Second"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.Second" title="Permalink to this definition"></a></dt>
 <dd><p>To calculate the second probability of a node in transaction</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1112,10 +1074,8 @@ However, the users can override their default separator.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.TubeS.</span></span><span class="sig-name descname"><span class="pre">TubeS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.TubeS.</span></span><span class="sig-name descname"><span class="pre">TubeS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
-<section id="id10">
-<h3>About this algorithm<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
 <dd class="field-odd"><p>TubeS is one of the fastest algorithm to discover frequent patterns in a uncertain transactional database.</p>
@@ -1189,9 +1149,6 @@ However, the users can override their default separator.</p>
 </dl>
 </dd>
 </dl>
-</section>
-<section id="id11">
-<h3>Execution methods<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
 <p><strong>Terminal command</strong></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
@@ -1238,15 +1195,12 @@ However, the users can override their default separator.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="id12">
-<h3>Credits<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getMemoryRSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1260,7 +1214,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getMemoryUSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1274,7 +1228,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1288,7 +1242,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>Storing final frequent patterns in a dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1302,7 +1256,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getRuntime" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1316,19 +1270,19 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.mine">
-<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.mine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.mine" title="Permalink to this definition"></a></dt>
 <dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.printResults" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.printResults" title="Permalink to this definition"></a></dt>
 <dd><p>This function is used to print the results</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.save" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1339,18 +1293,17 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.updateTransactions">
-<span class="sig-name descname"><span class="pre">updateTransactions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.updateTransactions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.updateTransactions" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">updateTransactions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.updateTransactions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.updateTransactions" title="Permalink to this definition"></a></dt>
 <dd><p>Remove the items which are not frequent from transactions and updates the transactions with rank of items</p>
 <p>:param dict1 : frequent items with support
 :type dict1 : dictionary</p>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.printTree">
-<span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.TubeS.</span></span><span class="sig-name descname"><span class="pre">printTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#printTree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.printTree" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.TubeS.</span></span><span class="sig-name descname"><span class="pre">printTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#printTree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.printTree" title="Permalink to this definition"></a></dt>
 <dd><p>To print the tree with root node through recursion</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1364,10 +1317,10 @@ However, the users can override their default separator.</p>
 
 </section>
 <section id="module-PAMI.uncertainFrequentPattern.basic.UFGrowth">
-<span id="pami-uncertainfrequentpattern-basic-ufgrowth-module"></span><h2>PAMI.uncertainFrequentPattern.basic.UFGrowth module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.UFGrowth" title="Link to this heading"></a></h2>
+<span id="pami-uncertainfrequentpattern-basic-ufgrowth-module"></span><h2>PAMI.uncertainFrequentPattern.basic.UFGrowth module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.UFGrowth" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.UFGrowth.</span></span><span class="sig-name descname"><span class="pre">UFGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.UFGrowth.</span></span><span class="sig-name descname"><span class="pre">UFGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
@@ -1444,8 +1397,6 @@ However, the users can override their default separator.</p>
 </dl>
 </dd>
 </dl>
-<section id="methods-to-execute-code-on-terminal">
-<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#methods-to-execute-code-on-terminal" title="Link to this heading"></a></h3>
 <blockquote>
 <div><dl>
 <dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">PUFGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
@@ -1462,9 +1413,6 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-</section>
-<section id="importing-this-algorithm-into-a-python-program">
-<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#importing-this-algorithm-into-a-python-program" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.uncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">UFGrowth</span> <span class="k">as</span> <span class="n">alg</span>
 
 <span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">UFGrowth</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
@@ -1492,15 +1440,12 @@ However, the users can override their default separator.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="id13">
-<h3><strong>Credits:</strong><a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by P.Likhitha under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getMemoryRSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function
 :return: returning RSS memory consumed by the mining process
 :rtype: float</p>
@@ -1508,7 +1453,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getMemoryUSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function
 :return: returning USS memory consumed by the mining process
 :rtype: float</p>
@@ -1516,7 +1461,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of frequent patterns after completion of the mining process
 :return: returning frequent patterns
 :rtype: dict</p>
@@ -1524,7 +1469,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>Storing final frequent patterns in a dataframe
 :return: returning frequent patterns in a dataframe
 :rtype: pd.DataFrame</p>
@@ -1532,7 +1477,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getRuntime" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process
 :return: returning total amount of runtime taken by the mining process
 :rtype: float</p>
@@ -1540,36 +1485,33 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.mine">
-<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.mine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.mine" title="Permalink to this definition"></a></dt>
 <dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.printResults" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.printResults" title="Permalink to this definition"></a></dt>
 <dd><p>This function is used to print the results</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.save" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to an output file
 :param outFile: name of the output file
 :type outFile: csv file</p>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
 <section id="module-PAMI.uncertainFrequentPattern.basic.UVECLAT">
-<span id="pami-uncertainfrequentpattern-basic-uveclat-module"></span><h2>PAMI.uncertainFrequentPattern.basic.UVECLAT module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.UVECLAT" title="Link to this heading"></a></h2>
+<span id="pami-uncertainfrequentpattern-basic-uveclat-module"></span><h2>PAMI.uncertainFrequentPattern.basic.UVECLAT module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.UVECLAT" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.UVECLAT.</span></span><span class="sig-name descname"><span class="pre">UVEclat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.UVECLAT.</span></span><span class="sig-name descname"><span class="pre">UVEclat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
-<section id="id14">
-<h3>About this algorithm<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
 <dd class="field-odd"><p>It is one of the fundamental algorithm to discover frequent patterns in an uncertain transactional database using PUF-Tree.</p>
@@ -1638,9 +1580,6 @@ However, the users can override their default separator.</p>
 </dl>
 </dd>
 </dl>
-</section>
-<section id="id15">
-<h3>Execution methods<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
 <p><strong>Terminal command</strong></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
@@ -1655,8 +1594,6 @@ However, the users can override their default separator.</p>
 <p class="admonition-title">Note</p>
 <p>minSup can be specified  in support count or a value between 0 and 1.</p>
 </div>
-<section id="calling-from-a-python-program">
-<h4><strong>Calling from a python program</strong><a class="headerlink" href="#calling-from-a-python-program" title="Link to this heading"></a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.uncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">UVECLAT</span> <span class="k">as</span> <span class="n">alg</span>
 
 <span class="n">iFile</span> <span class="o">=</span> <span class="s1">&#39;sampleDB.txt&#39;</span>
@@ -1688,16 +1625,12 @@ However, the users can override their default separator.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-</section>
-<section id="id16">
-<h3>Credits<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by   P.Likhitha   under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getMemoryRSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1711,7 +1644,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getMemoryUSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1725,7 +1658,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1739,7 +1672,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>Storing final frequent patterns in a dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1753,7 +1686,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getRuntime" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1767,19 +1700,19 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.mine">
-<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.mine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.mine" title="Permalink to this definition"></a></dt>
 <dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.printResults" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.printResults" title="Permalink to this definition"></a></dt>
 <dd><p>This function is used to print the results</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.save" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1788,15 +1721,14 @@ However, the users can override their default separator.</p>
 </dl>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
 <section id="module-PAMI.uncertainFrequentPattern.basic.abstract">
-<span id="pami-uncertainfrequentpattern-basic-abstract-module"></span><h2>PAMI.uncertainFrequentPattern.basic.abstract module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.abstract" title="Link to this heading"></a></h2>
+<span id="pami-uncertainfrequentpattern-basic-abstract-module"></span><h2>PAMI.uncertainFrequentPattern.basic.abstract module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.abstract" title="Permalink to this heading"></a></h2>
 </section>
 <section id="module-PAMI.uncertainFrequentPattern.basic">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic" title="Link to this heading"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic" title="Permalink to this heading"></a></h2>
 </section>
 </section>
 
