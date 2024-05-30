@@ -1,7 +1,6 @@
 # CoMine is one of the fundamental algorithm to discover correlated patterns in a transactional database.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
 #
 #             from PAMI.correlatedPattern.basic import CoMine as alg
 #
@@ -116,6 +115,7 @@ class _Node:
 
 class CoMine(_ab._correlatedPatterns):
     """
+
     About this algorithm
     ====================
 
@@ -123,26 +123,26 @@ class CoMine(_ab._correlatedPatterns):
 
     :**Reference**: Lee, Y.K., Kim, W.Y., Cao, D., Han, J. (2003). CoMine: efficient mining of correlated patterns. In ICDM (pp. 581–584).
 
-    :**parameters**:    **iFile** (*str*) -- **Name of the Input file to mine complete set of correlated patterns**
-                        **oFile** (*str*) -- **Name of the output file to store complete set of correlated patterns**
-                        **minSup** (*int or float or str*) -- **The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.**
-                        **minAllConf** (*float*) -- **The user can specify minAllConf values within the range (0, 1).**
-                        **sep** (*str*) -- **This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.**
+    :**parameters**:    - **iFile** (*str*) -- *Name of the Input file to mine complete set of correlated patterns*
+                        - **oFile** (*str*) -- *Name of the output file to store complete set of correlated patterns*
+                        - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.*
+                        - **minAllConf** (*float*) -- *The user can specify minAllConf values within the range (0, 1).*
+                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
 
-    :**Attributes**:    **memoryUSS** (*float*) -- **To store the total amount of USS memory consumed by the program**
-                        **memoryRSS** (*float*) -- **To store the total amount of RSS memory consumed by the program**
-                        **startTime** (*float*) -- **To record the start time of the mining process**
-                        **endTime** (*float*) -- **To record the completion time of the mining process**
-                        **minSup** (*int*) -- **The user given minSup**
-                        **minAllConf** (*float*) -- **The user given minimum all confidence Ratio(should be in range of 0 to 1)**
-                        **Database** (*list*) -- **To store the transactions of a database in list**
-                        **mapSupport** (*Dictionary*) -- **To maintain the information of item and their frequency**
-                        **lno** (*int*) -- **it represents the total no of transactions**
-                        **tree** (*class*) -- **it represents the Tree class**
-                        **itemSetCount** (*int*) -- **it represents the total no of patterns**
-                        **finalPatterns** (*dict*) -- **it represents to store the patterns**
-                        **itemSetBuffer** (*list*) -- **it represents the store the items in mining**
-                        **maxPatternLength** (*int*) -- **it represents the constraint for pattern length**
+    :**Attributes**:    - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
+                        - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
+                        - **startTime** (*float*) -- *To record the start time of the mining process.*
+                        - **endTime** (*float*) -- *To record the completion time of the mining process.*
+                        - **minSup** (*int*) -- *The user given minSup.*
+                        - **minAllConf** (*float*) -- *The user given minimum all confidence Ratio(should be in range of 0 to 1).*
+                        - **Database** (*list*) -- *To store the transactions of a database in list.*
+                        - **mapSupport** (*Dictionary*) -- *To maintain the information of item and their frequency.*
+                        - **lno** (*int*) -- *it represents the total no of transactions.*
+                        - **tree** (*class*) -- *it represents the Tree class.*
+                        - **itemSetCount** (*int*) -- *it represents the total no of patterns.*
+                        - **finalPatterns** (*dict*) -- *it represents to store the patterns.*
+                        - **itemSetBuffer** (*list*) -- *it represents the store the items in mining.*
+                        - **maxPatternLength** (*int*) -- *it represents the constraint for pattern length.*
 
     Execution methods
     =================

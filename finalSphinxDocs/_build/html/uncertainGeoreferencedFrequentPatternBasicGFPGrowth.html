@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GFPGrowth &mdash; PAMI 2024.04.23 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=391540b0"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -109,13 +111,11 @@
            <div itemprop="articleBody">
              
   <section id="module-PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth">
-<span id="gfpgrowth"></span><h1>GFPGrowth<a class="headerlink" href="#module-PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth" title="Link to this heading"></a></h1>
+<span id="gfpgrowth"></span><h1>GFPGrowth<a class="headerlink" href="#module-PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.</span></span><span class="sig-name descname"><span class="pre">GFPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.</span></span><span class="sig-name descname"><span class="pre">GFPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
-<section id="about-this-algorithm">
-<h2>About this algorithm<a class="headerlink" href="#about-this-algorithm" title="Link to this heading"></a></h2>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
 <dd class="field-odd"><p>GFPGrowth algorithm is used to discover geo-referenced frequent patterns in a uncertain transactional database using GFP-Tree.</p>
@@ -126,24 +126,20 @@
 Transactional Databases”.  PAKDD 2023.
 <a class="reference external" href="https://doi.org/10.1007/978-3-031-33380-4_3">https://doi.org/10.1007/978-3-031-33380-4_3</a></p>
 </dd>
-<dt class="field-odd">param  iFile<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str :
-Name of the Input file to mine complete set of uncertain Geo referenced Frequent Patterns</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of uncertain Geo referenced Frequent Patterns</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of Uncertain Geo referenced frequent patterns</p></li>
+<li><p><strong>minSup</strong> – str:
+minimum support thresholds were tuned to find the appropriate ranges in the limited memory</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
 </dd>
-<dt class="field-even">param  oFile<span class="colon">:</span></dt>
-<dd class="field-even"><p>str :
-Name of the output file to store complete set of Uncertain Geo referenced frequent patterns</p>
-</dd>
-<dt class="field-odd">param  minSup<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str:
-minimum support thresholds were tuned to find the appropriate ranges in the limited memory</p>
-</dd>
-<dt class="field-even">param  sep<span class="colon">:</span></dt>
-<dd class="field-even"><p>str :
-This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p>
-</dd>
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
 </dd>
 <dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the output file or path of the output file</p>
@@ -178,8 +174,8 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Methods<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
 </dd>
 <dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
@@ -209,9 +205,6 @@ However, the users can override their default separator.</p>
 </dl>
 </dd>
 </dl>
-</section>
-<section id="execution-methods">
-<h2>Execution methods<a class="headerlink" href="#execution-methods" title="Link to this heading"></a></h2>
 <p><strong>Terminal command</strong></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
@@ -260,15 +253,12 @@ However, the users can override their default separator.</p>
 </pre></div>
 </div>
 </div></blockquote>
-</section>
-<section id="credits">
-<h2>Credits<a class="headerlink" href="#credits" title="Link to this heading"></a></h2>
 <blockquote>
 <div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getMemoryRSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -282,7 +272,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getMemoryUSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -296,7 +286,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -310,7 +300,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>Storing final frequent patterns in a dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -324,7 +314,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getRuntime" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -338,19 +328,19 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.mine">
-<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.mine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.mine" title="Permalink to this definition"></a></dt>
 <dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.printResults" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.printResults" title="Permalink to this definition"></a></dt>
 <dd><p>This function is used to print the result</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.save" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -361,11 +351,10 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.startMine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainGeoreferencedFrequentPattern/basic/GFPGrowth.html#GFPGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.startMine" title="Permalink to this definition"></a></dt>
 <dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</p>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>

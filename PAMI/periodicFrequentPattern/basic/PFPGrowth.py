@@ -156,7 +156,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
                         - **getMemoryRSS()** -- *Total amount of RSS memory consumed by the mining process will be retrieved from this function.*
                         - **getRuntime()** -- *Total amount of runtime taken by the mining process will be retrieved from this function.*
                         - **creatingItemSets(fileName)** -- *Scans the dataset and stores in a list format.*
-                        - **PeriodicFrequentOneItem()** -- * Extracts the one-periodic-frequent patterns from database.*
+                        - **PeriodicFrequentOneItem()** -- *Extracts the one-periodic-frequent patterns from database.*
                         - **updateDatabases()** -- *Update the database by removing aperiodic items and sort the Database by item decreased support.*
                         - **buildTree()** -- *After updating the Database, remaining items will be added into the tree by setting root node as null.*
                         - **convert()** -- *This methos is used to convert the user specified value.*

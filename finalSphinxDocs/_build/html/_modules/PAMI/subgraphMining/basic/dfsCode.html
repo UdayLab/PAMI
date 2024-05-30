@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.subgraphMining.basic.dfsCode &mdash; PAMI 2024.04.23 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=391540b0"></script>
-        <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -94,24 +96,17 @@
   <h1>Source code for PAMI.subgraphMining.basic.dfsCode</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">pickle</span>
 
-<div class="viewcode-block" id="DFSCode">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode">[docs]</a>
-<span class="k">class</span> <span class="nc">DFSCode</span><span class="p">:</span>
+<div class="viewcode-block" id="DFSCode"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode">[docs]</a><span class="k">class</span> <span class="nc">DFSCode</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rightMost</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rightMostPath</span> <span class="o">=</span> <span class="p">[]</span>  
         <span class="bp">self</span><span class="o">.</span><span class="n">eeList</span> <span class="o">=</span> <span class="p">[]</span>
 
-<div class="viewcode-block" id="DFSCode.copy">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.copy">[docs]</a>
-    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DFSCode.copy"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
 
-
-<div class="viewcode-block" id="DFSCode.notPreOfRm">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.notPreOfRm">[docs]</a>
-    <span class="k">def</span> <span class="nf">notPreOfRm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<div class="viewcode-block" id="DFSCode.notPreOfRm"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.notPreOfRm">[docs]</a>    <span class="k">def</span> <span class="nf">notPreOfRm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function checks if a given value is not the second-to-last element on the</span>
 <span class="sd">        `rightMostPath` given a vertex.</span>
@@ -120,10 +115,7 @@
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="n">v</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rightMostPath</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span></div>
 
-
-<div class="viewcode-block" id="DFSCode.getAllVLabels">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.getAllVLabels">[docs]</a>
-    <span class="k">def</span> <span class="nf">getAllVLabels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DFSCode.getAllVLabels"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.getAllVLabels">[docs]</a>    <span class="k">def</span> <span class="nf">getAllVLabels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function retrieves all vertex labels from the extended edge list and returns them in a list.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -141,10 +133,7 @@
             <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">labels</span></div>
 
-
-<div class="viewcode-block" id="DFSCode.add">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.add">[docs]</a>
-    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ee</span><span class="p">):</span>
+<div class="viewcode-block" id="DFSCode.add"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ee</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The `add` function in adds elements to the EE list while updating the rightmost element and path</span>
 <span class="sd">        based on certain conditions.</span>
@@ -163,55 +152,32 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">eeList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ee</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span></div>
 
-
-<div class="viewcode-block" id="DFSCode.getAt">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.getAt">[docs]</a>
-    <span class="k">def</span> <span class="nf">getAt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<div class="viewcode-block" id="DFSCode.getAt"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.getAt">[docs]</a>    <span class="k">def</span> <span class="nf">getAt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eeList</span><span class="p">[</span><span class="n">index</span><span class="p">]</span></div>
 
-
-<div class="viewcode-block" id="DFSCode.onRightMostPath">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.onRightMostPath">[docs]</a>
-    <span class="k">def</span> <span class="nf">onRightMostPath</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<div class="viewcode-block" id="DFSCode.onRightMostPath"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.onRightMostPath">[docs]</a>    <span class="k">def</span> <span class="nf">onRightMostPath</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rightMostPath</span></div>
 
-
-<div class="viewcode-block" id="DFSCode.containEdge">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.containEdge">[docs]</a>
-    <span class="k">def</span> <span class="nf">containEdge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">):</span>
+<div class="viewcode-block" id="DFSCode.containEdge"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.containEdge">[docs]</a>    <span class="k">def</span> <span class="nf">containEdge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">ee</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">eeList</span><span class="p">:</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">getV1</span><span class="p">()</span> <span class="o">==</span> <span class="n">v1</span> <span class="ow">and</span> <span class="n">ee</span><span class="o">.</span><span class="n">getV2</span><span class="p">()</span> <span class="o">==</span> <span class="n">v2</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">getV1</span><span class="p">()</span> <span class="o">==</span> <span class="n">v2</span> <span class="ow">and</span> <span class="n">ee</span><span class="o">.</span><span class="n">getV2</span><span class="p">()</span> <span class="o">==</span> <span class="n">v1</span><span class="p">):</span>
                 <span class="k">return</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
-
-<div class="viewcode-block" id="DFSCode.isEmpty">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.isEmpty">[docs]</a>
-    <span class="k">def</span> <span class="nf">isEmpty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DFSCode.isEmpty"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.isEmpty">[docs]</a>    <span class="k">def</span> <span class="nf">isEmpty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">eeList</span></div>
 
-
-<div class="viewcode-block" id="DFSCode.getRightMost">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.getRightMost">[docs]</a>
-    <span class="k">def</span> <span class="nf">getRightMost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DFSCode.getRightMost"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.getRightMost">[docs]</a>    <span class="k">def</span> <span class="nf">getRightMost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rightMost</span></div>
 
-
-<div class="viewcode-block" id="DFSCode.getRightMostPath">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.getRightMostPath">[docs]</a>
-    <span class="k">def</span> <span class="nf">getRightMostPath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DFSCode.getRightMostPath"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.getRightMostPath">[docs]</a>    <span class="k">def</span> <span class="nf">getRightMostPath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rightMostPath</span></div>
 
-
-<div class="viewcode-block" id="DFSCode.getEeList">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.getEeList">[docs]</a>
-    <span class="k">def</span> <span class="nf">getEeList</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DFSCode.getEeList"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.dfsCode.DFSCode.getEeList">[docs]</a>    <span class="k">def</span> <span class="nf">getEeList</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eeList</span></div>
-
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;DFSCode: &quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ee</span><span class="p">)</span> <span class="k">for</span> <span class="n">ee</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">eeList</span><span class="p">)</span></div>
-
 </pre></div>
 
            </div>

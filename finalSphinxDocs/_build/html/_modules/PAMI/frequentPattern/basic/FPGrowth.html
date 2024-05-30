@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.frequentPattern.basic.FPGrowth &mdash; PAMI 2024.04.23 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=391540b0"></script>
-        <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -95,9 +97,12 @@
 <span></span><span class="c1"># FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database. It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It  employs downward closure property to  reduce the search space effectively.</span>
 <span class="c1">#</span>
 <span class="c1"># **Importing this algorithm into a python program**</span>
-<span class="c1"># --------------------------------------------------------</span>
 <span class="c1">#</span>
 <span class="c1">#             from PAMI.frequentPattern.basic import FPGrowth as alg</span>
+<span class="c1">#</span>
+<span class="c1">#             iFile = &#39;sampleDB.txt&#39;</span>
+<span class="c1">#</span>
+<span class="c1">#             minSup = 10  # can also be specified between 0 and 1</span>
 <span class="c1">#</span>
 <span class="c1">#             obj = alg.FPGrowth(iFile, minSup)</span>
 <span class="c1">#</span>
@@ -125,8 +130,6 @@
 <span class="c1">#</span>
 
 
-
-
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">Copyright (C)  2021 Rage Uday Kiran</span>
 
@@ -145,7 +148,7 @@
 <span class="s2">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">PAMI.frequentPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_fp</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generator</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
@@ -158,22 +161,12 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class used to represent the node of frequentPatternTree</span>
 
-<span class="sd">    :Attributes:</span>
+<span class="sd">    :**Attributes**:    - **itemId** (*int*) -- *storing item of a node.*</span>
+<span class="sd">                        - **counter** (*int*) -- *To maintain the support of node.*</span>
+<span class="sd">                        - **parent** (*node*) -- *To maintain the parent of node.*</span>
+<span class="sd">                        - **children** (*list*) -- *To maintain the children of node.*</span>
 
-<span class="sd">        itemId: int</span>
-<span class="sd">            storing item of a node</span>
-<span class="sd">        counter: int</span>
-<span class="sd">            To maintain the support of node</span>
-<span class="sd">        parent: node</span>
-<span class="sd">            To maintain the parent of node</span>
-<span class="sd">        children: list</span>
-<span class="sd">            To maintain the children of node</span>
-
-<span class="sd">    :Methods:</span>
-
-<span class="sd">        addChild(node)</span>
-<span class="sd">            Updates the nodes children list and parent for the given node</span>
-
+<span class="sd">    :**Methods**:   - **addChild(node)** -- *Updates the nodes children list and parent for the given node.*</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -184,17 +177,15 @@
 
     <span class="k">def</span> <span class="nf">addChild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
 <span class="sd">        Adds a child node to the current node with the specified item and count.</span>
 
 <span class="sd">        :param item: The item associated with the child node.</span>
 <span class="sd">        :type item: List</span>
-
 <span class="sd">        :param count: The count or support of the item. Default is 1.</span>
 <span class="sd">        :type count: int</span>
-
 <span class="sd">        :return: The child node added.</span>
 <span class="sd">        :rtype: List</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">_Node</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
@@ -207,7 +198,6 @@
 <span class="sd">        Traversing the tree to get the transaction</span>
 
 <span class="sd">        :return: transaction and count of each item in transaction</span>
-
 <span class="sd">        :rtype: Tuple, List and int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">transaction</span> <span class="o">=</span> <span class="p">[]</span>
@@ -219,59 +209,35 @@
         <span class="k">return</span> <span class="n">transaction</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">count</span>
 
 
-<div class="viewcode-block" id="FPGrowth">
-<a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth">[docs]</a>
-<span class="k">class</span> <span class="nc">FPGrowth</span><span class="p">(</span><span class="n">_fp</span><span class="o">.</span><span class="n">_frequentPatterns</span><span class="p">):</span>
+<div class="viewcode-block" id="FPGrowth"><a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth">[docs]</a><span class="k">class</span> <span class="nc">FPGrowth</span><span class="p">(</span><span class="n">_fp</span><span class="o">.</span><span class="n">_frequentPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    About this algorithm</span>
+<span class="sd">    ====================</span>
 
-<span class="sd">    :Description:   FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database. It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It employs downward closure property to  reduce the search space effectively.</span>
+<span class="sd">    :**Description**:   FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database. It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It employs downward closure property to  reduce the search space effectively.</span>
 
-<span class="sd">    :Reference:  Han, J., Pei, J., Yin, Y. et al. Mining Frequent Patterns without Candidate Generation: A Frequent-Pattern</span>
-<span class="sd">           Tree Approach. Data  Mining and Knowledge Discovery 8, 53–87 (2004). https://doi.org/10.1023</span>
+<span class="sd">    :**Reference**:  Han, J., Pei, J., Yin, Y. et al. Mining Frequent Patterns without Candidate Generation: A Frequent-Pattern</span>
+<span class="sd">                     Tree Approach. Data  Mining and Knowledge Discovery 8, 53–87 (2004). https://doi.org/10.1023</span>
 
-<span class="sd">    :param  iFile: str :</span>
-<span class="sd">                   Name of the Input file to mine complete set of frequent patterns</span>
-<span class="sd">    :param  oFile: str :</span>
-<span class="sd">                   Name of the output file to store complete set of frequent patterns</span>
-<span class="sd">    :param  minSup: int or float or str :</span>
-<span class="sd">                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.</span>
-<span class="sd">    :param  sep: str :</span>
-<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+<span class="sd">    :**Parameters**:    - **iFile** (*str or URL or dataFrame*) -- *Name of the Input file to mine complete set of frequent patterns.*</span>
+<span class="sd">                        - **oFile** (*str*) -- *Name of the output file to store complete set of frequent patterns.*</span>
+<span class="sd">                        - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.*</span>
+<span class="sd">                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*</span>
 
-
-
-<span class="sd">    :Attributes:</span>
-
-<span class="sd">        startTime : float</span>
-<span class="sd">          To record the start time of the mining process</span>
-
-<span class="sd">        endTime : float</span>
-<span class="sd">          To record the completion time of the mining process</span>
-
-<span class="sd">        finalPatterns : dict</span>
-<span class="sd">          Storing the complete set of patterns in a dictionary variable</span>
-
-<span class="sd">        memoryUSS : float</span>
-<span class="sd">          To store the total amount of USS memory consumed by the program</span>
-
-<span class="sd">        memoryRSS : float</span>
-<span class="sd">          To store the total amount of RSS memory consumed by the program</span>
-
-<span class="sd">        Database : list</span>
-<span class="sd">          To store the transactions of a database in list</span>
-
-<span class="sd">        mapSupport : Dictionary</span>
-<span class="sd">            To maintain the information of item and their frequency</span>
-<span class="sd">        lno : int</span>
-<span class="sd">            it represents the total no of transactions</span>
-<span class="sd">        tree : class</span>
-<span class="sd">            it represents the Tree class</span>
-<span class="sd">        finalPatterns : dict</span>
-<span class="sd">            it represents to store the patterns</span>
+<span class="sd">    :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*</span>
+<span class="sd">                        - **endTime** (*float*) -- *To record the completion time of the mining process.*</span>
+<span class="sd">                        - **finalPatterns** (*dict*) -- *Storing the complete set of patterns in a dictionary variable.*</span>
+<span class="sd">                        - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*</span>
+<span class="sd">                        - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*</span>
+<span class="sd">                        - **Database** (*list*) -- *To store the transactions of a database in list.*</span>
+<span class="sd">                        - **mapSupport** (*Dictionary*) -- *To maintain the information of item and their frequency.*</span>
+<span class="sd">                        - **tree** (*class*) --  *it represents the Tree class.*</span>
 
 
-<span class="sd">    **Methods to execute code on terminal**</span>
-<span class="sd">    --------------------------------------------------------</span>
+<span class="sd">    Execution methods</span>
+<span class="sd">    =================</span>
+
+<span class="sd">    **Terminal command**</span>
 
 <span class="sd">    .. code-block:: console</span>
 
@@ -283,14 +249,18 @@
 
 <span class="sd">      (.venv) $ python3 FPGrowth.py sampleDB.txt patterns.txt 10.0</span>
 
-<span class="sd">    .. note:: minSup will be considered in percentage of database transactions</span>
+<span class="sd">    .. note:: minSup can be specified  in support count or a value between 0 and 1.</span>
 
 
-<span class="sd">    **Importing this algorithm into a python program**</span>
-<span class="sd">    --------------------------------------------------------</span>
+<span class="sd">    **Calling from a python program**</span>
+
 <span class="sd">    .. code-block:: python</span>
 
 <span class="sd">            from PAMI.frequentPattern.basic import FPGrowth as alg</span>
+
+<span class="sd">            iFile = &#39;sampleDB.txt&#39;</span>
+
+<span class="sd">            minSup = 10  # can also be specified between 0 and 1</span>
 
 <span class="sd">            obj = alg.FPGrowth(iFile, minSup)</span>
 
@@ -317,9 +287,10 @@
 <span class="sd">            print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
 
 
-<span class="sd">    **Credits:**</span>
-<span class="sd">    ----------------------------</span>
-<span class="sd">               The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</span>
+<span class="sd">    Credits:</span>
+<span class="sd">    ========</span>
+
+<span class="sd">    The complete program was written by P. Likhitha and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -352,6 +323,10 @@
             <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
             <span class="k">if</span> <span class="s1">&#39;Transactions&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">__Database</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">[</span><span class="s1">&#39;Transactions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__Database</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__Database</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The column name should be Transactions and each line should be separated by tab space or a seperator specified by the user&quot;</span><span class="p">)</span>
+                
 
             <span class="c1">#print(self.Database)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
@@ -381,11 +356,8 @@
 <span class="sd">        To convert the type of user specified minSup value</span>
 
 <span class="sd">        :param value: user specified minSup value</span>
-
 <span class="sd">        :return: converted type</span>
-
 <span class="sd">        :rtype: float</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -405,13 +377,10 @@
 
 <span class="sd">        :param items: A dictionary containing item frequencies.</span>
 <span class="sd">        :type items: Dict</span>
-
 <span class="sd">        :param data: A list of transactions.</span>
 <span class="sd">        :type data: List</span>
-
 <span class="sd">        :param minSup: The minimum support threshold.</span>
 <span class="sd">        :type minSup: int</span>
-
 <span class="sd">        :return: The root node of the constructed FP-tree and a dictionary containing information about nodes associated with each item.</span>
 <span class="sd">        :rtype: Tuple[_Node, Dict]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -435,14 +404,13 @@
 
     <span class="k">def</span> <span class="nf">_all_combinations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
 <span class="sd">        Generates all possible combinations of items from a given transaction.</span>
 
 <span class="sd">        :param arr: A list of items in a transaction.</span>
 <span class="sd">        :type arr: List</span>
-
 <span class="sd">        :return: A list containing all possible combinations of items.</span>
 <span class="sd">        :rtype: List</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">all_combinations_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -457,16 +425,12 @@
 
 <span class="sd">         :param root: The root node of the current subtree.</span>
 <span class="sd">         :type root: _Node</span>
-
 <span class="sd">         :param itemNode: A dictionary containing information about the nodes associated with each item.</span>
 <span class="sd">         :type itemNode: Dict</span>
-
 <span class="sd">         :param minSup: The minimum support threshold.</span>
 <span class="sd">         :type minSup: int</span>
-
 <span class="sd">         :param patterns: A dictionary to store the generated frequent patterns.</span>
 <span class="sd">         :type patterns: Dict</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">itemNode</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">itemNode</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])}</span>
 
@@ -475,8 +439,9 @@
                 <span class="k">break</span> 
 
             <span class="n">newRoot</span> <span class="o">=</span> <span class="n">_Node</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">item</span> <span class="o">+</span> <span class="p">[</span><span class="n">item</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="n">pat</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">newRoot</span><span class="o">.</span><span class="n">item</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__finalPatterns</span><span class="p">[</span><span class="n">pat</span><span class="p">]</span> <span class="o">=</span> <span class="n">itemNode</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+            <span class="c1"># pat = &quot;\t&quot;.join([str(i) for i in newRoot.item])</span>
+            <span class="c1"># self.__finalPatterns[pat] = itemNode[item][1]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">newRoot</span><span class="o">.</span><span class="n">item</span><span class="p">)]</span> <span class="o">=</span> <span class="n">itemNode</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">newItemNode</span> <span class="o">=</span> <span class="p">{}</span>
 
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">itemNode</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -485,10 +450,10 @@
                     <span class="k">continue</span>
                 <span class="n">combination</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_all_combinations</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">comb</span> <span class="ow">in</span> <span class="n">combination</span><span class="p">:</span>
-                    <span class="n">pat</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">comb</span><span class="p">])</span>
-                    <span class="n">pat</span> <span class="o">=</span> <span class="n">pat</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">newRoot</span><span class="o">.</span><span class="n">item</span><span class="p">])</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__finalPatterns</span><span class="p">[</span><span class="n">pat</span><span class="p">]</span> <span class="o">=</span> <span class="n">count</span>
-                    <span class="c1"># self._finalPatterns[tuple(list(comb) + newRoot.item)] = count</span>
+                    <span class="c1"># pat = &quot;\t&quot;.join([str(i) for i in comb])</span>
+                    <span class="c1"># pat = pat + &quot;\t&quot; + &quot;\t&quot;.join([str(i) for i in newRoot.item])</span>
+                    <span class="c1"># self.__finalPatterns[pat] = count</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">comb</span><span class="p">)</span> <span class="o">+</span> <span class="n">newRoot</span><span class="o">.</span><span class="n">item</span><span class="p">)]</span> <span class="o">=</span> <span class="n">count</span>
                 <span class="k">pass</span>
 
 
@@ -534,9 +499,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_recursive</span><span class="p">(</span><span class="n">newRoot</span><span class="p">,</span> <span class="n">newItemNode</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">patterns</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="FPGrowth.mine">
-<a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.mine">[docs]</a>
-    <span class="k">def</span> <span class="nf">mine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="FPGrowth.mine"><a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.mine">[docs]</a>    <span class="k">def</span> <span class="nf">mine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Main program to start the operation</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -565,118 +528,98 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span></div>
 
-
-<div class="viewcode-block" id="FPGrowth.startMine">
-<a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.startMine">[docs]</a>
-    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use &#39;mine()&#39; instead of &#39;startMine()&#39; for mining process. Starting from January 2025, &#39;startMine()&#39; will be completely terminated.&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="FPGrowth.startMine"><a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use &#39;mine()&#39; instead of &#39;startMine()&#39; for mining process. Starting from January 2025, &#39;startMine()&#39; will be completely terminated.&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Starting the mining process</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span></div>
 
-
-<div class="viewcode-block" id="FPGrowth.getMemoryUSS">
-<a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getMemoryUSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="FPGrowth.getMemoryUSS"><a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getMemoryUSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
 <span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
 
 <span class="sd">        :return: returning USS memory consumed by the mining process</span>
-
 <span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__memoryUSS</span></div>
 
-
-<div class="viewcode-block" id="FPGrowth.getMemoryRSS">
-<a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getMemoryRSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="FPGrowth.getMemoryRSS"><a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getMemoryRSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
 <span class="sd">        Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
+
 <span class="sd">        :return: returning RSS memory consumed by the mining process</span>
 <span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__memoryRSS</span></div>
 
-
-<div class="viewcode-block" id="FPGrowth.getRuntime">
-<a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getRuntime">[docs]</a>
-    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="FPGrowth.getRuntime"><a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getRuntime">[docs]</a>    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
 <span class="sd">        Calculating the total amount of runtime taken by the mining process</span>
 
 <span class="sd">        :return: returning total amount of runtime taken by the mining process</span>
-
 <span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__endTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">__startTime</span></div>
+    
 
-
-<div class="viewcode-block" id="FPGrowth.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getPatternsAsDataFrame">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_fp</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<div class="viewcode-block" id="FPGrowth.getPatternsAsDataFrame"><a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getPatternsAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_fp</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
 <span class="sd">        Storing final frequent patterns in a dataframe</span>
 
 <span class="sd">        :return: returning frequent patterns in a dataframe</span>
-
 <span class="sd">        :rtype: pd.DataFrame</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">dataframe</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">a</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">),</span> <span class="n">b</span><span class="p">])</span>
-            <span class="n">dataframe</span> <span class="o">=</span> <span class="n">_fp</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;Support&#39;</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">dataframe</span></div>
+        <span class="c1"># # dataframe = {}</span>
+        <span class="c1"># # data = []</span>
+        <span class="c1"># # for a, b in self.__finalPatterns.items():</span>
+        <span class="c1"># #     data.append([a.replace(&#39;\t&#39;, &#39; &#39;), b])</span>
+        <span class="c1"># #     dataframe = _fp._pd.DataFrame(data, columns=[&#39;Patterns&#39;, &#39;Support&#39;])</span>
+        <span class="c1"># dataFrame = _fp._pd.DataFrame(list(self._finalPatterns.items()), columns=[&#39;Patterns&#39;, &#39;Support&#39;])</span>
+        <span class="n">dataFrame</span> <span class="o">=</span> <span class="n">_fp</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">list</span><span class="p">([[</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">()]),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;Support&#39;</span><span class="p">])</span>
 
+        <span class="k">return</span> <span class="n">dataFrame</span></div>
 
-<div class="viewcode-block" id="FPGrowth.save">
-<a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.save">[docs]</a>
-    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="FPGrowth.save"><a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">seperator</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
 <span class="sd">        Complete set of frequent patterns will be loaded in to an output file</span>
 
 <span class="sd">        :param outFile: name of the output file</span>
-
 <span class="sd">        :type outFile: csvfile</span>
-
 <span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span> <span class="o">=</span> <span class="n">outFile</span>
-        <span class="n">writer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">s1</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">s1</span><span class="p">)</span></div>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outFile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">seperator</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="FPGrowth.getPatterns">
-<a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getPatterns">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<div class="viewcode-block" id="FPGrowth.getPatterns"><a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getPatterns">[docs]</a>    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
 <span class="sd">        Function to send the set of frequent patterns after completion of the mining process</span>
+
 <span class="sd">        :return: returning frequent patterns</span>
 <span class="sd">        :rtype: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__finalPatterns</span></div>
-
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span></div>
     
-<div class="viewcode-block" id="FPGrowth.printResults">
-<a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.printResults">[docs]</a>
-    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="FPGrowth.printResults"><a class="viewcode-back" href="../../../../frequentPatternBasicFPGrowth.html#PAMI.frequentPattern.basic.FPGrowth.FPGrowth.printResults">[docs]</a>    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div>
-</div>
-
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
@@ -695,9 +638,6 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error! The number of input parameters do not match the total number of parameters provided&quot;</span><span class="p">)</span>
-
-    
-    
 </pre></div>
 
            </div>
