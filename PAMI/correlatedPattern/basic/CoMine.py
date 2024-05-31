@@ -300,13 +300,43 @@ class CoMine(_ab._correlatedPatterns):
         self.mine()
 
     def _maxSup(self, itemSet, item):
+        """
+        Calculate the maximum support value for a given itemSet and item.
+
+        :param itemSet: A set of items to compare.
+        :type itemSet: list or set
+        :param item: An individual item to compare.
+        :type item: Any
+        :return: The maximum support value from the itemSet and the individual item.
+        :rtype: float or int
+        """
         sups = [self._mapSupport[i] for i in itemSet] + [self._mapSupport[item]]
         return max(sups)
 
     def _allConf(self, itemSet):
+        """
+        Calculate the all-confidence value for a given itemSet.
+
+        :param itemSet: A set of items for which to calculate the all-confidence.
+        :type itemSet: list or set
+        :return: The all-confidence value for the itemSet.
+        :rtype: float
+        """
         return self._finalPatterns[itemSet] / max([self._mapSupport[i] for i in itemSet])
     
     def recursive(self, item, nodes, root):
+        """
+        Recursively build the tree structure for itemsets and find patterns that meet
+        the minimum support and all-confidence thresholds.
+
+        :param item: The current item being processed.
+        :type item: Any
+        :param nodes: The list of nodes to be processed.
+        :type nodes: list of _Node
+        :param root: The root node of the current tree.
+        :type root: _Node
+        :return: None
+        """
 
         if root.item is None:
             newRoot = _Node([item], 0, None)
@@ -327,7 +357,7 @@ class CoMine(_ab._correlatedPatterns):
         itemCounts = {k:v for k, v in itemCounts.items() if v >= self._minSup}
         if len(itemCounts) == 0:
             return
-    
+
         itemNodes = {}
         for transaction, count in transactions:
             transaction = [i for i in transaction if i in itemCounts]
@@ -340,8 +370,8 @@ class CoMine(_ab._correlatedPatterns):
                 itemNodes[item][0].add(node)
                 itemNodes[item][1] += count
 
-        itemNodes = {k:v for k, v in sorted(itemNodes.items(), key=lambda x: x[1][1], reverse=True)}        
-            
+        itemNodes = {k:v for k, v in sorted(itemNodes.items(), key=lambda x: x[1][1], reverse=True)}
+
 
         for item in itemCounts:
             conf = itemNodes[item][1] / self._maxSup(newRoot.item, item)
