@@ -67,8 +67,8 @@ class FAE(_ab._frequentPatterns):
     :**Parameters**:    - **iFile** (*str or URL or dataFrame*) -- *Name of the Input file to mine complete set of frequent patterns.*
                         - **oFile** (*str*) -- *Name of the output file to store complete set of frequent patterns.*
                         - **k** (*int*) -- *User specified count of top frequent patterns.*
-                        **minimum** (*int*) -- *Minimum number of frequent patterns to consider in analysis.*
-                        **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
+                        - **minimum** (*int*) -- *Minimum number of frequent patterns to consider in analysis.*
+                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
 
     :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*
                         - **endTime** (*float*) -- *To record the completion time of the mining process.*
@@ -160,6 +160,9 @@ class FAE(_ab._frequentPatterns):
             i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
                 self._Database = self._iFile['Transactions'].tolist()
+                self._Database = [x.split(self._sep) for x in self._Database]
+            else:
+                print("The column name should be Transactions and each line should be separated by tab space or a seperator specified by the user")
 
             # print(self.Database)
         if isinstance(self._iFile, str):

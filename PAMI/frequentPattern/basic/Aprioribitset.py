@@ -191,6 +191,9 @@ class Aprioribitset(_ab._frequentPatterns):
             i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
                 self._Database = self._iFile['Transactions'].tolist()
+                self._Database = [x.split(self._sep) for x in self._Database]
+            else:
+                print("The column name should be Transactions and each line should be separated by tab space or a seperator specified by the user")
 
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):

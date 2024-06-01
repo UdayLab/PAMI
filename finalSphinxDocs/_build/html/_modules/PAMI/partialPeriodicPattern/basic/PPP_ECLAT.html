@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.partialPeriodicPattern.basic.PPP_ECLAT &mdash; PAMI 2024.04.23 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=391540b0"></script>
-        <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -154,9 +156,7 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
-<div class="viewcode-block" id="PPP_ECLAT">
-<a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT">[docs]</a>
-<span class="k">class</span> <span class="nc">PPP_ECLAT</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_partialPeriodicPatterns</span><span class="p">):</span>
+<div class="viewcode-block" id="PPP_ECLAT"><a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT">[docs]</a><span class="k">class</span> <span class="nc">PPP_ECLAT</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_partialPeriodicPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Descripition:   3pEclat is the fundamental approach to mine the partial periodic frequent patterns.</span>
 
@@ -475,9 +475,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_save</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">itemSetX</span><span class="p">)),</span> <span class="n">tidSetX</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="PPP_ECLAT.startMine">
-<a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.startMine">[docs]</a>
-    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use mine() instead of startMine() for mining process&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="PPP_ECLAT.startMine"><a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use mine() instead of startMine() for mining process&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Main program start with extracting the periodic frequent items from the database and</span>
@@ -487,10 +485,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span></div>
 
-
-<div class="viewcode-block" id="PPP_ECLAT.Mine">
-<a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.Mine">[docs]</a>
-    <span class="k">def</span> <span class="nf">Mine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="PPP_ECLAT.Mine"><a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.Mine">[docs]</a>    <span class="k">def</span> <span class="nf">Mine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Main program start with extracting the periodic frequent items from the database and</span>
 <span class="sd">        performs prefix equivalence to form the combinations and generates partial-periodic patterns.</span>
@@ -525,10 +520,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span></div>
 
-
-<div class="viewcode-block" id="PPP_ECLAT.getMemoryUSS">
-<a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.getMemoryUSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="PPP_ECLAT.getMemoryUSS"><a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.getMemoryUSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
 
@@ -538,10 +530,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span></div>
 
-
-<div class="viewcode-block" id="PPP_ECLAT.getMemoryRSS">
-<a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.getMemoryRSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="PPP_ECLAT.getMemoryRSS"><a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.getMemoryRSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 
 <span class="sd">        :return: returning RSS memory consumed by the mining process</span>
@@ -550,10 +539,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span></div>
 
-
-<div class="viewcode-block" id="PPP_ECLAT.getRuntime">
-<a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.getRuntime">[docs]</a>
-    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="PPP_ECLAT.getRuntime"><a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.getRuntime">[docs]</a>    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculating the total amount of runtime taken by the mining process</span>
 
@@ -563,10 +549,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span></div>
 
-
-<div class="viewcode-block" id="PPP_ECLAT.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.getPatternsAsDataFrame">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<div class="viewcode-block" id="PPP_ECLAT.getPatternsAsDataFrame"><a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.getPatternsAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Storing final frequent patterns in a dataframe</span>
 
 <span class="sd">        :return: returning frequent patterns in a dataframe</span>
@@ -580,10 +563,7 @@
             <span class="n">dataframe</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;periodicSupport&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">dataframe</span></div>
 
-
-<div class="viewcode-block" id="PPP_ECLAT.save">
-<a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.save">[docs]</a>
-    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="PPP_ECLAT.save"><a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Complete set of frequent patterns will be loaded in to an output file</span>
 
 <span class="sd">        :param outFile: name of the output file</span>
@@ -596,10 +576,7 @@
             <span class="n">s1</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
             <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">s1</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="PPP_ECLAT.getPatterns">
-<a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.getPatterns">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<div class="viewcode-block" id="PPP_ECLAT.getPatterns"><a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.getPatterns">[docs]</a>    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Function to send the set of frequent patterns after completion of the mining process</span>
 
 <span class="sd">        :return: returning frequent patterns</span>
@@ -607,10 +584,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span></div>
 
-
-<div class="viewcode-block" id="PPP_ECLAT.printResults">
-<a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.printResults">[docs]</a>
-    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="PPP_ECLAT.printResults"><a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.printResults">[docs]</a>    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>
 <span class="sd">        :return: None</span>
@@ -618,9 +592,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Partial Periodic Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div>
-</div>
-
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>

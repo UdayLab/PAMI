@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.subgraphMining.topK.extendedEdge &mdash; PAMI 2024.04.23 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=391540b0"></script>
-        <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -92,9 +94,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for PAMI.subgraphMining.topK.extendedEdge</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="ExtendedEdge">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge">[docs]</a>
-<span></span><span class="k">class</span> <span class="nc">ExtendedEdge</span><span class="p">:</span>
+<div class="viewcode-block" id="ExtendedEdge"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge">[docs]</a><span></span><span class="k">class</span> <span class="nc">ExtendedEdge</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">,</span> <span class="n">vLabel1</span><span class="p">,</span> <span class="n">vLabel2</span><span class="p">,</span> <span class="n">edgeLabel</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">v1</span> <span class="o">=</span> <span class="n">v1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">v2</span> <span class="o">=</span> <span class="n">v2</span>
@@ -103,9 +103,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">edgeLabel</span> <span class="o">=</span> <span class="n">edgeLabel</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hashCode</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">v1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">v2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">50</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">vLabel1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">30</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">vLabel2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">20</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">edgeLabel</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ExtendedEdge.smallerThan">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.smallerThan">[docs]</a>
-    <span class="k">def</span> <span class="nf">smallerThan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">that</span><span class="p">):</span>
+<div class="viewcode-block" id="ExtendedEdge.smallerThan"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.smallerThan">[docs]</a>    <span class="k">def</span> <span class="nf">smallerThan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">that</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">that</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
 
@@ -121,10 +119,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span></div>
 
-
-<div class="viewcode-block" id="ExtendedEdge.smallerThanOriginal">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.smallerThanOriginal">[docs]</a>
-    <span class="k">def</span> <span class="nf">smallerThanOriginal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">that</span><span class="p">):</span>
+<div class="viewcode-block" id="ExtendedEdge.smallerThanOriginal"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.smallerThanOriginal">[docs]</a>    <span class="k">def</span> <span class="nf">smallerThanOriginal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">that</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">that</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
 
@@ -140,10 +135,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span></div>
 
-
-<div class="viewcode-block" id="ExtendedEdge.pairSmallerThan">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.pairSmallerThan">[docs]</a>
-    <span class="k">def</span> <span class="nf">pairSmallerThan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+<div class="viewcode-block" id="ExtendedEdge.pairSmallerThan"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.pairSmallerThan">[docs]</a>    <span class="k">def</span> <span class="nf">pairSmallerThan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
         <span class="n">xForward</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">&lt;</span> <span class="n">x2</span>
         <span class="n">yForward</span> <span class="o">=</span> <span class="n">y1</span> <span class="o">&lt;</span> <span class="n">y2</span>
 
@@ -155,7 +147,6 @@
             <span class="k">return</span> <span class="n">x2</span> <span class="o">&lt;=</span> <span class="n">y1</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">x1</span> <span class="o">&lt;</span> <span class="n">y2</span></div>
-
 
     <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hashCode</span>
@@ -170,36 +161,20 @@
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">v1</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">v2</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vLabel1</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vLabel2</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">edgeLabel</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
 
-<div class="viewcode-block" id="ExtendedEdge.getV1">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getV1">[docs]</a>
-    <span class="k">def</span> <span class="nf">getV1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ExtendedEdge.getV1"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getV1">[docs]</a>    <span class="k">def</span> <span class="nf">getV1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">v1</span></div>
-
     
-<div class="viewcode-block" id="ExtendedEdge.getV2">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getV2">[docs]</a>
-    <span class="k">def</span> <span class="nf">getV2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ExtendedEdge.getV2"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getV2">[docs]</a>    <span class="k">def</span> <span class="nf">getV2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">v2</span></div>
-
     
-<div class="viewcode-block" id="ExtendedEdge.getVLabel1">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getVLabel1">[docs]</a>
-    <span class="k">def</span> <span class="nf">getVLabel1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ExtendedEdge.getVLabel1"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getVLabel1">[docs]</a>    <span class="k">def</span> <span class="nf">getVLabel1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vLabel1</span></div>
-
     
-<div class="viewcode-block" id="ExtendedEdge.getVLabel2">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getVLabel2">[docs]</a>
-    <span class="k">def</span> <span class="nf">getVLabel2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ExtendedEdge.getVLabel2"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getVLabel2">[docs]</a>    <span class="k">def</span> <span class="nf">getVLabel2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vLabel2</span></div>
-
     
-<div class="viewcode-block" id="ExtendedEdge.getEdgeLabel">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getEdgeLabel">[docs]</a>
-    <span class="k">def</span> <span class="nf">getEdgeLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">edgeLabel</span></div>
-</div>
-
+<div class="viewcode-block" id="ExtendedEdge.getEdgeLabel"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getEdgeLabel">[docs]</a>    <span class="k">def</span> <span class="nf">getEdgeLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">edgeLabel</span></div></div>
 </pre></div>
 
            </div>
