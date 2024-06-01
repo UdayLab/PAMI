@@ -1,9 +1,8 @@
-# CoMine is one of the fundamental algorithm to discover correlated patterns in a transactional database.
+# CoMinePlus is one of the fundamental algorithm to discover correlated patterns in a transactional database.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
 #
-#             from PAMI.correlatedPattern.basic import CoMine as alg
+#             from PAMI.correlatedPattern.basic import CoMinePlus as alg
 #
 #             iFile = 'sampleTDB.txt'
 #
@@ -11,13 +10,13 @@
 #
 #             minAllConf = 0.2 # can  be specified between 0 and 1
 #
-#             obj = alg.CoMine(iFile, minSup, minAllConf, sep)
+#             obj = alg.CoMinePlus(iFile, minSup, minAllConf, sep)
 #
 #             obj.mine()
 #
-#             Rules = obj.getPatterns()
+#             frequentPatterns = obj.getPatterns()
 #
-#             print("Total number of  Patterns:", len(Patterns))
+#             print("Total number of  Patterns:", len(frequentPatterns))
 #
 #             obj.save(oFile)
 #
@@ -119,30 +118,30 @@ class CoMine(_ab._correlatedPatterns):
     About this algorithm
     ====================
 
-    :**Description**: CoMine is one of the fundamental algorithm to discover correlated  patterns in a transactional database. It is based on the traditional FP-Growth algorithm. This algorithm uses depth-first search technique to find all correlated patterns in a transactional database.
+    :**Description**: CoMinePlus is one of the fundamental algorithm to discover correlated  patterns in a transactional database. It is based on the traditional FP-Growth algorithm. This algorithm uses depth-first search technique to find all correlated patterns in a transactional database.
 
     :**Reference**: Lee, Y.K., Kim, W.Y., Cao, D., Han, J. (2003). CoMine: efficient mining of correlated patterns. In ICDM (pp. 581–584).
 
-    :**parameters**:    **iFile** (*str*) -- **Name of the Input file to mine complete set of correlated patterns**
-                        **oFile** (*str*) -- **Name of the output file to store complete set of correlated patterns**
-                        **minSup** (*int or float or str*) -- **The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.**
-                        **minAllConf** (*float*) -- **The user can specify minAllConf values within the range (0, 1).**
-                        **sep** (*str*) -- **This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.**
+    :**parameters**:    - **iFile** (*str*) -- *Name of the Input file to mine complete set of correlated patterns.*
+                        - **oFile** (*str*) -- *Name of the output file to store complete set of correlated patterns.*
+                        - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.*
+                        - **minAllConf** (*float*) -- *The user can specify minAllConf values within the range (0, 1).*
+                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
 
-    :**Attributes**:    **memoryUSS** (*float*) -- **To store the total amount of USS memory consumed by the program**
-                        **memoryRSS** (*float*) -- **To store the total amount of RSS memory consumed by the program**
-                        **startTime** (*float*) -- **To record the start time of the mining process**
-                        **endTime** (*float*) -- **To record the completion time of the mining process**
-                        **minSup** (*int*) -- **The user given minSup**
-                        **minAllConf** (*float*) -- **The user given minimum all confidence Ratio(should be in range of 0 to 1)**
-                        **Database** (*list*) -- **To store the transactions of a database in list**
-                        **mapSupport** (*Dictionary*) -- **To maintain the information of item and their frequency**
-                        **lno** (*int*) -- **it represents the total no of transactions**
-                        **tree** (*class*) -- **it represents the Tree class**
-                        **itemSetCount** (*int*) -- **it represents the total no of patterns**
-                        **finalPatterns** (*dict*) -- **it represents to store the patterns**
-                        **itemSetBuffer** (*list*) -- **it represents the store the items in mining**
-                        **maxPatternLength** (*int*) -- **it represents the constraint for pattern length**
+    :**Attributes**:    - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
+                        - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
+                        - **startTime** (*float*) -- *To record the start time of the mining process.*
+                        - **endTime** (*float*) -- *To record the completion time of the mining process.*
+                        - **minSup** (*int*) -- *The user given minSup.*
+                        - **minAllConf** (*float*) -- *The user given minimum all confidence Ratio(should be in range of 0 to 1).*
+                        - **Database** (*list*) -- *To store the transactions of a database in list.*
+                        - **mapSupport** (*Dictionary*) -- *To maintain the information of item and their frequency.*
+                        - **lno** (*int*) -- *it represents the total no of transactions.*
+                        - **tree** (*class*) -- *it represents the Tree class.*
+                        - **itemSetCount** (*int*) -- *it represents the total no of patterns.*
+                        - **finalPatterns** (*dict*) -- *it represents to store the patterns.*
+                        - **itemSetBuffer** (*list*) -- *it represents the store the items in mining.*
+                        - **maxPatternLength** (*int*) -- *it represents the constraint for pattern length.*
 
     Execution methods
     =================
@@ -153,11 +152,11 @@ class CoMine(_ab._correlatedPatterns):
 
       Format:
 
-      (.venv) $ python3 CoMine.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
+      (.venv) $ python3 CoMinePlus.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
 
       Example Usage:
 
-      (.venv) $ python3 CoMine.py sampleTDB.txt output.txt 0.25 0.2
+      (.venv) $ python3 CoMinePlus.py sampleTDB.txt output.txt 0.25 0.2
 
     .. note:: minSup can be specified in support count or a value between 0 and 1.
 
@@ -165,7 +164,7 @@ class CoMine(_ab._correlatedPatterns):
 
     .. code-block:: python
 
-            from PAMI.correlatedPattern.basic import CoMine as alg
+            from PAMI.correlatedPattern.basic import CoMinePlus as alg
 
             iFile = 'sampleTDB.txt'
 
@@ -173,13 +172,13 @@ class CoMine(_ab._correlatedPatterns):
 
             minAllConf = 0.2 # can  be specified between 0 and 1
 
-            obj = alg.CoMine(iFile, minSup, minAllConf,sep)
+            obj = alg.CoMinePlus(iFile, minSup, minAllConf,sep)
 
             obj.mine()
 
-            patterns = obj.getPatterns()
+            frequentPatterns = obj.getPatterns()
 
-            print("Total number of  Patterns:", len(patterns))
+            print("Total number of  Patterns:", len(frequentPatterns))
 
             obj.savePatterns(oFile)
 
@@ -200,7 +199,7 @@ class CoMine(_ab._correlatedPatterns):
     Credits
     =======
 
-             The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
+    The complete program was written by B.Sai Chitra and revised by Tarun Sreepads under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -294,20 +293,46 @@ class CoMine(_ab._correlatedPatterns):
 
     @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
-        """
-        main method to start
-        """
         self.mine()
 
     def _maxSup(self, itemSet, item):
+        """
+        Calculate the maximum support value for a given itemSet and item.
+
+        :param itemSet: A set of items to compare.
+        :type itemSet: list or set
+        :param item: An individual item to compare.
+        :type item: Any
+        :return: The maximum support value from the itemSet and the individual item.
+        :rtype: float or int
+        """
         sups = [self._mapSupport[i] for i in itemSet] + [self._mapSupport[item]]
         return max(sups)
 
     def _allConf(self, itemSet):
+        """
+        Calculate the all-confidence value for a given itemSet.
+
+        :param itemSet: A set of items for which to calculate the all-confidence.
+        :type itemSet: list or set
+        :return: The all-confidence value for the itemSet.
+        :rtype: float
+        """
         return self._finalPatterns[itemSet] / max([self._mapSupport[i] for i in itemSet])
     
     def recursive(self, item, nodes, root):
+        """
+        Recursively build the tree structure for itemsets and find patterns that meet
+        the minimum support and all-confidence thresholds.
 
+        :param item: The current item being processed.
+        :type item: Any
+        :param nodes: The list of nodes to be processed.
+        :type nodes: list of _Node
+        :param root: The root node of the current tree.
+        :type root: _Node
+        :return: None
+        """
 
         newRoot = _Node(root.item + [item], 0, None)
 

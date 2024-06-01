@@ -396,13 +396,43 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">_maxSup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">itemSet</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the maximum support value for a given itemSet and item.</span>
+
+<span class="sd">        :param itemSet: A set of items to compare.</span>
+<span class="sd">        :type itemSet: list or set</span>
+<span class="sd">        :param item: An individual item to compare.</span>
+<span class="sd">        :type item: Any</span>
+<span class="sd">        :return: The maximum support value from the itemSet and the individual item.</span>
+<span class="sd">        :rtype: float or int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">sups</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_mapSupport</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">itemSet</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_mapSupport</span><span class="p">[</span><span class="n">item</span><span class="p">]]</span>
         <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">sups</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_allConf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">itemSet</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the all-confidence value for a given itemSet.</span>
+
+<span class="sd">        :param itemSet: A set of items for which to calculate the all-confidence.</span>
+<span class="sd">        :type itemSet: list or set</span>
+<span class="sd">        :return: The all-confidence value for the itemSet.</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">itemSet</span><span class="p">]</span> <span class="o">/</span> <span class="nb">max</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_mapSupport</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">itemSet</span><span class="p">])</span>
     
 <div class="viewcode-block" id="CoMine.recursive"><a class="viewcode-back" href="../../../../correlatedPatternBasicCoMine.html#PAMI.correlatedPattern.basic.CoMine.CoMine.recursive">[docs]</a>    <span class="k">def</span> <span class="nf">recursive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">nodes</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Recursively build the tree structure for itemsets and find patterns that meet</span>
+<span class="sd">        the minimum support and all-confidence thresholds.</span>
+
+<span class="sd">        :param item: The current item being processed.</span>
+<span class="sd">        :type item: Any</span>
+<span class="sd">        :param nodes: The list of nodes to be processed.</span>
+<span class="sd">        :type nodes: list of _Node</span>
+<span class="sd">        :param root: The root node of the current tree.</span>
+<span class="sd">        :type root: _Node</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">item</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">newRoot</span> <span class="o">=</span> <span class="n">_Node</span><span class="p">([</span><span class="n">item</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -423,7 +453,7 @@
         <span class="n">itemCounts</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">itemCounts</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">}</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">itemCounts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span>
-    
+
         <span class="n">itemNodes</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">transaction</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">transactions</span><span class="p">:</span>
             <span class="n">transaction</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">transaction</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">itemCounts</span><span class="p">]</span>
@@ -436,8 +466,8 @@
                 <span class="n">itemNodes</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
                 <span class="n">itemNodes</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">count</span>
 
-        <span class="n">itemNodes</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">itemNodes</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)}</span>        
-            
+        <span class="n">itemNodes</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">itemNodes</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)}</span>
+
 
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">itemCounts</span><span class="p">:</span>
             <span class="n">conf</span> <span class="o">=</span> <span class="n">itemNodes</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxSup</span><span class="p">(</span><span class="n">newRoot</span><span class="o">.</span><span class="n">item</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
