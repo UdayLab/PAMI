@@ -28,11 +28,10 @@
 
 
 
-
+from bitarray import bitarray
 from PAMI.subgraphMining.basic import gspan as gsp
 from PAMI.extras.stats import graphDatabase as gdb
-from PAMI.subgraphMining.basic import abstract as _ab
-
+from PAMI.GraphTransactionalCoveragePattern.basic import abstract as _ab
 
 class GTCP:
     def __init__(self,iFile,minsup,minGTC,minGTPC,maxOR=0.2):
@@ -58,7 +57,7 @@ class GTCP:
         gsp_obj = gsp.GSpan(self.iFile, minsup, outputSingleVertices=False, maxNumberOfEdges=float('inf'), outputGraphIds=True)
         gsp_obj.mine()
         self.Sf=gsp_obj.getSubgraphGraphMapping()
-        self.Df=self.GetFIDBasedFlatTransactions()
+        self.GetFIDBasedFlatTransactions()
         # print("Subgraph mining completed")
 
     def mine(self):
@@ -81,7 +80,7 @@ class GTCP:
             param
                 g : Graph id
         """
-        return len(self.Df[g])/len(self.Sf)
+        return self.Df[g].count()/len(self.Sf)
 
 
     def patternCoverage(self,pattern):
@@ -91,9 +90,9 @@ class GTCP:
                 pattern: pattern for which pattern coverage needs to be computed
         """
         Csets=list(map(lambda x:self.Df[x] ,pattern))
-        newset=set()
+        newset=bitarray(len(self.Sf))
         for coverage in Csets:
-            newset=newset.union(set(coverage))
+            newset=newset | coverage
         return newset
 
     def OverlapRatio(self,pattern):
@@ -106,20 +105,26 @@ class GTCP:
         lastitem=pattern[-1]
         lastbut=pattern[:-1]
         lastbutcoverage=self.patternCoverage(lastbut)
-        lastcoverage=set(self.Df[lastitem])
-        intersection=lastcoverage.intersection(lastbutcoverage)
-        return len(intersection)/len(self.Df[lastitem])
+        lastcoverage=self.Df[lastitem]
+        
+        intersection=lastcoverage & lastbutcoverage
+        cs= (lastcoverage | lastbutcoverage).count()/len(self.Sf)
+        return (intersection.count()/self.Df[lastitem].count(),cs)
 
 
     def GetFIDBasedFlatTransactions(self):
         """
             Convert into FID based transactions
         """
-        Df={i:[] for i in range(self.numGraphs)}
+        self.Df={}
+        for i in range(self.numGraphs):
+            bitset = bitarray(len(self.Sf))
+            bitset.setall(0)
+            self.Df.update({i:bitset})
+
         for fragment in self.Sf:
             for GID in fragment["GIDs"]:
-                Df[GID].append(fragment["FID"])        
-        return Df
+                self.Df[GID][fragment["FID"]]=1
 
     def getallFreq1(self):
         """
@@ -140,51 +145,64 @@ class GTCP:
                 l2: Pattern 2
         """
         patterns=[]
+        Nol=[]
+        temp_l=[]
+        newpattern=[]
         for i in range(len(l1)):
             for j in range(i+1,len(l2)):
                 if(l1[i][:-1]==l2[j][:-1]):
-                    newpattern=l1[i][:-1]
                     if(self.Coverage(l1[i][-1])>=self.Coverage(l2[j][-1])):
-                        newpattern+=[l1[i][-1],l2[j][-1]]
+                        newpattern= l1[i]+[l2[j][-1]]
                     else:
-                        newpattern+=[l2[j][-1],l1[i][-1]]
-                    patterns.append(newpattern)
-        return patterns    
+                        newpattern=l2[j]+[l1[i][-1]]
+                    
+                    ov,cs=self.OverlapRatio(newpattern)
+                    
+                    if(ov<=self.maxOR):
+                        if(cs>=self.minGTPC):
+                            self.L.append((newpattern,cs))
+                        else:
+                            self.Nol.append(newpattern)
+                else:
+                    break
+        # return (Nol,temp_l)    
+    
 
-
+    def writePatterns(self):
+        outf=self.iFile.split(".")[0]+"_results.txt"
+        f=open(outf,"w+")
+        for i in self.L:
+            f.write(str(i[0])+", Coverage : "+str(i[1]))
+            f.write("\n")
+        
+        f.close()
+    
     def Cmine(self):
         """
         Cmine Algorithm for mining coverage patterns
         """
 
-        Nol_1=self.getallFreq1()
+        self.Nol_1=self.getallFreq1()
         l=1
-        self.L={l:[]}
-        Nol_1_temp=[]
-        for g in Nol_1:
+        self.L=[]
+        self.Nol_1_temp=[]
+        for g in self.Nol_1:
             if(self.Coverage(g[0])>=self.minGTPC):
-                self.L[1].append((g,self.Coverage(g[0])))
+                self.L.append((g,self.Coverage(g[0])))
             else:
-                Nol_1_temp.append(g)
+                self.Nol_1_temp.append(g)
         l+=1
-        print(len(self.L[1]))
-        Nol_1=Nol_1_temp
+        self.Nol_1=self.Nol_1_temp
+        self.Nol=[]
 
-        while(len(Nol_1)>0):
-            self.L.update({l:[]})
-            Cl=self.join(Nol_1,Nol_1)
-            Nol=[]
-            for pattern in Cl:
-                if(self.OverlapRatio(pattern)<=self.maxOR):
-                    gtpc=self.patternCoverage(pattern)
-                    if(len(gtpc)/len(self.Sf)>=self.minGTPC):
-                        self.L[l].append((pattern,len(gtpc)/len(self.Sf)))
-                    else:
-                        Nol.append(pattern)
 
-                
-            Nol_1=Nol
+        while(len(self.Nol_1)>0):
+            self.Nol=[]
+            # print(len(self.Nol_1))
+            self.join(self.Nol_1,self.Nol_1)
+            self.Nol_1=self.Nol
             l+=1
+
         process = _ab._psutil.Process(_ab._os.getpid())
         self._endTime = _ab._time.time()
         self._memoryUSS = float()
@@ -219,11 +237,3 @@ class GTCP:
         :rtype: float
         """
         return self._endTime-self._startTime
-
-
-
-
-
-
-
-
