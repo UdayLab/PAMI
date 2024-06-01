@@ -34,6 +34,22 @@
 - [Discussion and Development](#Discussion-and-Development)
 - [Contribution to PAMI](#Contribution-to-PAMI)
 - [Tutorials](#tutorials)
+  - [Association rule mining](#0-association-rule-mining)
+  - [Mining transactional databases](#1-pattern-mining-in-binary-transactional-databases)
+  - [Mining temporal databases](#2-pattern-mining-in-binary-temporal-databases)
+  - [Mining spatiotemporal databases](#3-mining-patterns-from-binary-geo-referenced-or-spatiotemporal-databases)
+  - [Mining utility databases](#4-mining-patterns-from-utility-or-non-binary-databases)
+  - [Mining fuzzy databases](#5-mining--patterns-from-fuzzy-transactionaltemporalgeo-referenced-databases)
+  - [Mining uncertain databases](#6-mining-patterns-from-uncertain-transactionaltemporalgeo-referenced-databases)
+  - [Mining sequence databases](#7-mining-patterns-from-sequence-databases)
+  - [Mining multiple timeseries](#8-mining-patterns-from-multiple-timeseries-databases)
+  - [Mining streams](#9-mining-interesting-patterns-from-streams)
+  - [Mining character sequences](#10-mining-patterns-from-contiguous-character-sequences-eg-dna-genome-and-game-sequences)
+  - [Mining graphs](#11-mining-patterns-from-graphs)
+  - [Additional features](#12-additional-features)
+    - [Synthetic data generator](#121-creation-of-synthetic-databases)
+    - [Dataframes to databases](#122-converting-a-dataframe-into-a-specific-database-type)
+    - [Gathering database statistics](#123-gathering-the-statistical-details-of-a-database)
 - [Real-World Case Studies](#real-world-case-studies)
 
 
@@ -555,10 +571,11 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 
 
 #### 12.2. Converting a dataframe into a specific database type
-| Approaches                                  |
-|---------------------------------------------|
-| Dense dataframe to databases (coming soon)  |
-| Sparse dataframe to databases (coming soon) |
+| Approaches                                                                                                                                                                                                                                                   |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Dense dataframe to databases <a target="_blank" href="https://colab.research.google.com/github/udayLab/PAMI/blob/main/notebooks/extras/DF2DB/denseDF2DB.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> |
+| Sparse dataframe to databases (coming soon)                                                                                                                                                                                                                  |
+
 
 #### 12.3. Gathering the statistical details of a database
 | Approaches                                                                                                                                                                                                                                                        |

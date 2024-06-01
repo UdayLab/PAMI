@@ -173,7 +173,7 @@ class TransactionalDatabase:
             for line in self.db:
                 f.write(str(self.seperator).join(map(str, line)) + '\n')
 
-    def getTransactions(self) -> pd.DataFrame:
+    def getTransactions(self, sep = "\t") -> pd.DataFrame:
         """
         Get the transactional database in dataFrame format
 
@@ -182,8 +182,7 @@ class TransactionalDatabase:
         """
         column = "Transactions"
         db = pd.DataFrame(columns=[column])
-        temp = ["\t".join([str(a) for a in x]) for x in self.db]
-        db[column] = temp
+        db[column] = [sep.join(map(str, line)) for line in self.db]
         return db
         
 

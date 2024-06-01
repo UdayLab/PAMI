@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.periodicFrequentPattern.basic.PFECLAT &mdash; PAMI 2024.04.23 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=391540b0"></script>
-        <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -94,22 +96,25 @@
   <h1>Source code for PAMI.periodicFrequentPattern.basic.PFECLAT</h1><div class="highlight"><pre>
 <span></span><span class="c1"># PFECLAT is the fundamental approach to mine the periodic-frequent patterns.</span>
 <span class="c1">#</span>
-<span class="c1">#</span>
 <span class="c1"># **Importing this algorithm into a python program**</span>
-<span class="c1"># --------------------------------------------------------</span>
-<span class="c1">#</span>
 <span class="c1">#</span>
 <span class="c1">#             from PAMI.periodicFrequentPattern.basic import PFECLAT as alg</span>
 <span class="c1">#</span>
-<span class="c1">#             obj = alg.PFECLAT(&quot;../basic/sampleTDB.txt&quot;, &quot;2&quot;, &quot;5&quot;)</span>
+<span class="c1">#             iFile = &#39;sampleDB.txt&#39;</span>
 <span class="c1">#</span>
-<span class="c1">#             obj.startMine()</span>
+<span class="c1">#             minSup = 10  # can also be specified between 0 and 1</span>
+<span class="c1">#</span>
+<span class="c1">#             maxPer = 20 # can also be specified between 0 and 1</span>
+<span class="c1">#</span>
+<span class="c1">#             obj = alg.PFECLAT(iFile, minSup, maxPer)</span>
+<span class="c1">#</span>
+<span class="c1">#             obj.mine()</span>
 <span class="c1">#</span>
 <span class="c1">#             periodicFrequentPatterns = obj.getPatterns()</span>
 <span class="c1">#</span>
 <span class="c1">#             print(&quot;Total number of Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</span>
 <span class="c1">#</span>
-<span class="c1">#             obj.save(&quot;patterns&quot;)</span>
+<span class="c1">#             obj.save(&quot;periodicFrequentPatterns&quot;)</span>
 <span class="c1">#</span>
 <span class="c1">#             Df = obj.getPatternsAsDataFrame()</span>
 <span class="c1">#</span>
@@ -125,8 +130,6 @@
 <span class="c1">#</span>
 <span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
 <span class="c1">#</span>
-
-
 
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -148,7 +151,6 @@
 
 <span class="s2">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -156,145 +158,104 @@
 <span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
 
 
-<div class="viewcode-block" id="PFECLAT">
-<a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT">[docs]</a>
-<span class="k">class</span> <span class="nc">PFECLAT</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_periodicFrequentPatterns</span><span class="p">):</span>
+<div class="viewcode-block" id="PFECLAT"><a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT">[docs]</a><span class="k">class</span> <span class="nc">PFECLAT</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_periodicFrequentPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    :Description:   PFECLAT is the fundamental approach to mine the periodic-frequent patterns.</span>
+<span class="sd">    About this algorithm</span>
+<span class="sd">    ====================</span>
 
-<span class="sd">    :Reference:   P. Ravikumar, P.Likhitha, R. Uday kiran, Y. Watanobe, and Koji Zettsu, &quot;Towards efficient discovery of</span>
-<span class="sd">                  periodic-frequent patterns in columnar temporal databases&quot;, 2021 IEA/AIE.</span>
+<span class="sd">    :**Description**:   PFECLAT is the fundamental approach to mine the periodic-frequent patterns.</span>
 
-<span class="sd">    :param  iFile: str :</span>
-<span class="sd">                   Name of the Input file to mine complete set of periodic frequent pattern&#39;s</span>
-<span class="sd">    :param  oFile: str :</span>
-<span class="sd">                   Name of the output file to store complete set of periodic frequent pattern&#39;s</span>
-<span class="sd">    :param  minSup: str:</span>
-<span class="sd">                   Controls the minimum number of transactions in which every item must appear in a database.</span>
-<span class="sd">    :param  maxPer: str:</span>
-<span class="sd">                   Controls the maximum number of transactions in which any two items within a pattern can reappear.</span>
-<span class="sd">    :param  sep: str :</span>
-<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+<span class="sd">    :**Reference**:   P. Ravikumar, P.Likhitha, R. Uday kiran, Y. Watanobe, and Koji Zettsu, &quot;Towards efficient discovery of</span>
+<span class="sd">                      periodic-frequent patterns in columnar temporal databases&quot;, 2021 IEA/AIE.</span>
 
-<span class="sd">    :Attributes:</span>
+<span class="sd">    :**Parameters**:    - **iFile** (*str or URL or dataFrame*) -- *Name of the Input file to mine complete set of frequent patterns.*</span>
+<span class="sd">                        - **oFile** (*str*) -- *Name of the output file to store complete set of frequent patterns.*</span>
+<span class="sd">                        - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.*</span>
+<span class="sd">                        - **maxPer** (*int or float or str*) -- *The user can specify maxPer either in count or proportion of database size. It controls the maximum number of transactions in which any two items within a pattern can reappear.*</span>
+<span class="sd">                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*</span>
 
-<span class="sd">        iFile : file</span>
-<span class="sd">            Name of the Input file or path of the input file</span>
-<span class="sd">        oFile : file</span>
-<span class="sd">            Name of the output file or path of the output file</span>
-<span class="sd">        minSup : int or float or str</span>
-<span class="sd">            The user can specify minSup either in count or proportion of database size.</span>
-<span class="sd">            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.</span>
-<span class="sd">            Otherwise, it will be treated as float.</span>
-<span class="sd">            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float</span>
-<span class="sd">        maxPer : int or float or str</span>
-<span class="sd">            The user can specify maxPer either in count or proportion of database size.</span>
-<span class="sd">            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.</span>
-<span class="sd">            Otherwise, it will be treated as float.</span>
-<span class="sd">            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float</span>
-<span class="sd">        sep : str</span>
-<span class="sd">            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.</span>
-<span class="sd">            However, the users can override their default separator.</span>
-<span class="sd">        memoryUSS : float</span>
-<span class="sd">            To store the total amount of USS memory consumed by the program</span>
-<span class="sd">        memoryRSS : float</span>
-<span class="sd">            To store the total amount of RSS memory consumed by the program</span>
-<span class="sd">        startTime : float</span>
-<span class="sd">            To record the start time of the mining process</span>
-<span class="sd">        endTime : float</span>
-<span class="sd">            To record the completion time of the mining process</span>
-<span class="sd">        Database : list</span>
-<span class="sd">            To store the transactions of a database in list</span>
-<span class="sd">        mapSupport : Dictionary</span>
-<span class="sd">            To maintain the information of item and their frequency</span>
-<span class="sd">        lno : int</span>
-<span class="sd">            it represents the total no of transactions</span>
-<span class="sd">        tree : class</span>
-<span class="sd">            it represents the Tree class</span>
-<span class="sd">        itemSetCount : int</span>
-<span class="sd">            it represents the total no of patterns</span>
-<span class="sd">        finalPatterns : dict</span>
-<span class="sd">            it represents to store the patterns</span>
-<span class="sd">        tidList : dict</span>
-<span class="sd">            stores the timestamps of an item</span>
-<span class="sd">        hashing : dict</span>
-<span class="sd">            stores the patterns with their support to check for the closed property</span>
+<span class="sd">    :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*</span>
+<span class="sd">                        - **endTime** (*float*) -- *To record the completion time of the mining process.*</span>
+<span class="sd">                        - **finalPatterns** (*dict*) -- *Storing the complete set of patterns in a dictionary variable.*</span>
+<span class="sd">                        - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*</span>
+<span class="sd">                        - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*</span>
+<span class="sd">                        - **Database** (*list*) -- *To store the transactions of a database in list.*</span>
+<span class="sd">                        - **mapSupport** (*Dictionary*) -- *To maintain the information of item and their frequency.*</span>
+<span class="sd">                        - **lno** (*int*) -- *It represents the total no of transactions*</span>
+<span class="sd">                        - **tree** (*class*) -- *it represents the Tree class.*</span>
+<span class="sd">                        - **itemSetCount** (*int*) -- *it represents the total no of patterns.*</span>
+<span class="sd">                        - **tidList** (*dict*) -- *stores the timestamps of an item.*</span>
+<span class="sd">                        - **hashing** (*dict*) -- *stores the patterns with their support to check for the closed property.*</span>
 
-<span class="sd">    :Methods:</span>
+<span class="sd">    :**Methods**:       - **startMine()** -- *Mining process will start from here.*</span>
+<span class="sd">                        - **getPatterns()** -- *Complete set of patterns will be retrieved with this function.*</span>
+<span class="sd">                        - **save(oFile)** -- *Complete set of periodic-frequent patterns will be loaded in to a output file.*</span>
+<span class="sd">                        - **getPatternsAsDataFrame()** -- *Complete set of periodic-frequent patterns will be loaded in to a dataframe.*</span>
+<span class="sd">                        - **getMemoryUSS()** -- *Total amount of USS memory consumed by the mining process will be retrieved from this function.*</span>
+<span class="sd">                        - **getMemoryRSS()** -- *Total amount of RSS memory consumed by the mining process will be retrieved from this function.*</span>
+<span class="sd">                        - **getRuntime()** -- *Total amount of runtime taken by the mining process will be retrieved from this function.*</span>
+<span class="sd">                        - **creatingOneItemSets()** -- *Scan the database and store the items with their timestamps which are periodic frequent.*</span>
+<span class="sd">                        - **getPeriodAndSupport()** -- *Calculates the support and period for a list of timestamps.*</span>
+<span class="sd">                        - **Generation()** -- *Used to implement prefix class equivalence method to generate the periodic patterns recursively*</span>
 
-<span class="sd">        startMine()</span>
-<span class="sd">            Mining process will start from here</span>
-<span class="sd">        getPatterns()</span>
-<span class="sd">            Complete set of patterns will be retrieved with this function</span>
-<span class="sd">        save(oFile)</span>
-<span class="sd">            Complete set of periodic-frequent patterns will be loaded in to a output file</span>
-<span class="sd">        getPatternsAsDataFrame()</span>
-<span class="sd">            Complete set of periodic-frequent patterns will be loaded in to a dataframe</span>
-<span class="sd">        getMemoryUSS()</span>
-<span class="sd">            Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
-<span class="sd">        getMemoryRSS()</span>
-<span class="sd">            Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
-<span class="sd">        getRuntime()</span>
-<span class="sd">            Total amount of runtime taken by the mining process will be retrieved from this function</span>
-<span class="sd">        creatingOneItemSets()</span>
-<span class="sd">            Scan the database and store the items with their timestamps which are periodic frequent </span>
-<span class="sd">        getPeriodAndSupport()</span>
-<span class="sd">            Calculates the support and period for a list of timestamps.</span>
-<span class="sd">        Generation()</span>
-<span class="sd">            Used to implement prefix class equivalence method to generate the periodic patterns recursively</span>
-<span class="sd">            </span>
+<span class="sd">    Execution methods</span>
+<span class="sd">    =================</span>
 
-<span class="sd">    **Methods to execute code on terminal**</span>
-<span class="sd">    ------------------------------------------</span>
+<span class="sd">    **Terminal command**</span>
+
 <span class="sd">    .. code-block:: console</span>
-
 
 <span class="sd">       Format:</span>
 
-<span class="sd">       (.venv) $ python3 PFECLAT.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
+<span class="sd">       (.venv) $ python3 PFECLAT.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</span>
 
 <span class="sd">       Example usage:</span>
 
-<span class="sd">       (.venv) $ python3 PFECLAT.py sampleDB.txt patterns.txt 10.0</span>
+<span class="sd">       (.venv) $ python3 PFECLAT.py sampleDB.txt patterns.txt 10.0 20.0</span>
+
+<span class="sd">    .. note:: minSup will be considered in percentage of database transactions</span>
 
 
+<span class="sd">    **Calling from a python program**</span>
 
-<span class="sd">               .. note:: minSup will be considered in percentage of database transactions</span>
-
-
-<span class="sd">    **Importing this algorithm into a python program**</span>
-<span class="sd">    --------------------------------------------------------</span>
 <span class="sd">    .. code-block:: python</span>
 
-<span class="sd">             from PAMI.periodicFrequentPattern.basic import PFECLAT as alg</span>
+<span class="sd">            from PAMI.periodicFrequentPattern.basic import PFECLAT as alg</span>
 
-<span class="sd">                obj = alg.PFECLAT(&quot;../basic/sampleTDB.txt&quot;, &quot;2&quot;, &quot;5&quot;)</span>
+<span class="sd">            iFile = &#39;sampleDB.txt&#39;</span>
 
-<span class="sd">                obj.startMine()</span>
+<span class="sd">            minSup = 10  # can also be specified between 0 and 1</span>
 
-<span class="sd">                periodicFrequentPatterns = obj.getPatterns()</span>
+<span class="sd">            maxPer = 20 # can also be specified between 0 and 1</span>
 
-<span class="sd">                print(&quot;Total number of Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</span>
+<span class="sd">            obj = alg.PFECLAT(iFile, minSup, maxPer)</span>
 
-<span class="sd">                obj.save(&quot;patterns&quot;)</span>
+<span class="sd">            obj.mine()</span>
 
-<span class="sd">                Df = obj.getPatternsAsDataFrame()</span>
+<span class="sd">            periodicFrequentPatterns = obj.getPatterns()</span>
 
-<span class="sd">                memUSS = obj.getMemoryUSS()</span>
+<span class="sd">            print(&quot;Total number of Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</span>
 
-<span class="sd">                print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="sd">            obj.save(&quot;periodicFrequentPatterns&quot;)</span>
 
-<span class="sd">                memRSS = obj.getMemoryRSS()</span>
+<span class="sd">            Df = obj.getPatternsAsDataFrame()</span>
 
-<span class="sd">                print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="sd">            memUSS = obj.getMemoryUSS()</span>
 
-<span class="sd">                run = obj.getRuntime()</span>
+<span class="sd">            print(&quot;Total Memory in USS:&quot;, memUSS)</span>
 
-<span class="sd">                print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="sd">            memRSS = obj.getMemoryRSS()</span>
 
-<span class="sd">    **Credits:**</span>
-<span class="sd">    --------------</span>
-<span class="sd">             The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.</span>
+<span class="sd">            print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+
+<span class="sd">            run = obj.getRuntime()</span>
+
+<span class="sd">            print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+
+<span class="sd">    Credits</span>
+<span class="sd">    =======</span>
+
+<span class="sd">    The complete program was written by P. Likhitha  and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     
@@ -317,7 +278,9 @@
 <span class="sd">        To convert the given user specified value</span>
 
 <span class="sd">        :param value: user specified value</span>
+<span class="sd">        :type value: int or float or str</span>
 <span class="sd">        :return: converted value</span>
+<span class="sd">        :rtype: int or float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -333,7 +296,9 @@
 
     <span class="k">def</span> <span class="nf">_creatingItemSets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Storing the complete transactions of the database/input file in a database variable</span>
+
+<span class="sd">        Storing the complete transactions of the database/input file in a database variable</span>
+
 <span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span> <span class="o">=</span> <span class="p">[]</span>
@@ -372,16 +337,9 @@
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File Not Found&quot;</span><span class="p">)</span>
                     <span class="n">quit</span><span class="p">()</span>
 
-<div class="viewcode-block" id="PFECLAT.startMine">
-<a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.startMine">[docs]</a>
-    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use mine() instead of startMine() for mining process&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="PFECLAT.startMine"><a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use &#39;mine()&#39; instead of &#39;startMine()&#39; for mining process. Starting from January 2025, &#39;startMine()&#39; will be completely terminated.&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Mining process will start from this function</span>
-<span class="sd">        :return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Mine</span><span class="p">()</span></div>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span></div>
         <span class="c1"># self._startTime = _ab._time.time()</span>
         <span class="c1"># self._finalPatterns = {}</span>
         <span class="c1"># frequentSets = self._creatingOneItemSets()</span>
@@ -401,9 +359,7 @@
 
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
 
-<div class="viewcode-block" id="PFECLAT.Mine">
-<a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.Mine">[docs]</a>
-    <span class="k">def</span> <span class="nf">Mine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="PFECLAT.mine"><a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.mine">[docs]</a>    <span class="k">def</span> <span class="nf">mine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mining process will start from this function</span>
 <span class="sd">        :return: None</span>
@@ -473,11 +429,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Periodic-Frequent patterns were generated successfully using PFECLAT algorithm &quot;</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="PFECLAT.getMemoryUSS">
-<a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.getMemoryUSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
+<div class="viewcode-block" id="PFECLAT.getMemoryUSS"><a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.getMemoryUSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
 
 <span class="sd">        :return: returning USS memory consumed by the mining process</span>
 <span class="sd">        :rtype: float</span>
@@ -485,11 +439,9 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span></div>
 
-
-<div class="viewcode-block" id="PFECLAT.getMemoryRSS">
-<a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.getMemoryRSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
+<div class="viewcode-block" id="PFECLAT.getMemoryRSS"><a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.getMemoryRSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 
 <span class="sd">        :return: returning RSS memory consumed by the mining process</span>
 <span class="sd">        :rtype: float</span>
@@ -497,12 +449,9 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span></div>
 
-
-<div class="viewcode-block" id="PFECLAT.getRuntime">
-<a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.getRuntime">[docs]</a>
-    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculating the total amount of runtime taken by the mining process</span>
-
+<div class="viewcode-block" id="PFECLAT.getRuntime"><a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.getRuntime">[docs]</a>    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculating the total amount of runtime taken by the mining process</span>
 
 <span class="sd">        :return: returning total amount of runtime taken by the mining process</span>
 <span class="sd">        :rtype: float</span>
@@ -510,10 +459,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span></div>
 
-
-<div class="viewcode-block" id="PFECLAT.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.getPatternsAsDataFrame">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<div class="viewcode-block" id="PFECLAT.getPatternsAsDataFrame"><a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.getPatternsAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing final periodic-frequent patterns in a dataframe</span>
 
@@ -528,10 +474,7 @@
             <span class="n">dataframe</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;Support&#39;</span><span class="p">,</span> <span class="s1">&#39;Periodicity&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">dataframe</span></div>
 
-
-<div class="viewcode-block" id="PFECLAT.save">
-<a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.save">[docs]</a>
-    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="PFECLAT.save"><a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Complete set of periodic-frequent patterns will be loaded in to a output file</span>
 
@@ -546,10 +489,7 @@
             <span class="c1">#s1 = x.replace(&#39; &#39;, &#39;\t&#39;) + &quot;:&quot; + str(y[0]) + &quot;:&quot; + str(y[1])</span>
             <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">s1</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="PFECLAT.getPatterns">
-<a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.getPatterns">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<div class="viewcode-block" id="PFECLAT.getPatterns"><a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.getPatterns">[docs]</a>    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Function to send the set of periodic-frequent patterns after completion of the mining process</span>
 
@@ -558,10 +498,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span></div>
 
-
-<div class="viewcode-block" id="PFECLAT.printResults">
-<a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.printResults">[docs]</a>
-    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="PFECLAT.printResults"><a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFECLAT.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.printResults">[docs]</a>    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>
 <span class="sd">        :return: None</span>
@@ -569,9 +506,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Periodic Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div>
-</div>
-
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div></div>
                     
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
@@ -582,6 +517,7 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
             <span class="n">_ap</span> <span class="o">=</span> <span class="n">PFECLAT</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
         <span class="n">_ap</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Periodic-Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ap</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="n">_ap</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>

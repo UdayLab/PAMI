@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SpatialECLAT &mdash; PAMI 2024.04.23 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=391540b0"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -110,10 +112,10 @@
            <div itemprop="articleBody">
              
   <section id="module-PAMI.georeferencedFrequentPattern.basic.SpatialECLAT">
-<span id="spatialeclat"></span><h1>SpatialECLAT<a class="headerlink" href="#module-PAMI.georeferencedFrequentPattern.basic.SpatialECLAT" title="Link to this heading"></a></h1>
+<span id="spatialeclat"></span><h1>SpatialECLAT<a class="headerlink" href="#module-PAMI.georeferencedFrequentPattern.basic.SpatialECLAT" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.</span></span><span class="sig-name descname"><span class="pre">SpatialECLAT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.</span></span><span class="sig-name descname"><span class="pre">SpatialECLAT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_spatialFrequentPatterns</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
@@ -203,8 +205,6 @@ Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated
 </dl>
 </dd>
 </dl>
-<section id="executing-the-code-on-terminal">
-<h2><strong>Executing the code on terminal :</strong><a class="headerlink" href="#executing-the-code-on-terminal" title="Link to this heading"></a></h2>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
 <span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>SpatialECLAT.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;neighbourFile&gt;<span class="w"> </span>&lt;minSup&gt;
@@ -218,9 +218,6 @@ Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated
 <p class="admonition-title">Note</p>
 <p>minSup will be considered in percentage of database transactions</p>
 </div>
-</section>
-<section id="sample-run-of-importing-the-code">
-<h2><strong>Sample run of importing the code :</strong><a class="headerlink" href="#sample-run-of-importing-the-code" title="Link to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.georeferencedFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">SpatialECLAT</span> <span class="k">as</span> <span class="n">alg</span>
 
 <span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">SpatialECLAT</span><span class="p">(</span><span class="s2">&quot;sampleTDB.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;sampleN.txt&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
@@ -246,15 +243,12 @@ Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="credits">
-<h2><strong>Credits:</strong><a class="headerlink" href="#credits" title="Link to this heading"></a></h2>
 <blockquote>
 <div><p>The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getMemoryRSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -268,7 +262,7 @@ Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getMemoryUSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -282,7 +276,7 @@ Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -296,7 +290,7 @@ Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>Storing final frequent patterns in a dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -310,7 +304,7 @@ Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getRuntime" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -324,19 +318,19 @@ Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.mine">
-<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.mine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.mine" title="Permalink to this definition"></a></dt>
 <dd><p>Frequent pattern mining process will start from here</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.printResults" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.printResults" title="Permalink to this definition"></a></dt>
 <dd><p>This function is used to print the results</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.save" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to a output file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -347,11 +341,10 @@ Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.startMine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/georeferencedFrequentPattern/basic/SpatialECLAT.html#SpatialECLAT.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.georeferencedFrequentPattern.basic.SpatialECLAT.SpatialECLAT.startMine" title="Permalink to this definition"></a></dt>
 <dd><p>Frequent pattern mining process will start from here</p>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>

@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.sequentialPatternMining.basic.SPADE &mdash; PAMI 2024.04.23 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=391540b0"></script>
-        <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -156,9 +158,7 @@
 
 <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">setrecursionlimit</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
 
-<div class="viewcode-block" id="SPADE">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE">[docs]</a>
-<span class="k">class</span> <span class="nc">SPADE</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sequentialPatterns</span><span class="p">):</span>
+<div class="viewcode-block" id="SPADE"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE">[docs]</a><span class="k">class</span> <span class="nc">SPADE</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sequentialPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Description:</span>
 
@@ -374,9 +374,7 @@
         <span class="k">return</span> <span class="n">value</span>
 
 
-<div class="viewcode-block" id="SPADE.make1LenDatabase">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.make1LenDatabase">[docs]</a>
-    <span class="k">def</span> <span class="nf">make1LenDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SPADE.make1LenDatabase"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.make1LenDatabase">[docs]</a>    <span class="k">def</span> <span class="nf">make1LenDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To make 1 length frequent patterns by breadth-first search technique   and update Database to sequential database</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -419,10 +417,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="o">=</span><span class="n">newDatabase</span></div>
 
 
-
-<div class="viewcode-block" id="SPADE.make2LenDatabase">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.make2LenDatabase">[docs]</a>
-    <span class="k">def</span> <span class="nf">make2LenDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SPADE.make2LenDatabase"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.make2LenDatabase">[docs]</a>    <span class="k">def</span> <span class="nf">make2LenDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To make 2 length frequent patterns by joining two one length patterns by breadth-first search technique  and update xlen Database to sequential database</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -490,10 +485,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">_xLenDatabaseSame</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="nb">tuple</span><span class="p">([</span><span class="n">key1</span><span class="p">])][</span><span class="n">key2</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="n">i</span><span class="p">:</span><span class="n">nextDatabaseSame</span><span class="p">[</span><span class="n">key1</span><span class="p">][</span><span class="n">key2</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">nextDatabaseSame</span><span class="p">[</span><span class="n">key1</span><span class="p">][</span><span class="n">key2</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_xLenDatabaseSame</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="nb">tuple</span><span class="p">([</span><span class="n">key2</span><span class="p">])][</span><span class="n">key1</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">nextDatabaseSame</span><span class="p">[</span><span class="n">key1</span><span class="p">][</span><span class="n">key2</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">nextDatabaseSame</span><span class="p">[</span><span class="n">key1</span><span class="p">][</span><span class="n">key2</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span></div>
 
-
-<div class="viewcode-block" id="SPADE.make3LenDatabase">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.make3LenDatabase">[docs]</a>
-    <span class="k">def</span> <span class="nf">make3LenDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SPADE.make3LenDatabase"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.make3LenDatabase">[docs]</a>    <span class="k">def</span> <span class="nf">make3LenDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To call each 2 length patterns to make 3 length frequent patterns depth-first search technique</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -504,10 +496,7 @@
             <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xLenDatabaseSame</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">makexLenDatabaseSame</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="SPADE.makexLenDatabase">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makexLenDatabase">[docs]</a>
-    <span class="k">def</span> <span class="nf">makexLenDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rowLen</span><span class="p">,</span> <span class="n">bs</span><span class="p">,</span> <span class="n">latestWord</span><span class="p">):</span>
+<div class="viewcode-block" id="SPADE.makexLenDatabase"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makexLenDatabase">[docs]</a>    <span class="k">def</span> <span class="nf">makexLenDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rowLen</span><span class="p">,</span> <span class="n">bs</span><span class="p">,</span> <span class="n">latestWord</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            To make &quot;rowLen&quot; length frequent patterns from pattern which the latest word is in same seq  by joining &quot;rowLen&quot;-1 length patterns by depth-first search technique  and update xlenDatabase to sequential database</span>
 
@@ -664,10 +653,7 @@
                                     <span class="bp">self</span><span class="o">.</span><span class="n">_xLenDatabase</span><span class="p">[</span><span class="n">rowLen</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">nextbs</span><span class="p">][</span><span class="n">latestWord</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span><span class="nb">next</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">next</span> <span class="p">}</span>
                                     <span class="bp">self</span><span class="o">.</span><span class="n">makexLenDatabase</span><span class="p">(</span><span class="n">rowLen</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">nextbs</span><span class="p">,</span><span class="n">latestWord</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="SPADE.makexLenDatabaseSame">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makexLenDatabaseSame">[docs]</a>
-    <span class="k">def</span> <span class="nf">makexLenDatabaseSame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rowLen</span><span class="p">,</span> <span class="n">bs</span><span class="p">,</span> <span class="n">latestWord</span><span class="p">):</span>
+<div class="viewcode-block" id="SPADE.makexLenDatabaseSame"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makexLenDatabaseSame">[docs]</a>    <span class="k">def</span> <span class="nf">makexLenDatabaseSame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rowLen</span><span class="p">,</span> <span class="n">bs</span><span class="p">,</span> <span class="n">latestWord</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To make 3 or more length frequent patterns from pattern which the latest word is in different seq  by depth-first search technique  and update xlenDatabase to sequential database</span>
 
@@ -760,10 +746,7 @@
                                     <span class="bp">self</span><span class="o">.</span><span class="n">_xLenDatabaseSame</span><span class="p">[</span><span class="n">rowLen</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">nextbs</span><span class="p">][</span><span class="n">nextLate</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span><span class="nb">next</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">next</span><span class="p">}</span>
                                     <span class="bp">self</span><span class="o">.</span><span class="n">makexLenDatabaseSame</span><span class="p">(</span><span class="n">rowLen</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">nextbs</span><span class="p">,</span> <span class="n">nextLate</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="SPADE.makeNextRow">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRow">[docs]</a>
-    <span class="k">def</span> <span class="nf">makeNextRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">bs</span><span class="p">,</span> <span class="n">latestWord</span><span class="p">,</span> <span class="n">latestWord2</span><span class="p">):</span>
+<div class="viewcode-block" id="SPADE.makeNextRow"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRow">[docs]</a>    <span class="k">def</span> <span class="nf">makeNextRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">bs</span><span class="p">,</span> <span class="n">latestWord</span><span class="p">,</span> <span class="n">latestWord2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To make pattern row when two patterns have the latest word in different sequence</span>
 
@@ -776,10 +759,7 @@
         <span class="n">bs2</span><span class="o">=</span><span class="n">bs</span><span class="o">+</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">latestWord2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">bs2</span><span class="p">,</span><span class="n">bs</span></div>
 
-
-<div class="viewcode-block" id="SPADE.makeNextRowSame">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRowSame">[docs]</a>
-    <span class="k">def</span> <span class="nf">makeNextRowSame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">bs</span><span class="p">,</span> <span class="n">latestWord</span><span class="p">,</span> <span class="n">latestWord2</span><span class="p">):</span>
+<div class="viewcode-block" id="SPADE.makeNextRowSame"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRowSame">[docs]</a>    <span class="k">def</span> <span class="nf">makeNextRowSame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">bs</span><span class="p">,</span> <span class="n">latestWord</span><span class="p">,</span> <span class="n">latestWord2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To make pattern row when one pattern have the latestWord1 in different sequence and other(latestWord2) in same</span>
 
@@ -806,10 +786,7 @@
         <span class="k">return</span> <span class="n">bs2</span><span class="p">,</span><span class="n">bs</span></div>
 
 
-
-<div class="viewcode-block" id="SPADE.makeNextRowSame2">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRowSame2">[docs]</a>
-    <span class="k">def</span> <span class="nf">makeNextRowSame2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">bs</span><span class="p">,</span> <span class="n">latestWord</span><span class="p">,</span> <span class="n">latestWord2</span><span class="p">):</span>
+<div class="viewcode-block" id="SPADE.makeNextRowSame2"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRowSame2">[docs]</a>    <span class="k">def</span> <span class="nf">makeNextRowSame2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">bs</span><span class="p">,</span> <span class="n">latestWord</span><span class="p">,</span> <span class="n">latestWord2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To make pattern row when two patterns have the latest word in same sequence</span>
 
@@ -838,10 +815,7 @@
         <span class="k">return</span> <span class="n">bs2</span><span class="p">,</span> <span class="n">bs</span><span class="p">,</span> <span class="n">x3</span></div>
 
 
-
-<div class="viewcode-block" id="SPADE.makeNextRowSame3">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRowSame3">[docs]</a>
-    <span class="k">def</span> <span class="nf">makeNextRowSame3</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bs</span><span class="p">,</span> <span class="n">latestWord</span><span class="p">,</span> <span class="n">latestWord2</span><span class="p">):</span>
+<div class="viewcode-block" id="SPADE.makeNextRowSame3"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRowSame3">[docs]</a>    <span class="k">def</span> <span class="nf">makeNextRowSame3</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bs</span><span class="p">,</span> <span class="n">latestWord</span><span class="p">,</span> <span class="n">latestWord2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To make pattern row when two patterns have the latest word in different sequence and both latest word is in same sequence</span>
 
@@ -857,10 +831,7 @@
         <span class="n">bs2</span> <span class="o">=</span> <span class="n">bs</span> <span class="o">+</span> <span class="p">(</span><span class="n">x2</span><span class="p">,)</span>
         <span class="k">return</span>  <span class="n">bs2</span><span class="p">,</span><span class="n">bs</span><span class="p">,</span><span class="n">x2</span></div>
 
-
-<div class="viewcode-block" id="SPADE.startMine">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.startMine">[docs]</a>
-    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use mine() instead of startMine() for mining process&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="SPADE.startMine"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use mine() instead of startMine() for mining process&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Frequent pattern mining process will start from here</span>
@@ -880,10 +851,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sequential Frequent patterns were generated successfully using SPADE algorithm &quot;</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="SPADE.Mine">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.Mine">[docs]</a>
-    <span class="k">def</span> <span class="nf">Mine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SPADE.Mine"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.Mine">[docs]</a>    <span class="k">def</span> <span class="nf">Mine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Frequent pattern mining process will start from here</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -902,10 +870,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sequential Frequent patterns were generated successfully using SPADE algorithm &quot;</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="SPADE.getMemoryUSS">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.getMemoryUSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SPADE.getMemoryUSS"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.getMemoryUSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
 
@@ -915,10 +880,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span></div>
 
-
-<div class="viewcode-block" id="SPADE.getMemoryRSS">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.getMemoryRSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SPADE.getMemoryRSS"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.getMemoryRSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 
@@ -928,10 +890,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span></div>
 
-
-<div class="viewcode-block" id="SPADE.getRuntime">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.getRuntime">[docs]</a>
-    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SPADE.getRuntime"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.getRuntime">[docs]</a>    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculating the total amount of runtime taken by the mining process</span>
 
@@ -941,10 +900,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span></div>
 
-
-<div class="viewcode-block" id="SPADE.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.getPatternsAsDataFrame">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SPADE.getPatternsAsDataFrame"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.getPatternsAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing final frequent patterns in a dataframe</span>
 
@@ -959,10 +915,7 @@
             <span class="n">dataFrame</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;Support&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">dataFrame</span></div>
 
-
-<div class="viewcode-block" id="SPADE.save">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.save">[docs]</a>
-    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
+<div class="viewcode-block" id="SPADE.save"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Complete set of frequent patterns will be loaded in to an output file</span>
 
@@ -975,10 +928,7 @@
             <span class="n">s1</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
             <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">s1</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="SPADE.getPatterns">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.getPatterns">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SPADE.getPatterns"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.getPatterns">[docs]</a>    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Function to send the set of frequent patterns after completion of the mining process</span>
 
@@ -987,19 +937,14 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span></div>
 
-
-<div class="viewcode-block" id="SPADE.printResults">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.printResults">[docs]</a>
-    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SPADE.printResults"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicSPADE.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE.printResults">[docs]</a>    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to prnt the results</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div>
-</div>
-
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>

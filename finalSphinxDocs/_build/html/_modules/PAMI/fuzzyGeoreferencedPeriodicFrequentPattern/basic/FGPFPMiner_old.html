@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old &mdash; PAMI 2024.04.23 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=391540b0"></script>
-        <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -218,9 +220,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">quantity</span> <span class="o">=</span> <span class="mi">0</span>
 
 
-<div class="viewcode-block" id="FGPFPMiner">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner">[docs]</a>
-<span class="k">class</span> <span class="nc">FGPFPMiner</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_fuzzySpatialFrequentPatterns</span><span class="p">):</span>
+<div class="viewcode-block" id="FGPFPMiner"><a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner">[docs]</a><span class="k">class</span> <span class="nc">FGPFPMiner</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_fuzzySpatialFrequentPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Description:   Fuzzy Frequent Spatial Pattern-Miner is desired to find all Spatially frequent fuzzy patterns</span>
 <span class="sd">                    which is on-trivial and challenging problem to its huge search space.we are using efficient pruning</span>
@@ -556,19 +556,14 @@
                                 <span class="p">(</span><span class="n">quantity</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_RegionsCal</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="n">base</span><span class="p">)</span>
         <span class="k">return</span>
 
-<div class="viewcode-block" id="FGPFPMiner.startMine">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.startMine">[docs]</a>
-    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use &#39;mine()&#39; instead of &#39;startMine()&#39; for mining process. Starting from January 2025, &#39;startMine()&#39; will be completely terminated.&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="FGPFPMiner.startMine"><a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use &#39;mine()&#39; instead of &#39;startMine()&#39; for mining process. Starting from January 2025, &#39;startMine()&#39; will be completely terminated.&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Frequent pattern mining process will start from here</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span></div>
 
-
-<div class="viewcode-block" id="FGPFPMiner.mine">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.mine">[docs]</a>
-    <span class="k">def</span> <span class="nf">mine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FGPFPMiner.mine"><a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.mine">[docs]</a>    <span class="k">def</span> <span class="nf">mine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Frequent pattern mining process will start from here</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -676,7 +671,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span></div>
 
-
     <span class="k">def</span> <span class="nf">_FSFIMining</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">prefixLen</span><span class="p">,</span> <span class="n">FSFIM</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">itemNeighbours</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generates FFSPMiner from prefix</span>
@@ -726,9 +720,7 @@
                 <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbourX</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">result</span>
 
-<div class="viewcode-block" id="FGPFPMiner.getMemoryUSS">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.getMemoryUSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FGPFPMiner.getMemoryUSS"><a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.getMemoryUSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
 
@@ -738,10 +730,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span></div>
 
-
-<div class="viewcode-block" id="FGPFPMiner.getMemoryRSS">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.getMemoryRSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FGPFPMiner.getMemoryRSS"><a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.getMemoryRSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 
@@ -750,10 +739,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span></div>
 
-
-<div class="viewcode-block" id="FGPFPMiner.getRuntime">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.getRuntime">[docs]</a>
-    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FGPFPMiner.getRuntime"><a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.getRuntime">[docs]</a>    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculating the total amount of runtime taken by the mining process</span>
 
@@ -761,7 +747,6 @@
 <span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span></div>
-
 
     <span class="k">def</span> <span class="nf">_construct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_FFListObject1</span><span class="p">,</span> <span class="n">_FFListObject2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -847,9 +832,7 @@
         <span class="k">if</span> <span class="n">_FFListObject</span><span class="o">.</span><span class="n">isPeriodic</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_finalPeriodicPatterns</span><span class="p">[</span><span class="n">res</span><span class="p">]</span> <span class="o">=</span> <span class="n">res1</span>
 
-<div class="viewcode-block" id="FGPFPMiner.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.getPatternsAsDataFrame">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FGPFPMiner.getPatternsAsDataFrame"><a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.getPatternsAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing final frequent patterns in a dataframe</span>
 
@@ -864,10 +847,7 @@
             <span class="n">dataFrame</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;Support&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">dataFrame</span></div>
 
-
-<div class="viewcode-block" id="FGPFPMiner.getPatterns">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.getPatterns">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FGPFPMiner.getPatterns"><a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.getPatterns">[docs]</a>    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Function to send the set of frequent patterns after completion of the mining process</span>
 
@@ -876,10 +856,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPeriodicPatterns</span></div>
 
-
-<div class="viewcode-block" id="FGPFPMiner.save">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.save">[docs]</a>
-    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
+<div class="viewcode-block" id="FGPFPMiner.save"><a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Complete set of frequent patterns will be loaded in to an output file</span>
 
@@ -893,10 +870,7 @@
             <span class="n">patternsAndSupport</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
             <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">patternsAndSupport</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="FGPFPMiner.printResults">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.printResults">[docs]</a>
-    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FGPFPMiner.printResults"><a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.printResults">[docs]</a>    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -905,10 +879,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div>
 
-
-<div class="viewcode-block" id="FGPFPMiner.getPatternsAsDataframe">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.getPatternsAsDataframe">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatternsAsDataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FGPFPMiner.getPatternsAsDataframe"><a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.getPatternsAsDataframe">[docs]</a>    <span class="k">def</span> <span class="nf">getPatternsAsDataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :return: returning periodic frequent patterns in a dataframe</span>
@@ -922,10 +893,7 @@
             <span class="n">dataFrame</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;Support&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">dataFrame</span></div>
 
-
-<div class="viewcode-block" id="FGPFPMiner.generateLatexCode">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.generateLatexCode">[docs]</a>
-    <span class="k">def</span> <span class="nf">generateLatexCode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+<div class="viewcode-block" id="FGPFPMiner.generateLatexCode"><a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.generateLatexCode">[docs]</a>    <span class="k">def</span> <span class="nf">generateLatexCode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
 
         <span class="n">titles</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
         <span class="n">titles</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;minsup&quot;</span><span class="p">)</span>
@@ -954,10 +922,7 @@
                     <span class="n">latexwriter</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">end</span><span class="si">{axis}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Latex file generated successfully&quot;</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="FGPFPMiner.generateGraphs">
-<a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.generateGraphs">[docs]</a>
-    <span class="k">def</span> <span class="nf">generateGraphs</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
+<div class="viewcode-block" id="FGPFPMiner.generateGraphs"><a class="viewcode-back" href="../../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html#PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner_old.FGPFPMiner.generateGraphs">[docs]</a>    <span class="k">def</span> <span class="nf">generateGraphs</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
 
         <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;minsup&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;patterns&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;algorithm&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Patterns)&#39;</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -966,9 +931,7 @@
         <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;minsup&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;memoryUSS&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;algorithm&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;MemoryUSS)&#39;</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;minsup&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;memoryRSS&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;algorithm&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;MemoryRSS)&#39;</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
-</div>
-
+        <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
