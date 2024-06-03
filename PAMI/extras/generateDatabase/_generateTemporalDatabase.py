@@ -97,12 +97,8 @@ class generateTemporalDatabase:
             print(temporalDB.getDatabaseAsDataFrame())
 
     """
-
-    def getPoint(self, x1, y1, x2, y2):
-        return (np.random.randint(x1, x2), np.random.randint(y1, y2))
-
     def __init__(self, numOfTransactions: int, avgLenOfTransactions: int, 
-                 numItems: int, outputFile: str, x1, y1, x2, y2, percentage: int=50,
+                 numItems: int, outputFile: str, percentage: int=50,
                  sep: str='\t', typeOfFile: str="Database") -> None:
         
         """
@@ -150,24 +146,6 @@ class generateTemporalDatabase:
             self.percentage = percentage
         self.sep = sep
         self.typeOfFile = typeOfFile.lower()
-        self.x1 = x1
-        self.y1 = y1
-        self.x2 = x2
-        self.y2 = y2
-
-        numPoints = (x2 - x1) * (y2 - y1)
-        if numItems > numPoints:
-            raise ValueError("Number of points is less than the number of lines * average items per line")
-        
-        self.itemPoint = {}
-        usedPoints = set()
-
-        for i in range(1, numItems + 1):
-            # self.itemPoint[i] = (np.random.randint(x1, x2), np.random.randint(y1, y2))
-            point = self.getPoint(x1, y1, x2, y2)
-            while point in usedPoints:
-                point = self.getPoint(x1, y1, x2, y2)
-            self.itemPoint[i] = point
 
     def getFileName(self) -> str:
         """
@@ -205,76 +183,35 @@ class generateTemporalDatabase:
 
         :type array: list
 
-        :param sumRes: the sum of the values in the array to be tuned
+        :param sumRes: target sum
 
         :type sumRes: int
 
-        :return: list of values with the tuned values and the sum of the values in the array to be tuned and sumRes is equal to sumRes
+        :return: list of values with the sum equal to sumRes after tuning
 
         :rtype: list
         """
 
-        while np.sum(array) != sumRes:
+        # first generate a random array of length n whose values average to m
+        values = np.random.randint(1, self.numItems, len(array))
+
+        while np.sum(values) != sumRes:
             # get index of largest value
-            randIndex = np.random.randint(0, len(array))
             # if sum is too large, decrease the largest value
-            if np.sum(array) > sumRes:
-                array[randIndex] -= 1
+            if np.sum(values) > sumRes:
+                maxIndex = np.argmax(values)
+                values[maxIndex] -= 1
             # if sum is too small, increase the smallest value
             else:
-                minIndex = np.argmin(array)
-                array[randIndex] += 1
-        return array
+                minIndex = np.argmin(values)
+                values[minIndex] += 1
+
+        # get location of all values greater than numItems
         
+        for i in range(len(array)):
+            array[i][1] = values[i]
 
-    def generateArray(self, nums, avg, maxItems, sumRes) -> list:
-        """
-        Generate a random array of length n whose values average to m
-
-        :param nums: number of values
-
-        :type nums: list
-
-        :param avg: average value
-
-        :type avg: float
-
-        :param maxItems: maximum value
-
-        :type maxItems: int
-
-        :return: random array
-
-        :rtype: list
-        """
-
-        # generate n random values
-        values = np.random.randint(1, maxItems, nums)
-
-        # sumRes = nums * avg
-
-        self.tuning(values, sumRes)
-
-        # if any value is less than 1, increase it and tune the array again
-        while np.any(values < 1):
-            for i in range(nums):
-                if values[i] < 1:
-                    values[i] += 1
-            self.tuning(values, sumRes)
-
-        while np.any(values > maxItems):
-            for i in range(nums):
-                if values[i] > maxItems:
-                    values[i] -= 1
-            self.tuning(values, sumRes)
-
-
-        # if all values are same then randomly increase one value and decrease another
-        while np.all(values == values[0]):
-            values[np.random.randint(0, nums)] += 1
-            self.tuning(values, sumRes)
-
-        return values
+        return array
 
     def createTemporalFile(self) -> None:
         """
@@ -282,23 +219,38 @@ class generateTemporalDatabase:
         :return: None
         """
 
-        lines = [i for i in range(self.numOfTransactions) if self.performCoinFlip(self.percentage)]
-        values = self.generateArray(len(lines), self.avgLenOfTransactions, self.numItems, self.avgLenOfTransactions * self.numOfTransactions)
-        # print(values, sum(values), self.avgLenOfTransactions * self.numOfTransactions, sum(values)/self.numOfTransactions)
-        # print(lines)
+        db = []
+        lineSize = []
+        for i in range(self.numOfTransactions):
+            db.append([i])
+            if self.performCoinFlip(self.percentage):
+                lineSize.append([i,0])
+        
+        # make it so that sum of lineSize[1] equal to numTransactions * avgLenOfTransactions
+        sumRes = self.numOfTransactions * self.avgLenOfTransactions
+        self.tuning(lineSize, sumRes)
 
-        form = list(zip(lines, values))
+        for i in range(len(lineSize)):
+            if lineSize[i][1] > self.numItems:
+                raise ValueError("Error: Either increase numItems or decrease avgLenOfTransactions or modify percentage")
+            line = np.random.choice(range(1, self.numItems + 1), lineSize[i][1], replace=False)
+            db[lineSize[i][0]].extend(line)
 
-        database = [[] for i in range(self.numOfTransactions)]
+        if self.typeOfFile == "database":
+            with open(self.outputFile, "w") as outFile:
+                for line in db:
+                    outFile.write(self.sep.join(map(str, line)) + '\n')
+            outFile.close()
 
-        for i in range(len(form)):
-            database[form[i][0]] = np.random.choice(range(1, self.numItems + 1), form[i][1], replace=False).tolist()
+        if self.typeOfFile == "dataframe":
+            data = {
+                'timestamp': [line[0] for line in db],
+                'transactions': pd.Series([line[1:] for line in db])
+            }
+            self.df = pd.DataFrame(data)
 
-            database[form[i][0]] = [str(self.itemPoint[i]) for i in database[form[i][0]]]
-            database[form[i][0]] = self.sep.join(database[form[i][0]])
+        print("Temporal database created successfully")
 
-        self.df = pd.DataFrame({'Timestamp': [i+1 for i in range(self.numOfTransactions)], 'Transactions': database})
-        print(self.df)
 
 if __name__ == '__main__':
     numOfTransactions = 100
@@ -308,21 +260,21 @@ if __name__ == '__main__':
     sep = '\t'
     frameOrBase = "database"
 
-    temporalDB = generateTemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName,1,1,10,10)
+    temporalDB = generateTemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName)
 
     temporalDB.createTemporalFile()
 
-    # numOfTransactions = 100
-    # numItems = 15
-    # avgTransactionLength = 6
-    # outFileName = 'temporal_ot.txt'
-    # sep = '\t'
-    # percent = 75
-    # frameOrBase = "dataframe"
+    numOfTransactions = 100
+    numItems = 15
+    avgTransactionLength = 6
+    outFileName = 'temporal_ot.txt'
+    sep = '\t'
+    percent = 75
+    frameOrBase = "dataframe"
 
-    # temporalDB = generateTemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName, percent, sep, frameOrBase )
-    # temporalDB.createTemporalFile()
-    # print(temporalDB.getDatabaseAsDataFrame())
+    temporalDB = generateTemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName, percent, sep, frameOrBase )
+    temporalDB.createTemporalFile()
+    print(temporalDB.getDatabaseAsDataFrame())
 
-    # obj = generateTemporalDatabase(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
-    # obj.createTemporalFile(sys.argv[5])
+    obj = generateTemporalDatabase(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    obj.createTemporalFile(sys.argv[5])
