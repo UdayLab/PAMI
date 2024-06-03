@@ -1,21 +1,24 @@
 # PFECLAT is the fundamental approach to mine the periodic-frequent patterns.
 #
-#
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
-#
 #
 #             from PAMI.periodicFrequentPattern.basic import PFECLAT as alg
 #
-#             obj = alg.PFECLAT("../basic/sampleTDB.txt", "2", "5")
+#             iFile = 'sampleDB.txt'
 #
-#             obj.startMine()
+#             minSup = 10  # can also be specified between 0 and 1
+#
+#             maxPer = 20 # can also be specified between 0 and 1
+#
+#             obj = alg.PFECLAT(iFile, minSup, maxPer)
+#
+#             obj.mine()
 #
 #             periodicFrequentPatterns = obj.getPatterns()
 #
 #             print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#             obj.save("patterns")
+#             obj.save("periodicFrequentPatterns")
 #
 #             Df = obj.getPatternsAsDataFrame()
 #
@@ -31,8 +34,6 @@
 #
 #             print("Total ExecutionTime in seconds:", run)
 #
-
-
 
 
 __copyright__ = """
@@ -54,7 +55,6 @@ __copyright__ = """
 
 """
 
-from PAMI.periodicFrequentPattern.basic import abstract as _ab
 import pandas as pd
 from deprecated import deprecated
 import numpy as np
@@ -64,141 +64,102 @@ from PAMI.periodicFrequentPattern.basic import abstract as _ab
 
 class PFECLAT(_ab._periodicFrequentPatterns):
     """
-    :Description:   PFECLAT is the fundamental approach to mine the periodic-frequent patterns.
+    About this algorithm
+    ====================
 
-    :Reference:   P. Ravikumar, P.Likhitha, R. Uday kiran, Y. Watanobe, and Koji Zettsu, "Towards efficient discovery of
-                  periodic-frequent patterns in columnar temporal databases", 2021 IEA/AIE.
+    :**Description**:   PFECLAT is the fundamental approach to mine the periodic-frequent patterns.
 
-    :param  iFile: str :
-                   Name of the Input file to mine complete set of periodic frequent pattern's
-    :param  oFile: str :
-                   Name of the output file to store complete set of periodic frequent pattern's
-    :param  minSup: str:
-                   Controls the minimum number of transactions in which every item must appear in a database.
-    :param  maxPer: str:
-                   Controls the maximum number of transactions in which any two items within a pattern can reappear.
-    :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :**Reference**:   P. Ravikumar, P.Likhitha, R. Uday kiran, Y. Watanobe, and Koji Zettsu, "Towards efficient discovery of
+                      periodic-frequent patterns in columnar temporal databases", 2021 IEA/AIE.
 
-    :Attributes:
+    :**Parameters**:    - **iFile** (*str or URL or dataFrame*) -- *Name of the Input file to mine complete set of frequent patterns.*
+                        - **oFile** (*str*) -- *Name of the output file to store complete set of frequent patterns.*
+                        - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.*
+                        - **maxPer** (*int or float or str*) -- *The user can specify maxPer either in count or proportion of database size. It controls the maximum number of transactions in which any two items within a pattern can reappear.*
+                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
 
-        iFile : file
-            Name of the Input file or path of the input file
-        oFile : file
-            Name of the output file or path of the output file
-        minSup : int or float or str
-            The user can specify minSup either in count or proportion of database size.
-            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        maxPer : int or float or str
-            The user can specify maxPer either in count or proportion of database size.
-            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-        sep : str
-            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
-            However, the users can override their default separator.
-        memoryUSS : float
-            To store the total amount of USS memory consumed by the program
-        memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
-        startTime : float
-            To record the start time of the mining process
-        endTime : float
-            To record the completion time of the mining process
-        Database : list
-            To store the transactions of a database in list
-        mapSupport : Dictionary
-            To maintain the information of item and their frequency
-        lno : int
-            it represents the total no of transactions
-        tree : class
-            it represents the Tree class
-        itemSetCount : int
-            it represents the total no of patterns
-        finalPatterns : dict
-            it represents to store the patterns
-        tidList : dict
-            stores the timestamps of an item
-        hashing : dict
-            stores the patterns with their support to check for the closed property
+    :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*
+                        - **endTime** (*float*) -- *To record the completion time of the mining process.*
+                        - **finalPatterns** (*dict*) -- *Storing the complete set of patterns in a dictionary variable.*
+                        - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
+                        - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
+                        - **Database** (*list*) -- *To store the transactions of a database in list.*
+                        - **mapSupport** (*Dictionary*) -- *To maintain the information of item and their frequency.*
+                        - **lno** (*int*) -- *It represents the total no of transactions*
+                        - **tree** (*class*) -- *it represents the Tree class.*
+                        - **itemSetCount** (*int*) -- *it represents the total no of patterns.*
+                        - **tidList** (*dict*) -- *stores the timestamps of an item.*
+                        - **hashing** (*dict*) -- *stores the patterns with their support to check for the closed property.*
 
-    :Methods:
+    :**Methods**:       - **startMine()** -- *Mining process will start from here.*
+                        - **getPatterns()** -- *Complete set of patterns will be retrieved with this function.*
+                        - **save(oFile)** -- *Complete set of periodic-frequent patterns will be loaded in to a output file.*
+                        - **getPatternsAsDataFrame()** -- *Complete set of periodic-frequent patterns will be loaded in to a dataframe.*
+                        - **getMemoryUSS()** -- *Total amount of USS memory consumed by the mining process will be retrieved from this function.*
+                        - **getMemoryRSS()** -- *Total amount of RSS memory consumed by the mining process will be retrieved from this function.*
+                        - **getRuntime()** -- *Total amount of runtime taken by the mining process will be retrieved from this function.*
+                        - **creatingOneItemSets()** -- *Scan the database and store the items with their timestamps which are periodic frequent.*
+                        - **getPeriodAndSupport()** -- *Calculates the support and period for a list of timestamps.*
+                        - **Generation()** -- *Used to implement prefix class equivalence method to generate the periodic patterns recursively*
 
-        startMine()
-            Mining process will start from here
-        getPatterns()
-            Complete set of patterns will be retrieved with this function
-        save(oFile)
-            Complete set of periodic-frequent patterns will be loaded in to a output file
-        getPatternsAsDataFrame()
-            Complete set of periodic-frequent patterns will be loaded in to a dataframe
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
-        creatingOneItemSets()
-            Scan the database and store the items with their timestamps which are periodic frequent 
-        getPeriodAndSupport()
-            Calculates the support and period for a list of timestamps.
-        Generation()
-            Used to implement prefix class equivalence method to generate the periodic patterns recursively
-            
+    Execution methods
+    =================
 
-    **Methods to execute code on terminal**
-    ------------------------------------------
+    **Terminal command**
+
     .. code-block:: console
-
 
        Format:
 
-       (.venv) $ python3 PFECLAT.py <inputFile> <outputFile> <minSup>
+       (.venv) $ python3 PFECLAT.py <inputFile> <outputFile> <minSup> <maxPer>
 
        Example usage:
 
-       (.venv) $ python3 PFECLAT.py sampleDB.txt patterns.txt 10.0
+       (.venv) $ python3 PFECLAT.py sampleDB.txt patterns.txt 10.0 20.0
+
+    .. note:: minSup will be considered in percentage of database transactions
 
 
+    **Calling from a python program**
 
-               .. note:: minSup will be considered in percentage of database transactions
-
-
-    **Importing this algorithm into a python program**
-    --------------------------------------------------------
     .. code-block:: python
 
-             from PAMI.periodicFrequentPattern.basic import PFECLAT as alg
+            from PAMI.periodicFrequentPattern.basic import PFECLAT as alg
 
-                obj = alg.PFECLAT("../basic/sampleTDB.txt", "2", "5")
+            iFile = 'sampleDB.txt'
 
-                obj.startMine()
+            minSup = 10  # can also be specified between 0 and 1
 
-                periodicFrequentPatterns = obj.getPatterns()
+            maxPer = 20 # can also be specified between 0 and 1
 
-                print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+            obj = alg.PFECLAT(iFile, minSup, maxPer)
 
-                obj.save("patterns")
+            obj.mine()
 
-                Df = obj.getPatternsAsDataFrame()
+            periodicFrequentPatterns = obj.getPatterns()
 
-                memUSS = obj.getMemoryUSS()
+            print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
-                print("Total Memory in USS:", memUSS)
+            obj.save("periodicFrequentPatterns")
 
-                memRSS = obj.getMemoryRSS()
+            Df = obj.getPatternsAsDataFrame()
 
-                print("Total Memory in RSS", memRSS)
+            memUSS = obj.getMemoryUSS()
 
-                run = obj.getRuntime()
+            print("Total Memory in USS:", memUSS)
 
-                print("Total ExecutionTime in seconds:", run)
+            memRSS = obj.getMemoryRSS()
 
-    **Credits:**
-    --------------
-             The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.
+            print("Total Memory in RSS", memRSS)
+
+            run = obj.getRuntime()
+
+            print("Total ExecutionTime in seconds:", run)
+
+    Credits
+    =======
+
+    The complete program was written by P. Likhitha  and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
     """
     
@@ -221,7 +182,9 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         To convert the given user specified value
 
         :param value: user specified value
+        :type value: int or float or str
         :return: converted value
+        :rtype: int or float
         """
         if type(value) is int:
             value = int(value)
@@ -237,7 +200,9 @@ class PFECLAT(_ab._periodicFrequentPatterns):
 
     def _creatingItemSets(self) -> None:
         """
-            Storing the complete transactions of the database/input file in a database variable
+
+        Storing the complete transactions of the database/input file in a database variable
+
         :return: None
         """
         self._Database = []
@@ -276,13 +241,9 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                     print("File Not Found")
                     quit()
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
-        """
-        Mining process will start from this function
-        :return: None
-        """
-        self.Mine()
+        self.mine()
         # self._startTime = _ab._time.time()
         # self._finalPatterns = {}
         # frequentSets = self._creatingOneItemSets()
@@ -302,7 +263,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
 
         return np.max(arr)
 
-    def Mine(self) -> None:
+    def mine(self) -> None:
         """
         Mining process will start from this function
         :return: None
@@ -373,7 +334,8 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         print("Periodic-Frequent patterns were generated successfully using PFECLAT algorithm ")
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -382,7 +344,8 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -391,8 +354,8 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         return self._memoryRSS
 
     def getRuntime(self) -> float:
-        """Calculating the total amount of runtime taken by the mining process
-
+        """
+        Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
@@ -458,6 +421,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = PFECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Periodic-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

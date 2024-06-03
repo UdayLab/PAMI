@@ -106,32 +106,6 @@ class TransactionalDatabase:
         self.numItems = numItems
         self.seperator = seperator
         self.db = []
-    
-    def _tuning(self, array, sumRes) -> list:
-        """
-        Tune the array so that the sum of the values is equal to sumRes
-
-        :param array: list of values
-        :type array: list
-        :param sumRes: target sum
-        :type sumRes: int
-
-        Returns:
-        array: list - tuned array
-        """
-
-        while np.sum(array) != sumRes:
-            # get index of largest value
-            randIndex = np.random.randint(0, len(array))
-            # if sum is too large, decrease the largest value
-            if np.sum(array) > sumRes:
-                array[randIndex] -= 1
-            # if sum is too small, increase the smallest value
-            else:
-                minIndex = np.argmin(array)
-                array[randIndex] += 1
-        return array
-        
 
     def _generateArray(self, nums, avg, maxItems) -> list:
         """
@@ -149,30 +123,29 @@ class TransactionalDatabase:
         """
 
         # generate n random values
-        values = np.random.randint(1, maxItems, nums)
+        values = np.random.randint(1, avg * 2, nums)
+        sums = np.sum(values)
+        weights = values / sums
 
+        # Calculate sumRes
         sumRes = nums * avg
 
-        self._tuning(values, sumRes)
+        # Adjust values based on weights and sumRes
+        new_values = np.round(sumRes * weights).astype(int)
 
-        # if any value is less than 1, increase it and tune the array again
-        while np.any(values < 1):
-            for i in range(nums):
-                if values[i] < 1:
-                    values[i] += 1
-            self._tuning(values, sumRes)
+        # if all transactions have 0 items, add 1 item to each transaction
+        for loc in np.where(new_values < 1)[0]:
+            new_values[loc] += 1
 
-        while np.any(values > maxItems):
-            for i in range(nums):
-                if values[i] > maxItems:
-                    values[i] -= 1
-            self._tuning(values, sumRes)
-
-
-        # if all values are same then randomly increase one value and decrease another
-        while np.all(values == values[0]):
-            values[np.random.randint(0, nums)] += 1
-            self._tuning(values, sumRes)
+        difference = sumRes - np.sum(new_values)
+        if difference > 0:
+            for i in range(difference):
+                index = np.random.randint(0, len(new_values))
+                new_values[index] += 1
+        else:
+            for i in range(abs(difference)):
+                index = np.random.randint(0, len(new_values))
+                new_values[index] -= 1
 
         return values
 
@@ -181,13 +154,12 @@ class TransactionalDatabase:
         Generate the transactional database with the given input parameters.
         Returns: None
         """
-        db = set()
 
         values = self._generateArray(self.databaseSize, self.avgItemsPerTransaction, self.numItems)
 
-        for value in values:
-            line = np.random.choice(range(1, self.numItems + 1), value, replace=False)
-            self.db.append(line)
+        self.db = []
+        for i in range(self.databaseSize):
+            self.db.append(np.random.choice(range(1, self.numItems + 1), values[i], replace=False))
 
     def save(self, filename) -> None:
         """
@@ -201,7 +173,7 @@ class TransactionalDatabase:
             for line in self.db:
                 f.write(str(self.seperator).join(map(str, line)) + '\n')
 
-    def getTransactions(self) -> pd.DataFrame:
+    def getTransactions(self, sep = "\t") -> pd.DataFrame:
         """
         Get the transactional database in dataFrame format
 
@@ -210,13 +182,12 @@ class TransactionalDatabase:
         """
         column = "Transactions"
         db = pd.DataFrame(columns=[column])
-        self.db = [tuple(x) for x in self.db]
-        for i in range(len(self.db)):
-            db.at[i,column] = self.db[i]
+        db[column] = [sep.join(map(str, line)) for line in self.db]
         return db
         
 
 if __name__ == "__main__":
+
     if len(sys.argv) == 5:
         obj = TransactionalDatabase(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]))
         obj.create()

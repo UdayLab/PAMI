@@ -193,6 +193,10 @@ class CHARM(_ab._frequentPatterns):
             i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
                 self._Database = self._iFile['Transactions'].tolist()
+                self._Database = [i.split(self._sep) for i in self._Database]
+
+            else:
+                print("The column name should be Transactions and each line should be separated by tab space or a seperator specified by the user")
             for i in self._Database:
                 self._lno += 1
                 for j in i:
@@ -470,11 +474,14 @@ class CHARM(_ab._frequentPatterns):
         :rtype: pd.DataFrame
         """
 
-        dataframe = {}
-        data = []
-        for a, b in self._finalPatterns.items():
-            data.append([a.replace('\t', ' '), b])
-            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+        # dataframe = {}
+        # data = []
+        # for a, b in self._finalPatterns.items():
+        #     data.append([a.replace('\t', ' '), b])
+        #     dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+
+        dataframe = _ab._pd.DataFrame(list([[x.replace('\t', ' '), y] for x,y in self._finalPatterns.items()]), columns=['Patterns', 'Support'])
+
         return dataframe
 
     def save(self, outFile):
@@ -529,3 +536,8 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
+    obj = CHARM("/Users/tarunsreepada/Downloads/Transactional_T10I4D100K.csv", 0.01)
+    obj.mine()
+    print(obj.getPatternsAsDataFrame())
+    print(obj.printResults())

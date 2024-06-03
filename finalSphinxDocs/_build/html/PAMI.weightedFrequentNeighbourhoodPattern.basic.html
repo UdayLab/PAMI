@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.weightedFrequentNeighbourhoodPattern.basic package &mdash; PAMI 2024.04.23 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=391540b0"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -93,18 +95,16 @@
            <div itemprop="articleBody">
              
   <section id="pami-weightedfrequentneighbourhoodpattern-basic-package">
-<h1>PAMI.weightedFrequentNeighbourhoodPattern.basic package<a class="headerlink" href="#pami-weightedfrequentneighbourhoodpattern-basic-package" title="Link to this heading"></a></h1>
+<h1>PAMI.weightedFrequentNeighbourhoodPattern.basic package<a class="headerlink" href="#pami-weightedfrequentneighbourhoodpattern-basic-package" title="Permalink to this heading"></a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
 </section>
 <section id="module-PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth">
-<span id="pami-weightedfrequentneighbourhoodpattern-basic-swfpgrowth-module"></span><h2>PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth module<a class="headerlink" href="#module-PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth" title="Link to this heading"></a></h2>
+<span id="pami-weightedfrequentneighbourhoodpattern-basic-swfpgrowth-module"></span><h2>PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth module<a class="headerlink" href="#module-PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.</span></span><span class="sig-name descname"><span class="pre">SWFPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minWS</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.</span></span><span class="sig-name descname"><span class="pre">SWFPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minWS</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_weightedFrequentSpatialPatterns</span></code></p>
-<section id="about-this-algorithm">
-<h3>About this algorithm<a class="headerlink" href="#about-this-algorithm" title="Link to this heading"></a></h3>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
 <dd class="field-odd"><p>SWFPGrowth is an algorithm to mine the weighted spatial frequent patterns in spatiotemporal databases.</p>
@@ -114,25 +114,19 @@
 “Discovering Spatial Weighted Frequent Itemsets in Spatiotemporal Databases,” 2019 International
 Conference on Data Mining Workshops (ICDMW), 2019, pp. 987-996, doi: 10.1109/ICDMW.2019.00143.</p>
 </dd>
-<dt class="field-odd">param  iFile<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str :
-Name of the Input file to mine complete set of weighted Frequent Neighbourhood Patterns.</p>
-</dd>
-<dt class="field-even">param  oFile<span class="colon">:</span></dt>
-<dd class="field-even"><p>str :
-Name of the output file to store complete set of weighted Frequent Neighbourhood Patterns.</p>
-</dd>
-<dt class="field-odd">param  minSup<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int or str or float:
-minimum support thresholds were tuned to find the appropriate ranges in the limited memory</p>
-</dd>
-<dt class="field-even">param  sep<span class="colon">:</span></dt>
-<dd class="field-even"><p>str :
-This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p>
-</dd>
-<dt class="field-odd">param  maxper<span class="colon">:</span></dt>
-<dd class="field-odd"><p>floot :
-where maxPer represents the maximum periodicity threshold value specified by the user.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of weighted Frequent Neighbourhood Patterns.</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of weighted Frequent Neighbourhood Patterns.</p></li>
+<li><p><strong>minSup</strong> – int or str or float:
+minimum support thresholds were tuned to find the appropriate ranges in the limited memory</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+<li><p><strong>maxper</strong> – floot :
+where maxPer represents the maximum periodicity threshold value specified by the user.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Attributes<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
@@ -197,9 +191,6 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-</section>
-<section id="execution-methods">
-<h3>Execution methods<a class="headerlink" href="#execution-methods" title="Link to this heading"></a></h3>
 <p><strong>Terminal command</strong></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
@@ -246,15 +237,12 @@ However, the users can override their default separator.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="credits">
-<h3>Credits<a class="headerlink" href="#credits" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.getMemoryRSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -268,7 +256,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.getMemoryUSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -282,7 +270,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.getPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -296,7 +284,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>Storing final frequent patterns in a dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -310,7 +298,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.getRuntime" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -324,19 +312,19 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.mine">
-<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.mine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.mine" title="Permalink to this definition"></a></dt>
 <dd><p>Frequent pattern mining process will start from here</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.printResults" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.printResults" title="Permalink to this definition"></a></dt>
 <dd><p>This function is used to print the results</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.save" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -350,19 +338,18 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.startMine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentNeighbourhoodPattern/basic/SWFPGrowth.html#SWFPGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth.SWFPGrowth.startMine" title="Permalink to this definition"></a></dt>
 <dd><p>Frequent pattern mining process will start from here</p>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
 <section id="module-PAMI.weightedFrequentNeighbourhoodPattern.basic.abstract">
-<span id="pami-weightedfrequentneighbourhoodpattern-basic-abstract-module"></span><h2>PAMI.weightedFrequentNeighbourhoodPattern.basic.abstract module<a class="headerlink" href="#module-PAMI.weightedFrequentNeighbourhoodPattern.basic.abstract" title="Link to this heading"></a></h2>
+<span id="pami-weightedfrequentneighbourhoodpattern-basic-abstract-module"></span><h2>PAMI.weightedFrequentNeighbourhoodPattern.basic.abstract module<a class="headerlink" href="#module-PAMI.weightedFrequentNeighbourhoodPattern.basic.abstract" title="Permalink to this heading"></a></h2>
 </section>
 <section id="module-PAMI.weightedFrequentNeighbourhoodPattern.basic">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.weightedFrequentNeighbourhoodPattern.basic" title="Link to this heading"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.weightedFrequentNeighbourhoodPattern.basic" title="Permalink to this heading"></a></h2>
 </section>
 </section>
 

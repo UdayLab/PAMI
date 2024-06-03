@@ -492,7 +492,7 @@ class TKG(_ab._TKG):
 
                         if TKG.ELIMINATE_INFREQUENT_VERTEX_PAIRS and count < self.minSup:
                             v1.removeEdge(edge)
-                            self.infrequentVertexPairsRemoved += 1
+                            self.infrequentVertexPairsRemovedCount += 1
 
                         elif TKG.ELIMINATE_INFREQUENT_EDGE_LABELS and \
                                 mapEdgeLabelToSupport.get(edge.getEdgeLabel(), 0) < self.minSup:

@@ -110,7 +110,7 @@ class GSpan(_ab._gSpan):
         The `save` function writes information about frequent subgraphs to a specified
         output file in a specific format.
         
-        :param outputPath: The `save` method is used to write the results of frequent
+        :param oFile: The `save` method is used to write the results of frequent
         subgraphs to a file specified by the `outputPath` parameter. The method iterates over each
         frequent subgraph in `self.frequentSubgraphs` and writes the subgraph information to the file
         """
@@ -231,7 +231,7 @@ class GSpan(_ab._gSpan):
                     for mappedV2 in g.getAllNeighbors(mappedV1):
                         if (v2Label == mappedV2.getLabel() and
                             mappedV2.getId() not in mappedVertices and
-                            eLabel == g.getEdgeLabel(mappedV1, mappedV2.getId())):
+                                eLabel == g.getEdgeLabel(mappedV1, mappedV2.getId())):
 
                             tempM = iso.copy()
                             tempM[v2] = mappedV2.getId()
@@ -445,7 +445,7 @@ class GSpan(_ab._gSpan):
         """
         canC = _ab.DFSCode()
         for i in range(c.size):
-            extensions = self.rightMostPathExtensionsFromSingle(canC, _ab.Graph(c))
+            extensions = self.rightMostPathExtensionsFromSingle(canC, _ab.Graph(-1, None, c))
             minEe = None
             for ee in extensions.keys():
                 if minEe is None or ee.smallerThan(minEe):
@@ -459,18 +459,18 @@ class GSpan(_ab._gSpan):
         return True
     
 
-    def gSpan(self, graphDb, outputFrequentVertices):
+    def gSpan(self, graphDb, outputSingleVertices):
         """
         The gSpan function in Python processes a graph database by precalculating vertex lists, removing
         infrequent vertex pairs, and performing a depth-first search algorithm.
         
         :param graphDb: The `graphDb` parameter  refers to a graph database that the algorithm is 
         operating on.
-        :param outputFrequentVertices: The `outputFrequentVertices` parameter is a boolean flag that
-        determines whether the frequent vertices should be output or not.
+        :param outputSingleVertices: The `outputFrequentVertices` parameter is a boolean flag that
+        determines whether single vertices should be output or not.
         """
-        if outputFrequentVertices or GSpan.eliminate_infrequent_vertices:
-            self.findAllOnlyOneVertex(graphDb, outputFrequentVertices)
+        if outputSingleVertices or GSpan.eliminate_infrequent_vertices:
+            self.findAllOnlyOneVertex(graphDb, outputSingleVertices)
 
         for g in graphDb:
             g.precalculateVertexList()
@@ -521,7 +521,7 @@ class GSpan(_ab._gSpan):
         :param graphDb: The `graphDb` parameter  refers to a graph database that the algorithm is 
         operating on.
         :param outputFrequentVertices: The `outputFrequentVertices` parameter is a boolean flag that
-        determines whether the frequent vertices should be included in the output or not.
+        determines whether single vertices should be included in the output or not.
         """
         self.frequentVertexLabels = []
         labelM = {} 
@@ -649,4 +649,34 @@ class GSpan(_ab._gSpan):
             sb.append('\n'.join(subgraphDescription))  
         return '\n'.join(sb)  
 
+    def getSubgraphGraphMapping(self):
+        """
+        Return a list of mappings from subgraphs to the graph IDs they belong to in the format <FID, Clabel, GIDs[]>.
+        """
+        mappings = []
+        for i, subgraph in enumerate(self.frequentSubgraphs):
+            mapping = {
+                "FID": i,
+                "Clabel": str(subgraph.dfsCode),
+                "GIDs": list(subgraph.setOfGraphsIds)
+            }
+            mappings.append(mapping)
+        return mappings
 
+    def saveSubgraphsByGraphId(self, oFile):
+        """
+        Save subgraphs by graph ID as a flat transaction, such that each row represents the graph ID and each row can contain multiple subgraph IDs.
+        """
+        graphToSubgraphs = {}
+        
+        for i, subgraph in enumerate(self.frequentSubgraphs):
+            for graphId in subgraph.setOfGraphsIds:
+                if graphId not in graphToSubgraphs:
+                    graphToSubgraphs[graphId] = []
+                graphToSubgraphs[graphId].append(i)
+
+        graphToSubgraphs = {k: graphToSubgraphs[k] for k in sorted(graphToSubgraphs)}
+
+        with open(oFile, 'w') as f:
+            for _, subgraphIds in graphToSubgraphs.items():
+                f.write(f"{' '.join(map(str, subgraphIds))}\n")

@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.subgraphMining.topK.DFSThread &mdash; PAMI 2024.04.23 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=391540b0"></script>
-        <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -94,9 +96,7 @@
   <h1>Source code for PAMI.subgraphMining.topK.DFSThread</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">threading</span>
 
-<div class="viewcode-block" id="DfsThread">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSThread.DfsThread">[docs]</a>
-<span class="k">class</span> <span class="nc">DfsThread</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
+<div class="viewcode-block" id="DfsThread"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSThread.DfsThread">[docs]</a><span class="k">class</span> <span class="nc">DfsThread</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graphDb</span><span class="p">,</span> <span class="n">candidates</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">tkgInstance</span><span class="p">):</span>
         <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">graphDb</span> <span class="o">=</span> <span class="n">graphDb</span>
@@ -104,16 +104,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">minSup</span> <span class="o">=</span> <span class="n">minSup</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tkgInstance</span> <span class="o">=</span> <span class="n">tkgInstance</span>
 
-<div class="viewcode-block" id="DfsThread.run">
-<a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSThread.DfsThread.run">[docs]</a>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DfsThread.run"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSThread.DfsThread.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">candidates</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
             <span class="n">_</span><span class="p">,</span> <span class="n">candidate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">candidates</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidate</span><span class="o">.</span><span class="n">setOfGraphsIds</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">minSup</span><span class="p">:</span>
                 <span class="k">break</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tkgInstance</span><span class="o">.</span><span class="n">gspanDynamicDFS</span><span class="p">(</span><span class="n">candidate</span><span class="o">.</span><span class="n">dfsCode</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graphDb</span><span class="p">,</span> <span class="n">candidate</span><span class="o">.</span><span class="n">setOfGraphsIds</span><span class="p">)</span></div>
-</div>
-
+            <span class="bp">self</span><span class="o">.</span><span class="n">tkgInstance</span><span class="o">.</span><span class="n">gspanDynamicDFS</span><span class="p">(</span><span class="n">candidate</span><span class="o">.</span><span class="n">dfsCode</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">graphDb</span><span class="p">,</span> <span class="n">candidate</span><span class="o">.</span><span class="n">setOfGraphsIds</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

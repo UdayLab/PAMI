@@ -1,7 +1,6 @@
 # CoMine is one of the fundamental algorithm to discover correlated patterns in a transactional database.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
 #
 #             from PAMI.correlatedPattern.basic import CoMine as alg
 #
@@ -60,178 +59,63 @@ from PAMI.correlatedPattern.basic import abstract as _ab
 import pandas as _pd
 from typing import List, Dict, Tuple, Union
 from deprecated import deprecated
+from collections import Counter
+
 
 class _Node:
     """
-    A class used to represent the node of correlatedPatternTree
+    A class used to represent the node of frequentPatternTree
 
-    :**Attributes**:    **itemId** (*int*) -- **storing item of a node**
-                        **counter** (*int*) -- **To maintain the support of node**
-                        **parent** (*node*) -- **To maintain the parent of every node**
-                        **child** (*list*) -- **To maintain the children of node**
-                        **nodeLink** (*node*) -- **Points to the node with same itemId**
+    :**Attributes**:    - **itemId** (*int*) -- *storing item of a node.*
+                        - **counter** (*int*) -- *To maintain the support of node.*
+                        - **parent** (*node*) -- *To maintain the parent of node.*
+                        - **children** (*list*) -- *To maintain the children of node.*
 
-    :**Methods**:
-            getChild(itemName)
-                returns the node with same itemName from correlatedPatternTree
+    :**Methods**:   - **addChild(node)** -- *Updates the nodes children list and parent for the given node.*
     """
 
-    def __init__(self) -> None:
-        self.itemId = -1
-        self.counter = 1
-        self.parent = None
-        self.child = []
-        self.nodeLink = None
+    def __init__(self, item, count, parent) -> None:
+        self.item = item
+        self.count = count
+        self.parent = parent
+        self.children = {}
 
-    def getChild(self, id1) -> Union[None, '_Node']:
-        """
-        :param id1: give item id as input
-        :type id1: int
-        :return: the node with same itemId
-        :rtype: _Node
-        """
-        for i in self.child:
-            if i.itemId == id1:
-                return i
-        return None
-
-class _Tree:
-    """
-    A class used to represent the correlatedPatternGrowth tree structure
-
-    :**Attributes**:    **headerList** (*list*) -- **storing the list of items in tree sorted in ascending of their supports**
-                        **mapItemNodes** (*dictionary*) -- **storing the nodes with same item name**
-                        **mapItemLastNodes** (*dictionary*) -- **representing the map that indicates the last node for each item**
-                        **root** (*Node*) -- **representing the root Node in a tree**
-
-    :**Methods**:
-
-        createHeaderList(items,minSup)
-            takes items only which are greater than minSup and sort the items in ascending order
-        addTransaction(transaction)
-            creating transaction as a branch in correlatedPatternTree
-        fixNodeLinks(item,newNode)
-            To create the link for nodes with same item
-        printTree(Node)
-            gives the details of node in correlatedPatternGrowth tree
-        addPrefixPath(prefix,port,minSup)
-           It takes the items in prefix pattern whose support is >=minSup and construct a subtree
-    """
-
-    def __init__(self) -> None:
-        self.headerList = []
-        self.mapItemNodes = {}
-        self.mapItemLastNodes = {}
-        self.root = _Node()
-
-    def addTransaction(self, transaction: List[int]) -> None:
-        """
-        Adding transaction into tree
-
-        :param transaction: it represents a single transaction in a database
-        :type transaction: list
-        :return: None
+    def addChild(self, item, count = 1):
         """
 
-        current = self.root
-        for i in transaction:
-            child = current.getChild(i)
-            if child is None:
-                newNode = _Node()
-                newNode.itemId = i
-                newNode.parent = current
-                current.child.append(newNode)
-                self.fixNodeLinks(i, newNode)
-                current = newNode
-            else:
-                child.counter += 1
-                current = child
+        Adds a child node to the current node with the specified item and count.
 
-    def fixNodeLinks(self, item: int, newNode: '_Node') -> None:
+        :param item: The item associated with the child node.
+        :type item: List
+        :param count: The count or support of the item. Default is 1.
+        :type count: int
+        :return: The child node added.
+        :rtype: List
         """
-        Fixing node link for the newNode that inserted into correlatedPatternTree
-
-        :param item: it represents the item of newNode
-        :type item: int
-        :param newNode: it represents the newNode that inserted in correlatedPatternTree
-        :type newNode: Node
-        :return: None
-        """
-        if item in self.mapItemLastNodes.keys():
-            lastNode = self.mapItemLastNodes[item]
-            lastNode.nodeLink = newNode
-        self.mapItemLastNodes[item] = newNode
-        if item not in self.mapItemNodes.keys():
-            self.mapItemNodes[item] = newNode
-
-    def printTree(self, root: '_Node') -> None:
-        """
-        This method is to find the details of parent, children, and support of a Node
-
-        :param root: it represents the Node in correlatedPatternTree
-        :type root: Node
-        :return: None
-        """
-
-        if root.child is None:
-            return
+        if item not in self.children:
+            self.children[item] = _Node(item, count, self)
         else:
-            for i in root.child:
-                print(i.itemId, i.counter, i.parent.itemId)
-                self.printTree(i)
-
-    def createHeaderList(self, mapSupport: Dict[int, int], minSup: int) -> None:
+            self.children[item].count += count
+        return self.children[item]
+    
+    def traverse(self) -> Tuple[List[int], int]:
         """
-        To create the headerList
+        Traversing the tree to get the transaction
 
-        :param mapSupport : it represents the items with their supports
-        :type mapSupport : dictionary
-        :param minSup : it represents the minSup
-        :param minSup : float
-        :return: None
+        :return: transaction and count of each item in transaction
+        :rtype: Tuple, List and int
         """
-        
-        t1 = []
-        for x, y in mapSupport.items():
-            if y >= minSup:
-                t1.append(x)
-        itemSetBuffer = [k for k, v in sorted(mapSupport.items(), key=lambda x: x[1], reverse=True)]
-        self.headerList = [i for i in t1 if i in itemSetBuffer]
-
-    def addPrefixPath(self, prefix: List['_Node'], mapSupportBeta, minSup) -> None:
-        """
-        To construct the conditional tree with prefix paths of a node in correlatedPatternTree
-
-        :param prefix : it represents the prefix items of a Node
-        :type prefix : list
-        :param mapSupportBeta : it represents the items with their supports
-        :param mapSupportBeta : dictionary
-        :param minSup : to check the item meets with minSup
-        :param minSup : float
-        :return: None
-        """
-        pathCount = prefix[0].counter
-        current = self.root
-        prefix.reverse()
-        for i in range(0, len(prefix) - 1):
-            pathItem = prefix[i]
-            if mapSupportBeta.get(pathItem.itemId) >= minSup:
-                child = current.getChild(pathItem.itemId)
-                if child is None:
-                    newNode = _Node()
-                    newNode.itemId = pathItem.itemId
-                    newNode.parent = current
-                    newNode.counter = pathCount
-                    current.child.append(newNode)
-                    current = newNode
-                    self.fixNodeLinks(pathItem.itemId, newNode)
-                else:
-                    child.counter += pathCount
-                    current = child
-
+        transaction = []
+        count = self.count
+        node = self.parent
+        while node.parent is not None:
+            transaction.append(node.item)
+            node = node.parent
+        return transaction[::-1], count
 
 class CoMine(_ab._correlatedPatterns):
     """
+
     About this algorithm
     ====================
 
@@ -239,26 +123,26 @@ class CoMine(_ab._correlatedPatterns):
 
     :**Reference**: Lee, Y.K., Kim, W.Y., Cao, D., Han, J. (2003). CoMine: efficient mining of correlated patterns. In ICDM (pp. 581–584).
 
-    :**parameters**:    **iFile** (*str*) -- **Name of the Input file to mine complete set of correlated patterns**
-                        **oFile** (*str*) -- **Name of the output file to store complete set of correlated patterns**
-                        **minSup** (*int or float or str*) -- **The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.**
-                        **minAllConf** (*float*) -- **The user can specify minAllConf values within the range (0, 1).**
-                        **sep** (*str*) -- **This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.**
+    :**parameters**:    - **iFile** (*str*) -- *Name of the Input file to mine complete set of correlated patterns*
+                        - **oFile** (*str*) -- *Name of the output file to store complete set of correlated patterns*
+                        - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.*
+                        - **minAllConf** (*float*) -- *The user can specify minAllConf values within the range (0, 1).*
+                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
 
-    :**Attributes**:    **memoryUSS** (*float*) -- **To store the total amount of USS memory consumed by the program**
-                        **memoryRSS** (*float*) -- **To store the total amount of RSS memory consumed by the program**
-                        **startTime** (*float*) -- **To record the start time of the mining process**
-                        **endTime** (*float*) -- **To record the completion time of the mining process**
-                        **minSup** (*int*) -- **The user given minSup**
-                        **minAllConf** (*float*) -- **The user given minimum all confidence Ratio(should be in range of 0 to 1)**
-                        **Database** (*list*) -- **To store the transactions of a database in list**
-                        **mapSupport** (*Dictionary*) -- **To maintain the information of item and their frequency**
-                        **lno** (*int*) -- **it represents the total no of transactions**
-                        **tree** (*class*) -- **it represents the Tree class**
-                        **itemSetCount** (*int*) -- **it represents the total no of patterns**
-                        **finalPatterns** (*dict*) -- **it represents to store the patterns**
-                        **itemSetBuffer** (*list*) -- **it represents the store the items in mining**
-                        **maxPatternLength** (*int*) -- **it represents the constraint for pattern length**
+    :**Attributes**:    - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
+                        - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
+                        - **startTime** (*float*) -- *To record the start time of the mining process.*
+                        - **endTime** (*float*) -- *To record the completion time of the mining process.*
+                        - **minSup** (*int*) -- *The user given minSup.*
+                        - **minAllConf** (*float*) -- *The user given minimum all confidence Ratio(should be in range of 0 to 1).*
+                        - **Database** (*list*) -- *To store the transactions of a database in list.*
+                        - **mapSupport** (*Dictionary*) -- *To maintain the information of item and their frequency.*
+                        - **lno** (*int*) -- *it represents the total no of transactions.*
+                        - **tree** (*class*) -- *it represents the Tree class.*
+                        - **itemSetCount** (*int*) -- *it represents the total no of patterns.*
+                        - **finalPatterns** (*dict*) -- *it represents to store the patterns.*
+                        - **itemSetBuffer** (*list*) -- *it represents the store the items in mining.*
+                        - **maxPatternLength** (*int*) -- *it represents the constraint for pattern length.*
 
     Execution methods
     =================
@@ -338,6 +222,7 @@ class CoMine(_ab._correlatedPatterns):
     _itemSetCount = 0
     _maxPatternLength = 1000
     _sep = "\t"
+    _counter = 0
 
     def __init__(self, iFile: Union[str, _pd.DataFrame], minSup: Union[int, float, str], minAllConf: float, sep: str="\t") ->None:
         """
@@ -362,6 +247,9 @@ class CoMine(_ab._correlatedPatterns):
             i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
                 self._Database = self._iFile['Transactions'].tolist()
+                self._Database = [x.split(self._sep) for x in self._Database]
+            else:
+                print("The column name should be Transactions and each line should be separated by tab space or a seperator specified by the user")
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
@@ -383,60 +271,6 @@ class CoMine(_ab._correlatedPatterns):
                     print("File Not Found")
                     quit()
 
-    def _getRatio(self, prefix: List[int], prefixLength: int, s: int) -> float:
-        """
-        A Function to get itemSet Ratio
-
-        :param prefix:the path
-        :type prefix: list
-        :param prefixLength: length
-        :type prefixLength:int
-        :param s:current ratio
-        :type s:float
-        :return: minAllConf of prefix
-        :rtype: float
-        """
-        maximums = 0
-        for ele in range(prefixLength):
-            i = prefix[ele]
-            if maximums < self._mapSupport.get(i):
-                maximums = self._mapSupport.get(i)
-        return s / maximums
-
-    def _correlatedOneItem(self) -> None:
-        """
-        Generating One correlated item
-        """
-        self._mapSupport = {}
-        for i in self._Database:
-            for j in i:
-                if j not in self._mapSupport:
-                    self._mapSupport[j] = 1
-                else:
-                    self._mapSupport[j] += 1
-
-    def _saveItemSet(self, prefix, prefixLength, support) -> None:
-        """
-        To save the correlated patterns mined form correlatedPatternTree
-
-        :param prefix: the correlated pattern
-        :type prefix: list
-        :param prefixLength : the length of a correlated pattern
-        :type prefixLength : int
-        :param support: the support of a pattern
-        :type support :  int
-        :return: None
-
-        The correlated patterns were stored in a global variable finalPatterns
-        """
-        all_conf = self._getRatio(prefix, prefixLength, support)
-        if all_conf < self._minAllConf:
-            return
-        l = []
-        for i in range(prefixLength):
-            l.append(prefix[i])
-        self._itemSetCount += 1
-        self._finalPatterns[tuple(l)] = [support, all_conf]
     
     def _convert(self, value: Union[int, float, str]) -> None:
         """
@@ -458,104 +292,92 @@ class CoMine(_ab._correlatedPatterns):
                 value = int(value)
         return value
 
-    def _saveAllCombinations(self, tempBuffer, s, position, prefix, prefixLength) -> None:
-        """
-        Generating all the combinations for items in single branch in correlatedPatternTree
-
-        :param tempBuffer: items in a single branch
-        :type tempBuffer: list
-        :param s: support at leaf node of a branch
-        :param position: the length of a tempBuffer
-        :type position: int
-        :param prefix: it represents the list of leaf node
-        :type prefix: list
-        :param prefixLength: the length of prefix
-        :type prefixLength: int
-        :return: None
-        """
-        max1 = 1 << position
-        for i in range(1, max1):
-            newPrefixLength = prefixLength
-            for j in range(position):
-                isSet = i & (1 << j)
-                if isSet > 0:
-                    prefix.insert(newPrefixLength, tempBuffer[j].itemId)
-                    newPrefixLength += 1
-            self._saveItemSet(prefix, newPrefixLength, s)
-
-    def _correlatedPatternGrowthGenerate(self, correlatedPatternTree, prefix, prefixLength, mapSupport) -> None:
-        """
-        Mining the fp tree
-
-        :param correlatedPatternTree: it represents the correlatedPatternTree
-        :type correlatedPatternTree: class Tree
-        :param prefix: it represents an empty list and store the patterns that are mined
-        :type prefix: list
-        :param prefixLength: the length of prefix
-        :type prefixLength: int
-        :param mapSupport: it represents the support of item
-        :type mapSupport: dictionary
-        :return: None
-        """
-
-        singlePath = True
-        position = 0
-        s = 0
-        if len(correlatedPatternTree.root.child) > 1:
-            singlePath = False
-        else:
-            currentNode = correlatedPatternTree.root.child[0]
-            while True:
-                if len(currentNode.child) > 1:
-                    singlePath = False
-                    break
-                self._fpNodeTempBuffer.insert(position, currentNode)
-                s = currentNode.counter
-                position += 1
-                if len(currentNode.child) == 0:
-                    break
-                currentNode = currentNode.child[0]
-        if singlePath is True:
-            self._saveAllCombinations(self._fpNodeTempBuffer, s, position, prefix, prefixLength)
-        else:
-            for i in reversed(correlatedPatternTree.headerList):
-                item = i
-                support = mapSupport[i]
-                betaSupport = support
-                prefix.insert(prefixLength, item)
-                self._saveItemSet(prefix, prefixLength + 1, betaSupport)
-                if prefixLength + 1 < self._maxPatternLength:
-                    prefixPaths = []
-                    path = correlatedPatternTree.mapItemNodes.get(item)
-                    mapSupportBeta = {}
-                    while path is not None:
-                        if path.parent.itemId != -1:
-                            prefixPath = []
-                            prefixPath.append(path)
-                            pathCount = path.counter
-                            parent1 = path.parent
-                            while parent1.itemId != -1:
-                                prefixPath.append(parent1)
-                                if mapSupportBeta.get(parent1.itemId) is None:
-                                    mapSupportBeta[parent1.itemId] = pathCount
-                                else:
-                                    mapSupportBeta[parent1.itemId] = mapSupportBeta[parent1.itemId] + pathCount
-                                parent1 = parent1.parent
-                            prefixPaths.append(prefixPath)
-                        path = path.nodeLink
-                    treeBeta = _Tree()
-                    for k in prefixPaths:
-                        treeBeta.addPrefixPath(k, mapSupportBeta, self._minSup)
-                    if len(treeBeta.root.child) > 0:
-                        treeBeta.createHeaderList(mapSupportBeta, self._minSup)
-                        self._correlatedPatternGrowthGenerate(treeBeta, prefix, prefixLength + 1, mapSupportBeta)
-
     @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         main method to start
         """
         self.mine()
+
+    def _maxSup(self, itemSet, item):
+        """
+        Calculate the maximum support value for a given itemSet and item.
+
+        :param itemSet: A set of items to compare.
+        :type itemSet: list or set
+        :param item: An individual item to compare.
+        :type item: Any
+        :return: The maximum support value from the itemSet and the individual item.
+        :rtype: float or int
+        """
+        sups = [self._mapSupport[i] for i in itemSet] + [self._mapSupport[item]]
+        return max(sups)
+
+    def _allConf(self, itemSet):
+        """
+        Calculate the all-confidence value for a given itemSet.
+
+        :param itemSet: A set of items for which to calculate the all-confidence.
+        :type itemSet: list or set
+        :return: The all-confidence value for the itemSet.
+        :rtype: float
+        """
+        return self._finalPatterns[itemSet] / max([self._mapSupport[i] for i in itemSet])
+    
+    def recursive(self, item, nodes, root):
+        """
+        Recursively build the tree structure for itemsets and find patterns that meet
+        the minimum support and all-confidence thresholds.
+
+        :param item: The current item being processed.
+        :type item: Any
+        :param nodes: The list of nodes to be processed.
+        :type nodes: list of _Node
+        :param root: The root node of the current tree.
+        :type root: _Node
+        :return: None
+        """
+
+        if root.item is None:
+            newRoot = _Node([item], 0, None)
+        else:
+            newRoot = _Node(root.item + [item], 0, None)
+
+        itemCounts = {}
+        transactions = []
+        for node in nodes:
+            transaction, count = node.traverse()
+            transactions.append([transaction, count])
+            for item in transaction:
+                if item not in itemCounts:
+                    itemCounts[item] = 0
+                itemCounts[item] += count
+
+        # print(newRoot.item, itemCounts.keys())
+        itemCounts = {k:v for k, v in itemCounts.items() if v >= self._minSup}
+        if len(itemCounts) == 0:
+            return
+
+        itemNodes = {}
+        for transaction, count in transactions:
+            transaction = [i for i in transaction if i in itemCounts]
+            transaction = sorted(transaction, key=lambda item: itemCounts[item], reverse=True)
+            node = newRoot
+            for item in transaction:
+                node = node.addChild(item, count)
+                if item not in itemNodes:
+                    itemNodes[item] = [set(), 0]
+                itemNodes[item][0].add(node)
+                itemNodes[item][1] += count
+
+        itemNodes = {k:v for k, v in sorted(itemNodes.items(), key=lambda x: x[1][1], reverse=True)}
+
+
+        for item in itemCounts:
+            conf = itemNodes[item][1] / self._maxSup(newRoot.item, item)
+            if conf >= self._minAllConf:
+                self._finalPatterns[tuple(newRoot.item + [item])] = [itemCounts[item], conf]
+                self.recursive(item, itemNodes[item][0], newRoot)
 
     def mine(self) -> None:
         """
@@ -566,22 +388,33 @@ class CoMine(_ab._correlatedPatterns):
             raise Exception("Please enter the file path or file name:")
         self._creatingItemSets()
         self._minSup = self._convert(self._minSup)
-        self._tree = _Tree()
-        self._finalPatterns = {}
-        self._correlatedOneItem()
-        self._mapSupport = {k: v for k, v in self._mapSupport.items() if v >= self._minSup}
-        _itemSetBuffer = [k for k, v in sorted(self._mapSupport.items(), key=lambda x: x[1], reverse=True)]
-        for i in self._Database:
-            _transaction = []
-            for j in i:
-                if j in _itemSetBuffer:
-                    _transaction.append(j)
-            _transaction.sort(key=lambda val: self._mapSupport[val], reverse=True)
-            self._tree.addTransaction(_transaction)
-        self._tree.createHeaderList(self._mapSupport, self._minSup)
-        if len(self._tree.headerList) > 0:
-            self._itemSetBuffer = []
-            self._correlatedPatternGrowthGenerate(self._tree, self._itemSetBuffer, 0, self._mapSupport)
+
+        itemCount = Counter()
+        for transaction in self._Database:
+            itemCount.update(transaction)
+
+        self._mapSupport = {k: v for k, v in itemCount.items() if v >= self._minSup}
+        self._Database = [[item for item in transaction if item in self._mapSupport] for transaction in self._Database]
+        self._Database = [sorted(transaction, key=lambda item: self._mapSupport[item], reverse=True) for transaction in self._Database]
+        
+        root = _Node(None, 0, None)
+        itemNode = {}
+        # itemNode[item] = [node, count]
+        for transaction in self._Database:
+            node = root
+            for item in transaction:
+                node = node.addChild(item)
+                if item not in itemNode:
+                    itemNode[item] = [set(), 0]
+                itemNode[item][0].add(node)
+                itemNode[item][1] += 1
+
+        itemNode = {k:v for k, v in sorted(itemNode.items(), key=lambda x: x[1][1], reverse=True)}
+
+        for item in itemNode:
+            self._finalPatterns[tuple([item])] = [itemNode[item][1],1]
+            self.recursive(item, itemNode[item][0], root)
+
         print("Correlated patterns were generated successfully using CoMine algorithm")
         self._endTime = _ab._time.time()
         self._memoryUSS = float()

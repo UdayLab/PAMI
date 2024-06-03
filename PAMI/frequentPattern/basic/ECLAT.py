@@ -162,6 +162,9 @@ class ECLAT(_ab._frequentPatterns):
             i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
                 self._Database = self._iFile['Transactions'].tolist()
+                self._Database = [x.split(self._sep) for x in self._Database]
+            else:
+                print("The column name should be Transactions and each line should be separated by tab space or a seperator specified by the user")
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
@@ -328,12 +331,12 @@ class ECLAT(_ab._frequentPatterns):
         #     dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         # print("Time taken to convert the frequent patterns into DataFrame is: ", _ab._time.time() - time)
 
-
-        dataFrame = _ab._pd.DataFrame(list(self._finalPatterns.items()), columns=['Patterns', 'Support'])
+        dataFrame = _ab._pd.DataFrame(list([[" ".join(x), y] for x,y in self._finalPatterns.items()]), columns=['Patterns', 'Support'])
+        # dataFrame = _ab._pd.DataFrame(list(self._finalPatterns.items()), columns=['Patterns', 'Support'])
 
         return dataFrame
 
-    def save(self, outFile: str) -> None:
+    def save(self, outFile: str, seperator = "\t" ) -> None:
         """
 
         Complete set of frequent patterns will be loaded in to an output file
@@ -342,9 +345,15 @@ class ECLAT(_ab._frequentPatterns):
         :type outFile: csvfile
         :return: None
         """
+
+        # self._oFile = outFile
+        # writer = open(self._oFile, 'w+')
+        # for x, y in self._finalPatterns.items():
+        #     patternsAndSupport = x.strip() + ":" + str(y[0])
+        #     writer.write("%s \n" % patternsAndSupport)
         with open(outFile, 'w') as f:
             for x, y in self._finalPatterns.items():
-                x = self._sep.join(x)
+                x = seperator.join(x)
                 f.write(f"{x}:{y}\n")
 
     def getPatterns(self) -> dict:
@@ -383,3 +392,4 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+

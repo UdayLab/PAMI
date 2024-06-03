@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FFSPMiner &mdash; PAMI 2024.04.23 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=391540b0"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -111,13 +113,11 @@
            <div itemprop="articleBody">
              
   <section id="module-PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner">
-<span id="ffspminer"></span><h1>FFSPMiner<a class="headerlink" href="#module-PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner" title="Link to this heading"></a></h1>
+<span id="ffspminer"></span><h1>FFSPMiner<a class="headerlink" href="#module-PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.</span></span><span class="sig-name descname"><span class="pre">FFSPMiner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.</span></span><span class="sig-name descname"><span class="pre">FFSPMiner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_fuzzySpatialFrequentPatterns</span></code></p>
-<section id="about-this-algorithm">
-<h2>About this algorithm<a class="headerlink" href="#about-this-algorithm" title="Link to this heading"></a></h2>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Fuzzy Frequent Spatial Pattern-Miner is desired to find all Spatially frequent fuzzy patterns
@@ -129,32 +129,24 @@ techniques to reduce the search space.</p>
 Spatial Patterns in Large Quantitative Spatiotemporal databases,” 2021 IEEE International Conference on Fuzzy Systems
 (FUZZ-IEEE), 2021, pp. 1-8, doi: 10.1109/FUZZ45933.2021.9494594.</p>
 </dd>
-<dt class="field-odd">param  iFile<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str :
-Name of the Input file to mine complete set of frequent patterns</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of frequent patterns</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of frequent patterns</p></li>
+<li><p><strong>minSup</strong> – int or float or str :
+The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.</p></li>
+<li><p><strong>maxPer</strong> – float :
+The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.</p></li>
+<li><p><strong>nFile</strong> – str :
+Name of the input file to mine complete set of frequent patterns</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
 </dd>
-<dt class="field-even">param  oFile<span class="colon">:</span></dt>
-<dd class="field-even"><p>str :
-Name of the output file to store complete set of frequent patterns</p>
-</dd>
-<dt class="field-odd">param  minSup<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int or float or str :
-The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.</p>
-</dd>
-<dt class="field-even">param maxPer<span class="colon">:</span></dt>
-<dd class="field-even"><p>float :
-The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.</p>
-</dd>
-<dt class="field-odd">param nFile<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str :
-Name of the input file to mine complete set of frequent patterns</p>
-</dd>
-<dt class="field-even">param  sep<span class="colon">:</span></dt>
-<dd class="field-even"><p>str :
-This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p>
-</dd>
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the input file to mine complete set of fuzzy spatial frequent patterns</p>
 </dd>
 <dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the oFile file to store complete set of fuzzy spatial frequent patterns</p>
@@ -183,8 +175,8 @@ This variable is used to distinguish items from one another in a transaction. Th
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Methods<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
 <dt>mine()</dt><dd><p>Mining process will start from here</p>
 </dd>
 <dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
@@ -214,9 +206,6 @@ This variable is used to distinguish items from one another in a transaction. Th
 </dl>
 </dd>
 </dl>
-</section>
-<section id="execution-methods">
-<h2>Execution methods<a class="headerlink" href="#execution-methods" title="Link to this heading"></a></h2>
 <p><strong>Terminal command</strong></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
@@ -257,15 +246,12 @@ This variable is used to distinguish items from one another in a transaction. Th
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="credits">
-<h2>Credits<a class="headerlink" href="#credits" title="Link to this heading"></a></h2>
 <blockquote>
 <div><p>The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.getMemoryRSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -279,7 +265,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.getMemoryUSS" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -293,7 +279,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.getPatterns" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -307,7 +293,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>Storing final frequent patterns in a dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -321,7 +307,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.getRuntime" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -335,7 +321,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.mine">
-<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.mine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.mine" title="Permalink to this definition"></a></dt>
 <dd><p>Frequent pattern mining process will start from here</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -346,13 +332,13 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.printResults" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.printResults" title="Permalink to this definition"></a></dt>
 <dd><p>This function is used to print the results</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.save" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -366,7 +352,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.startMine" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.html#FFSPMiner.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner.FFSPMiner.startMine" title="Permalink to this definition"></a></dt>
 <dd><p>Frequent pattern mining process will start from here</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -375,7 +361,6 @@ This variable is used to distinguish items from one another in a transaction. Th
 </dl>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
