@@ -76,11 +76,15 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 8. Report issues https://github.com/UdayLab/PAMI/issues
 
 ***
-# Process Flow Chart
+# Flow Chart of Developing Algorithms in PAMI
 
 ![PAMI's production process](./images/pamiDevelopmentSteps.png?raw=true)
 
 <!--- ![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true) ---> 
+***
+# Inputs and Outputs of an Algorithm in PAMI
+
+![Inputs and Outputs](./images/inputOutputPAMIalgo.png?raw=true)
 ***
 # Recent Updates
 
@@ -163,7 +167,8 @@ from PAMI.frequentPattern.basic import FPGrowth as alg
 fileURL = "https://u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/Transactional_T10I4D100K.csv"
 minSup=300
 obj = alg.FPGrowth(iFile=fileURL, minSup=minSup, sep='\t')
-obj.startMine()
+#obj.startMine()  #deprecated
+obj.mine()
 obj.save('frequentPatternsAtMinSupCount300.txt')
 frequentPatternsDF= obj.getPatternsAsDataFrame()
 print('Total No of patterns: ' + str(len(frequentPatternsDF))) #print the total number of patterns
