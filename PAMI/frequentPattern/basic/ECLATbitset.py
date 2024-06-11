@@ -57,6 +57,8 @@ from deprecated import deprecated
 
 class ECLATbitset(_ab._frequentPatterns):
     """
+    **About this algorithm**
+
     :*Description*:  ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
 
     :*Reference*:  Mohammed Javeed Zaki: Scalable Algorithms for Association Mining. IEEE Trans. Knowl. Data Eng. 12(3):
@@ -65,7 +67,7 @@ class ECLATbitset(_ab._frequentPatterns):
     :**Parameters**:    - **iFile** (*str or URL or dataFrame*) -- *Name of the Input file to mine complete set of frequent patterns.*
                         - **oFile** (*str*) -- *Name of the output file to store complete set of frequent patterns*
                         - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.*
-                        - **sep** (*str*) -- **This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.**
+                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
 
     :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*
                         - **endTime** (*float*) -- *To record the end time of the mining process.*
@@ -74,10 +76,11 @@ class ECLATbitset(_ab._frequentPatterns):
                         - **memoryRSS** *(float*) -- *To store the total amount of RSS memory consumed by the program.*
                         - **Database** (*list*) -- *To store the transactions of a database in list.*
 
-    Execution methods
-    =================
+    **Execution methods**
 
     **Terminal command**
+
+    .. code-block:: console
 
       Format:
 
@@ -124,8 +127,7 @@ class ECLATbitset(_ab._frequentPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    Credits:
-    ========
+    **Credits:**
 
     The complete program was written by Yudai Masu and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 

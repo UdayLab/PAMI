@@ -57,8 +57,7 @@ from deprecated import deprecated
 
 class FAE(_ab._frequentPatterns):
     """
-    About this algorithm
-    ====================
+    **About this algorithm**
 
     :**Description**: Top - K is and algorithm to discover top frequent patterns in a transactional database.
 
@@ -76,8 +75,7 @@ class FAE(_ab._frequentPatterns):
                         - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
                         - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
 
-    Execution methods
-    =================
+    **Execution methods**
 
     **Terminal command**
 
@@ -128,8 +126,7 @@ class FAE(_ab._frequentPatterns):
             print("Total ExecutionTime in seconds:", run)
 
 
-    Credits
-    =======
+    **Credits:**
 
     The complete program was written by P. Likhitha  and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
