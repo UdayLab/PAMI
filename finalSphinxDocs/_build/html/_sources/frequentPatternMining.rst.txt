@@ -5,6 +5,7 @@ Basic
    :maxdepth: 1
 
    frequentPatternBasicApriori
+   frequentPatternBasicAprioribitset
    frequentPatternBasicECLAT
    frequentPatternBasicECLATDiffset
    frequentPatternBasicECLATbitset

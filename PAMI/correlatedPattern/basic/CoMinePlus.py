@@ -115,8 +115,7 @@ class _Node:
 
 class CoMine(_ab._correlatedPatterns):
     """
-    About this algorithm
-    ====================
+    **About this algorithm**
 
     :**Description**: CoMinePlus is one of the fundamental algorithm to discover correlated  patterns in a transactional database. It is based on the traditional FP-Growth algorithm. This algorithm uses depth-first search technique to find all correlated patterns in a transactional database.
 
@@ -143,8 +142,7 @@ class CoMine(_ab._correlatedPatterns):
                         - **itemSetBuffer** (*list*) -- *it represents the store the items in mining.*
                         - **maxPatternLength** (*int*) -- *it represents the constraint for pattern length.*
 
-    Execution methods
-    =================
+    **Execution methods**
 
     **Terminal command**
 
@@ -196,10 +194,9 @@ class CoMine(_ab._correlatedPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    Credits
-    =======
+    **Credits**
 
-    The complete program was written by B.Sai Chitra and revised by Tarun Sreepads under the supervision of Professor Rage Uday Kiran.
+    The complete program was written by B.Sai Chitra and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
     """
 
