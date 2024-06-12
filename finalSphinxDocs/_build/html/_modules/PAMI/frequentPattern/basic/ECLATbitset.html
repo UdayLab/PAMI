@@ -153,6 +153,8 @@
 
 <div class="viewcode-block" id="ECLATbitset"><a class="viewcode-back" href="../../../../frequentPatternBasicECLATbitset.html#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset">[docs]</a><span class="k">class</span> <span class="nc">ECLATbitset</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_frequentPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    **About this algorithm**</span>
+
 <span class="sd">    :*Description*:  ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.</span>
 
 <span class="sd">    :*Reference*:  Mohammed Javeed Zaki: Scalable Algorithms for Association Mining. IEEE Trans. Knowl. Data Eng. 12(3):</span>
@@ -161,7 +163,7 @@
 <span class="sd">    :**Parameters**:    - **iFile** (*str or URL or dataFrame*) -- *Name of the Input file to mine complete set of frequent patterns.*</span>
 <span class="sd">                        - **oFile** (*str*) -- *Name of the output file to store complete set of frequent patterns*</span>
 <span class="sd">                        - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.*</span>
-<span class="sd">                        - **sep** (*str*) -- **This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.**</span>
+<span class="sd">                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*</span>
 
 <span class="sd">    :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*</span>
 <span class="sd">                        - **endTime** (*float*) -- *To record the end time of the mining process.*</span>
@@ -170,10 +172,11 @@
 <span class="sd">                        - **memoryRSS** *(float*) -- *To store the total amount of RSS memory consumed by the program.*</span>
 <span class="sd">                        - **Database** (*list*) -- *To store the transactions of a database in list.*</span>
 
-<span class="sd">    Execution methods</span>
-<span class="sd">    =================</span>
+<span class="sd">    **Execution methods**</span>
 
 <span class="sd">    **Terminal command**</span>
+
+<span class="sd">    .. code-block:: console</span>
 
 <span class="sd">      Format:</span>
 
@@ -220,8 +223,7 @@
 
 <span class="sd">            print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
 
-<span class="sd">    Credits:</span>
-<span class="sd">    ========</span>
+<span class="sd">    **Credits:**</span>
 
 <span class="sd">    The complete program was written by Yudai Masu and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.</span>
 

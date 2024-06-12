@@ -64,8 +64,7 @@ from PAMI.periodicFrequentPattern.basic import abstract as _ab
 
 class PFECLAT(_ab._periodicFrequentPatterns):
     """
-    About this algorithm
-    ====================
+    **About this algorithm**
 
     :**Description**:   PFECLAT is the fundamental approach to mine the periodic-frequent patterns.
 
@@ -102,8 +101,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                         - **getPeriodAndSupport()** -- *Calculates the support and period for a list of timestamps.*
                         - **Generation()** -- *Used to implement prefix class equivalence method to generate the periodic patterns recursively*
 
-    Execution methods
-    =================
+    **Execution methods**
 
     **Terminal command**
 
@@ -156,8 +154,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    Credits
-    =======
+    **Credits:**
 
     The complete program was written by P. Likhitha  and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 

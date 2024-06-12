@@ -18,9 +18,9 @@ import PAMI.sequentialPattern.basic.abstract as _ab
 import sys
 sys.setrecursionlimit(10000)
 
-class PrifixSpan(_ab._sequentialPatterns):
+class PrefixSpan(_ab._sequentialPatterns):
     """
-        Prifix Span is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
+        Prefix Span is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
         This program employs Prifix Span property (or downward closure property) to  reduce the search space effectively.
         This algorithm employs depth-first search technique to find the complete set of frequent patterns in a
         transactional database.
@@ -84,26 +84,26 @@ class PrifixSpan(_ab._sequentialPatterns):
             Format:
             ------
              basic:
-                python3 PrifixSpan.py <inputFile> <outputFile> <minSup>
+                python3 PrefixSpan.py <inputFile> <outputFile> <minSup>
              length:
-                python3 PrifixSpan.py <inputFile> <outputFile> <minSup> "<sep(default="\t")>" <maxLength>
+                python3 PrefixSpan.py <inputFile> <outputFile> <minSup> "<sep(default="\t")>" <maxLength>
              gap:
-                python3 PrifixSpan.py <inputFile> <outputFile> <minSup> <sep(default="\t")> <maxLength(default=float("inf"))> <maxGap>
+                python3 PrefixSpan.py <inputFile> <outputFile> <minSup> <sep(default="\t")> <maxLength(default=float("inf"))> <maxGap>
             Examples:
             ---------
             basic
-                python3 PrifixSpan.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
-                python3 PrifixSpan.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+                python3 PrefixSpan.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
+                python3 PrefixSpan.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
             length
-                python3 PrifixSpan.py sampleDB.txt patterns.txt 10 "\t" 2 (find the pattern that have two or less itemsets and ten or more support)
+                python3 PrefixSpan.py sampleDB.txt patterns.txt 10 "\t" 2 (find the pattern that have two or less itemsets and ten or more support)
             gap
-                python3 PrifixSpan.py sampleDB.txt patterns.txt 10 "\t" float("inf") 3
+                python3 PrefixSpan.py sampleDB.txt patterns.txt 10 "\t" float("inf") 3
             length and gap
-                python3 PrifixSpan.py sampleDB.txt patterns.txt 10 2
+                python3 PrefixSpan.py sampleDB.txt patterns.txt 10 2
         Sample run of the importing code:
         ---------------------------------
-            import PAMI.frequentPattern.basic.PrifixSpan as alg
-            obj = alg.PrifixSpan(iFile, minSup)
+            import PAMI.frequentPattern.basic.PrefixSpan as alg
+            obj = alg.PrefixSpan(iFile, minSup)
             obj.startMine()
             frequentPatterns = obj.getPatterns()
             print("Total number of Frequent Patterns:", len(frequentPatterns))
@@ -546,13 +546,13 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) >= 4 or len(_ab._sys.argv) <= 7:
         if len(_ab._sys.argv) == 7:
-            _ap = PrifixSpan(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4],_ab._sys.argv[5],_ab._sys.argv[6])
+            _ap = PrefixSpan(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4],_ab._sys.argv[5],_ab._sys.argv[6])
         if len(_ab._sys.argv) == 6:
-            _ap = PrifixSpan(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4],_ab._sys.argv[5])
+            _ap = PrefixSpan(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4],_ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
-            _ap = PrifixSpan(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = PrefixSpan(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
-            _ap = PrifixSpan(_ab._sys.argv[1], _ab._sys.argv[3])
+            _ap = PrefixSpan(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_Patterns))
@@ -565,7 +565,7 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _run)
 
     else:
-        _ap = PrifixSpan('strtest.txt',2, ' ')
+        _ap = PrefixSpan('strtest.txt',2, ' ')
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         _memUSS = _ap.getMemoryUSS()
