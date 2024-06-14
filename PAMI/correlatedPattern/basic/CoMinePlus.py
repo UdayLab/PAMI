@@ -113,7 +113,7 @@ class _Node:
             node = node.parent
         return transaction[::-1], count
 
-class CoMine(_ab._correlatedPatterns):
+class CoMinePlus(_ab._correlatedPatterns):
     """
     About this algorithm
     ====================
@@ -543,9 +543,9 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:
-            _ap = CoMine(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]), _ab._sys.argv[5])
+            _ap = CoMinePlus(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]), _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
-            _ap = CoMine(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
+            _ap = CoMinePlus(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
         _ap.startMine()
         _ap.mine()
         print("Total number of Correlated-Frequent Patterns:", len(_ap.getPatterns()))

@@ -40,7 +40,7 @@ import pandas as pd
 import sys
 
 
-class generateTransactional:
+class generateSpatioTransactional:
     """
     :Description Generate a transactional database with the given number of lines, average number of items per line, and total number of items
 
@@ -64,8 +64,11 @@ class generateTransactional:
 
     
     """
+    def getPoint(self, x1, y1, x2, y2):
 
-    def __init__(self, numLines, avgItemsPerLine, numItems) -> None:
+        return (np.random.randint(x1, x2), np.random.randint(y1, y2))
+
+    def __init__(self, numLines, avgItemsPerLine, numItems, x1, y1, x2, y2) -> None:
         """
         Initialize the transactional database with the given parameters
 
@@ -79,6 +82,24 @@ class generateTransactional:
         self.avgItemsPerLine = avgItemsPerLine
         self.numItems = numItems
         self.db = []
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
+
+        numPoints = (x2 - x1) * (y2 - y1)
+        if numItems > numPoints:
+            raise ValueError("Number of points is less than the number of lines * average items per line")
+        
+        self.itemPoint = {}
+        usedPoints = set()
+
+        for i in range(1, numItems + 1):
+            # self.itemPoint[i] = (np.random.randint(x1, x2), np.random.randint(y1, y2))
+            point = self.getPoint(x1, y1, x2, y2)
+            while point in usedPoints:
+                point = self.getPoint(x1, y1, x2, y2)
+            self.itemPoint[i] = point
     
     def tuning(self, array, sumRes) -> list:
         """
@@ -170,7 +191,13 @@ class generateTransactional:
 
         for value in values:
             line = np.random.choice(range(1, self.numItems + 1), value, replace=False)
-            self.db.append(line)
+            nline = [self.itemPoint[i] for i in line]
+            # print(line, nline)
+            # for i in range(len(line)):
+            #     print(line[i], self.itemPoint[line[i]])
+            #     line[i] = self.itemPoint[line[i]]
+            self.db.append(nline)
+            # self.db.append(line)
 
     def save(self, sep, filename) -> None:
         """
@@ -185,7 +212,9 @@ class generateTransactional:
 
         with open(filename, 'w') as f:
             for line in self.db:
-                f.write(sep.join(map(str, line)) + '\n')
+                # f.write(','.join(map(str, line)) + '\n')
+                line = list(map(str, line))
+                f.write(sep.join(line) + '\n')
 
     def getTransactions(self) -> pd.DataFrame:
         """
@@ -195,21 +224,19 @@ class generateTransactional:
 
         :rtype: pd.DataFrame
         """
-        # df = pd.DataFrame(self.db)
-        temp = ["\t".join(map(str, line)) for line in self.db]
-        df = pd.DataFrame(temp, columns=["Transactions"])
+        df = pd.DataFrame(['\t'.join(map(str, line)) for line in self.db], columns=['Transactions'])
         return df
         
 
 if __name__ == "__main__":
     # test the class
-    db = generateTransactional(10, 5, 10)
+    db = generateSpatioTransactional(10, 5, 10, 1,5,5,10)
     db.create()
-    db.save("\t", '4.txt')
+    db.save('\t','2.txt')
     print(db.getTransactions())
 
-    obj = generateTransactional(sys.argv[1], sys.argv[2], sys.argv[3])
+    obj = generateSpatioTransactional(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7])
     obj.create()
-    obj.save(sys.argv[4])
+    obj.save(sys.argv[8])
     # print(obj.getTransactions())
     
