@@ -94,20 +94,22 @@
            <div itemprop="articleBody">
              
   <h1>Source code for PAMI.extras.generateDatabase.generateSpatioTemporalDatabase</h1><div class="highlight"><pre>
-<span></span><span class="c1"># generateSpatioTemporalDatabase is a code used to convert the database into SpatioTemporal database.</span>
+<span></span><span class="c1"># generateTemporalDatabase is a code used to convert the database into Temporal database.</span>
 <span class="c1">#</span>
-<span class="c1">#   **Importing this algorithm into a python program**</span>
-<span class="c1">#   --------------------------------------------------------</span>
+<span class="c1">#  **Importing this algorithm into a python program**</span>
+<span class="c1">#  --------------------------------------------------------</span>
 <span class="c1">#</span>
-<span class="c1">#             from PAMI.extras.generateDatabase import generateSpatioTemporalDatabase as db</span>
+<span class="c1">#             from PAMI.extras.generateDatabase import generateTemporalDatabase as db</span>
 <span class="c1">#</span>
-<span class="c1">#             obj = db.generateSpatioTemporalDatabase(0, 100, 0, 100, 10, 10, 0.5, 0.9, 0.5, 0.9)</span>
+<span class="c1">#             obj = db.generateTemporalDatabase(100, 10, 6, oFile, %, &quot;\t&quot;)</span>
 <span class="c1">#</span>
 <span class="c1">#             obj.save()</span>
 <span class="c1">#</span>
-<span class="c1">#             obj.createPoint(0,100,0,100) # values can be according to the size of data</span>
+<span class="c1">#             obj.getFileName(&quot;outputFileName&quot;) # to create a file</span>
 <span class="c1">#</span>
-<span class="c1">#             obj.saveAsFile(&quot;outputFileName&quot;) # To create a file</span>
+<span class="c1">#             obj.getDatabaseAsDataFrame(&quot;outputFileName&quot;) # to convert database into dataframe</span>
+<span class="c1">#</span>
+<span class="c1">#             obj.createTemporalFile(&quot;outputFileName&quot;) # to get outputfile</span>
 <span class="c1">#</span>
 
 
@@ -129,130 +131,297 @@
 <span class="s2">     You should have received a copy of the GNU General Public License</span>
 <span class="s2">     along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
 <span class="s2">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">random</span> <span class="k">as</span> <span class="nn">rand</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generator</span>
-<span class="kn">import</span> <span class="nn">pandas</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
 
-<div class="viewcode-block" id="spatioTemporalDatabaseGenerator"><a class="viewcode-back" href="../../../../PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator">[docs]</a><span class="k">class</span> <span class="nc">spatioTemporalDatabaseGenerator</span><span class="p">():</span>
+<div class="viewcode-block" id="generateTemporalDatabase"><a class="viewcode-back" href="../../../../PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase">[docs]</a><span class="k">class</span> <span class="nc">generateTemporalDatabase</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :Description:   generateTemporalDatabase creates a temporal database and outputs a database or a frame depending on input</span>
 
-<span class="sd">    :Description:   generateSpatioTemporalDatabase is a code used to convert the database into SpatioTemporal database.</span>
+<span class="sd">    :Attributes:</span>
+<span class="sd">        :param numOfTransactions: int</span>
+<span class="sd">            number of transactions</span>
+<span class="sd">        :param avgLenOfTransactions: int</span>
+<span class="sd">            average length of transactions</span>
+<span class="sd">        :param numItems: int</span>
+<span class="sd">            number of items</span>
+<span class="sd">        :param outputFile: str</span>
+<span class="sd">            output file name</span>
+<span class="sd">        :param percentage: int</span>
+<span class="sd">            percentage of coinToss for TID of temporalDatabase</span>
+<span class="sd">        :param sep: str</span>
+<span class="sd">            seperator for database output file</span>
+<span class="sd">        :param typeOfFile: str</span>
+<span class="sd">            specify database or dataframe to get corresponding output</span>
 
-<span class="sd">    :param  xmin: int :</span>
-<span class="sd">            To give minimum value for x</span>
-<span class="sd">    :param  xmax: int :</span>
-<span class="sd">            To give maximum value for x</span>
-<span class="sd">    :param  ymin: int :</span>
-<span class="sd">            To give minimum value for y</span>
-<span class="sd">    :param  ymax: int :</span>
-<span class="sd">             To give maximum value for y</span>
-<span class="sd">    :param maxTimeStamp: int :</span>
-<span class="sd">            maximum Time Stamp for the database</span>
-<span class="sd">    :param numberOfItems: int :</span>
-<span class="sd">            number of items in the database</span>
-<span class="sd">    :param itemChanceLow: int or float :</span>
-<span class="sd">            least chance for item in the database</span>
-<span class="sd">    :param itemChanceHigh: int or float :</span>
-<span class="sd">            highest chance for item in the database</span>
-<span class="sd">    :param timeStampChanceLow: int or float :</span>
-<span class="sd">            lowest time stamp value</span>
-<span class="sd">    :param timeStampChanceHigh: int or float:</span>
-<span class="sd">            highest time stamp value</span>
+<span class="sd">    :Methods:</span>
+<span class="sd">        getFileName():</span>
+<span class="sd">            returns filename</span>
+<span class="sd">        createTemporalFile():</span>
+<span class="sd">            creates temporal database file or dataframe</span>
+<span class="sd">        getDatabaseAsDataFrame:</span>
+<span class="sd">            returns dataframe</span>
+<span class="sd">        performCoinFlip():</span>
+<span class="sd">            Perform a coin flip with the given probability</span>
+<span class="sd">        tuning():</span>
+<span class="sd">            Tune the arrayLength to match avgLenOfTransactions</span>
+<span class="sd">        createTemporalFile():</span>
+<span class="sd">            create Temporal database or dataframe depending on input</span>
 
 <span class="sd">    **Importing this algorithm into a python program**</span>
 <span class="sd">    --------------------------------------------------------</span>
 <span class="sd">    .. code-block:: python</span>
 
-<span class="sd">            from PAMI.extras.generateDatabase import generateSpatioTemporalDatabase as db</span>
+<span class="sd">            from PAMI.extras.generateDatabase import generateTemporalDatabase as db</span>
 
-<span class="sd">            obj = db.generateSpatioTemporalDatabase(0, 100, 0, 100, 10, 10, 0.5, 0.9, 0.5, 0.9)</span>
+<span class="sd">            numOfTransactions = 100</span>
+<span class="sd">            numItems = 15</span>
+<span class="sd">            avgTransactionLength = 6</span>
+<span class="sd">            outFileName = &#39;temporal_ot.txt&#39;</span>
+<span class="sd">            sep = &#39;\t&#39;</span>
+<span class="sd">            percent = 75</span>
+<span class="sd">            frameOrBase = &quot;dataframe&quot; # if you want to get dataframe as output</span>
+<span class="sd">            frameOrBase = &quot;database&quot; # if you want to get database/csv/file as output</span>
 
-<span class="sd">            obj.save(oFile)</span>
-
-<span class="sd">            obj.createPoint(0,100,0,100) # values can be according to the size of data</span>
-
-<span class="sd">            obj.saveAsFile(&quot;outputFileName&quot;) # To create a file</span>
+<span class="sd">            temporalDB = db.generateTemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName, percent, sep, frameOrBase )</span>
+<span class="sd">            temporalDB.createTemporalFile()</span>
+<span class="sd">            print(temporalDB.getDatabaseAsDataFrame())</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">coinFlip</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span>
-    <span class="n">timestamp</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-    <span class="n">items</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-    <span class="n">alreadyAdded</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-    <span class="n">outFileName</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+<div class="viewcode-block" id="generateTemporalDatabase.getPoint"><a class="viewcode-back" href="../../../../PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.getPoint">[docs]</a>    <span class="k">def</span> <span class="nf">getPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="spatioTemporalDatabaseGenerator.createPoint"><a class="viewcode-back" href="../../../../PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.createPoint">[docs]</a>    <span class="k">def</span> <span class="nf">createPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xmin</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">xmax</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ymin</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ymax</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">rand</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">)</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">rand</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
-        <span class="n">coordinate</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">coordinate</span></div>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numOfTransactions</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">avgLenOfTransactions</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+                 <span class="n">numItems</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">outputFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">percentage</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                 <span class="n">sep</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">typeOfFile</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;Database&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :Description:   Initialize the generateTemporalDatabase class</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">xmin</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span><span class="n">xmax</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span><span class="n">ymin</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span><span class="n">ymax</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span><span class="n">maxTimeStamp</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span><span class="n">numberOfItems</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">itemChanceLow</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                 <span class="n">itemChanceHigh</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">timeStampChanceLow</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                 <span class="n">timeStampChanceHigh</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">coinFlip</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span>
-        <span class="n">timeStamp</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">timeStampList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">itemList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="sd">        :Attributes:</span>
+<span class="sd">            :param numOfTransactions: int</span>
+<span class="sd">                number of transactions</span>
+<span class="sd">            :param avgLenOfTransactions: int</span>
+<span class="sd">                average length of transactions</span>
+<span class="sd">            :param numItems: int</span>
+<span class="sd">                number of items</span>
+<span class="sd">            :param outputFile: str</span>
+<span class="sd">                output file name</span>
+<span class="sd">            :param percentage: int</span>
+<span class="sd">                percentage of coinToss for TID of temporalDatabase</span>
+<span class="sd">            :param sep: str</span>
+<span class="sd">                seperator for database output file</span>
+<span class="sd">            :param typeOfFile: str</span>
+<span class="sd">                specify database or dataframe to get corresponding output</span>
 
-        <span class="k">while</span> <span class="n">timeStamp</span> <span class="o">!=</span> <span class="n">maxTimeStamp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">itemSet</span><span class="o">=</span><span class="nb">list</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">numberOfItems</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-                <span class="c1">#rand1=rand.rand(itemChanceLow,itemChanceHigh)</span>
-                <span class="c1">#rand2 = rand.rand(timeStampChanceLow, timeStampChanceHigh)</span>
-                <span class="k">if</span> <span class="n">rand</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">coinFlip</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="n">itemChanceLow</span><span class="p">,</span><span class="n">itemChanceHigh</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]:</span>
-                    <span class="n">coordinate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">createPoint</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
-                    <span class="n">coordinate</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">coordinate</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">coordinate</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">alreadyAdded</span><span class="p">:</span>
-                        <span class="n">coordinate</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">coordinate</span><span class="p">)</span>
-                        <span class="n">itemSet</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coordinate</span><span class="p">)</span>
-                        <span class="n">coordinate</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">coordinate</span><span class="p">)</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">alreadyAdded</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">coordinate</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">itemSet</span> <span class="o">!=</span> <span class="p">[]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">timeStampList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="n">timeStamp</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">itemList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="n">itemSet</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">rand</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">coinFlip</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="n">itemChanceLow</span><span class="p">,</span><span class="n">itemChanceHigh</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]:</span>
-                 <span class="n">timeStamp</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">outFileName</span> <span class="o">=</span> <span class="s2">&quot;temporal_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">maxTimeStamp</span> <span class="o">//</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">+</span> \
-                           <span class="s2">&quot;KI&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">numberOfItems</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;C&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">itemChanceLow</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;T&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">timeStampChanceLow</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.csv&quot;</span>
+<span class="sd">        :Methods:</span>
+<span class="sd">            getFileName():</span>
+<span class="sd">                returns filename</span>
+<span class="sd">            createTemporalFile():</span>
+<span class="sd">                creates temporal database file or dataframe</span>
+<span class="sd">            getDatabaseAsDataFrame:</span>
+<span class="sd">                returns dataframe</span>
+<span class="sd">            performCoinFlip():</span>
+<span class="sd">                Perform a coin flip with the given probability</span>
+<span class="sd">            tuning():</span>
+<span class="sd">                Tune the arrayLength to match avgLenOfTransactions</span>
+<span class="sd">            createTemporalFile():</span>
+<span class="sd">                create Temporal database or dataframe depending on input</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">numOfTransactions</span> <span class="o">=</span> <span class="n">numOfTransactions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">avgLenOfTransactions</span> <span class="o">=</span> <span class="n">avgLenOfTransactions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numItems</span> <span class="o">=</span> <span class="n">numItems</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outputFile</span> <span class="o">=</span> <span class="n">outputFile</span>
+        <span class="k">if</span> <span class="n">percentage</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">percentage</span> <span class="o">=</span> <span class="n">percentage</span> <span class="o">/</span> <span class="mi">100</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">percentage</span> <span class="o">=</span> <span class="n">percentage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sep</span> <span class="o">=</span> <span class="n">sep</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">typeOfFile</span> <span class="o">=</span> <span class="n">typeOfFile</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x1</span> <span class="o">=</span> <span class="n">x1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y1</span> <span class="o">=</span> <span class="n">y1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x2</span> <span class="o">=</span> <span class="n">x2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y2</span> <span class="o">=</span> <span class="n">y2</span>
+
+        <span class="n">numPoints</span> <span class="o">=</span> <span class="p">(</span><span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">numItems</span> <span class="o">&gt;</span> <span class="n">numPoints</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Number of points is less than the number of lines * average items per line&quot;</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">itemPoint</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">usedPoints</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">numItems</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="c1"># self.itemPoint[i] = (np.random.randint(x1, x2), np.random.randint(y1, y2))</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPoint</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+            <span class="k">while</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">usedPoints</span><span class="p">:</span>
+                <span class="n">point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPoint</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">itemPoint</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">point</span>
+
+<div class="viewcode-block" id="generateTemporalDatabase.getFileName"><a class="viewcode-back" href="../../../../PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.getFileName">[docs]</a>    <span class="k">def</span> <span class="nf">getFileName</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        return filename</span>
+<span class="sd">        :return: filename</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">outputFile</span></div>
+
+<div class="viewcode-block" id="generateTemporalDatabase.getDatabaseAsDataFrame"><a class="viewcode-back" href="../../../../PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.getDatabaseAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getDatabaseAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        return dataframe</span>
+<span class="sd">        :return: dataframe</span>
+<span class="sd">        :rtype: pd.DataFrame</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span></div>
+    
+<div class="viewcode-block" id="generateTemporalDatabase.performCoinFlip"><a class="viewcode-back" href="../../../../PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.performCoinFlip">[docs]</a>    <span class="k">def</span> <span class="nf">performCoinFlip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">probability</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform a coin flip with the given probability.</span>
+<span class="sd">        :param probability: probability to perform coin flip</span>
+<span class="sd">        :type probability: float</span>
+<span class="sd">        :return: True if coin flip is performed, False otherwise</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span> <span class="o">-</span> <span class="n">probability</span><span class="p">,</span> <span class="n">probability</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">1</span></div>
 
 
+<div class="viewcode-block" id="generateTemporalDatabase.tuning"><a class="viewcode-back" href="../../../../PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.tuning">[docs]</a>    <span class="k">def</span> <span class="nf">tuning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">sumRes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tune the array so that the sum of the values is equal to sumRes</span>
+
+<span class="sd">        :param array: list of values</span>
+
+<span class="sd">        :type array: list</span>
+
+<span class="sd">        :param sumRes: the sum of the values in the array to be tuned</span>
+
+<span class="sd">        :type sumRes: int</span>
+
+<span class="sd">        :return: list of values with the tuned values and the sum of the values in the array to be tuned and sumRes is equal to sumRes</span>
+
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">while</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">array</span><span class="p">)</span> <span class="o">!=</span> <span class="n">sumRes</span><span class="p">:</span>
+            <span class="c1"># get index of largest value</span>
+            <span class="n">randIndex</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="p">))</span>
+            <span class="c1"># if sum is too large, decrease the largest value</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">array</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">sumRes</span><span class="p">:</span>
+                <span class="n">array</span><span class="p">[</span><span class="n">randIndex</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="c1"># if sum is too small, increase the smallest value</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">minIndex</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+                <span class="n">array</span><span class="p">[</span><span class="n">randIndex</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">array</span></div>
+        
+
+<div class="viewcode-block" id="generateTemporalDatabase.generateArray"><a class="viewcode-back" href="../../../../PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.generateArray">[docs]</a>    <span class="k">def</span> <span class="nf">generateArray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">,</span> <span class="n">avg</span><span class="p">,</span> <span class="n">maxItems</span><span class="p">,</span> <span class="n">sumRes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate a random array of length n whose values average to m</span>
+
+<span class="sd">        :param nums: number of values</span>
+
+<span class="sd">        :type nums: list</span>
+
+<span class="sd">        :param avg: average value</span>
+
+<span class="sd">        :type avg: float</span>
+
+<span class="sd">        :param maxItems: maximum value</span>
+
+<span class="sd">        :type maxItems: int</span>
+
+<span class="sd">        :return: random array</span>
+
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># generate n random values</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">maxItems</span><span class="p">,</span> <span class="n">nums</span><span class="p">)</span>
+
+        <span class="c1"># sumRes = nums * avg</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tuning</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">sumRes</span><span class="p">)</span>
+
+        <span class="c1"># if any value is less than 1, increase it and tune the array again</span>
+        <span class="k">while</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">values</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tuning</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">sumRes</span><span class="p">)</span>
+
+        <span class="k">while</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">values</span> <span class="o">&gt;</span> <span class="n">maxItems</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">maxItems</span><span class="p">:</span>
+                    <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tuning</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">sumRes</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="spatioTemporalDatabaseGenerator.saveAsFile"><a class="viewcode-back" href="../../../../PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.saveAsFile">[docs]</a>    <span class="k">def</span> <span class="nf">saveAsFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFileName</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">outFileName</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">outFileName</span> <span class="o">=</span> <span class="n">outFileName</span>
+        <span class="c1"># if all values are same then randomly increase one value and decrease another</span>
+        <span class="k">while</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">values</span> <span class="o">==</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nums</span><span class="p">)]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tuning</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">sumRes</span><span class="p">)</span>
 
-        <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">outFileName</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">values</span></div>
 
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timeStampList</span><span class="p">)):</span>
-            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timeStampList</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
-            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">itemList</span><span class="p">[</span><span class="n">i</span><span class="p">])):</span>
-                <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-                    <span class="n">sep</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">itemList</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]))</span>
-            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="generateTemporalDatabase.createTemporalFile"><a class="viewcode-back" href="../../../../PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.createTemporalFile">[docs]</a>    <span class="k">def</span> <span class="nf">createTemporalFile</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        create Temporal database or dataframe depending on input</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numOfTransactions</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">performCoinFlip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">percentage</span><span class="p">)]</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generateArray</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">avgLenOfTransactions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">numItems</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">avgLenOfTransactions</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">numOfTransactions</span><span class="p">)</span>
+        <span class="c1"># print(values, sum(values), self.avgLenOfTransactions * self.numOfTransactions, sum(values)/self.numOfTransactions)</span>
+        <span class="c1"># print(lines)</span>
 
+        <span class="n">form</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">values</span><span class="p">))</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">xmin</span><span class="o">=</span><span class="mi">0</span>
-    <span class="n">xmax</span><span class="o">=</span><span class="mi">100</span>
-    <span class="n">ymin</span><span class="o">=</span><span class="mi">0</span>
-    <span class="n">ymax</span><span class="o">=</span><span class="mi">100</span>
-    <span class="n">maxTimeStamp</span> <span class="o">=</span> <span class="mi">10</span>
-    <span class="n">numberOfItems</span> <span class="o">=</span> <span class="mi">10</span>
-    <span class="n">itemChanceLow</span> <span class="o">=</span> <span class="mf">0.5</span>
-    <span class="n">itemChanceHigh</span> <span class="o">=</span> <span class="mf">0.9</span>
-    <span class="n">timeStampChanceLow</span> <span class="o">=</span> <span class="mf">0.5</span>
-    <span class="n">timeStampChanceHigh</span> <span class="o">=</span> <span class="mf">0.9</span>
-    <span class="n">obj</span> <span class="o">=</span> <span class="n">spatioTemporalDatabaseGenerator</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
-    <span class="n">obj</span><span class="o">.</span><span class="n">saveAsFile</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+        <span class="n">database</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numOfTransactions</span><span class="p">)]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">form</span><span class="p">)):</span>
+            <span class="n">database</span><span class="p">[</span><span class="n">form</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">numItems</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">form</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+            <span class="n">database</span><span class="p">[</span><span class="n">form</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">itemPoint</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">database</span><span class="p">[</span><span class="n">form</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]]</span>
+            <span class="n">database</span><span class="p">[</span><span class="n">form</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sep</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">database</span><span class="p">[</span><span class="n">form</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numOfTransactions</span><span class="p">)],</span> <span class="s1">&#39;Transactions&#39;</span><span class="p">:</span> <span class="n">database</span><span class="p">})</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">)</span></div></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">numOfTransactions</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">numItems</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">avgTransactionLength</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="n">outFileName</span> <span class="o">=</span> <span class="s1">&#39;temporal_out.txt&#39;</span>
+    <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span>
+    <span class="n">frameOrBase</span> <span class="o">=</span> <span class="s2">&quot;database&quot;</span>
+
+    <span class="n">temporalDB</span> <span class="o">=</span> <span class="n">generateTemporalDatabase</span><span class="p">(</span><span class="n">numOfTransactions</span><span class="p">,</span> <span class="n">avgTransactionLength</span><span class="p">,</span> <span class="n">numItems</span><span class="p">,</span> <span class="n">outFileName</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">temporalDB</span><span class="o">.</span><span class="n">createTemporalFile</span><span class="p">()</span>
+
+    <span class="c1"># numOfTransactions = 100</span>
+    <span class="c1"># numItems = 15</span>
+    <span class="c1"># avgTransactionLength = 6</span>
+    <span class="c1"># outFileName = &#39;temporal_ot.txt&#39;</span>
+    <span class="c1"># sep = &#39;\t&#39;</span>
+    <span class="c1"># percent = 75</span>
+    <span class="c1"># frameOrBase = &quot;dataframe&quot;</span>
+
+    <span class="c1"># temporalDB = generateTemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName, percent, sep, frameOrBase )</span>
+    <span class="c1"># temporalDB.createTemporalFile()</span>
+    <span class="c1"># print(temporalDB.getDatabaseAsDataFrame())</span>
+
+    <span class="c1"># obj = generateTemporalDatabase(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])</span>
+    <span class="c1"># obj.createTemporalFile(sys.argv[5])</span>
 </pre></div>
 
            </div>

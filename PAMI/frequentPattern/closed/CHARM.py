@@ -58,6 +58,8 @@ from deprecated import deprecated
 
 class CHARM(_ab._frequentPatterns):
     """
+    **About this algorithm**
+
     :**Description**: CHARM is an algorithm to discover closed frequent patterns in a transactional database. Closed frequent patterns are patterns if there exists no superset that has the same support count as this original itemset. This algorithm employs depth-first search technique to find the complete set of closed frequent patterns in a transactional database.
 
     :**Reference**:  Mohammed J. Zaki and Ching-Jui Hsiao, CHARM: An Efficient Algorithm for Closed Itemset Mining,
@@ -81,8 +83,7 @@ class CHARM(_ab._frequentPatterns):
                         - **hashing** (*dict*) -- *Stores the patterns with their support to check for the closed property.*
 
 
-    Execution methods
-    =================
+    **Execution methods**
 
     **Terminal command**
 
@@ -134,8 +135,7 @@ class CHARM(_ab._frequentPatterns):
             print("Total ExecutionTime in seconds:", run)
 
 
-    Credits:
-    =======
+    **Credits:**
 
     The complete program was written by P.Likhitha and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 

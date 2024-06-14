@@ -102,83 +102,156 @@
 <section id="module-PAMI.extras.generateDatabase.generateSpatioTemporalDatabase">
 <span id="pami-extras-generatedatabase-generatespatiotemporaldatabase-module"></span><h2>PAMI.extras.generateDatabase.generateSpatioTemporalDatabase module<a class="headerlink" href="#module-PAMI.extras.generateDatabase.generateSpatioTemporalDatabase" title="Permalink to this heading"></a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.</span></span><span class="sig-name descname"><span class="pre">spatioTemporalDatabaseGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxTimeStamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numberOfItems</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">itemChanceLow</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">itemChanceHigh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeStampChanceLow</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeStampChanceHigh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateSpatioTemporalDatabase.html#spatioTemporalDatabaseGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.</span></span><span class="sig-name descname"><span class="pre">generateTemporalDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numOfTransactions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avgLenOfTransactions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numItems</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typeOfFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Database'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateSpatioTemporalDatabase.html#generateTemporalDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
-<dd class="field-odd"><p>generateSpatioTemporalDatabase is a code used to convert the database into SpatioTemporal database.</p>
+<dd class="field-odd"><p>generateTemporalDatabase creates a temporal database and outputs a database or a frame depending on input</p>
 </dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>xmin</strong> – int :
-To give minimum value for x</p></li>
-<li><p><strong>xmax</strong> – int :
-To give maximum value for x</p></li>
-<li><p><strong>ymin</strong> – int :
-To give minimum value for y</p></li>
-<li><p><strong>ymax</strong> – int :
-To give maximum value for y</p></li>
-<li><p><strong>maxTimeStamp</strong> – int :
-maximum Time Stamp for the database</p></li>
-<li><p><strong>numberOfItems</strong> – int :
-number of items in the database</p></li>
-<li><p><strong>itemChanceLow</strong> – int or float :
-least chance for item in the database</p></li>
-<li><p><strong>itemChanceHigh</strong> – int or float :
-highest chance for item in the database</p></li>
-<li><p><strong>timeStampChanceLow</strong> – int or float :
-lowest time stamp value</p></li>
-<li><p><strong>timeStampChanceHigh</strong> – int or float:
-highest time stamp value</p></li>
-</ul>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">param numOfTransactions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int
+number of transactions</p>
+</dd>
+<dt class="field-even">param avgLenOfTransactions<span class="colon">:</span></dt>
+<dd class="field-even"><p>int
+average length of transactions</p>
+</dd>
+<dt class="field-odd">param numItems<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int
+number of items</p>
+</dd>
+<dt class="field-even">param outputFile<span class="colon">:</span></dt>
+<dd class="field-even"><p>str
+output file name</p>
+</dd>
+<dt class="field-odd">param percentage<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int
+percentage of coinToss for TID of temporalDatabase</p>
+</dd>
+<dt class="field-even">param sep<span class="colon">:</span></dt>
+<dd class="field-even"><p>str
+seperator for database output file</p>
+</dd>
+<dt class="field-odd">param typeOfFile<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str
+specify database or dataframe to get corresponding output</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.generateDatabase</span> <span class="kn">import</span> <span class="n">generateSpatioTemporalDatabase</span> <span class="k">as</span> <span class="n">db</span>
+</dd>
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>getFileName():</dt><dd><p>returns filename</p>
+</dd>
+<dt>createTemporalFile():</dt><dd><p>creates temporal database file or dataframe</p>
+</dd>
+<dt>getDatabaseAsDataFrame:</dt><dd><p>returns dataframe</p>
+</dd>
+<dt>performCoinFlip():</dt><dd><p>Perform a coin flip with the given probability</p>
+</dd>
+<dt>tuning():</dt><dd><p>Tune the arrayLength to match avgLenOfTransactions</p>
+</dd>
+<dt>createTemporalFile():</dt><dd><p>create Temporal database or dataframe depending on input</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.generateDatabase</span> <span class="kn">import</span> <span class="n">generateTemporalDatabase</span> <span class="k">as</span> <span class="n">db</span>
 
-<span class="n">obj</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">generateSpatioTemporalDatabase</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">)</span>
+<span class="n">numOfTransactions</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">numItems</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">avgTransactionLength</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">outFileName</span> <span class="o">=</span> <span class="s1">&#39;temporal_ot.txt&#39;</span>
+<span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;     &#39;</span>
+<span class="n">percent</span> <span class="o">=</span> <span class="mi">75</span>
+<span class="n">frameOrBase</span> <span class="o">=</span> <span class="s2">&quot;dataframe&quot;</span> <span class="c1"># if you want to get dataframe as output</span>
+<span class="n">frameOrBase</span> <span class="o">=</span> <span class="s2">&quot;database&quot;</span> <span class="c1"># if you want to get database/csv/file as output</span>
 
-<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
-
-<span class="n">obj</span><span class="o">.</span><span class="n">createPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span> <span class="c1"># values can be according to the size of data</span>
-
-<span class="n">obj</span><span class="o">.</span><span class="n">saveAsFile</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># To create a file</span>
+<span class="n">temporalDB</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">generateTemporalDatabase</span><span class="p">(</span><span class="n">numOfTransactions</span><span class="p">,</span> <span class="n">avgTransactionLength</span><span class="p">,</span> <span class="n">numItems</span><span class="p">,</span> <span class="n">outFileName</span><span class="p">,</span> <span class="n">percent</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span> <span class="n">frameOrBase</span> <span class="p">)</span>
+<span class="n">temporalDB</span><span class="o">.</span><span class="n">createTemporalFile</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">temporalDB</span><span class="o">.</span><span class="n">getDatabaseAsDataFrame</span><span class="p">())</span>
 </pre></div>
 </div>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.alreadyAdded">
-<span class="sig-name descname"><span class="pre">alreadyAdded</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.alreadyAdded" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.createTemporalFile">
+<span class="sig-name descname"><span class="pre">createTemporalFile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateSpatioTemporalDatabase.html#generateTemporalDatabase.createTemporalFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.createTemporalFile" title="Permalink to this definition"></a></dt>
+<dd><p>create Temporal database or dataframe depending on input
+:return: None</p>
+</dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.coinFlip">
-<span class="sig-name descname"><span class="pre">coinFlip</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[True,</span> <span class="pre">False]</span></em><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.coinFlip" title="Permalink to this definition"></a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.generateArray">
+<span class="sig-name descname"><span class="pre">generateArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nums</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxItems</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sumRes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateSpatioTemporalDatabase.html#generateTemporalDatabase.generateArray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.generateArray" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a random array of length n whose values average to m</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nums</strong> (<em>list</em>) – number of values</p></li>
+<li><p><strong>avg</strong> (<em>float</em>) – average value</p></li>
+<li><p><strong>maxItems</strong> (<em>int</em>) – maximum value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>random array</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.getDatabaseAsDataFrame">
+<span class="sig-name descname"><span class="pre">getDatabaseAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateSpatioTemporalDatabase.html#generateTemporalDatabase.getDatabaseAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.getDatabaseAsDataFrame" title="Permalink to this definition"></a></dt>
+<dd><p>return dataframe
+:return: dataframe
+:rtype: pd.DataFrame</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.getFileName">
+<span class="sig-name descname"><span class="pre">getFileName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateSpatioTemporalDatabase.html#generateTemporalDatabase.getFileName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.getFileName" title="Permalink to this definition"></a></dt>
+<dd><p>return filename
+:return: filename
+:rtype: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.getPoint">
+<span class="sig-name descname"><span class="pre">getPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateSpatioTemporalDatabase.html#generateTemporalDatabase.getPoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.getPoint" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.createPoint">
-<span class="sig-name descname"><span class="pre">createPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateSpatioTemporalDatabase.html#spatioTemporalDatabaseGenerator.createPoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.createPoint" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.items">
-<span class="sig-name descname"><span class="pre">items</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.items" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.outFileName">
-<span class="sig-name descname"><span class="pre">outFileName</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.outFileName" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.performCoinFlip">
+<span class="sig-name descname"><span class="pre">performCoinFlip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">probability</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateSpatioTemporalDatabase.html#generateTemporalDatabase.performCoinFlip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.performCoinFlip" title="Permalink to this definition"></a></dt>
+<dd><p>Perform a coin flip with the given probability.
+:param probability: probability to perform coin flip
+:type probability: float
+:return: True if coin flip is performed, False otherwise
+:rtype: bool</p>
+</dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.saveAsFile">
-<span class="sig-name descname"><span class="pre">saveAsFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFileName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateSpatioTemporalDatabase.html#spatioTemporalDatabaseGenerator.saveAsFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.saveAsFile" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.timestamp">
-<span class="sig-name descname"><span class="pre">timestamp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.timestamp" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.tuning">
+<span class="sig-name descname"><span class="pre">tuning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sumRes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateSpatioTemporalDatabase.html#generateTemporalDatabase.tuning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.generateTemporalDatabase.tuning" title="Permalink to this definition"></a></dt>
+<dd><p>Tune the array so that the sum of the values is equal to sumRes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<em>list</em>) – list of values</p></li>
+<li><p><strong>sumRes</strong> (<em>int</em>) – the sum of the values in the array to be tuned</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of values with the tuned values and the sum of the values in the array to be tuned and sumRes is equal to sumRes</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -266,6 +339,27 @@ specify database or dataframe to get corresponding output</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateTemporalDatabase.generateTemporalDatabase.generateArray">
+<span class="sig-name descname"><span class="pre">generateArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nums</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxItems</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sumRes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateTemporalDatabase.html#generateTemporalDatabase.generateArray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateTemporalDatabase.generateTemporalDatabase.generateArray" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a random array of length n whose values average to m</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nums</strong> (<em>list</em>) – number of values</p></li>
+<li><p><strong>avg</strong> (<em>float</em>) – average value</p></li>
+<li><p><strong>maxItems</strong> (<em>int</em>) – maximum value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>random array</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateTemporalDatabase.generateTemporalDatabase.getDatabaseAsDataFrame">
 <span class="sig-name descname"><span class="pre">getDatabaseAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateTemporalDatabase.html#generateTemporalDatabase.getDatabaseAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateTemporalDatabase.generateTemporalDatabase.getDatabaseAsDataFrame" title="Permalink to this definition"></a></dt>
 <dd><p>return dataframe
@@ -299,11 +393,11 @@ specify database or dataframe to get corresponding output</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>array</strong> (<em>list</em>) – list of values</p></li>
-<li><p><strong>sumRes</strong> (<em>int</em>) – target sum</p></li>
+<li><p><strong>sumRes</strong> (<em>int</em>) – the sum of the values in the array to be tuned</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>list of values with the sum equal to sumRes after tuning</p>
+<dd class="field-even"><p>list of values with the tuned values and the sum of the values in the array to be tuned and sumRes is equal to sumRes</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list</p>
@@ -395,7 +489,7 @@ specify database or dataframe to get corresponding output</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateTransactionalDatabase.generateTransactionalDatabase.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateTransactionalDatabase.html#generateTransactionalDatabase.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateTransactionalDatabase.generateTransactionalDatabase.save" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateTransactionalDatabase.html#generateTransactionalDatabase.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateTransactionalDatabase.generateTransactionalDatabase.save" title="Permalink to this definition"></a></dt>
 <dd><p>Save the transactional database to a file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
