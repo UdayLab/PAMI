@@ -214,9 +214,15 @@ class Apriori(_ab._frequentPatterns):
         """
         self.mine()
 
-    def mine(self) -> None:
+    def mine(self, memorySaver = True) -> None:
         """
         Frequent pattern mining process will start from here
+
+        Attributes
+        ----------
+        memorySaver : bool
+            This attribute is used to enable or disable memory saving mode. By default, it is enabled.
+            It saves the memory by deleting the intermediate results after the completion of the mining process.
         """
         self._Database = []
         self._startTime = _ab._time.time()
@@ -249,22 +255,41 @@ class Apriori(_ab._frequentPatterns):
             else:
                 break
 
-        while cands:
-            newKeys = []
-            for i in range(len(cands)):
-                for j in range(i + 1, len(cands)):
-                    if cands[i][:-1] == cands[j][:-1]:
-                        newCand = cands[i] + tuple([cands[j][-1]])
-                        intersection = fileData[tuple([newCand[0]])]
-                        for k in range(1, len(newCand)):
-                            intersection = intersection.intersection(fileData[tuple([newCand[k]])])
-                        if len(intersection) >= self._minSup:
-                            newKeys.append(newCand)
-                            # newCand = "\t".join(newCand)
-                            self._finalPatterns[newCand] = len(intersection)
-            del cands
-            cands = newKeys
-            del newKeys
+        if memorySaver:
+            while cands:
+                newKeys = []
+                for i in range(len(cands)):
+                    for j in range(i + 1, len(cands)):
+                        if cands[i][:-1] == cands[j][:-1]:
+                            newCand = cands[i] + tuple([cands[j][-1]])
+                            intersection = fileData[tuple([newCand[0]])]
+                            for k in range(1, len(newCand)):
+                                intersection = intersection.intersection(fileData[tuple([newCand[k]])])
+                            if len(intersection) >= self._minSup:
+                                newKeys.append(newCand)
+                                self._finalPatterns[newCand] = len(intersection)
+                del cands
+                cands = newKeys
+                del newKeys
+        else:
+            while cands:
+                newKeys = []
+                for i in range(len(cands)):
+                    for j in range(i + 1, len(cands)):
+                        if cands[i][:-1] == cands[j][:-1]:
+                            newCand = cands[i] + tuple([cands[j][-1]])
+                            intersection = fileData[cands[i]] & fileData[cands[j]]
+                            # intersection = fileData[tuple([newCand[0]])]
+                            # for k in range(1, len(newCand)):
+                                # intersection = intersection.intersection(fileData[tuple([newCand[k]])])
+                            if len(intersection) >= self._minSup:
+                                newKeys.append(newCand)
+                                self._finalPatterns[newCand] = len(intersection)
+                                fileData[newCand] = intersection
+                del cands
+                cands = newKeys
+                del newKeys
+        
 
         process = _ab._psutil.Process(_ab._os.getpid())
         self._endTime = _ab._time.time()
@@ -388,4 +413,3 @@ if __name__ == "__main__":
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
-    

@@ -246,7 +246,7 @@ class Aprioribitset(_ab._frequentPatterns):
 
         return packed_bits
 
-    def mine(self) -> None:
+    def mine(self, memorySaver = True) -> None:
         """
         Frequent pattern mining process will start from here
         # Bitset implementation
@@ -279,23 +279,44 @@ class Aprioribitset(_ab._frequentPatterns):
             else:
                 break
 
-        while cands:
-            newCands = []
-            for i in range(len(cands)):
-                for j in range(i + 1, len(cands)):
-                    if cands[i][:-1] == cands[j][:-1]:
-                        newCand = tuple(cands[i] + tuple([cands[j][-1]]))
-                        intersection = items[tuple([newCand[0]])]
-                        for k in range(1, len(newCand)):
-                            intersection &= items[tuple([newCand[k]])]
-                        count = int.bit_count(intersection)
-                        if count >= self._minSup:
-                            newCands.append(newCand)
-                            self._finalPatterns[newCand] = count
-                    else:
-                        break
+        if memorySaver:
+            while cands:
+                newCands = []
+                for i in range(len(cands)):
+                    for j in range(i + 1, len(cands)):
+                        if cands[i][:-1] == cands[j][:-1]:
+                            newCand = tuple(cands[i] + tuple([cands[j][-1]]))
+                            intersection = items[tuple([newCand[0]])]
+                            for k in range(1, len(newCand)):
+                                intersection &= items[tuple([newCand[k]])]
+                            count = int.bit_count(intersection)
+                            if count >= self._minSup:
+                                newCands.append(newCand)
+                                self._finalPatterns[newCand] = count
+                        else:
+                            break
 
-            cands = newCands
+                cands = newCands
+        else:
+            while cands:
+                newCands = []
+                for i in range(len(cands)):
+                    for j in range(i + 1, len(cands)):
+                        if cands[i][:-1] == cands[j][:-1]:
+                            newCand = tuple(cands[i] + tuple([cands[j][-1]]))
+                            # intersection = items[tuple([newCand[0]])]
+                            # for k in range(1, len(newCand)):
+                            #     intersection &= items[tuple([newCand[k]])]
+                            intersection = items[cands[i]] & items[cands[j]]
+                            count = int.bit_count(intersection)
+                            if count >= self._minSup:
+                                newCands.append(newCand)
+                                self._finalPatterns[newCand] = count
+                                items[newCand] = intersection
+                        else:
+                            break
+
+                cands = newCands
 
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
@@ -412,3 +433,7 @@ if __name__ == "__main__":
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
+
+    obj = Aprioribitset("/Users/tarunsreepada/Downloads/Transactional_T10I4D100K.csv", 75)
+    obj.mine(memorySaver=True)
+    print(obj.printResults())
