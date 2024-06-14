@@ -179,10 +179,6 @@ class cuEclatBit(_ab._frequentPatterns):
 
     ''', 'sumKernel')
 
-
-
-
-
     def _creatingItemSets(self):
         """
         Storing the complete transactions of the database/input file in a database variable

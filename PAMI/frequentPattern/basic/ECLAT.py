@@ -212,7 +212,7 @@ class ECLAT(_ab._frequentPatterns):
 
         self.mine()
 
-    def __recursive(self, items, cands):
+    def __recursive(self, items, cands, memorySaver):
         """
 
         This function generates new candidates by taking input as original candidates.
@@ -224,19 +224,34 @@ class ECLAT(_ab._frequentPatterns):
         :return: None
         """
 
-        for i in range(len(cands)):
-            newCands = []
-            for j in range(i + 1, len(cands)):
-                intersection = items[cands[i]].intersection(items[cands[j]])
-                if len(intersection) >= self._minSup:
-                    newCand = tuple(cands[i] + tuple([cands[j][-1]]))
-                    newCands.append(newCand)
-                    items[newCand] = intersection
-                    self._finalPatterns[newCand] = len(intersection)
-            if len(newCands) > 1:
-                self.__recursive(items, newCands)
+        if not memorySaver:
+            for i in range(len(cands)):
+                newCands = []
+                for j in range(i + 1, len(cands)):
+                    intersection = items[cands[i]].intersection(items[cands[j]])
+                    if len(intersection) >= self._minSup:
+                        newCand = tuple(cands[i] + tuple([cands[j][-1]]))
+                        newCands.append(newCand)
+                        items[newCand] = intersection
+                        self._finalPatterns[newCand] = len(intersection)
+                if len(newCands) > 1:
+                    self.__recursive(items, newCands, memorySaver)
+        else:
+            for i in range(len(cands)):
+                newCands = []
+                for j in range(i + 1, len(cands)):
 
-    def mine(self) -> None:
+                    newCand = tuple(cands[i] + tuple([cands[j][-1]]))
+                    intersection = items[tuple([newCand[0]])]
+                    for k in newCand[1:]:
+                        intersection = intersection.intersection(items[tuple([k])])
+                    if len(intersection) >= self._minSup:
+                        newCands.append(newCand)
+                        self._finalPatterns[newCand] = len(intersection)
+                if len(newCands) > 1:
+                    self.__recursive(items, newCands, memorySaver)
+
+    def mine(self, memorySaver = True) -> None:
         """
         Frequent pattern mining process will start from here
         """
@@ -267,7 +282,7 @@ class ECLAT(_ab._frequentPatterns):
 
         cands = list(items.keys())
 
-        self.__recursive(items, cands)
+        self.__recursive(items, cands, memorySaver)
 
 
         self._endTime = _ab._time.time()
@@ -389,4 +404,3 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
