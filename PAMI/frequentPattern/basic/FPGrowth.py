@@ -115,8 +115,7 @@ class _Node:
 
 class FPGrowth(_fp._frequentPatterns):
     """
-    About this algorithm
-    ====================
+    **About this algorithm**
 
     :**Description**:   FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database. It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It employs downward closure property to  reduce the search space effectively.
 
@@ -138,8 +137,7 @@ class FPGrowth(_fp._frequentPatterns):
                         - **tree** (*class*) --  *it represents the Tree class.*
 
 
-    Execution methods
-    =================
+    **Execution methods**
 
     **Terminal command**
 
@@ -191,8 +189,7 @@ class FPGrowth(_fp._frequentPatterns):
             print("Total ExecutionTime in seconds:", run)
 
 
-    Credits:
-    ========
+    **Credits:**
 
     The complete program was written by P. Likhitha and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 

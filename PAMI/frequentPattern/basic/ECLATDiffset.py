@@ -58,6 +58,7 @@ from deprecated import deprecated
 
 class ECLATDiffset(_ab._frequentPatterns):
     """
+    **About this algorithm**
 
     :**Description**:   ECLATDiffset uses diffset to extract the frequent patterns in a transactional database.
 
@@ -67,7 +68,7 @@ class ECLATDiffset(_ab._frequentPatterns):
     :**Parameters**:    - **iFile** (*str or URL or dataFrame*) -- *Name of the Input file to mine complete set of frequent patterns.*
                         - **oFile** (*str*) -- *Name of the output file to store complete set of frequent patterns*
                         - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.*
-                        - **sep** (*str*) -- **This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.**
+                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
 
     :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*
                         - **endTime** (*float*) -- *To record the end time of the mining process.*
@@ -77,8 +78,7 @@ class ECLATDiffset(_ab._frequentPatterns):
                         - **Database** (*list*) -- *To store the transactions of a database in list.*
           
         
-    Execution methods
-    =================
+    **Execution methods**
 
     **Terminal command**
 
@@ -95,7 +95,7 @@ class ECLATDiffset(_ab._frequentPatterns):
     .. note:: minSup can be specified  in support count or a value between 0 and 1.
 
     
-     **Calling from a python program**
+    **Calling from a python program**
 
     .. code-block:: python
 
@@ -130,8 +130,7 @@ class ECLATDiffset(_ab._frequentPatterns):
             print("Total ExecutionTime in seconds:", run)
 
 
-    Credits:
-    ========
+    **Credits:**
 
     The complete program was written by Kundai and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 

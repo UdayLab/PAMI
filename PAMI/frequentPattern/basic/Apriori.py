@@ -2,7 +2,7 @@
 #
 # **Importing this algorithm into a python program**
 #
-#             import PAMI1.frequentPattern.basic.Apriori as alg
+#             import PAMI.frequentPattern.basic.Apriori as alg
 #
 #             iFile = 'sampleDB.txt'
 #
@@ -58,8 +58,7 @@ from deprecated import deprecated
 
 class Apriori(_ab._frequentPatterns):
     """
-    About this algorithm
-    ====================
+    **About this algorithm**
 
     :**Description**: Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 
@@ -79,8 +78,7 @@ class Apriori(_ab._frequentPatterns):
                         - **Database** (*list*) -- *To store the transactions of a database in list.*
 
 
-    Execution methods
-    =================
+    **Execution methods**
 
     **Terminal command**
 
@@ -101,7 +99,7 @@ class Apriori(_ab._frequentPatterns):
 
     .. code-block:: python
 
-            import PAMI1.frequentPattern.basic.Apriori as alg
+            import PAMI.frequentPattern.basic.Apriori as alg
 
             iFile = 'sampleDB.txt'
 
@@ -132,8 +130,7 @@ class Apriori(_ab._frequentPatterns):
             print("Total ExecutionTime in seconds:", run)
 
 
-    Credits
-    =======
+    **Credits**
 
     The complete program was written by P. Likhitha  and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 

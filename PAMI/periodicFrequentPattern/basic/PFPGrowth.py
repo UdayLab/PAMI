@@ -122,8 +122,7 @@ class _Node(object):
 
 class PFPGrowth(_ab._periodicFrequentPatterns):
     """
-    About this algorithm
-    ====================
+    **About this algorithm**
 
     :**Description**:   PFPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.
 
@@ -161,8 +160,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
                         - **buildTree()** -- *After updating the Database, remaining items will be added into the tree by setting root node as null.*
                         - **convert()** -- *This methos is used to convert the user specified value.*
 
-    Execution methods
-    =================
+    **Execution methods**
 
     **Terminal command**
 
@@ -216,8 +214,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
             print("Total ExecutionTime in seconds:", run)
 
 
-    Credits
-    =======
+    **Credits**
 
     The complete program was written by P. Likhitha  and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
