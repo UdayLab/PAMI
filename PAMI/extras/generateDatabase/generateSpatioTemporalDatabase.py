@@ -1,17 +1,19 @@
-# generateSpatioTemporalDatabase is a code used to convert the database into SpatioTemporal database.
+# generateTemporalDatabase is a code used to convert the database into Temporal database.
 #
-#   **Importing this algorithm into a python program**
-#   --------------------------------------------------------
+#  **Importing this algorithm into a python program**
+#  --------------------------------------------------------
 #
-#             from PAMI.extras.generateDatabase import generateSpatioTemporalDatabase as db
+#             from PAMI.extras.generateDatabase import generateTemporalDatabase as db
 #
-#             obj = db.generateSpatioTemporalDatabase(0, 100, 0, 100, 10, 10, 0.5, 0.9, 0.5, 0.9)
+#             obj = db.generateTemporalDatabase(100, 10, 6, oFile, %, "\t")
 #
 #             obj.save()
 #
-#             obj.createPoint(0,100,0,100) # values can be according to the size of data
+#             obj.getFileName("outputFileName") # to create a file
 #
-#             obj.saveAsFile("outputFileName") # To create a file
+#             obj.getDatabaseAsDataFrame("outputFileName") # to convert database into dataframe
+#
+#             obj.createTemporalFile("outputFileName") # to get outputfile
 #
 
 
@@ -33,127 +35,294 @@ Copyright (C)  2021 Rage Uday Kiran
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-import random as rand
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
-import pandas
+
+from typing import Tuple, List, Union
+import pandas as pd
+import numpy as np
+import random
 import sys
+import os
 
-class spatioTemporalDatabaseGenerator():
+class generateTemporalDatabase:
     """
+    :Description:   generateTemporalDatabase creates a temporal database and outputs a database or a frame depending on input
 
-    :Description:   generateSpatioTemporalDatabase is a code used to convert the database into SpatioTemporal database.
+    :Attributes:
+        :param numOfTransactions: int
+            number of transactions
+        :param avgLenOfTransactions: int
+            average length of transactions
+        :param numItems: int
+            number of items
+        :param outputFile: str
+            output file name
+        :param percentage: int
+            percentage of coinToss for TID of temporalDatabase
+        :param sep: str
+            seperator for database output file
+        :param typeOfFile: str
+            specify database or dataframe to get corresponding output
 
-    :param  xmin: int :
-            To give minimum value for x
-    :param  xmax: int :
-            To give maximum value for x
-    :param  ymin: int :
-            To give minimum value for y
-    :param  ymax: int :
-             To give maximum value for y
-    :param maxTimeStamp: int :
-            maximum Time Stamp for the database
-    :param numberOfItems: int :
-            number of items in the database
-    :param itemChanceLow: int or float :
-            least chance for item in the database
-    :param itemChanceHigh: int or float :
-            highest chance for item in the database
-    :param timeStampChanceLow: int or float :
-            lowest time stamp value
-    :param timeStampChanceHigh: int or float:
-            highest time stamp value
+    :Methods:
+        getFileName():
+            returns filename
+        createTemporalFile():
+            creates temporal database file or dataframe
+        getDatabaseAsDataFrame:
+            returns dataframe
+        performCoinFlip():
+            Perform a coin flip with the given probability
+        tuning():
+            Tune the arrayLength to match avgLenOfTransactions
+        createTemporalFile():
+            create Temporal database or dataframe depending on input
 
     **Importing this algorithm into a python program**
     --------------------------------------------------------
     .. code-block:: python
 
-            from PAMI.extras.generateDatabase import generateSpatioTemporalDatabase as db
+            from PAMI.extras.generateDatabase import generateTemporalDatabase as db
 
-            obj = db.generateSpatioTemporalDatabase(0, 100, 0, 100, 10, 10, 0.5, 0.9, 0.5, 0.9)
+            numOfTransactions = 100
+            numItems = 15
+            avgTransactionLength = 6
+            outFileName = 'temporal_ot.txt'
+            sep = '\t'
+            percent = 75
+            frameOrBase = "dataframe" # if you want to get dataframe as output
+            frameOrBase = "database" # if you want to get database/csv/file as output
 
-            obj.save(oFile)
-
-            obj.createPoint(0,100,0,100) # values can be according to the size of data
-
-            obj.saveAsFile("outputFileName") # To create a file
+            temporalDB = db.generateTemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName, percent, sep, frameOrBase )
+            temporalDB.createTemporalFile()
+            print(temporalDB.getDatabaseAsDataFrame())
 
     """
 
-    coinFlip = [True, False]
-    timestamp = list()
-    items = list()
-    alreadyAdded = set()
-    outFileName=""
+    def getPoint(self, x1, y1, x2, y2):
+        return (np.random.randint(x1, x2), np.random.randint(y1, y2))
 
-    def createPoint(self, xmin: int, xmax: int, ymin: int, ymax: int) -> Tuple[int, int]:
-        x = rand.randint(xmin, xmax)
-        y = rand.randint(ymin, ymax)
-        coordinate = tuple([x, y])
-        return coordinate
+    def __init__(self, numOfTransactions: int, avgLenOfTransactions: int, 
+                 numItems: int, outputFile: str, x1, y1, x2, y2, percentage: int=50,
+                 sep: str='\t', typeOfFile: str="Database") -> None:
+        
+        """
+        :Description:   Initialize the generateTemporalDatabase class
 
-    def __init__(self,xmin: int,xmax: int,ymin: int,ymax: int,maxTimeStamp: int,numberOfItems: int, itemChanceLow: float,
-                 itemChanceHigh: float, timeStampChanceLow: float,
-                 timeStampChanceHigh: float) -> None:
-        coinFlip = [True, False]
-        timeStamp = 1
-        self.timeStampList = list()
-        self.itemList = list()
+        :Attributes:
+            :param numOfTransactions: int
+                number of transactions
+            :param avgLenOfTransactions: int
+                average length of transactions
+            :param numItems: int
+                number of items
+            :param outputFile: str
+                output file name
+            :param percentage: int
+                percentage of coinToss for TID of temporalDatabase
+            :param sep: str
+                seperator for database output file
+            :param typeOfFile: str
+                specify database or dataframe to get corresponding output
 
-        while timeStamp != maxTimeStamp + 1:
-            itemSet=list()
-            for i in range(1, numberOfItems+1):
-                #rand1=rand.rand(itemChanceLow,itemChanceHigh)
-                #rand2 = rand.rand(timeStampChanceLow, timeStampChanceHigh)
-                if rand.choices(coinFlip, weights=[itemChanceLow,itemChanceHigh], k=1)[0]:
-                    coordinate=self.createPoint(xmin, xmax, ymin, ymax)
-                    coordinate=tuple(coordinate)
-                    if coordinate not in self.alreadyAdded:
-                        coordinate=list(coordinate)
-                        itemSet.append(coordinate)
-                        coordinate=tuple(coordinate)
-                        self.alreadyAdded.add(coordinate)
-            if itemSet != []:
-                self.timeStampList.append(
-                    timeStamp)
-                self.itemList.append(
-                    itemSet)
-            if rand.choices(coinFlip, weights=[itemChanceLow,itemChanceHigh], k=1)[0]:
-                 timeStamp += 1
-        self.outFileName = "temporal_" + str(maxTimeStamp // 1000) + \
-                           "KI" + str(numberOfItems) + "C" + str(itemChanceLow) + "T" + str(timeStampChanceLow) + ".csv"
+        :Methods:
+            getFileName():
+                returns filename
+            createTemporalFile():
+                creates temporal database file or dataframe
+            getDatabaseAsDataFrame:
+                returns dataframe
+            performCoinFlip():
+                Perform a coin flip with the given probability
+            tuning():
+                Tune the arrayLength to match avgLenOfTransactions
+            createTemporalFile():
+                create Temporal database or dataframe depending on input
+        
+        """
+
+        self.numOfTransactions = numOfTransactions
+        self.avgLenOfTransactions = avgLenOfTransactions
+        self.numItems = numItems
+        self.outputFile = outputFile
+        if percentage > 1:
+            self.percentage = percentage / 100
+        else:
+            self.percentage = percentage
+        self.sep = sep
+        self.typeOfFile = typeOfFile.lower()
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
+
+        numPoints = (x2 - x1) * (y2 - y1)
+        if numItems > numPoints:
+            raise ValueError("Number of points is less than the number of lines * average items per line")
+        
+        self.itemPoint = {}
+        usedPoints = set()
+
+        for i in range(1, numItems + 1):
+            # self.itemPoint[i] = (np.random.randint(x1, x2), np.random.randint(y1, y2))
+            point = self.getPoint(x1, y1, x2, y2)
+            while point in usedPoints:
+                point = self.getPoint(x1, y1, x2, y2)
+            self.itemPoint[i] = point
+
+    def getFileName(self) -> str:
+        """
+        return filename
+        :return: filename
+        :rtype: str
+        """
+        return self.outputFile
+
+    def getDatabaseAsDataFrame(self) -> pd.DataFrame:
+        """
+        return dataframe
+        :return: dataframe
+        :rtype: pd.DataFrame
+        """
+        return self.df
+    
+    def performCoinFlip(self, probability: float) -> bool:
+        """
+        Perform a coin flip with the given probability.
+        :param probability: probability to perform coin flip
+        :type probability: float
+        :return: True if coin flip is performed, False otherwise
+        :rtype: bool
+        """
+        result = np.random.choice([0, 1], p=[1 - probability, probability])
+        return result == 1
 
 
+    def tuning(self, array, sumRes) -> list:
+        """
+        Tune the array so that the sum of the values is equal to sumRes
+
+        :param array: list of values
+
+        :type array: list
+
+        :param sumRes: the sum of the values in the array to be tuned
+
+        :type sumRes: int
+
+        :return: list of values with the tuned values and the sum of the values in the array to be tuned and sumRes is equal to sumRes
+
+        :rtype: list
+        """
+
+        while np.sum(array) != sumRes:
+            # get index of largest value
+            randIndex = np.random.randint(0, len(array))
+            # if sum is too large, decrease the largest value
+            if np.sum(array) > sumRes:
+                array[randIndex] -= 1
+            # if sum is too small, increase the smallest value
+            else:
+                minIndex = np.argmin(array)
+                array[randIndex] += 1
+        return array
+        
+
+    def generateArray(self, nums, avg, maxItems, sumRes) -> list:
+        """
+        Generate a random array of length n whose values average to m
+
+        :param nums: number of values
+
+        :type nums: list
+
+        :param avg: average value
+
+        :type avg: float
+
+        :param maxItems: maximum value
+
+        :type maxItems: int
+
+        :return: random array
+
+        :rtype: list
+        """
+
+        # generate n random values
+        values = np.random.randint(1, maxItems, nums)
+
+        # sumRes = nums * avg
+
+        self.tuning(values, sumRes)
+
+        # if any value is less than 1, increase it and tune the array again
+        while np.any(values < 1):
+            for i in range(nums):
+                if values[i] < 1:
+                    values[i] += 1
+            self.tuning(values, sumRes)
+
+        while np.any(values > maxItems):
+            for i in range(nums):
+                if values[i] > maxItems:
+                    values[i] -= 1
+            self.tuning(values, sumRes)
 
 
-    def saveAsFile(self, outFileName="", sep="\t") -> None:
-        if outFileName != "":
-            self.outFileName = outFileName
+        # if all values are same then randomly increase one value and decrease another
+        while np.all(values == values[0]):
+            values[np.random.randint(0, nums)] += 1
+            self.tuning(values, sumRes)
 
-        file = open(
-            self.outFileName, "w")
+        return values
 
-        for i in range(len(self.timeStampList)):
-            file.write(
-                str(self.timeStampList[i]))
-            for j in range(len(self.itemList[i])):
-                file.write(
-                    sep + str(self.itemList[i][j]))
-            file.write('\n')
+    def createTemporalFile(self) -> None:
+        """
+        create Temporal database or dataframe depending on input
+        :return: None
+        """
 
-        file.close()
+        lines = [i for i in range(self.numOfTransactions) if self.performCoinFlip(self.percentage)]
+        values = self.generateArray(len(lines), self.avgLenOfTransactions, self.numItems, self.avgLenOfTransactions * self.numOfTransactions)
+        # print(values, sum(values), self.avgLenOfTransactions * self.numOfTransactions, sum(values)/self.numOfTransactions)
+        # print(lines)
 
+        form = list(zip(lines, values))
 
-if __name__ == "__main__":
-    xmin=0
-    xmax=100
-    ymin=0
-    ymax=100
-    maxTimeStamp = 10
-    numberOfItems = 10
-    itemChanceLow = 0.5
-    itemChanceHigh = 0.9
-    timeStampChanceLow = 0.5
-    timeStampChanceHigh = 0.9
-    obj = spatioTemporalDatabaseGenerator(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
-    obj.saveAsFile(sys.argv[5])
+        database = [[] for i in range(self.numOfTransactions)]
+
+        for i in range(len(form)):
+            database[form[i][0]] = np.random.choice(range(1, self.numItems + 1), form[i][1], replace=False).tolist()
+
+            database[form[i][0]] = [str(self.itemPoint[i]) for i in database[form[i][0]]]
+            database[form[i][0]] = self.sep.join(database[form[i][0]])
+
+        self.df = pd.DataFrame({'Timestamp': [i+1 for i in range(self.numOfTransactions)], 'Transactions': database})
+        print(self.df)
+
+if __name__ == '__main__':
+    numOfTransactions = 100
+    numItems = 20
+    avgTransactionLength = 6
+    outFileName = 'temporal_out.txt'
+    sep = '\t'
+    frameOrBase = "database"
+
+    temporalDB = generateTemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName,1,1,10,10)
+
+    temporalDB.createTemporalFile()
+
+    # numOfTransactions = 100
+    # numItems = 15
+    # avgTransactionLength = 6
+    # outFileName = 'temporal_ot.txt'
+    # sep = '\t'
+    # percent = 75
+    # frameOrBase = "dataframe"
+
+    # temporalDB = generateTemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName, percent, sep, frameOrBase )
+    # temporalDB.createTemporalFile()
+    # print(temporalDB.getDatabaseAsDataFrame())
+
+    # obj = generateTemporalDatabase(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    # obj.createTemporalFile(sys.argv[5])

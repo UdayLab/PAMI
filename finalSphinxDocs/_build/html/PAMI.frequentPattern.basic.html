@@ -105,6 +105,7 @@
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.Apriori.Apriori">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.basic.Apriori.</span></span><span class="sig-name descname"><span class="pre">Apriori</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/Apriori.html#Apriori"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.Apriori.Apriori" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
+<p><strong>About this algorithm</strong></p>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.</p>
@@ -132,6 +133,7 @@ In: SIGMOD. pp. 207–216 (1993), <a class="reference external" href="https://do
 </ul>
 </dd>
 </dl>
+<p><strong>Execution methods</strong></p>
 <p><strong>Terminal command</strong></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
@@ -147,7 +149,7 @@ In: SIGMOD. pp. 207–216 (1993), <a class="reference external" href="https://do
 <p>minSup can be specified  in support count or a value between 0 and 1.</p>
 </div>
 <p><strong>Calling from a python program</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PAMI1.frequentPattern.basic.Apriori</span> <span class="k">as</span> <span class="nn">alg</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PAMI.frequentPattern.basic.Apriori</span> <span class="k">as</span> <span class="nn">alg</span>
 
 <span class="n">iFile</span> <span class="o">=</span> <span class="s1">&#39;sampleDB.txt&#39;</span>
 
@@ -178,6 +180,7 @@ In: SIGMOD. pp. 207–216 (1993), <a class="reference external" href="https://do
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
+<p><strong>Credits</strong></p>
 <p>The complete program was written by P. Likhitha  and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.Apriori.Apriori.getMemoryRSS">
@@ -290,6 +293,7 @@ In: SIGMOD. pp. 207–216 (1993), <a class="reference external" href="https://do
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLAT.ECLAT">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.basic.ECLAT.</span></span><span class="sig-name descname"><span class="pre">ECLAT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLAT.html#ECLAT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLAT.ECLAT" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
+<p><strong>About this algorithm</strong></p>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
 <dd class="field-odd"><p>ECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.</p>
@@ -317,6 +321,7 @@ In: SIGMOD. pp. 207–216 (1993), <a class="reference external" href="https://do
 </ul>
 </dd>
 </dl>
+<p><strong>Execution methods</strong></p>
 <p><strong>Terminal command</strong></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
@@ -363,6 +368,7 @@ In: SIGMOD. pp. 207–216 (1993), <a class="reference external" href="https://do
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
+<p><strong>Credits:</strong></p>
 <p>The complete program was written by Kundai and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLAT.ECLAT.getMemoryRSS">
@@ -475,6 +481,7 @@ In: SIGMOD. pp. 207–216 (1993), <a class="reference external" href="https://do
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.basic.ECLATDiffset.</span></span><span class="sig-name descname"><span class="pre">ECLATDiffset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
+<p><strong>About this algorithm</strong></p>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
 <dd class="field-odd"><p>ECLATDiffset uses diffset to extract the frequent patterns in a transactional database.</p>
@@ -488,7 +495,7 @@ August 2003 Pages 326–335 <a class="reference external" href="https://doi.org/
 <li><p><strong>iFile</strong> (<em>str or URL or dataFrame</em>) – <em>Name of the Input file to mine complete set of frequent patterns.</em></p></li>
 <li><p><strong>oFile</strong> (<em>str</em>) – <em>Name of the output file to store complete set of frequent patterns</em></p></li>
 <li><p><strong>minSup</strong> (<em>int or float or str</em>) – <em>The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.</em></p></li>
-<li><p><strong>sep</strong> (<em>str</em>) – <strong>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</strong></p></li>
+<li><p><strong>sep</strong> (<em>str</em>) – <em>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</em></p></li>
 </ul>
 </dd>
 <dt class="field-even">Attributes<span class="colon">:</span></dt>
@@ -502,6 +509,7 @@ August 2003 Pages 326–335 <a class="reference external" href="https://doi.org/
 </ul>
 </dd>
 </dl>
+<p><strong>Execution methods</strong></p>
 <p><strong>Terminal command</strong></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
@@ -515,8 +523,8 @@ August 2003 Pages 326–335 <a class="reference external" href="https://doi.org/
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>minSup can be specified  in support count or a value between 0 and 1.</p>
-<p><strong>Calling from a python program</strong></p>
 </div>
+<p><strong>Calling from a python program</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PAMI.frequentPattern.basic.ECLATDiffset</span> <span class="k">as</span> <span class="nn">alg</span>
 
 <span class="n">iFile</span> <span class="o">=</span> <span class="s1">&#39;sampleDB.txt&#39;</span>
@@ -548,6 +556,7 @@ August 2003 Pages 326–335 <a class="reference external" href="https://doi.org/
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
+<p><strong>Credits:</strong></p>
 <p>The complete program was written by Kundai and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.getMemoryRSS">
@@ -660,6 +669,7 @@ August 2003 Pages 326–335 <a class="reference external" href="https://doi.org/
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.basic.ECLATbitset.</span></span><span class="sig-name descname"><span class="pre">ECLATbitset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
+<p><strong>About this algorithm</strong></p>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
 <dd class="field-odd"><p>ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.</p>
@@ -673,7 +683,7 @@ August 2003 Pages 326–335 <a class="reference external" href="https://doi.org/
 <li><p><strong>iFile</strong> (<em>str or URL or dataFrame</em>) – <em>Name of the Input file to mine complete set of frequent patterns.</em></p></li>
 <li><p><strong>oFile</strong> (<em>str</em>) – <em>Name of the output file to store complete set of frequent patterns</em></p></li>
 <li><p><strong>minSup</strong> (<em>int or float or str</em>) – <em>The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.</em></p></li>
-<li><p><strong>sep</strong> (<em>str</em>) – <strong>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</strong></p></li>
+<li><p><strong>sep</strong> (<em>str</em>) – <em>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</em></p></li>
 </ul>
 </dd>
 <dt class="field-even">Attributes<span class="colon">:</span></dt>
@@ -687,13 +697,17 @@ August 2003 Pages 326–335 <a class="reference external" href="https://doi.org/
 </ul>
 </dd>
 </dl>
+<p><strong>Execution methods</strong></p>
 <p><strong>Terminal command</strong></p>
-<blockquote>
-<div><p>Format:</p>
-<p>(.venv) $ python3 ECLATbitset.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</p>
-<p>Example Usage:</p>
-<p>(.venv) $ python3 ECLATbitset.py sampleDB.txt patterns.txt 10.0</p>
-</div></blockquote>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>ECLATbitset.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>ECLATbitset.py<span class="w"> </span>sampleDB.txt<span class="w"> </span>patterns.txt<span class="w"> </span><span class="m">10</span>.0
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>minSup can be specified  in support count or a value between 0 and 1.</p>
@@ -730,6 +744,7 @@ August 2003 Pages 326–335 <a class="reference external" href="https://doi.org/
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
+<p><strong>Credits:</strong></p>
 <p>The complete program was written by Yudai Masu and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.getMemoryRSS">
@@ -845,6 +860,7 @@ We form the combinations of single items and  check with minSup condition to che
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.FPGrowth.FPGrowth">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.basic.FPGrowth.</span></span><span class="sig-name descname"><span class="pre">FPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/FPGrowth.html#FPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.FPGrowth.FPGrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
+<p><strong>About this algorithm</strong></p>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
 <dd class="field-odd"><p>FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database. It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It employs downward closure property to  reduce the search space effectively.</p>
@@ -874,6 +890,7 @@ Tree Approach. Data  Mining and Knowledge Discovery 8, 53–87 (2004). <a class=
 </ul>
 </dd>
 </dl>
+<p><strong>Execution methods</strong></p>
 <p><strong>Terminal command</strong></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
@@ -920,6 +937,7 @@ Tree Approach. Data  Mining and Knowledge Discovery 8, 53–87 (2004). <a class=
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
+<p><strong>Credits:</strong></p>
 <p>The complete program was written by P. Likhitha and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.FPGrowth.FPGrowth.getMemoryRSS">

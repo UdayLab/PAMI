@@ -56,8 +56,7 @@ from deprecated import deprecated
 
 class ECLAT(_ab._frequentPatterns):
     """
-    About this algorithm
-    ====================
+    **About this algorithm**
 
     :**Description**: ECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.
 
@@ -76,8 +75,7 @@ class ECLAT(_ab._frequentPatterns):
                         - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
                         - **Database** (*list*) -- *To store the transactions of a database in list.*
 
-    Execution methods
-    =================
+    **Execution methods**
 
     **Terminal command**
 
@@ -129,8 +127,7 @@ class ECLAT(_ab._frequentPatterns):
             print("Total ExecutionTime in seconds:", run)
 
 
-    Credits:
-    ========
+    **Credits:**
 
     The complete program was written by Kundai and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 

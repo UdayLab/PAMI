@@ -172,7 +172,7 @@ class generateTransactionalDatabase:
             line = np.random.choice(range(1, self.numItems + 1), value, replace=False)
             self.db.append(line)
 
-    def save(self, filename) -> None:
+    def save(self, sep, filename) -> None:
         """
         Save the transactional database to a file
 
@@ -185,7 +185,7 @@ class generateTransactionalDatabase:
 
         with open(filename, 'w') as f:
             for line in self.db:
-                f.write(','.join(map(str, line)) + '\n')
+                f.write(sep.join(map(str, line)) + '\n')
 
     def getTransactions(self) -> pd.DataFrame:
         """

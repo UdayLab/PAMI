@@ -49,6 +49,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="frequent1.html">Frequent Pattern mining</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="frequentPatternMining.html">Basic</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="frequentPatternBasicApriori.html">Apriori</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frequentPatternBasicAprioribitset.html">Aprioribitset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frequentPatternBasicECLAT.html">ECLAT</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">ECLATDiffset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frequentPatternBasicECLATbitset.html">ECLATbitset</a></li>
@@ -128,6 +129,7 @@
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.basic.ECLATDiffset.</span></span><span class="sig-name descname"><span class="pre">ECLATDiffset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATDiffset.html#ECLATDiffset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
+<p><strong>About this algorithm</strong></p>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
 <dd class="field-odd"><p>ECLATDiffset uses diffset to extract the frequent patterns in a transactional database.</p>
@@ -141,7 +143,7 @@ August 2003 Pages 326–335 <a class="reference external" href="https://doi.org/
 <li><p><strong>iFile</strong> (<em>str or URL or dataFrame</em>) – <em>Name of the Input file to mine complete set of frequent patterns.</em></p></li>
 <li><p><strong>oFile</strong> (<em>str</em>) – <em>Name of the output file to store complete set of frequent patterns</em></p></li>
 <li><p><strong>minSup</strong> (<em>int or float or str</em>) – <em>The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.</em></p></li>
-<li><p><strong>sep</strong> (<em>str</em>) – <strong>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</strong></p></li>
+<li><p><strong>sep</strong> (<em>str</em>) – <em>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</em></p></li>
 </ul>
 </dd>
 <dt class="field-even">Attributes<span class="colon">:</span></dt>
@@ -155,6 +157,7 @@ August 2003 Pages 326–335 <a class="reference external" href="https://doi.org/
 </ul>
 </dd>
 </dl>
+<p><strong>Execution methods</strong></p>
 <p><strong>Terminal command</strong></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
 
@@ -168,8 +171,8 @@ August 2003 Pages 326–335 <a class="reference external" href="https://doi.org/
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>minSup can be specified  in support count or a value between 0 and 1.</p>
-<p><strong>Calling from a python program</strong></p>
 </div>
+<p><strong>Calling from a python program</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PAMI.frequentPattern.basic.ECLATDiffset</span> <span class="k">as</span> <span class="nn">alg</span>
 
 <span class="n">iFile</span> <span class="o">=</span> <span class="s1">&#39;sampleDB.txt&#39;</span>
@@ -201,6 +204,7 @@ August 2003 Pages 326–335 <a class="reference external" href="https://doi.org/
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
+<p><strong>Credits:</strong></p>
 <p>The complete program was written by Kundai and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATDiffset.ECLATDiffset.getMemoryRSS">
