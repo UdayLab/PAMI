@@ -241,17 +241,6 @@ class PFECLAT(_ab._periodicFrequentPatterns):
     @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
         self.mine()
-        # self._startTime = _ab._time.time()
-        # self._finalPatterns = {}
-        # frequentSets = self._creatingOneItemSets()
-        # self._generateEclat(frequentSets)
-        # self._endTime = _ab._time.time()
-        # process = _ab._psutil.Process(_ab._os.getpid())
-        # self._memoryRSS = float()
-        # self._memoryUSS = float()
-        # self._memoryUSS = process.memory_full_info().uss
-        # self._memoryRSS = process.memory_info().rss
-        # print("Periodic-Frequent patterns were generated successfully using PFECLAT algorithm ")
 
     def _getMaxPer(self, arr, maxTS):
         arr = np.append(list(arr), [0, maxTS])

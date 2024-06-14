@@ -43,7 +43,7 @@ import random
 import sys
 import os
 
-class generateTemporal:
+class generateSpatioTemporal:
     """
     :Description:   generateTemporalDatabase creates a temporal database and outputs a database or a frame depending on input
 
@@ -97,8 +97,12 @@ class generateTemporal:
             print(temporalDB.getDatabaseAsDataFrame())
 
     """
+
+    def getPoint(self, x1, y1, x2, y2):
+        return (np.random.randint(x1, x2), np.random.randint(y1, y2))
+
     def __init__(self, numOfTransactions: int, avgLenOfTransactions: int, 
-                 numItems: int, outputFile: str, percentage: int=50,
+                 numItems: int, outputFile: str, x1, y1, x2, y2, percentage: int=50,
                  sep: str='\t', typeOfFile: str="Database") -> None:
         
         """
@@ -146,6 +150,24 @@ class generateTemporal:
             self.percentage = percentage
         self.sep = sep
         self.typeOfFile = typeOfFile.lower()
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
+
+        numPoints = (x2 - x1) * (y2 - y1)
+        if numItems > numPoints:
+            raise ValueError("Number of points is less than the number of lines * average items per line")
+        
+        self.itemPoint = {}
+        usedPoints = set()
+
+        for i in range(1, numItems + 1):
+            # self.itemPoint[i] = (np.random.randint(x1, x2), np.random.randint(y1, y2))
+            point = self.getPoint(x1, y1, x2, y2)
+            while point in usedPoints:
+                point = self.getPoint(x1, y1, x2, y2)
+            self.itemPoint[i] = point
 
     def getFileName(self) -> str:
         """
@@ -155,7 +177,7 @@ class generateTemporal:
         """
         return self.outputFile
 
-    def getTransactions(self) -> pd.DataFrame:
+    def getDatabaseAsDataFrame(self) -> pd.DataFrame:
         """
         return dataframe
         :return: dataframe
@@ -270,11 +292,15 @@ class generateTemporal:
         database = [None for i in range(self.numOfTransactions)]
 
         for i in range(len(form)):
-            database[form[i][0]] = np.random.choice(range(1, self.numItems + 1), form[i][1], replace=False)
-            if database[form[i][0]] is not None:
-                database[form[i][0]] = self.sep.join([str(i) for i in database[form[i][0]]])
+            database[form[i][0]] = np.random.choice(range(1, self.numItems + 1), form[i][1], replace=False).tolist()
+            database[form[i][0]] = [str(self.itemPoint[i]) for i in database[form[i][0]]]
+            database[form[i][0]] = self.sep.join(database[form[i][0]])
 
         self.df = pd.DataFrame({'TS': [i+1 for i in range(self.numOfTransactions)], 'Transactions': database})
+
+    def getTransactions(self):
+        # self.df change header name to Transactions
+        return self.df
 
     def save(self, sep, filename) -> None:
         """
@@ -290,8 +316,10 @@ class generateTemporal:
         with open(filename, 'w') as f:
             for row in self.df.iterrows():
                 # f.write(str(row[1]['TS']) + sep + row[1]['Transactions'] + '\n')
-                if row[1]['Transactions'] is not None:
-                    f.write(str(row[1]['TS']) + sep + row[1]['Transactions'] + '\n')
+                # line = list(map(str, line))
+                line = row[1]['Transactions']
+                if line is not None:
+                    f.write(str(row[1]['TS']) + sep + line.replace('\t', sep) + '\n')
                 else:
                     f.write(str(row[1]['TS']) + sep + '\n')
 
@@ -300,31 +328,17 @@ if __name__ == '__main__':
     numOfTransactions = 100
     numItems = 20
     avgTransactionLength = 6
-    outFileName = '3.txt'
+    outFileName = '1.txt'
     sep = '\t'
-    frameOrBase = "database"
 
-    temporalDB = generateTemporal(numOfTransactions, avgTransactionLength, numItems, outFileName)
+    temporalDB = generateSpatioTemporal(numOfTransactions, avgTransactionLength, numItems, outFileName,1,1,10,10)
 
     temporalDB.createTemporalFile()
     temporalDB.save(sep, outFileName)
     print(temporalDB.getTransactions())
 
-    obj = generateTemporal(sys.argv[1], sys.argv[2], sys.argv[3])
-    obj.create()
-    obj.save("\t", sys.argv[4])
 
-    # numOfTransactions = 100
-    # numItems = 15
-    # avgTransactionLength = 6
-    # outFileName = 'temporal_ot.txt'
-    # sep = '\t'
-    # percent = 75
-    # frameOrBase = "dataframe"
 
-    # temporalDB = generateTemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName, percent, sep, frameOrBase )
-    # temporalDB.createTemporalFile()
-    # print(temporalDB.getDatabaseAsDataFrame())
-
-    # obj = generateTemporalDatabase(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
-    # obj.createTemporalFile(sys.argv[5])
+    obj = generateSpatioTemporal(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8])
+    obj.createTemporalFile()
+    obj.getFileName(sys.argv[9])
