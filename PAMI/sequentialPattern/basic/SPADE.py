@@ -112,6 +112,8 @@ class SPADE(_ab._sequentialPatterns):
                 To store the datas in different sequence separated by sequence, rownumber, length.
             _xLenDatabaseSame : dict
                 To store the datas in same sequence separated by sequence, rownumber, length.
+            _seqSep   :str
+                separator to separate each itemset
 
     :Methods:
 
@@ -194,6 +196,7 @@ class SPADE(_ab._sequentialPatterns):
     _iFile = " "
     _oFile = " "
     _sep = " "
+    _sepSeq = "-1"
     _memoryUSS = float()
     _memoryRSS = float()
     _Database = []
@@ -239,9 +242,8 @@ class SPADE(_ab._sequentialPatterns):
                     with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split('-1')]
+                            temp = [i.rstrip() for i in line.split(self._sepSeq)]
                             temp = [x for x in temp if x ]
-                            temp.pop()
 
                             seq = []
                             for i in temp:
@@ -379,13 +381,13 @@ class SPADE(_ab._sequentialPatterns):
         for key1 in nextDatabase.keys():
             for key2 in nextDatabase[key1].keys():
                 if len(nextDatabase[key1][key2].keys())>=self._minSup:
-                    self._finalPatterns[str((key1,-1,key2,-1))]=len(nextDatabase[key1][key2].keys())
+                    self._finalPatterns[str((key1,self._sepSeq,key2,self._sepSeq))]=len(nextDatabase[key1][key2].keys())
                     self._xLenDatabase[2][tuple([key1])][key2]=nextDatabase[key1][key2]
         self._xLenDatabaseSame[2]={tuple([i]): {} for i in nextDatabaseSame.keys()}
         for key1 in nextDatabaseSame.keys():
             for key2 in nextDatabaseSame[key1].keys():
                 if len(nextDatabaseSame[key1][key2].keys()) >= self._minSup:
-                    self._finalPatterns[str((key1,key2,-1))]=len(nextDatabaseSame[key1][key2].keys())
+                    self._finalPatterns[str((key1,key2,self._sepSeq))]=len(nextDatabaseSame[key1][key2].keys())
                     self._xLenDatabaseSame[2][tuple([key1])][key2]={i:nextDatabaseSame[key1][key2][i] for i in nextDatabaseSame[key1][key2].keys()}
                     self._xLenDatabaseSame[2][tuple([key2])][key1] = {i: nextDatabaseSame[key1][key2][i] for i in nextDatabaseSame[key1][key2].keys()}
 
@@ -402,7 +404,7 @@ class SPADE(_ab._sequentialPatterns):
 
     def makexLenDatabase(self, rowLen, bs, latestWord):
             """
-            To make "rowLen" length frequent patterns from pattern which the latest word is in same seq  by joining "rowLen"-1 length patterns by depth-first search technique  and update xlenDatabase to sequential database
+            To make "rowLen" length frequent patterns from pattern which the latest word is in same seq  by joining "rowLen"self._sepSeq length patterns by depth-first search technique  and update xlenDatabase to sequential database
 
             :param rowLen: row length of patterns.
             :param bs : patterns without the latest one
@@ -659,8 +661,8 @@ class SPADE(_ab._sequentialPatterns):
         :param latestWord2 : latest word of other previous pattern
         """
 
-        bs=bs+(-1,latestWord)
-        bs2=bs+(-1,latestWord2,-1)
+        bs=bs+(self._sepSeq,latestWord)
+        bs2=bs+(self._sepSeq,latestWord2,self._sepSeq)
         return bs2,bs
 
     def makeNextRowSame(self,bs, latestWord, latestWord2):
@@ -677,16 +679,16 @@ class SPADE(_ab._sequentialPatterns):
         x2=[latestWord,]
         while bs:
             x=bs.pop()
-            if x!=-1:
+            if x!=self._sepSeq:
                 x2.append(x)
             else:
                 break
         x2=list(sorted(set(x2)))
         if len(bs)!=0:
-            bs=tuple(bs)+(-1,)+tuple(x2)
+            bs=tuple(bs)+(self._sepSeq,)+tuple(x2)
         else:
             bs=tuple(x2)
-        bs2=tuple(bs)+(-1,latestWord2,-1)
+        bs2=tuple(bs)+(self._sepSeq,latestWord2,self._sepSeq)
         return bs2,bs
 
 
@@ -704,17 +706,17 @@ class SPADE(_ab._sequentialPatterns):
         x2 = [latestWord, latestWord2]
         while bs:
             x = bs.pop()
-            if x != -1:
+            if x != self._sepSeq:
                 x2.append(x)
             else:
                 break
         x2 = list(sorted(set(x2)))
         x3 = x2.pop()
         if len(bs)!=0:
-            bs = tuple(bs)+(-1,)+ tuple(x2)
+            bs = tuple(bs)+(self._sepSeq,)+ tuple(x2)
         else:
             bs = tuple(x2)
-        bs2 = tuple(bs) + (x3, -1)
+        bs2 = tuple(bs) + (x3, self._sepSeq)
 
         return bs2, bs, x3
 
@@ -731,7 +733,7 @@ class SPADE(_ab._sequentialPatterns):
         x = list(sorted({latestWord, latestWord2}))
         x2 = x.pop()
         x3=x.pop()
-        bs = bs + (-1,x3)
+        bs = bs + (self._sepSeq,x3)
         bs2 = bs + (x2,)
         return  bs2,bs,x2
 
@@ -869,7 +871,7 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        _ap = SPADE('text3.txt' ,80, '\t')
+        _ap = SPADE('test.txt',2, '\t')
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         _memUSS = _ap.getMemoryUSS()
@@ -880,3 +882,5 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _run)
         print("Total number of Frequent Patterns:", len(_Patterns))
         print("Error! The number of input parameters do not match the total number of parameters provided")
+        _ap.save("priOut2.txt")
+

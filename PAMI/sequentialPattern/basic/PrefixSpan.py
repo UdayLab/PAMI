@@ -14,14 +14,14 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import PAMI.sequentialPattern.basic.abstract as _ab
+from PAMI.sequentialPatternMining.basic import abstract as _ab
 import sys
 sys.setrecursionlimit(10000)
 
 class PrefixSpan(_ab._sequentialPatterns):
     """
         Prefix Span is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
-        This program employs Prifix Span property (or downward closure property) to  reduce the search space effectively.
+        This program employs Prefix Span property (or downward closure property) to  reduce the search space effectively.
         This algorithm employs depth-first search technique to find the complete set of frequent patterns in a
         transactional database.
         Reference:
@@ -57,6 +57,9 @@ class PrefixSpan(_ab._sequentialPatterns):
             maxGap   :int
                 to store the maximum gap of sequence pattern
                 gap means the length of interval between two itemsets
+            seqSep   :str
+                separator to separate each itemset
+
         Methods:
         -------
             startMine()
@@ -119,14 +122,14 @@ class PrefixSpan(_ab._sequentialPatterns):
         --------
             The complete program was written by Suzuki Shota under the supervision of Professor Rage Uday Kiran.
     """
-    def __init__(self,iFile, minSup, sep="\t",maxlen=float("inf"),maxGap=float("inf")):
-        super().__init__( iFile, minSup, sep)
+    def __init__(self,iFile, minSup, sep="\t",maxlen=float("inf"),maxGap=float("inf"),sepSeq="-1"):
+        super().__init__( iFile, minSup, sep,sepSeq)
 
 
         self._startTime = float()
         self._endTime = float()
         self._finalPatterns = {}
-
+        self.seqSeq=""
         self._memoryUSS = float()
         self._memoryRSS = float()
         self._Database = []
@@ -163,20 +166,19 @@ class PrefixSpan(_ab._sequentialPatterns):
                     with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split('-1')]
+                            temp = [i.rstrip() for i in line.split(self._sepSeq)]
                             temp = [x for x in temp if x ]
-                            temp.pop()
 
                             seq = []
                             for i in temp:
                                 if len(i)>1:
                                    for i in list(sorted(set(i.split()))):
                                        seq.append(i)
-                                   seq.append(-1)
+                                   seq.append(self._sepSeq)
 
                                 else:
                                     seq.append(i)
-                                    seq.append(-1)
+                                    seq.append(self._sepSeq)
                             self._Database.append(seq)
 
 
@@ -214,9 +216,9 @@ class PrefixSpan(_ab._sequentialPatterns):
 
             if len(sepDatabase[head])>=self._minSup:
                 if newrow!=[]:
-                    newrow.append(-1)
+                    newrow.append(self._sepSeq)
                 newrow.append(head)
-                newrow.append(-1)
+                newrow.append(self._sepSeq)
                 if str(newrow) not in self._finalPatterns:
                     self._finalPatterns[str(newrow)]=len(sepDatabase[head])
                     give = []
@@ -263,7 +265,7 @@ class PrefixSpan(_ab._sequentialPatterns):
                 for i in line:
                     if supDatabase[i]>=self._minSup or i in head:
                         if len(newLine)>1:
-                            if (newLine[-1]!=-1 or i!=-1):
+                            if (newLine[-1]!=self._sepSeq or i!=self._sepSeq):
                                 newLine.append(i)
                         else:
                             newLine.append(i)
@@ -284,10 +286,10 @@ class PrefixSpan(_ab._sequentialPatterns):
             if len(sepDatabase[head])>=self._minSup:
                 newrow = startrow.copy()
                 newrow.append(head)
-                newrow.append(-1)
+                newrow.append(self._sepSeq)
                 if str(newrow) not in self._finalPatterns.keys():
                     self._finalPatterns[str(newrow)]=len(sepDatabase[head])
-                    if -1 in startrow:
+                    if self._sepSeq in startrow:
                         give = self.getSameSeq(startrow)
                     else:
                         give = startrow.copy()
@@ -297,7 +299,7 @@ class PrefixSpan(_ab._sequentialPatterns):
                     self.makeSeqDatabaseSame(sepDatabase[head], newrow)
                 elif len(sepDatabase[head])>self._finalPatterns[str(newrow)]:
                     self._finalPatterns[str(newrow)] = len(sepDatabase[head])
-                    if -1 in startrow:
+                    if self._sepSeq in startrow:
                         give = self.getSameSeq(startrow)
                     else:
                         give = startrow.copy()
@@ -325,7 +327,7 @@ class PrefixSpan(_ab._sequentialPatterns):
         for line in database:
             alreadyInLine=[]
             for data in range(len(line)):
-                if line[data] not in alreadyInLine and line[data]!=-1:
+                if line[data] not in alreadyInLine and line[data]!=self._sepSeq:
                     if line[data] not in seqDatabase.keys():
                         seqDatabase[line[data]]=[]
                         seqDatabase[line[data]].append(line[data+1:])
@@ -354,7 +356,7 @@ class PrefixSpan(_ab._sequentialPatterns):
             addLine=0
             i=0
             if len(line)>1:
-                while line[i]!=-1:
+                while line[i]!=self._sepSeq:
                     if line[i]==startrow[-1]:
                         sepDatabaseSame[startrow[-1]].append(line[i+1:])
                         addLine=1
@@ -363,7 +365,7 @@ class PrefixSpan(_ab._sequentialPatterns):
                 if addLine!=1:
                     ok=[]
                     while i <len(line):
-                        if line[i]==-1:
+                        if line[i]==self._sepSeq:
                             ok=[]
                         elif line[i]==startrow[-1]:
                             ok.append("sk1")
@@ -375,7 +377,7 @@ class PrefixSpan(_ab._sequentialPatterns):
                             break
                         i+=1
         startrow2=[startrow[0]]
-        startrow.append(-1)
+        startrow.append(self._sepSeq)
         if str(startrow) not in self._finalPatterns.keys():
                 self.makeNextSame(sepDatabaseSame,startrow2)
         elif self._finalPatterns[str(startrow)]<len(sepDatabaseSame[startrow[-2]]):
@@ -391,7 +393,7 @@ class PrefixSpan(_ab._sequentialPatterns):
         """
         give = []
         newrow = startrow.copy()
-        while newrow[-1] != -1:
+        while newrow[-1] != self._sepSeq:
             y = newrow.pop()
             give.append(y)
         return give
@@ -410,14 +412,14 @@ class PrefixSpan(_ab._sequentialPatterns):
             """
         seqDatabase={}
         seqDatabaseSame={}
-        seqLength=startrow.count(-1)+1
+        seqLength=startrow.count(self._sepSeq)+1
         for line in database:
             if len(line)>1:
                 alreadyInLine=[]
                 i = 0
-                while line[i] != -1:
+                while line[i] != self._sepSeq:
                         if line[i] not in seqDatabaseSame:
-                            if -1 in startrow:
+                            if self._sepSeq in startrow:
                                 give=self.getSameSeq(startrow)
                             else:
                                 give=startrow.copy()
@@ -429,7 +431,7 @@ class PrefixSpan(_ab._sequentialPatterns):
                 seqCount=0
                 if self._maxLength>seqLength:
                     while len(line)>i and self._maxGap>seqCount:
-                        if line[i]!=-1:
+                        if line[i]!=self._sepSeq:
                             if line[i] not in alreadyInLine:
                                 if line[i] not in seqDatabase:
                                     seqDatabase[line[i]]=[]
@@ -440,7 +442,7 @@ class PrefixSpan(_ab._sequentialPatterns):
 
 
                             elif same==1 and line[i] not in seqDatabaseSame:
-                                if -1 in startrow:
+                                if self._sepSeq in startrow:
                                     give=self.getSameSeq(startrow)
                                 else:
                                     give=startrow.copy()
@@ -478,7 +480,7 @@ class PrefixSpan(_ab._sequentialPatterns):
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-        print("Frequent patterns were generated successfully using Apriori algorithm ")
+        print("Frequent patterns were generated successfully using prefixSpan algorithm ")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -544,7 +546,7 @@ class PrefixSpan(_ab._sequentialPatterns):
 
 if __name__ == "__main__":
     _ap = str()
-    if len(_ab._sys.argv) >= 4 or len(_ab._sys.argv) <= 7:
+    if len(_ab._sys.argv) >= 4 and len(_ab._sys.argv) <= 7:
         if len(_ab._sys.argv) == 7:
             _ap = PrefixSpan(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4],_ab._sys.argv[5],_ab._sys.argv[6])
         if len(_ab._sys.argv) == 6:
@@ -565,7 +567,7 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _run)
 
     else:
-        _ap = PrefixSpan('strtest.txt',2, ' ')
+        _ap = PrefixSpan('test.txt',2, ' ')
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         _memUSS = _ap.getMemoryUSS()
