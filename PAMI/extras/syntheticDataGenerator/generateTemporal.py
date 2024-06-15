@@ -193,15 +193,17 @@ class generateTemporal:
         """
 
         while np.sum(array) != sumRes:
+            # print(sum(array), sumRes)
             # get index of largest value
-            randIndex = np.random.randint(0, len(array))
+            # randIndex = np.random.randint(0, len(array))
             # if sum is too large, decrease the largest value
             if np.sum(array) > sumRes:
-                array[randIndex] -= 1
+                maxIndex = np.argmax(array)
+                array[maxIndex] -= 1
             # if sum is too small, increase the smallest value
             else:
                 minIndex = np.argmin(array)
-                array[randIndex] += 1
+                array[minIndex] += 1
         return array
         
 
@@ -229,28 +231,27 @@ class generateTemporal:
         # generate n random values
         values = np.random.randint(1, maxItems, nums)
 
-        # sumRes = nums * avg
+        if maxItems * len(values) < sumRes:
+            print(maxItems * len(values), sumRes)
+            raise ValueError('Try modifiying the values of avgLenOfTransactions and numOfTransactions')
 
         self.tuning(values, sumRes)
-
         # if any value is less than 1, increase it and tune the array again
         while np.any(values < 1):
             for i in range(nums):
                 if values[i] < 1:
-                    values[i] += 1
+                    values[i] = 1
             self.tuning(values, sumRes)
 
+        # if any value is greater than maxItems, decrease it and tune the array again
         while np.any(values > maxItems):
             for i in range(nums):
                 if values[i] > maxItems:
-                    values[i] -= 1
+                    values[i] -= maxItems
             self.tuning(values, sumRes)
+            
 
 
-        # if all values are same then randomly increase one value and decrease another
-        while np.all(values == values[0]):
-            values[np.random.randint(0, nums)] += 1
-            self.tuning(values, sumRes)
 
         return values
 

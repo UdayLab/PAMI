@@ -453,9 +453,12 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
             if 'Transactions' in i:
                 data = self._iFile['Transactions'].tolist()
             for i in range(len(data)):
-                tr = [ts[i][0]]
-                tr = tr + data[i]
-                self._Database.append(tr)
+                if data[i]:
+                    tr = [str(ts[i])] + [x for x in data[i].split(self._sep)]
+                    self._Database.append(tr)
+                else:
+                    self._Database.append([str(ts[i])])
+
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
@@ -476,6 +479,9 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
                 except IOError:
                     print("File Not Found")
                     quit()
+
+        maxNos = [int(x[0]) for x in self._Database]
+        self._lno = max(maxNos)
 
     def _periodicFrequentOneItem(self) -> Tuple[Dict, List]:
         """
@@ -578,8 +584,8 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
             else:
                 value = int(value)
         return value
-
-    def startMine(self) -> None:
+    
+    def mine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree.
         :return: None
@@ -612,6 +618,41 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
         print("periodic-frequent patterns were generated successfully using PFPGrowth++ algorithm ")
+
+    def startMine(self) -> None:
+        """
+        Main method where the patterns are mined by constructing tree.
+        :return: None
+        """
+        self.mine()
+        # global _minSup, _maxPer, _lno
+        # self._startTime = _ab._time.time()
+        # if self._iFile is None:
+        #     raise Exception("Please enter the file path or file name:")
+        # if self._minSup is None:
+        #     raise Exception("Please enter the Minimum Support")
+        # self._creatingItemSets()
+        # self._minSup = self._convert(self._minSup)
+        # self._maxPer = self._convert(self._maxPer)
+        # _minSup, _maxPer, _lno = self._minSup, self._maxPer, len(self._Database)
+        # generatedItems, pfList = self._periodicFrequentOneItem()
+        # updatedTransactions = self._updateTransactions(generatedItems)
+        # for x, y in self._rank.items():
+        #     self._rankedUp[y] = x
+        # info = {self._rank[k]: v for k, v in generatedItems.items()}
+        # Tree = self._buildTree(updatedTransactions, info)
+        # patterns = Tree.generatePatterns([])
+        # self._finalPatterns = {}
+        # for i in patterns:
+        #     x = self._savePeriodic(i[0])
+        #     self._finalPatterns[x] = i[1]
+        # self._endTime = _ab._time.time()
+        # process = _ab._psutil.Process(_ab._os.getpid())
+        # self._memoryRSS = float()
+        # self._memoryUSS = float()
+        # self._memoryUSS = process.memory_full_info().uss
+        # self._memoryRSS = process.memory_info().rss
+        # print("periodic-frequent patterns were generated successfully using PFPGrowth++ algorithm ")
 
     def getMemoryUSS(self) -> float:
         """
