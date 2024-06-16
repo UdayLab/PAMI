@@ -311,9 +311,12 @@ class PFPMC(_ab._periodicFrequentPatterns):
             if 'Transactions' in i:
                 data = self._iFile['Transactions'].tolist()
             for i in range(len(data)):
-                tr = [ts[i][0]]
-                tr = tr + data[i]
-                Database.append(tr)
+                if data[i]:
+                    tr = [str(ts[i])] + [x for x in data[i].split(self._sep)]
+                    Database.append(tr)
+                else:
+                    Database.append([str(ts[i])])
+                    
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
@@ -345,6 +348,9 @@ class PFPMC(_ab._periodicFrequentPatterns):
                     itemsets[item].add(tid)
                 else:
                     itemsets[item] = {tid}
+
+        maxNos = [int(x[0]) for x in Database]
+        self._lno = max(maxNos)
 
         self._dbSize = len(Database)
         self._lastTid = max(self._tidSet)
@@ -384,7 +390,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
         if len(new_freqList) > 0:
             self._generateDiffsetEclat(new_freqList)
 
-    def startMine(self) -> None:
+    def mine(self) -> None:
         """
         Mining process will start from this function
         :return: None
@@ -401,6 +407,25 @@ class PFPMC(_ab._periodicFrequentPatterns):
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
         print("Periodic-Frequent patterns were generated successfully using PFPDiffset ECLAT algorithm ")
+
+    def startMine(self) -> None:
+        """
+        Mining process will start from this function
+        :return: None
+        """
+        self.mine()
+        # # print(f"Optimized {type(self).__name__}")
+        # self._startTime = _ab._time.time()
+        # self._finalPatterns = {}
+        # frequentSets = self._creatingOneItemSets()
+        # self._generateDiffsetEclat(frequentSets)
+        # self._endTime = _ab._time.time()
+        # process = _ab._psutil.Process(_ab._os.getpid())
+        # self._memoryRSS = float()
+        # self._memoryUSS = float()
+        # self._memoryUSS = process.memory_full_info().uss
+        # self._memoryRSS = process.memory_info().rss
+        # print("Periodic-Frequent patterns were generated successfully using PFPDiffset ECLAT algorithm ")
 
     def getMemoryUSS(self) -> float:
         """

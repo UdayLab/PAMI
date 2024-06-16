@@ -454,7 +454,7 @@ class _Tree(object):
                 k = v
         return -1
 
-    def generatePatterns(self, prefix) -> None:
+    def generatePatterns(self, prefix):
         """
         Generating the patterns from the tree
 
@@ -751,9 +751,11 @@ class PSGrowth(_ab._periodicFrequentPatterns):
             if 'Transactions' in i:
                 data = self._iFile['Transactions'].tolist()
             for i in range(len(data)):
-                tr = [ts[i][0]]
-                tr = tr + data[i]
-                self._Database.append(tr)
+                if data[i]:
+                    tr = [str(ts[i])] + [x for x in data[i].split(self._sep)]
+                    self._Database.append(tr)
+                else:
+                    self._Database.append([str(ts[i])])
 
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
@@ -859,7 +861,7 @@ class PSGrowth(_ab._periodicFrequentPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Periodic-Frequent patterns were generated successfully using PS-Growth algorithm ")
 
-    def Mine(self) -> None:
+    def mine(self) -> None:
         """
         Mining process will start from this function
         :return: None

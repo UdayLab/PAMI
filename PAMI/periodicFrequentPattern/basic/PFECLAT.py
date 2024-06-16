@@ -213,9 +213,11 @@ class PFECLAT(_ab._periodicFrequentPatterns):
             if 'Transactions' in i:
                 data = self._iFile['Transactions'].tolist()
             for i in range(len(data)):
-                tr = [ts[i][0]]
-                tr = tr + data[i]
-                self._Database.append(tr)
+                if data[i]:
+                    tr = [str(ts[i])] + [x for x in data[i].split(self._sep)]
+                    self._Database.append(tr)
+                else:
+                    self._Database.append([str(ts[i])])
 
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
@@ -400,6 +402,9 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                     
 
 if __name__ == "__main__":
+
+
+
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:
@@ -415,3 +420,12 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
+    file = "idk.txt"
+    minSup = 0.01
+    maxPer = 0.01
+    obj = PFECLAT(file, minSup, maxPer)
+    obj.mine()
+    obj.printResults()
+    # for k,v in obj.getPatterns().items():
+    #     print(k, v)
