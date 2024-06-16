@@ -58,6 +58,8 @@ from deprecated import deprecated
 
 class CHARM(_ab._frequentPatterns):
     """
+    **About this algorithm**
+
     :**Description**: CHARM is an algorithm to discover closed frequent patterns in a transactional database. Closed frequent patterns are patterns if there exists no superset that has the same support count as this original itemset. This algorithm employs depth-first search technique to find the complete set of closed frequent patterns in a transactional database.
 
     :**Reference**:  Mohammed J. Zaki and Ching-Jui Hsiao, CHARM: An Efficient Algorithm for Closed Itemset Mining,
@@ -81,8 +83,7 @@ class CHARM(_ab._frequentPatterns):
                         - **hashing** (*dict*) -- *Stores the patterns with their support to check for the closed property.*
 
 
-    Execution methods
-    =================
+    **Execution methods**
 
     **Terminal command**
 
@@ -134,8 +135,7 @@ class CHARM(_ab._frequentPatterns):
             print("Total ExecutionTime in seconds:", run)
 
 
-    Credits:
-    =======
+    **Credits:**
 
     The complete program was written by P.Likhitha and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
@@ -194,18 +194,16 @@ class CHARM(_ab._frequentPatterns):
             if 'Transactions' in i:
                 self._Database = self._iFile['Transactions'].tolist()
                 self._Database = [i.split(self._sep) for i in self._Database]
-
             else:
                 print("The column name should be Transactions and each line should be separated by tab space or a seperator specified by the user")
             for i in self._Database:
                 self._lno += 1
                 for j in i:
-                    if j not in self._mapSupport:
-                        self._mapSupport[j] = 1
+                    if j not in self._tidList:
                         self._tidList[j] = [self._lno]
                     else:
-                        self._mapSupport[j] += 1
                         self._tidList[j].append(self._lno)
+
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
@@ -536,8 +534,3 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
-    obj = CHARM("/Users/tarunsreepada/Downloads/Transactional_T10I4D100K.csv", 0.01)
-    obj.mine()
-    print(obj.getPatternsAsDataFrame())
-    print(obj.printResults())

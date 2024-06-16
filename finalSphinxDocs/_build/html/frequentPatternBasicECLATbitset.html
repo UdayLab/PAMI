@@ -49,6 +49,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="frequent1.html">Frequent Pattern mining</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="frequentPatternMining.html">Basic</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="frequentPatternBasicApriori.html">Apriori</a></li>
+<li class="toctree-l4"><a class="reference internal" href="frequentPatternBasicAprioribitset.html">Aprioribitset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frequentPatternBasicECLAT.html">ECLAT</a></li>
 <li class="toctree-l4"><a class="reference internal" href="frequentPatternBasicECLATDiffset.html">ECLATDiffset</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">ECLATbitset</a></li>
@@ -128,6 +129,7 @@
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.basic.ECLATbitset.</span></span><span class="sig-name descname"><span class="pre">ECLATbitset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/basic/ECLATbitset.html#ECLATbitset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
+<p><strong>About this algorithm</strong></p>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
 <dd class="field-odd"><p>ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.</p>
@@ -141,7 +143,7 @@
 <li><p><strong>iFile</strong> (<em>str or URL or dataFrame</em>) – <em>Name of the Input file to mine complete set of frequent patterns.</em></p></li>
 <li><p><strong>oFile</strong> (<em>str</em>) – <em>Name of the output file to store complete set of frequent patterns</em></p></li>
 <li><p><strong>minSup</strong> (<em>int or float or str</em>) – <em>The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.</em></p></li>
-<li><p><strong>sep</strong> (<em>str</em>) – <strong>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</strong></p></li>
+<li><p><strong>sep</strong> (<em>str</em>) – <em>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</em></p></li>
 </ul>
 </dd>
 <dt class="field-even">Attributes<span class="colon">:</span></dt>
@@ -155,13 +157,17 @@
 </ul>
 </dd>
 </dl>
+<p><strong>Execution methods</strong></p>
 <p><strong>Terminal command</strong></p>
-<blockquote>
-<div><p>Format:</p>
-<p>(.venv) $ python3 ECLATbitset.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</p>
-<p>Example Usage:</p>
-<p>(.venv) $ python3 ECLATbitset.py sampleDB.txt patterns.txt 10.0</p>
-</div></blockquote>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>ECLATbitset.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>ECLATbitset.py<span class="w"> </span>sampleDB.txt<span class="w"> </span>patterns.txt<span class="w"> </span><span class="m">10</span>.0
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>minSup can be specified  in support count or a value between 0 and 1.</p>
@@ -198,6 +204,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
+<p><strong>Credits:</strong></p>
 <p>The complete program was written by Yudai Masu and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.getMemoryRSS">

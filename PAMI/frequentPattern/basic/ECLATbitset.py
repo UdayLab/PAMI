@@ -57,6 +57,8 @@ from deprecated import deprecated
 
 class ECLATbitset(_ab._frequentPatterns):
     """
+    **About this algorithm**
+
     :*Description*:  ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
 
     :*Reference*:  Mohammed Javeed Zaki: Scalable Algorithms for Association Mining. IEEE Trans. Knowl. Data Eng. 12(3):
@@ -65,7 +67,7 @@ class ECLATbitset(_ab._frequentPatterns):
     :**Parameters**:    - **iFile** (*str or URL or dataFrame*) -- *Name of the Input file to mine complete set of frequent patterns.*
                         - **oFile** (*str*) -- *Name of the output file to store complete set of frequent patterns*
                         - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.*
-                        - **sep** (*str*) -- **This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.**
+                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
 
     :**Attributes**:    - **startTime** (*float*) -- *To record the start time of the mining process.*
                         - **endTime** (*float*) -- *To record the end time of the mining process.*
@@ -74,10 +76,11 @@ class ECLATbitset(_ab._frequentPatterns):
                         - **memoryRSS** *(float*) -- *To store the total amount of RSS memory consumed by the program.*
                         - **Database** (*list*) -- *To store the transactions of a database in list.*
 
-    Execution methods
-    =================
+    **Execution methods**
 
     **Terminal command**
+
+    .. code-block:: console
 
       Format:
 
@@ -124,8 +127,7 @@ class ECLATbitset(_ab._frequentPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    Credits:
-    ========
+    **Credits:**
 
     The complete program was written by Yudai Masu and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
@@ -228,8 +230,48 @@ class ECLATbitset(_ab._frequentPatterns):
             packed_bits |= 1 << (maxIndex - i)
 
         return packed_bits
+    
+    def __recursive(self, items, cands, memorySaver):
+        """
 
-    def mine(self) -> None:
+        This function generates new candidates by taking input as original candidates.
+
+        :param items: A dictionary containing items and their corresponding support values.
+        :type items: dict
+        :param cands: A list of candidate itemsets.
+        :type cands: list
+        :return: None
+        """
+
+        if memorySaver:
+            for i in range(len(cands)):
+                newCands = []
+                for j in range(i + 1, len(cands)):
+                    newCand = tuple(cands[i] + tuple([cands[j][-1]]))
+                    intersection = items[tuple([newCand[0]])]
+                    for k in newCand[1:]:
+                        intersection &= items[tuple([k])]
+                    count = int.bit_count(intersection)
+                    if count >= self._minSup:
+                        newCands.append(newCand)
+                        self._finalPatterns[newCand] = count
+                if len(newCands) > 1:
+                    self.__recursive(items, newCands, memorySaver)
+        else:
+            for i in range(len(cands)):
+                newCands = []
+                for j in range(i + 1, len(cands)):
+                    newCand = tuple(cands[i] + tuple([cands[j][-1]]))
+                    intersection = items[cands[i]] & items[cands[j]]
+                    count = int.bit_count(intersection)
+                    if count >= self._minSup:
+                        newCands.append(newCand)
+                        self._finalPatterns[newCand] = count
+                        items[newCand] = intersection
+                if len(newCands) > 1:
+                    self.__recursive(items, newCands, memorySaver)
+
+    def mine(self, memorySaver = True) -> None:
         """
         Frequent pattern mining process will start from here
         # Bitset implementation
@@ -253,33 +295,17 @@ class ECLATbitset(_ab._frequentPatterns):
         # sort by length in descending order
         items = dict(sorted(items.items(), key=lambda x: len(x[1]), reverse=True))
         cands = []
-        for key in items:
+        for key in list(items.keys()):
             if len(items[key]) >= self._minSup:
                 self._finalPatterns["\t".join(key)] = len(items[key])
                 cands.append(key)
                 items[key] = self._bitPacker(items[key], index)
-                # print(key, items[key])
             else:
                 break
 
-        while cands:
-            newCands = []
-            for i in range(len(cands)):
-                for j in range(i + 1, len(cands)):
-                    if cands[i][:-1] == cands[j][:-1]:
-                        newCand = tuple(cands[i] + tuple([cands[j][-1]]))
-                        intersection = items[tuple([newCand[0]])]
-                        for k in range(1, len(newCand)):
-                            intersection &= items[tuple([newCand[k]])]
-                        count = int.bit_count(intersection)
-                        if count >= self._minSup:
-                            newCands.append(newCand)
-                            newCand = "\t".join(newCand)
-                            self._finalPatterns[newCand] = count
-                    else:
-                        break
 
-            cands = newCands
+        self.__recursive(items, cands, memorySaver)
+        
 
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())

@@ -108,6 +108,8 @@ class SPAM(_ab._sequentialPatterns):
                 To store the sequences of a database by bit map
             _maxSeqLen:
                 the maximum length of subsequence in sequence.
+            _seqSep   :str
+                separator to separate each itemset
 
     :Methods:
 
@@ -202,6 +204,7 @@ class SPAM(_ab._sequentialPatterns):
     _Database = []
     _idDatabase={}
     _maxSeqLen=0
+    _sepSeq=""
     def _creatingItemSets(self):
         """
         Storing the complete sequences of the database/input file in a database variable
@@ -242,9 +245,8 @@ class SPAM(_ab._sequentialPatterns):
                     with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split('-1')]
+                            temp = [i.rstrip() for i in line.split(self._sepSeq)]
                             temp = [x for x in temp if x ]
-                            temp.pop()
 
                             seq = []
                             for i in temp:
@@ -341,13 +343,13 @@ class SPAM(_ab._sequentialPatterns):
 
             sup=self.countSup(nnext)
             if sup>=self._minSup:
-                key=items+self._sep+"-1"+self._sep+i
-                self._finalPatterns[key+self._sep+"-1"+self._sep+"-2"]=sup
+                key=items+self._sep+self._sepSeq+self._sep+i
+                self._finalPatterns[key+self._sep+self._sepSeq+self._sep+"-2"]=sup
                 self._idDatabase[key]=nnext
                 Snext.append(i)
 
         for i in Snext:
-            key = items+self._sep+"-1"+self._sep+i
+            key = items+self._sep+self._sepSeq+self._sep+i
             self.DfsPruning(key,Snext,[k for k in Snext if self._Database.index(i)<self._Database.index(k)])
         for i in iStep:
             nnext = []
@@ -358,7 +360,7 @@ class SPAM(_ab._sequentialPatterns):
             sup=self.countSup(nnext)
             if sup>=self._minSup:
                 key=items+self._sep+str(i)
-                self._finalPatterns[key+self._sep+"-1"+self._sep+"-2"]=sup
+                self._finalPatterns[key+self._sep+self._sepSeq+self._sep+"-2"]=sup
                 self._idDatabase[key]=nnext
                 Inext.append(i)
         for i in Inext:
@@ -434,7 +436,7 @@ class SPAM(_ab._sequentialPatterns):
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-        print("Frequent patterns were generated successfully using Apriori algorithm ")
+        print("Frequent patterns were generated successfully using SPAM algorithm ")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -519,5 +521,16 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-
+        _ap = SPAM('test.txt', 2, '\t')
+        _ap.startMine()
+        _Patterns = _ap.getPatterns()
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in ms:", _run)
+        print("Total number of Frequent Patterns:", len(_Patterns))
+        print("Error! The number of input parameters do not match the total number of parameters provided")
+        _ap.save("priOut2.txt")
         print("Error! The number of input parameters do not match the total number of parameters provided")

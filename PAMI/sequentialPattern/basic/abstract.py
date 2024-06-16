@@ -71,6 +71,8 @@ class _sequentialPatterns(_ABC):
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
+        seqSep   :str
+                separator to separate each itemset
 
     :Methods:
 
@@ -90,7 +92,7 @@ class _sequentialPatterns(_ABC):
             This function outputs the total runtime of a mining algorithm
     """
 
-    def __init__(self, iFile, minSup, sep="\t"):
+    def __init__(self, iFile, minSup, sep="\t",sepSeq="-1"):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str or DataFrame
@@ -112,6 +114,7 @@ class _sequentialPatterns(_ABC):
         self._memoryRSS = float()
         self._startTime = float()
         self._endTime = float()
+        self._sepSeq=sepSeq
 
     @_abstractmethod
     def startMine(self):

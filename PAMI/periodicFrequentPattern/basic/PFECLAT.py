@@ -64,8 +64,7 @@ from PAMI.periodicFrequentPattern.basic import abstract as _ab
 
 class PFECLAT(_ab._periodicFrequentPatterns):
     """
-    About this algorithm
-    ====================
+    **About this algorithm**
 
     :**Description**:   PFECLAT is the fundamental approach to mine the periodic-frequent patterns.
 
@@ -102,8 +101,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                         - **getPeriodAndSupport()** -- *Calculates the support and period for a list of timestamps.*
                         - **Generation()** -- *Used to implement prefix class equivalence method to generate the periodic patterns recursively*
 
-    Execution methods
-    =================
+    **Execution methods**
 
     **Terminal command**
 
@@ -156,8 +154,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    Credits
-    =======
+    **Credits:**
 
     The complete program was written by P. Likhitha  and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
@@ -216,9 +213,11 @@ class PFECLAT(_ab._periodicFrequentPatterns):
             if 'Transactions' in i:
                 data = self._iFile['Transactions'].tolist()
             for i in range(len(data)):
-                tr = [ts[i][0]]
-                tr = tr + data[i]
-                self._Database.append(tr)
+                if data[i]:
+                    tr = [str(ts[i])] + [x for x in data[i].split(self._sep)]
+                    self._Database.append(tr)
+                else:
+                    self._Database.append([str(ts[i])])
 
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
@@ -244,17 +243,6 @@ class PFECLAT(_ab._periodicFrequentPatterns):
     @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
         self.mine()
-        # self._startTime = _ab._time.time()
-        # self._finalPatterns = {}
-        # frequentSets = self._creatingOneItemSets()
-        # self._generateEclat(frequentSets)
-        # self._endTime = _ab._time.time()
-        # process = _ab._psutil.Process(_ab._os.getpid())
-        # self._memoryRSS = float()
-        # self._memoryUSS = float()
-        # self._memoryUSS = process.memory_full_info().uss
-        # self._memoryRSS = process.memory_info().rss
-        # print("Periodic-Frequent patterns were generated successfully using PFECLAT algorithm ")
 
     def _getMaxPer(self, arr, maxTS):
         arr = np.append(list(arr), [0, maxTS])
@@ -414,6 +402,9 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                     
 
 if __name__ == "__main__":
+
+
+
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:
@@ -429,3 +420,12 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
+    file = "idk.txt"
+    minSup = 0.01
+    maxPer = 0.01
+    obj = PFECLAT(file, minSup, maxPer)
+    obj.mine()
+    obj.printResults()
+    # for k,v in obj.getPatterns().items():
+    #     print(k, v)

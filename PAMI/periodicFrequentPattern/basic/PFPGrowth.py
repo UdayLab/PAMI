@@ -122,8 +122,7 @@ class _Node(object):
 
 class PFPGrowth(_ab._periodicFrequentPatterns):
     """
-    About this algorithm
-    ====================
+    **About this algorithm**
 
     :**Description**:   PFPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.
 
@@ -161,8 +160,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
                         - **buildTree()** -- *After updating the Database, remaining items will be added into the tree by setting root node as null.*
                         - **convert()** -- *This methos is used to convert the user specified value.*
 
-    Execution methods
-    =================
+    **Execution methods**
 
     **Terminal command**
 
@@ -216,8 +214,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
             print("Total ExecutionTime in seconds:", run)
 
 
-    Credits
-    =======
+    **Credits**
 
     The complete program was written by P. Likhitha  and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
@@ -254,9 +251,11 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
             if 'Transactions' in i:
                 data = self._iFile['Transactions'].tolist()
             for i in range(len(data)):
-                tr = [ts[i][0]]
-                tr = tr + data[i]
-                self._Database.append(tr)
+                if data[i]:
+                    tr = [str(ts[i])] + [x for x in data[i].split(self._sep)]
+                    self._Database.append(tr)
+                else:
+                    self._Database.append([str(ts[i])])
 
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
@@ -597,3 +596,13 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
+
+    file = "idk.txt"
+    minSup = 0.01
+    maxPer = 0.01
+    obj = PFPGrowth(file, minSup, maxPer)
+    obj.mine()
+    obj.printResults()
+    for k,v in obj.getPatterns().items():
+        print(k, v)
