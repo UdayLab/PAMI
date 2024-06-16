@@ -1,0 +1,19 @@
+import pandas as pd
+from gen import generate_sequentional_dataset
+from PAMI.sequentialPattern.basic.SPAM import SPAM as alg
+import warnings
+
+warnings.filterwarnings("ignore")
+
+# Apriori algorithm from PAMI
+def test_pami(dataset, min_sup=0.2):
+    dataset = [",".join(i) for i in dataset]
+    with open("sample.csv", "w+") as f:
+        f.write("\n".join(dataset))
+    obj = alg(iFile="sample.csv", minSup=min_sup, sep=',')
+    obj.startMine()
+    res = obj.getPatternsAsDataFrame()
+    res["Patterns"] = res["Patterns"].apply(lambda x: x.split())
+    res["Support"] = res["Support"].apply(lambda x: x / len(dataset))
+    pami = res
+    return pami
