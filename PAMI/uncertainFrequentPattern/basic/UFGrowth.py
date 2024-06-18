@@ -1,34 +1,37 @@
 # UFGrowth is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database using PUF-Tree.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
 #
+#             from PAMI.uncertainFrequentPattern.basic import UFGrowth as alg
 #
-#     from PAMI.uncertainFrequentPattern.basic import UFGrowth as alg
+#             iFile = 'sampleDB.txt'
 #
-#     obj = alg.UFGrowth(iFile, minSup)
+#             minSup = 10  # can also be specified between 0 and 1
 #
-#     obj.startMine()
+#             obj = alg.UFGrowth(iFile, minSup)
 #
-#     frequentPatterns = obj.getPatterns()
+#             obj.mine()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             frequentPatterns = obj.getPatterns()
 #
-#     obj.save(oFile)
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             obj.save(oFile)
 #
-#     memUSS = obj.getMemoryUSS()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     print("Total Memory in USS:", memUSS)
+#             memUSS = obj.getMemoryUSS()
 #
-#     memRSS = obj.getMemoryRSS()
+#             print("Total Memory in USS:", memUSS)
 #
-#     print("Total Memory in RSS", memRSS)
+#             memRSS = obj.getMemoryRSS()
 #
-#     run = obj.getRuntime()
+#             print("Total Memory in RSS", memRSS)
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             run = obj.getRuntime()
+#
+#             print("Total ExecutionTime in seconds:", run)
+#
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -36,16 +39,18 @@ __copyright__ = """
      it under the terms of the GNU General Public License as published by
      the Free Software Foundation, either version 3 of the License, or
      (at your option) any later version.
+     
      This program is distributed in the hope that it will be useful,
      but WITHOUT ANY WARRANTY; without even the implied warranty of
      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
      GNU General Public License for more details.
+     
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-     Copyright (C)  2021 Rage Uday Kiran
 """
 
 from PAMI.uncertainFrequentPattern.basic import abstract as _ab
+import deprecated
 
 _minSup = str()
 _ab._sys.setrecursionlimit(20000)
@@ -55,11 +60,14 @@ _finalPatterns = {}
 class _Item:
     """
     A class used to represent the item with probability in transaction of dataset
+
     :Attributes:
+
         item : int or word
-            Represents the name of the item
+          Represents the name of the item
+
         probability : float
-            Represent the existential probability(likelihood presence) of an item
+          Represent the existential probability(likelihood presence) of an item
     """
 
     def __init__(self, item, probability):
@@ -71,15 +79,21 @@ class _Node(object):
 
     """
     A class used to represent the node of frequentPatternTree
+
     :Attributes:
+
         item : int
             storing item of a node
+
         probability : int
             To maintain the expected support of node
+
         parent : node
             To maintain the parent of every node
+
         children : list
             To maintain the children of node
+
     :Methods:
         addChild(itemName)
             storing the children to their respective parent nodes
@@ -104,13 +118,18 @@ class _Node(object):
 class _Tree(object):
     """
     A class used to represent the frequentPatternGrowth tree structure
+
     :Attributes:
+
         root : Node
             Represents the root node of the tree
+
         summaries : dictionary
             storing the nodes with same item name
+
         info : dictionary
             stores the support of items
+
     :Methods:
         addTransaction(transaction)
             creating transaction as a branch in frequentPatternTree
@@ -239,48 +258,65 @@ class _Tree(object):
 
 class UFGrowth(_ab._frequentPatterns):
     """
+    About this algorithm
+    ====================
+
     :Description: It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database using PUF-Tree.
 
-    :Reference:
-        Carson Kai-Sang Leung, Syed Khairuzzaman Tanbeer, "PUF-Tree: A Compact Tree Structure for Frequent Pattern Mining of Uncertain Data",
-        Pacific-Asia Conference on Knowledge Discovery and Data Mining(PAKDD 2013), https://link.springer.com/chapter/10.1007/978-3-642-37453-1_2
+    :Reference:  Carson Kai-Sang Leung, Syed Khairuzzaman Tanbeer, "PUF-Tree: A Compact Tree Structure for Frequent Pattern Mining of Uncertain Data",
+                 Pacific-Asia Conference on Knowledge Discovery and Data Mining(PAKDD 2013), https://link.springer.com/chapter/10.1007/978-3-642-37453-1_2
 
     :Attributes:
+
         iFile : file
             Name of the Input file or path of the input file
+
         oFile : file
             Name of the output file or path of the output file
+
         minSup : float or int or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
+
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
+
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
+
         startTime : float
             To record the start time of the mining process
+
         endTime : float
             To record the completion time of the mining process
+
         Database : list
             To store the transactions of a database in list
+
         mapSupport : Dictionary
             To maintain the information of item and their frequency
+
         lno : int
             To represent the total no of transaction
+
         tree : class
             To represents the Tree class
+
         itemSetCount : int
             To represents the total no of patterns
+
         finalPatterns : dict
             To store the complete patterns
 
     :Methods:
-        startMine()
+
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -307,24 +343,39 @@ class UFGrowth(_ab._frequentPatterns):
         startMine()
             Mining process will start from this function
 
-    **Methods to execute code on terminal**
-    ----------------------------------------
-            Format:
-                      >>>  python3 PUFGrowth.py <inputFile> <outputFile> <minSup>
-            Example:
-                      >>>  python3 PUFGrowth.py sampleTDB.txt patterns.txt 3
+    Execution methods
+    =================
 
-                      .. note:: minSup  will be considered in support count or frequency
 
-    **Importing this algorithm into a python program**
-    --------------------------------------------------------
+    **Terminal command**
+
+
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 PUFGrowth.py <inputFile> <outputFile> <minSup>
+
+      Example Usage:
+
+      (.venv) $ python3 PUFGrowth.py sampleDB.txt patterns.txt 10.0
+
+    .. note:: minSup can be specified  in support count or a value between 0 and 1.
+
+
+    **Calling from a python program**
+
     .. code-block:: python
 
             from PAMI.uncertainFrequentPattern.basic import UFGrowth as alg
 
+            iFile = 'sampleDB.txt'
+
+            minSup = 10  # can also be specified between 0 and 1
+
             obj = alg.UFGrowth(iFile, minSup)
 
-            obj.startMine()
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -346,10 +397,13 @@ class UFGrowth(_ab._frequentPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    **Credits:**
-    -----------------
+    Credits
+    =======
+
+
              The complete program was written by P.Likhitha under the supervision of Professor Rage Uday Kiran.
     """
+
     _startTime = float()
     _endTime = float()
     _minSup = str()
@@ -434,11 +488,11 @@ class UFGrowth(_ab._frequentPatterns):
 
     def _frequentOneItem(self):
         """
-        takes the self.Database and calculates the support of each item in the dataset and assign the ranks to the items by decreasing support and returns the frequent items list
+        Takes the self.Database and calculates the support of each item in the dataset and assign the ranks to the items by decreasing support and returns the frequent items list
+
         :param self.Database : it represents the one self.Database in database
         :type self.Database : list
         """
-
         mapSupport = {}
         for i in self._Database:
             for j in i:
@@ -534,6 +588,7 @@ class UFGrowth(_ab._frequentPatterns):
     def _convert(self, value):
         """
         To convert the type of user specified minSup value
+
         :param value: user specified minSup value
         :return: converted type minSup value
         """
@@ -547,6 +602,15 @@ class UFGrowth(_ab._frequentPatterns):
             else:
                 value = int(value)
         return value
+
+    @deprecated(
+        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    def startMine(self):
+        """
+        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
+        """
+        self.mine()
+
 
     def mine(self):
         """
@@ -581,7 +645,9 @@ class UFGrowth(_ab._frequentPatterns):
 
     def getMemoryUSS(self):
         """
+
         Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -590,7 +656,9 @@ class UFGrowth(_ab._frequentPatterns):
 
     def getMemoryRSS(self):
         """
+
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -599,7 +667,9 @@ class UFGrowth(_ab._frequentPatterns):
 
     def getRuntime(self):
         """
+
         Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -608,7 +678,9 @@ class UFGrowth(_ab._frequentPatterns):
 
     def getPatternsAsDataFrame(self):
         """
+
         Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -622,7 +694,9 @@ class UFGrowth(_ab._frequentPatterns):
 
     def save(self, outFile):
         """
+
         Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
         :type outFile: csv file
         """
@@ -634,7 +708,9 @@ class UFGrowth(_ab._frequentPatterns):
 
     def getPatterns(self):
         """
+
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """
@@ -657,6 +733,7 @@ if __name__ == "__main__":
             _ap = UFGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
             _ap = UFGrowth(_ab._sys.argv[1], _ab._sys.argv[3])
+        _ap.startMine()
         _ap.mine()
         print("Total number of Uncertain Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])

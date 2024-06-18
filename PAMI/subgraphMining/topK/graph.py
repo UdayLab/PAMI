@@ -2,10 +2,21 @@ from .edge import Edge
 from .vertex import Vertex
 
 class Graph:
+    """
+    Represents a graph structure composed of vertices and edges.
+
+    Attributes:
+        EMPTY_VERTEX_LIST (list): An empty list used as a default value for vertex lists.
+        EMPTY_INTEGER_ARRAY (list): An empty list used as a default value for integer arrays.
+
+    """
     EMPTY_VERTEX_LIST = []
     EMPTY_INTEGER_ARRAY = []
 
     def __init__(self, id, vMap=None, dfsCode=None):
+        """
+        Initializes the Graph object with optional parameters.
+        """
         self.vMap = {}
         self.id = id
         if vMap is not None:
@@ -35,9 +46,15 @@ class Graph:
         self.precalculateLabelsToVertices()
 
     def getId(self):
+        """
+        Retrieves the ID of the graph.
+        """
         return self.id
 
     def removeInfrequentLabel(self, label):
+        """
+        Removes vertices with infrequent labels and their associated edges.
+        """
         toRemove = [key for key, vertex in self.vMap.items() if vertex.getLabel() == label]
         for key in toRemove:
             del self.vMap[key]
@@ -50,6 +67,9 @@ class Graph:
                 vertex.getEdgeList().remove(edge)
 
     def precalculateVertexNeighbors(self):
+        """
+        Precalculates and caches the neighbor vertices for each vertex.
+        """
         self.neighborCache = {}
         self.edgeCount = 0
 
@@ -68,11 +88,17 @@ class Graph:
         self.edgeCount //= 2    
     
     def precalculateVertexList(self):
+        """
+        Precalculates and caches the list of vertices.
+        """
         self.vertices = []
         for _, vertex in self.vMap.items():
             self.vertices.append(vertex)
 
     def precalculateLabelsToVertices(self):
+        """
+        Precalculates and caches a mapping of labels to vertex IDs.
+        """
         self.mapLabelToVertexIds = {}
         for vertex in self.vertices:
             label = vertex.getLabel()
@@ -81,12 +107,18 @@ class Graph:
                 self.mapLabelToVertexIds[label] = sameIds
 
     def findAllWithLabel(self, targetLabel):
+        """
+        Finds all vertices with a specified label.
+        """
         if targetLabel in self.mapLabelToVertexIds:
             return self.mapLabelToVertexIds[targetLabel]
         else:
             return []
         
     def getAllNeighbors(self, v):
+        """
+        Retrieves all neighbors of a vertex.
+        """
         try:
             neighbors = self.neighborCache[v]
         except KeyError:
@@ -94,9 +126,15 @@ class Graph:
         return neighbors
     
     def getVLabel(self, v):
+        """
+        Retrieves the label of a vertex.
+        """
         return self.vMap[v].getLabel()
     
     def getEdgeLabel(self, v1, v2):
+        """
+        Retrieves the label of an edge between two vertices.
+        """
         for e in self.vMap.get(v1).getEdgeList():
             if e.v1 == v1 and e.v2 == v2:
                 return e.getEdgeLabel()
@@ -106,6 +144,9 @@ class Graph:
     
 
     def getEdge(self, v1, v2):
+        """
+        Retrieves the edge between two vertices.
+        """
         for e in self.vMap.get(v1).getEdgeList():
             if e.v1 == v1 and e.v2 == v2:
                 return e
@@ -114,9 +155,18 @@ class Graph:
         return None
     
     def getNonPrecalculatedAllVertices(self):
+        """
+        Retrieves all vertices that have not been precalculated.
+
+        """
         return list(self.vMap.values())
     
     def isNeighboring(self, v1, v2):
+        """
+
+        Checks if two vertices are neighbors.
+
+        """
         neighborsOfV1 = self.neighborCache.get(v1, [])
         low = 0
         high = len(neighborsOfV1) - 1
@@ -133,7 +183,13 @@ class Graph:
         return False
 
     def getAllVertices(self):
+        """
+        Retrieves all vertices in the graph.
+        """
         return self.vertices
     
     def getEdgeCount(self):
+        """
+        Retrieves the total number of edges in the graph.
+        """
         return self.edgeCount
