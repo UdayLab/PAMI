@@ -96,12 +96,12 @@ In this latest version, the following updates have been made:
   - Optimized the following frequent pattern mining algorithms: **Apriori, Aprioribitset, ECLAT, ECLATbitset, FPGrowth, and CHARM**.
   - startMine() function has been deprecated to mine() function.
 
-Total number of algorithms: 83
+Total number of algorithms: 90
 
 ***
 # Features
 
-- ✅ Well-tested and production-ready
+- ✅ Tested to the best of our possibility
 - 🔋 Highly optimized to our best effort, light-weight, and energy-efficient
 - 👀 Proper code documentation
 - 🍼 Ample examples of using various algorithms at [./notebooks](https://github.com/UdayLab/PAMI/tree/main/notebooks) folder
