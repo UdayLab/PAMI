@@ -96,7 +96,7 @@ In this latest version, the following updates have been made:
   - Optimized the following frequent pattern mining algorithms: **Apriori, Aprioribitset, ECLAT, ECLATbitset, FPGrowth, and CHARM**.
   - startMine() function has been deprecated to mine() function.
 
-Total number of algorithms: 90
+Total number of algorithms: 89
 
 ***
 # Features
