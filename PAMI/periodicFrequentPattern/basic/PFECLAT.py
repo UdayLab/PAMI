@@ -421,11 +421,4 @@ if __name__ == "__main__":
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
-    file = "idk.txt"
-    minSup = 0.01
-    maxPer = 0.01
-    obj = PFECLAT(file, minSup, maxPer)
-    obj.mine()
-    obj.printResults()
-    # for k,v in obj.getPatterns().items():
-    #     print(k, v)
+    
