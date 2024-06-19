@@ -596,13 +596,3 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
-
-    file = "idk.txt"
-    minSup = 0.01
-    maxPer = 0.01
-    obj = PFPGrowth(file, minSup, maxPer)
-    obj.mine()
-    obj.printResults()
-    for k,v in obj.getPatterns().items():
-        print(k, v)
