@@ -602,9 +602,9 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 | Approaches                 |
 |----------------------------|
 | Subgraphs2FlatTransactions |
-|CSV2Parquet|
-|CSV2BitInteger|
-|CSV2Integer|
+| CSV2Parquet                |
+| CSV2BitInteger             |
+| CSV2Integer                |
 
 
 
