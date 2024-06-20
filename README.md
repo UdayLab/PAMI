@@ -563,6 +563,11 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
  | Gspan <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/subgraphMining/basic/gspan.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> | TKG <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/subgraphMining/topk/tkg.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
+#### 11.2. Graph transactional coverage pattern mining
+| Basic                                                                                                                                                                                                                                                       |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| GTCP<a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/graphTransactionalCoveragePatterns/basic/GTCP.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
+
 ## 12. Additional Features
 
 #### 12.1. Creation of synthetic databases
