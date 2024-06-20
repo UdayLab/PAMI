@@ -34,26 +34,9 @@
 import pandas as pd
 import numpy as np
 import math
-from PAMI.contigousFrequentPattern.basic import abstract as _ab
+from PAMI.contiguousFrequentPattern import abstract as _ab
 from deprecated import deprecated
 
-
-__copyright__ = """
-Copyright (C)  2021 Rage Uday Kiran
-
-     This program is free software: you can redistribute it and/or modify
-     it under the terms of the GNU General Public License as published by
-     the Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
-
-     This program is distributed in the hope that it will be useful,
-     but WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     GNU General Public License for more details.
-
-     You should have received a copy of the GNU General Public License
-     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-"""
 
 class Node:
     def __init__(self,symbol,leaf=False):
@@ -96,9 +79,10 @@ class PositionMining:
 
     """
 
-    def __init__(self,minsup,datapath):
+    def __init__(self,minsup,datapath,maxlength=20):
         self.min_sup=minsup
         self.datapath=datapath
+        self.maxlength=maxlength
     
 
     def readData(self):
@@ -110,6 +94,7 @@ class PositionMining:
         # for i in range(1,len(vals)):
         #     self.seq_prefixes[vals[i]]
         self.data=vals
+        # print(self.data)
 
     def getfreqs(self):
         """
@@ -272,7 +257,7 @@ class PositionMining:
         """
         Mining frequent patterns along with their positions from length 1 frequent candidates
         """
-        while self.current_candidate<5:
+        while self.current_candidate<self.maxlength-1:
             curr=self.table[self.current_candidate]
             self.join(curr,self.current_candidate)
             self.current_candidate+=1
@@ -291,7 +276,7 @@ class PositionMining:
         """
         # pass
         self._startTime = _ab._time.time()
-        self.table = {i: {} for i in range(1, 6)}
+        self.table = {i: {} for i in range(1, self.maxlength)}
         self.readData()
 
         self.getfreqs()
@@ -311,23 +296,3 @@ class PositionMining:
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-    
-
-# """Driver code"""
-
-# df=pd.read_csv("data/D1.csv")
-# data=df._values[:,1:]
-# c=0
-# for i in data:
-#     c+=len(i[1])
-
-# obj = PositionMining(minsup=400,data=data)
-# obj.mine()
-# interestingPatterns = obj.getPatterns()
-# print(interestingPatterns)
-# print("Total number of interesting patterns:", len(interestingPatterns))
-# obj.save("result.csv")
-
-
-# print()
-# print()

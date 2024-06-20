@@ -58,7 +58,7 @@ class GTCP:
         gsp_obj.mine()
         self.Sf=gsp_obj.getSubgraphGraphMapping()
         self.GetFIDBasedFlatTransactions()
-        # print("Subgraph mining completed")
+        print("Subgraph mining completed")
 
     def mine(self):
         """
@@ -237,3 +237,5 @@ class GTCP:
         :rtype: float
         """
         return self._endTime-self._startTime
+
+
