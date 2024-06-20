@@ -598,6 +598,16 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 | Temporal database <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/extras/stats/TemporalDatabase.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>           |
 | Utility database (coming soon)                                                                                                                                                                                                                                    |
 
+#### 12.4. Convertors
+| Approaches                 |
+|----------------------------|
+| Subgraphs2FlatTransactions |
+|CSV2Parquet|
+|CSV2BitInteger|
+|CSV2Integer|
+
+
+
 #### 12.4. Generating Latex code for the experimental results
 | Approaches               |
 |--------------------------|
