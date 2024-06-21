@@ -38,7 +38,7 @@ Copyright (C)  2021 Rage Uday Kiran
 import pandas as pd
 import numpy as np
 
-class csvParquet():
+class CSV2Parquet():
     """
 
     :Description:   csvParquet is a code used to convert temporal and utility types into sparse and dense format
@@ -67,7 +67,7 @@ class csvParquet():
         self._iFile = iFile
         self._sep = sep
 
-def csvParquet(csv_file: str, sep: str, inputType: str, outputType: str) -> None:
+def CSV2Parquet(csv_file: str, sep: str, inputType: str, outputType: str) -> None:
     inputTypes = ["temporal", "utility"]
     outputTypes = ["sparse", "dense"]
 

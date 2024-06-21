@@ -11,10 +11,11 @@
 #
 #   obj.saveFlatTransactions(oFile)
 
-class FlatTransactions:
+class Subgraphs2FlatTransactions:
 
     def __init__(self):
         self.flatTransactions = {}
+
     def getFlatTransactions(self, fidGidDictMap):
         """
         fidGidMap is a list of dictionaries with keys 'FID' and 'GIDs'

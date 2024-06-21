@@ -563,6 +563,11 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
  | Gspan <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/subgraphMining/basic/gspan.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> | TKG <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/subgraphMining/topk/tkg.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
+#### 11.2. Graph transactional coverage pattern mining
+| Basic                                                                                                                                                                                                                                                       |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| GTCP<a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/graphTransactionalCoveragePatterns/basic/GTCP.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
+
 ## 12. Additional Features
 
 #### 12.1. Creation of synthetic databases
@@ -592,6 +597,16 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 | Transactional database <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/extras/stats/TransactionalDatabase.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> |
 | Temporal database <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/extras/stats/TemporalDatabase.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>           |
 | Utility database (coming soon)                                                                                                                                                                                                                                    |
+
+#### 12.4. Convertors
+| Approaches                 |
+|----------------------------|
+| Subgraphs2FlatTransactions |
+| CSV2Parquet                |
+| CSV2BitInteger             |
+| CSV2Integer                |
+
+
 
 #### 12.4. Generating Latex code for the experimental results
 | Approaches               |
