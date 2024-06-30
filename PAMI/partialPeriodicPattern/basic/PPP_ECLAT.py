@@ -433,8 +433,8 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         dataframe = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a.replace('\t', ' '), b])
-            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'periodicSupport'])
+            data.append([a, b])
+        dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'periodicSupport'])
         return dataframe
 
     def save(self, outFile: str) -> None:
@@ -488,6 +488,7 @@ if __name__ == "__main__":
             _ap.startMine()
             print("Total number of Maximal Partial Periodic Patterns:", len(_ap.getPatterns()))
             _ap.save('/Users/tarunsreepada/Downloads/output.txt')
+            print(_ap.getPatternsAsDataFrame())
             print("Total Memory in USS:", _ap.getMemoryUSS())
             print("Total Memory in RSS", _ap.getMemoryRSS())
             print("Total ExecutionTime in ms:", _ap.getRuntime())
