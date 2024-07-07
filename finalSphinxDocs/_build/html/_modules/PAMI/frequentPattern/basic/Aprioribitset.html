@@ -273,6 +273,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mapSupport</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;its empty..&quot;</span><span class="p">)</span>
             <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -323,7 +324,7 @@
 
         <span class="k">return</span> <span class="n">packed_bits</span>
 
-<div class="viewcode-block" id="Aprioribitset.mine"><a class="viewcode-back" href="../../../../frequentPatternBasicAprioribitset.html#PAMI.frequentPattern.basic.Aprioribitset.Aprioribitset.mine">[docs]</a>    <span class="k">def</span> <span class="nf">mine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Aprioribitset.mine"><a class="viewcode-back" href="../../../../frequentPatternBasicAprioribitset.html#PAMI.frequentPattern.basic.Aprioribitset.Aprioribitset.mine">[docs]</a>    <span class="k">def</span> <span class="nf">mine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memorySaver</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Frequent pattern mining process will start from here</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -355,23 +356,44 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">break</span>
 
-        <span class="k">while</span> <span class="n">cands</span><span class="p">:</span>
-            <span class="n">newCands</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cands</span><span class="p">)):</span>
-                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cands</span><span class="p">)):</span>
-                    <span class="k">if</span> <span class="n">cands</span><span class="p">[</span><span class="n">i</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">cands</span><span class="p">[</span><span class="n">j</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-                        <span class="n">newCand</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">cands</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">cands</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]]))</span>
-                        <span class="n">intersection</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="nb">tuple</span><span class="p">([</span><span class="n">newCand</span><span class="p">[</span><span class="mi">0</span><span class="p">]])]</span>
-                        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">newCand</span><span class="p">)):</span>
-                            <span class="n">intersection</span> <span class="o">&amp;=</span> <span class="n">items</span><span class="p">[</span><span class="nb">tuple</span><span class="p">([</span><span class="n">newCand</span><span class="p">[</span><span class="n">k</span><span class="p">]])]</span>
-                        <span class="n">count</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">bit_count</span><span class="p">(</span><span class="n">intersection</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">:</span>
-                            <span class="n">newCands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newCand</span><span class="p">)</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">newCand</span><span class="p">]</span> <span class="o">=</span> <span class="n">count</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="k">break</span>
+        <span class="k">if</span> <span class="n">memorySaver</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">cands</span><span class="p">:</span>
+                <span class="n">newCands</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cands</span><span class="p">)):</span>
+                    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cands</span><span class="p">)):</span>
+                        <span class="k">if</span> <span class="n">cands</span><span class="p">[</span><span class="n">i</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">cands</span><span class="p">[</span><span class="n">j</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                            <span class="n">newCand</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">cands</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">cands</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]]))</span>
+                            <span class="n">intersection</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="nb">tuple</span><span class="p">([</span><span class="n">newCand</span><span class="p">[</span><span class="mi">0</span><span class="p">]])]</span>
+                            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">newCand</span><span class="p">)):</span>
+                                <span class="n">intersection</span> <span class="o">&amp;=</span> <span class="n">items</span><span class="p">[</span><span class="nb">tuple</span><span class="p">([</span><span class="n">newCand</span><span class="p">[</span><span class="n">k</span><span class="p">]])]</span>
+                            <span class="n">count</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">bit_count</span><span class="p">(</span><span class="n">intersection</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">:</span>
+                                <span class="n">newCands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newCand</span><span class="p">)</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">newCand</span><span class="p">]</span> <span class="o">=</span> <span class="n">count</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">break</span>
 
-            <span class="n">cands</span> <span class="o">=</span> <span class="n">newCands</span>
+                <span class="n">cands</span> <span class="o">=</span> <span class="n">newCands</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">cands</span><span class="p">:</span>
+                <span class="n">newCands</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cands</span><span class="p">)):</span>
+                    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cands</span><span class="p">)):</span>
+                        <span class="k">if</span> <span class="n">cands</span><span class="p">[</span><span class="n">i</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">cands</span><span class="p">[</span><span class="n">j</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                            <span class="n">newCand</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">cands</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">cands</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]]))</span>
+                            <span class="c1"># intersection = items[tuple([newCand[0]])]</span>
+                            <span class="c1"># for k in range(1, len(newCand)):</span>
+                            <span class="c1">#     intersection &amp;= items[tuple([newCand[k]])]</span>
+                            <span class="n">intersection</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="n">cands</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">&amp;</span> <span class="n">items</span><span class="p">[</span><span class="n">cands</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span>
+                            <span class="n">count</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">bit_count</span><span class="p">(</span><span class="n">intersection</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">:</span>
+                                <span class="n">newCands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newCand</span><span class="p">)</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">newCand</span><span class="p">]</span> <span class="o">=</span> <span class="n">count</span>
+                                <span class="n">items</span><span class="p">[</span><span class="n">newCand</span><span class="p">]</span> <span class="o">=</span> <span class="n">intersection</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">break</span>
+
+                <span class="n">cands</span> <span class="o">=</span> <span class="n">newCands</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="n">process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
@@ -489,6 +511,10 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error! The number of input parameters do not match the total number of parameters provided&quot;</span><span class="p">)</span>
 
+
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">Aprioribitset</span><span class="p">(</span><span class="s2">&quot;/Users/tarunsreepada/Downloads/Transactional_T10I4D100K.csv&quot;</span><span class="p">,</span> <span class="mi">75</span><span class="p">)</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">mine</span><span class="p">(</span><span class="n">memorySaver</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">printResults</span><span class="p">())</span>
 </pre></div>
 
            </div>

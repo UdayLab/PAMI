@@ -97,6 +97,16 @@
 <span></span><span class="kn">import</span> <span class="nn">threading</span>
 
 <div class="viewcode-block" id="DfsThread"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSThread.DfsThread">[docs]</a><span class="k">class</span> <span class="nc">DfsThread</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       A thread class for performing DFS-based subgraph mining on a set of candidates.</span>
+
+<span class="sd">       Args:</span>
+<span class="sd">           graphDb (GraphDatabase): The graph database containing the input graphs.</span>
+<span class="sd">           candidates (Queue): A queue containing candidate subgraphs to be mined.</span>
+<span class="sd">           minSup (int): The minimum support threshold for frequent subgraph mining.</span>
+<span class="sd">           tkgInstance (TKGInstance): An instance of the Top-K Graphs (TKG) algorithm for dynamic subgraph mining.</span>
+<span class="sd">       &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graphDb</span><span class="p">,</span> <span class="n">candidates</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">tkgInstance</span><span class="p">):</span>
         <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">graphDb</span> <span class="o">=</span> <span class="n">graphDb</span>
@@ -105,6 +115,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tkgInstance</span> <span class="o">=</span> <span class="n">tkgInstance</span>
 
 <div class="viewcode-block" id="DfsThread.run"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.DFSThread.DfsThread.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Runs the DFS-based subgraph mining process on the candidate subgraphs.</span>
+
+<span class="sd">            This method is invoked when the thread is started using the `start()` method.</span>
+
+<span class="sd">            Within the mining loop:</span>
+<span class="sd">            - Retrieves a candidate subgraph from the candidates queue.</span>
+<span class="sd">            - Checks if the candidate&#39;s support meets the minimum support threshold.</span>
+<span class="sd">            - If the support is sufficient, invokes the gspanDynamicDFS method of the TKGInstance</span>
+<span class="sd">              to perform dynamic DFS-based subgraph mining with the candidate&#39;s DFS code,</span>
+<span class="sd">              the graph database, and the set of graph IDs associated with the candidate.</span>
+
+<span class="sd">            This method continues to run until the candidates queue is empty or until a candidate</span>
+<span class="sd">            with insufficient support is encountered.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
         <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">candidates</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
             <span class="n">_</span><span class="p">,</span> <span class="n">candidate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">candidates</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidate</span><span class="o">.</span><span class="n">setOfGraphsIds</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">minSup</span><span class="p">:</span>
