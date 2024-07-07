@@ -96,21 +96,42 @@
   <h1>Source code for PAMI.subgraphMining.topK.edge</h1><div class="highlight"><pre>
 <div class="viewcode-block" id="Edge"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.edge.Edge">[docs]</a><span></span><span class="k">class</span> <span class="nc">Edge</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">,</span> <span class="n">edgeLabel</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Represents an edge in a graph with vertices v1 and v2 and a specified edge label.</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">        v1(int): The index of the first vertex.</span>
+<span class="sd">        v2(int): The index of the first vertex.</span>
+<span class="sd">        edgeLabel(str): The label of the edge.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">v1</span> <span class="o">=</span> <span class="n">v1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">v2</span> <span class="o">=</span> <span class="n">v2</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">edgeLabel</span> <span class="o">=</span> <span class="n">edgeLabel</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hashCode</span> <span class="o">=</span> <span class="p">(</span><span class="n">v1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">+</span> <span class="p">(</span><span class="n">v2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="n">edgeLabel</span>
 
 <div class="viewcode-block" id="Edge.another"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.edge.Edge.another">[docs]</a>    <span class="k">def</span> <span class="nf">another</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the other vertex of the edge given one vertex.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">v2</span> <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">v1</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">v1</span></div>
 
 <div class="viewcode-block" id="Edge.getEdgeLabel"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.edge.Edge.getEdgeLabel">[docs]</a>    <span class="k">def</span> <span class="nf">getEdgeLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the label of the edge.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">edgeLabel</span></div>
 
     <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        hashCode(int): A hash code generated based the vertices and edge label.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hashCode</span>
 
     <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if two edges are equal based on their vertices and edge labels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Edge</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hashCode</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">hashCode</span> <span class="ow">and</span>
@@ -119,6 +140,9 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">edgeLabel</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">edgeLabel</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a string representation of the Edge object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Edge(v1: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">v1</span><span class="si">}</span><span class="s2">, v2: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">v2</span><span class="si">}</span><span class="s2">, Label: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">edgeLabel</span><span class="si">}</span><span class="s2">)&quot;</span></div>
 </pre></div>
 

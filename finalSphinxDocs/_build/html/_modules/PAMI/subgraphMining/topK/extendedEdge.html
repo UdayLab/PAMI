@@ -96,6 +96,27 @@
   <h1>Source code for PAMI.subgraphMining.topK.extendedEdge</h1><div class="highlight"><pre>
 <div class="viewcode-block" id="ExtendedEdge"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge">[docs]</a><span></span><span class="k">class</span> <span class="nc">ExtendedEdge</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">,</span> <span class="n">vLabel1</span><span class="p">,</span> <span class="n">vLabel2</span><span class="p">,</span> <span class="n">edgeLabel</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Represents an extended edge in a graph with vertices v1 and v2, vertex labels vLabel1 and vLabel2,</span>
+<span class="sd">    and a specified edge label.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        v1 (int): The index of the first vertex.</span>
+<span class="sd">        v2 (int): The index of the second vertex.</span>
+<span class="sd">        vLabel1 (str): The label of the first vertex.</span>
+<span class="sd">        vLabel2 (str): The label of the second vertex.</span>
+<span class="sd">        edgeLabel (str): The label of the edge.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        v1 (int): The index of the first vertex.</span>
+<span class="sd">        v2 (int): The index of the second vertex.</span>
+<span class="sd">        vLabel1 (str): The label of the first vertex.</span>
+<span class="sd">        vLabel2 (str): The label of the second vertex.</span>
+<span class="sd">        edgeLabel (str): The label of the edge.</span>
+<span class="sd">        hashCode (int): A hash code generated based on the vertices, vertex labels, and edge label.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">v1</span> <span class="o">=</span> <span class="n">v1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">v2</span> <span class="o">=</span> <span class="n">v2</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vLabel1</span> <span class="o">=</span> <span class="n">vLabel1</span>
@@ -104,6 +125,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">hashCode</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">v1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">v2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">50</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">vLabel1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">30</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">vLabel2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">20</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">edgeLabel</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ExtendedEdge.smallerThan"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.smallerThan">[docs]</a>    <span class="k">def</span> <span class="nf">smallerThan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">that</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if this extended edge is smaller than another extended edge.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">that</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
 
@@ -120,6 +144,9 @@
             <span class="k">return</span> <span class="kc">False</span></div>
 
 <div class="viewcode-block" id="ExtendedEdge.smallerThanOriginal"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.smallerThanOriginal">[docs]</a>    <span class="k">def</span> <span class="nf">smallerThanOriginal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">that</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if this extended edge is smaller than another extended edge based on original conditions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">that</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
 
@@ -136,6 +163,9 @@
             <span class="k">return</span> <span class="kc">False</span></div>
 
 <div class="viewcode-block" id="ExtendedEdge.pairSmallerThan"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.pairSmallerThan">[docs]</a>    <span class="k">def</span> <span class="nf">pairSmallerThan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determines if one pair of vertices is smaller than another pair.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">xForward</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">&lt;</span> <span class="n">x2</span>
         <span class="n">yForward</span> <span class="o">=</span> <span class="n">y1</span> <span class="o">&lt;</span> <span class="n">y2</span>
 
@@ -149,9 +179,15 @@
             <span class="k">return</span> <span class="n">x1</span> <span class="o">&lt;</span> <span class="n">y2</span></div>
 
     <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates a hash code based on the vertices, vertex labels, and edge label.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hashCode</span>
 
     <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if two extended edges are equal based on their vertices, vertex labels, and edge label.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">ExtendedEdge</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v1</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">v1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">v2</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">v2</span> <span class="ow">and</span>
@@ -159,21 +195,39 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">edgeLabel</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">edgeLabel</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a string representation of the ExtendedEdge object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">v1</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">v2</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vLabel1</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vLabel2</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">edgeLabel</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
 
 <div class="viewcode-block" id="ExtendedEdge.getV1"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getV1">[docs]</a>    <span class="k">def</span> <span class="nf">getV1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the index of the first vertex.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">v1</span></div>
     
 <div class="viewcode-block" id="ExtendedEdge.getV2"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getV2">[docs]</a>    <span class="k">def</span> <span class="nf">getV2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the index of the second vertex.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">v2</span></div>
     
 <div class="viewcode-block" id="ExtendedEdge.getVLabel1"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getVLabel1">[docs]</a>    <span class="k">def</span> <span class="nf">getVLabel1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the label of the first vertex.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vLabel1</span></div>
     
 <div class="viewcode-block" id="ExtendedEdge.getVLabel2"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getVLabel2">[docs]</a>    <span class="k">def</span> <span class="nf">getVLabel2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the label of the second vertex.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vLabel2</span></div>
     
 <div class="viewcode-block" id="ExtendedEdge.getEdgeLabel"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getEdgeLabel">[docs]</a>    <span class="k">def</span> <span class="nf">getEdgeLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the label of the edge.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">edgeLabel</span></div></div>
 </pre></div>
 
