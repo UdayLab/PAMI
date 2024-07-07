@@ -1,34 +1,40 @@
 # PPF_DFS is algorithm to mine the partial periodic frequent patterns.
 #
-#
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
 #
-#     from PAMI.partialPeriodicFrequentPattern.basic import PPF_DFS as alg
+#           from PAMI.partialPeriodicFrequentPattern.basic import PPF_DFS as alg
 #
-#     obj = alg.PPF_DFS(iFile, minSup)
+#           iFile = 'sampleTDB.txt'
 #
-#     obj.startMine()
+#           minSup = 0.25 # can be specified between 0 and 1
 #
-#     frequentPatterns = obj.getPatterns()
+#           maxPer = 300 # can  be specified between 0 and 1
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#           minPR = 0.7 # can  be specified between 0 and 1
 #
-#     obj.save(oFile)
+#           obj = alg.PPF_DFS(iFile, minSup, maxPer, minPR, sep)
 #
-#     Df = obj.getPatternInDataFrame()
+#           obj.mine()
 #
-#     memUSS = obj.getMemoryUSS()
+#           frequentPatterns = obj.getPatterns()
 #
-#     print("Total Memory in USS:", memUSS)
+#           print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     memRSS = obj.getMemoryRSS()
+#           obj.save(oFile)
 #
-#     print("Total Memory in RSS", memRSS)
+#           Df = obj.getPatternInDataFrame()
 #
-#     run = obj.getRuntime()
+#           memUSS = obj.getMemoryUSS()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#           print("Total Memory in USS:", memUSS)
+#
+#           memRSS = obj.getMemoryRSS()
+#
+#           print("Total Memory in RSS", memRSS)
+#
+#           run = obj.getRuntime()
+#
+#           print("Total ExecutionTime in seconds:", run)
 #
 
 
@@ -59,105 +65,79 @@ import pandas as pd
 
 class PPF_DFS(partialPeriodicPatterns):
     """
-    :Description:   PPF_DFS is algorithm to mine the partial periodic frequent patterns.
+    **About this algorithm**
 
-    :References:    (Has to be added)
+    :**Description**:   PPF_DFS is algorithm to mine the partial periodic frequent patterns.
 
-    :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
-    :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
-    :param  minSup: str:
-                   The user can specify minSup either in count or proportion of database size.
-    :param  minPR: str:
-                   Controls the maximum number of transactions in which any two items within a pattern can reappear.
-    :param  maxPer: str:
-                   Controls the maximum number of transactions in which any two items within a pattern can reappear.
+    :**References**:    (Has to be added)
 
-    :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :**parameters**:    - **iFile** (*str*) -- *Name of the Input file to mine complete set of correlated patterns.*
+                        - **oFile** (*str*) -- *Name of the output file to store complete set of correlated patterns.*
+                        - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.*
+                        - **minPR** (*str*) -- *Controls the maximum number of transactions in which any two items within a pattern can reappear.*
+                        - **maxPer** (*str*) -- *Controls the maximum number of transactions in which any two items within a pattern can reappear.*
+                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
 
-    :Attributes:
+    :**Attributes**:    - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
+                        - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
+                        - **startTime** (*float*) -- *To record the start time of the mining process.*
+                        - **endTime** (*float*) -- *To record the completion time of the mining process.*
+                        - **minSup** (*int*) -- *The user given minSup.*
+                        - **maxPer** (*int*) -- *The user given maxPer.*
+                        - **minPR** (*int*) -- *The user given minPR.*
+                        - **finalPatterns** (*dict*) -- *It represents to store the pattern.*
 
-        iFile : file
-            input file path
-        oFile : file
-            output file name
-        minSup : float
-            user defined minSup
-        maxPer : float
-            user defined maxPer
-        minPR : float
-            user defined minPR
-        tidlist : dict
-            it stores tids each item
-        last : int
-            it represents last time stamp in database
-        lno : int
-            number of line in database
-        mapSupport : dict
-            to maintain the information of item and their frequency
-        finalPatterns : dict
-            it represents to store the patterns
-        runTime : float
-            storing the total runtime of the mining process
-        memoryUSS : float
-            storing the total amount of USS memory consumed by the program
-        memoryRSS : float
-            storing the total amount of RSS memory consumed by the program
+    :**Methods**:       - **mine()** -- *Mining process will start from here.*
+                        - **Generation(prefix, itemsets, tidsets)** -- *Used to implement prefix class equibalence method to generate the periodic patterns recursively.*
+                        - **getPartialPeriodicPatterns()** -- *Complete set of patterns will be retrieved with this function.*
+                        - **storePatternsInFile(ouputFile)** -- *Complete set of frequent patterns will be loaded in to an output file.*
+                        - **getPatternsAsDataFrame()** -- *Complete set of frequent patterns will be loaded in to an output file.*
+                        - **getMemoryUSS()** -- *Total amount of USS memory consumed by the mining process will be retrieved from this function.*
+                        - **getMemoryRSS()** -- *Total amount of RSS memory consumed by the mining process will be retrieved from this function.*
+                        - **getRuntime()** -- *Total amount of runtime taken by the mining process will be retrieved from this function.*
 
-    :Methods:
 
-        getPer_Sup(tids)
-            caluclate ip / (sup+1)
-        getPerSup(tids)
-            caluclate ip
-        oneItems(path)
-            scan all lines in database
-        save(prefix,suffix,tidsetx)
-            save prefix pattern with support and periodic ratio
-        Generation(prefix, itemsets, tidsets)
-            Userd to implement prefix class equibalence method to generate the periodic patterns recursively
-        startMine()
-            Mining process will start from here
-        getPartialPeriodicPatterns()
-            Complete set of patterns will be retrieved with this function
-        save(ouputFile)
-            Complete set of frequent patterns will be loaded in to an ouput file
-        getPatternsAsDataFrame()
-            Complete set of frequent patterns will be loaded in to an ouput file
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
+    **Execution methods**
 
-    **Executing code on Terminal:**
-    ----------------------------------
-        Format:
-            >>> python3 PPF_DFS.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
+    **Terminal command**
 
-        Examples:
-            >>> python3 PPF_DFS.py sampleDB.txt patterns.txt 10 10 0.5
+    .. code-block:: console
 
-    **Sample run of the importing code:**
-    ---------------------------------------
-    ...     code-block:: python
+      Format:
 
-            from PAMI.partialPeriodicFrequentpattern.basic import PPF_DFS as alg
+      (.venv) $ python3 PPF_DFS.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
 
-            obj = alg.PPF_DFS(iFile, minSup)
+      Example Usage:
 
-            obj.startMine()
+      (.venv) $ python3 PPF_DFS.py sampleTDB.txt output.txt 0.25 300 0.7
 
-            frequentPatterns = obj.getPatterns()
+    .. note:: minSup can be specified in support count or a value between 0 and 1.
 
-            print("Total number of Frequent Patterns:", len(frequentPatterns))
+    **Calling from a python program**
+
+    .. code-block:: python
+
+            from PAMI.partialPeriodicFrequentPattern.basic import PPF_DFS as alg
+
+            iFile = 'sampleTDB.txt'
+
+            minSup = 0.25 # can be specified between 0 and 1
+
+            maxPer = 300 # can  be specified between 0 and 1
+
+            minPR = 0.7 # can  be specified between 0 and 1
+
+            obj = alg.PPF_DFS(inputFile, minSup, maxPer, minPR, sep)
+
+            obj.mine()
+
+            partialPeriodicFrequentPatterns = obj.getPatterns()
+
+            print("Total number of partial periodic Patterns:", len(partialPeriodicFrequentPatterns))
 
             obj.save(oFile)
 
-            Df = obj.getPatternInDataFrame()
+            Df = obj.getPatternInDf()
 
             memUSS = obj.getMemoryUSS()
 
@@ -171,9 +151,9 @@ class PPF_DFS(partialPeriodicPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    **Credits:**
-    -------------
-        The complete program was written by S. Nakamura  under the supervision of Professor Rage Uday Kiran.\n
+    **Credits**
+
+    The complete program was written by Nakamura and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -199,7 +179,6 @@ class PPF_DFS(partialPeriodicPatterns):
 
     def _creatingItemSets(self) -> None:
         """
-
         Storing the complete transactions of the database/input file in a database variable
 
         :return: None
@@ -297,6 +276,13 @@ class PPF_DFS(partialPeriodicPatterns):
         self.mine()
 
     def _getPerSup(self, arr):
+        """
+        This function takes the arr as input and returns locs as output
+
+        :param arr: an array contains the items.
+        :type arr: array
+        :return: locs
+        """
         arr = list(arr)
         arr.append(self._maxTS)
         arr.append(0)
@@ -308,6 +294,18 @@ class PPF_DFS(partialPeriodicPatterns):
         return locs
     
     def __recursive(self, cands, items):
+        """
+        This method processes candidate patterns, generates new candidates by intersecting
+        itemsets, and filters them based on minimum support and periodic support ratio.
+        If new candidates are found, the method recursively calls itself.
+
+        :param cands: List of current candidate patterns.
+        :type cands: List of tuple
+        :param items: Dictionary where keys are candidate patterns and values are sets of transaction indices in which the pattern occurs.
+        :type items: dict
+        :return: None
+        """
+
         for i in range(len(cands)):
             newCands = []
             nitems = {}
@@ -384,7 +382,9 @@ class PPF_DFS(partialPeriodicPatterns):
         self._partialPeriodicPatterns__memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -392,7 +392,9 @@ class PPF_DFS(partialPeriodicPatterns):
         return self._partialPeriodicPatterns__memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -400,7 +402,9 @@ class PPF_DFS(partialPeriodicPatterns):
         return self._partialPeriodicPatterns__memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -410,6 +414,7 @@ class PPF_DFS(partialPeriodicPatterns):
     def getPatternsAsDataFrame(self):
         """
         Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -425,6 +430,7 @@ class PPF_DFS(partialPeriodicPatterns):
     def save(self, outFile):
         """
         Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
         :type outFile: csv file
         """
@@ -435,7 +441,9 @@ class PPF_DFS(partialPeriodicPatterns):
                 f.write(x + ":" + str(y[0]) + ":" + str(y[1]) + "\n")
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """

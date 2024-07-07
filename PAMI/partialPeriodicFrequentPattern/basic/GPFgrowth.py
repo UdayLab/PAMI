@@ -142,7 +142,7 @@ class GPFgrowth(partialPeriodicPatterns):
                         - **minPR** (*int*) -- *The user given minPR.*
                         - **finalPatterns** (*dict*) -- *It represents to store the pattern.*
 
-    :Methods:           - **mine()** -- *Mining process will start from here.*
+    :**Methods**:           - **mine()** -- *Mining process will start from here.*
                         - **getPatterns()** -- *Complete set of patterns will be retrieved with this function.*
                         - **storePatternsInFile(ouputFile)** -- *Complete set of frequent patterns will be loaded in to an output file.*
                         - **getPatternsAsDataFrame()** -- *Complete set of frequent patterns will be loaded in to an output file.*
