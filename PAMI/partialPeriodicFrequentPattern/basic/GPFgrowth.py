@@ -2,33 +2,40 @@
 #
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
 #
-#     from PAMI.partialPeriodicFrequentPattern.basic import GPFgrowth as alg
+#           from PAMI.partialPeriodicFrequentPattern.basic import GPFgrowth as alg
 #
-#     obj = alg.GPFgrowth(inputFile, outputFile, minSup, maxPer, minPR)
+#           iFile = 'sampleTDB.txt'
 #
-#     obj.startMine()
+#           minSup = 0.25 # can be specified between 0 and 1
 #
-#     partialPeriodicFrequentPatterns = obj.getPatterns()
+#           maxPer = 300 # can  be specified between 0 and 1
 #
-#     print("Total number of partial periodic Patterns:", len(partialPeriodicFrequentPatterns))
+#           minPR = 0.7 # can  be specified between 0 and 1
 #
-#     obj.save(oFile)
+#           obj = alg.GPFgrowth(inputFile, minSup, maxPer, minPR, sep)
 #
-#     Df = obj.getPatternInDf()
+#           obj.mine()
 #
-#     memUSS = obj.getMemoryUSS()
+#           partialPeriodicFrequentPatterns = obj.getPatterns()
 #
-#     print("Total Memory in USS:", memUSS)
+#           print("Total number of partial periodic Patterns:", len(partialPeriodicFrequentPatterns))
 #
-#     memRSS = obj.getMemoryRSS()
+#           obj.save(oFile)
 #
-#     print("Total Memory in RSS", memRSS)
+#           Df = obj.getPatternInDf()
 #
-#     run = obj.getRuntime()
+#           memUSS = obj.getMemoryUSS()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#           print("Total Memory in USS:", memUSS)
+#
+#           memRSS = obj.getMemoryRSS()
+#
+#           print("Total Memory in RSS", memRSS)
+#
+#           run = obj.getRuntime()
+#
+#           print("Total ExecutionTime in seconds:", run)
 #
 
 __copyright__ = """
@@ -51,7 +58,6 @@ __copyright__ = """
 """
 
 import deprecated
-import numpy as np
 from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
 
 orderOfItem = {}
@@ -113,78 +119,71 @@ class _Node(object):
 
 class GPFgrowth(partialPeriodicPatterns):
     """
-    :Description:   GPFgrowth is algorithm to mine the partial periodic frequent pattern in temporal database.
+    **About this algorithm**
+
+    :**Description**: GPFgrowth is algorithm to mine the partial periodic frequent pattern in temporal database.
     
-    :Reference:   R. Uday Kiran, J.N. Venkatesh, Masashi Toyoda, Masaru Kitsuregawa, P. Krishna Reddy, Discovering partial periodic-frequent patterns in a transactional database,
+    :**Reference**: R. Uday Kiran, J.N. Venkatesh, Masashi Toyoda, Masaru Kitsuregawa, P. Krishna Reddy, Discovering partial periodic-frequent patterns in a transactional database,
                   Journal of Systems and Software, Volume 125, 2017, Pages 170-182, ISSN 0164-1212, https://doi.org/10.1016/j.jss.2016.11.035.
 
-    :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
-    :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
-    :param  minSup: str:
-                   The user can specify minSup either in count or proportion of database size.
-    :param  minPR: str:
-                   Controls the maximum number of transactions in which any two items within a pattern can reappear.
-    :param  maxPer: str:
-                   Controls the maximum number of transactions in which any two items within a pattern can reappear.
+    :**parameters**:    - **iFile** (*str*) -- *Name of the Input file to mine complete set of correlated patterns.*
+                        - **oFile** (*str*) -- *Name of the output file to store complete set of correlated patterns.*
+                        - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.*
+                        - **minPR** (*str*) -- *Controls the maximum number of transactions in which any two items within a pattern can reappear.*
+                        - **maxPer** (*str*) -- *Controls the maximum number of transactions in which any two items within a pattern can reappear.*
+                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
 
-    :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :**Attributes**:    - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
+                        - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
+                        - **startTime** (*float*) -- *To record the start time of the mining process.*
+                        - **endTime** (*float*) -- *To record the completion time of the mining process.*
+                        - **minSup** (*int*) -- *The user given minSup.*
+                        - **maxPer** (*int*) -- *The user given maxPer.*
+                        - **minPR** (*int*) -- *The user given minPR.*
+                        - **finalPatterns** (*dict*) -- *It represents to store the pattern.*
 
-    :Attributes:
+    :**Methods**:           - **mine()** -- *Mining process will start from here.*
+                        - **getPatterns()** -- *Complete set of patterns will be retrieved with this function.*
+                        - **storePatternsInFile(ouputFile)** -- *Complete set of frequent patterns will be loaded in to an output file.*
+                        - **getPatternsAsDataFrame()** -- *Complete set of frequent patterns will be loaded in to an output file.*
+                        - **getMemoryUSS()** -- *Total amount of USS memory consumed by the mining process will be retrieved from this function.*
+                        - **getMemoryRSS()** -- *Total amount of RSS memory consumed by the mining process will be retrieved from this function.*
+                        - **getRuntime()** -- *Total amount of runtime taken by the mining process will be retrieved from this function.*
 
-        inputFile : file
-            Name of the input file to mine complete set of frequent pattern
-        minSup : float
-            The user defined minSup
-        maxPer : float
-            The user defined maxPer
-        minPR : float
-            The user defined minPR
-        finalPatterns : dict
-            it represents to store the pattern
-        runTime : float
-            storing the total runtime of the mining process
-        memoryUSS : float
-            storing the total amount of USS memory consumed by the program
-        memoryRSS : float
-            storing the total amount of RSS memory consumed by the program
+    **Execution methods**
 
-    :Methods:
+    **Terminal command**
 
-        startMine()
-            Mining process will start from here
-        getPatterns()
-            Complete set of patterns will be retrieved with this function
-        storePatternsInFile(ouputFile)
-            Complete set of frequent patterns will be loaded in to an output file
-        getPatternsAsDataFrame()
-            Complete set of frequent patterns will be loaded in to an output file
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
+    .. code-block:: console
 
-    **Executing code on Terminal:**
-    ----------------------------------
-            Format:
-                    >>> python3 GPFgrowth.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
+      Format:
 
-            Examples:
-                    >>> python3 GPFgrowth.py sampleDB.txt patterns.txt 10 10 0.5
+      (.venv) $ python3 GPFgrowth.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
 
-    **Sample run of the importing code:**
-    --------------------------------------
-    ...     code-block:: python
+      Example Usage:
+
+      (.venv) $ python3 GPFgrowth.py sampleTDB.txt output.txt 0.25 300 0.7
+
+    .. note:: minSup can be specified in support count or a value between 0 and 1.
+
+
+    **Calling from a python program**
+
+    .. code-block:: python
 
             from PAMI.partialPeriodicFrequentPattern.basic import GPFgrowth as alg
 
-            obj = alg.GPFgrowth(inputFile, outputFile, minSup, maxPer, minPR)
+            iFile = 'sampleTDB.txt'
 
-            obj.startMine()
+            minSup = 0.25 # can be specified between 0 and 1
+
+            maxPer = 300 # can  be specified between 0 and 1
+
+            minPR = 0.7 # can  be specified between 0 and 1
+
+            obj = alg.GPFgrowth(inputFile, minSup, maxPer, minPR, sep)
+
+            obj.mine()
 
             partialPeriodicFrequentPatterns = obj.getPatterns()
 
@@ -206,9 +205,9 @@ class GPFgrowth(partialPeriodicPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    **Credits:**
-    --------------
-            The complete program was written by Nakamura  under the supervision of Professor Rage Uday Kiran.
+    **Credits**
+
+    The complete program was written by Nakamura and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
     """
     _partialPeriodicPatterns__iFile = ' '
@@ -227,7 +226,7 @@ class GPFgrowth(partialPeriodicPatterns):
 
     def __convert(self, value):
         """
-        to convert the type of user specified minSup value
+        To convert the type of user specified minSup value
 
         :param value: user specified minSup value
         :return: converted type
@@ -283,16 +282,30 @@ class GPFgrowth(partialPeriodicPatterns):
                 except IOError:
                     print("File Not Found")
                     quit()
-    
+
     def startMine(self):
         self.mine()
 
     def _ratioCalc(self, v):
+        """
+        This function take input v as input and returns the ratio.
+
+        :param v: here v is an item.
+        :type v: int or float.
+        :return: int or float.
+        """
         ratio = self._getPerSup(v) / (len(v) + 1)
 
         return ratio
     
     def _getPerSup(self, arr):
+        """
+        This function takes the arr as input and returns locs as output
+
+        :param arr: an array contains the items.
+        :type arr: array
+        :return: locs
+        """
         arr = list(arr)
         arr.append(self._maxTS)
         arr.append(0)
@@ -360,8 +373,7 @@ class GPFgrowth(partialPeriodicPatterns):
 
         :param root: The current root node of the pattern tree.
         :type root: _Node
-        :param itemNode: A dictionary where keys are items and values are sets of nodes
-                         associated with those items.
+        :param itemNode: A dictionary where keys are items and values are sets of nodes associated with those items.
         :type itemNode: dict
         :param minSup: The minimum support threshold.
         :type minSup: int
@@ -470,7 +482,9 @@ class GPFgrowth(partialPeriodicPatterns):
 
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -478,7 +492,9 @@ class GPFgrowth(partialPeriodicPatterns):
         return self._partialPeriodicPatterns__memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -486,7 +502,9 @@ class GPFgrowth(partialPeriodicPatterns):
         return self._partialPeriodicPatterns__memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -494,7 +512,9 @@ class GPFgrowth(partialPeriodicPatterns):
         return self.__runTime
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
         :type outFile: csv file
         """
@@ -530,11 +550,17 @@ class GPFgrowth(partialPeriodicPatterns):
         return dataFrame
     
     def getPatterns(self):
+        """
+        This function returns the final partial Periodic Patterns.
+
+        :return: dictionary
+        """
         return self._partialPeriodicPatterns__finalPatterns
 
 
     def printResults(self):
-        """ this function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Partial Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
