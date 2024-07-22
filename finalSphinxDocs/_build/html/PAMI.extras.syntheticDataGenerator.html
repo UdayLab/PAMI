@@ -679,17 +679,164 @@ db: pd.dataFrame - transactional database</p>
 <span id="pami-extras-syntheticdatagenerator-generatetemporal-module"></span><h2>PAMI.extras.syntheticDataGenerator.generateTemporal module<a class="headerlink" href="#module-PAMI.extras.syntheticDataGenerator.generateTemporal" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.syntheticDataGenerator.generateTemporal.</span></span><span class="sig-name descname"><span class="pre">generateTemporal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transactionSize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numOfItems</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avgTransactionLength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTemporal.html#generateTemporal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.syntheticDataGenerator.generateTemporal.</span></span><span class="sig-name descname"><span class="pre">generateTemporal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numOfTransactions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avgLenOfTransactions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numItems</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typeOfFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Database'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTemporal.html#generateTemporal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>generateTemporalDatabase creates a temporal database and outputs a database or a frame depending on input</p>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">param numOfTransactions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int
+number of transactions</p>
+</dd>
+<dt class="field-even">param avgLenOfTransactions<span class="colon">:</span></dt>
+<dd class="field-even"><p>int
+average length of transactions</p>
+</dd>
+<dt class="field-odd">param numItems<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int
+number of items</p>
+</dd>
+<dt class="field-even">param outputFile<span class="colon">:</span></dt>
+<dd class="field-even"><p>str
+output file name</p>
+</dd>
+<dt class="field-odd">param percentage<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int
+percentage of coinToss for TID of temporalDatabase</p>
+</dd>
+<dt class="field-even">param sep<span class="colon">:</span></dt>
+<dd class="field-even"><p>str
+seperator for database output file</p>
+</dd>
+<dt class="field-odd">param typeOfFile<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str
+specify database or dataframe to get corresponding output</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>getFileName():</dt><dd><p>returns filename</p>
+</dd>
+<dt>createTemporalFile():</dt><dd><p>creates temporal database file or dataframe</p>
+</dd>
+<dt>getDatabaseAsDataFrame:</dt><dd><p>returns dataframe</p>
+</dd>
+<dt>performCoinFlip():</dt><dd><p>Perform a coin flip with the given probability</p>
+</dd>
+<dt>tuning():</dt><dd><p>Tune the arrayLength to match avgLenOfTransactions</p>
+</dd>
+<dt>createTemporalFile():</dt><dd><p>create Temporal database or dataframe depending on input</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.generateDatabase</span> <span class="kn">import</span> <span class="n">generateTemporalDatabase</span> <span class="k">as</span> <span class="n">db</span>
+
+<span class="n">numOfTransactions</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">numItems</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">avgTransactionLength</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">outFileName</span> <span class="o">=</span> <span class="s1">&#39;temporal_ot.txt&#39;</span>
+<span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;     &#39;</span>
+<span class="n">percent</span> <span class="o">=</span> <span class="mi">75</span>
+<span class="n">frameOrBase</span> <span class="o">=</span> <span class="s2">&quot;dataframe&quot;</span> <span class="c1"># if you want to get dataframe as output</span>
+<span class="n">frameOrBase</span> <span class="o">=</span> <span class="s2">&quot;database&quot;</span> <span class="c1"># if you want to get database/csv/file as output</span>
+
+<span class="n">temporalDB</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">generateTemporalDatabase</span><span class="p">(</span><span class="n">numOfTransactions</span><span class="p">,</span> <span class="n">avgTransactionLength</span><span class="p">,</span> <span class="n">numItems</span><span class="p">,</span> <span class="n">outFileName</span><span class="p">,</span> <span class="n">percent</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span> <span class="n">frameOrBase</span> <span class="p">)</span>
+<span class="n">temporalDB</span><span class="o">.</span><span class="n">createTemporalFile</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">temporalDB</span><span class="o">.</span><span class="n">getDatabaseAsDataFrame</span><span class="p">())</span>
+</pre></div>
+</div>
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal.generate">
-<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTemporal.html#generateTemporal.generate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal.generate" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal.createTemporalFile">
+<span class="sig-name descname"><span class="pre">createTemporalFile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTemporal.html#generateTemporal.createTemporalFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal.createTemporalFile" title="Permalink to this definition"></a></dt>
+<dd><p>create Temporal database or dataframe depending on input
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal.generateArray">
+<span class="sig-name descname"><span class="pre">generateArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nums</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxItems</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sumRes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTemporal.html#generateTemporal.generateArray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal.generateArray" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a random array of length n whose values average to m</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nums</strong> (<em>list</em>) – number of values</p></li>
+<li><p><strong>avg</strong> (<em>float</em>) – average value</p></li>
+<li><p><strong>maxItems</strong> (<em>int</em>) – maximum value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>random array</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal.getFileName">
+<span class="sig-name descname"><span class="pre">getFileName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTemporal.html#generateTemporal.getFileName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal.getFileName" title="Permalink to this definition"></a></dt>
+<dd><p>return filename
+:return: filename
+:rtype: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal.getTransactions">
+<span class="sig-name descname"><span class="pre">getTransactions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTemporal.html#generateTemporal.getTransactions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal.getTransactions" title="Permalink to this definition"></a></dt>
+<dd><p>return dataframe
+:return: dataframe
+:rtype: pd.DataFrame</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal.performCoinFlip">
+<span class="sig-name descname"><span class="pre">performCoinFlip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">probability</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTemporal.html#generateTemporal.performCoinFlip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal.performCoinFlip" title="Permalink to this definition"></a></dt>
+<dd><p>Perform a coin flip with the given probability.
+:param probability: probability to perform coin flip
+:type probability: float
+:return: True if coin flip is performed, False otherwise
+:rtype: bool</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTemporal.html#generateTemporal.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal.save" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTemporal.html#generateTemporal.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal.save" title="Permalink to this definition"></a></dt>
+<dd><p>Save the transactional database to a file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – name of the file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal.tuning">
+<span class="sig-name descname"><span class="pre">tuning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sumRes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTemporal.html#generateTemporal.tuning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTemporal.generateTemporal.tuning" title="Permalink to this definition"></a></dt>
+<dd><p>Tune the array so that the sum of the values is equal to sumRes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<em>list</em>) – list of values</p></li>
+<li><p><strong>sumRes</strong> (<em>int</em>) – the sum of the values in the array to be tuned</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of values with the tuned values and the sum of the values in the array to be tuned and sumRes is equal to sumRes</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -698,17 +845,114 @@ db: pd.dataFrame - transactional database</p>
 <span id="pami-extras-syntheticdatagenerator-generatetransactional-module"></span><h2>PAMI.extras.syntheticDataGenerator.generateTransactional module<a class="headerlink" href="#module-PAMI.extras.syntheticDataGenerator.generateTransactional" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.extras.syntheticDataGenerator.generateTransactional.generateTransactional">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.syntheticDataGenerator.generateTransactional.</span></span><span class="sig-name descname"><span class="pre">generateTransactional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transactionSize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numOfItems</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avgTransactionLength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTransactional.html#generateTransactional"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTransactional.generateTransactional" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.syntheticDataGenerator.generateTransactional.</span></span><span class="sig-name descname"><span class="pre">generateTransactional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numLines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avgItemsPerLine</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numItems</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTransactional.html#generateTransactional"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTransactional.generateTransactional" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>:Description Generate a transactional database with the given number of lines, average number of items per line, and total number of items</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<dl class="simple">
+<dt>numLines: int</dt><dd><ul class="simple">
+<li><p>number of lines</p></li>
+</ul>
+</dd>
+<dt>avgItemsPerLine: int</dt><dd><ul class="simple">
+<li><p>average number of items per line</p></li>
+</ul>
+</dd>
+<dt>numItems: int</dt><dd><ul class="simple">
+<li><p>total number of items</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>create:</dt><dd><p>Generate the transactional database</p>
+</dd>
+<dt>save:</dt><dd><p>Save the transactional database to a file</p>
+</dd>
+<dt>getTransactions:</dt><dd><p>Get the transactional database</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.syntheticDataGenerator.generateTransactional.generateTransactional.generate">
-<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTransactional.html#generateTransactional.generate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTransactional.generateTransactional.generate" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="PAMI.extras.syntheticDataGenerator.generateTransactional.generateTransactional.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTransactional.html#generateTransactional.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTransactional.generateTransactional.create" title="Permalink to this definition"></a></dt>
+<dd><p>Generate the transactional database
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.syntheticDataGenerator.generateTransactional.generateTransactional.generateArray">
+<span class="sig-name descname"><span class="pre">generateArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nums</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxItems</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTransactional.html#generateTransactional.generateArray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTransactional.generateTransactional.generateArray" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a random array of length n whose values average to m</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nums</strong> (<em>list</em>) – number of values</p></li>
+<li><p><strong>avg</strong> (<em>float</em>) – average value</p></li>
+<li><p><strong>maxItems</strong> (<em>int</em>) – maximum value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>random array</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.syntheticDataGenerator.generateTransactional.generateTransactional.getTransactions">
+<span class="sig-name descname"><span class="pre">getTransactions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTransactional.html#generateTransactional.getTransactions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTransactional.generateTransactional.getTransactions" title="Permalink to this definition"></a></dt>
+<dd><p>Get the transactional database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the transactional database</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.syntheticDataGenerator.generateTransactional.generateTransactional.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTransactional.html#generateTransactional.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTransactional.generateTransactional.save" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTransactional.html#generateTransactional.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTransactional.generateTransactional.save" title="Permalink to this definition"></a></dt>
+<dd><p>Save the transactional database to a file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – name of the file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.syntheticDataGenerator.generateTransactional.generateTransactional.tuning">
+<span class="sig-name descname"><span class="pre">tuning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sumRes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/PAMI/extras/syntheticDataGenerator/generateTransactional.html#generateTransactional.tuning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.syntheticDataGenerator.generateTransactional.generateTransactional.tuning" title="Permalink to this definition"></a></dt>
+<dd><p>Tune the array so that the sum of the values is equal to sumRes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<em>list</em>) – list of values</p></li>
+<li><p><strong>sumRes</strong> (<em>int</em>) – the sum of the values in the array to be tuned</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of values with the tuned values and the sum of the values in the array to be tuned and sumRes is equal to sumRes</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -789,11 +1033,11 @@ db: pd.dataFrame - transactional database</p>
 </dd></dl>
 
 </section>
-<section id="module-PAMI.extras.syntheticDataGenerator.georeferencedTemporalDatabase">
-<span id="pami-extras-syntheticdatagenerator-georeferencedtemporaldatabase-module"></span><h2>PAMI.extras.syntheticDataGenerator.georeferencedTemporalDatabase module<a class="headerlink" href="#module-PAMI.extras.syntheticDataGenerator.georeferencedTemporalDatabase" title="Permalink to this heading"></a></h2>
+<section id="pami-extras-syntheticdatagenerator-georeferencedtemporaldatabase-module">
+<h2>PAMI.extras.syntheticDataGenerator.georeferencedTemporalDatabase module<a class="headerlink" href="#pami-extras-syntheticdatagenerator-georeferencedtemporaldatabase-module" title="Permalink to this heading"></a></h2>
 </section>
-<section id="module-PAMI.extras.syntheticDataGenerator.georeferencedTransactionalDatabase">
-<span id="pami-extras-syntheticdatagenerator-georeferencedtransactionaldatabase-module"></span><h2>PAMI.extras.syntheticDataGenerator.georeferencedTransactionalDatabase module<a class="headerlink" href="#module-PAMI.extras.syntheticDataGenerator.georeferencedTransactionalDatabase" title="Permalink to this heading"></a></h2>
+<section id="pami-extras-syntheticdatagenerator-georeferencedtransactionaldatabase-module">
+<h2>PAMI.extras.syntheticDataGenerator.georeferencedTransactionalDatabase module<a class="headerlink" href="#pami-extras-syntheticdatagenerator-georeferencedtransactionaldatabase-module" title="Permalink to this heading"></a></h2>
 </section>
 <section id="module-PAMI.extras.syntheticDataGenerator.syntheticUtilityDatabase">
 <span id="pami-extras-syntheticdatagenerator-syntheticutilitydatabase-module"></span><h2>PAMI.extras.syntheticDataGenerator.syntheticUtilityDatabase module<a class="headerlink" href="#module-PAMI.extras.syntheticDataGenerator.syntheticUtilityDatabase" title="Permalink to this heading"></a></h2>

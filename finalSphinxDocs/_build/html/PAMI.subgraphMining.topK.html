@@ -108,57 +108,160 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.DFSCode.DfsCode.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ee</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/DFSCode.html#DfsCode.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.DFSCode.DfsCode.add" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Adds an extended edge to the DFSCode object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ee</strong> (<a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge" title="PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge"><em>ExtendedEdge</em></a>) – The extended edge to add.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.DFSCode.DfsCode.containEdge">
 <span class="sig-name descname"><span class="pre">containEdge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/DFSCode.html#DfsCode.containEdge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.DFSCode.DfsCode.containEdge" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Checks if an edge between vertices v1 and v2 is present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v1</strong> (<em>int</em>) – The first vertex of the edge.</p></li>
+<li><p><strong>v2</strong> (<em>int</em>) – The second vertex of the edge.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the edge is present, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.DFSCode.DfsCode.copy">
 <span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/DFSCode.html#DfsCode.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.DFSCode.DfsCode.copy" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Creates a deep copy of the DFSCode object.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.DFSCode.DfsCode.getAllVLabels">
 <span class="sig-name descname"><span class="pre">getAllVLabels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/DFSCode.html#DfsCode.getAllVLabels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.DFSCode.DfsCode.getAllVLabels" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves all vertex labels from the extended edge list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of vertex labels.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.DFSCode.DfsCode.getAt">
 <span class="sig-name descname"><span class="pre">getAt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/DFSCode.html#DfsCode.getAt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.DFSCode.DfsCode.getAt" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the extended edge at the specified index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>) – The index of the extended edge to retrieve.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The extended edge at the specified index.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge" title="PAMI.subgraphMining.basic.extendedEdge.ExtendedEdge">ExtendedEdge</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.DFSCode.DfsCode.getEeList">
 <span class="sig-name descname"><span class="pre">getEeList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/DFSCode.html#DfsCode.getEeList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.DFSCode.DfsCode.getEeList" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the extended edge list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of ExtendedEdge objects.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.DFSCode.DfsCode.getRightMost">
 <span class="sig-name descname"><span class="pre">getRightMost</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/DFSCode.html#DfsCode.getRightMost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.DFSCode.DfsCode.getRightMost" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the rightmost vertex.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The index of the rightmost vertex.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.DFSCode.DfsCode.getRightMostPath">
 <span class="sig-name descname"><span class="pre">getRightMostPath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/DFSCode.html#DfsCode.getRightMostPath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.DFSCode.DfsCode.getRightMostPath" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the rightmost path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list containing the vertices on the rightmost path.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.DFSCode.DfsCode.isEmpty">
 <span class="sig-name descname"><span class="pre">isEmpty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/DFSCode.html#DfsCode.isEmpty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.DFSCode.DfsCode.isEmpty" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Checks if the DFSCode object is empty.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the DFSCode object is empty, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.DFSCode.DfsCode.notPreOfRm">
 <span class="sig-name descname"><span class="pre">notPreOfRm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/DFSCode.html#DfsCode.notPreOfRm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.DFSCode.DfsCode.notPreOfRm" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Checks if a given vertex is not the second-to-last element on the rightmost path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>v</strong> (<em>int</em>) – The vertex to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the vertex is not the second-to-last element on the rightmost path, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.DFSCode.DfsCode.onRightMostPath">
 <span class="sig-name descname"><span class="pre">onRightMostPath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/DFSCode.html#DfsCode.onRightMostPath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.DFSCode.DfsCode.onRightMostPath" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Checks if a vertex is present on the rightmost path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>v</strong> (<em>int</em>) – The vertex to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the vertex is present on the rightmost path, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -169,14 +272,32 @@
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.DFSThread.DfsThread">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.subgraphMining.topK.DFSThread.</span></span><span class="sig-name descname"><span class="pre">DfsThread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graphDb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candidates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tkgInstance</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/DFSThread.html#DfsThread"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.DFSThread.DfsThread" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Thread</span></code></p>
+<p>A thread class for performing DFS-based subgraph mining on a set of candidates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graphDb</strong> (<em>GraphDatabase</em>) – The graph database containing the input graphs.</p></li>
+<li><p><strong>candidates</strong> (<em>Queue</em>) – A queue containing candidate subgraphs to be mined.</p></li>
+<li><p><strong>minSup</strong> (<em>int</em>) – The minimum support threshold for frequent subgraph mining.</p></li>
+<li><p><strong>tkgInstance</strong> (<em>TKGInstance</em>) – An instance of the Top-K Graphs (TKG) algorithm for dynamic subgraph mining.</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.DFSThread.DfsThread.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/DFSThread.html#DfsThread.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.DFSThread.DfsThread.run" title="Permalink to this definition"></a></dt>
-<dd><p>Method representing the thread’s activity.</p>
-<p>You may override this method in a subclass. The standard run() method
-invokes the callable object passed to the object’s constructor as the
-target argument, if any, with sequential and keyword arguments taken
-from the args and kwargs arguments, respectively.</p>
+<dd><p>Runs the DFS-based subgraph mining process on the candidate subgraphs.</p>
+<p>This method is invoked when the thread is started using the <cite>start()</cite> method.</p>
+<p>Within the mining loop:
+- Retrieves a candidate subgraph from the candidates queue.
+- Checks if the candidate’s support meets the minimum support threshold.
+- If the support is sufficient, invokes the gspanDynamicDFS method of the TKGInstance</p>
+<blockquote>
+<div><p>to perform dynamic DFS-based subgraph mining with the candidate’s DFS code,
+the graph database, and the set of graph IDs associated with the candidate.</p>
+</div></blockquote>
+<p>This method continues to run until the candidates queue is empty or until a candidate
+with insufficient support is encountered.</p>
 </dd></dl>
 
 </dd></dl>
@@ -194,12 +315,14 @@ from the args and kwargs arguments, respectively.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.edge.Edge.another">
 <span class="sig-name descname"><span class="pre">another</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/edge.html#Edge.another"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.edge.Edge.another" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Returns the other vertex of the edge given one vertex.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.edge.Edge.getEdgeLabel">
 <span class="sig-name descname"><span class="pre">getEdgeLabel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/edge.html#Edge.getEdgeLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.edge.Edge.getEdgeLabel" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the label of the edge.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -213,42 +336,50 @@ from the args and kwargs arguments, respectively.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getEdgeLabel">
 <span class="sig-name descname"><span class="pre">getEdgeLabel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/extendedEdge.html#ExtendedEdge.getEdgeLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getEdgeLabel" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the label of the edge.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getV1">
 <span class="sig-name descname"><span class="pre">getV1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/extendedEdge.html#ExtendedEdge.getV1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getV1" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the index of the first vertex.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getV2">
 <span class="sig-name descname"><span class="pre">getV2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/extendedEdge.html#ExtendedEdge.getV2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getV2" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the index of the second vertex.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getVLabel1">
 <span class="sig-name descname"><span class="pre">getVLabel1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/extendedEdge.html#ExtendedEdge.getVLabel1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getVLabel1" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the label of the first vertex.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getVLabel2">
 <span class="sig-name descname"><span class="pre">getVLabel2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/extendedEdge.html#ExtendedEdge.getVLabel2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.getVLabel2" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the label of the second vertex.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.pairSmallerThan">
 <span class="sig-name descname"><span class="pre">pairSmallerThan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/extendedEdge.html#ExtendedEdge.pairSmallerThan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.pairSmallerThan" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Determines if one pair of vertices is smaller than another pair.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.smallerThan">
 <span class="sig-name descname"><span class="pre">smallerThan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">that</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/extendedEdge.html#ExtendedEdge.smallerThan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.smallerThan" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Checks if this extended edge is smaller than another extended edge.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.smallerThanOriginal">
 <span class="sig-name descname"><span class="pre">smallerThanOriginal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">that</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/extendedEdge.html#ExtendedEdge.smallerThanOriginal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.extendedEdge.ExtendedEdge.smallerThanOriginal" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Checks if this extended edge is smaller than another extended edge based on original conditions.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -268,85 +399,122 @@ from the args and kwargs arguments, respectively.</p>
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.graph.Graph">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.subgraphMining.topK.graph.</span></span><span class="sig-name descname"><span class="pre">Graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vMap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dfsCode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/graph.html#Graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.graph.Graph" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a graph structure composed of vertices and edges.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.topK.graph.Graph.EMPTY_VERTEX_LIST">
+<span class="sig-name descname"><span class="pre">EMPTY_VERTEX_LIST</span></span><a class="headerlink" href="#PAMI.subgraphMining.topK.graph.Graph.EMPTY_VERTEX_LIST" title="Permalink to this definition"></a></dt>
+<dd><p>An empty list used as a default value for vertex lists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.graph.Graph.EMPTY_INTEGER_ARRAY">
-<span class="sig-name descname"><span class="pre">EMPTY_INTEGER_ARRAY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#PAMI.subgraphMining.topK.graph.Graph.EMPTY_INTEGER_ARRAY" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">EMPTY_INTEGER_ARRAY</span></span><a class="headerlink" href="#PAMI.subgraphMining.topK.graph.Graph.EMPTY_INTEGER_ARRAY" title="Permalink to this definition"></a></dt>
+<dd><p>An empty list used as a default value for integer arrays.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">EMPTY_INTEGER_ARRAY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#id0" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="PAMI.subgraphMining.topK.graph.Graph.EMPTY_VERTEX_LIST">
-<span class="sig-name descname"><span class="pre">EMPTY_VERTEX_LIST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#PAMI.subgraphMining.topK.graph.Graph.EMPTY_VERTEX_LIST" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">EMPTY_VERTEX_LIST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#id1" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.graph.Graph.findAllWithLabel">
 <span class="sig-name descname"><span class="pre">findAllWithLabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">targetLabel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/graph.html#Graph.findAllWithLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.graph.Graph.findAllWithLabel" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Finds all vertices with a specified label.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.graph.Graph.getAllNeighbors">
 <span class="sig-name descname"><span class="pre">getAllNeighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/graph.html#Graph.getAllNeighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.graph.Graph.getAllNeighbors" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves all neighbors of a vertex.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.graph.Graph.getAllVertices">
 <span class="sig-name descname"><span class="pre">getAllVertices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/graph.html#Graph.getAllVertices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.graph.Graph.getAllVertices" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves all vertices in the graph.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.graph.Graph.getEdge">
 <span class="sig-name descname"><span class="pre">getEdge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/graph.html#Graph.getEdge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.graph.Graph.getEdge" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the edge between two vertices.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.graph.Graph.getEdgeCount">
 <span class="sig-name descname"><span class="pre">getEdgeCount</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/graph.html#Graph.getEdgeCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.graph.Graph.getEdgeCount" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the total number of edges in the graph.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.graph.Graph.getEdgeLabel">
 <span class="sig-name descname"><span class="pre">getEdgeLabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/graph.html#Graph.getEdgeLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.graph.Graph.getEdgeLabel" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the label of an edge between two vertices.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.graph.Graph.getId">
 <span class="sig-name descname"><span class="pre">getId</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/graph.html#Graph.getId"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.graph.Graph.getId" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the ID of the graph.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.graph.Graph.getNonPrecalculatedAllVertices">
 <span class="sig-name descname"><span class="pre">getNonPrecalculatedAllVertices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/graph.html#Graph.getNonPrecalculatedAllVertices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.graph.Graph.getNonPrecalculatedAllVertices" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves all vertices that have not been precalculated.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.graph.Graph.getVLabel">
 <span class="sig-name descname"><span class="pre">getVLabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/graph.html#Graph.getVLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.graph.Graph.getVLabel" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the label of a vertex.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.graph.Graph.isNeighboring">
 <span class="sig-name descname"><span class="pre">isNeighboring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/graph.html#Graph.isNeighboring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.graph.Graph.isNeighboring" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Checks if two vertices are neighbors.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.graph.Graph.precalculateLabelsToVertices">
 <span class="sig-name descname"><span class="pre">precalculateLabelsToVertices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/graph.html#Graph.precalculateLabelsToVertices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.graph.Graph.precalculateLabelsToVertices" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Precalculates and caches a mapping of labels to vertex IDs.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.graph.Graph.precalculateVertexList">
 <span class="sig-name descname"><span class="pre">precalculateVertexList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/graph.html#Graph.precalculateVertexList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.graph.Graph.precalculateVertexList" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Precalculates and caches the list of vertices.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.graph.Graph.precalculateVertexNeighbors">
 <span class="sig-name descname"><span class="pre">precalculateVertexNeighbors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/graph.html#Graph.precalculateVertexNeighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.graph.Graph.precalculateVertexNeighbors" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Precalculates and caches the neighbor vertices for each vertex.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.graph.Graph.removeInfrequentLabel">
 <span class="sig-name descname"><span class="pre">removeInfrequentLabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/graph.html#Graph.removeInfrequentLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.graph.Graph.removeInfrequentLabel" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Removes vertices with infrequent labels and their associated edges.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -357,25 +525,41 @@ from the args and kwargs arguments, respectively.</p>
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.sparseTriangularMatrix.SparseTriangularMatrix">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.subgraphMining.topK.sparseTriangularMatrix.</span></span><span class="sig-name descname"><span class="pre">SparseTriangularMatrix</span></span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/sparseTriangularMatrix.html#SparseTriangularMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.sparseTriangularMatrix.SparseTriangularMatrix" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a sparse triangular matrix structure for storing counts or support values.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.topK.sparseTriangularMatrix.SparseTriangularMatrix.matrix">
+<span class="sig-name descname"><span class="pre">matrix</span></span><a class="headerlink" href="#PAMI.subgraphMining.topK.sparseTriangularMatrix.SparseTriangularMatrix.matrix" title="Permalink to this definition"></a></dt>
+<dd><p>A dictionary representing the sparse matrix structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.sparseTriangularMatrix.SparseTriangularMatrix.getSupportForItems">
 <span class="sig-name descname"><span class="pre">getSupportForItems</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/sparseTriangularMatrix.html#SparseTriangularMatrix.getSupportForItems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.sparseTriangularMatrix.SparseTriangularMatrix.getSupportForItems" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the support value for items at positions (i, j) in the matrix.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.sparseTriangularMatrix.SparseTriangularMatrix.incrementCount">
 <span class="sig-name descname"><span class="pre">incrementCount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/sparseTriangularMatrix.html#SparseTriangularMatrix.incrementCount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.sparseTriangularMatrix.SparseTriangularMatrix.incrementCount" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Increments the count or support value at the position (i, j) in the matrix.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.sparseTriangularMatrix.SparseTriangularMatrix.removeInfrequentEntriesFromMatrix">
 <span class="sig-name descname"><span class="pre">removeInfrequentEntriesFromMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">minsup</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/sparseTriangularMatrix.html#SparseTriangularMatrix.removeInfrequentEntriesFromMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.sparseTriangularMatrix.SparseTriangularMatrix.removeInfrequentEntriesFromMatrix" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Removes entries from the matrix with support values below a specified minimum support threshold.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.sparseTriangularMatrix.SparseTriangularMatrix.setSupport">
 <span class="sig-name descname"><span class="pre">setSupport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">support</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/sparseTriangularMatrix.html#SparseTriangularMatrix.setSupport"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.sparseTriangularMatrix.SparseTriangularMatrix.setSupport" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Sets the support value for items at positions (i, j) in the matrix.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -565,30 +749,64 @@ from the file.</p>
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.vertex.Vertex">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.subgraphMining.topK.vertex.</span></span><span class="sig-name descname"><span class="pre">Vertex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vLabel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/vertex.html#Vertex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.vertex.Vertex" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a vertex in a graph.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.topK.vertex.Vertex.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#PAMI.subgraphMining.topK.vertex.Vertex.id" title="Permalink to this definition"></a></dt>
+<dd><p>The identifier of the vertex.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.topK.vertex.Vertex.vLabel">
+<span class="sig-name descname"><span class="pre">vLabel</span></span><a class="headerlink" href="#PAMI.subgraphMining.topK.vertex.Vertex.vLabel" title="Permalink to this definition"></a></dt>
+<dd><p>The label associated with the vertex.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="PAMI.subgraphMining.topK.vertex.Vertex.eList">
+<span class="sig-name descname"><span class="pre">eList</span></span><a class="headerlink" href="#PAMI.subgraphMining.topK.vertex.Vertex.eList" title="Permalink to this definition"></a></dt>
+<dd><p>A list of edges connected to the vertex.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.vertex.Vertex.addEdge">
 <span class="sig-name descname"><span class="pre">addEdge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/vertex.html#Vertex.addEdge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.vertex.Vertex.addEdge" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Adds an edge to the vertex’s edge list.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.vertex.Vertex.getEdgeList">
 <span class="sig-name descname"><span class="pre">getEdgeList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/vertex.html#Vertex.getEdgeList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.vertex.Vertex.getEdgeList" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the list of edges connected to the vertex.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.vertex.Vertex.getId">
 <span class="sig-name descname"><span class="pre">getId</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/vertex.html#Vertex.getId"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.vertex.Vertex.getId" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the identifier of the vertex.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.vertex.Vertex.getLabel">
 <span class="sig-name descname"><span class="pre">getLabel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/vertex.html#Vertex.getLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.vertex.Vertex.getLabel" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the label of the vertex.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.subgraphMining.topK.vertex.Vertex.removeEdge">
 <span class="sig-name descname"><span class="pre">removeEdge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edgeToRemove</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/subgraphMining/topK/vertex.html#Vertex.removeEdge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.subgraphMining.topK.vertex.Vertex.removeEdge" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Removes a specified edge from the vertex’s edge list.</p>
+</dd></dl>
 
 </dd></dl>
 
