@@ -1,3 +1,30 @@
+# TemporalDatabase is a collection of timestamps and along with data at particular time.
+#
+#  **Importing this algorithm into a python program**
+#
+#             from PAMI.extras.syntheticDataGenerator import TemporalDatabase as db
+#
+#             temporalDB = db.TemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName, percentage, sep, occurrenceProbabilityAtSameTimestamp, occurrenceProbabilityToSkipSubsequentTimestamp)
+#
+#             temporalDB.create()
+#
+#
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 import pandas as pd
 import numpy as np
 import sys
@@ -12,25 +39,24 @@ class TemporalDatabase:
 
     **Importing this algorithm into a Python program**
 
-    ```python
-    from PAMI.extras.syntheticDataGenerator import TemporalDatabase as db
 
-    temporalDB = db(numOfTransactions, avgTransactionLength, numItems, outFileName)
-    temporalDB.create(percentage)
-    ```
+        from PAMI.extras.syntheticDataGenerator import TemporalDatabase as db
+
+        temporalDB = db.TemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName, percentage, sep, occurrenceProbabilityAtSameTimestamp, occurrenceProbabilityToSkipSubsequentTimestamp)
+
+        temporalDB.create()
+
 
     **Methods to execute code on terminal**
-    ---------------------------------------
 
     Format:
-    ```
-    (.venv) $ python3 TemporalDatabase.py <numOfTransactions> <avgLenOfTransactions> <numItems> <outputFile> <percentage> <sep> <typeOfFile> <occurrenceProbabilityAtSameTimestamp> <occurrenceProbabilityToSkipSubsequentTimestamp>
-    ```
+
+        (.venv) $ python3 TemporalDatabase.py <numOfTransactions> <avgLenOfTransactions> <numItems> <outputFile> <percentage> <sep> <typeOfFile> <occurrenceProbabilityAtSameTimestamp> <occurrenceProbabilityToSkipSubsequentTimestamp>
+
 
     Example Usage:
-    ```
-    (.venv) $ python3 TemporalDatabase.py 50 10 100 temporal.txt 50 \t database 0.1 0.1
-    ```
+
+        (.venv) $ python3 TemporalDatabase.py 50 10 100 temporal.txt 50 \t database 0.1 0.1
 
     :param numOfTransactions: int
         Number of transactions to generate.
