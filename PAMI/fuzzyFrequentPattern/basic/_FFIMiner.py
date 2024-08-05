@@ -31,7 +31,6 @@
 #
 
 
-import line_profiler
 
 
 __copyright__ = """
@@ -465,7 +464,6 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
 
-    # @profile
     def _FFIMining(self, prefix, prefixLen, FSFIM, minSup):
         """
         Generates ffi from prefix
@@ -520,7 +518,6 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         """
         return self._endTime - self._startTime
 
-    # @profile
     def _construct(self, px, py) -> _FFList:
         """
         A function to construct a new Fuzzy itemSet from 2 fuzzy itemSets
@@ -541,7 +538,6 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
             pxyUL.addElement(eXY)
         return pxyUL
 
-    # @profile
     def _findElementWithTID(self, uList, tid) -> _Element:
         """
         To find element with same tid as given
@@ -652,7 +648,7 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
-        _ap = FFIMiner('/Users/tarunsreepada/Downloads/Fuzzy_T10I4D100K.csv', 600, '\t')
+        _ap = FFIMiner('/Users/tarunsreepada/Downloads/Fuzzy_T10I4D100K.csv', 400, '\t')
         # _ap.startMine()
         _ap.mine()
         print("Total number of Fuzzy-Frequent Patterns:", len(_ap.getPatterns()))
@@ -661,6 +657,6 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
         print("Error! The number of input parameters do not match the total number of parameters provided")
-        # for k,v in _ap.getPatterns().items():
-        #     print(k,v)
+        for k,v in _ap.getPatterns().items():
+            print(k,v)
 

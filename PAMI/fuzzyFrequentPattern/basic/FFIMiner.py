@@ -54,7 +54,7 @@ from PAMI.fuzzyFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 from deprecated import deprecated
 
-class FFIMinerMinus(_ab._fuzzyFrequentPattenrs):
+class FFIMiner(_ab._fuzzyFrequentPattenrs):
     """
     :Description:   Fuzzy Frequent  Pattern-Miner is desired to find all  frequent fuzzy patterns which is on-trivial and challenging problem
                     to its huge search space.we are using efficient pruning techniques to reduce the search space.
@@ -429,9 +429,9 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
-            _ap = FFIMinerMinus(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = FFIMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
-            _ap = FFIMinerMinus(_ab._sys.argv[1], _ab._sys.argv[3])
+            _ap = FFIMiner(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
         _ap.mine()
         print("Total number of Fuzzy-Frequent Patterns:", len(_ap.getPatterns()))
@@ -440,7 +440,7 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
-        _ap = FFIMinerMinus('/Users/tarunsreepada/Downloads/Fuzzy_T10I4D100K.csv', 500, '\t')
+        _ap = FFIMiner('/Users/tarunsreepada/Downloads/Fuzzy_T10I4D100K.csv', 400, '\t')
         # _ap.startMine()
         _ap.mine()
         print("Total number of Fuzzy-Frequent Patterns:", len(_ap.getPatterns()))

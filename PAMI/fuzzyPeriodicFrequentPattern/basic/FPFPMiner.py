@@ -694,10 +694,11 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
-        _ap = FPFPMiner('/Users/tarunsreepada/Downloads/temporal_Fuzzy_T10I4D100K.csv', 500, 1000, '\t')
+        _ap = FPFPMiner('sample.txt', 1, 10, ' ')
+        _ap.startMine()
         _ap.mine()
         print("Total number of Fuzzy Periodic-Frequent Patterns:", len(_ap.getPatterns()))
-        # _ap.save('output.txt')
+        _ap.save('output.txt')
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
