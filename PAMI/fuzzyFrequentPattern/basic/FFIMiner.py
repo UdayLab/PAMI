@@ -1,13 +1,14 @@
-# Fuzzy Frequent  Pattern-Miner is desired to find all  frequent fuzzy patterns which is on-trivial and challenging problem
-#
-# to its huge search space.we are using efficient pruning techniques to reduce the search space.
+# Fuzzy Frequent  Pattern-Miner is desired to find all  frequent fuzzy patterns which is on-trivial and challenging problem to its huge search space.we are using efficient pruning techniques to reduce the search space.
 #
 # **Importing this algorithm into a python program**
-# ---------------------------------------------------------
 #
 #             from PAMI.fuzzyFrequentPattern import FFIMiner as alg
 #
-#             obj = alg.FFIMiner("input.txt", 2)
+#             iFile = 'sampleTDB.txt'
+#
+#             minSup = 0.25 # can be specified between 0 and 1
+#
+#             obj = alg.FFIMiner(iFile, minSup, sep)
 #
 #             obj.mine()
 #
@@ -56,119 +57,73 @@ from deprecated import deprecated
 
 class FFIMiner(_ab._fuzzyFrequentPattenrs):
     """
-    :Description:   Fuzzy Frequent  Pattern-Miner is desired to find all  frequent fuzzy patterns which is on-trivial and challenging problem
-                    to its huge search space.we are using efficient pruning techniques to reduce the search space.
+    **About this algorithm**
 
-    :Reference:   Lin, Chun-Wei & Li, Ting & Fournier Viger, Philippe & Hong, Tzung-Pei. (2015).
-                  A fast Algorithm for mining fuzzy frequent itemsets. Journal of Intelligent & Fuzzy Systems. 29.
-                  2373-2379. 10.3233/IFS-151936.
-                  https://www.researchgate.net/publication/286510908_A_fast_Algorithm_for_mining_fuzzy_frequent_itemSets
+    :**Description**:   Fuzzy Frequent  Pattern-Miner is desired to find all  frequent fuzzy patterns which is on-trivial and challenging problem
+                        to its huge search space.we are using efficient pruning techniques to reduce the search space.
 
-    :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent patterns
-    :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
-    :param  minSup: int or float or str :
-                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
-    :param maxPer: float :
-                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
-    :param fuzFile: str :
-                    The user can specify fuzFile.
-    :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :**Reference**:   Lin, Chun-Wei & Li, Ting & Fournier Viger, Philippe & Hong, Tzung-Pei. (2015).
+                      A fast Algorithm for mining fuzzy frequent itemsets. Journal of Intelligent & Fuzzy Systems. 29.
+                      2373-2379. 10.3233/IFS-151936.
+                      https://www.researchgate.net/publication/286510908_A_fast_Algorithm_for_mining_fuzzy_frequent_itemSets
 
+    :**parameters**:    - **iFile** (*str*) -- *Name of the Input file to mine complete set of correlated patterns*
+                        - **oFile** (*str*) -- *Name of the output file to store complete set of correlated patterns*
+                        - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.*
+                        - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
 
-    :Attributes:
+    :**Attributes**:   - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
+                        - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
+                        - **startTime** (*float*) -- *To record the start time of the mining process.*
+                        - **endTime** (*float*) -- *To record the completion time of the mining process.*
+                        - **itemsCnt** (*int*) -- *To record the number of fuzzy spatial itemSets generated.*
+                        - **mapItemSum** (*int*) -- *To keep track of sum of Fuzzy Values of items.*
+                        - **joinsCnt** (*int*) -- * To keep track of the number of ffi-list that was constructed.*
+                        - **BufferSize** (*int*) -- *Represent the size of Buffer.*
+                        - **itemSetBuffer** (*list*) -- *To keep track of items in buffer.*
 
-        iFile : string
-            Name of the input file to mine complete set of fuzzy  frequent patterns
+    :**Methods**:    - **mine()** -- *Mining process will start from here.*
+                     - **getPatterns()** -- *Complete set of patterns will be retrieved with this function.*
+                     - **save(oFile)** -- *Complete set of frequent patterns will be loaded in to a output file.*
+                     - **getPatternsAsDataFrame()** -- *Complete set of frequent patterns will be loaded in to a dataframe.*
+                     - **getMemoryUSS()** -- *Total amount of USS memory consumed by the mining process will be retrieved from this function.*
+                     - **getMemoryRSS()** -- *Total amount of RSS memory consumed by the mining process will be retrieved from this function.*
+                     - **getRuntime()** -- *Total amount of runtime taken by the mining process will be retrieved from this function.*
+                     - **convert(value)** -- *To convert the given user specified value.*
+                     - **compareItems(o1, o2)** -- *A Function that sort all ffi-list in ascending order of Support.*
+                     - **FSFIMining(prefix, prefixLen, FSFIM, minSup)** -- *Method generate ffi from prefix.*
+                     - **construct(px, py)** -- *A function to construct Fuzzy itemSet from 2 fuzzy itemSets.*
+                     - **findElementWithTID(uList, tid)** -- *To find element with same tid as given.*
+                     - **WriteOut(prefix, prefixLen, item, sumIUtil)** -- *To Store the pattern.*
 
-        fmFile : string
-            Name of the fuzzy membership file to mine complete set of fuzzy  frequent patterns
+    **Execution methods**
 
-        oFile : string
-            Name of the oFile file to store complete set of fuzzy  frequent patterns
-
-        minSup : float
-            The user given minimum support
-
-        memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
-
-        startTime:float
-            To record the start time of the mining process
-
-        endTime:float
-            To record the completion time of the mining process
-
-        itemsCnt: int
-            To record the number of fuzzy spatial itemSets generated
-
-        mapItemSum: map
-            To keep track of sum of Fuzzy Values of items
-
-        joinsCnt: int
-            To keep track of the number of ffi-list that was constructed
-
-        BufferSize: int
-            represent the size of Buffer
-
-        itemSetBuffer list
-            to keep track of items in buffer
-
-    :Methods:
-
-        mine()
-            Mining process will start from here
-        getPatterns()
-            Complete set of patterns will be retrieved with this function
-        save(oFile)
-            Complete set of frequent patterns will be loaded in to a output file
-        getPatternsAsDataFrame()
-            Complete set of frequent patterns will be loaded in to a dataframe
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
-        convert(value)
-            To convert the given user specified value
-        compareItems(o1, o2)
-            A Function that sort all ffi-list in ascending order of Support
-        FSFIMining(prefix, prefixLen, FSFIM, minSup)
-            Method generate ffi from prefix
-        construct(px, py)
-            A function to construct Fuzzy itemSet from 2 fuzzy itemSets
-        findElementWithTID(uList, tid)
-            To find element with same tid as given
-        WriteOut(prefix, prefixLen, item, sumIUtil)
-            To Store the patten
-
-
-    **Executing the code on terminal :**
-    ------------------------------------------
+    **Terminal command**
 
     .. code-block:: console
 
       Format:
 
-      (.venv) $ python3 FFIMiner.py <inputFile> <outputFile> <minSup> <separator>
+      (.venv) $ python3 FFIMiner.py <inputFile> <outputFile> <minSup> <sep>
 
       Example Usage:
 
       (.venv) $ python3  FFIMiner.py sampleTDB.txt output.txt 6
 
-    .. note:: minSup will be considered in percentage of database transactions
+    .. note:: minSup can be specified in support count or a value between 0 and 1.
 
 
-    **Sample run of importing the code:**
-    ------------------------------------------
+    **Calling from a python program**
+
     .. code-block:: python
 
             from PAMI.fuzzyFrequentPattern import FFIMiner as alg
 
-            obj = alg.FFIMiner("input.txt", 2)
+            iFile = 'sampleTDB.txt'
+
+            minSup = 0.25 # can be specified between 0 and 1
+
+            obj = alg.CoMine(iFile, minSup, sep)
 
             obj.mine()
 
@@ -191,9 +146,9 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
             print("Total ExecutionTime in seconds:", run)
 
 
-    **Credits:**
-    ---------------
-            The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
+    **Credits**
+
+    The complete program was written by B.Sai Chitra and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -289,6 +244,20 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         return value
     
     def dfs(self, cands):
+        """
+        Perform depth-first search (DFS) to find frequent patterns in a database.
+
+        This method recursively combines candidate patterns and calculates their support
+        in the database, storing frequent patterns and their support counts.
+
+        :param cands: List of candidate patterns represented as tuples.
+        :type cands: list
+        :return: None
+
+        This method does not return anything explicitly, but it updates internal
+        attributes `_finalPatterns` and `_Database` with frequent patterns and their
+        support counts.
+        """
         for i in range(len(cands)):
             newCands = []
             for j in range(i + 1, len(cands)):
@@ -307,6 +276,9 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                 self.dfs(newCands)
 
     def mine(self):
+        """
+        Main() function start from here.
+        """
         self._startTime = _ab._time.time()
         items = {}
         lineNo = 0
