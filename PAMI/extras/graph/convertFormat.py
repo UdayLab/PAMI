@@ -29,5 +29,3 @@ class ConvertFormat:
                     graph['edges'].append((int(parts[1]), int(parts[2]), parts[3]))
             if graph:
                 self._writeGraphToFile(graph, oFile)
-
-
