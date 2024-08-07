@@ -3,6 +3,7 @@
 # graphFormat = 'old' or 'new', default is 'old'
 #
 import random
+from PAMI.extras.visualize import graphs
 
 class SyntheticGraphGenerator:
     def __init__(self, numGraphs, avgNumVertices, avgNumEdges, numVertexLabels, numEdgeLabels, outputFileName, format='old'):
@@ -40,13 +41,11 @@ class SyntheticGraphGenerator:
         if self.avgNumEdges < self.numEdgeLabels:
             raise ValueError("Average number of edges should be greater than or equal to number of edge labels")
 
-
-
     def generate(self):
         with open(self.outputFileName, 'w') as oFile:
             for i in range(self.numGraphs):
-                numVertices = random.randint(self.avgNumVertices-3, self.avgNumVertices+3)
-                numEdges = random.randint(self.avgNumEdges-3, self.avgNumEdges+3)
+                numVertices = random.randint(max(self.avgNumVertices-3, 1), self.avgNumVertices+3)
+                numEdges = random.randint(max(self.avgNumEdges-3, 0), self.avgNumEdges+3)
 
                 if numVertices < numEdges:
                     numVertices = numEdges + 1
@@ -102,3 +101,8 @@ class SyntheticGraphGenerator:
         node_str = ' '.join(f"{node} {label}" for node, label in sorted(graph['nodes']))
         edge_str = ' '.join(f"{u} {v} {label}" for u, v, label in graph['edges'])
         oFile.write(f"{node_str} : {edge_str}\n")
+
+if __name__ == "__main__":
+    obj = SyntheticGraphGenerator(10, 2, 1, 1, 1, 'synthetic_graphs.txt', 'old')
+    vis = graphs.graphDatabase('synthetic_graphs.txt')
+    vis.plot()
