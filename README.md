@@ -22,7 +22,7 @@
 
 # Table of Contents
 
-- [Introduction](#introduction)
+- [Introduction](#Shaik)
 - [Development process](#process-flow-chart)
 - [Inputs and outputs of a PAMI algorithm](#inputs-and-outputs-of-an-algorithm-in-pami)
 - [Recent updates](#recent-updates)
