@@ -46,7 +46,7 @@ class usingBeta():
                    Name of the Input file to get the patterns as DataFrame
     :param  beta: str :
                    Name of the output file to store complete set of frequent patterns
-    :param  threshold: int :
+    :param  LS: int :
                    The user can specify threshold either in count or proportion of database size. If the program detects the data type of threshold is integer, then it treats threshold is expressed in count.
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
@@ -66,13 +66,13 @@ class usingBeta():
     _iFile: str = ' '
     _beta: int = int()
     _sep: str = str()
-    _threshold: int = int()
+    _LS: int = int()
     _finalPatterns: dict = {}
 
-    def __init__(self, iFile: str, beta: int, threshold: int, sep: str):
+    def __init__(self, iFile: str, beta: int, LS: int, sep: str):
         self._iFile = iFile
         self._beta = beta
-        self._threshold = threshold
+        self._LS = LS
         self._sep = sep
         self._lno = 0
 
@@ -131,9 +131,9 @@ class usingBeta():
             self._creatingItemSets()
             frequentItems = self._creatingFrequentItems()
             for x, y in frequentItems.items():
-              #self._finalPatterns[x] = min([y, self._threshold])
-                if y < self._threshold:
-                    self._finalPatterns[x] = self._threshold
+              #self._finalPatterns[x] = min([y, self._LS])
+                if y < self._LS:
+                    self._finalPatterns[x] = self._LS
                 else:
                     self._finalPatterns[x] = y
 
