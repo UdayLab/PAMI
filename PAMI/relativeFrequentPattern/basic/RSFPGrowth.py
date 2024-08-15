@@ -639,7 +639,7 @@ class RSFPGrowth(_ab._frequentPatterns):
         self.__memoryUSS = process.memory_full_info().uss
         self.__memoryRSS = process.memory_info().rss
 
-    def Mine(self) -> None:
+    def mine(self) -> None:
             """
             Main program to start the operation
             :return: None
