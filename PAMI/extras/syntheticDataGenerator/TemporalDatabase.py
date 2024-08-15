@@ -5,7 +5,7 @@
 #
 #             from PAMI.extras.syntheticDataGenerator import TemporalDatabase as db
 #
-#             temporalDB = db(numOfTransactions, avgTransactionLength, numItems, outFileName)
+#             temporalDB = db(databaseSize, avgTransactionLength, numItems, outFileName)
 #
 #             temporalDB.create(percentage)
 #
@@ -37,15 +37,15 @@ import sys
 
 class TemporalDatabase:
     """
-    :Description: - creates a temporal database with required parameter (e.g.,numOfTransactions, avgLenOfTransactions, numItems and outputFile).
+    :Description: - creates a temporal database with required parameter (e.g.,databaseSize, avgItemsPerTransaction, numItems and outputFile).
                   - output can be printed in two ways either in text file or dataframe depending on the input type.
 
     :Attributes:
 
-        :param numOfTransactions: int
+        :param databaseSize: int
             number of transactions
 
-        :param avgLenOfTransactions: int
+        :param avgItemsPerTransaction: int
             average length of transactions
 
         :param numItems: int
@@ -77,7 +77,7 @@ class TemporalDatabase:
             Perform a coin flip with the given probability
 
         tuning():
-            Tune the arrayLength to match avgLenOfTransactions
+            Tune the arrayLength to match avgItemsPerTransaction
 
         createTemporalFile():
             create Temporal database or dataframe depending on input
@@ -89,7 +89,7 @@ class TemporalDatabase:
 
       Format:
 
-      (.venv) $ python3 TemporalDatabase.py <numOfTransactions> <avgLenOfTransactions> <numItems> <outputFile>
+      (.venv) $ python3 TemporalDatabase.py <databaseSize> <avgItemsPerTransaction> <numItems> <outputFile>
 
       Example Usage:
 
@@ -101,13 +101,13 @@ class TemporalDatabase:
 
             from PAMI.extras.syntheticDataGenerator import TemporalDatabase as db
 
-            temporalDB = db(numOfTransactions, avgTransactionLength, numItems, outFileName)
+            temporalDB = db(databaseSize, avgTransactionLength, numItems, outFileName)
 
             temporalDB.create(percentage)
 
 
     """
-    def __init__(self, numOfTransactions: int, avgLenOfTransactions: int, 
+    def __init__(self, databaseSize: int, avgItemsPerTransaction: int,
                  numItems: int, outputFile: str, percentage: int=50,
                  sep: str='\t', typeOfFile: str="Database") -> None:
         
@@ -115,8 +115,8 @@ class TemporalDatabase:
         Initialize the generateTemporalDatabase class with required parameters.
         """
 
-        self.numOfTransactions = numOfTransactions
-        self.avgLenOfTransactions = avgLenOfTransactions
+        self.databaseSize = databaseSize
+        self.avgItemsPerTransaction = avgItemsPerTransaction
         self.numItems = numItems
         self.outputFile = outputFile
         if percentage > 1:
@@ -189,18 +189,18 @@ class TemporalDatabase:
 
         db = []
         lineSize = []
-        for i in range(self.numOfTransactions):
+        for i in range(self.databaseSize):
             db.append([i])
             if self.performCoinFlip(self.percentage):
                 lineSize.append([i,0])
         
-        # make it so that sum of lineSize[1] equal to numTransactions * avgLenOfTransactions
-        sumRes = self.numOfTransactions * self.avgLenOfTransactions
+        # make it so that sum of lineSize[1] equal to numTransactions * avgItemsPerTransaction
+        sumRes = self.databaseSize * self.avgItemsPerTransaction
         self.tuning(lineSize, sumRes)
 
         for i in range(len(lineSize)):
             if lineSize[i][1] > self.numItems:
-                raise ValueError("Error: Either increase numItems or decrease avgLenOfTransactions or modify percentage")
+                raise ValueError("Error: Either increase numItems or decrease avgItemsPerTransaction or modify percentage")
             line = np.random.choice(range(1, self.numItems + 1), lineSize[i][1], replace=False)
             db[lineSize[i][0]].extend(line)
 
