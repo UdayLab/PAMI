@@ -69,7 +69,7 @@ class usingBeta():
     _LS: int = int()
     _finalPatterns: dict = {}
 
-    def __init__(self, iFile: str, beta: int, LS: int, sep: str):
+    def __init__(self, iFile: str, beta: int, LS: int, sep: str="\t"):
         self._iFile = iFile
         self._beta = beta
         self._LS = LS
