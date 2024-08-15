@@ -353,22 +353,22 @@ class Apriori(_ab._frequentPatterns):
 
         return dataFrame
 
-    def save(self, outFile: str, seperator = "\t" ) -> None:
+    def save(self, oFile: str, seperator = "\t" ) -> None:
         """
 
         Complete set of frequent patterns will be loaded in to an output file
 
-        :param outFile: name of the output file
-        :type outFile: csvfile
+        :param oFile: name of the output file
+        :type oFile: csvfile
         :return: None
         """
 
-        # self._oFile = outFile
+        # self._oFile = oFile
         # writer = open(self._oFile, 'w+')
         # for x, y in self._finalPatterns.items():
         #     patternsAndSupport = x.strip() + ":" + str(y[0])
         #     writer.write("%s \n" % patternsAndSupport)
-        with open(outFile, 'w') as f:
+        with open(oFile, 'w') as f:
             for x, y in self._finalPatterns.items():
                 x = seperator.join(x)
                 f.write(f"{x}:{y}\n")
