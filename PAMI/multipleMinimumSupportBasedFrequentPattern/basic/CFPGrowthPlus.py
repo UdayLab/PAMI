@@ -506,7 +506,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         """
         self.mine()
 
-    def Mine(self):
+    def mine(self):
         """
         main program to start the operation
 

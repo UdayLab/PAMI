@@ -153,7 +153,7 @@ class confidence:
     _memoryRSS = float()
     _associationRules = {}
 
-    def __init__(self, iFile, minConf, sep):
+    def __init__(self, iFile, minConf, sep="\t"):
         """
         :param iFile: input file name or path
         :type iFile: str
