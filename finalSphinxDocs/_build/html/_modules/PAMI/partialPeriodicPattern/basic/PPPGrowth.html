@@ -155,6 +155,7 @@
 <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span> <span class="k">as</span> <span class="n">_urlopen</span>
 <span class="kn">import</span> <span class="nn">sys</span> <span class="k">as</span> <span class="nn">_sys</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="n">_minPS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
@@ -165,225 +166,54 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class used to represent the node of frequentPatternTree</span>
 
-<span class="sd">    :Attributes:</span>
+<span class="sd">    :**Attributes**:    - **item** (*int or None*) -- *Storing item of a node.*</span>
+<span class="sd">                        - **timeStamps** (*list*) -- *To maintain the timestamps of a database at the end of the branch.*</span>
+<span class="sd">                        - **parent** (*list*) -- *To maintain the parent of every node.*</span>
+<span class="sd">                        - **children** (*list*) -- *To maintain the children of a node.*</span>
 
-<span class="sd">        item : int</span>
-<span class="sd">            storing item of a node</span>
-<span class="sd">        timeStamps : list</span>
-<span class="sd">            To maintain the timestamps of transaction at the end of the branch</span>
-<span class="sd">        parent : node</span>
-<span class="sd">            To maintain the parent of every node</span>
-<span class="sd">        children : list</span>
-<span class="sd">            To maintain the children of node</span>
-
-<span class="sd">    :Methods:</span>
-
-<span class="sd">        addChild(itemName)</span>
-<span class="sd">        storing the children to their respective parent nodes</span>
+<span class="sd">    :**Methods**:    -**addChild(itemName)** -- *Storing the children to their respective parent nodes.*</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">children</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">locations</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">item</span> <span class="o">=</span> <span class="n">item</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="n">children</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">timeStamps</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">locations</span> <span class="o">=</span> <span class="n">locations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">def</span> <span class="nf">addChild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="s1">&#39;_Node&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
-        <span class="n">node</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span>
-
-
-<span class="k">class</span> <span class="nc">_Tree</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A class used to represent the frequentPatternGrowth tree structure</span>
-
-<span class="sd">    :Attributes:</span>
-
-<span class="sd">        root : Node</span>
-<span class="sd">            Represents the root node of the tree</span>
-<span class="sd">        summaries : dictionary</span>
-<span class="sd">            storing the nodes with same item name</span>
-<span class="sd">        info : dictionary</span>
-<span class="sd">            stores the support of items</span>
-
-
-<span class="sd">    :Methods:</span>
-
-<span class="sd">        addTransaction(transaction)</span>
-<span class="sd">            creating transaction as a branch in frequentPatternTree</span>
-<span class="sd">        getConditionalPatterns(Node)</span>
-<span class="sd">            generates the conditional patterns from tree for specific node</span>
-<span class="sd">        conditionalTransactions(prefixPaths,Support)</span>
-<span class="sd">            takes the prefixPath of a node and support at child of the path and extract the frequent items from</span>
-<span class="sd">            prefixPaths and generates prefixPaths with items which are frequent</span>
-<span class="sd">        remove(Node)</span>
-<span class="sd">            removes the node from tree once after generating all the patterns respective to the node</span>
-<span class="sd">        generatePatterns(Node)</span>
-<span class="sd">            starts from the root node of the tree and mines the frequent patterns</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">_Node</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">{})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="p">{}</span>
-
-    <span class="k">def</span> <span class="nf">_addTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">tid</span><span class="p">:</span> <span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">addChild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">locations</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        adding transaction into tree</span>
+<span class="sd">        This method takes an item and locations as input, adds a new child node</span>
+<span class="sd">        if the item does not already exist among the current node&#39;s children, or</span>
+<span class="sd">        updates the locations of the existing child node if the item is already present.</span>
 
-<span class="sd">        :param transaction : it represents the one transactions in database</span>
-<span class="sd">        :type transaction : list</span>
-<span class="sd">        :param tid : represents the timestamp of transaction</span>
-<span class="sd">        :type tid : list</span>
+<span class="sd">        :param item: Represents the distinct item to be added as a child node.</span>
+<span class="sd">        :type item: Any</span>
+<span class="sd">        :param locations: Represents the locations associated with the item.</span>
+<span class="sd">        :type locations: list</span>
+<span class="sd">        :return: The child node associated with the item.</span>
+<span class="sd">        :rtype: _Node</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">currentNode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
-                <span class="n">newNode</span> <span class="o">=</span> <span class="n">_Node</span><span class="p">(</span><span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">{})</span>
-                <span class="n">currentNode</span><span class="o">.</span><span class="n">addChild</span><span class="p">(</span><span class="n">newNode</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">[</span><span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newNode</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">[</span><span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="n">newNode</span><span class="p">]</span>
-                <span class="n">currentNode</span> <span class="o">=</span> <span class="n">newNode</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">currentNode</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">transaction</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
-        <span class="n">currentNode</span><span class="o">.</span><span class="n">timeStamps</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">timeStamps</span> <span class="o">+</span> <span class="n">tid</span>
+        <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">_Node</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">locations</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">locations</span> <span class="o">=</span> <span class="n">locations</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">locations</span>
+            
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">_getConditionalPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">:</span> <span class="s1">&#39;_Node&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">traverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        generates all the conditional patterns of respective node</span>
+<span class="sd">        This method constructs a transaction by traversing from the current node to the root node, collecting items along the way.</span>
 
-<span class="sd">        :param alpha : it represents the Node in tree</span>
-<span class="sd">        :type alpha : Node</span>
-<span class="sd">        :return: tuple</span>
+<span class="sd">        :return: A tuple containing the transaction and the locations associated with the current node.</span>
+<span class="sd">        :rtype: tuple(list, Any)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">finalPatterns</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">finalSets</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">[</span><span class="n">alpha</span><span class="p">]:</span>
-            <span class="n">set1</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">timeStamps</span>
-            <span class="n">set2</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">while</span> <span class="n">i</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">set2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
-                <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">parent</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">set2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">set2</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
-                <span class="n">finalPatterns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">set2</span><span class="p">)</span>
-                <span class="n">finalSets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">set1</span><span class="p">)</span>
-        <span class="n">finalPatterns</span><span class="p">,</span> <span class="n">finalSets</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conditionalTransactions</span><span class="p">(</span><span class="n">finalPatterns</span><span class="p">,</span> <span class="n">finalSets</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">finalPatterns</span><span class="p">,</span> <span class="n">finalSets</span><span class="p">,</span> <span class="n">info</span>
-
-    <span class="k">def</span> <span class="nf">_generateTimeStamps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="s1">&#39;_Node&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        generates the Time Stamps</span>
-
-<span class="sd">        :param node : it represents the node in tree</span>
-<span class="sd">        :type node : list</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">finalTs</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">timeStamps</span>
-        <span class="k">return</span> <span class="n">finalTs</span>
-
-    <span class="k">def</span> <span class="nf">_removeNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeValue</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        removing the node from tree</span>
-
-<span class="sd">        :param nodeValue : it represents the node in tree</span>
-<span class="sd">        :type nodeValue : node</span>
-<span class="sd">        :return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">[</span><span class="n">nodeValue</span><span class="p">]:</span>
-            <span class="n">i</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">timeStamps</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">timeStamps</span> <span class="o">+</span> <span class="n">i</span><span class="o">.</span><span class="n">timeStamps</span>
-            <span class="k">del</span> <span class="n">i</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">nodeValue</span><span class="p">]</span>
-
-    <span class="k">def</span> <span class="nf">_getTimeStamps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">:</span> <span class="s1">&#39;_Node&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the timeStamps of a node</span>
-
-<span class="sd">        :param alpha: node of tree</span>
-<span class="sd">        :return: timeStamps of a node</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">temporary</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">[</span><span class="n">alpha</span><span class="p">]:</span>
-            <span class="n">temporary</span> <span class="o">+=</span> <span class="n">i</span><span class="o">.</span><span class="n">timeStamps</span>
-        <span class="k">return</span> <span class="n">temporary</span>
-
-    <span class="k">def</span> <span class="nf">_getPeriodicSupport</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeStamps</span><span class="p">:</span> <span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        calculates the support and periodicity with list of timestamps</span>
-
-<span class="sd">        :param timeStamps : timestamps of a pattern</span>
-<span class="sd">        :type timeStamps : lis</span>
-<span class="sd">        :return: int</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">timeStamps</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-        <span class="n">per</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">sup</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">timeStamps</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
-            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">timeStamps</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">timeStamps</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="n">_period</span><span class="p">:</span>
-                <span class="n">per</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="n">sup</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="n">per</span>
-
-    <span class="k">def</span> <span class="nf">_conditionalTransactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conditionalPatterns</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">conditionalTimeStamps</span><span class="p">:</span> <span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        It generates the conditional patterns with periodic frequent items</span>
-
-<span class="sd">        :param conditionalPatterns : conditional_patterns generated from condition_pattern method for</span>
-<span class="sd">                                respective node</span>
-<span class="sd">        :type conditionalPatterns : list</span>
-<span class="sd">        :param conditionalTimeStamps : represents the timestamps of conditional patterns of a node</span>
-<span class="sd">        :type conditionalTimeStamps : list</span>
-
-<span class="sd">        :return: tuple</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">global</span> <span class="n">_minPS</span><span class="p">,</span> <span class="n">_period</span>
-        <span class="n">patterns</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">timeStamps</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">data1</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">conditionalPatterns</span><span class="p">)):</span>
-            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">conditionalPatterns</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                <span class="k">if</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">data1</span><span class="p">:</span>
-                    <span class="n">data1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">data1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">conditionalTimeStamps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">data1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">conditionalTimeStamps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="n">updatedDictionary</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">data1</span><span class="p">:</span>
-            <span class="n">updatedDictionary</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getPeriodicSupport</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="n">m</span><span class="p">])</span>
-        <span class="n">updatedDictionary</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">updatedDictionary</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="n">_minPS</span><span class="p">}</span>
-        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">conditionalPatterns</span><span class="p">:</span>
-            <span class="n">p1</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">p</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">updatedDictionary</span><span class="p">]</span>
-            <span class="n">trans</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">updatedDictionary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="o">-</span><span class="n">x</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">trans</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">patterns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trans</span><span class="p">)</span>
-                <span class="n">timeStamps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">conditionalTimeStamps</span><span class="p">[</span><span class="n">count</span><span class="p">])</span>
-            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="n">patterns</span><span class="p">,</span> <span class="n">timeStamps</span><span class="p">,</span> <span class="n">updatedDictionary</span>
-
-    <span class="k">def</span> <span class="nf">_generatePatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        generates the patterns</span>
-
-<span class="sd">        :param prefix : forms the combination of items</span>
-<span class="sd">        :type prefix : list</span>
-<span class="sd">        :return : list</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="o">-</span><span class="n">x</span><span class="p">)):</span>
-            <span class="n">pattern</span> <span class="o">=</span> <span class="n">prefix</span><span class="p">[:]</span>
-            <span class="n">pattern</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-            <span class="k">yield</span> <span class="n">pattern</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-            <span class="n">patterns</span><span class="p">,</span> <span class="n">timeStamps</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getConditionalPatterns</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-            <span class="n">conditionalTree</span> <span class="o">=</span> <span class="n">_Tree</span><span class="p">()</span>
-            <span class="n">conditionalTree</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">pat</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">patterns</span><span class="p">)):</span>
-                <span class="n">conditionalTree</span><span class="o">.</span><span class="n">_addTransaction</span><span class="p">(</span><span class="n">patterns</span><span class="p">[</span><span class="n">pat</span><span class="p">],</span> <span class="n">timeStamps</span><span class="p">[</span><span class="n">pat</span><span class="p">])</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">patterns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">conditionalTree</span><span class="o">.</span><span class="n">_generatePatterns</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
-                    <span class="k">yield</span> <span class="n">q</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_removeNode</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">transaction</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">locs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">locations</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span>
+        <span class="k">while</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">transaction</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span>
+        <span class="k">return</span> <span class="n">transaction</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">locs</span>
 
 
 <div class="viewcode-block" id="PPPGrowth"><a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPPGrowth.html#PAMI.partialPeriodicPattern.basic.PPPGrowth.PPPGrowth">[docs]</a><span class="k">class</span> <span class="nc">PPPGrowth</span><span class="p">(</span><span class="n">_abstract</span><span class="o">.</span><span class="n">_partialPeriodicPatterns</span><span class="p">):</span>
@@ -542,21 +372,22 @@
 <span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="n">_abstract</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
-            <span class="n">data</span><span class="p">,</span> <span class="n">tids</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="n">data</span><span class="p">,</span> <span class="n">ts</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;its empty..&quot;</span><span class="p">)</span>
             <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
             <span class="k">if</span> <span class="s1">&#39;TS&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
-                <span class="n">tids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">[</span><span class="s1">&#39;TS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                <span class="n">ts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">[</span><span class="s1">&#39;TS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
             <span class="k">if</span> <span class="s1">&#39;Transactions&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
                 <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">[</span><span class="s1">&#39;Transactions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
-                <span class="n">tr</span> <span class="o">=</span> <span class="p">[</span><span class="n">tids</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
-                <span class="n">tr</span> <span class="o">=</span> <span class="n">tr</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_lno</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">)</span>
-            <span class="c1"># print(self.Database)</span>
+                <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="n">tr</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">ts</span><span class="p">[</span><span class="n">i</span><span class="p">])]</span> <span class="o">+</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">ts</span><span class="p">[</span><span class="n">i</span><span class="p">])])</span>
+
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">_validators</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">):</span>
                 <span class="n">data</span> <span class="o">=</span> <span class="n">_urlopen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">)</span>
@@ -578,80 +409,6 @@
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File Not Found&quot;</span><span class="p">)</span>
                     <span class="n">quit</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_partialPeriodicOneItem</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        calculates the support of each item in the dataset and assign the ranks to the items by decreasing support and returns the frequent items list</span>
-<span class="sd">        :return: tuple</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_period</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_period</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_minPS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_minPS</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tr</span><span class="p">)):</span>
-                <span class="k">if</span> <span class="n">tr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-                    <span class="n">data</span><span class="p">[</span><span class="n">tr</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">1</span><span class="p">]</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">lp</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="n">tr</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">if</span> <span class="n">lp</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_period</span><span class="p">:</span>
-                        <span class="n">data</span><span class="p">[</span><span class="n">tr</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-                    <span class="n">data</span><span class="p">[</span><span class="n">tr</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-                    <span class="n">data</span><span class="p">[</span><span class="n">tr</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minPS</span><span class="p">}</span>
-        <span class="n">pfList</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_rank</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">index</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pfList</span><span class="p">)])</span>
-        <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">pfList</span>
-
-    <span class="k">def</span> <span class="nf">_updateTransactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dict1</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        remove the items which are not frequent from transactions and updates the transactions with rank of items</span>
-
-<span class="sd">        :param dict1 : frequent items with support</span>
-<span class="sd">        :type dict1 : dictionary</span>
-<span class="sd">        :return: list</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">list1</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">:</span>
-            <span class="n">list2</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tr</span><span class="p">)):</span>
-                <span class="k">if</span> <span class="n">tr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="n">dict1</span><span class="p">:</span>
-                    <span class="n">list2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_rank</span><span class="p">[</span><span class="n">tr</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">list2</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="n">basket</span> <span class="o">=</span> <span class="n">list2</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-                <span class="n">basket</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-                <span class="n">list2</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="n">basket</span><span class="p">[</span><span class="mi">0</span><span class="p">:]</span>
-                <span class="n">list1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">list2</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">list1</span>
-
-    <span class="k">def</span> <span class="nf">_buildTree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">],</span> <span class="n">info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;_Tree&#39;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        it takes the transactions and support of each item and construct the main tree with setting root</span>
-<span class="sd">                            node as null</span>
-
-<span class="sd">        :param data : it represents the one transactions in database</span>
-<span class="sd">        :type data : list</span>
-<span class="sd">        :param info : it represents the support of each item</span>
-<span class="sd">        :type info : dictionary</span>
-<span class="sd">        :return: tree</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">rootNode</span> <span class="o">=</span> <span class="n">_Tree</span><span class="p">()</span>
-        <span class="n">rootNode</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
-            <span class="n">set1</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">set1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-            <span class="n">rootNode</span><span class="o">.</span><span class="n">_addTransaction</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">:],</span> <span class="n">set1</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">rootNode</span>
-
-    <span class="k">def</span> <span class="nf">_savePeriodic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">itemset</span><span class="p">:</span> <span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        To convert the pattern with its original item name</span>
-
-<span class="sd">        :param itemset: partial periodic pattern.</span>
-<span class="sd">        :return: pattern with original item name</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">temp</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">itemset</span><span class="p">:</span>
-            <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rankdup</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span>
-        <span class="k">return</span> <span class="n">temp</span>
 
     <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -663,11 +420,11 @@
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">)</span> <span class="o">*</span> <span class="n">value</span><span class="p">)</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_maxTS</span> <span class="o">*</span> <span class="n">value</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
             <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-                <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">)</span> <span class="o">*</span> <span class="n">value</span><span class="p">)</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_maxTS</span> <span class="o">*</span> <span class="n">value</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">value</span>
@@ -681,6 +438,136 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_getPerSup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">):</span>
+        <span class="n">arr</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+        <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+        <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+        <span class="n">locs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">arr</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_period</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">locs</span>
+    
+
+    <span class="k">def</span> <span class="nf">_construct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method filters the items based on the minimum support (minSup) and</span>
+<span class="sd">        maximum period (maxPer). It then constructs a tree structure from the</span>
+<span class="sd">        filtered items and data.</span>
+
+<span class="sd">        :param items: A dictionary where keys are items and values are lists of timestamps.</span>
+<span class="sd">        :type items: dict</span>
+<span class="sd">        :param data: The dataset used to construct the tree, where each entry is a list with</span>
+<span class="sd">                     an index followed by items.</span>
+<span class="sd">        :type data: list of lists</span>
+<span class="sd">        :param minSup: The minimum support threshold.</span>
+<span class="sd">        :type minSup: int</span>
+<span class="sd">        :param maxPer: The maximum period threshold.</span>
+<span class="sd">        :type maxPer: int or float</span>
+<span class="sd">        :param maxTS: The maximum timestamp.</span>
+<span class="sd">        :type maxTS: int or float</span>
+<span class="sd">        :param patterns: A dictionary to store the patterns discovered during the construction.</span>
+<span class="sd">        :type patterns: dict</span>
+<span class="sd">        :return: A tuple containing the root node of the constructed tree and a dictionary</span>
+<span class="sd">                 of item nodes.</span>
+<span class="sd">        :rtype: tuple(_Node, dict)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+        <span class="n">items</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">items</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getPerSup</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minPS</span><span class="p">}</span>
+
+        <span class="c1">#tested ok</span>
+        <span class="k">for</span> <span class="n">item</span><span class="p">,</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">items</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="nb">tuple</span><span class="p">([</span><span class="n">item</span><span class="p">])]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getPerSup</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+
+        <span class="n">root</span> <span class="o">=</span> <span class="n">_Node</span><span class="p">([],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">itemNodes</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">currNode</span> <span class="o">=</span> <span class="n">root</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">line</span> <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">],</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="n">x</span><span class="p">]),</span> <span class="n">reverse</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">currNode</span> <span class="o">=</span> <span class="n">currNode</span><span class="o">.</span><span class="n">addChild</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="p">[</span><span class="n">index</span><span class="p">])</span>   <span class="c1"># heavy</span>
+                <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">itemNodes</span><span class="p">:</span>
+                    <span class="n">itemNodes</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">currNode</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">itemNodes</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">currNode</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">root</span><span class="p">,</span> <span class="n">itemNodes</span>
+
+    
+    <span class="k">def</span> <span class="nf">_recursive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">itemNode</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method recursively constructs a pattern tree from the given root node,</span>
+<span class="sd">        filtering items based on the minimum support (minSup) and maximum period (maxPer).</span>
+<span class="sd">        It updates the patterns dictionary with the discovered patterns.</span>
+
+<span class="sd">        :param root: The current root node of the pattern tree.</span>
+<span class="sd">        :type root: _Node</span>
+<span class="sd">        :param itemNode: A dictionary where keys are items and values are sets of nodes</span>
+<span class="sd">                         associated with those items.</span>
+<span class="sd">        :type itemNode: dict</span>
+<span class="sd">        :param minSup: The minimum support threshold.</span>
+<span class="sd">        :type minSup: int</span>
+<span class="sd">        :param maxPer: The maximum period threshold.</span>
+<span class="sd">        :type maxPer: int or float</span>
+<span class="sd">        :param patterns: A dictionary to store the patterns discovered during the recursion.</span>
+<span class="sd">        :type patterns: dict</span>
+<span class="sd">        :param maxTS: The maximum timestamp.</span>
+<span class="sd">        :type maxTS: int or float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">itemNode</span><span class="p">:</span>
+            <span class="n">newRoot</span> <span class="o">=</span> <span class="n">_Node</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">item</span> <span class="o">+</span> <span class="p">[</span><span class="n">item</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+            <span class="n">itemLocs</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">transactions</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">itemNode</span><span class="p">[</span><span class="n">item</span><span class="p">]:</span>
+                <span class="n">transaction</span><span class="p">,</span> <span class="n">locs</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">traverse</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="c1"># transactions.append((transaction, locs))</span>
+                <span class="k">if</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="ow">in</span> <span class="n">transactions</span><span class="p">:</span>
+                    <span class="n">transactions</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">transaction</span><span class="p">)]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">locs</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">transactions</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">transaction</span><span class="p">)]</span> <span class="o">=</span> <span class="n">locs</span>
+
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">transaction</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">itemLocs</span><span class="p">:</span>
+                        <span class="n">itemLocs</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">+=</span> <span class="n">locs</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">itemLocs</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">locs</span><span class="p">)</span>
+
+            <span class="c1"># Precompute getMaxPer results for itemLocs</span>
+            <span class="c1"># maxPerResults = {item: self._getMaxPer(itemLocs[item], maxTS) for item in itemLocs if len(itemLocs[item]) &gt;= minSup}</span>
+            <span class="n">maxPerResults</span> <span class="o">=</span> <span class="p">{</span><span class="n">item</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getPerSup</span><span class="p">(</span><span class="n">itemLocs</span><span class="p">[</span><span class="n">item</span><span class="p">])</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">itemLocs</span><span class="p">}</span>
+
+            <span class="c1"># Filter itemLocs based on minSup and maxPer</span>
+            <span class="n">itemLocs</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">itemLocs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">maxPerResults</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minPS</span><span class="p">}</span>
+
+            <span class="c1"># Iterate over filtered itemLocs</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">itemLocs</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">newRoot</span><span class="o">.</span><span class="n">item</span> <span class="o">+</span> <span class="p">[</span><span class="n">item</span><span class="p">])]</span> <span class="o">=</span> <span class="n">maxPerResults</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+            
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">itemLocs</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">newItemNodes</span> <span class="o">=</span> <span class="p">{}</span>
+
+            <span class="k">for</span> <span class="n">transaction</span><span class="p">,</span> <span class="n">locs</span> <span class="ow">in</span> <span class="n">transactions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">transaction</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">transaction</span> <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">itemLocs</span><span class="p">],</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">itemLocs</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">reverse</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">currNode</span> <span class="o">=</span> <span class="n">newRoot</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">transaction</span><span class="p">:</span>
+                    <span class="n">currNode</span> <span class="o">=</span> <span class="n">currNode</span><span class="o">.</span><span class="n">addChild</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">locs</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">newItemNodes</span><span class="p">:</span>
+                        <span class="n">newItemNodes</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">currNode</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">newItemNodes</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">currNode</span><span class="p">])</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_recursive</span><span class="p">(</span><span class="n">newRoot</span><span class="p">,</span> <span class="n">newItemNodes</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="PPPGrowth.mine"><a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPPGrowth.html#PAMI.partialPeriodicPattern.basic.PPPGrowth.PPPGrowth.mine">[docs]</a>    <span class="k">def</span> <span class="nf">mine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -696,18 +583,31 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minPS</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Please enter the Minimum Support&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_creatingItemSets</span><span class="p">()</span>
-        <span class="n">generatedItems</span><span class="p">,</span> <span class="n">pfList</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_partialPeriodicOneItem</span><span class="p">()</span>
-        <span class="n">_minPS</span><span class="p">,</span> <span class="n">_period</span><span class="p">,</span> <span class="n">_lno</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minPS</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_period</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">)</span>
-        <span class="n">updatedTransactions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updateTransactions</span><span class="p">(</span><span class="n">generatedItems</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rank</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_rankdup</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
-        <span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_rank</span><span class="p">[</span><span class="n">k</span><span class="p">]:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">generatedItems</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
-        <span class="n">Tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buildTree</span><span class="p">(</span><span class="n">updatedTransactions</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span>
-        <span class="n">patterns</span> <span class="o">=</span> <span class="n">Tree</span><span class="o">.</span><span class="n">_generatePatterns</span><span class="p">([])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">patterns</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_savePeriodic</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maxTS</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_maxTS</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_maxTS</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+                    <span class="n">items</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">items</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minPS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_minPS</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_period</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_period</span><span class="p">)</span>
+
+        <span class="n">root</span><span class="p">,</span> <span class="n">itemNodes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_construct</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_recursive</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">itemNodes</span><span class="p">)</span>
+
+        <span class="n">newPattern</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">newPattern</span><span class="p">[</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">k</span><span class="p">])]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="n">newPattern</span>
+
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">=</span> <span class="n">_abstract</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="n">process</span> <span class="o">=</span> <span class="n">_abstract</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_abstract</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
@@ -751,11 +651,17 @@
 <span class="sd">        :rtype: pd.DataFrame</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+        <span class="c1"># dataFrame = {}</span>
+        <span class="c1"># data = []</span>
+        <span class="c1"># for a, b in self._finalPatterns.items():</span>
+        <span class="c1">#     data.append([a.replace(&#39;\t&#39;, &#39; &#39;), b])</span>
+        <span class="c1">#     dataFrame = _abstract._pd.DataFrame(data, columns=[&#39;Patterns&#39;, &#39;periodicSupport&#39;])</span>
+        <span class="c1"># return dataFrame</span>
         <span class="n">dataFrame</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">a</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">),</span> <span class="n">b</span><span class="p">])</span>
-            <span class="n">dataFrame</span> <span class="o">=</span> <span class="n">_abstract</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;periodicSupport&#39;</span><span class="p">])</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">])</span>
+        <span class="n">dataFrame</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;Periodicity&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">dataFrame</span></div>
 
 <div class="viewcode-block" id="PPPGrowth.save"><a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPPGrowth.html#PAMI.partialPeriodicPattern.basic.PPPGrowth.PPPGrowth.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -805,6 +711,15 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span>  <span class="n">_ap</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error! The number of input parameters do not match the total number of parameters provided&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">500</span><span class="p">]:</span>
+            <span class="n">_ap</span> <span class="o">=</span> <span class="n">PPPGrowth</span><span class="p">(</span><span class="s1">&#39;/Users/tarunsreepada/Downloads/Temporal_T10I4D100K.csv&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">_ap</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Maximal Partial Periodic Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ap</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
+            <span class="n">_ap</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;/Users/tarunsreepada/Downloads/output.txt&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">_ap</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">())</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span>
 </pre></div>
 
            </div>

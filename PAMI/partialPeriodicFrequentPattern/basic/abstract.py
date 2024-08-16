@@ -3,6 +3,7 @@ import time
 import math
 import csv
 import pandas as pd
+import numpy as np
 from collections import defaultdict
 from itertools import combinations as c
 import os

@@ -94,7 +94,53 @@
            <div itemprop="articleBody">
              
   <h1>Source code for PAMI.subgraphMining.basic.frequentSubgraph</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="FrequentSubgraph"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.frequentSubgraph.FrequentSubgraph">[docs]</a><span></span><span class="k">class</span> <span class="nc">FrequentSubgraph</span><span class="p">:</span>
+<span></span><span class="c1"># gSpan is a subgraph mining algorithm that uses DFS and DFS codes to mine subgraphs</span>
+<span class="c1">#</span>
+<span class="c1"># **Importing this algorithm into a python program**</span>
+<span class="c1">#</span>
+<span class="c1">#             from PAMI.subgraphMining.basic import gspan as alg</span>
+<span class="c1">#</span>
+<span class="c1">#             obj = alg.GSpan(iFile, minSupport)</span>
+<span class="c1">#</span>
+<span class="c1">#             obj.mine()</span>
+<span class="c1">#</span>
+<span class="c1">#             obj.run()</span>
+<span class="c1">#</span>
+<span class="c1">#             frequentGraphs = obj.getFrequentSubgraphs()</span>
+<span class="c1">#</span>
+<span class="c1">#             memUSS = obj.getMemoryUSS()</span>
+<span class="c1">#</span>
+<span class="c1">#             obj.save(oFile)</span>
+<span class="c1">#</span>
+<span class="c1">#             print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="c1">#</span>
+<span class="c1">#             memRSS = obj.getMemoryRSS()</span>
+<span class="c1">#</span>
+<span class="c1">#             print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="c1">#</span>
+<span class="c1">#             run = obj.getRuntime()</span>
+<span class="c1">#</span>
+<span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
+
+
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
+
+<span class="s2">     This program is free software: you can redistribute it and/or modify</span>
+<span class="s2">     it under the terms of the GNU General Public License as published by</span>
+<span class="s2">     the Free Software Foundation, either version 3 of the License, or</span>
+<span class="s2">     (at your option) any later version.</span>
+
+<span class="s2">     This program is distributed in the hope that it will be useful,</span>
+<span class="s2">     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="s2">     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="s2">     GNU General Public License for more details.</span>
+
+<span class="s2">     You should have received a copy of the GNU General Public License</span>
+<span class="s2">     along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="FrequentSubgraph"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.basic.html#PAMI.subgraphMining.basic.frequentSubgraph.FrequentSubgraph">[docs]</a><span class="k">class</span> <span class="nc">FrequentSubgraph</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dfsCode</span><span class="p">,</span> <span class="n">setOfGraphsIds</span><span class="p">,</span> <span class="n">support</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dfsCode</span> <span class="o">=</span> <span class="n">dfsCode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setOfGraphsIds</span> <span class="o">=</span> <span class="n">setOfGraphsIds</span>
