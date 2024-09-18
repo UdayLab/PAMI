@@ -499,7 +499,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Closed periodic frequent patterns were generated successfully using CPFPMiner algorithm ")
 
-    def Mine(self):
+    def mine(self):
         """
         Mining process will start from here
         """

@@ -32,7 +32,16 @@ import sys
 
 class TemporalDatabase:
     """
-    Creates a temporal database with transactions and timestamps.
+    :Description: - creates a temporal database with required parameter (e.g.,databaseSize, avgItemsPerTransaction, numItems and outputFile).
+                  - output can be printed in two ways either in text file or dataframe depending on the input type.
+
+    :Attributes:
+
+        :param databaseSize: int
+            number of transactions
+
+        :param avgItemsPerTransaction: int
+            average length of transactions
 
     This class generates a temporal database based on the given parameters and provides
     options to output the database in either a text file or a DataFrame format.
@@ -49,6 +58,7 @@ class TemporalDatabase:
 
     **Methods to execute code on terminal**
 
+
     Format:
 
         (.venv) $ python3 TemporalDatabase.py <numOfTransactions> <avgLenOfTransactions> <numItems> <outputFile> <percentage> <sep> <typeOfFile> <occurrenceProbabilityAtSameTimestamp> <occurrenceProbabilityToSkipSubsequentTimestamp>
@@ -57,6 +67,7 @@ class TemporalDatabase:
     Example Usage:
 
         (.venv) $ python3 TemporalDatabase.py 50 10 100 temporal.txt 50 \t database 0.1 0.1
+
 
     :param numOfTransactions: int
         Number of transactions to generate.
@@ -106,8 +117,8 @@ class TemporalDatabase:
         :param occurrenceProbabilityToSkipSubsequentTimestamp: Probability to skip subsequent timestamp.
         """
 
-        self.numOfTransactions = numOfTransactions
-        self.avgLenOfTransactions = avgLenOfTransactions
+        self.databaseSize = databaseSize
+        self.avgItemsPerTransaction = avgItemsPerTransaction
         self.numItems = numItems
         self.outputFile = outputFile
         if percentage > 1:
@@ -176,6 +187,7 @@ class TemporalDatabase:
         """
         db = []
         lineSize = []
+
         self.current_timestamp = 0  # Initialize current timestamp
 
         for i in range(self.numOfTransactions):
@@ -193,10 +205,12 @@ class TemporalDatabase:
                 lineSize.append([i, 0])
 
         sumRes = self.numOfTransactions * self.avgLenOfTransactions
+
         self.tuning(lineSize, sumRes)
 
         for i in range(len(lineSize)):
             if lineSize[i][1] > self.numItems:
+
                 raise ValueError(
                     "Error: Either increase numItems or decrease avgLenOfTransactions or modify percentage")
             line = np.random.choice(range(1, self.numItems + 1), lineSize[i][1], replace=False)

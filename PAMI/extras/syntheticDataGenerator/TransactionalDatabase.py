@@ -87,7 +87,7 @@ class TransactionalDatabase:
     
     """
 
-    def __init__(self, databaseSize, avgItemsPerTransaction, numItems,seperator = "\t") -> None:
+    def __init__(self, databaseSize, avgItemsPerTransaction, numItems,sep = "\t") -> None:
         """
         Initialize the transactional database with the given parameters
 
@@ -97,14 +97,14 @@ class TransactionalDatabase:
         :type avgItemsPerTransaction: int
         :param numItems: total number of items
         :type numItems: int
-        :param seperator: separator to distinguish the items in a transaction
-        :type seperator: str
+        :param sep: separator to distinguish the items in a transaction
+        :type sep: str
         """
 
         self.databaseSize = databaseSize
         self.avgItemsPerTransaction = avgItemsPerTransaction
         self.numItems = numItems
-        self.seperator = seperator
+        self.sep = sep
         self.db = []
 
     def _generateArray(self, nums, avg, maxItems) -> list:
@@ -171,7 +171,7 @@ class TransactionalDatabase:
 
         with open(filename, 'w') as f:
             for line in self.db:
-                f.write(str(self.seperator).join(map(str, line)) + '\n')
+                f.write(str(self.sep).join(map(str, line)) + '\n')
 
     def getTransactions(self, sep = "\t") -> pd.DataFrame:
         """
@@ -197,5 +197,5 @@ if __name__ == "__main__":
         obj.create()
         obj.save(sys.argv[5])
     else:
-        raise ValueError("Invalid number of arguments. Args: <numLines> <avgItemsPerLine> <numItems> <filename> or Args: <numLines> <avgItemsPerLine> <numItems> <seperator> <filename>")
+        raise ValueError("Invalid number of arguments. Args: <numLines> <avgItemsPerLine> <numItems> <filename> or Args: <numLines> <avgItemsPerLine> <numItems> <sep> <filename>")
     
