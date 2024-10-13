@@ -36,7 +36,7 @@ Copyright (C)  2021 Rage Uday Kiran
 """
 import PAMI.extras.convert.denseDF2DB as dense
 import PAMI.extras.convert.sparseDF2DB as sparse
-import sys,psutil,os,time
+import sys
 from typing import Union
 
 class DF2DB:
@@ -54,14 +54,6 @@ class DF2DB:
              It is condition of all item
         :param DFtype: str :
              It is DataFrame type. It should be sparse or dense. Default DF is sparse.
-        :param memoryUSS : float
-            To store the total amount of USS memory consumed by the program
-        :param memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
-        :param startTime : float
-            To record the start time of the mining process
-        endTime : float
-            To record the completion time of the mining process
 
 
     **Importing this algorithm into a python program**
@@ -89,11 +81,6 @@ class DF2DB:
             self.DF2DB = dense.denseDF2DB(self.inputDF)
         else:
             raise Exception('DF type should be sparse or dense')
-        self._startTime = float()
-        self._endTime = float()
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-
     def convert2TransactionalDatabase(self, oFile: str, condition: str, thresholdValue: Union[int, float]) -> str:
         """
         create transactional database and return oFileName
@@ -102,12 +89,7 @@ class DF2DB:
         :return: oFile name
         :rtype: str
         """
-        self._startTime = time.time()
         self.DF2DB.convert2TransactionalDatabase(oFile,condition,thresholdValue)
-        process = psutil.Process(os.getpid())
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        self._endTime  = time.time()
         return self.DF2DB.getFileName()
 
     def convert2TemporalDatabase(self, oFile: str, condition: str, thresholdValue: Union[int, float]) -> str:
@@ -118,12 +100,7 @@ class DF2DB:
         :return: oFile name
         :rtype: str
         """
-        self._startTime = time.time()
         self.DF2DB.convert2TemporalDatabase(oFile,condition,thresholdValue)
-        process = psutil.Process(os.getpid())
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        self._endTime  = time.time()
         return self.DF2DB.getFileName()
 
     def convert2UtilityDatabase(self, oFile: str) -> str:
@@ -134,51 +111,10 @@ class DF2DB:
         :return: outputFile name
         :rtype: str
         """
-        self._startTime = time.time()
         self.DF2DB.convert2UtilityDatabase(oFile)
-        process = psutil.Process(os.getpid())
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        self._endTime = time.time()
         return self.DF2DB.getFileName()
-
-    def getMemoryUSS(self) -> float:
-        """
-        Total amount of USS memory consumed by the mining process will be retrieved from this function
-
-        :return: returning USS memory consumed by the mining process
-        :rtype: float
-        """
-
-        return self._memoryUSS
-
-    def getMemoryRSS(self) -> float:
-        """
-        Total amount of RSS memory consumed by the mining process will be retrieved from this function
-
-        :return: returning RSS memory consumed by the mining process
-        :rtype: float
-        """
-
-        return self._memoryRSS
-
-    def getRuntime(self) -> float:
-        """
-        Calculating the total amount of runtime taken by the mining process
-
-
-        :return: returning total amount of runtime taken by the mining process
-        :rtype: float
-        """
-
-        return self._endTime - self._startTime
-
 
 
 if __name__ == '__main__':
     obj = DF2DB(sys.argv[1])
     obj.getTransactionalDatabase(sys.argv[2],sys.argv[3],sys.argv[4])
-    print("Conversion is complete.")
-    print("Total Memory in USS:", obj.getMemoryUSS())
-    print("Total Memory in RSS", obj.getMemoryRSS())
-    print("Total ExecutionTime in ms:", obj.getRuntime())
