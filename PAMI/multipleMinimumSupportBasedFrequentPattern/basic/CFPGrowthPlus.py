@@ -1,24 +1,63 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# This code implements the CFPGrowthPlus algorithm for mining frequent patterns with multiple minimum support thresholds from a transactional dataset.
 #
+# **Importing this algorithm into a python program**
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#             from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import CFPGrowthPlus as alg
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#             iFile = "sample.txt"
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#             MIS = "MIS.txt"
+#
+#             obj = alg.CFPGrowthPlus(iFile, MIS, sep)
+#
+#             obj.startMine()
+#
+#             frequentPatterns = obj.getPatterns()
+#
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#             obj.savePatterns(oFile)
+#
+#             Df = obj.getPatternInDataFrame()
+#
+#             memUSS = obj.getMemoryUSS()
+#
+#             print("Total Memory in USS:", memUSS)
+#
+#             memRSS = obj.getMemoryRSS()
+#
+#             print("Total Memory in RSS", memRSS)
+#
+#             run = obj.getRuntime()
+#
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
+
+
+__copyright__ = """
+Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
 
 from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import abstract as _fp
 from deprecated import deprecated
 
 _fp._sys.setrecursionlimit(20000)
-MIS = {}
+# MIS = {}
 
 class _Node:
     """
@@ -178,13 +217,18 @@ class _Tree:
         :return: Frequent patterns that are extracted from fp-tree
 
         """
-        global minMIS
+        global minMIS, MIS
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
             pattern.append(i)
-            if self.info[i] >= minMIS:
+            sup = []
+            for j in pattern:
+                sup.append(MIS[j])
+            #if self.info[i] >= minMIS:
+            if self.info[i] >= min(sup):
               yield pattern, self.info[i]
-            patterns, freq, info = self.getFinalConditionalPatterns(i, self.info[i])
+            #patterns, freq, info = self.getFinalConditionalPatterns(i, min(sup))
+            patterns, freq, info = self.getFinalConditionalPatterns(i, minMIS)
             conditionalTree = _Tree()
             conditionalTree.info = info.copy()
             for pat in range(len(patterns)):
@@ -194,102 +238,69 @@ class _Tree:
                     yield q
 
 minMIS = 0
+MIS = {}
 
 class CFPGrowthPlus(_fp._frequentPatterns):
     """
+    **About this algorithm**
 
-    :Description:
+    :**Description**: This code implements the CFPGrowthPlus algorithm for mining frequent patterns with multiple minimum support thresholds from a transactional dataset.
 
-    :Reference:   R. Uday Kiran P. Krishna Reddy Novel techniques to reduce search space in multiple minimum supports-based frequent
+    :**Reference**:   R. Uday Kiran P. Krishna Reddy Novel techniques to reduce search space in multiple minimum supports-based frequent
                   pattern mining algorithms. 11-20 2011 EDBT https://doi.org/10.1145/1951365.1951370
 
-    :param  iFile: str :
-                   Name of the Input file to mine complete set of Uncertain Multiple Minimum Support Based Frequent patterns
-    :param  oFile: str :
-                   Name of the output file to store complete set of Uncertain Minimum Support Based Frequent patterns
-    :param  minSup: str:
-                   minimum support thresholds were tuned to find the appropriate ranges in the limited memory
-    :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :**Parameters**:    - **iFile** (*str*) -- Name of the Input file to mine complete set of Uncertain Multiple Minimum Support Based Frequent patterns.
+                        - **oFile** (*str*) -- Name of the output file to store complete set of Uncertain Minimum Support Based Frequent patterns.
+                        - **MIS** (*str*) -- Name of the MIS file to mine complete set of Uncertain Multiple Minimum Support Based Frequent patterns.
+                        - **sep** (*str*) -- This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
+     :**Attributes**:   - **startTime** (*float*) -- *To record the start time of the mining process.*
+                        - **endTime** (*float*) -- *To record the completion time of the mining process.*
+                        - **finalPatterns** (*dict*) -- *Storing the complete set of patterns in a dictionary variable.*
+                        - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
+                        - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
+                        - **Database** (*list*) -- *To store the transactions of a database in list.*
+                        - **mapSupport** (*Dictionary*) -- *To maintain the information of item and their frequency.*
+                        - **tree** (*class*) --  *it represents the Tree class.*
 
+    :**Methods**:       - **startMine()** -- *Mining process will start from here.*
+                        - **getPatterns()** -- *Complete set of patterns will be retrieved with this function.*
+                        - **savePatterns(oFile)** -- *Complete set of frequent patterns will be loaded in to a output file.*
+                        - **getPatternsAsDataFrame()** -- *Complete set of frequent patterns will be loaded in to a dataframe.*
+                        - **getMemoryUSS()** -- *Total amount of USS memory consumed by the mining process will be retrieved from this function.*
+                        - **getMemoryRSS()** -- *Total amount of RSS memory consumed by the mining process will be retrieved from this function.*
+                        - **getRuntime()** -- *Total amount of runtime taken by the mining process will be retrieved from this function.*
+                        - **creatingItemSets()** -- *Scans the dataset or dataframes and stores in list format.*
+                        - **frequentOneItem()** -- *Extracts the one-frequent patterns from transactions.*
 
-    :Attributes:
+    **Execution methods**
 
-        iFile : file
-            Input file name or path of the input file
-        MIS: file or dictionary
-            Multiple minimum supports of all items in the database
-        sep : str
-            This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
-            However, the users can override their default separator.
-        oFile : file
-            Name of the output file or the path of the output file
-        startTime:float
-            To record the start time of the mining process
-        endTime:float
-            To record the completion time of the mining process
-        memoryUSS : float
-            To store the total amount of USS memory consumed by the program
-        memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
-        Database : list
-            To store the transactions of a database in list
-        mapSupport : Dictionary
-            To maintain the information of item and their frequency
-        lno : int
-            it represents the total no of transactions
-        tree : class
-            it represents the Tree class
-        finalPatterns : dict
-            it represents to store the patterns
+    **Terminal command**
 
-
-    :Methods:
-
-        startMine()
-            Mining process will start from here
-        getPatterns()
-            Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
-            Complete set of frequent patterns will be loaded in to a output file
-        getPatternsAsDataFrame()
-            Complete set of frequent patterns will be loaded in to a dataframe
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
-        creatingItemSets()
-            Scans the dataset or dataframes and stores in list format
-        frequentOneItem()
-            Extracts the one-frequent patterns from transactions
-
-    **Executing the code on terminal:**
-    ------------------------------------
      .. code-block:: console
 
+          Format:
 
-       Format:
+          (.venv) $ python3 CFPGrowthPlus.py <inputFile> <outputFile> <MISFile>
 
-       (.venv) $ python3 CFPGrowthPlus.py <inputFile> <outputFile>
+          Example Usage:
 
-       Examples:
+          (.venv) $ python3 CFPGrowthPlus.py sampleDB.txt patterns.txt MISFile.txt
 
-       (.venv) $ python3 CFPGrowthPlus.py sampleDB.txt patterns.txt MISFile.txt
-
-
-                .. note:: minSup  will be considered in support count or frequency
+            .. note:: minSup  will be considered in support count or frequency
 
 
-    **Sample run of the importing code:**
-    ----------------------------------------
+    **Calling from a python program**
+
     .. code-block:: python
 
             from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import CFPGrowthPlus as alg
 
-            obj = alg.CFPGrowthPlus(iFile, mIS)
+            iFile = "sample.txt"
+
+            MIS = "MIS.txt"
+
+            obj = alg.CFPGrowthPlus(iFile, MIS, sep)
 
             obj.startMine()
 
@@ -313,8 +324,8 @@ class CFPGrowthPlus(_fp._frequentPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    **Credits:**
-    ---------------
+    **Credits**
+
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
     """
@@ -438,7 +449,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         global minMIS
         self.__mapSupport = {}
         for tr in self.__Database:
-            for i in range(1, len(tr)):
+            for i in range(0, len(tr)):
                 if tr[i] not in self.__mapSupport:
                     self.__mapSupport[tr[i]] = 1
                 else:
@@ -529,7 +540,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         for k in patterns:
             s = self.__savePeriodic(k[0])
             self.__finalPatterns[str(s)] = k[1]
-        print("Frequent patterns were generated successfully using frequentPatternGrowth algorithm")
+        print("Frequent patterns were generated successfully using Conditional Frequent Pattern Growth algorithm")
         self.__endTime = _fp._time.time()
         self.__memoryUSS = float()
         self.__memoryRSS = float()
