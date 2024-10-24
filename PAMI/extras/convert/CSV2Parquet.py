@@ -49,7 +49,7 @@ class CSV2Parquet:
         :**Attributes**:    - **getMemoryUSS** (*float*) -- *Returns the memory used by the process in USS.*
                             - **getMemoryRSS** (*float*) -- *Returns the memory used by the process in RSS.*
                             - **getRuntime()** (*float*) -- *Returns the time taken to execute the conversion.*
-                            - **printStats()** -- * Prints statistics about memory usage and runtime.*
+                            - **printStats()** -- *Prints statistics about memory usage and runtime.*
 
         :**Methods**:       - **convert()** -- *Reads the input file, converts it to a Parquet file, and tracks memory usage and runtime.*
 

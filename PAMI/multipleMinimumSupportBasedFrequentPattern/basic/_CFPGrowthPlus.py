@@ -18,7 +18,7 @@ from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import abstract as _f
 from deprecated import deprecated
 
 _fp._sys.setrecursionlimit(20000)
-_MIS = {}
+MIS = {}
 
 class _Node:
     """
@@ -194,11 +194,6 @@ class _Tree:
                     yield q
 
 minMIS = 0
-
-
-class WrongNumberOfArguments(Exception):
-    pass
-
 
 class CFPGrowthPlus(_fp._frequentPatterns):
     """
@@ -516,7 +511,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         main program to start the operation
 
         """
-        global _MIS
+        global MIS
         self.__startTime = _fp._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -525,7 +520,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         itemSet = self.__frequentOneItem()
         updatedTransactions = self.__updateTransactions(itemSet)
         for x, y in self.__rank.items():
-            _MIS[y] = self._MISValues[x]
+            MIS[y] = self._MISValues[x]
             self.__rankDup[y] = x
         info = {self.__rank[k]: v for k, v in self.__mapSupport.items()}
         __Tree = self.__buildTree(updatedTransactions, info)
@@ -617,46 +612,21 @@ class CFPGrowthPlus(_fp._frequentPatterns):
 
 
 if __name__ == "__main__":
-    print("Number of arguments:", len(_fp._sys.argv))
-    print("Arguments:", _fp._sys.argv)
-
-    if len(_fp._sys.argv) == 5:
-        iFile = _fp._sys.argv[1]
-        MIS = _fp._sys.argv[2]
-        oFile = _fp._sys.argv[3]
-        sep = _fp._sys.argv[4]
-        if sep == "\\t":
-            sep = "\t"
-        print("Input File:", iFile)
-        print("MIS File:", MIS)
-        print("Output File:", oFile)
-        print("Separator:", sep)
-        _ap = CFPGrowthPlus(iFile=iFile, MIS=MIS, sep=sep)
-        _ap.mine()
-        _ap.save(oFile)
-        print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
-        print("Total Memory in USS:", _ap.getMemoryUSS())
-        print("Total Memory in RSS:", _ap.getMemoryRSS())
-        print("Total ExecutionTime in ms:", _ap.getRuntime())
-    elif len(_fp._sys.argv) == 4:
-        iFile = _fp._sys.argv[1]
-        MIS = _fp._sys.argv[2]
-        oFile = _fp._sys.argv[3]
-
-        print("Input File:", iFile)
-        print("MIS File:", MIS)
-        print("Output File:", oFile)
-
-        _ap = CFPGrowthPlus(iFile=iFile, MIS=MIS)
-        _ap.mine()
-        _ap.save(oFile)
-
-        print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
-        print("Total Memory in USS:", _ap.getMemoryUSS())
-        print("Total Memory in RSS:", _ap.getMemoryRSS())
-        print("Total ExecutionTime in ms:", _ap.getRuntime())
-
-
+    _ap = str()
+    if len(_fp._sys.argv) == 4 or len(_fp._sys.argv) == 5:
+        if len(_fp._sys.argv) == 5:
+            _ap = CFPGrowthPlus(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4])
+        if len(_fp._sys.argv) == 4:
+            _ap = CFPGrowthPlus(_fp._sys.argv[1], _fp._sys.argv[3])
+        _ap.startMine()
+        _Patterns = _ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(_Patterns))
+        _ap.savePatterns(_fp._sys.argv[2])
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in ms:", _run)
     else:
-        raise WrongNumberOfArguments(
-            "Please provide three arguments: iFile, minSup and oFile \n""or Please provide four arguments: iFile, minSup, oFile and sep")
+        print("Error! The number of input parameters do not match the total number of parameters provided")
