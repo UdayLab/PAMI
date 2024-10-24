@@ -8,7 +8,7 @@
 #
 #             obj.generateLatexCode(result, "minSup", "runtime", "algorithmColumn")
 #
-#             obj.print()
+#             obj.printLatex()
 #
 #             obj.save("outputFile.tex")
 #
@@ -60,7 +60,7 @@ class DF2Tex:
 
             obj.generateLatexCode(result, "minSup", "runtime", "algorithmColumn")
 
-            obj.print()
+            obj.printLatex()
 
             obj.save("outputFile.tex")
     """
@@ -106,7 +106,7 @@ class DF2Tex:
         latexCode += "\\end{axis}"
         self.latexCode = latexCode
 
-    def print_latex(self):
+    def printLatex(self):
         """
         Print the generated LaTeX code.
         """
@@ -127,12 +127,12 @@ class DF2Tex:
         print(f"LaTeX file saved as {outputFileName}")
 
 # Example usage
-result = pd.DataFrame()
-obj = DF2Tex()
+# result = pd.DataFrame()
+# obj = DF2Tex()
 # generateLatexCode function as four parameters dataFrame, xColumn-name, yColumn-name,
 # algorithmColumn-name is optional
-obj.generateLatexCode(result, "minSup", "runtime", "algorithmColumn")
+# obj.generateLatexCode(result, "minSup", "runtime", "algorithmColumn")
 # printLatexCode function prints the output of latex file
-obj.print()
+# obj.printLatex()
 # save function gives the outputFile
-obj.save("outputFile.tex")
+# obj.save("outputFile.tex")
