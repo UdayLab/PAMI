@@ -1,10 +1,10 @@
-# csv2Parquet converts the input CSV file to a data frame, which is then transformed into a Parquet file.
+# Parquet2CSV is a code used to converts the input Parquet file into a CSV file by the specified separator.
 #
 # **Importing this algorithm into a python program**
 #
-#             from PAMI.extras.convert import csvParquet as cp
+#             from PAMI.extras.convert import Parquet2CSV as p2c
 #
-#             obj = cp.CSV2Parquet(sampleDB.csv, output.parquet, sep)
+#             obj = p2c.Parquet2CSV(input.parquet, sampleDB.csv, sep)
 #
 #             obj.convert()
 #
@@ -28,31 +28,30 @@ Copyright (C)  2021 Rage Uday Kiran
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+
 import pandas as pd
 import os
 import psutil
 import time
 
-
-class CSV2Parquet:
+class Parquet2CSV:
     """
         **About this algorithm**
 
-        :**Description**:  This class is to convert CSV files into Parquet format.
+        :**Description**:  This class is to convert Parquet format into CSV file.
 
         :**Reference**:
 
-        :**Parameters**:    - **inputFile** (*str*) -- *Path to the input CSV file.*
-                            - **outputFile** (*str*) -- *Path to the output Parquet file.*
+        :**Parameters**:    - **inputFile** (*str*) -- *Path to the input Parquet file.*
+                            - **outputFile** (*str*) -- *Path to the output CSV file.*
                             - **sep** (*str*) -- *This variable is used to distinguish items from one another. The default seperator is tab space. However, the users can override their default separator.*
 
-        :**Attributes**:    - **getMemoryUSS** (*float*) -- *Returns the memory used by the process in USS.*
-                            - **getMemoryRSS** (*float*) -- *Returns the memory used by the process in RSS.*
+        :**Attributes**:    - **getMemoryUSS** (*int*) -- *Returns the memory used by the process in USS.*
+                            - **getMemoryRSS** (*int*) -- *Returns the memory used by the process in RSS.*
                             - **getRuntime()** (*float*) -- *Returns the time taken to execute the conversion.*
                             - **printStats()** -- * Prints statistics about memory usage and runtime.*
 
-        :**Methods**:       - **convert()** -- *Reads the input file, converts it to a Parquet file, and tracks memory usage and runtime.*
-
+        :**Methods**:       - **convert()** -- *Reads the Parquet file, converts it to a CSV file, and tracks memory usage and runtime.*
 
         **Execution methods**
 
@@ -62,26 +61,26 @@ class CSV2Parquet:
 
           Format:
 
-          (.venv) $ python3 CSV2Parquet.py <inputFile> <outputFile> <sep>
+          (.venv) $ python3 _CSV2Parquet.py <inputFile> <outputFile> <sep>
 
           Example Usage:
 
-          (.venv) $ python3 CSV2Parquet.py sampleDB.csv output.parquet \t
+          (.venv) $ python3 _CSV2Parquet.py output.parquet sampleDB.csv \t
 
 
         **Calling from a python program**
 
         .. code-block:: python
 
-                import PAMI.extras.convert.CSV2Parquet as cp
+                import PAMI.extras.convert.Parquet2CSV as pc
 
-                inputFile = 'sampleDB.csv'
+                inputFile = 'output.parquet'
 
                 sep = "\t"
 
-                outputFile = 'output.parquet'
+                outputFile = 'sampleDB.csv'
 
-                obj = cp.CSV2Parquet(inputFile, outputFile, sep)
+                obj = pc.Parquet2CSV(inputFile, outputFile, sep)
 
                 obj.convert()
 
@@ -100,22 +99,14 @@ class CSV2Parquet:
 
     def convert(self):
         """
-        This function converts the input CSV file to a data frame, which is then transformed into a Parquet file.
+        This function converts the input Parquet file into a CSV file where each row is joined by the specified separator and written to the output file.
         """
         self.start = time.time()
-        file = []
-        maxLen = 0
-        with open(self.inputFile, "r") as f:
-            for line in f:
-                file.append(line.strip().split(self.sep))
-                maxLen = max(maxLen, len(file[-1]))
+        df = pd.read_parquet(self.inputFile)
 
-        for i in range(len(file)):
-            file[i] += [""] * (maxLen - len(file[i]))
-
-        df = pd.DataFrame(file)
-
-        df.to_parquet(self.outputFile)
+        with open(self.outputFile, "w") as f:
+            for i in range(len(df)):
+                f.write(self.sep.join(df.iloc[i]) + "\n")
 
         self.end = time.time()
 
@@ -144,7 +135,7 @@ class CSV2Parquet:
 
     def getRuntime(self):
         """
-        Returns the time taken to complete the CSV to Parquet conversion.
+        Returns the time taken to complete the Parquet to CSV conversion.
 
         :return: The runtime of the conversion process in seconds.
         :rtype: float
@@ -162,9 +153,8 @@ class CSV2Parquet:
         print("Runtime:", self.end - self.start)
 
 
-file = "Transactional_T10I4D100K.csv"
 sep = "\t"
-outputFile = "output.parquet"
-obj = CSV2Parquet(file, outputFile, sep)
+outputFile = "output.csv"
+obj = Parquet2CSV("output.parquet", outputFile, sep)
 obj.convert()
 obj.printStats()
