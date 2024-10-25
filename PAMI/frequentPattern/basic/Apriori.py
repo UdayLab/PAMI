@@ -153,7 +153,7 @@ class Apriori(_ab._frequentPatterns):
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
-            temp = []
+            #temp = []
             if self._iFile.empty:
                 print("its empty..")
             i = self._iFile.columns.values.tolist()
@@ -360,6 +360,8 @@ class Apriori(_ab._frequentPatterns):
 
         :param oFile: name of the output file
         :type oFile: csvfile
+        :param seperator: variable to store separator value
+        :type seperator: string
         :return: None
         """
 
