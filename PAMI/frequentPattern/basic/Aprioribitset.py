@@ -366,6 +366,8 @@ class Aprioribitset(_ab._frequentPatterns):
 
         :param outFile: name of the output file
         :type outFile: csvfile
+        :param seperator: variable to store separator value
+        :type seperator: string
         :return: None
         """
 
