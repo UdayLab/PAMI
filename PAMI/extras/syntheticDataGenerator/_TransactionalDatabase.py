@@ -15,7 +15,7 @@
 
 import numpy as np
 import pandas as pd
-import sys,psutil,os,time
+import sys
 
 
 __copyright__ = """
@@ -46,14 +46,6 @@ class TransactionalDatabase:
             Average number of items per line
         numItems: int
             Total number of items
-        memoryUSS : float
-            To store the total amount of USS memory consumed by the program
-        memoryRSS : float
-                    To store the total amount of RSS memory consumed by the program
-        startTime : float
-                    To record the start time of the mining process
-        endTime : float
-                    To record the completion time of the mining process
 
     :Methods:
 
@@ -63,12 +55,7 @@ class TransactionalDatabase:
             Save the transactional database to a user-specified file
         getTransactions: 
             Get the transactional database
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
+
 
     **Methods to execute code on terminal**
     ---------------------------------------------
@@ -119,10 +106,7 @@ class TransactionalDatabase:
         self.numItems = numItems
         self.sep = sep
         self.db = []
-        self._startTime = float()
-        self._endTime = float()
-        self._memoryUSS = float()
-        self._memoryRSS = float()
+
     def _generateArray(self, nums, avg, maxItems) -> list:
         """
         Generate a random array of length n whose values average to m
@@ -170,7 +154,7 @@ class TransactionalDatabase:
         Generate the transactional database with the given input parameters.
         Returns: None
         """
-        self._startTime = time.time()
+
         values = self._generateArray(self.databaseSize, self.avgItemsPerTransaction, self.numItems)
 
         self.db = []
@@ -200,55 +184,18 @@ class TransactionalDatabase:
         db = pd.DataFrame(columns=[column])
         db[column] = [sep.join(map(str, line)) for line in self.db]
         return db
+        
 
-    def getMemoryUSS(self) -> float:
-        """
-        Total amount of USS memory consumed by the mining process will be retrieved from this function
-
-        :return: returning USS memory consumed by the mining process
-        :rtype: float
-        """
-        process = psutil.Process(os.getpid())
-        self._memoryUSS = process.memory_full_info().uss
-        return self._memoryUSS
-
-    def getMemoryRSS(self) -> float:
-        """
-        Total amount of RSS memory consumed by the mining process will be retrieved from this function
-
-        :return: returning RSS memory consumed by the mining process
-        :rtype: float
-        """
-        process = psutil.Process(os.getpid())
-        self._memoryRSS = process.memory_info().rss
-        return self._memoryRSS
-
-    def getRuntime(self) -> float:
-        """
-        Calculating the total amount of runtime taken by the mining process
-
-
-        :return: returning total amount of runtime taken by the mining process
-        :rtype: float
-        """
-        self._endTime = time.time()
-        return self._endTime - self._startTime
 if __name__ == "__main__":
 
     if len(sys.argv) == 5:
         obj = TransactionalDatabase(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]))
         obj.create()
         obj.save(sys.argv[4])
-        print("Total Memory in USS:", obj.getMemoryUSS())
-        print("Total Memory in RSS", obj.getMemoryRSS())
-        print("Total ExecutionTime in ms:", obj.getRuntime())
     if len(sys.argv) == 6:
         obj = TransactionalDatabase(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), sys.argv[4])
         obj.create()
         obj.save(sys.argv[5])
-        print("Total Memory in USS:", obj.getMemoryUSS())
-        print("Total Memory in RSS", obj.getMemoryRSS())
-        print("Total ExecutionTime in ms:", obj.getRuntime())
     else:
         raise ValueError("Invalid number of arguments. Args: <numLines> <avgItemsPerLine> <numItems> <filename> or Args: <numLines> <avgItemsPerLine> <numItems> <sep> <filename>")
     
