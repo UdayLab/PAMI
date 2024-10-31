@@ -977,6 +977,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = PSGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Periodic-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
