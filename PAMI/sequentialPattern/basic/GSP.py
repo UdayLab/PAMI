@@ -11,7 +11,7 @@
 #
 #             obj = alg.GSP(iFile, minSup)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             sequentialPatternMining = obj.getPatterns()
 #
@@ -156,11 +156,11 @@ class GSP(_ab._sequentialPatterns):
     ----------------------------------------------------
     .. code-block:: python
 
-            import PAMI.sequentialPatternMining.basic.GSP as alg
+            import PAMI.sequentialPattern.basic.GSP as alg
 
             obj = alg.GSP(iFile, minSup)
 
-            obj.startMine()
+            obj.mine()
 
             sequentialPatternMining = obj.getPatterns()
 
@@ -460,7 +460,7 @@ class GSP(_ab._sequentialPatterns):
         
        
 
-    def startMine(self):
+    def mine(self):
         """
         Frequent pattern mining process will start from here
         """
@@ -564,7 +564,7 @@ if __name__ == "__main__":
             _ap = GSP(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
             _ap = GSP(_ab._sys.argv[1], _ab._sys.argv[3])
-        _ap.startMine()
+        _ap.mine()
         _Patterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_Patterns))
         _ap.savePatterns(_ab._sys.argv[2])
