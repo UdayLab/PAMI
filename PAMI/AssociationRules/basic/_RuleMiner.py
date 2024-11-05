@@ -94,7 +94,7 @@ class Confidence:
         :type rhs: str
         """
         s = lhs + '\t' + rhs
-        if self._frequentPatterns.get(s) == None:
+        if self._frequentPatterns.get(s) is None:
             return 0
         minimum = self._frequentPatterns[s]
         conflhs = minimum / self._frequentPatterns[lhs]
@@ -167,7 +167,7 @@ class Lift:
         :type rhs: str
         """
         s = lhs + '\t' + rhs
-        if self._frequentPatterns.get(s) == None:
+        if self._frequentPatterns.get(s) is None:
             return 0
         minimum = self._frequentPatterns[s]
         conflhs = minimum / self._frequentPatterns[lhs]
@@ -241,7 +241,7 @@ class Leverage:
         :type rhs: str
         """
         s = lhs + '\t' + rhs
-        if self._frequentPatterns.get(s) == None:
+        if self._frequentPatterns.get(s) is None:
             return 0
         minimum = self._frequentPatterns[s]
         conflhs = minimum / self._frequentPatterns[lhs]
@@ -387,7 +387,7 @@ class RuleMiner:
         self._frequentPatterns = {}
         k = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
-            pattern, sup = [], []
+            pattern, support = [], []
             if self._iFile.empty:
                 print("its empty..")
             i = self._iFile.columns.values.tolist()
