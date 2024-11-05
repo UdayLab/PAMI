@@ -542,7 +542,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 6:
             _ap = RuleMiner(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]), _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
-            _ap = RuleMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = RuleMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4],sep='\t')
         _ap.startMine()
         _ap.mine()
         print("Total number of Association Rules:", len(_ap.getPatterns()))
