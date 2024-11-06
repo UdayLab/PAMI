@@ -1,12 +1,10 @@
-#  ParallelPFPGrowth is one of the fundamental distributed algorithm to discover periodic-frequent patterns in a transactional database. It is based PySpark framework.
-#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
 #
 #             from PAMI.periodicFrequentPattern.basic import parallelPFPGrowth as alg
 #
-#             obj = alg.parallelPFPGrowth(iFile, minSup, maxPer, numWorkers, sep='\t')
+#             obj = alg.parallelPFPGrowth(iFile, minSup, maxPer, noWorkers)
 #
 #             obj.startMine()
 #
@@ -14,7 +12,7 @@
 #
 #             print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#             obj.save(oFile)
+#             obj.savePatterns(oFile)
 #
 #             Df = obj.getPatternsAsDataFrame()
 #
@@ -52,12 +50,12 @@ __copyright__ = """
 
 """
 
+from PAMI.periodicFrequentPattern.pyspark import abstract as _ab
+from pyspark import SparkContext, SparkConf
+
 from PAMI.periodicFrequentPattern.basic import abstract as _ab
 import pandas as pd
 from deprecated import deprecated
-
-# from PAMI.periodicFrequentPattern.basic
-import abstract as _ab
 
 _maxPer = float()
 _minSup = float()
@@ -90,8 +88,7 @@ class Node(object):
     """
 
     def __init__(self, item, count, children):
-        """
-        Initializing the Node class
+        """ Initializing the Node class
 
         :param item: item of a node
         :param count: count of a node
@@ -127,8 +124,7 @@ class Node(object):
         return s
 
     def addChild(self, node):
-        """
-        To add the children to a node
+        """ To add the children to a node
 
         :param node: children of a node
         """
@@ -173,7 +169,6 @@ class PFPTree(object):
             To satisfy the periodicity constraint
         extract(minCount, maxPer, numTrans, isResponsible = lambda x:True)
             To extract the periodic frequent patterns
-
 
     """
 
@@ -263,7 +258,6 @@ class PFPTree(object):
         :param tids: timestamps of a database
         :param maxPer: maximum periodicity
         :param numTrans: number of transactions
-
         """
 
         tids = list(tids)
@@ -284,7 +278,6 @@ class PFPTree(object):
         :param maxPer: maximum periodicity
         :param numTrans: number of transactions
         :param isResponsible: responsible node of a tree
-
         """
         for item in sorted(self.summaries, reverse=True):
             summary = self.summaries[item]
@@ -310,6 +303,7 @@ class Summary(object):
             To maintain the nodes of a tree
         tids : set
             To maintain the timestamps of a database
+
     """
 
     def __init__(self, count, nodes):
@@ -332,6 +326,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
                    Controls the minimum number of transactions in which every item must appear in a database.
     :param  maxPer: str:
                    Controls the maximum number of transactions in which any two items within a pattern can reappear.
+
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
@@ -341,17 +336,17 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
             Name of the Input file or path of the input file
         oFile : file
             Name of the output file or path of the output file
-        minSup : int or float or str
+        minSup: int or float or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        maxPer : int or float or str
+        maxPer: int or float or str
             The user can specify maxPer either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
             Otherwise, it will be treated as float.
             Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-        numWorker : int
+        numWorker: int
             The user can specify the number of worker machines to be employed for finding periodic-frequent patterns.
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
@@ -360,9 +355,9 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-        startTime : float
+        startTime:float
             To record the start time of the mining process
-        endTime : float
+        endTime:float
             To record the completion time of the mining process
         Database : list
             To store the transactions of a database in list
@@ -406,28 +401,30 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
 
     **Methods to execute code on terminal**
-    ---------------------------------------------
-     .. code-block:: console
+    --------------------------------------------
+   .. code-block:: console
 
 
        Format:
 
+
        (.venv) $ python3 parallelPFPGrowth_old.py <inputFile> <outputFile> <minSup> <maxPer> <noWorker>
 
-       Example usage:
+       Example usage :
 
        (.venv) $ python3 parallelPFPGrowth_old.py sampleTDB.txt patterns.txt 0.3 0.4 5
 
 
                .. note:: minSup will be considered in percentage of database transactions
 
+
     **Importing this algorithm into a python program**
-    ---------------------------------------------------------
+    -----------------------------------------------------
     .. code-block:: python
 
                 from PAMI.periodicFrequentPattern.basic import parallelPFPGrowth as alg
 
-                obj = alg.parallelPFPGrowth(iFile, minSup, maxPer, numWorkers, sep='\t')
+                obj = alg.parallelPFPGrowth(iFile, minSup, maxPer)
 
                 obj.startMine()
 
@@ -435,7 +432,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
                 print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
-                obj.save(oFile)
+                obj.savePatterns(oFile)
 
                 Df = obj.getPatternsAsDataFrame()
 
@@ -470,6 +467,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
     __rank = {}
     __rankDup = {}
     _numTrans = str()
+    __tarunpat = {}
 
     def __init__(self, iFile, minSup, maxPer, numWorker, sep='\t'):
         super().__init__(iFile, minSup, maxPer, numWorker, sep)
@@ -502,11 +500,11 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
     def func3(self, tids, endts):
         """
+
         Calculate the periodicity of a transaction
 
         :param tids: timestamps of a database
         return: periodicity
-
         """
         # print(tids)
         z = sorted(tids)
@@ -526,8 +524,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         Get the frequent items from the database
 
         :param data: database
-        :return: frequent items
-
+        return: frequent items
         """
         singleItems = data.flatMap(lambda x: [(x[i], x[0]) for i in range(1, len(x))])
         ps = set()
@@ -547,7 +544,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
         :param data: database
         :param freqItems: frequent items
-        :return: frequent itemsets
+        return: frequent itemsets
 
         """
         rank = dict([(index, item) for (item, index) in enumerate(self._perFreqItems)])
@@ -564,6 +561,15 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
                                                                      partId_bonsai[0]))
         frequentItemsets = itemsets.map(
             lambda ranks_count: ([self._perFreqItems[z] for z in ranks_count[0]], ranks_count[1]))
+
+        ### TARUN MODIFICATION ###
+        frequentItemsets_list = frequentItemsets.collect()
+
+        for itemset, count in frequentItemsets_list:
+            string = "\t".join([str(x) for x in itemset])
+            self.__tarunpat[string] = count
+        ##########################
+
         return frequentItemsets
 
     def genCondTransactions(self, tid, basket, rank, nPartitions):
@@ -590,8 +596,8 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         Get the partition id
 
         :param key: key of a database
-        :param nPartitions: number of partitions.
-        :return: partition id
+        :param nPartitions: number of partitions
+        return: partition id
 
         """
         return key % nPartitions
@@ -622,6 +628,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
         """
         self.__startTime = _ab._time.time()
+
         APP_NAME = "parallelPFPGrowth"
         conf = _ab.SparkConf().setAppName(APP_NAME)
         # conf = conf.setMaster("local[*]")
@@ -638,7 +645,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         self._numTrans = sc.broadcast(data.count())
         self._perFreqItems = self.getFrequentItems(data)
         freqItemsets = self.getFrequentItemsets(data, self._perFreqItems)
-        self.__finalPatterns = freqItemsets.count()
+        self.__finalPatterns = self.__tarunpat
         sc.stop()
         self.__endTime = _ab._time.time()
         self.__memoryUSS = float()
@@ -653,6 +660,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
         """
         self.__startTime = _ab._time.time()
+
         APP_NAME = "parallelPFPGrowth"
         conf = _ab.SparkConf().setAppName(APP_NAME)
         # conf = conf.setMaster("local[*]")
@@ -669,7 +677,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         self._numTrans = sc.broadcast(data.count())
         self._perFreqItems = self.getFrequentItems(data)
         freqItemsets = self.getFrequentItemsets(data, self._perFreqItems)
-        self.__finalPatterns = freqItemsets.count()
+        self.__finalPatterns = self.__tarunpat
         sc.stop()
         self.__endTime = _ab._time.time()
         self.__memoryUSS = float()
@@ -677,6 +685,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         process = _ab._psutil.Process(_ab._os.getpid())
         self.__memoryUSS = process.memory_full_info().uss
         self.__memoryRSS = process.memory_info().rss
+
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -699,7 +708,6 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
 
-
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -715,7 +723,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
         dataframe = {}
         data = []
-        for a, b in self.__finalPatterns.items():
+        for a, b in self.__tarunpat.items():
             data.append([a.replace('\t', ' '), b])
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
@@ -724,11 +732,13 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
-        for x, y in self.__finalPatterns.items():
+        # print(self.getFrequentItems())
+        for x, y in self.__tarunpat.items():
+            # print(x,y)
             s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
@@ -736,16 +746,12 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
-
         :rtype: dict
         """
-        return self.__finalPatterns
+        return self.__tarunpat
 
     def printResults(self):
-        """
-        This function is used to print the results
-        """
-        print("Total number of Frequent Patterns:", self.getPatterns())
+        print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
         print("Total ExecutionTime in ms:", self.getRuntime())
@@ -766,7 +772,7 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        _ap = parallelPFPGrowth('Temporal_T10I4D100K.csv', 100, 5000, 5, '\t')
+        _ap = parallelPFPGrowth('Temporal_T10I4D100K.csv', 500, 5000, 5, '\t')
         _ap.startMine()
         # print("Total number of Frequent Patterns:", len( _ab.getPatterns()))
         # _ap.save(_ab._sys.argv[2])
