@@ -1,10 +1,12 @@
-# **Importing this algorithm into a python program**
+#  ParallelPFPGrowth is one of the fundamental distributed algorithm to discover periodic-frequent patterns in a transactional database. It is based PySpark framework.
+#
+# *Importing this algorithm into a python program*
 # --------------------------------------------------------
 #
 #
 #             from PAMI.periodicFrequentPattern.basic import parallelPFPGrowth as alg
 #
-#             obj = alg.parallelPFPGrowth(iFile, minSup, maxPer, noWorkers)
+#             obj = alg.parallelPFPGrowth(iFile, minSup, maxPer, numWorkers, sep='\t')
 #
 #             obj.startMine()
 #
@@ -12,7 +14,7 @@
 #
 #             print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#             obj.savePatterns(oFile)
+#             obj.save(oFile)
 #
 #             Df = obj.getPatternsAsDataFrame()
 #
@@ -30,8 +32,7 @@
 #
 
 
-
-__copyright__ = """
+_copyright_ = """
  Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
@@ -50,19 +51,18 @@ __copyright__ = """
 
 """
 
-from PAMI.periodicFrequentPattern.pyspark import abstract as _ab
-from pyspark import SparkContext, SparkConf
-
-from PAMI.periodicFrequentPattern.basic import abstract as _ab
+import sys
+from collections import defaultdict
+from operator import add
+from pyspark.sql import SparkSession
+from pyspark import SparkConf, SparkContext
+import time
+import psutil
+import os
 import pandas as pd
-from deprecated import deprecated
-
-_maxPer = float()
-_minSup = float()
-_lno = int()
 
 
-class Node(object):
+class Node:
     """
     A class used to represent the node of frequentPatternTree
 
@@ -87,8 +87,9 @@ class Node(object):
             To print the node
     """
 
-    def __init__(self, item, count, children):
-        """ Initializing the Node class
+    def _init_(self, item, prefix):
+        """
+        Initializing the Node class
 
         :param item: item of a node
         :param count: count of a node
@@ -96,54 +97,72 @@ class Node(object):
 
         """
         self.item = item
-        self.count = count
-        self.children = children  # dictionary of children
-        self.parent = None
-        self.tids = set()
+        self.count = 0
+        self.children = {}
+        self.prefix = prefix
 
-    def __repr__(self):
-        return self.toString(0)
 
-    def toString(self, level=0):
-        """ To print the node
-
-        :param level: level of a node
+class Tree:
+    def _init_(self):
         """
-        if self.item == None:
-            s = "Root("
+        Initializes the Tree class with a root node, a dictionary to keep track of node links, and
+        a defaultdict to store item counts.
+
+        :param root: The root node of the FP-Tree, initialized as an empty node.
+        :param nodeLink: A dictionary that links nodes of the same item for efficient traversal.
+        :param itemCount: A defaultdict to keep count of item frequencies across transactions.
+        """
+        self.root = Node(None, [])
+        self.nodeLink = {}
+        self.itemCount = defaultdict(int)
+
+    def addTransaction(self, transaction, count):
+        """
+        Adds a transaction to the FP-Tree, updating item counts and building the tree structure.
+
+        :param transaction: A list of items in the transaction to be added to the tree.
+        :param count: The count associated with this transaction, used to increment node counts.
+        :return: None
+        """
+        current = self.root
+        for item in transaction:
+            if item not in current.children:
+                current.children[item] = Node(item, transaction[0:transaction.index(item)])
+                current.children[item].count += count
+                self.addNodeToNodeLink(current.children[item])
+            else:
+                current.children[item].count += count
+            self.itemCount[item] += count
+            current = current.children[item]
+
+    def addNodeToNodeLink(self, node):
+        """
+        Adds a node to the nodeLink dictionary, which maintains a list of nodes per item
+        for easy lookup of nodes with the same item.
+
+        :param node: The node to be added to the nodeLink structure.
+        :return: None
+        """
+        if node.item not in self.nodeLink:
+            self.nodeLink[node.item] = [node]
         else:
-            s = "(item=" + str(self.item)
-            s += ", count=" + str(self.count)
-            for i in self.tids:
-                s += " " + str(i)
-        tabs = "\t".join(['' for i in range(0, level + 2)])
-        for v in self.children.values():
-            s += tabs + "\n"
-            s += tabs + v.toString(level=level + 1)
-        s += ")"
-        return s
+            self.nodeLink[node.item].append(node)
 
-    def addChild(self, node):
-        """ To add the children to a node
-
-        :param node: children of a node
+    def generateConditionalTree(self, item):
         """
-        self.children[node.item] = node
-        node.parent = self
+        Generates a conditional FP-Tree for the specified item, which includes only paths
+        containing that item and their counts.
 
-    def _getTransactions(self):
-        count = self.count
-        tids = self.tids
-        for child in self.children.values():
-            for t in child._getTransactions():
-                count -= t[2]
-                t[0].insert(0, child.item)
-                yield t
-        if (count > 0):
-            yield ([], tids, count)
+        :param item: The item for which to generate a conditional tree.
+        :return: A new Tree object representing the conditional FP-Tree.
+        """
+        tree = Tree()
+        for node in self.nodeLink[item]:
+            tree.addTransaction(node.prefix, node.count)
+        return tree
 
 
-class PFPTree(object):
+class Parallel_PPFP:
     """
 
     A class used to represent the periodic frequent pattern tree
@@ -170,439 +189,84 @@ class PFPTree(object):
         extract(minCount, maxPer, numTrans, isResponsible = lambda x:True)
             To extract the periodic frequent patterns
 
-    """
-
-    def __init__(self):
-        self.root = Node(None, 0, {})
-        self.summaries = {}
-
-    def __repr__(self):
-        return repr(self.root)
-
-    def add(self, basket, tid, count):
-        """
-        To add the basket to the tree
-
-        :param basket: basket of a database
-        :param tid: timestamp of a database
-        :param count: count of a node
-        """
-        curr = self.root
-        curr.count += count
-        for i in tid:
-            curr.tids.add(i)
-
-        for i in range(0, len(basket)):
-            item = basket[i]
-            if item in self.summaries.keys():
-                summary = self.summaries.get(item)
-            else:
-                summary = Summary(0, set())
-                self.summaries[item] = summary
-            summary.count += count
-
-            if item in curr.children.keys():
-                child = curr.children.get(item)
-            else:
-                child = Node(item, 0, {})
-                curr.addChild(child)
-            summary.nodes.add(child)
-            child.count += count
-            for j in tid:
-                summary.tids.add(j)
-                if (i == len(basket) - 1):
-                    child.tids.add(j)
-            curr = child
-        return self
-
-    def getTransactions(self):
-        """
-        To get the transactions of the tree
-
-        :return: returning the transactions of the tree
-        """
-        return [x for x in self.root._getTransactions()]
-
-    def merge(self, tree):
-        """
-        To merge the tree
-
-        :param tree: tree of a database
-        """
-        for t in tree.getTransactions():
-            self.add(t[0], t[1], t[2])
-        return self
-
-    def project(self, itemId):
-        """
-        To project the tree
-
-        :param itemId: item of a node
-        """
-        newTree = PFPTree()
-        summaryItem = self.summaries.get(itemId)
-        if summaryItem:
-            for element in summaryItem.nodes:
-                t = []
-                curr = element.parent
-                while curr.parent:
-                    t.insert(0, curr.item)
-                    curr = curr.parent
-                newTree.add(t, element.tids, element.count)
-        return newTree
-
-    def satisfyPer(self, tids, maxPer, numTrans):
-        """
-        To satisfy the periodicity constraint
-
-        :param tids: timestamps of a database
-        :param maxPer: maximum periodicity
-        :param numTrans: number of transactions
-        """
-
-        tids = list(tids)
-        tids.sort()
-        if tids[0] > maxPer:
-            return 0
-        tids.append(numTrans)
-        for i in range(1, len(tids)):
-            if (tids[i] - tids[i - 1]) > maxPer:
-                return 0
-        return 1
-
-    def extract(self, minCount, maxPer, numTrans, isResponsible=lambda x: True):
-        """
-        To extract the periodic frequent patterns
-
-        :param minCount: minimum count of a node
-        :param maxPer: maximum periodicity
-        :param numTrans: number of transactions
-        :param isResponsible: responsible node of a tree
-        """
-        for item in sorted(self.summaries, reverse=True):
-            summary = self.summaries[item]
-            if (isResponsible(item)):
-                if (summary.count >= minCount and self.satisfyPer(summary.tids, maxPer, numTrans)):
-                    yield ([item], summary.count)
-                    for element in self.project(item).extract(minCount, maxPer, numTrans):
-                        yield ([item] + element[0], element[1])
-            for element in summary.nodes:
-                parent = element.parent
-                parent.tids |= element.tids
-
-
-class Summary(object):
-    """
-    A class used to represent the summary of the tree
-
-    :Attributes:
-
-        count : int
-            To maintain the count of a node
-        nodes : list
-            To maintain the nodes of a tree
-        tids : set
-            To maintain the timestamps of a database
 
     """
 
-    def __init__(self, count, nodes):
-        self.count = count
-        self.nodes = nodes
-        self.tids = set()
+    def _init_(self, inputData, minSup, maxPeriod, numWorkers, sep='\t'):
+        self._minSup = minSup
+        self._maxPeriod = int(maxPeriod)
+        self._numPartitions = int(numWorkers)
+        self._startTime = 0.0
+        self._endTime = 0.0
+        self._finalPatterns = {}
+        self._FPList = []
+        self._inputData = inputData
+        self._sep = sep
+        self._memoryUSS = 0.0
+        self._memoryRSS = 0.0
+        self._lno = 0
+        self.sc = None
 
-
-class parallelPFPGrowth(_ab._periodicFrequentPatterns):
-    """
-    :Description:   ParallelPFPGrowth is one of the fundamental distributed algorithm to discover periodic-frequent patterns in a transactional database. It is based PySpark framework.
-
-    :Reference:   C. Saideep, R. Uday Kiran, Koji Zettsu, Cheng-Wei Wu, P. Krishna Reddy, Masashi Toyoda, Masaru Kitsuregawa: Parallel Mining of Partial Periodic Itemsets in Big Data. IEA/AIE 2020: 807-819
-
-    :param  iFile: str :
-                   Name of the Input file to mine complete set of periodic frequent pattern's
-    :param  oFile: str :
-                   Name of the output file to store complete set of periodic frequent pattern's
-    :param  minSup: str:
-                   Controls the minimum number of transactions in which every item must appear in a database.
-    :param  maxPer: str:
-                   Controls the maximum number of transactions in which any two items within a pattern can reappear.
-
-    :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
-
-    :Attributes:
-
-        iFile : file
-            Name of the Input file or path of the input file
-        oFile : file
-            Name of the output file or path of the output file
-        minSup: int or float or str
-            The user can specify minSup either in count or proportion of database size.
-            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        maxPer: int or float or str
-            The user can specify maxPer either in count or proportion of database size.
-            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-        numWorker: int
-            The user can specify the number of worker machines to be employed for finding periodic-frequent patterns.
-        sep : str
-            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
-            However, the users can override their default separator.
-        memoryUSS : float
-            To store the total amount of USS memory consumed by the program
-        memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
-        startTime:float
-            To record the start time of the mining process
-        endTime:float
-            To record the completion time of the mining process
-        Database : list
-            To store the transactions of a database in list
-        mapSupport : Dictionary
-            To maintain the information of item and their frequency
-        lno : int
-            To represent the total no of transaction
-        tree : class
-            To represents the Tree class
-        itemSetCount : int
-            To represents the total no of patterns
-        finalPatterns : dict
-            To store the complete patterns
-
-    :Methods:
-
-        startMine()
-            Mining process will start from here
-        getPatterns()
-            Complete set of patterns will be retrieved with this function
-        save(oFile)
-            Complete set of periodic-frequent patterns will be loaded in to a output file
-        getPatternsAsDataFrame()
-            Complete set of periodic-frequent patterns will be loaded in to a dataframe
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
-        creatingItemSets(fileName)
-            Scans the dataset and stores in a list format
-        PeriodicFrequentOneItem()
-            Extracts the one-periodic-frequent patterns from database
-        updateDatabases()
-            Update the database by removing aperiodic items and sort the Database by item decreased support
-        buildTree()
-            After updating the Database, remaining items will be added into the tree by setting root node as null
-        convert()
-            to convert the user specified value
-
-
-    **Methods to execute code on terminal**
-    --------------------------------------------
-   .. code-block:: console
-
-
-       Format:
-
-
-       (.venv) $ python3 parallelPFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer> <noWorker>
-
-       Example usage :
-
-       (.venv) $ python3 parallelPFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 5
-
-
-               .. note:: minSup will be considered in percentage of database transactions
-
-
-    **Importing this algorithm into a python program**
-    -----------------------------------------------------
-    .. code-block:: python
-
-                from PAMI.periodicFrequentPattern.basic import parallelPFPGrowth as alg
-
-                obj = alg.parallelPFPGrowth(iFile, minSup, maxPer)
-
-                obj.startMine()
-
-                periodicFrequentPatterns = obj.getPatterns()
-
-                print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
-
-                obj.savePatterns(oFile)
-
-                Df = obj.getPatternsAsDataFrame()
-
-                memUSS = obj.getMemoryUSS()
-
-                print("Total Memory in USS:", memUSS)
-
-                memRSS = obj.getMemoryRSS()
-
-                print("Total Memory in RSS", memRSS)
-
-                run = obj.getRuntime()
-
-                print("Total ExecutionTime in seconds:", run)
-
-    """
-    __startTime = float()
-    __endTime = float()
-    _minSup = str()
-    _maxPer = str()
-    _numWorkers = str()
-    __finalPatterns = {}
-    _iFile = " "
-    _oFile = " "
-    _sep = " "
-    __memoryUSS = float()
-    __memoryRSS = float()
-    __Database = []
-    __mapSupport = {}
-    __lno = 0
-    # __tree = _Tree()
-    __rank = {}
-    __rankDup = {}
-    _numTrans = str()
-    __tarunpat = {}
-
-    def __init__(self, iFile, minSup, maxPer, numWorker, sep='\t'):
-        super().__init__(iFile, minSup, maxPer, numWorker, sep)
-
-    def func1(self, ps1, tid):
+    def startMine(self):
         """
-        Add the tid to the set
-
-        :param ps1: set
-        :param tid: timestamp of a database
-        return: set
+        Start the mining process
 
         """
-        ps1.add(tid)
-        return ps1
+        self._minSup = self._convert(self._minSup)
+        self._startTime = time.time()
 
-    def func2(self, ps1, ps2):
-        """
+        # Initialize SparkContext
+        conf = SparkConf().setAppName("Parallel_PPFP").setMaster("local[*]")
+        sc = SparkContext(conf=conf)
 
-        Union of two sets
+        if isinstance(self._inputData, str):  # Check if input is a file path
+            rdd = sc.textFile(self._inputData, self._numPartitions).map(lambda x: x.split(self._sep)).persist()
+        else:  # Assume input is already an RDD
+            rdd = self._inputData.map(lambda x: x.split(self._sep)).persist()
 
-        :param ps1: set.
-        :param ps2: set
-        return: set
+        self._lno = rdd.count()
+        self._minSup = self._convert(self._minSup)
+        self._maxPeriod = self._convert(self._maxPeriod)
 
-        """
+        # Get frequent items that meet the minimum support
+        freqItems = rdd.flatMap(lambda trans: [(item, 1) for item in trans]) \
+            .reduceByKey(add) \
+            .filter(lambda x: x[1] >= self._minSup) \
+            .sortBy(lambda x: x[1], ascending=False) \
+            .collect()
 
-        ps1 |= ps2
-        return ps1
+        self._finalPatterns = dict(freqItems)
+        self._FPList = [x[0] for x in freqItems]
+        rank = dict([(item, index) for (index, item) in enumerate(self._FPList)])
 
-    def func3(self, tids, endts):
-        """
+        # Generate conditional transactions by partition
+        workByPartition = rdd.flatMap(lambda x: self.genCondTransaction(x, rank)).groupByKey()
 
-        Calculate the periodicity of a transaction
+        # Fold data by key to create individual trees per partition
+        trees = workByPartition.foldByKey(Tree(), lambda tree, data: self.buildTree(tree, data))
 
-        :param tids: timestamps of a database
-        return: periodicity
-        """
-        # print(tids)
-        z = sorted(tids)
-        # print(maxPer)
-        cur = 0
-        for i in z:
-            if i - cur > self._maxPer:
-                return -1
-            cur = i
-        if endts - cur > self._maxPer:
-            return -1
-        else:
-            return len(z)
+        # Generate periodic frequent patterns from the generated trees
+        freqPatterns = trees.flatMap(lambda tree_tuple: self.genPeriodicFrequentPatterns(tree_tuple))
 
-    def getFrequentItems(self, data):
-        """
-        Get the frequent items from the database
+        result = freqPatterns.map(
+            lambda ranks_count: (tuple([self._FPList[z] for z in ranks_count[0]]), ranks_count[1])) \
+            .collect()
 
-        :param data: database
-        return: frequent items
-        """
-        singleItems = data.flatMap(lambda x: [(x[i], x[0]) for i in range(1, len(x))])
-        ps = set()
-        freqItems = singleItems.aggregateByKey(ps, lambda ps1, tid: self.func1(ps1, tid),
-                                               lambda tuple1, tuple2: self.func2(tuple1, tuple2))
-        # print(freqItems.take(10))
-        freqItems = freqItems.map(lambda x: (x[0], self.func3(x[1], self._numTrans.value)))
-        # print(freqItems.take(10))
-        perFreqItems = [x for (x, y) in
-                        sorted(freqItems.filter(lambda c: c[1] >= self._minSup).collect(), key=lambda x: -x[1])]
-        # print(perFreqItems)
-        return perFreqItems
+        # Update final patterns with results from frequent patterns
+        self._finalPatterns.update(dict(result))
 
-    def getFrequentItemsets(self, data, freqItems):
-        """
-        Get the frequent itemsets from the database
+        # Track execution time and memory usage
+        self._endTime = time.time()
+        process = psutil.Process(os.getpid())
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
 
-        :param data: database
-        :param freqItems: frequent items
-        return: frequent itemsets
+        # Stop the SparkContext
+        sc.stop()
 
-        """
-        rank = dict([(index, item) for (item, index) in enumerate(self._perFreqItems)])
-        numPartitions = data.getNumPartitions()
-        workByPartition = data.flatMap(
-            lambda basket: self.genCondTransactions(basket[0], basket[1:], rank, numPartitions))
-        emptyTree = PFPTree()
-        forest = workByPartition.aggregateByKey(emptyTree,
-                                                lambda tree, transaction: tree.add(transaction[0], [transaction[1]], 1),
-                                                lambda tree1, tree2: tree1.merge(tree2))
-        itemsets = forest.flatMap(
-            lambda partId_bonsai: partId_bonsai[1].extract(self._minSup, self._maxPer, self._numTrans.value,
-                                                           lambda x: self.getPartitionId(x, numPartitions) ==
-                                                                     partId_bonsai[0]))
-        frequentItemsets = itemsets.map(
-            lambda ranks_count: ([self._perFreqItems[z] for z in ranks_count[0]], ranks_count[1]))
+        print("Periodic frequent patterns were generated successfully using Parallel Periodic FPGrowth algorithm")
 
-        ### TARUN MODIFICATION ###
-        frequentItemsets_list = frequentItemsets.collect()
-
-        for itemset, count in frequentItemsets_list:
-            string = "\t".join([str(x) for x in itemset])
-            self.__tarunpat[string] = count
-        ##########################
-
-        return frequentItemsets
-
-    def genCondTransactions(self, tid, basket, rank, nPartitions):
-        """
-        Get the conditional transactions from the database
-
-        :param tid: timestamp of a database
-        :param basket: basket of a database
-        :param rank: rank of a database
-        :param nPartitions: number of partitions
-        """
-        filtered = [rank[int(x)] for x in basket if int(x) in rank.keys()]
-        filtered = sorted(filtered)
-        output = {}
-        for i in range(len(filtered) - 1, -1, -1):
-            item = filtered[i]
-            partition = self.getPartitionId(item, nPartitions)
-            if partition not in output.keys():
-                output[partition] = [filtered[:i + 1], tid]
-        return [x for x in output.items()]
-
-    def getPartitionId(self, key, nPartitions):
-        """
-        Get the partition id
-
-        :param key: key of a database
-        :param nPartitions: number of partitions
-        return: partition id
-
-        """
-        return key % nPartitions
-
-    def __convert(self, value):
+    def _convert(self, value):
         """
         to convert the type of user specified minSup value
 
@@ -611,81 +275,99 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         """
         if type(value) is int:
             value = int(value)
-        if type(value) is float:
-            value = (len(self.__Database) * value)
-        if type(value) is str:
+        elif type(value) is float:
+            value = (self._lno * value)
+        elif type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (len(self.__Database) * value)
+                value = (self._lno * value)
             else:
                 value = int(value)
+        else:
+            print("minSup is not correct")
         return value
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
-    def startMine(self):
+    def getPartitionId(self, value):
         """
-        Start the mining process
+        Get the frequent items from the database
 
-        """
-        self.__startTime = _ab._time.time()
-
-        APP_NAME = "parallelPFPGrowth"
-        conf = _ab.SparkConf().setAppName(APP_NAME)
-        # conf = conf.setMaster("local[*]")
-        sc = _ab.SparkContext(conf=conf).getOrCreate()
-        # sc = SparkContext.getOrCreate();
-        data = sc.textFile(self._iFile, minPartitions=self._numWorkers).map(
-            lambda x: [int(y) for y in x.strip().split(self._sep)])
-        # data = sc.textFile(finput).map(lambda x: [int(y) for y in x.strip().split(' ')])
-        data.cache()
-        # minSupport = data.count() * threshold/100
-        # maxPer = data.count() * periodicity_threshold/100
-        self._minSup = self.__convert(self._minSup)
-        self._maxPer = self.__convert(self._maxPer)
-        self._numTrans = sc.broadcast(data.count())
-        self._perFreqItems = self.getFrequentItems(data)
-        freqItemsets = self.getFrequentItemsets(data, self._perFreqItems)
-        self.__finalPatterns = self.__tarunpat
-        sc.stop()
-        self.__endTime = _ab._time.time()
-        self.__memoryUSS = float()
-        self.__memoryRSS = float()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self.__memoryUSS = process.memory_full_info().uss
-        self.__memoryRSS = process.memory_info().rss
-
-    def Mine(self):
-        """
-        Start the mining process
+        :param data: database
+        :return: frequent items
 
         """
-        self.__startTime = _ab._time.time()
+        return value % self._numPartitions
 
-        APP_NAME = "parallelPFPGrowth"
-        conf = _ab.SparkConf().setAppName(APP_NAME)
-        # conf = conf.setMaster("local[*]")
-        sc = _ab.SparkContext(conf=conf).getOrCreate()
-        # sc = SparkContext.getOrCreate();
-        data = sc.textFile(self._iFile, minPartitions=self._numWorkers).map(
-            lambda x: [int(y) for y in x.strip().split(self._sep)])
-        # data = sc.textFile(finput).map(lambda x: [int(y) for y in x.strip().split(' ')])
-        data.cache()
-        # minSupport = data.count() * threshold/100
-        # maxPer = data.count() * periodicity_threshold/100
-        self._minSup = self.__convert(self._minSup)
-        self._maxPer = self.__convert(self._maxPer)
-        self._numTrans = sc.broadcast(data.count())
-        self._perFreqItems = self.getFrequentItems(data)
-        freqItemsets = self.getFrequentItemsets(data, self._perFreqItems)
-        self.__finalPatterns = self.__tarunpat
-        sc.stop()
-        self.__endTime = _ab._time.time()
-        self.__memoryUSS = float()
-        self.__memoryRSS = float()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self.__memoryUSS = process.memory_full_info().uss
-        self.__memoryRSS = process.memory_info().rss
+    def genCondTransaction(self, trans, rank):
+        """
+        Get the conditional transactions from the database
 
+        :param tid: timestamp of a database
+        :param basket: basket of a database
+        :param rank: rank of a database
+        :param nPartitions: number of partitions
+        """
+        newTrans = [rank[item] for item in trans if item in rank.keys()]
+        newTrans = sorted(newTrans)
+        condTrans = {}
+        for i in reversed(newTrans):
+            partition = self.getPartitionId(i)
+            if partition not in condTrans:
+                condTrans[partition] = newTrans[:newTrans.index(i) + 1]
+        return [x for x in condTrans.items()]
+
+    @staticmethod
+    def buildTree(tree, data):
+        """
+        Constructs the FP-Tree by adding transactions from the dataset.
+
+        :param tree: The FP-Tree being constructed.
+        :param data: A list of transactions, where each transaction is a list of items.
+        :return: The constructed FP-Tree with transactions added.
+        """
+        for trans in data:
+            tree.addTransaction(trans, 1)
+        return tree
+
+    def genPeriodicFrequentPatterns(self, tree_tuple):
+        """
+        Generates periodic frequent patterns for a partitioned FP-Tree.
+
+        :param tree_tuple: A tuple containing partition ID and an FP-Tree.
+        :return: A generator of periodic frequent patterns and their support counts.
+        """
+        itemList = sorted(tree_tuple[1].itemCount.items(), key=lambda x: x[1])
+        itemList = [x[0] for x in itemList]
+        freqPatterns = {}
+        for item in itemList:
+            if self.getPartitionId(item) == tree_tuple[0]:
+                freqPatterns.update(self.genPeriodicPatterns(item, [item], tree_tuple[1]))
+        return freqPatterns.items()
+
+    def genPeriodicPatterns(self, item, prefix, tree):
+        """
+        Recursively generates periodic patterns for an item, based on a given prefix
+        and an FP-Tree structure.
+
+        :param item: The current item being analyzed.
+        :param prefix: The prefix pattern leading up to this item.
+        :param tree: The FP-Tree from which to generate patterns.
+        :return: A dictionary of periodic frequent patterns and their support counts.
+        """
+        condTree = tree.generateConditionalTree(item)
+        freqPatterns = {}
+        freqItems = {}
+        for i in condTree.nodeLink.keys():
+            freqItems[i] = 0
+            for node in condTree.nodeLink[i]:
+                freqItems[i] += node.count
+
+        # Apply periodicity check
+        freqItems = {key: value for key, value in freqItems.items() if value >= self._minSup}
+        for i in freqItems:
+            pattern = prefix + [i]
+            freqPatterns[tuple(pattern)] = freqItems[i]
+            freqPatterns.update(self.genPeriodicPatterns(i, pattern, condTree))
+        return freqPatterns
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -693,8 +375,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
-
-        return self.__memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -702,17 +383,16 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
-
-        return self.__memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
 
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
-
-        return self.__endTime - self.__startTime
+        return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
@@ -720,64 +400,57 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
-
-        dataframe = {}
-        data = []
-        for a, b in self.__tarunpat.items():
-            data.append([a.replace('\t', ' '), b])
-            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
-        return dataframe
+        dataFrame = pd.DataFrame(list(self._finalPatterns.items()), columns=['Patterns', 'Support'])
+        return dataFrame
 
     def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
-        :type outFile: csv file
+        :type outFile: file
         """
         self._oFile = outFile
-        writer = open(self._oFile, 'w+')
-        # print(self.getFrequentItems())
-        for x, y in self.__tarunpat.items():
-            # print(x,y)
-            s1 = x.strip() + ":" + str(y)
-            writer.write("%s \n" % s1)
+        with open(self._oFile, 'w+') as writer:
+            for x, y in self._finalPatterns.items():
+                if type(x) == tuple:
+                    pattern = " ".join(map(str, x))
+                    s1 = f"{pattern}:{y}"
+                else:
+                    s1 = f"{x}:{y}"
+                writer.write(f"{s1}\n")
 
     def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
+
         :rtype: dict
         """
-        return self.__tarunpat
+        return self._finalPatterns
 
     def printResults(self):
-        print("Total number of Frequent Patterns:", len(self.getPatterns()))
+        """
+        This function is used to print the results
+        """
+        print("Total number of Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
         print("Total ExecutionTime in ms:", self.getRuntime())
 
 
 if __name__ == "__main__":
-    _ap = str()
-    if len(_ab._sys.argv) == 6 or len(_ab._sys.argv) == 7:
-        if len(_ab._sys.argv) == 7:
-            _ap = parallelPFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5],
-                                    _ab._sys.argv[6])
-        if len(_ab._sys.argv) == 4:
-            _ap = parallelPFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
-        _ap.startMine()
-        print("Total number of Frequent Patterns:", _ab.getPatterns())
-        _ap.save(_ab._sys.argv[2])
-        print("Total Memory in USS:", _ap.getMemoryUSS())
-        print("Total Memory in RSS", _ap.getMemoryRSS())
-        print("Total ExecutionTime in ms:", _ap.getRuntime())
+    if len(sys.argv) == 6:
+        inputData = sys.argv[1] if sys.argv[1].lower().endswith('.txt') else sc.textFile(sys.argv[1])
+        pp_fp = Parallel_PPFP(inputData, sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+        pp_fp.startMine()
+        finalPatterns = pp_fp.getPatterns()
+        print("Total number of Periodic Frequent Patterns:", len(finalPatterns))
+        pp_fp.save(sys.argv[2])
+        memUSS = pp_fp.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = pp_fp.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = pp_fp.getRuntime()
+        print("Total ExecutionTime in ms:", run)
     else:
-        _ap = parallelPFPGrowth('Temporal_T10I4D100K.csv', 500, 5000, 5, '\t')
-        _ap.startMine()
-        # print("Total number of Frequent Patterns:", len( _ab.getPatterns()))
-        # _ap.save(_ab._sys.argv[2])
-        _ap.printResults()
-        # print("Total Memory in USS:", _ap.getMemoryUSS())
-        # print("Total Memory in RSS", _ap.getMemoryRSS())
-        # print("Total ExecutionTime in ms:", _ap.getRuntime())
-        print("Error! The number of input parameters do not match the total number of parameters provided")
+        print("Error! The number of input parameters does not match the total number of parameters provided")
