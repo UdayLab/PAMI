@@ -412,11 +412,11 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
        Format:
 
-       (.venv) $ python3 parallelPFPGrowth_old.py <inputFile> <outputFile> <minSup> <maxPer> <noWorker>
+       (.venv) $ python3 parallelPFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer> <noWorker>
 
        Example usage:
 
-       (.venv) $ python3 parallelPFPGrowth_old.py sampleTDB.txt patterns.txt 0.3 0.4 5
+       (.venv) $ python3 parallelPFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 5
 
 
                .. note:: minSup will be considered in percentage of database transactions
