@@ -362,7 +362,7 @@ class PPF_DFS(partialPeriodicPatterns):
                 perSup = self._getPerSup(v)
                 cands.append(k)
                 nitems[k] = v
-                ratio = perSup / (len(v))
+                ratio = perSup / (len(v) + 1)
                 if ratio >= self._partialPeriodicPatterns__minPR:
                     self._partialPeriodicPatterns__finalPatterns[k] = [len(v), ratio]
 
