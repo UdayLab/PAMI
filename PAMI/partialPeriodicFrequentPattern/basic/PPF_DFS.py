@@ -63,6 +63,7 @@ import deprecated
 import numpy as np
 import pandas as pd
 
+
 class PPF_DFS(partialPeriodicPatterns):
     """
     **About this algorithm**
@@ -286,6 +287,7 @@ class PPF_DFS(partialPeriodicPatterns):
         arr = list(arr)
         arr.append(self._maxTS)
         arr.append(0)
+        arr = list(set(arr))
         arr = np.sort(arr)
         arr = np.diff(arr)
 
@@ -314,12 +316,12 @@ class PPF_DFS(partialPeriodicPatterns):
                 if len(intersection) >= self._partialPeriodicPatterns__minSup:
                     perSup = self._getPerSup(intersection)
                     ratio = perSup / (len(intersection) + 1)
+                    nCand = cands[i] + tuple([cands[j][-1]])
+                    newCands.append(nCand)
+                    nitems[nCand] = intersection
                     if ratio >= self._partialPeriodicPatterns__minPR:
-                        nCand = cands[i] + tuple([cands[j][-1]])
-                        newCands.append(nCand)
-                        nitems[nCand] = intersection
                         self._partialPeriodicPatterns__finalPatterns[nCand] = [len(intersection), ratio]
-            if len(newCands) > 1:
+            if len(newCands):
                 self.__recursive(newCands, nitems)
 
 
@@ -360,7 +362,7 @@ class PPF_DFS(partialPeriodicPatterns):
                 perSup = self._getPerSup(v)
                 cands.append(k)
                 nitems[k] = v
-                ratio = perSup / (len(v) + 1)
+                ratio = perSup / (len(v))
                 if ratio >= self._partialPeriodicPatterns__minPR:
                     self._partialPeriodicPatterns__finalPatterns[k] = [len(v), ratio]
 
@@ -473,15 +475,5 @@ if __name__ == '__main__':
         print("Total Memory in RSS", ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", ap.getRuntime())
     else:
-        for i in [350]:
-            #385
-            _ap = PPF_DFS('/Users/tarunsreepada/Downloads/Temporal_T10I4D100K.csv', i, 300, 0.7, '\t')
-            _ap.mine()
-            _ap.save('/Users/tarunsreepada/Downloads/output2.txt')
-            print(_ap.getPatternsAsDataFrame())
-            print("Total Memory in USS:", _ap.getMemoryUSS())
-            print("Total Memory in RSS", _ap.getMemoryRSS())
-            print("Total ExecutionTime in ms:", _ap.getRuntime())
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
 
