@@ -1,7 +1,7 @@
-/venv/
-/.idea/
 /pami.egg-info
 /build
 /dist
 /sphinxDoc
 .DS_Store
+.venv
+.idea
