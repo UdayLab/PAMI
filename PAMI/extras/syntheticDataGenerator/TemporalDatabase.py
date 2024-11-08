@@ -61,7 +61,7 @@ class TemporalDatabase:
 
     Format:
 
-        (.venv) $ python3 TemporalDatabase.py <numOfTransactions> <avgLenOfTransactions> <numItems> <outputFile> <percentage> <sep> <typeOfFile> <occurrenceProbabilityAtSameTimestamp> <occurrenceProbabilityToSkipSubsequentTimestamp>
+        (.venv) $ python3 TemporalDatabase.py <numOfTransactions> <avgItemsPerTransaction> <numItems> <outputFile> <percentage> <sep> <typeOfFile> <occurrenceProbabilityAtSameTimestamp> <occurrenceProbabilityToSkipSubsequentTimestamp>
 
 
     Example Usage:
@@ -69,10 +69,10 @@ class TemporalDatabase:
         (.venv) $ python3 TemporalDatabase.py 50 10 100 temporal.txt 50 \t database 0.1 0.1
 
 
-    :param numOfTransactions: int
+    :param databaseSize: int
         Number of transactions to generate.
 
-    :param avgLenOfTransactions: int
+    :param avgItemsPerTransaction: int
         Average length of transactions.
 
     :param numItems: int
@@ -190,7 +190,7 @@ class TemporalDatabase:
 
         self.current_timestamp = 0  # Initialize current timestamp
 
-        for i in range(self.numOfTransactions):
+        for i in range(self.databaseSize):
             if self.performCoinFlip(self.occurrenceProbabilityAtSameTimestamp):
                 timestamp = self.current_timestamp
             else:
@@ -204,7 +204,7 @@ class TemporalDatabase:
             if self.performCoinFlip(self.percentage):
                 lineSize.append([i, 0])
 
-        sumRes = self.numOfTransactions * self.avgLenOfTransactions
+        sumRes = self.databaseSize * self.avgItemsPerTransaction
 
         self.tuning(lineSize, sumRes)
 
@@ -212,7 +212,7 @@ class TemporalDatabase:
             if lineSize[i][1] > self.numItems:
 
                 raise ValueError(
-                    "Error: Either increase numItems or decrease avgLenOfTransactions or modify percentage")
+                    "Error: Either increase numItems or decrease avgItemsPerTransaction or modify percentage")
             line = np.random.choice(range(1, self.numItems + 1), lineSize[i][1], replace=False)
             db[lineSize[i][0]].extend(line)
 
@@ -233,7 +233,7 @@ class TemporalDatabase:
 
 if __name__ == '__main__':
     if len(sys.argv) != 10:
-        print("Usage: python TemporalDatabase.py <numOfTransactions> <avgLenOfTransactions> <numItems> <outputFile> <percentage> <sep> <typeOfFile> <occurrenceProbabilityAtSameTimestamp> <occurrenceProbabilityToSkipSubsequentTimestamp>")
+        print("Usage: python TemporalDatabase.py <databaseSize> <avgItemsPerTransaction> <numItems> <outputFile> <percentage> <sep> <typeOfFile> <occurrenceProbabilityAtSameTimestamp> <occurrenceProbabilityToSkipSubsequentTimestamp>")
         sys.exit(1)
 
     obj = TemporalDatabase(
