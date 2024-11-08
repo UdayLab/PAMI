@@ -93,7 +93,7 @@ class CSV2Parquet:
         The complete program was written by P. Likhitha  and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
     """
-    def init(self, inputFile, outputFile, sep):
+    def __init__(self, inputFile, outputFile, sep):
         self.inputFile = inputFile
         self.outputFile = outputFile
         self.sep = sep
