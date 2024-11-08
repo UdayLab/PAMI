@@ -98,7 +98,7 @@ class TemporalDatabase:
         Probability that the timestamp will be skipped for subsequent transactions.
     """
 
-    def __init__(self, numOfTransactions: int, avgLenOfTransactions: int,
+    def __init__(self, databaseSize: int, avgItemsPerTransaction: int,
                  numItems: int, outputFile: str, percentage: int = 50,
                  sep: str = '\t', typeOfFile: str = "Database",
                  occurrenceProbabilityAtSameTimestamp: float = 0.1,
@@ -106,8 +106,8 @@ class TemporalDatabase:
         """
         Initialize the TemporalDatabase with required parameters.
 
-        :param numOfTransactions: Number of transactions to generate.
-        :param avgLenOfTransactions: Average length of transactions.
+        :param databaseSize: Number of transactions to generate.
+        :param avgItemsPerTransaction: Average length of transactions.
         :param numItems: Number of items in the database.
         :param outputFile: Name of the output file for the database.
         :param percentage: Percentage for the coin toss to include transactions.
