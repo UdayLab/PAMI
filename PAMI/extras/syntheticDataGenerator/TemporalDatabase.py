@@ -7,18 +7,18 @@ import psutil
 
 class TemporalDatabase:
 
-    def __init__(self, numOfTransactions: int, 
-                 avgLenOfTransactions: int,
+    def __init__(self, databaseSize: int,
+                 avgItemsPerTransaction: int,
                  numItems: int,
                  sep: str = '\t',
-                 occurrenceProbabilityAtSameTimestamp: float = 0.1,
+                 occurrenceProbabilityOfSameTimestamp: float = 0.1,
                  occurrenceProbabilityToSkipSubsequentTimestamp: float = 0.1) -> None:
 
-        self.numOfTransactions = numOfTransactions
-        self.avgItemsPerTransaction = avgLenOfTransactions
+        self.databaseSize = databaseSize
+        self.avgItemsPerTransaction = avgItemsPerTransaction
         self.numItems = numItems
         self.sep = sep
-        self.occurrenceProbabilityAtSameTimestamp = occurrenceProbabilityAtSameTimestamp
+        self.occurrenceProbabilityOfSameTimestamp = occurrenceProbabilityOfSameTimestamp
         self.occurrenceProbabilityToSkipSubsequentTimestamp = occurrenceProbabilityToSkipSubsequentTimestamp
 
     def performCoinFlip(self, probability: float) -> bool:
@@ -80,11 +80,11 @@ class TemporalDatabase:
 
         self.current_timestamp = 0  # Initialize current timestamp
 
-        sumRes = self.numOfTransactions * self.avgItemsPerTransaction  # Total number of items
+        sumRes = self.databaseSize * self.avgItemsPerTransaction  # Total number of items
 
-        for i in range(self.numOfTransactions):
+        for i in range(self.databaseSize):
             # Determine the timestamp
-            if self.performCoinFlip(self.occurrenceProbabilityAtSameTimestamp):
+            if self.performCoinFlip(self.occurrenceProbabilityOfSameTimestamp):
                 timestamp = self.current_timestamp
             else:
                 if self.performCoinFlip(self.occurrenceProbabilityToSkipSubsequentTimestamp):
@@ -107,7 +107,7 @@ class TemporalDatabase:
 
             if num_items > self.numItems:
                 raise ValueError(
-                    "Error: Either increase numItems or decrease avgLenOfTransactions or modify percentage")
+                    "Error: Either increase numItems or decrease avgItemsPerTransaction or modify percentage")
             items = np.random.choice(range(1, self.numItems + 1), num_items, replace=False)
             self.db[transaction_index].extend(items)
 
@@ -123,7 +123,7 @@ class TemporalDatabase:
         if outputFile is not None:
             self.outputFile = outputFile
         else:
-            self.outputFile = "temporalDatabase." + self.typeOfFile + ".txt"
+            self.outputFile = "temporalDatabase.txt"
 
         with open(self.outputFile, 'w') as writer:
             for line in self.db:
@@ -162,29 +162,27 @@ class TemporalDatabase:
         return self.df
 
 if __name__ == '__main__':
-    if len(sys.argv) == 10:
+    if len(sys.argv) == 7:
         obj = TemporalDatabase(
-            numOfTransactions=int(sys.argv[1]),
-            avgLenOfTransactions=int(sys.argv[2]),
+            databaseSize=int(sys.argv[1]),
+            avgItemsPerTransaction=int(sys.argv[2]),
             numItems=int(sys.argv[3]),
-            outputFile=sys.argv[4],
-            percentage=int(sys.argv[5]),
-            sep=sys.argv[6],
-            typeOfFile=sys.argv[7],
-            occurrenceProbabilityAtSameTimestamp=float(sys.argv[8]),
-            occurrenceProbabilityToSkipSubsequentTimestamp=float(sys.argv[9])
+            outputFile=str(sys.argv[4]),
+            occurrenceProbabilityOfSameTimestamp=float(sys.argv[5]),
+            occurrenceProbabilityToSkipSubsequentTimestamp=float(sys.argv[6]),
+            sep=sys.argv[7]
         )
         obj.create()
         obj.save()
     else:
-        print("Usage: python TemporalDatabase.py <numOfTransactions> <avgLenOfTransactions> <numItems> <outputFile> <percentage> <sep> <typeOfFile> <occurrenceProbabilityAtSameTimestamp> <occurrenceProbabilityToSkipSubsequentTimestamp>")
+        print("Usage: python TemporalDatabase.py <databaseSize> <avgItemsPerTransaction> <numItems> <outputFile> <occurrenceProbabilityOfSameTimestamp> <occurrenceProbabilityToSkipSubsequentTimestamp> <sep> ")
 
         obj = TemporalDatabase(
-            numOfTransactions=100000,
-            avgLenOfTransactions=10,
+            databaseSize=100000,
+            avgItemsPerTransaction=10,
             numItems=50,
             sep="\t",
-            occurrenceProbabilityAtSameTimestamp=0.1,
+            occurrenceProbabilityOfSameTimestamp=0.1,
             occurrenceProbabilityToSkipSubsequentTimestamp=0.1
         )
         obj.create()
