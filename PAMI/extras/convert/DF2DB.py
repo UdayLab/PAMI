@@ -142,6 +142,38 @@ class DF2DB:
         self._endTime = time.time()
         return self.DF2DB.getFileName()
 
+    def convert2geoReferencedTransactionalDatabase(self, oFile: str, condition: str, thresholdValue: Union[int, float]) -> str:
+        """
+        create transactional database and return oFileName
+        :param oFile: file name or path to store database
+        :type oFile: str
+        :return: oFile name
+        :rtype: str
+        """
+        self._startTime = time.time()
+        self.DF2DB.convert2TransactionalDatabase(oFile,condition,thresholdValue)
+        process = psutil.Process(os.getpid())
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        self._endTime  = time.time()
+        return self.DF2DB.getFileName()
+
+    def convert2geoReferencedTemporalDatabase(self, oFile: str, condition: str, thresholdValue: Union[int, float]) -> str:
+        """
+        create temporal database and return oFile name
+        :param oFile: file name or path to store database
+        :type oFile: str
+        :return: oFile name
+        :rtype: str
+        """
+        self._startTime = time.time()
+        self.DF2DB.convert2TemporalDatabase(oFile,condition,thresholdValue)
+        process = psutil.Process(os.getpid())
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        self._endTime  = time.time()
+        return self.DF2DB.getFileName()
+
     def getMemoryUSS(self) -> float:
         """
         Total amount of USS memory consumed by the mining process will be retrieved from this function
