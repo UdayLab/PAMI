@@ -21,14 +21,6 @@ class TemporalDatabase:
         self.occurrenceProbabilityAtSameTimestamp = occurrenceProbabilityAtSameTimestamp
         self.occurrenceProbabilityToSkipSubsequentTimestamp = occurrenceProbabilityToSkipSubsequentTimestamp
 
-    def getDatabaseAsDataFrame(self) -> pd.DataFrame:
-        """
-        Returns the database as a DataFrame.
-
-        :return: pd.DataFrame containing the temporal database.
-        """
-        return self.df
-
     def performCoinFlip(self, probability: float) -> bool:
         """
         Perform a coin flip with the given probability.
@@ -153,11 +145,21 @@ class TemporalDatabase:
         """
         return self._memoryUSS
 
-    def databaseToDataFrame(self) -> None:
+    def getTransactions(self) -> None:
         """
         Convert the database to a DataFrame.
         """
-        self.df = pd.DataFrame(self.db)
+        # merge all the transactions into a single DataFrame
+        timestamps = []
+        transactions = []
+
+        for line in self.db:
+            timestamps.append(line[0])
+            transactions.append(line[1:])
+
+        self.df = pd.DataFrame([timestamps, transactions], index=['Timestamp', 'Items']).T
+
+        return self.df
 
 if __name__ == '__main__':
     if len(sys.argv) == 10:
@@ -177,18 +179,17 @@ if __name__ == '__main__':
     else:
         print("Usage: python TemporalDatabase.py <numOfTransactions> <avgLenOfTransactions> <numItems> <outputFile> <percentage> <sep> <typeOfFile> <occurrenceProbabilityAtSameTimestamp> <occurrenceProbabilityToSkipSubsequentTimestamp>")
 
-        # obj = TemporalDatabase(
-        #     numOfTransactions=100000,
-        #     avgLenOfTransactions=10,
-        #     numItems=50,
-        #     sep="\t",
-        #     occurrenceProbabilityAtSameTimestamp=0.1,
-        #     occurrenceProbabilityToSkipSubsequentTimestamp=0.1
-        # )
-        # obj.create()
-        # obj.save("temporalDatabase.txt")
+        obj = TemporalDatabase(
+            numOfTransactions=100000,
+            avgLenOfTransactions=10,
+            numItems=50,
+            sep="\t",
+            occurrenceProbabilityAtSameTimestamp=0.1,
+            occurrenceProbabilityToSkipSubsequentTimestamp=0.1
+        )
+        obj.create()
+        obj.save("temporalDatabase.txt")
+
+        print(obj.getTransactions())
 
         sys.exit(1)
-
-
-
