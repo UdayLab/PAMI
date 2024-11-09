@@ -5,10 +5,9 @@ import time
 import os
 import psutil
 
-
 class TemporalDatabase:
 
-    def __init__(self, numOfTransactions: int,
+    def __init__(self, numOfTransactions: int, 
                  avgLenOfTransactions: int,
                  numItems: int,
                  sep: str = '\t',
@@ -44,6 +43,7 @@ class TemporalDatabase:
         values = values / np.sum(values) * sumRes
         values = np.round(values).astype(int)
 
+
         # Adjust values to ensure sum equals sumRes
         while np.sum(values) != sumRes:
             current_sum = np.sum(values)
@@ -76,6 +76,7 @@ class TemporalDatabase:
 
         self.db = []
         lineSize = []
+
 
         self.current_timestamp = 0  # Initialize current timestamp
 
@@ -122,7 +123,7 @@ class TemporalDatabase:
         if outputFile is not None:
             self.outputFile = outputFile
         else:
-            self.outputFile = "temporalDatabase.csv"
+            self.outputFile = "temporalDatabase." + self.typeOfFile + ".txt"
 
         with open(self.outputFile, 'w') as writer:
             for line in self.db:
@@ -133,12 +134,12 @@ class TemporalDatabase:
         Returns the runtime of the algorithm in seconds.
         """
         return self._runTime
-
+    
     def getMemoryRSS(self) -> int:
         """
         """
         return self._memoryRSS
-
+    
     def getMemoryUSS(self) -> int:
         """
         """
@@ -160,7 +161,6 @@ class TemporalDatabase:
 
         return self.df
 
-
 if __name__ == '__main__':
     if len(sys.argv) == 10:
         obj = TemporalDatabase(
@@ -177,8 +177,7 @@ if __name__ == '__main__':
         obj.create()
         obj.save()
     else:
-        print(
-            "Usage: python TemporalDatabase.py <numOfTransactions> <avgLenOfTransactions> <numItems> <outputFile> <percentage> <sep> <typeOfFile> <occurrenceProbabilityAtSameTimestamp> <occurrenceProbabilityToSkipSubsequentTimestamp>")
+        print("Usage: python TemporalDatabase.py <numOfTransactions> <avgLenOfTransactions> <numItems> <outputFile> <percentage> <sep> <typeOfFile> <occurrenceProbabilityAtSameTimestamp> <occurrenceProbabilityToSkipSubsequentTimestamp>")
 
         obj = TemporalDatabase(
             numOfTransactions=100000,
@@ -194,6 +193,3 @@ if __name__ == '__main__':
         print(obj.getTransactions())
 
         sys.exit(1)
-
-
-
