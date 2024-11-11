@@ -202,9 +202,9 @@ class generateSpatioTransactional:
     def save(self, sep, filename) -> None:
         """
         Save the transactional database to a file
-
+        :param sep: separator
+        :type sep: str
         :param filename: name of the file
-
         :type filename: str
 
         :return: None

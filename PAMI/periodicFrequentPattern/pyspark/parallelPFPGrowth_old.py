@@ -505,6 +505,8 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
         :param tids: timestamps of a database
         return: periodicity
+        :param endts: last timestamp
+        return: periodicity
         """
         # print(tids)
         z = sorted(tids)
