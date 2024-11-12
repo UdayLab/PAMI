@@ -1,9 +1,102 @@
+# TransactionalDatabase is a collection of transactions. It only considers the data in  transactions and ignores the metadata.
+#
+#  **Importing this algorithm into a python program**
+#  --------------------------------------------------------
+#     from PAMI.extras.syntheticDataGenerator import TransactionalDatabase as db
+#
+#     obj = db(10, 5, 10)
+#
+#     obj.create()
+#
+#     obj.save('db.txt')
+#
+#     print(obj.getTransactions())
+#
 import numpy as np
 import pandas as pd
 import sys, psutil, os, time
 
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
 
-class transactionalDatabase:
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
+
+class TransactionalDatabase:
+    """
+        :Description: TransactionalDatabase is a collection of transactions. It only considers the data in  transactions and ignores the metadata.
+        :Attributes:
+
+            dataBaseSize: int
+                Number of Transactions in a database
+            avgItemsPerTransaction: int
+                Average number of items per transaction
+            itemsNo: int
+                Total number of items
+            memoryUSS : float
+                To store the total amount of USS memory consumed by the program
+            memoryRSS : float
+                        To store the total amount of RSS memory consumed by the program
+            startTime : float
+                        To record the start time of the mining process
+            endTime : float
+                        To record the completion time of the mining process
+
+        :Methods:
+
+            create:
+                Generate the transactional database
+            save:
+                Save the transactional database to a user-specified file
+            getTransactions:
+                Get the transactional database
+            getMemoryUSS()
+                Total amount of USS memory consumed by the mining process will be retrieved from this function
+            getMemoryRSS()
+                Total amount of RSS memory consumed by the mining process will be retrieved from this function
+            getRuntime()
+                Total amount of runtime taken by the mining process will be retrieved from this function
+
+        **Methods to execute code on terminal**
+        ---------------------------------------------
+
+        .. code-block:: console
+
+          Format:
+
+          (.venv) $ python3 TransactionalDatabase.py <dataBaseSize> <avgItemsPerTransaction> <itemsNo>
+
+          Example Usage:
+
+          (.venv) $ python3 TransactionalDatabase.py 50.0 10.0 100
+
+
+        **Importing this algorithm into a python program**
+        --------------------------------------------------------
+            from PAMI.extras.syntheticDataGenerator import TransactionalDatabase as db
+
+            obj = db.TransactionalDatabase(10, 5, 10)
+
+            obj.create()
+
+            obj.save('db.txt')
+
+            print(obj.getTransactions())
+
+
+        """
 
     def __init__(self, dataBaseSize, avgItemsPerTransaction, itemsNo, sep='\t') -> None:
 
@@ -18,12 +111,7 @@ class transactionalDatabase:
         self._memoryRSS = float()
 
 
-    def coin_flip(self,probability):
-        return np.random.choice([0, 1], p=[1 - probability, probability]) == 1
-
-
-
-    def noOfItemsPerTransaction(self,dataBaseSize,averageItemsPerTransaction,itemsNo):
+    def noOfItemsPerTransaction(self,dataBaseSize,averageItemsPerTransaction):
 
         #generating random numbers with size of dataBaseSize
         transactionSize = np.random.rand(dataBaseSize)
@@ -57,7 +145,7 @@ class transactionalDatabase:
 
     def create(self):
         self._startTime = time.time()
-        noofItemsperTrans = self.noOfItemsPerTransaction(self.dataBaseSize, self.avgItemsPerTransaction, self.itemsNo)
+        noofItemsperTrans = self.noOfItemsPerTransaction(self.dataBaseSize, self.avgItemsPerTransaction)
         for i in range(self.dataBaseSize):
             self.data.append(np.random.choice(range(1,self.itemsNo+1), noofItemsperTrans[i], replace=False))
 
@@ -94,14 +182,14 @@ class transactionalDatabase:
 if __name__ == "__main__":
 
     if len(sys.argv) == 5:
-        obj = transactionalDatabase(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]))
+        obj = TransactionalDatabase(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]))
         obj.create()
         obj.save(sys.argv[4])
         print("Total Memory in USS:", obj.getMemoryUSS())
         print("Total Memory in RSS", obj.getMemoryRSS())
         print("Total ExecutionTime in ms:", obj.getRuntime())
     elif len(sys.argv) == 6:
-        obj = transactionalDatabase(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), sys.argv[4])
+        obj = TransactionalDatabase(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), sys.argv[4])
         obj.create()
         obj.save(sys.argv[5])
         print("Total Memory in USS:", obj.getMemoryUSS())
