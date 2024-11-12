@@ -28,7 +28,7 @@ Copyright (C)  2021 Rage Uday Kiran
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-
+import sys
 import pandas as pd
 import os
 import psutil
@@ -152,9 +152,12 @@ class Parquet2CSV:
         print("Memory usage (RSS):", self.memoryRSS)
         print("Runtime:", self.end - self.start)
 
-
-sep = "\t"
-outputFile = "output.csv"
-obj = Parquet2CSV("output.parquet", outputFile, sep)
-obj.convert()
-obj.printStats()
+if __name__ == '__main__':
+    #sep = "\t"
+    #outputFile = "output.csv"
+    if len(sys.argv) == 4:
+        obj = Parquet2CSV(sys.argv[1], sys.argv[2], sys.argv[3])
+    else:
+        raise ValueError("Invalid number of arguments. Args: <inputFile> <outputFile> <separator>")
+    #obj.convert()
+    #obj.printStats()

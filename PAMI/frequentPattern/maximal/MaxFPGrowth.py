@@ -267,6 +267,8 @@ class _Tree(object):
         :type prefix: str
         :param patterns: the patterns we want to generate for this node
         :type patterns: list
+        :param maximalTree: maximal frequent patterns
+        :type maximalTree: _MPTree()
         :return: the maximal frequent patterns
         :rtype: list
         """

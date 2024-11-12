@@ -27,7 +27,7 @@ Copyright (C)  2021 Rage Uday Kiran
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-
+import sys
 import pandas as pd
 import os
 import psutil
@@ -162,9 +162,13 @@ class CSV2Parquet:
         print("Runtime:", self.end - self.start)
 
 
-file = "Transactional_T10I4D100K.csv"
-sep = "\t"
-outputFile = "output.parquet"
-obj = CSV2Parquet(file, outputFile, sep)
-obj.convert()
-obj.printStats()
+if __name__ == '__main__':
+    #file = "Transactional_T10I4D100K.csv"
+    #sep = "\t"
+    #outputFile = "output.parquet"
+    if len(sys.argv) == 4:
+        obj = CSV2Parquet(sys.argv[1], sys.argv[2], sys.argv[3])
+    else:
+        raise ValueError("Invalid number of arguments. Args: <inputFile> <outputFile> <separator>")
+    #obj.convert()
+    #obj.printStats()
