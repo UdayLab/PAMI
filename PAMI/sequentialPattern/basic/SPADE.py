@@ -7,7 +7,7 @@
 # --------------------------------------------------------
 #
 #
-#             import PAMI.sequentialPatternMining.basic.SPADE as alg
+#             import PAMI.sequentialPattern.basic.SPADE as alg
 #
 #             obj = alg.SPADE(iFile, minSup)
 #
@@ -156,11 +156,11 @@ class SPADE(_ab._sequentialPatterns):
     ----------------------------------------------------
     .. code-block:: python
 
-            import PAMI.sequentialPatternMining.basic.SPADE as alg
+            import PAMI.sequentialPattern.basic.SPADE as alg
 
             obj = alg.SPADE(iFile, minSup)
 
-            obj.startMine()
+            obj.mine()
 
             sequentialPatternMining = obj.getPatterns()
 
@@ -737,7 +737,6 @@ class SPADE(_ab._sequentialPatterns):
         bs2 = bs + (x2,)
         return  bs2,bs,x2
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
         """
         Frequent pattern mining process will start from here
@@ -757,7 +756,7 @@ class SPADE(_ab._sequentialPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Sequential Frequent patterns were generated successfully using SPADE algorithm ")
 
-    def Mine(self):
+    def mine(self):
         """
         Frequent pattern mining process will start from here
         """
@@ -860,7 +859,7 @@ if __name__ == "__main__":
             _ap = SPADE(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
             _ap = SPADE(_ab._sys.argv[1], _ab._sys.argv[3])
-        _ap.startMine()
+        _ap.mine()
         _Patterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_Patterns))
         _ap.savePatterns(_ab._sys.argv[2])
@@ -871,16 +870,5 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        _ap = SPADE('test.txt',2, '\t')
-        _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
-        print("Total number of Frequent Patterns:", len(_Patterns))
         print("Error! The number of input parameters do not match the total number of parameters provided")
-        _ap.save("priOut2.txt")
 

@@ -19,7 +19,7 @@ import sys
 import copy
 sys.setrecursionlimit(10000)
 
-class PrefixSpan(_ab._sequentialSpatialPatterns):
+class spatialPrefixSpan(_ab._sequentialSpatialPatterns):
     """
         Prifix Span is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
         This program employs Prifix Span property (or downward closure property) to  reduce the search space effectively.
@@ -62,7 +62,7 @@ class PrefixSpan(_ab._sequentialSpatialPatterns):
                 to store the neighbor map(which place is neighbor)
         Methods:
         -------
-            startMine()
+            mine()
                 Mining process will start from here
             getPatterns()
                 Complete set of patterns will be retrieved with this function
@@ -509,7 +509,7 @@ class PrefixSpan(_ab._sequentialSpatialPatterns):
 
 
 
-    def startMine(self):
+    def mine(self):
         """
             Frequent pattern mining process will start from here
         """
@@ -594,14 +594,14 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) >= 5 and len(_ab._sys.argv) <= 8:
         if len(_ab._sys.argv) == 8:
-            _ap = PrefixSpan(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4],_ab._sys.argv[5],_ab._sys.argv[7],_ab._sys.argv[8])
+            _ap = spatialPrefixSpan(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4],_ab._sys.argv[5],_ab._sys.argv[7],_ab._sys.argv[8])
         if len(_ab._sys.argv) == 7:
-            _ap = PrefixSpan(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4],_ab._sys.argv[5],_ab._sys.argv[7])
+            _ap = spatialPrefixSpan(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4],_ab._sys.argv[5],_ab._sys.argv[7])
         if len(_ab._sys.argv) == 6:
-            _ap = PrefixSpan(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4],_ab._sys.argv[5])
+            _ap = spatialPrefixSpan(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4],_ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
-            _ap = PrefixSpan(_ab._sys.argv[1], _ab._sys.argv[3],_ab._sys.argv[4])
-        _ap.startMine()
+            _ap = spatialPrefixSpan(_ab._sys.argv[1], _ab._sys.argv[3],_ab._sys.argv[4])
+        _ap.mine()
         _Patterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_Patterns))
         _ap.savePatterns(_ab._sys.argv[2])
@@ -612,8 +612,8 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        _ap = PrefixSpan('testdayo.txt',"testN.txt",2, ' ')
-        _ap.startMine()
+        _ap = spatialPrefixSpan('testdayo.txt',"testN.txt",2, ' ')
+        _ap.mine()
         _Patterns = _ap.getPatterns()
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
