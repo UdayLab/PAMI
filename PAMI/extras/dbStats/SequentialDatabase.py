@@ -1,431 +1,367 @@
-# SequentialDatabase is to get stats of database like avarage, minimun, maximum  and so on
-#
-# **Importing this algorithm into a python program**
-# --------------------------------------------------------
-#
-#             from PAMI.extras.dbStats import SequentialDatabase as db
-#
-#             obj = db.SequentialDatabase(iFile, "\t")
-#
-#             obj.save(oFile)
-#
-#             obj.run()
-#
-#             obj.printStats()
-#
-
-
-
-
-
-__copyright__ = """
-Copyright (C)  2021 Rage Uday Kiran
-
-     This program is free software: you can redistribute it and/or modify
-     it under the terms of the GNU General Public License as published by
-     the Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
-
-     This program is distributed in the hope that it will be useful,
-     but WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     GNU General Public License for more details.
-
-     You should have received a copy of the GNU General Public License
-     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-"""
-
 import statistics
+import pandas as pd
 import validators
+import numpy as np
 from urllib.request import urlopen
 import PAMI.extras.graph.plotLineGraphFromDictionary as plt
-import sys
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
-class SequentialDatabase():
+class SequentialDatabase:
     """
-    SequentialDatabase is to get stats of database like avarage, minimun, maximum  and so on.
-
-    :Attributes:
-
-        :param inputFile: file :
-               input file path
-        :param sep: str
-               separator in file. Default is tab space.
-
-    :Methods:
-
-        readDatabase():
-            read sequential database from input file and store into database and size of each sequence and subsequences.
-        getDatabaseSize(self):
+    sequentialDatabaseStats is class to get stats of database.
+        Attributes:
+        ----------
+        inputFile : file
+            input file path
+        database : dict
+            store time stamp and its transaction
+        lengthList : list
+            store length of all transaction
+        sep : str
+            separator in file. Default is tab space.
+        seqSep: str
+        - Separator for each item set
+        Methods:
+        -------
+        run()
+            execute readDatabase function
+        readDatabase()
+            read database from input file
+        getDatabaseSize()
             get the size of database
-        getTotalNumberOfItems(self):
-            get the number of items in database.
-        getMinimumSequenceLength(self):
-            get the minimum sequence length
-        getAverageSubsequencePerSequenceLength(self):
-            get the average subsequence length per sequence length. It is sum of all subsequence length divided by sequence length.
-        getAverageItemPerSubsequenceLength(self):
-            get the average Item length per subsequence. It is sum of all item length divided by subsequence length.
-        getMaximumSequenceLength(self):
-            get the maximum sequence length
-        getStandardDeviationSubsequenceLength(self):
-            get the standard deviation subsequence length
-        getVarianceSequenceLength(self):
-            get the variance Sequence length
-        getSequenceSize(self):
-            get the size of sequence
-        getMinimumSubsequenceLength(self):
-            get the minimum subsequence length
-        getAverageItemPerSequenceLength(self):
-            get the average item length per sequence. It is sum of all item length divided by sequence length.
-        getMaximumSubsequenceLength(self):
-            get the maximum subsequence length
-        getStandardDeviationSubsequenceLength(self):
-            get the standard deviation subsequence length
-        getVarianceSubsequenceLength(self):
-            get the variance subSequence length
-        getSortedListOfItemFrequencies(self):
+        getMinimumTransactionLength()
+            get the minimum transaction length
+        getAverageTransactionLength()
+            get the average transaction length. It is sum of all transaction length divided by database length.
+        getMaximumTransactionLength()
+            get the maximum transaction length
+        getStandardDeviationTransactionLength()
+            get the standard deviation of transaction length
+        getVarianceTransactionLength()
+            get the variance of transaction length
+        getSparsity()
+            get the sparsity of database
+        getSortedListOfItemFrequencies()
             get sorted list of item frequencies
-        getFrequenciesInRange(self):
-            get sorted list of item frequencies in some range
-        getSequencialLengthDistribution(self):
-            get Sequence length Distribution
-        getSubsequencialLengthDistribution(self):
-            get subSequence length distribution
-        printStats(self):
-            to print the all status of sequence database
-        plotGraphs(self):
-            to plot the  distribution about items, subsequences in sequence and items in subsequence
-
-    **Importing this algorithm into a python program**
-    --------------------------------------------------------
-    .. code-block:: python
-
-            from PAMI.extras.dbStats import SequentialDatabase as db
-
-            obj = db.SequentialDatabase(iFile, "\t")
-
-            obj.save(oFile)
-
-            obj.run()
-
-            obj.printStats()
-
-
-    **Executing the code on terminal:**
-    -------------------------------------------------
-
-    .. code-block:: console
-
-      Format:
-
-      (.venv) $ python3 SequentialDatabase.py <inputFile>
-
-      Example Usage:
-
-      (.venv) $ python3 SequentialDatabase.py sampleDB.txt
-
-      (.venv) $ python3 SequentialDatabase.py sampleDB.txt
-
-
-    **Sample run of the importing code:**
-    ----------------------------------------------------
-        import PAMI.extra.DBstats.SequentialDatabase as alg
-        _ap=alg.SequentialDatabase(inputfile,sep)
-        _ap.readDatabase()
-        _ap.printStats()
-        _ap.plotGraphs()
-    **Credits:**
-    ---------------------
-        The complete program was written by Shota Suzuki  under the supervision of Professor Rage Uday Kiran.
+        getSortedListOfTransactionLength()
+            get sorted list of transaction length
+        save(data, outputFile)
+            store data into outputFile
     """
 
-    def __init__(self, inputFile: str, sep: str='\t') -> None:
+    def __init__(self, inputFile, sep='\t',seqSep="-1"):
         """
         :param inputFile: input file name or path
         :type inputFile: str
-        :param sep: separator
-        :type sep: str
-        :return: None
         """
         self.inputFile = inputFile
-        self.seqLengthList = []
-        self.subSeqLengthList = []
+        self.lengthList = []
         self.sep = sep
+        self.seqSep = seqSep
         self.database = {}
+        self.NumOfSeqList=[]
 
-    def readDatabase(self) -> None:
+    def run(self):
+        self.readDatabase()
+
+    def readDatabase(self):
         """
-        read sequential database from input file and store into database and size of each sequence and subsequences.
+        read database from input file and store into database and size of each transaction.
         """
+        # self.creatingItemSets()
+        numberOfTransaction = 0
+        if isinstance(self.inputFile, pd.DataFrame):
+            if self.inputFile.empty:
+                print("its empty..")
+            i = self.inputFile.columns.values.tolist()
+            if 'tid' in i and 'Transactions' in i:
+                self.database = self.inputFile.set_index('tid').T.to_dict(orient='records')[0]
+            if 'tid' in i and 'Patterns' in i:
+                self.database = self.inputFile.set_index('tid').T.to_dict(orient='records')[0]
+            for data in self.database.kays():
+                numberOfTransaction=numberOfTransaction+1
+                seqlist = []
+                NumOfSeq = 0
+                for i in self.database[data]:
+                    if i == self.seqSep:
+                        NumOfSeq = NumOfSeq + 1
+                    else:
+                        seqlist.append(i)
+                self.NumOfSeqList.append(NumOfSeq+1)
+                self.database[numberOfTransaction] = seqlist
+
+
         if isinstance(self.inputFile, str):
             if validators.url(self.inputFile):
                 data = urlopen(self.inputFile)
-                rowNum=0
                 for line in data:
+                    numberOfTransaction += 1
                     line.strip()
-                    temp = [i.rstrip() for i in line.split('-1')]
-                    temp = [x for x in temp if x]
-                    temp.pop()
-                    seq = []
-                    self.seqLengthList.append(len(temp))
-                    self.subSeqLengthList.append([len(i) for i in temp])
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    seqlist = []
+                    NumOfSeq = 0
                     for i in temp:
-                        if len(i) > 1:
-                            tempSorted=list(sorted(set(i.split())))
-                            seq.append(tempSorted)
+                        if i == self.seqSep:
+                            NumOfSeq = NumOfSeq + 1
                         else:
-                            seq.append(i)
-                    rowNum+=1
-                    if seq:
-                        self.database[rowNum]=seq
+                            seqlist.append(i)
+                    self.NumOfSeqList.append(NumOfSeq+1)
+                    self.database[numberOfTransaction] = seqlist
             else:
-                with open(self.inputFile, 'r') as f:
-                    rowNum = 0
-                    for line in f:
-                        temp = [i.rstrip(self.sep) for i in line.split('-1')]
-                        temp = [x for x in temp if x]
-                        temp.pop()
-                        seq = []
-                        self.seqLengthList.append(len(temp))
-                        subseq=[]
-                        for i in temp:
-                            if len(i) > 1:
-                                tempSorted = list(sorted(set(i.split())))
-                                subseq.append(len(tempSorted))
-                                seq.append(tempSorted)
-                            else:
-                                seq.append(i)
-                                subseq.append(len(i))
-                        if subseq!=[]:
-                            self.subSeqLengthList.append(subseq)
-                        rowNum += 1
-                        if seq:
-                            self.database[rowNum] = seq
+                try:
+                    with open(self.inputFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            numberOfTransaction += 1
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            seqlist=[]
+                            NumOfSeq=0
+                            for i in temp:
+                                if i==self.seqSep:
+                                    NumOfSeq=NumOfSeq+1
+                                else:
+                                    seqlist.append(i)
+                            self.NumOfSeqList.append(NumOfSeq+1)
+                            self.database[numberOfTransaction] = seqlist
+                except IOError:
+                    print("File Not Found")
+                    quit()
+        self.lengthList = [len(s) for s in self.database.values()]
 
-
-    def getDatabaseSize(self) -> int:
+    def getDatabaseSize(self):
         """
         get the size of database
-        :return: dataset size
-        :rtype: int
+        :return: data base size
         """
         return len(self.database)
 
-    def getTotalNumberOfItems(self) -> int:
+    def getTotalNumberOfItems(self):
         """
         get the number of items in database.
         :return: number of items
-        :rtype: int
         """
         return len(self.getSortedListOfItemFrequencies())
 
-    def getMinimumSequenceLength(self) -> int:
+    def getTotalNumberOfISeq(self):
         """
-        get the minimum sequence length
-        :return: minimum sequence length
-        :rtype: int
+        get the number of items in database.
+        :return: number of items
         """
-        return min(self.seqLengthList)
+        return sum(self.NumOfSeqList)
 
-    def getAverageSubsequencePerSequenceLength(self) -> float:
+    def getMinimumTransactionLength(self):
         """
-        get the average subsequence length per sequence length. It is sum of all subsequence length divided by sequence length.
-        :return: average subsequence length per sequence length
-        :rtype: float
+        get the minimum transaction length
+        :return: minimum transaction length
         """
-        totalLength = sum(self.seqLengthList)
+        return min(self.lengthList)
+
+    def getMinimumSequenceLength(self):
+        """
+        get the minimum Sequence length
+        :return: minimum Sequence length
+        """
+        return min(self.NumOfSeqList)
+
+    def getAverageTransactionLength(self):
+        """
+        get the average transaction length. It is sum of all transaction length divided by database length.
+        :return: average transaction length
+        """
+        totalLength = sum(self.lengthList)
         return totalLength / len(self.database)
 
-    def getAverageItemPerSubsequenceLength(self) -> float:
+    def getAverageItemsInSequenceLength(self):
+        """
+        get the average Sequence length. It is sum of all transaction length divided by database length.
+        :return: average Sequence length
+        """
+        totalLength = sum(self.NumOfSeqList)
+        return sum(self.lengthList)/totalLength
 
+    def getAverageSequenceLength(self):
         """
-        get the average Item length per subsequence. It is sum of all item length divided by subsequence length.
-        :return: average Item length per subsequence
-        :rtype: float
+        get the average Sequence length. It is sum of all Sequence length divided by database length.
+        :return: average Sequence length
         """
+        totalLength = sum(self.NumOfSeqList)
+        return totalLength / len(self.database)
 
-        totalLength = sum(list(map(sum,self.subSeqLengthList)))
-        return totalLength / sum(self.seqLengthList)
+    def getMaximumTransactionLength(self):
+        """
+        get the maximum transaction length
+        :return: maximum transaction length
+        """
+        return max(self.lengthList)
 
-    def getMaximumSequenceLength(self) -> int:
+    def getMaximumSequenceLength(self):
         """
-        get the maximum sequence length
-        :return: maximum sequence length
-        :rtype: int
+        get the maximum Sequence length
+        :return: maximum Sequence length
         """
-        return max(self.seqLengthList)
+        return max(self.NumOfSeqList)
 
-    def getStandardDeviationSequenceLength(self) -> float:
+    def getStandardDeviationTransactionLength(self):
         """
-        get the standard deviation sequence length
-        :return: standard deviation sequence length
-        :rtype: float
+        get the standard deviation transaction length
+        :return: standard deviation transaction length
         """
-        return statistics.pstdev(self.seqLengthList)
+        return statistics.pstdev(self.lengthList)
 
-    def getVarianceSequenceLength(self) -> float:
+    def getStandardDeviationSequenceLength(self):
+        """
+        get the standard deviation Sequence length
+        :return: standard deviation Sequence length
+        """
+        return statistics.pstdev(self.NumOfSeqList)
+
+    def getVarianceTransactionLength(self):
+        """
+        get the variance transaction length
+        :return: variance transaction length
+        """
+        return statistics.variance(self.lengthList)
+
+    def getVarianceSequenceLength(self):
         """
         get the variance Sequence length
         :return: variance Sequence length
-        :rtype: float
         """
-        return statistics.variance(self.seqLengthList)
+        return statistics.variance(self.NumOfSeqList)
 
-    def getSequenceSize(self) -> int:
+    def getNumberOfItems(self):
         """
-        get the size of sequence
-        :return: sequences size
-        :rtype: int
+        get the number of items in database.
+        :return: number of items
         """
-        return sum(self.seqLengthList)
+        return len(self.getSortedListOfItemFrequencies())
 
-    def getMinimumSubsequenceLength(self) -> int:
-        """
-        get the minimum subsequence length
-        :return: minimum subsequence length
-        :rtype: int
-        """
-        return min(list(map(min,self.subSeqLengthList)))
+    def convertDataIntoMatrix(self):
+        singleItems = self.getSortedListOfItemFrequencies()
+        # big_array = np.zeros((self.getDatabaseSize(), len(self.getSortedListOfItemFrequencies())))
+        itemsets = {}
+        for i in self.database:
+            for item in singleItems:
+                if item in itemsets:
+                    if item in self.database[i]:
+                        itemsets[item].append(1)
+                    else:
+                        itemsets[item].append(0)
+                else:
+                    if item in self.database[i]:
+                        itemsets[item] = [1]
+                    else:
+                        itemsets[item] = [0]
+        # new = pd.DataFrame.from_dict(itemsets)
+        data = list(itemsets.values())
+        an_array = np.array(data)
+        return an_array
 
-    def getAverageItemPerSequenceLength(self) -> float:
+    def getSparsity(self):
         """
-        get the average item length per sequence. It is sum of all item length divided by sequence length.
-        :return: average item length per sequence
-        :rtype: float
+        get the sparsity of database. sparsity is percentage of 0 of database.
+        :return: database sparsity
         """
-        totalLength = sum(list(map(sum,self.subSeqLengthList)))
-        return totalLength / len(self.database)
+        big_array = self.convertDataIntoMatrix()
+        n_zeros = np.count_nonzero(big_array == 0)
+        return (n_zeros / big_array.size)
 
-    def getMaximumSubsequenceLength(self) -> int:
+    def getDensity(self):
         """
-        get the maximum subsequence length
-        :return: maximum subsequence length
-        :rtype: int
+        get the sparsity of database. sparsity is percentage of 0 of database.
+        :return: database sparsity
         """
-        return max(list(map(max,self.subSeqLengthList)))
+        big_array = self.convertDataIntoMatrix()
+        n_zeros = np.count_nonzero(big_array != 0)
+        return (n_zeros / big_array.size)
 
-    def getStandardDeviationSubsequenceLength(self) -> float:
-        """
-        get the standard deviation subsequence length
-        :return: standard deviation subsequence length
-        :rtype: float
-        """
-        allList=[]
-        for i in self.subSeqLengthList:
-            allList=allList+i
-        return statistics.pstdev(allList)
-
-    def getVarianceSubsequenceLength(self) -> float:
-        """
-        get the variance subSequence length
-        :return: variance subSequence length
-        :rtype: float
-        """
-        allList = []
-        for i in self.subSeqLengthList:
-            allList = allList + i
-        return statistics.variance(allList)
-
-    def getSortedListOfItemFrequencies(self) -> Dict[str, int]:
+    def getSortedListOfItemFrequencies(self):
         """
         get sorted list of item frequencies
         :return: item frequencies
-        :rtype: dict
         """
         itemFrequencies = {}
-        for seq in self.database:
-            for sub in self.database[seq]:
-                for item in sub:
-                    itemFrequencies[item] = itemFrequencies.get(item, 0)
-                    itemFrequencies[item] += 1
+        for tid in self.database:
+            for item in self.database[tid]:
+                itemFrequencies[item] = itemFrequencies.get(item, 0)
+                itemFrequencies[item] += 1
         return {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x: x[1], reverse=True)}
 
-    def getFrequenciesInRange(self) -> Dict[int, int]:
-        """
-        get sorted list of item frequencies in some range
-        :return: item separated by its frequencies
-        :rtype: dict
-        """
+    def getFrequenciesInRange(self):
         fre = self.getSortedListOfItemFrequencies()
         rangeFrequencies = {}
         maximum = max([i for i in fre.values()])
         values = [int(i * maximum / 6) for i in range(1, 6)]
         va = len({key: val for key, val in fre.items() if val > 0 and val < values[0]})
-        rangeFrequencies[values[0]] = va
+        rangeFrequencies[va] = values[0]
         for i in range(1, len(values)):
             va = len({key: val for key, val in fre.items() if val < values[i] and val > values[i - 1]})
-            rangeFrequencies[values[i]] = va
+            rangeFrequencies[va] = values[i]
+        print(rangeFrequencies)
         return rangeFrequencies
 
-    def getSequencialLengthDistribution(self) -> Dict[int, int]:
+    def getSequentialLengthDistribution(self):
         """
-        get Sequence length Distribution
-        :return: Sequence length
-        :rtype: dict
+        get transaction length
+        :return: transaction length
         """
         transactionLength = {}
-        for length in self.seqLengthList:
+        for length in self.lengthList:
             transactionLength[length] = transactionLength.get(length, 0)
             transactionLength[length] += 1
         return {k: v for k, v in sorted(transactionLength.items(), key=lambda x: x[0])}
 
-    def getSubsequencialLengthDistribution(self) -> Dict[int, int]:
+    def save(self, data, outputFile):
         """
-        get subSequence length distribution
-        :return: subSequence length
-        :rtype: dict
+        store data into outputFile
+        :param data: input data
+        :type data: dict
+        :param outputFile: output file name or path to store
+        :type outputFile: str
         """
-        transactionLength = {}
-        for sublen in self.subSeqLengthList:
-            for length in sublen:
-                transactionLength[length] = transactionLength.get(length, 0)
-                transactionLength[length] += 1
-        return {k: v for k, v in sorted(transactionLength.items(), key=lambda x: x[0])}
+        with open(outputFile, 'w') as f:
+            for key, value in data.items():
+                f.write(f'{key}\t{value}\n')
 
-    def run(self) -> None:
-        self.readDatabase()
+    def printStats(self):
+        print(f'Database size (total no of transactions) : {self.getDatabaseSize()}')
+        print(f'Number of items : {self.getNumberOfItems()}')
+        print(f'Number of sequence : {self.getTotalNumberOfISeq()}')
+        print(f'Average items in sequence : {self.getAverageItemsInSequenceLength()}')
+        print(f'Minimum number of events in sequence : {self.getMinimumSequenceLength()}')
+        print(f'Average number of events in sequence : {self.getAverageSequenceLength()}')
+        print(f'Maximum number of events in sequence: {self.getMaximumSequenceLength()}')
+        print(f'Variance in sequence Sizes : {self.getVarianceSequenceLength()}')
+        print(f'Minimum Transaction Size : {self.getMinimumTransactionLength()}')
+        print(f'Average Transaction Size : {self.getAverageTransactionLength()}')
+        print(f'Maximum Transaction Size : {self.getMaximumTransactionLength()}')
+        print(f'Standard Deviation Transaction Size : {self.getStandardDeviationTransactionLength()}')
+        print(f'Variance in Transaction Sizes : {self.getVarianceTransactionLength()}')
+        print(f'Sparsity : {self.getSparsity()}')
 
-    def printStats(self) -> None:
-        """
-        To print the all status of sequence database
-        """
-        print(f'Database size (total no of sequence) : {self.getDatabaseSize()}')
-        print(f'Number of items : {self.getTotalNumberOfItems()}')
-        print(f'Minimum Sequence Size : {self.getMinimumSequenceLength()}')
-        print(f'Average Sequence Size : {self.getAverageSubsequencePerSequenceLength()}')
-        print(f'Maximum Sequence Size : {self.getMaximumSequenceLength()}')
-        print(f'Standard Deviation Sequence Size : {self.getStandardDeviationSequenceLength()}')
-        print(f'Variance in Sequence Sizes : {self.getVarianceSequenceLength()}')
-        print(f'Sequence size (total no of subsequence) : {self.getSequenceSize()}')
-        print(f'Minimum subSequence Size : {self.getMinimumSubsequenceLength()}')
-        print(f'Average subSequence Size : {self.getAverageItemPerSubsequenceLength()}')
-        print(f'Maximum subSequence Size : {self.getMaximumSubsequenceLength()}')
-        print(f'Standard Deviation Sequence Size : {self.getStandardDeviationSubsequenceLength()}')
-        print(f'Variance in Sequence Sizes : {self.getVarianceSubsequenceLength()}')
 
-    def plotGraphs(self) -> None:
-        """
-        To plot the  distribution about items, subsequences in sequence and items in subsequence
-        """
+    def plotGraphs(self):
         itemFrequencies = self.getFrequenciesInRange()
-        seqLen = self.getSequencialLengthDistribution()
-        subLen=self.getSubsequencialLengthDistribution()
-        plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'Frequency', 'No of items', 'frequency')
-        plt.plotLineGraphFromDictionary(seqLen, 100, 'sequence length', 'sequence length', 'frequency')
-        plt.plotLineGraphFromDictionary(subLen, 100, 'subsequence length', 'subsequence length', 'frequency')
+        transactionLength = self.getSequentialLengthDistribution()
+        plt.plotLineGraphFromDictionary(itemFrequencies, 100, title='Frequency', xlabel='No of items', ylabel='frequency')
+        plt.plotLineGraphFromDictionary(transactionLength, 100, title='transaction length', xlabel='transaction length', ylabel='frequency')
+
 
 if __name__ == '__main__':
-    _ap=str()
-    if len(sys.argv)==3 or len(sys.argv)==2:
-        if len(sys.argv)==3:
-            _ap=SequentialDatabase(sys.argv[1],sys.argv[2])
-        if len(sys.argv) == 2:
-            _ap = SequentialDatabase(sys.argv[1])
-        _ap.run()
-        _ap.printStats()
-        _ap.plotGraphs()
-    else:
-        print("Error! The number of input parameters do not match the total number of parameters provided")
+
+    data = {'tid': [1, 2, 3, 4, 5, 6, 7],
+
+            'Transactions': [['a', 'd', 'e'], ['b', 'a', 'f', 'g', 'h'], ['b', 'a', 'd', 'f'], ['b', 'a', 'c'],
+                             ['a', 'd', 'g', 'k'],
+
+                             ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
+
+    # data = pd.DataFrame.from_dict('transactional_T10I4D100K.csv')
+    import PAMI.extras.graph.plotLineGraphFromDictionary as plt
+
+    # obj = transactionalDatabaseStats(data)
+    obj = SequentialDatabase('retail.txt', ' ')
+    obj.run()
+    obj.printStats()
+    obj.plotGraphs()

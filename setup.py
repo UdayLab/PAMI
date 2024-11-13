@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='pami',
-    version='2024.6.19.2',
+    version='2024.11.13.2',
     author='Rage Uday Kiran',
     author_email='uday.rage@gmail.com',
     description='This software is being developed at the University of Aizu, Aizu-Wakamatsu, Fukushima, Japan',
@@ -30,6 +30,7 @@ setuptools.setup(
         'discord.py',
         'networkx',
         'deprecated',
+        'fastparquet',
     ],
     extras_require={
         'gpu':  ['cupy', 'pycuda'],

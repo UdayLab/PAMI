@@ -96,21 +96,42 @@
   <h1>Source code for PAMI.subgraphMining.topK.frequentSubgraph</h1><div class="highlight"><pre>
 <div class="viewcode-block" id="FrequentSubgraph"><a class="viewcode-back" href="../../../../PAMI.subgraphMining.topK.html#PAMI.subgraphMining.topK.frequentSubgraph.FrequentSubgraph">[docs]</a><span></span><span class="k">class</span> <span class="nc">FrequentSubgraph</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dfsCode</span><span class="p">,</span> <span class="n">setOfGraphsIds</span><span class="p">,</span> <span class="n">support</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">       Represents a frequent subgraph discovered during the mining process.</span>
+
+<span class="sd">        :Attributes:</span>
+
+<span class="sd">                dfsCode (DFSCode): The DFS code representing the subgraph.</span>
+
+<span class="sd">                setOfGraphsIds (set): Set of graph IDs containing this subgraph.</span>
+
+<span class="sd">                support (int): Support count indicating the frequency of occurrence of the subgraph.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dfsCode</span> <span class="o">=</span> <span class="n">dfsCode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setOfGraphsIds</span> <span class="o">=</span> <span class="n">setOfGraphsIds</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">support</span> <span class="o">=</span> <span class="n">support</span>
     
     <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if two FrequentSubgraph instances are equal based on support.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">FrequentSubgraph</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">NotImplemented</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">support</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">support</span>
 
     <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if this FrequentSubgraph instance has lower support than another instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">FrequentSubgraph</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">NotImplemented</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">support</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">support</span>
 
     <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if this FrequentSubgraph instance has greater support than another instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">FrequentSubgraph</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">NotImplemented</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">support</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">support</span></div>

@@ -385,7 +385,7 @@ class TKG(_ab._TKG):
     def isCanonical(self, c: _ab.DfsCode):
         canC = _ab.DfsCode()
         for i in range(c.size):
-            extensions = self.rightMostPathExtensionsFromSingle(canC, _ab.Graph(c))
+            extensions = self.rightMostPathExtensionsFromSingle(canC, _ab.Graph(-1, None, c))
             minEe = None
             for ee in extensions.keys():
                 if minEe is None or ee.smallerThan(minEe):

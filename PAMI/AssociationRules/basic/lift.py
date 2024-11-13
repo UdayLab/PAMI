@@ -239,9 +239,9 @@ class lift:
                     antecedent = c
                     consequent = tuple(sorted([x for x in keys[i] if x not in antecedent]))
                     # print(antecedent, consequent)
-                    lift = key / (self._associationRules[antecedent]) * self._associationRules[consequent]
-                    if lift >= self._minLift:
-                        self._associationRules[antecedent + tuple(['->']) + keys[i]] = lift
+                    lift_ = key / (self._associationRules[antecedent]) * self._associationRules[consequent]
+                    if lift_ >= self._minLift:
+                        self._associationRules[antecedent + tuple(['->']) + keys[i]] = lift_
 
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
@@ -340,7 +340,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = lift(_ab._sys.argv[1], float(_ab._sys.argv[3]), _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
-            _ap = lift(_ab._sys.argv[1], _ab._sys.argv[3])
+            _ap = lift(_ab._sys.argv[1], float(_ab._sys.argv[3]),sep='\t')
         _ap.startMine()
         _ap.mine()
         print("Total number of Association Rules:", len(_ap.getAssociationRules()))

@@ -645,6 +645,45 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Correlated Periodic-Frequent patterns were generated successfully using EPCPGrowth algorithm ")
 
+    def mine(self) -> None:
+        """
+        Mining process will start from this function
+        """
+
+        global _minSup, _maxPer, _minAllConf, _maxPerAllConf, _lno
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        if self._minSup is None:
+            raise Exception("Please enter the Minimum Support")
+        self._creatingItemSets()
+        self._minSup = self._convert(self._minSup)
+        self._minAllConf = float(self._minAllConf)
+        self._maxPer = self._convert(self._maxPer)
+        self._maxPerAllConf = float(self._maxPerAllConf)
+        _minSup, _minAllConf, _maxPer, _maxPerAllConf, _lno = self._minSup, self._minAllConf,  self._maxPer, self._maxPerAllConf, len(self._Database)
+        #print(_minSup, _minAllConf, _maxPer, _maxPerAllConf)
+        if self._minSup > len(self._Database):
+            raise Exception("Please enter the minSup in range between 0 to 1")
+        generatedItems, pfList = self._periodicFrequentOneItem()
+        updatedDatabases = self._updateDatabases(generatedItems)
+        for x, y in self._rank.items():
+            self._rankedUp[y] = x
+        info = {self._rank[k]: v for k, v in generatedItems.items()}
+        Tree = self._buildTree(updatedDatabases, info)
+        patterns = Tree.generatePatterns([])
+        self._finalPatterns = {}
+        for i in patterns:
+            sample = self._savePeriodic(i[0])
+            self._finalPatterns[sample] = i[1]
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Correlated Periodic-Frequent patterns were generated successfully using EPCPGrowth algorithm ")
+
     def getMemoryUSS(self) -> float:
         """
         Total amount of USS memory consumed by the mining process will be retrieved from this function
