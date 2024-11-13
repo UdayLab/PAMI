@@ -157,9 +157,11 @@ class TransactionalDatabase:
 
 
     def getdataasDataframe(self,sep='\t'):
-        column = 'Transaction'
-        dataFrame = pd.DataFrame(colums=column)
-        dataFrame[column] = [sep.join(map(str,line) for line in self.data)]
+        transactions = []
+        for line in self.data:
+            transactions.append(line)
+
+        dataFrame = pd.DataFrame([transactions], index=['TransactionItems']).T
         return dataFrame
 
 
