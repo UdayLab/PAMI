@@ -7,9 +7,9 @@ class NucleotideSequenceGenerator:
     """
     :Description: NucleotideSequenceGenerator generates a random DNA or RNA sequence with specified GC content and length.
     :Attributes:
-        sequence_length: int
+        sequenceLength: int
             Length of the generated sequence.
-        gc_content: float
+        gcContent: float
             Desired GC content as a decimal (e.g., 0.5 for 50%).
         is_rna: bool
             True for RNA sequence, False for DNA sequence.
@@ -38,9 +38,9 @@ class NucleotideSequenceGenerator:
             Retrieves the total runtime taken by the sequence generation process.
     """
 
-    def __init__(self, sequence_length, gc_content, is_rna=False):
-        self.sequence_length = sequence_length
-        self.gc_content = gc_content
+    def __init__(self, sequenceLength, gcContent, is_rna=False):
+        self.sequenceLength = sequenceLength
+        self.gcContent = gcContent
         self.is_rna = is_rna
         self.sequence = ""
         self._startTime = float()
@@ -55,8 +55,8 @@ class NucleotideSequenceGenerator:
         nucleotides = "GCAU" if self.is_rna else "GCAT"
 
         # Calculate number of G/C and A/T (or A/U) bases
-        gc_count = int(self.sequence_length * self.gc_content)
-        at_count = self.sequence_length - gc_count
+        gc_count = int(self.sequenceLength * self.gcContent)
+        at_count = self.sequenceLength - gc_count
 
         # Build the sequence with the correct proportion of GC and AT
         sequence_list = (
