@@ -210,6 +210,12 @@ if __name__ == "__main__":
         print("Total Memory in USS:", obj.getMemoryUSS())
         print("Total Memory in RSS", obj.getMemoryRSS())
         print("Total ExecutionTime in ms:", obj.getRuntime())
+    elif len(sys.argv) == 4:
+        obj = TransactionalDatabase(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]))
+        obj.create()
+        print("Total Memory in USS:", obj.getMemoryUSS())
+        print("Total Memory in RSS", obj.getMemoryRSS())
+        print("Total ExecutionTime in ms:", obj.getRuntime())
     else:
         raise ValueError(
             "Invalid number of arguments. Args: <databaseSize> <avgItemsPerTransaction> <noOfItems> <filename> or Args: <databaseSize> <avgItemsPerTransaction> <noOfItems> <sep> <filename>")
