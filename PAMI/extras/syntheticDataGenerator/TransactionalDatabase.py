@@ -98,23 +98,36 @@ class TransactionalDatabase:
 
         """
 
-    def __init__(self, dataBaseSize, avgItemsPerTransaction, itemsNo, sep='\t') -> None:
+    def __init__(self, databaseSize, avgItemsPerTransaction, numItems,sep = "\t") -> None:
 
-        self.dataBaseSize = dataBaseSize
+        """
+        Initialize the transactional database with the given parameters
+
+        :param databaseSize: total number of transactions in the database
+        :type databaseSize: int
+        :param avgItemsPerTransaction: average number of items per transaction
+        :type avgItemsPerTransaction: int
+        :param numItems: total number of items
+        :type numItems: int
+        :param sep: separator to distinguish the items in a transaction
+        :type sep: str
+        """
+
+        self.databaseSize = databaseSize
         self.avgItemsPerTransaction = avgItemsPerTransaction
-        self.itemsNo = itemsNo
+        self.numItems = numItems
         self.sep = sep
-        self.data = []
+        self.db = []
         self._startTime = float()
         self._endTime = float()
         self._memoryUSS = float()
         self._memoryRSS = float()
 
 
-    def noOfItemsPerTransaction(self,dataBaseSize,averageItemsPerTransaction):
+    def _generateArray(self,databaseSize,avgItemsPerTransaction):
 
         #generating random numbers with size of dataBaseSize
-        transactionSize = np.random.rand(dataBaseSize)
+        transactionSize = np.random.rand(databaseSize)
 
         #sum of the values in the transactionSize array - sumTransactions
         sumTransactions = np.sum(transactionSize)
@@ -123,7 +136,7 @@ class TransactionalDatabase:
         weights = transactionSize/sumTransactions
 
         #sumResultant -> whose average is equal to averageItemsPerTransaction's value
-        sumResultant = averageItemsPerTransaction*dataBaseSize
+        sumResultant = avgItemsPerTransaction*databaseSize
 
         #Getting new values whose average is averageItemsPerTransaction
         newValues = np.round(weights*sumResultant)
@@ -145,23 +158,23 @@ class TransactionalDatabase:
 
     def create(self):
         self._startTime = time.time()
-        noofItemsperTrans = self.noOfItemsPerTransaction(self.dataBaseSize, self.avgItemsPerTransaction)
-        for i in range(self.dataBaseSize):
-            self.data.append(np.random.choice(range(1,self.itemsNo+1), noofItemsperTrans[i], replace=False))
+        noofItemsperTrans = self._generateArray(self.databaseSize, self.avgItemsPerTransaction)
+        for i in range(self.databaseSize):
+            self.db.append(np.random.choice(range(1,self.numItems+1), noofItemsperTrans[i], replace=False))
 
 
     def save(self, filename):
         with open(filename, 'w') as f:
-            for line in self.data:
+            for line in self.db:
                 f.write(str(self.sep).join(map(str, line)) + '\n')
 
 
     def getTransactions(self,sep='\t'):
         transactions = []
-        for line in self.data:
+        for line in self.db:
             transactions.append(line)
 
-        dataFrame = pd.DataFrame([transactions], index=['TransactionItems']).T
+        dataFrame = pd.DataFrame([transactions], index=['Transactions']).T
         return dataFrame
 
 
