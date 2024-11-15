@@ -62,6 +62,11 @@ class GSpan(_ab._gSpan):
         self._memoryUSS = float()
         self._memoryRSS = float()
 
+        self.label_mapping = {}
+        self.current_label = 0
+        self.edge_label_mapping = {}
+        self.current_edge_label = 0
+
 
     def mine(self):
 
@@ -114,6 +119,9 @@ class GSpan(_ab._gSpan):
         subgraphs to a file specified by the `outputPath` parameter. The method iterates over each
         frequent subgraph in `self.frequentSubgraphs` and writes the subgraph information to the file
         """
+        reverse_label_mapping = {v: k for k, v in self.label_mapping.items()}
+        reverse_edge_label_mapping = {v: k for k, v in self.edge_label_mapping.items()}
+
         with open(oFile, 'w') as bw:
             i = 0
             for subgraph in self.frequentSubgraphs:
@@ -123,18 +131,20 @@ class GSpan(_ab._gSpan):
                 sb.append(f"t # {i} * {subgraph.support}\n")
                 if dfsCode.size == 1:
                     ee = dfsCode.getEeList()[0]
-                    if ee.edgeLabel == -1:
-                        sb.append(f"v 0 {ee.vLabel1}\n")
-                    else:
-                        sb.append(f"v 0 {ee.vLabel1}\n")
-                        sb.append(f"v 1 {ee.vLabel2}\n")
-                        sb.append(f"e 0 1 {ee.edgeLabel}\n")
+                    vLabel1 = reverse_label_mapping.get(ee.vLabel1, ee.vLabel1)
+                    sb.append(f"v 0 {vLabel1}\n")
+                    if ee.edgeLabel != -1:
+                        vLabel2 = reverse_label_mapping.get(ee.vLabel2, ee.vLabel2)
+                        edgeLabel = reverse_edge_label_mapping.get(ee.edgeLabel, ee.edgeLabel)
+                        sb.append(f"v 1 {vLabel2}\n")
+                        sb.append(f"e 0 1 {edgeLabel}\n")
                 else:
-                    vLabels = dfsCode.getAllVLabels()
+                    vLabels = [reverse_label_mapping.get(label, label) for label in dfsCode.getAllVLabels()]
                     for j, vLabel in enumerate(vLabels):
                         sb.append(f"v {j} {vLabel}\n")
                     for ee in dfsCode.getEeList():
-                        sb.append(f"e {ee.v1} {ee.v2} {ee.edgeLabel}\n")
+                        edgeLabel = reverse_edge_label_mapping.get(ee.edgeLabel, ee.edgeLabel)
+                        sb.append(f"e {ee.v1} {ee.v2} {edgeLabel}\n")
 
                 if self.outputGraphIds:
                     sb.append("x " + " ".join(str(id) for id in subgraph.setOfGraphsIds))
@@ -143,16 +153,13 @@ class GSpan(_ab._gSpan):
                 bw.write("".join(sb))
                 i += 1
 
-
     def readGraphs(self, path):
         """
         The `readGraphs` function reads graph data from a file and constructs a list of graphs with vertices
         and edges.
         
         :param path: The `path` parameter in the `readGraphs` method is the file path to the text file
-        containing the graph data that needs to be read and processed. This method reads the graph data from
-        the specified file and constructs a list of graphs represented by vertices and edges based on the
-        information in the
+        containing the graph data that needs to be read and processed.
         :return: The `readGraphs` method reads graph data from a file specified by the `path` parameter. It
         parses the data to create a list of graph objects and returns this list. Each graph object contains
         information about vertices and edges within the graph.
@@ -170,19 +177,27 @@ class GSpan(_ab._gSpan):
                         graphDatabase.append(_ab.Graph(gId, vMap))
                         vMap = {}  # Reset for the next graph
 
-                    gId = int(line.split(" ")[2]) 
+                    gId = int(line.split(" ")[2])
 
                 elif line.startswith("v"):
                     items = line.split(" ")
                     vId = int(items[1])
-                    vLabel = int(items[2])
+                    # Map vertex label
+                    if items[2].isdigit():
+                        vLabel = int(items[2])
+                    else:
+                        vLabel = self.get_label(items[2])
                     vMap[vId] = _ab.Vertex(vId, vLabel)
 
                 elif line.startswith("e"):
                     items = line.split(" ")
                     v1 = int(items[1])
                     v2 = int(items[2])
-                    eLabel = int(items[3])
+                    # Map edge label
+                    if items[3].isdigit():
+                        eLabel = int(items[3])
+                    else:
+                        eLabel = self.get_edge_label(items[3])
                     e = _ab.Edge(v1, v2, eLabel)
                     vMap[v1].addEdge(e)
                     vMap[v2].addEdge(e)
@@ -193,6 +208,17 @@ class GSpan(_ab._gSpan):
         self.graphCount = len(graphDatabase)
         return graphDatabase
 
+    def get_label(self, label_char):
+        if label_char not in self.label_mapping:
+            self.label_mapping[label_char] = self.current_label
+            self.current_label += 1
+        return self.label_mapping[label_char]
+
+    def get_edge_label(self, label_char):
+        if label_char not in self.edge_label_mapping:
+            self.edge_label_mapping[label_char] = self.current_edge_label
+            self.current_edge_label += 1
+        return self.edge_label_mapping[label_char]
 
     def subgraphIsomorphisms(self, c: _ab.DFSCode, g: _ab.Graph):
         """
@@ -680,3 +706,4 @@ class GSpan(_ab._gSpan):
         with open(oFile, 'w') as f:
             for _, subgraphIds in graphToSubgraphs.items():
                 f.write(f"{' '.join(map(str, subgraphIds))}\n")
+
