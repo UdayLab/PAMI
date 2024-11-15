@@ -1,11 +1,14 @@
 #  Usage
 #  obj = ConvertFormat('iFile', 'oFile')
 #
+import os
+import psutil
+
+
 class ConvertFormat:
-    def __init__(self, iFile, oFile):
+    def __init__(self, iFile):
         self.iFile = iFile
-        self.oFile = oFile
-        self.convert()
+        self.oFile = 'oFile.txt'
 
     def _writeGraphToFile(self, graph, oFile):
         node_str = ' '.join(f"{node} {label}" for node, label in sorted(graph['nodes']))
@@ -29,3 +32,14 @@ class ConvertFormat:
                     graph['edges'].append((int(parts[1]), int(parts[2]), parts[3]))
             if graph:
                 self._writeGraphToFile(graph, oFile)
+
+    def getMemoryRSS(self):
+        process = psutil.Process(os.getpid())
+        rss = process.memory_info().rss
+        return rss
+
+    def getMemoryUSS(self):
+        process = psutil.Process(os.getpid())
+        uss = process.memory_full_info().uss
+        return uss
+
