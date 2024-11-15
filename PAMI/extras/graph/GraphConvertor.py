@@ -1,15 +1,15 @@
 #  Usage
-#  obj1 = ConvertFormat('iFile', 'oFile')
+#  obj1 = GraphConvertor('iFile', 'oFile')
 #
-#  obj1.convertFromTraditionalToCompressed()
+#  obj1.convertTraditional2Compressed()
 #
 #  obj1.getMemoryRSS()
 #
 #  obj1.getMemoryUSS()
 #
-#  obj2 = ConvertFormat('iFileCompressed', 'oFileTrad')
+#  obj2 = GraphConvertor('iFileCompressed', 'oFileTrad')
 #
-#  obj2.convertFromCompressedToTraditional()
+#  obj2.convertCompressed2Traditional()
 #
 #  obj2.getMemoryRSS()
 #
@@ -19,7 +19,7 @@ import os
 import psutil
 
 
-class ConvertFormat:
+class GraphConvertor:
     def __init__(self, iFile):
         self.iFile = iFile
         self.convertedData = []
@@ -37,7 +37,7 @@ class ConvertFormat:
             traditional_lines.append(f"e {u} {v} {label}\n")
         return ''.join(traditional_lines)
 
-    def convertFromTraditionalToCompressed(self):
+    def convertTraditional2Compressed(self):
         graph = {}
         self.convertedData = []
         with open(self.iFile, 'r') as iFile:
@@ -58,7 +58,7 @@ class ConvertFormat:
                 compressedGraph = self._writeGraphToFileCompressed(graph)
                 self.convertedData.append(compressedGraph)
 
-    def convertFromCompressedToTraditional(self):
+    def convertCompressed2Traditional(self):
         self.convertedData = []
         gId = 0
         with open(self.iFile, 'r') as iFile:
