@@ -210,16 +210,13 @@ class generateTemporalDatabase:
         Generate a random array of length n whose values average to m
 
         :param nums: number of values
-
         :type nums: list
-
         :param avg: average value
-
         :type avg: float
-
         :param maxItems: maximum value
-
         :type maxItems: int
+        :param sumRes:
+        :type sumRes:
 
         :return: random array
 

@@ -118,7 +118,7 @@ class _Leverage:
         :rtype: float
         """
         s = lhs + '\t' + rhs
-        if self._frequentPatterns.get(s) == None:
+        if self._frequentPatterns.get(s) is None:
             return 0
         minimum = self._frequentPatterns[s]
         conf_lhs = minimum / self._frequentPatterns[lhs]
@@ -239,6 +239,7 @@ class ARWithLeverage:
         self._finalPatterns = {}
         self._sep = sep
 
+
     def _readPatterns(self) -> list:
         """
 
@@ -250,7 +251,7 @@ class ARWithLeverage:
         self._frequentPatterns = {}
         k = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
-            pattern, sup = [], []
+            pattern, support = [], []
             if self._iFile.empty:
                 print("its empty..")
             i = self._iFile.columns.values.tolist()
@@ -402,7 +403,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = ARWithLeverage(_ab._sys.argv[1], float(_ab._sys.argv[3]), _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
-            _ap = ARWithLeverage(_ab._sys.argv[1], _ab._sys.argv[3])
+            _ap = ARWithLeverage(_ab._sys.argv[1], float(_ab._sys.argv[3]),sep='\t')
         _ap.startMine()
         _ap.mine()
         print("Total number of Association Rules:", len(_ap.getPatterns()))

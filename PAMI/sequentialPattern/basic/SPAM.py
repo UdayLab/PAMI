@@ -5,7 +5,7 @@
 # --------------------------------------------------------
 #
 #
-#             import PAMI.sequentialPatternMining.basic.SPAM as alg
+#             import PAMI.sequentialPattern.basic.SPAM as alg
 #
 #             obj = alg.SPAM(iFile, minSup)
 #
@@ -161,11 +161,11 @@ class SPAM(_ab._sequentialPatterns):
 
     **Sample run of the importing code**:
     -------------------------------------
-            import PAMI.sequentialPatternMining.basic.SPAM as alg
+            import PAMI.sequentialPattern.basic.SPAM as alg
 
             obj = alg.SPAM(iFile, minSup)
 
-            obj.startMine()
+            obj.mine()
 
             sequentialPatternMining = obj.getPatterns()
 
@@ -510,7 +510,7 @@ if __name__ == "__main__":
             _ap = SPAM(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
             _ap = SPAM(_ab._sys.argv[1], _ab._sys.argv[3])
-        _ap.startMine()
+        _ap.mine()
         _Patterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_Patterns))
         _ap.savePatterns(_ab._sys.argv[2])
@@ -521,16 +521,4 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        _ap = SPAM('test.txt', 2, '\t')
-        _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
-        print("Total number of Frequent Patterns:", len(_Patterns))
-        print("Error! The number of input parameters do not match the total number of parameters provided")
-        _ap.save("priOut2.txt")
         print("Error! The number of input parameters do not match the total number of parameters provided")

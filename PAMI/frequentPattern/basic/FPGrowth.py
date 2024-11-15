@@ -370,11 +370,11 @@ class FPGrowth(_fp._frequentPatterns):
                     transactions[tuple(transaction)] = count
 
 
-                for item in transaction:
-                    if item in itemCount:
-                        itemCount[item] += count
+                for transaction_item in transaction:
+                    if transaction_item in itemCount:
+                        itemCount[transaction_item] += count
                     else:
-                        itemCount[item] = count
+                        itemCount[transaction_item] = count
 
 
             # remove items that are below minSup
@@ -385,13 +385,13 @@ class FPGrowth(_fp._frequentPatterns):
             for transaction, count in transactions.items():
                 transaction = sorted([item for item in transaction if item in itemCount], key = lambda x: itemCount[x], reverse = True)
                 currNode = newRoot
-                for item in transaction:
-                    currNode = currNode.addChild(item, count)
-                    if item in newItemNode:
-                        newItemNode[item][0].add(currNode)
-                        newItemNode[item][1] += count
+                for item_ in transaction:
+                    currNode = currNode.addChild(item_, count)
+                    if item_ in newItemNode:
+                        newItemNode[item_][0].add(currNode)
+                        newItemNode[item_][1] += count
                     else:
-                        newItemNode[item] = [set([currNode]), count]
+                        newItemNode[item_] = [set([currNode]), count]
 
             if len(newItemNode) < 1:
                 continue
@@ -496,6 +496,8 @@ class FPGrowth(_fp._frequentPatterns):
 
         :param outFile: name of the output file
         :type outFile: csvfile
+        :param seperator: variable to store the separator
+        :type seperator: string
         :return: None
         """
         with open(outFile, 'w') as f:
