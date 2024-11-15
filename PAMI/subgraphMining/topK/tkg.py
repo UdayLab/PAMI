@@ -53,7 +53,9 @@ class TKG(_ab._TKG):
         self.eliminatedWithMaxSize = 0
         self.emptyGraphsRemoved = 0
         self.pruneByEdgeCount = 0
-
+        self.label_mapping = {}
+        self.reverse_label_mapping = {}
+        self.current_label = 0
 
     def mine(self):
         """
@@ -92,13 +94,9 @@ class TKG(_ab._TKG):
 
     def readGraphs(self, path):
         """
-        The `readGraphs` function reads graph data from a file and constructs a list of graphs with vertices
-        and edges.
-        
-        :param path: This method reads the graph data from the specified file and constructs a list of graphs 
-        represented by vertices and edges
-        :return: The `readGraphs` method returns a list of `_ab.Graph` objects, which represent graphs read
-        from the file.
+        Reads graph data from a file and constructs a list of graphs with vertices and edges.
+        Handles character vertex labels by mapping them to unique integers.
+        Edge labels are assumed to be integers.
         """
         with open(path, 'r') as br:
             graphDatabase = []
@@ -114,11 +112,19 @@ class TKG(_ab._TKG):
                     gId = int(line.split()[2])
                 elif line.startswith("v"):
                     items = line.split()
-                    vId, vLabel = int(items[1]), int(items[2])
+                    vId = int(items[1])
+                    label = items[2]
+                    # Map vertex label if it's a string, else convert to integer
+                    if label.isdigit():
+                        vLabel = int(label)
+                    else:
+                        vLabel = self.get_label(label)
                     vMap[vId] = _ab.Vertex(vId, vLabel)
                 elif line.startswith("e"):
                     items = line.split()
-                    v1, v2, eLabel = int(items[1]), int(items[2]), int(items[3])
+                    v1 = int(items[1])
+                    v2 = int(items[2])
+                    eLabel = int(items[3])  # Assuming edge labels are integers
                     edge = _ab.Edge(v1, v2, eLabel)
                     vMap[v1].addEdge(edge)
                     vMap[v2].addEdge(edge)
@@ -129,12 +135,23 @@ class TKG(_ab._TKG):
         self.graphCount = len(graphDatabase)
         return graphDatabase
 
+
+    def get_label(self, label_char):
+        """
+        Maps a character vertex label to a unique integer.
+        If the label is already mapped, returns the existing integer.
+        Otherwise, assigns a new integer to the label.
+        """
+        if label_char not in self.label_mapping:
+            self.label_mapping[label_char] = self.current_label
+            self.reverse_label_mapping[self.current_label] = label_char
+            self.current_label += 1
+        return self.label_mapping[label_char]
+
     def save(self, oFile):
         """
-        The `save` function writes subgraph information to a file in a specific format.
-        
-        :param oFile: The `oFile` parameter in the `save` method is the file path where the output will be
-        saved. This method writes the subgraphs information to the specified file in a specific format
+        Saves the frequent subgraphs to an output file.
+        Converts integer vertex labels back to their original characters.
         """
         subgraphsList = self.getSubgraphsList()
 
@@ -146,24 +163,30 @@ class TKG(_ab._TKG):
                 sb.append(f"t # {i} * {subgraph.support}\n")
                 if len(dfsCode.eeList) == 1:
                     ee = dfsCode.eeList[0]
-                    sb.append(f"v 0 {ee.vLabel1}\n")
+                    # Convert labels back to characters if mapped
+                    vLabel1 = self.reverse_label_mapping.get(ee.vLabel1, ee.vLabel1)
+                    sb.append(f"v 0 {vLabel1}\n")
                     if ee.edgeLabel != -1:
-                        sb.append(f"v 1 {ee.vLabel2}\n")
+                        vLabel2 = self.reverse_label_mapping.get(ee.vLabel2, ee.vLabel2)
+                        sb.append(f"v 1 {vLabel2}\n")
                         sb.append(f"e 0 1 {ee.edgeLabel}\n")
                 else:
                     vLabels = dfsCode.getAllVLabels()
                     for j, vLabel in enumerate(vLabels):
+                        # Convert labels back to characters if mapped
+                        vLabel = self.reverse_label_mapping.get(vLabel, vLabel)
                         sb.append(f"v {j} {vLabel}\n")
                     for ee in dfsCode.eeList:
                         sb.append(f"e {ee.v1} {ee.v2} {ee.edgeLabel}\n")
 
-                if self.outputGraphIds:
+                # Include graph IDs if the feature is enabled
+                if self.outputGraphIds and subgraph.setOfGraphsIds:
                     sb.append("x " + " ".join(str(id) for id in subgraph.setOfGraphsIds))
+
                 sb.append("\n\n")
                 bw.write("".join(sb))
 
-
-    def savePattern(self, subgraph):        
+    def savePattern(self, subgraph):
         # previousMinSup = self.minSup
 
         self.kSubgraphs.put(subgraph)
@@ -544,7 +567,4 @@ class TKG(_ab._TKG):
         subgraphsList = list(self.kSubgraphs.queue)
         subgraphsList.sort(key=lambda sg: sg.support, reverse=True)
         return subgraphsList
-
-
-    
 
