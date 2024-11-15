@@ -278,11 +278,11 @@ class CFPGrowthPlus(_fp._frequentPatterns):
 
        Format:
 
-       (.venv) $ python3 CFPGrowthPlus.py <inputFile> <outputFile>
+       (.venv) $ python3 _CFPGrowthPlus.py <inputFile> <outputFile>
 
        Examples:
 
-       (.venv) $ python3 CFPGrowthPlus.py sampleDB.txt patterns.txt MISFile.txt
+       (.venv) $ python3 _CFPGrowthPlus.py sampleDB.txt patterns.txt MISFile.txt
 
 
                 .. note:: minSup  will be considered in support count or frequency

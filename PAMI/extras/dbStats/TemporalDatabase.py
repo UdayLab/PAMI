@@ -41,7 +41,7 @@ import validators
 import numpy as np
 from urllib.request import urlopen
 from typing import Dict, Union
-
+import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class TemporalDatabase:
     """
@@ -442,7 +442,7 @@ if __name__ == '__main__':
                              ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
 
     # data = pd.DataFrame.from_dict('temporal_T10I4D100K.csv')
-    import PAMI.extras.graph.plotLineGraphFromDictionary as plt
+
 
     if len(sys.argv) < 3:
         print("Please provide two arguments.")

@@ -725,7 +725,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         self._memoryRSS = _process.memory_info().rss
         print("Maximal Periodic Frequent patterns were generated successfully using MAX-PFPGrowth algorithm ")
 
-    def Mine(self) -> None:
+    def mine(self) -> None:
         """
         Mining process will start from this function
         :return: None

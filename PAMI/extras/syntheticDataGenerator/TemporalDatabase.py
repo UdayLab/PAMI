@@ -1,139 +1,25 @@
-# TemporalDatabase is a collection of timestamps and along with data at particular time.
-#
-#  **Importing this algorithm into a python program**
-#
-#             from PAMI.extras.syntheticDataGenerator import TemporalDatabase as db
-#
-#             temporalDB = db.TemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName, percentage, sep, occurrenceProbabilityAtSameTimestamp, occurrenceProbabilityToSkipSubsequentTimestamp)
-#
-#             temporalDB.create()
-#
-#
-
-
-__copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
-     This program is free software: you can redistribute it and/or modify
-     it under the terms of the GNU General Public License as published by
-     the Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
-     This program is distributed in the hope that it will be useful,
-     but WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     GNU General Public License for more details.
-     You should have received a copy of the GNU General Public License
-     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-"""
-
 import pandas as pd
 import numpy as np
 import sys
-
+import time
+import os
+import psutil
 
 class TemporalDatabase:
-    """
-    Creates a temporal database with transactions and timestamps.
 
-    This class generates a temporal database based on the given parameters and provides
-    options to output the database in either a text file or a DataFrame format.
-
-    **Importing this algorithm into a Python program**
-
-
-        from PAMI.extras.syntheticDataGenerator import TemporalDatabase as db
-
-        temporalDB = db.TemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName, percentage, sep, occurrenceProbabilityAtSameTimestamp, occurrenceProbabilityToSkipSubsequentTimestamp)
-
-        temporalDB.create()
-
-
-    **Methods to execute code on terminal**
-
-    Format:
-
-        (.venv) $ python3 TemporalDatabase.py <numOfTransactions> <avgLenOfTransactions> <numItems> <outputFile> <percentage> <sep> <typeOfFile> <occurrenceProbabilityAtSameTimestamp> <occurrenceProbabilityToSkipSubsequentTimestamp>
-
-
-    Example Usage:
-
-        (.venv) $ python3 TemporalDatabase.py 50 10 100 temporal.txt 50 \t database 0.1 0.1
-
-    :param numOfTransactions: int
-        Number of transactions to generate.
-
-    :param avgLenOfTransactions: int
-        Average length of transactions.
-
-    :param numItems: int
-        Number of items in the database.
-
-    :param outputFile: str
-        Name of the output file for the database.
-
-    :param percentage: int
-        Percentage for the coin toss to decide if a transaction will be included in the output.
-        If the value is greater than 1, it is treated as a percentage (i.e., 50 for 50%).
-
-    :param sep: str
-        Separator for the output file (default is tab).
-
-    :param typeOfFile: str
-        Type of output file. Can be 'database' for a text file or 'dataframe' for a DataFrame output.
-
-    :param occurrenceProbabilityAtSameTimestamp: float
-        Probability that a new transaction will occur at the same timestamp as the previous one.
-
-    :param occurrenceProbabilityToSkipSubsequentTimestamp: float
-        Probability that the timestamp will be skipped for subsequent transactions.
-    """
-
-    def __init__(self, numOfTransactions: int, avgLenOfTransactions: int,
-                 numItems: int, outputFile: str, percentage: int = 50,
-                 sep: str = '\t', typeOfFile: str = "Database",
-                 occurrenceProbabilityAtSameTimestamp: float = 0.1,
+    def __init__(self, databaseSize: int,
+                 avgItemsPerTransaction: int,
+                 numItems: int,
+                 sep: str = '\t',
+                 occurrenceProbabilityOfSameTimestamp: float = 0.1,
                  occurrenceProbabilityToSkipSubsequentTimestamp: float = 0.1) -> None:
-        """
-        Initialize the TemporalDatabase with required parameters.
 
-        :param numOfTransactions: Number of transactions to generate.
-        :param avgLenOfTransactions: Average length of transactions.
-        :param numItems: Number of items in the database.
-        :param outputFile: Name of the output file for the database.
-        :param percentage: Percentage for the coin toss to include transactions.
-        :param sep: Separator for the output file.
-        :param typeOfFile: Type of output file ('database' or 'dataframe').
-        :param occurrenceProbabilityAtSameTimestamp: Probability for same timestamp.
-        :param occurrenceProbabilityToSkipSubsequentTimestamp: Probability to skip subsequent timestamp.
-        """
-
-        self.numOfTransactions = numOfTransactions
-        self.avgLenOfTransactions = avgLenOfTransactions
+        self.databaseSize = databaseSize
+        self.avgItemsPerTransaction = avgItemsPerTransaction
         self.numItems = numItems
-        self.outputFile = outputFile
-        if percentage > 1:
-            self.percentage = percentage / 100
-        else:
-            self.percentage = percentage
         self.sep = sep
-        self.typeOfFile = typeOfFile.lower()
-        self.occurrenceProbabilityAtSameTimestamp = occurrenceProbabilityAtSameTimestamp
+        self.occurrenceProbabilityOfSameTimestamp = occurrenceProbabilityOfSameTimestamp
         self.occurrenceProbabilityToSkipSubsequentTimestamp = occurrenceProbabilityToSkipSubsequentTimestamp
-
-    def getFileName(self) -> str:
-        """
-        Returns the name of the output file.
-
-        :return: Output file name.
-        """
-        return self.outputFile
-
-    def getDatabaseAsDataFrame(self) -> pd.DataFrame:
-        """
-        Returns the database as a DataFrame.
-
-        :return: pd.DataFrame containing the temporal database.
-        """
-        return self.df
 
     def performCoinFlip(self, probability: float) -> bool:
         """
@@ -148,23 +34,35 @@ class TemporalDatabase:
     def tuning(self, array, sumRes) -> list:
         """
         Tune the array to ensure that the sum of the values equals sumRes.
-
-        :param array: List of values to be tuned.
-        :type array: list
-        :param sumRes: Target sum for the array values.
-        :type sumRes: int
-        :return: Tuned list of values.
         """
-        values = np.random.randint(1, self.numItems, len(array))
+        num_transactions = len(array)
+        # Initialize values randomly between 1 and numItems
+        values = np.random.randint(1, self.numItems + 1, num_transactions)
 
+        # normalize values to ensure sum equals sumRes
+        values = values / np.sum(values) * sumRes
+        values = np.round(values).astype(int)
+
+
+        # Adjust values to ensure sum equals sumRes
         while np.sum(values) != sumRes:
-            if np.sum(values) > sumRes:
-                maxIndex = np.argmax(values)
-                values[maxIndex] -= 1
+            current_sum = np.sum(values)
+            if current_sum > sumRes:
+                # Decrease the value of a random index
+                indices = np.where(values > 1)[0]
+                if len(indices) == 0:
+                    raise ValueError("Cannot adjust values to meet sumRes")
+                idx = np.random.choice(indices)
+                values[idx] -= 1
             else:
-                minIndex = np.argmin(values)
-                values[minIndex] += 1
+                # Increase the value of a random index
+                indices = np.where(values < self.numItems)[0]
+                if len(indices) == 0:
+                    raise ValueError("Cannot adjust values to meet sumRes")
+                idx = np.random.choice(indices)
+                values[idx] += 1
 
+        # Assign adjusted values back to array
         for i in range(len(array)):
             array[i][1] = values[i]
 
@@ -174,12 +72,19 @@ class TemporalDatabase:
         """
         Create the temporal database or DataFrame based on the specified type of file.
         """
-        db = []
+        start = time.time()
+
+        self.db = []
         lineSize = []
+
+
         self.current_timestamp = 0  # Initialize current timestamp
 
-        for i in range(self.numOfTransactions):
-            if self.performCoinFlip(self.occurrenceProbabilityAtSameTimestamp):
+        sumRes = self.databaseSize * self.avgItemsPerTransaction  # Total number of items
+
+        for i in range(self.databaseSize):
+            # Determine the timestamp
+            if self.performCoinFlip(self.occurrenceProbabilityOfSameTimestamp):
                 timestamp = self.current_timestamp
             else:
                 if self.performCoinFlip(self.occurrenceProbabilityToSkipSubsequentTimestamp):
@@ -188,44 +93,101 @@ class TemporalDatabase:
                     self.current_timestamp += 1
                 timestamp = self.current_timestamp
 
-            db.append([timestamp])
-            if self.performCoinFlip(self.percentage):
-                lineSize.append([i, 0])
+            self.db.append([timestamp])  # Start the transaction with the timestamp
 
-        sumRes = self.numOfTransactions * self.avgLenOfTransactions
-        self.tuning(lineSize, sumRes)
+            lineSize.append([i, 0])  # Initialize lineSize with 0 for each transaction
 
+        # Adjust lineSize to ensure sum of sizes equals sumRes
+        lineSize = self.tuning(lineSize, sumRes)
+
+        # For each transaction, generate items
         for i in range(len(lineSize)):
-            if lineSize[i][1] > self.numItems:
+            transaction_index = lineSize[i][0]
+            num_items = lineSize[i][1]
+
+            if num_items > self.numItems:
                 raise ValueError(
-                    "Error: Either increase numItems or decrease avgLenOfTransactions or modify percentage")
-            line = np.random.choice(range(1, self.numItems + 1), lineSize[i][1], replace=False)
-            db[lineSize[i][0]].extend(line)
+                    "Error: Either increase numItems or decrease avgItemsPerTransaction or modify percentage")
+            items = np.random.choice(range(1, self.numItems + 1), num_items, replace=False)
+            self.db[transaction_index].extend(items)
 
-        if self.typeOfFile == "database":
-            with open(self.outputFile, "w") as outFile:
-                for line in db:
-                    outFile.write(self.sep.join(map(str, line)) + '\n')
+        self._runTime = time.time() - start
+        process = psutil.Process(os.getpid())
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
 
-        if self.typeOfFile == "dataframe":
-            data = {
-                'timestamp': [line[0] for line in db],
-                'transactions': pd.Series([line[1:] for line in db])
-            }
-            self.df = pd.DataFrame(data)
+    def save(self, outputFile: str = None) -> None:
+        """
+        Save the temporal database to the specified output file.
+        """
+        if outputFile is not None:
+            self.outputFile = outputFile
+        else:
+            self.outputFile = "temporalDatabase.txt"
 
-        print("Temporal database created successfully")
+        with open(self.outputFile, 'w') as writer:
+            for line in self.db:
+                writer.write(self.sep.join(map(str, line)) + '\n')
 
+    def getRuntime(self) -> float:
+        """
+        Returns the runtime of the algorithm in seconds.
+        """
+        return self._runTime
+    
+    def getMemoryRSS(self) -> int:
+        """
+        """
+        return self._memoryRSS
+    
+    def getMemoryUSS(self) -> int:
+        """
+        """
+        return self._memoryUSS
+
+    def getTransactions(self) -> None:
+        """
+        Convert the database to a DataFrame.
+        """
+        # merge all the transactions into a single DataFrame
+        timestamps = []
+        transactions = []
+
+        for line in self.db:
+            timestamps.append(line[0])
+            transactions.append(line[1:])
+
+        self.df = pd.DataFrame([timestamps, transactions], index=['Timestamp', 'Items']).T
+
+        return self.df
 
 if __name__ == '__main__':
-    if len(sys.argv) != 10:
-        print("Usage: python TemporalDatabase.py <numOfTransactions> <avgLenOfTransactions> <numItems> <outputFile> <percentage> <sep> <typeOfFile> <occurrenceProbabilityAtSameTimestamp> <occurrenceProbabilityToSkipSubsequentTimestamp>")
-        sys.exit(1)
+    if len(sys.argv) == 7:
+        obj = TemporalDatabase(
+            databaseSize=int(sys.argv[1]),
+            avgItemsPerTransaction=int(sys.argv[2]),
+            numItems=int(sys.argv[3]),
+            outputFile=str(sys.argv[4]),
+            occurrenceProbabilityOfSameTimestamp=float(sys.argv[5]),
+            occurrenceProbabilityToSkipSubsequentTimestamp=float(sys.argv[6]),
+            sep=sys.argv[7]
+        )
+        obj.create()
+        obj.save()
+    else:
+        print("Usage: python TemporalDatabase.py <databaseSize> <avgItemsPerTransaction> <numItems> <outputFile> <occurrenceProbabilityOfSameTimestamp> <occurrenceProbabilityToSkipSubsequentTimestamp> <sep> ")
 
-    obj = TemporalDatabase(
-        int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), sys.argv[4],
-        percentage=int(sys.argv[5]), sep=sys.argv[6], typeOfFile=sys.argv[7],
-        occurrenceProbabilityAtSameTimestamp=float(sys.argv[8]),
-        occurrenceProbabilityToSkipSubsequentTimestamp=float(sys.argv[9])
-    )
-    obj.create()
+        obj = TemporalDatabase(
+            databaseSize=100000,
+            avgItemsPerTransaction=10,
+            numItems=50,
+            sep="\t",
+            occurrenceProbabilityOfSameTimestamp=0.1,
+            occurrenceProbabilityToSkipSubsequentTimestamp=0.1
+        )
+        obj.create()
+        obj.save("temporalDatabase.txt")
+
+        print(obj.getTransactions())
+
+        sys.exit(1)
