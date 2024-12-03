@@ -433,7 +433,7 @@ class TKSHUIM(utilityPatterns):
     def __init__(self, iFile, nFile, k, sep="\t"):
         super().__init__(iFile, nFile, k, sep)
 
-    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self):
         """
         Main function of the program.
@@ -919,7 +919,7 @@ def main():
     k = 1000
     seperator = ' ' 
     obj = TKSHUIM(iFile=inputFile, nFile=neighborFile, k=k,  sep=seperator)    #initialize
-    obj.startMine()
+    obj.mine()
     obj.mine()
     obj.printResults()
     print(obj.getPatterns())
@@ -932,7 +932,7 @@ if __name__ == '__main__':
     #         _ap = TKSHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]), sys.argv[5])
     #     if len(sys.argv) == 5:
     #         _ap = TKSHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]))
-    #     _ap.startMine()
+    #     _ap.mine()
     #     _ap.mine()
     #     print("Top K Spatial  High Utility Patterns:", len(_ap.getPatterns()))
     #     _ap.save(sys.argv[2])
@@ -943,7 +943,7 @@ if __name__ == '__main__':
     #     for i in [1000, 5000]:
     #         _ap = TKSHUIM('/Users/Likhitha/Downloads/mushroom_main_2000.txt',
     #                 '/Users/Likhitha/Downloads/mushroom_neighbors_2000.txt', i, ' ')
-    #         _ap.startMine()
+    #         _ap.mine()
     #         _ap.mine()
     #         print("Total number of Spatial High Utility Patterns:", len(_ap.getPatterns()))
     #         print("Total Memory in USS:", _ap.getMemoryUSS())

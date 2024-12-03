@@ -8,7 +8,7 @@
    
    obj = alg.fpGrowth(inputFile, minSup) 
 # use obj = alg.fpGrowth(inputFile, minSup,sep=',')  to override the default tab space separator with comma
-obj.startMine()  # start the mining process
+obj.mine()  # start the mining process
 obj.save(outputFile)      # store the generated patterns in a file
 
 
@@ -37,7 +37,7 @@ obj.save(outputFile)      # store the generated patterns in a file
    obj = alg.PFPGrowthPlus(inputFile, minSup, maxPer) 
    
    #use obj = alg.fpGrowth(inputFile, minSup,sep=',')  to override the default tab space separator with comma
-   obj.startMine()  #start the mining process
+   obj.mine()  #start the mining process
    obj.save(outputFile)      #store the generated patterns in a file
       
 
@@ -67,7 +67,7 @@ obj.save(outputFile)      # store the generated patterns in a file
    
    obj = alg.EFIM(inputFile,    minUtil) 
    
-   obj.startMine()  #start the mining process
+   obj.mine()  #start the mining process
    obj.save(outputFile)      #store the generated patterns in a file
       
 

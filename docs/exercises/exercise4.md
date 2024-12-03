@@ -76,7 +76,7 @@ The cuda version of ECLAT algorithm can be executed by calling `cudaECLAT` class
     sep='\t'       #default seperator used to seperate items in a database
 
     obj = alg.cudaECLAT(inputFile,minSup,sep)
-    obj.startMine()
+    obj.mine()
 
     obj.save('patterns.txt')
     df = obj.getPatternsAsDataFrame()
@@ -100,7 +100,7 @@ The cuda version of ECLAT algorithm can be executed by calling `cudaECLAT` class
     memoryRSS = {}
     for minSup in minSupList:
         obj = alg.cudaECLAT(inputFile, minSup=minSup, numWorkers=numWorkers, sep=sep)
-        obj.startMine()
+        obj.mine()
         numOfPatterns[minSup]  = obj.getPatterns()
         runtime[minSup] = obj.getRuntime()
         memoryUSS[minSup] = obj.getMemoryUSS()

@@ -398,7 +398,7 @@ However, the users can override their default separator.</p>
 </dd>
 <dt class="field-odd">Methods<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt>startMine()</dt><dd><p>Mining process will start from here</p>
+<dt>mine()</dt><dd><p>Mining process will start from here</p>
 </dd>
 <dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
 </dd>
@@ -421,7 +421,7 @@ by decreasing support</p>
 </dd>
 <dt>buildTree()</dt><dd><p>constrcuts the main tree by setting the root node as null</p>
 </dd>
-<dt>startMine()</dt><dd><p>main program to mine the partial periodic patterns</p>
+<dt>mine()</dt><dd><p>main program to mine the partial periodic patterns</p>
 </dd>
 </dl>
 </dd>
@@ -444,7 +444,7 @@ by decreasing support</p>
 
     <span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="mf">.4</span><span class="n">PGrowth</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">periodicSupport</span><span class="p">,</span> <span class="n">period</span><span class="p">)</span>
 
-    <span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
 
     <span class="n">partialPeriodicPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
 
@@ -692,8 +692,8 @@ returns the periodic support</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.partialPeriodicPattern.pyspark.parallel3PGrowth.parallel3PGrowth.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPattern/pyspark/parallel3PGrowth.html#parallel3PGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPattern.pyspark.parallel3PGrowth.parallel3PGrowth.startMine" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.partialPeriodicPattern.pyspark.parallel3PGrowth.parallel3PGrowth.mine">
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPattern/pyspark/parallel3PGrowth.html#parallel3PGrowth.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPattern.pyspark.parallel3PGrowth.parallel3PGrowth.mine" title="Link to this definition"></a></dt>
 <dd><p>Main method where the patterns are mined by constructing tree.</p>
 </dd></dl>
 

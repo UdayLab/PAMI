@@ -72,7 +72,7 @@ class _sequentialSpatialPatterns(_ABC):
             To store the total amount of RSS memory consumed by the program
     Methods :
     -------
-        startMine()
+        mine()
             Calling this function will start the actual mining process
         getPatterns()
             This function will output all interesting patterns discovered by an algorithm

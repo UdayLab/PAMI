@@ -171,7 +171,7 @@ seperator = ' '                #specify the seperator. Default seperator is tab 
 oFile = 'partialPeriodicFrequentPatterns.txt'   #specify the output file name
 
 obj = alg.PPF_DFS(iFile, minSup, maxPer, minPR, seperator) #initialize the algorithm 
-obj.startMine()                       #start the mining process 
+obj.mine()                       #start the mining process 
 obj.savePatterns(oFile)               #store the patterns in file 
 df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe 
 obj.printResults()                      #Print the stats of mining process
@@ -186,7 +186,7 @@ obj.printResults()                      #Print the stats of mining process
           7 seperator = ' '                #specify the seperator. Default seperator is tab space.
           8 oFile = 'partialPeriodicFrequentPatterns.txt'   #specify the output file name
     ---> 10 obj = alg.PPF_DFS(iFile, minSup, maxPer, minPR, seperator) #initialize the algorithm 
-         11 obj.startMine()                       #start the mining process 
+         11 obj.mine()                       #start the mining process 
          12 obj.savePatterns(oFile)               #store the patterns in file 
 
 

@@ -108,7 +108,7 @@ class spatialPrefixSpan(_ab._sequentialSpatialPatterns):
         ---------------------------------
             import PAMI.frequentPattern.basic.PrefixSpan as alg
             obj = alg.PrefixSpan(iFile, nFile,minSup)
-            obj.startMine()
+            obj.mine()
             frequentPatterns = obj.getPatterns()
             print("Total number of Frequent Patterns:", len(frequentPatterns))
             obj.savePatterns(oFile)

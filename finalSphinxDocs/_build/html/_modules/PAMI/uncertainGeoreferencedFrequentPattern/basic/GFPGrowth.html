@@ -496,7 +496,7 @@
 
 <span class="sd">    :Methods:</span>
 
-<span class="sd">        startMine()</span>
+<span class="sd">        mine()</span>
 <span class="sd">            Mining process will start from here</span>
 <span class="sd">        getPatterns()</span>
 <span class="sd">            Complete set of patterns will be retrieved with this function</span>
@@ -520,7 +520,7 @@
 <span class="sd">            After updating the Database, remaining items will be added into the tree by setting root node as null</span>
 <span class="sd">        convert()</span>
 <span class="sd">            to convert the user specified value</span>
-<span class="sd">        startMine()</span>
+<span class="sd">        mine()</span>
 <span class="sd">            Mining process will start from this function</span>
 
 <span class="sd">    Execution methods</span>
@@ -834,7 +834,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">sample</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
 
 <div class="viewcode-block" id="GFPGrowth.startMine"><a class="viewcode-back" href="../../../../uncertainGeoreferencedFrequentPatternBasicGFPGrowth.html#PAMI.uncertainGeoreferencedFrequentPattern.basic.GFPGrowth.GFPGrowth.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span>
-        <span class="s2">&quot;It is recommended to use &#39;mine()&#39; instead of &#39;startMine()&#39; for mining process. Starting from January 2025, &#39;startMine()&#39; will be completely terminated.&quot;</span><span class="p">)</span>
+        <span class="s2">&quot;It is recommended to use &#39;mine()&#39; instead of &#39;mine()&#39; for mining process. Starting from January 2025, &#39;mine()&#39; will be completely terminated.&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</span>

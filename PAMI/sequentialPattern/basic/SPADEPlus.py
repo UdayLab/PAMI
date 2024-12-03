@@ -11,7 +11,7 @@
 #
 #             obj = alg.SPADEPlus(iFile, minSup,maxGap=**,maxLen=**)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             sequentialPatternMining = obj.getPatterns()
 #
@@ -122,7 +122,7 @@ class SPADEPlus(_ab._sequentialPatterns):
 
     :Methods:
 
-            startMine()
+            mine()
                 Mining process will start from here
             getPatterns()
                 Complete set of patterns will be retrieved with this function
@@ -165,7 +165,7 @@ class SPADEPlus(_ab._sequentialPatterns):
 
             obj = alg.SPADE(iFile, minSup)
 
-            obj.startMine()
+            obj.mine()
 
             sequentialPatternMining = obj.getPatterns()
 

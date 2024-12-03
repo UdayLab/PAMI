@@ -343,7 +343,7 @@
 
 <span class="sd">    :Methods:</span>
 
-<span class="sd">        startMine()</span>
+<span class="sd">        mine()</span>
 <span class="sd">            Mining process will start from here</span>
 <span class="sd">        getPatterns()</span>
 <span class="sd">            Complete set of patterns will be retrieved with this function</span>
@@ -387,7 +387,7 @@
 
 <span class="sd">            obj = alg.CFPGrowthPlus(iFile, mIS)</span>
 
-<span class="sd">            obj.startMine()</span>
+<span class="sd">            obj.mine()</span>
 
 <span class="sd">            frequentPatterns = obj.getPatterns()</span>
 
@@ -594,7 +594,7 @@
             <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rankDup</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
         <span class="k">return</span> <span class="n">temp</span>
 
-<div class="viewcode-block" id="CFPGrowthPlus.startMine"><a class="viewcode-back" href="../../../../multipleMinimumSupportBasedFrequentPatternBasicCFPGrowthPlus.html#PAMI.multipleMinimumSupportBasedFrequentPattern.basic.CFPGrowthPlus.CFPGrowthPlus.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use mine() instead of startMine() for mining process&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="CFPGrowthPlus.startMine"><a class="viewcode-back" href="../../../../multipleMinimumSupportBasedFrequentPatternBasicCFPGrowthPlus.html#PAMI.multipleMinimumSupportBasedFrequentPattern.basic.CFPGrowthPlus.CFPGrowthPlus.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use mine() instead of mine() for mining process&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        main program to start the operation</span>

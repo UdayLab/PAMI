@@ -8,7 +8,7 @@
 #
 #             obj = alg.RSFPGrowth(iFile, minSup, __minRatio)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             frequentPatterns = obj.getPatterns()
 #
@@ -308,7 +308,7 @@ class RSFPGrowth(_ab._frequentPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getFrequentPatterns()
             Complete set of patterns will be retrieved with this function
@@ -362,7 +362,7 @@ class RSFPGrowth(_ab._frequentPatterns):
 
             obj = alg.RSFPGrowth(iFile, minSup, __minRatio)
 
-            obj.startMine()
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -601,7 +601,7 @@ class RSFPGrowth(_ab._frequentPatterns):
                 value = int(value)
         return value
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self) -> None:
         """
         Main program to start the operation
@@ -787,7 +787,7 @@ if __name__ == "__main__":
             _ap = RSFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
             _ap = RSFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
-        _ap.startMine()
+        _ap.mine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

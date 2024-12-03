@@ -163,7 +163,7 @@ However, the users can override their default separator.</p>
 </dd>
 <dt class="field-odd">Methods<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt>startMine()</dt><dd><p>Mining process will start from here</p>
+<dt>mine()</dt><dd><p>Mining process will start from here</p>
 </dd>
 <dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
 </dd>
@@ -491,7 +491,7 @@ However, the users can override their default separator.</p>
 </dd>
 <dt>Sstep(s):</dt><dd><p>To convert bit to ssteo bit.The first time you get 1, you set it to 0 and subsequent ones to 1.(like 010101=&gt;001111, 00001001=&gt;00000111)</p>
 </dd>
-<dt>startMine()</dt><dd><p>Mining process will start from here</p>
+<dt>mine()</dt><dd><p>Mining process will start from here</p>
 </dd>
 <dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
 </dd>
@@ -532,7 +532,7 @@ However, the users can override their default separator.</p>
 <blockquote>
 <div><p>import PAMI.sequentialPatternMining.basic.SPAM as alg</p>
 <p>obj = alg.SPAM(iFile, minSup)</p>
-<p>obj.startMine()</p>
+<p>obj.mine()</p>
 <p>sequentialPatternMining = obj.getPatterns()</p>
 <p>print(“Total number of Frequent Patterns:”, len(frequentPatterns))</p>
 <p>obj.savePatterns(oFile)</p>
@@ -733,7 +733,7 @@ However, the users can override their default separator.</p>
 </dd>
 <dt class="field-odd">Methods<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt>startMine()</dt><dd><p>Mining process will start from here</p>
+<dt>mine()</dt><dd><p>Mining process will start from here</p>
 </dd>
 <dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
 </dd>

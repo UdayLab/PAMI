@@ -78,7 +78,7 @@ The Apriori algorithm can be executed by calling `Apriori` class in  PAMI.freque
     sep='\t'       #default seperator used to seperate items in a database
 
     obj = alg.Apriori(inputFile,minSup,sep)
-    obj.startMine()
+    obj.mine()
 
     obj.save('patterns.txt')
     df = obj.getPatternsAsDataFrame()
@@ -104,7 +104,7 @@ The Apriori algorithm can be executed by calling `Apriori` class in  PAMI.freque
     memoryRSS = {}
     for minSup in minSupList:
         obj = alg.Apriori(inputFile, minSup=minSup, sep=sep)
-        obj.startMine()
+        obj.mine()
         numOfPatterns[minSup]  = len(obj.getPatterns())
         runtime[minSup] = obj.getRuntime()
         memoryUSS[minSup] = obj.getMemoryUSS()

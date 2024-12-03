@@ -429,7 +429,7 @@ class FPGrowth(_fp._frequentPatterns):
         self.__memoryUSS = process.memory_full_info().uss
         self.__memoryRSS = process.memory_info().rss
 
-    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self):
         """
         Starting the mining process
@@ -532,7 +532,7 @@ if __name__ == "__main__":
             _ap = FPGrowth(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4])
         if len(_fp._sys.argv) == 4:
             _ap = FPGrowth(_fp._sys.argv[1], _fp._sys.argv[3])
-        _ap.startMine()
+        _ap.mine()
         _ap.mine()
         print("Total number of Frequent Patterns:", len( _ap.getPatterns()))
         _ap.save(_fp._sys.argv[2])

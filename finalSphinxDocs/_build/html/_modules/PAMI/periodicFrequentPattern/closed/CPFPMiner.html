@@ -105,7 +105,7 @@
 <span class="c1">#</span>
 <span class="c1">#             obj = alg.CPFPMiner(&quot;../basic/sampleTDB.txt&quot;, &quot;2&quot;, &quot;6&quot;)</span>
 <span class="c1">#</span>
-<span class="c1">#             obj.startMine()</span>
+<span class="c1">#             obj.mine()</span>
 <span class="c1">#</span>
 <span class="c1">#             periodicFrequentPatterns = obj.getPatterns()</span>
 <span class="c1">#</span>
@@ -210,7 +210,7 @@
 
 <span class="sd">    :Methods:</span>
 
-<span class="sd">        startMine()</span>
+<span class="sd">        mine()</span>
 <span class="sd">            Mining process will start from here</span>
 <span class="sd">        getPatterns()</span>
 <span class="sd">            Complete set of patterns will be retrieved with this function</span>
@@ -254,7 +254,7 @@
 <span class="sd">        </span>
 <span class="sd">                    obj = alg.CPFPMiner(&quot;../basic/sampleTDB.txt&quot;, &quot;2&quot;, &quot;6&quot;)</span>
 <span class="sd">        </span>
-<span class="sd">                    obj.startMine()</span>
+<span class="sd">                    obj.mine()</span>
 <span class="sd">        </span>
 <span class="sd">                    periodicFrequentPatterns = obj.getPatterns()</span>
 <span class="sd">        </span>
@@ -546,7 +546,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_processEquivalenceClass</span><span class="p">(</span><span class="n">newPrefix</span><span class="p">,</span> <span class="n">classItemSets</span><span class="p">,</span> <span class="n">classTidSets</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_save</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">itemSetX</span><span class="p">)),</span> <span class="n">tidSetX</span><span class="p">)</span>
 
-<div class="viewcode-block" id="CPFPMiner.startMine"><a class="viewcode-back" href="../../../../periodicFrequentPatternclosedCPFPMiner.html#PAMI.periodicFrequentPattern.closed.CPFPMiner.CPFPMiner.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use mine() instead of startMine() for mining process&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="CPFPMiner.startMine"><a class="viewcode-back" href="../../../../periodicFrequentPatternclosedCPFPMiner.html#PAMI.periodicFrequentPattern.closed.CPFPMiner.CPFPMiner.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use mine() instead of mine() for mining process&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mining process will start from here</span>

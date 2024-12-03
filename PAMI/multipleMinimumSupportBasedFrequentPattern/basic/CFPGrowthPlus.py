@@ -10,7 +10,7 @@
 #
 #             obj = alg.CFPGrowthPlus(iFile, MIS, sep)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             frequentPatterns = obj.getPatterns()
 #
@@ -263,7 +263,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
                         - **mapSupport** (*Dictionary*) -- *To maintain the information of item and their frequency.*
                         - **tree** (*class*) --  *it represents the Tree class.*
 
-    :**Methods**:       - **startMine()** -- *Mining process will start from here.*
+    :**Methods**:       - **mine()** -- *Mining process will start from here.*
                         - **getPatterns()** -- *Complete set of patterns will be retrieved with this function.*
                         - **savePatterns(oFile)** -- *Complete set of frequent patterns will be loaded in to a output file.*
                         - **getPatternsAsDataFrame()** -- *Complete set of frequent patterns will be loaded in to a dataframe.*
@@ -302,7 +302,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
 
             obj = alg.CFPGrowthPlus(iFile, MIS, sep)
 
-            obj.startMine()
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -509,7 +509,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
             temp = temp + self.__rankDup[i] + " "
         return temp
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self):
         """
         main program to start the operation
@@ -629,7 +629,7 @@ if __name__ == "__main__":
             _ap = CFPGrowthPlus(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4])
         if len(_fp._sys.argv) == 4:
             _ap = CFPGrowthPlus(_fp._sys.argv[1], _fp._sys.argv[3])
-        _ap.startMine()
+        _ap.mine()
         _Patterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_Patterns))
         _ap.savePatterns(_fp._sys.argv[2])

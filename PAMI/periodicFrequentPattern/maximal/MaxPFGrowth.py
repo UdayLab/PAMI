@@ -5,7 +5,7 @@
 #
 #             obj = alg.MaxPFGrowth("../basic/sampleTDB.txt", "2", "6")
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             Patterns = obj.getPatterns()
 #
@@ -451,7 +451,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -473,7 +473,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
             update the Databases by removing aperiodic items and sort the Database by item decreased support
         buildTree()
             after updating the Databases ar added into the tree by setting root node as null
-        startMine()
+        mine()
             the main method to run the program
 
     **Executing the code on terminal:**
@@ -500,7 +500,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
 
             obj = alg.MaxPFGrowth("../basic/sampleTDB.txt", "2", "6")
 
-            obj.startMine()
+            obj.mine()
 
             Patterns = obj.getPatterns()
 
@@ -682,7 +682,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
                 value = int(value)
         return value
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self) -> None:
         """
         Mining process will start from this function
@@ -848,7 +848,7 @@ if __name__ == "__main__":
             _ap = MaxPFGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
             _ap = MaxPFGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
-        _ap.startMine()
+        _ap.mine()
         print("Total number of Maximal Periodic-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
@@ -857,7 +857,7 @@ if __name__ == "__main__":
     else:
         for i in [100, 200, 300, 400, 500]:
             _ap =  MaxPFGrowth('/Users/Likhitha/Downloads/temporal_T10I4D100K.csv', i, 5000, '\t')
-            _ap.startMine()
+            _ap.mine()
             print("Total number of Maximal Partial Periodic Patterns:", len(_ap.getPatterns()))
             _ap.save('/Users/Likhitha/Downloads/output.txt')
             print("Total Memory in USS:", _ap.getMemoryUSS())

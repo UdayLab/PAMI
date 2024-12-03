@@ -76,7 +76,7 @@ class _faultTolerantFrequentPatterns(_ABC):
 
        :Methods:
 
-        startMine()
+        mine()
             Calling this function will start the actual mining process
         getPatterns()
             This function will output all interesting patterns discovered by an algorithm

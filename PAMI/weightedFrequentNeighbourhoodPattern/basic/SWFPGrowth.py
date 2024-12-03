@@ -671,7 +671,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
         return temp
 
     @deprecated(
-         "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+         "It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         Frequent pattern mining process will start from here
@@ -810,7 +810,7 @@ if __name__ == "__main__":
                              _fp._sys.argv[7])
         if len(_fp._sys.argv) == 7:
             _ap = SWFPGrowth(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4], _fp._sys.argv[5], _fp._sys.argv[6])
-        _ap.startMine()
+        _ap.mine()
         _ap.mine()
         print("Total number of Weighted Spatial Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_fp._sys.argv[2])
@@ -819,7 +819,7 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         _ap = SWFPGrowth('sample.txt', 'neighbourSample.txt', 150, ' ')
-        _ap.startMine()
+        _ap.mine()
         print("Total number of Weighted Spatial Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save('output.txt')
         print("Total Memory in USS:", _ap.getMemoryUSS())

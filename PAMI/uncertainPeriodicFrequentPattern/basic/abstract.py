@@ -63,7 +63,7 @@ class _periodicFrequentPatterns(_ABC):
             To store the total amount of RSS memory consumed by the program
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function

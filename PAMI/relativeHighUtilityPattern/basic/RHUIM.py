@@ -8,7 +8,7 @@
 #
 #             obj = alg.RHUIM("input.txt", 35, 20)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             frequentPatterns = obj.getPatterns()
 #
@@ -357,7 +357,7 @@ class RHUIM(_ab._utilityPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
                 Mining process will start from here
         getPatterns()
                 Complete set of patterns will be retrieved with this function
@@ -413,7 +413,7 @@ class RHUIM(_ab._utilityPatterns):
 
             obj=alg.RHUIM("input.txt", 35, 20)
 
-            obj.startMine()
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -861,7 +861,7 @@ if __name__ == '__main__':
             _ap = RHUIM(_ab._sys.argv[1], int(_ab._sys.argv[3]), float(_ab._sys.argv[4]), _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:    #takes "\t" as a separator
             _ap = RHUIM(_ab._sys.argv[1], int(_ab._sys.argv[3]), float(_ab._sys.argv[4]))
-        _ap.startMine()
+        _ap.mine()
         print("Total number of Relative High Utility Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
@@ -869,7 +869,7 @@ if __name__ == '__main__':
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
         _ap = RHUIM('/Users/likhitha/Downloads/utility_datasets/Utility_T10I4D100K.csv', 150000, 0.6, '\t')
-        _ap.startMine()
+        _ap.mine()
         print("Total number of Relative High Utility Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

@@ -7,7 +7,7 @@
 #
 #     obj = alg.PPPGrowth(iFile, minPS, period)
 #
-#     obj.startMine()
+#     obj.mine()
 #
 #     partialPeriodicPatterns = obj.getPatterns()
 #
@@ -340,7 +340,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -363,7 +363,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
             by decreasing support
         buildTree()
             constrcuts the main tree by setting the root node as null
-        startMine()
+        mine()
             main program to mine the partial periodic patterns
 
     **Executing the code on terminal:**
@@ -384,7 +384,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
 
             obj = alg.PPPGrowth(iFile, minPS, period)
 
-            obj.startMine()
+            obj.mine()
 
             partialPeriodicPatterns = obj.getPatterns()
 

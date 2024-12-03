@@ -827,7 +827,7 @@ class SHUGrowth(_hus._highUtilityPatternStreamMining):
                 if(len(conditionalTree.headerTable.table) != 0):
                     self.treeGenerations(conditionalTree, netUtil, candidatePattern, newItemset)
 
-    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self):
         """
         This function will start the mining process
@@ -1019,7 +1019,7 @@ if __name__ == "__main__":
             _ap = SHUGrowth(_hus._sys.argv[1], _hus._sys.argv[2], _hus._sys.argv[3], _hus._sys.argv[4], _hus._sys.argv[5], _hus._sys.argv[6])
         if len(_hus._sys.argv) == 6:
             _ap = SHUGrowth(_hus._sys.argv[1], _hus._sys.argv[2], _hus._sys.argv[3], _hus._sys.argv[4], _hus._sys.argv[5])
-        _ap.startMine()
+        _ap.mine()
         _ap.mine()
         print("Total number of Windows Processes:", len( _ap.getPatterns()))
         _ap.getPatternsAsDataFrame().to_csv("result.csv", index = False, sep='\t')

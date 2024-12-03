@@ -68,7 +68,7 @@ class _periodicCorrelatedPatterns(_ABC):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function

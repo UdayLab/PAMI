@@ -529,7 +529,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iFile</span><span class="p">,</span> <span class="n">nFile</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">nFile</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span>
 
-<div class="viewcode-block" id="TKSHUIM.startMine"><a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use &#39;mine()&#39; instead of &#39;startMine()&#39; for mining process. Starting from January 2025, &#39;startMine()&#39; will be completely terminated.&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="TKSHUIM.startMine"><a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use &#39;mine()&#39; instead of &#39;mine()&#39; for mining process. Starting from January 2025, &#39;mine()&#39; will be completely terminated.&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Main function of the program.</span>
@@ -1028,7 +1028,7 @@
     <span class="c1">#         _ap = TKSHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]), sys.argv[5])</span>
     <span class="c1">#     if len(sys.argv) == 5:</span>
     <span class="c1">#         _ap = TKSHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]))</span>
-    <span class="c1">#     _ap.startMine()</span>
+    <span class="c1">#     _ap.mine()</span>
     <span class="c1">#     _ap.mine()</span>
     <span class="c1">#     print(&quot;Top K Spatial  High Utility Patterns:&quot;, len(_ap.getPatterns()))</span>
     <span class="c1">#     _ap.save(sys.argv[2])</span>
@@ -1039,7 +1039,7 @@
     <span class="c1">#     for i in [1000, 5000]:</span>
     <span class="c1">#         _ap = TKSHUIM(&#39;/Users/Likhitha/Downloads/mushroom_main_2000.txt&#39;,</span>
     <span class="c1">#                 &#39;/Users/Likhitha/Downloads/mushroom_neighbors_2000.txt&#39;, i, &#39; &#39;)</span>
-    <span class="c1">#         _ap.startMine()</span>
+    <span class="c1">#         _ap.mine()</span>
     <span class="c1">#         _ap.mine()</span>
     <span class="c1">#         print(&quot;Total number of Spatial High Utility Patterns:&quot;, len(_ap.getPatterns()))</span>
     <span class="c1">#         print(&quot;Total Memory in USS:&quot;, _ap.getMemoryUSS())</span>

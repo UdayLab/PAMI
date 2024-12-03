@@ -8,7 +8,7 @@
 #
 #             obj = alg.parallelPFPGrowth(iFile, minSup, maxPer, numWorkers, sep='\t')
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             periodicFrequentPatterns = obj.getPatterns()
 #
@@ -379,7 +379,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -429,7 +429,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
                 obj = alg.parallelPFPGrowth(iFile, minSup, maxPer, numWorkers, sep='\t')
 
-                obj.startMine()
+                obj.mine()
 
                 periodicFrequentPatterns = obj.getPatterns()
 
@@ -617,7 +617,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
                 value = int(value)
         return value
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self):
         """
         Start the mining process
@@ -761,7 +761,7 @@ if __name__ == "__main__":
                                     _ab._sys.argv[6])
         if len(_ab._sys.argv) == 4:
             _ap = parallelPFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
-        _ap.startMine()
+        _ap.mine()
         print("Total number of Frequent Patterns:", _ab.getPatterns())
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
@@ -769,7 +769,7 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         _ap = parallelPFPGrowth('Temporal_T10I4D100K.csv', 100, 5000, 5, '\t')
-        _ap.startMine()
+        _ap.mine()
         # print("Total number of Frequent Patterns:", len( _ab.getPatterns()))
         # _ap.save(_ab._sys.argv[2])
         _ap.printResults()

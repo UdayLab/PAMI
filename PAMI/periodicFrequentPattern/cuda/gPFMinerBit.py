@@ -356,7 +356,7 @@ class gPFMinerBit:
         cuda.memcpy_htod(gpuBitArray, bitValues)
         return gpuBitArray, index2id
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self):
         """
         Start the mining process
@@ -516,7 +516,7 @@ if __name__ == "__main__":
     # support = 50
     # maxPeriod = 25000
     # obj = gPFMinerBit(filePath, support, maxPeriod, sep)
-    # obj.startMine()
+    # obj.mine()
     # print("Time: ", obj.getRuntime())
     # print("Patterns: ", len(obj.getPatterns()))
     # print("GPU MEM: ", obj.getGPUMemory())
@@ -531,7 +531,7 @@ if __name__ == "__main__":
     sep = sys.argv[4]
     output = sys.argv[5]
     obj = gPFMinerBit(filePath, support, maxPeriod, sep)
-    obj.startMine()
+    obj.mine()
     obj.savePatterns(output)
     print("Time: ", obj.getRuntime())
     print("Patterns: ", len(obj.getPatterns()))

@@ -8,7 +8,7 @@
 #
 #     obj = alg.PPF_DFS(iFile, minSup)
 #
-#     obj.startMine()
+#     obj.mine()
 #
 #     frequentPatterns = obj.getPatterns()
 #
@@ -116,7 +116,7 @@ class PPF_DFS(partialPeriodicPatterns):
             save prefix pattern with support and periodic ratio
         Generation(prefix, itemsets, tidsets)
             Userd to implement prefix class equibalence method to generate the periodic patterns recursively
-        startMine()
+        mine()
             Mining process will start from here
         getPartialPeriodicPatterns()
             Complete set of patterns will be retrieved with this function
@@ -147,7 +147,7 @@ class PPF_DFS(partialPeriodicPatterns):
 
             obj = alg.PPF_DFS(iFile, minSup)
 
-            obj.startMine()
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 

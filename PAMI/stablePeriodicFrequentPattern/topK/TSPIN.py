@@ -8,7 +8,7 @@
 #
 #     obj = alg.TSPIN(iFile, maxPer, maxLa, k)
 #
-#     obj.startMine()
+#     obj.mine()
 #
 #     stablePeriodicFrequentPatterns = obj.getPatterns()
 #
@@ -373,7 +373,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -416,7 +416,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
 
                 obj = alg.TSPIN(iFile, maxPer, maxLa, k)
 
-                obj.startMine()
+                obj.mine()
 
                 stablePeriodicFrequentPatterns = obj.getPatterns()
 
@@ -726,7 +726,7 @@ if __name__ == "__main__":
             _ap = TSPIN(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
         if len(_ab._sys.argv) == 6:
             _ap = TSPIN(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
-        _ap.startMine()
+        _ap.mine()
         _Patterns = _ap.getPatterns()
         print("Total number of Patterns:", len(_Patterns))
         _ap.save(_ab._sys.argv[2])
@@ -738,7 +738,7 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _run)
     else:
         _ap = TSPIN('/Users/Likhitha/Downloads/SPP_sample.txt', 5, 1, 1, ' ')
-        _ap.startMine()
+        _ap.mine()
         print(len(_ap._Database))
         _Patterns = _ap.getPatterns()
         for x, y in _Patterns.items():

@@ -142,7 +142,7 @@ However, the users can override their default separator.</p>
 </dd>
 <dt class="field-odd">Methods<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt>startMine()</dt><dd><p>Mining process will start from here</p>
+<dt>mine()</dt><dd><p>Mining process will start from here</p>
 </dd>
 <dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
 </dd>
@@ -271,7 +271,7 @@ However, the users can override their default separator.</p>
 </dd>
 <dt class="field-odd">Methods<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt>startMine()</dt><dd><p>Mining process will start from here</p>
+<dt>mine()</dt><dd><p>Mining process will start from here</p>
 </dd>
 <dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
 </dd>
@@ -311,7 +311,7 @@ However, the users can override their default separator.</p>
 <blockquote>
 <div><p>import PAMI.partialPeriodicPattern.topk.k3PMiner as alg</p>
 <p>obj = alg.Topk_PPPGrowth(iFile, k, period)</p>
-<p>obj.startMine()</p>
+<p>obj.mine()</p>
 <p>partialPeriodicPatterns = obj.getPatterns()</p>
 <p>print(“Total number of top partial periodic Patterns:”, len(partialPeriodicPatterns))</p>
 <p>obj.save(oFile)</p>

@@ -160,7 +160,7 @@ oFile = 'fuzzySpatialPeriodicFrequentPatterns.txt'  # specify the output file na
 nFile = 'sampleNeighbourFile.txt'  # specify the neighbour file of database <br>
 
 obj = alg.FGPFPMiner(iFile, nFile, minSup, maxPer, seperator)  # initialize the algorithm <br>
-obj.startMine()  # start the mining process <br>
+obj.mine()  # start the mining process <br>
 obj.save(oFile)  # store the patterns in file <br>
 df = obj.getPatternsAsDataFrame()  # Get the patterns discovered into a dataframe <br>
 obj.printResults()  # Print the stats of mining process

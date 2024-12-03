@@ -8,7 +8,7 @@
 #
 #     obj = alg.EPCPGrowth(iFile, minSup, minAllCOnf, maxPer, maxPerAllConf)
 #
-#     obj.startMine()
+#     obj.mine()
 #
 #     periodicCorrelatedPatterns = obj.getPatterns()
 #
@@ -384,7 +384,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -425,7 +425,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
 
         obj = alg.EPCPGrowth(iFile, minSup, minAllCOnf, maxPer, maxPerAllConf)
 
-        obj.startMine()
+        obj.mine()
 
         periodicCorrelatedPatterns = obj.getPatterns()
 
@@ -768,7 +768,7 @@ if __name__ == "__main__":
             _ap = EPCPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], sys.argv[6], sys.argv[7])
         if len(_ab._sys.argv) == 7:
             _ap = EPCPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], sys.argv[5], sys.argv[6])
-        _ap.startMine()
+        _ap.mine()
         print("Total number of Correlated Periodic-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

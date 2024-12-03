@@ -81,7 +81,7 @@ class _fuzzyFrequentPattenrs(_ABC):
 
     :Method:
 
-        startMine()
+        mine()
             Calling this function will start the actual mining process
 
         getPatterns()

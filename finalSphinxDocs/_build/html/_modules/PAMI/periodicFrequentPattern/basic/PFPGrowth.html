@@ -243,7 +243,7 @@
 <span class="sd">                        - **tree** (*class*) -- *it represents the Tree class.*</span>
 <span class="sd">                        - **itemSetCount** (*int*) -- *it represents the total no of patterns.*</span>
 
-<span class="sd">    :**Methods**:       - **startMine()** -- *Mining process will start from here.*</span>
+<span class="sd">    :**Methods**:       - **mine()** -- *Mining process will start from here.*</span>
 <span class="sd">                        - **getPatterns()** -- *Complete set of patterns will be retrieved with this function.*</span>
 <span class="sd">                        - **save(oFile)** -- *Complete set of periodic-frequent patterns will be loaded in to a output file.*</span>
 <span class="sd">                        - **getPatternsAsDataFrame()** -- *Complete set of periodic-frequent patterns will be loaded in to a dataframe.*</span>
@@ -393,7 +393,7 @@
                 <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">value</span>
 
-<div class="viewcode-block" id="PFPGrowth.startMine"><a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFPGrowth.html#PAMI.periodicFrequentPattern.basic.PFPGrowth.PFPGrowth.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use &#39;mine()&#39; instead of &#39;startMine()&#39; for mining process. Starting from January 2025, &#39;startMine()&#39; will be completely terminated.&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="PFPGrowth.startMine"><a class="viewcode-back" href="../../../../periodicFrequentPatternbasicPFPGrowth.html#PAMI.periodicFrequentPattern.basic.PFPGrowth.PFPGrowth.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use &#39;mine()&#39; instead of &#39;mine()&#39; for mining process. Starting from January 2025, &#39;mine()&#39; will be completely terminated.&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span></div>
 

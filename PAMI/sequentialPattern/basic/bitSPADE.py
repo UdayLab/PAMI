@@ -117,7 +117,7 @@ class bitSPADE(_ab._sequentialPatterns):
 
     :Methods:
 
-            startMine()
+            mine()
                 Mining process will start from here
             getPatterns()
                 Complete set of patterns will be retrieved with this function
@@ -649,7 +649,7 @@ class bitSPADE(_ab._sequentialPatterns):
         bs2 = bs + (x2,)
         return  bs2,bs,x2
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self):
         """
         Frequent pattern mining process will start from here

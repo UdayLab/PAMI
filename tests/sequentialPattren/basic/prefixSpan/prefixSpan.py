@@ -11,7 +11,7 @@ def test_pami(dataset, min_sup=0.2):
     with open("sample.csv", "w+") as f:
         f.write("\n".join(dataset))
     obj = alg(iFile="sample.csv", minSup=min_sup, sep=',')
-    obj.startMine()
+    obj.mine()
     res = obj.getPatternsAsDataFrame()
     res["Patterns"] = res["Patterns"].apply(lambda x: x.split())
     res["Support"] = res["Support"].apply(lambda x: x / len(dataset))

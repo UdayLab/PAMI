@@ -7,7 +7,7 @@
 #
 #             obj = alg.RPGrowth(iFile, maxPer, minPS, minRec)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             periodicFrequentPatterns = obj.getPatterns()
 #
@@ -329,7 +329,6 @@ class RPGrowth(_ab._recurringPatterns):
     """
     :Description:   RPGrowth is one of the fundamental algorithm to discover recurring patterns in a transactional database.
 
-
     :Reference:  R. Uday Kiran†, Haichuan Shang†, Masashi Toyoda† and Masaru Kitsuregawa† Discovering Recurring Patterns in Time Series,https://www.tkl.iis.u-tokyo.ac.jp/new/uploads/publication_file/file/693/Paper%2023.pdf
 
     :param  iFile: str :
@@ -389,7 +388,7 @@ class RPGrowth(_ab._recurringPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -438,7 +437,7 @@ class RPGrowth(_ab._recurringPatterns):
 
                 obj = alg.RPGrowth(iFile, maxPer, minPS, minRec)
 
-                obj.startMine()
+                obj.mine()
 
                 periodicFrequentPatterns = obj.getPatterns()
 
@@ -623,7 +622,7 @@ class RPGrowth(_ab._recurringPatterns):
                 value = int(value)
         return value
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self):
         """
         Mining process will start from this function
@@ -656,7 +655,7 @@ class RPGrowth(_ab._recurringPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Recurring patterns were generated successfully using RPGrowth algorithm ")
 
-    def Mine(self):
+    def mine(self):
         """
         Mining process will start from this function
         """
@@ -785,7 +784,7 @@ if __name__ == "__main__":
             _ap = RPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
         if len(_ab._sys.argv) == 6:
             _ap = RPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
-        _ap.startMine()
+        _ap.mine()
         print("Total number of Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

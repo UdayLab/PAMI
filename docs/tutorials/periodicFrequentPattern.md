@@ -57,7 +57,7 @@ Step 2: Initialize and execute the mining algorithm by passing the data, minSup 
 
     URL="https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv"
     obj = alg.PSGrowth(iFile=URL,minSup=20,maxPer=100)   #initialization
-    obj.startMine()                                      #execution of the algorithm
+    obj.mine()                                      #execution of the algorithm
 
 Step 3: Store the patterns in a file
 

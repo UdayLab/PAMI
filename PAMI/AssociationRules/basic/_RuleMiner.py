@@ -424,7 +424,7 @@ class RuleMiner:
                     quit()
         return k
 
-    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self):
         """
         Association rule mining process will start from here
@@ -543,7 +543,7 @@ if __name__ == "__main__":
             _ap = RuleMiner(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]), _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
             _ap = RuleMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4],sep='\t')
-        _ap.startMine()
+        _ap.mine()
         _ap.mine()
         print("Total number of Association Rules:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
@@ -552,7 +552,7 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         _ap = RuleMiner('sensorOutput.txt', "lift", 0.5, '\t')
-        _ap.startMine()
+        _ap.mine()
         _ap.mine()
         _ap.save('output.txt')
         _ap.printResults()

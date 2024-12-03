@@ -252,7 +252,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -296,7 +296,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
 
             obj = alg.CFPGrowthPlus(iFile, mIS)
 
-            obj.startMine()
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -503,7 +503,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
             temp = temp + self.__rankDup[i] + " "
         return temp
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self):
         """
         main program to start the operation

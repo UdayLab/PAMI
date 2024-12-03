@@ -14,7 +14,7 @@
     
     for minSup in minSupList:
         obj = alg.FPGrowth(dataset, minSup=minSup, sep=sep)
-        obj.startMine()
+        obj.mine()
         df = pd.DataFrame([algorithm, minSup, len(obj.getPatterns()), obj.getRuntime(), obj.getMemoryRSS()], index=result.columns).T
         result = result.append(df, ignore_index=True)
     
@@ -25,7 +25,7 @@
     
     for minSup in minSupList:
         obj = alg.ECLAT(dataset, minSup=minSup)
-        obj.startMine()
+        obj.mine()
         df = pd.DataFrame([algorithm, minSup, len(obj.getPatterns()), obj.getRuntime(), obj.getMemoryRSS()], index=result.columns).T
         result = result.append(df, ignore_index=True)
 

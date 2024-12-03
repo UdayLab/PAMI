@@ -31,7 +31,7 @@ seperator='\t'
 
 ```python
 obj = alg.Apriori(iFile=inputFile, minSup=minimumSupportCount, sep=seperator)    #initialize
-obj.startMine()            #Start the mining process
+obj.mine()            #Start the mining process
 ```
 
     Frequent patterns were generated successfully using Apriori algorithm 

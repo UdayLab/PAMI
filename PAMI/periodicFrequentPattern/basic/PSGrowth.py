@@ -8,7 +8,7 @@
 #
 #             obj = alg.PSGrowth("../basic/sampleTDB.txt", "2", "6")
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             periodicFrequentPatterns = obj.getPatterns()
 #
@@ -628,7 +628,7 @@ class PSGrowth(_ab._periodicFrequentPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -674,7 +674,7 @@ class PSGrowth(_ab._periodicFrequentPatterns):
 
             obj = alg.PSGrowth("../basic/sampleTDB.txt", "2", "6")
 
-            obj.startMine()
+            obj.mine()
 
             periodicFrequentPatterns = obj.getPatterns()
 
@@ -830,7 +830,7 @@ class PSGrowth(_ab._periodicFrequentPatterns):
                 rootNode.addTransaction(list2[1:], list2[0])
         return rootNode
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self) -> None:
         """
         Mining process will start from this function
@@ -976,7 +976,7 @@ if __name__ == "__main__":
             _ap = PSGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
             _ap = PSGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
-        _ap.startMine()
+        _ap.mine()
         print("Total number of Periodic-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

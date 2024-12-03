@@ -167,7 +167,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 </dd>
 <dt class="field-odd">Methods<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt>startMine()</dt><dd><p>Mining process will start from here</p>
+<dt>mine()</dt><dd><p>Mining process will start from here</p>
 </dd>
 <dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
 </dd>
@@ -205,7 +205,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 <blockquote>
 <div><p>from PAMI.partialPeriodicFrequentPattern.basic import GPFgrowth as alg</p>
 <p>obj = alg.GPFgrowth(inputFile, outputFile, minSup, maxPer, minPR)</p>
-<p>obj.startMine()</p>
+<p>obj.mine()</p>
 <p>partialPeriodicFrequentPatterns = obj.getPatterns()</p>
 <p>print(“Total number of partial periodic Patterns:”, len(partialPeriodicFrequentPatterns))</p>
 <p>obj.save(oFile)</p>

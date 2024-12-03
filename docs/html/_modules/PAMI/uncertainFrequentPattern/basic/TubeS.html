@@ -103,7 +103,7 @@
 <span class="c1">#</span>
 <span class="c1">#     obj = alg.TubeS(iFile, minSup)</span>
 <span class="c1">#</span>
-<span class="c1">#     obj.startMine()</span>
+<span class="c1">#     obj.mine()</span>
 <span class="c1">#</span>
 <span class="c1">#     frequentPatterns = obj.getPatterns()</span>
 <span class="c1">#</span>
@@ -476,7 +476,7 @@
 <span class="sd">        finalPatterns : dict</span>
 <span class="sd">            To store the complete patterns</span>
 <span class="sd">    :Methods:</span>
-<span class="sd">        startMine()</span>
+<span class="sd">        mine()</span>
 <span class="sd">            Mining process will start from here</span>
 <span class="sd">        getPatterns()</span>
 <span class="sd">            Complete set of patterns will be retrieved with this function</span>
@@ -512,7 +512,7 @@
 <span class="sd">    .. code-block:: python</span>
 <span class="sd">            from PAMI.uncertainFrequentPattern.basic import TubeS as alg</span>
 <span class="sd">            obj = alg.TubeS(iFile, minSup)</span>
-<span class="sd">            obj.startMine()</span>
+<span class="sd">            obj.mine()</span>
 <span class="sd">            frequentPatterns = obj.getPatterns()</span>
 <span class="sd">            print(&quot;Total number of Frequent Patterns:&quot;, len(frequentPatterns))</span>
 <span class="sd">            obj.save(oFile)</span>

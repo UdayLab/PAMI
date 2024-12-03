@@ -126,7 +126,7 @@ oFile = 'FuzzyPeriodicPatterns.txt'   #specify the output file name
 
 
 obj = alg.FPFPMiner(iFile, minSup, maxPer, ' ') 
-obj.startMine() 
+obj.mine() 
 obj.save(oFile)           #(to store the patterns in file) 
 Df = obj.getPatternsAsDataFrame() #(to store the patterns in dataframe) 
 obj.printResults()                  #(to print the no of patterns, runtime and memory consumption details)

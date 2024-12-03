@@ -78,7 +78,7 @@ The Apriori algorithm can be executed by calling `parallelApriori` class in  PAM
     numWorkers = 3
 
     obj = alg.parallelApriori(inputFile,minSup,numWorkers,sep)
-    obj.startMine()
+    obj.mine()
 
     obj.save('patterns.txt')
     df = obj.getPatternsAsDataFrame()
@@ -101,7 +101,7 @@ The Apriori algorithm can be executed by calling `parallelApriori` class in  PAM
     memoryRSS = {}
     for minSup in minSupList:
         obj = alg.parallelApriori(inputFile, minSup=minSup, numWorkers=numWorkers, sep=sep)
-        obj.startMine()
+        obj.mine()
         numOfPatterns[minSup]  = len(obj.getPatterns())
         runtime[minSup] = obj.getRuntime()
         memoryUSS[minSup] = obj.getMemoryUSS()

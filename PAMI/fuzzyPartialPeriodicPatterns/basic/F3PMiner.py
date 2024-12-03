@@ -397,7 +397,7 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
                     print("File Not Found")
                     quit()
 
-    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self):
         """
         fuzzy-Frequent pattern mining process will start from here
@@ -636,7 +636,7 @@ if __name__ == "__main__":
             _ap = F3PMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
             _ap = F3PMiner(_ab._sys.argv[1], _ab._sys.argv[3])
-        _ap.startMine()
+        _ap.mine()
         _ap.mine()
         _ap.save(_ab._sys.argv[2])
         _ap.printResults()

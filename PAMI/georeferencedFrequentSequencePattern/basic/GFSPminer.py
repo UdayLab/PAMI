@@ -1028,7 +1028,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
         bs2 = bs + (x2, -1)
         return bs2, bs, x2
 
-    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self):
         """
         Frequent pattern mining process will start from here
@@ -1139,7 +1139,7 @@ if __name__ == "__main__":
             _ap = GFSPminer(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
             _ap = GFSPminer(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
-        _ap.startMine()
+        _ap.mine()
         _ap.mine()
         _Patterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_Patterns))
@@ -1152,7 +1152,7 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _run)
     else:
         _ap = GFSPminer('retail.txt', "file3.txt", 87, ' ')
-        _ap.startMine()
+        _ap.mine()
         _ap.mine()
         _Patterns = _ap.getPatterns()
         _memUSS = _ap.getMemoryUSS()

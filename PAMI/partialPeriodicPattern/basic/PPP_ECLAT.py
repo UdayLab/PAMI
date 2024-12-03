@@ -7,7 +7,7 @@
 #
 #             obj = alg.PPP_ECLAT(iFile, minPS, period)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             Patterns = obj.getPatterns()
 #
@@ -119,7 +119,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -162,7 +162,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
 
             obj = alg.PPP_ECLAT(iFile, minPS,period)
 
-            obj.startMine()
+            obj.mine()
 
             Patterns = obj.getPatterns()
 
@@ -298,7 +298,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
                     print("File Not Found")
                     quit()
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self) -> None:
         """
         Main program start with extracting the periodic frequent items from the database and
@@ -476,7 +476,7 @@ if __name__ == "__main__":
             _ap = PPP_ECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
             _ap = PPP_ECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
-        _ap.startMine()
+        _ap.mine()
         print("Total number of Partial Periodic Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
@@ -485,7 +485,7 @@ if __name__ == "__main__":
     else:
         for i in [100, 200, 300, 400, 500]:
             _ap = PPP_ECLAT('/Users/tarunsreepada/Downloads/Temporal_T10I4D100K.csv', i, 5000, '\t')
-            _ap.startMine()
+            _ap.mine()
             print("Total number of Maximal Partial Periodic Patterns:", len(_ap.getPatterns()))
             _ap.save('/Users/tarunsreepada/Downloads/output.txt')
             print(_ap.getPatternsAsDataFrame())

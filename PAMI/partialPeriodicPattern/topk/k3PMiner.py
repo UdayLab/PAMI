@@ -9,7 +9,7 @@
 #
 #             obj = alg.k3PMiner(iFile, k, periodicity)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             partialPeriodicPatterns = obj.getPatterns()
 #
@@ -107,7 +107,7 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
 
     :Methods:
 
-            startMine()
+            mine()
                 Mining process will start from here
             getPatterns()
                 Complete set of patterns will be retrieved with this function
@@ -152,7 +152,7 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
 
             obj = alg.Topk_PPPGrowth(iFile, k, period)
 
-            obj.startMine()
+            obj.mine()
 
             partialPeriodicPatterns = obj.getPatterns()
 
@@ -394,7 +394,7 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
             self._Generation(newPrefix, classItemSets, classTidSets)
             self._save(prefix, list(set(itemSetX)), tidSetI)
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self):
         """
         Main function of the program
@@ -514,7 +514,7 @@ if __name__ == "__main__":
             _ap = k3PMiner(_sys.argv[1], _sys.argv[3], _sys.argv[4], _sys.argv[5])
         if len(_sys.argv) == 5:
             _ap = k3PMiner(_sys.argv[1], _sys.argv[3], _sys.argv[4])
-        _ap.startMine()
+        _ap.mine()
         print("Top K Partial Periodic Patterns:", len(_ap.getPatterns()))
         _ap.save(_sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

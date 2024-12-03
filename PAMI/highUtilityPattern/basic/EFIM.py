@@ -490,7 +490,7 @@ class EFIM(_ab._utilityPatterns):
         self._memoryUSS = float()
         self._memoryRSS = float()
 
-    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         Start the EFIM algorithm.
@@ -845,7 +845,7 @@ if __name__ == '__main__':
             _ap = EFIM(_ab._sys.argv[1], int(_ab._sys.argv[3]), _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:    #takes "\t" as a separator
             _ap = EFIM(_ab._sys.argv[1], int(_ab._sys.argv[3]))
-        _ap.startMine()
+        _ap.mine()
         _ap.mine()
         print("Total number of High Utility Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
@@ -854,7 +854,7 @@ if __name__ == '__main__':
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
         _ap = EFIM('/Users/likhitha/Downloads/Utility_T10I4D100K.csv', 50000, '\t')
-        _ap.startMine()
+        _ap.mine()
         _ap.mine()
         print("Total number of High Utility Patterns:", len(_ap.getPatterns()))
         _ap.save('/Users/likhitha/Downloads/UPGrowth_output.txt')

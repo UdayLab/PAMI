@@ -6,7 +6,7 @@
 #
 #             obj = alg.SPPGrowthDump(iFile, minSup, maxPer, maxLa)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             Patterns = obj.getPatterns()
 #
@@ -431,7 +431,7 @@ class SPPGrowth():
                 value = int(value)
         return value
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self):
         """
         Mining process will start from this function
@@ -548,7 +548,7 @@ if __name__ == "__main__":
             _ap = SPPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
         if len(sys.argv) == 5:
             _ap = SPPGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
-        _ap.startMine()
+        _ap.mine()
         _ap.mine()
         _Patterns = _ap.getPatterns()
         print("Total number of Patterns:", len(_Patterns))
@@ -562,7 +562,7 @@ if __name__ == "__main__":
     else:
         '''ap = topk('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_retail.csv', 0.001, 0.005, 0.004)
         #ap = topk('/Users/likhitha/Downloads/contextPrefixSpan.txt', 3, 6, 2, ' ')
-        ap.startMine()
+        ap.mine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
         ap.save('/Users/Likhitha/Downloads/output')

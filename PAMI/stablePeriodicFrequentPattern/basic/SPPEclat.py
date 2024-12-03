@@ -10,7 +10,7 @@
 #
 #             obj = alg.SPPEclat("../basic/sampleTDB.txt", 5, 3, 3)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             Patterns = obj.getPatterns()
 #
@@ -133,7 +133,7 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -180,7 +180,7 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
 
                     obj = alg.PFPECLAT("../basic/sampleTDB.txt", 5, 3, 3)
 
-                    obj.startMine()
+                    obj.mine()
 
                     Patterns = obj.getPatterns()
 
@@ -348,7 +348,7 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
         maxla = max(laList)
         return maxla
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self):
         """
         Method to start the mining of patterns
@@ -456,7 +456,7 @@ if __name__ == '__main__':
             _ap = SPPEclat(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
         if len(_ab._sys.argv) == 6:
             _ap = SPPEclat(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
-        _ap.startMine()
+        _ap.mine()
         _ap.mine()
         print("Total number of Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])

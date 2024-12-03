@@ -397,7 +397,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                     print("File Not Found")
                     quit()
 
-    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         fuzzy-Frequent pattern mining process will start from here
@@ -640,7 +640,7 @@ if __name__ == "__main__":
             _ap = FFIMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
             _ap = FFIMiner(_ab._sys.argv[1], _ab._sys.argv[3])
-        _ap.startMine()
+        _ap.mine()
         _ap.mine()
         print("Total number of Fuzzy-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
@@ -649,7 +649,7 @@ if __name__ == "__main__":
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
         _ap = FFIMiner('/Users/tarunsreepada/Downloads/Fuzzy_T10I4D100K.csv', 400, '\t')
-        # _ap.startMine()
+        # _ap.mine()
         _ap.mine()
         print("Total number of Fuzzy-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save('output.txt')

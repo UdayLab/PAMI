@@ -120,7 +120,7 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
    
           from PAMI.frequentPattern.basic import fpGrowth  as alg
           obj = alg.fpGrowth(inputFile,minSup,sep)
-          obj.startMine()
+          obj.mine()
           obj.save('patterns.txt')
           df = obj.getPatternsAsDataFrame()
           print('Runtime: ' + str(obj.getRuntime()))

@@ -16,7 +16,7 @@ from PAMI.<model>.<basic/closed/maximal/topK> import <algorithmName> as alg
 obj = alg.<algorithmName>(<input parameters>)
 
 # Start the mining algorithm
-obj.startMine()
+obj.mine()
 
 # Collect the patterns discovered by the algorithm in the database
 discoveredPatterns = obj.getDiscoveredPatterns()
@@ -59,7 +59,7 @@ minSup=400
 obj = alg.FPGrowth(inputFile, minSup)
 
 #start the mining process
-obj.startMine()
+obj.mine()
 
 #Print the number of interesting patterns generated
 print("Total number of Frequent Patterns:", len(obj.getPatterns()))
@@ -98,7 +98,7 @@ for constraint in constraintList:
     obj = alg. < algorithmName > (< input parameters >)
 
     # Start the mining algorithm
-    obj.startMine()
+    obj.mine()
 
     # store the results in the data frame
     result.loc[result.shape[0]] = [algorithm, constraint, len(obj.getPatterns()), obj.getRuntime(), obj.getMemoryRSS()]
@@ -145,7 +145,7 @@ for minSup in minimumSupportList:
     #Create the object
     obj = alg.FPGrowth(inputFile, minSup, seperator)
     #start the mining process
-    obj.startMine()
+    obj.mine()
     #store the results in the data frame
     result.loc[result.shape[0]] = [algorithm, minSup, len(obj.getPatterns()), obj.getRuntime(), obj.getMemoryRSS()]
 

@@ -8,7 +8,7 @@
 #
 #             obj = alg.PFPMC("../basic/sampleTDB.txt", "2", "5")
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             periodicFrequentPatterns = obj.getPatterns()
 #
@@ -124,7 +124,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -170,7 +170,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
 
                 obj = alg.PFPMC("../basic/sampleTDB.txt", "2", "5")
 
-                obj.startMine()
+                obj.mine()
 
                 periodicFrequentPatterns = obj.getPatterns()
 
@@ -514,7 +514,7 @@ if __name__ == "__main__":
             _ap = PFPMC(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
             _ap = PFPMC(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
-        _ap.startMine()
+        _ap.mine()
         print("Total number of Periodic-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

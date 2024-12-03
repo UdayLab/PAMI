@@ -8,7 +8,7 @@
 #
 #             obj = alg.cuGPFMiner("../basic/sampleTDB.txt", "2", "5")
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             periodicFrequentPatterns = obj.getPatterns()
 #
@@ -124,7 +124,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -164,7 +164,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
 
                 obj = alg.cuGPFMiner("../basic/sampleTDB.txt", "2", "5")
 
-                obj.startMine()
+                obj.mine()
 
                 periodicFrequentPatterns = obj.getPatterns()
 
@@ -393,7 +393,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
 
         return newArraysAndItems
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self):
         """
         Mining process will start from here
@@ -634,7 +634,7 @@ if __name__ == "__main__":
             _ap = cuGPFMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
             _ap = cuGPFMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
-        _ap.startMine()
+        _ap.mine()
         print("Total number of Periodic-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
@@ -647,7 +647,7 @@ if __name__ == "__main__":
     _ap = cuGPFMiner("/home/tarun/Temporal_T10I4D100K.csv", 50, 10000, "\t")
     # _ap = cuGPFMiner("/home/tarun/PAMI/PAMI/periodicFrequentPattern/cuda/test.txt", 1, 10, " ")
 
-    _ap.startMine()
+    _ap.mine()
     print("Total number of Periodic-Frequent Patterns:", len(_ap.getPatterns()))
     _ap.save("tarun.txt")
     print("Total Memory in USS:", _ap.getMemoryUSS())

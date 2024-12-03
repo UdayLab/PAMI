@@ -6,7 +6,7 @@
 #
 #             obj = alg.kPFPMiner(iFile, k)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             periodicFrequentPatterns = obj.getPatterns()
 #
@@ -97,7 +97,7 @@ class kPFPMiner(_ab._periodicFrequentPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -143,7 +143,7 @@ class kPFPMiner(_ab._periodicFrequentPatterns):
 
             obj = alg.kPFPMiner(iFile, k)
 
-            obj.startMine()
+            obj.mine()
 
             periodicFrequentPatterns = obj.getPatterns()
 
@@ -502,7 +502,7 @@ if __name__ == "__main__":
             _ap = kPFPMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
             _ap = kPFPMiner(_ab._sys.argv[1], _ab._sys.argv[3])
-        _ap.startMine()
+        _ap.mine()
         _Patterns = _ap.getPatterns()
         print("Total number of top-k periodic frequent patterns:", len(_Patterns))
         _ap.save(_ab._sys.argv[2])

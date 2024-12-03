@@ -173,7 +173,7 @@ class gPPMiner:
         cuda.memcpy_htod(gpuBitArray, bitValues)
         return gpuBitArray, index2id
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self):
         """
         Start the mining process
@@ -373,7 +373,7 @@ if __name__ == "__main__":
     periodicSupport = 45000
     period = 10
     obj = gPPMiner(filePath, periodicSupport, period, sep)
-    obj.startMine()
+    obj.mine()
     print("Time: ", obj.getRuntime())
     print("Patterns: ", len(obj.getPatterns()))
     print("GPU MEM: ", obj.getGPUMemory())

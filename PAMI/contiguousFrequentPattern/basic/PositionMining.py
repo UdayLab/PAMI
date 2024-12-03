@@ -262,7 +262,7 @@ class PositionMining:
             self.join(curr,self.current_candidate)
             self.current_candidate+=1
 
-    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self):
         """
         Pattern mining process will start from here

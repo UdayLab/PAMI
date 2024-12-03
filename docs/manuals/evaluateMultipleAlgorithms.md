@@ -45,7 +45,7 @@ for minSup in minSupList:
     obj = alg.Apriori(inputFile,minSup, sep='\t')
 
     #start the mining process
-    obj.startMine()
+    obj.mine()
 
     #append the results into the data frame
     result.loc[result.shape[0]] = [algorithmName, minSup, len(obj.getPatterns()), obj.getRuntime(), obj.getMemoryRSS()]
@@ -67,7 +67,7 @@ for minSup in minSupList:
     obj = alg.FPGrowth(inputFile,minSup, sep='\t')
 
     #start the mining process
-    obj.startMine()
+    obj.mine()
 
     #append the results into the data frame
     result.loc[result.shape[0]] = [algorithmName, minSup, len(obj.getPatterns()), obj.getRuntime(), obj.getMemoryRSS()]
@@ -88,7 +88,7 @@ for minSup in minSupList:
     obj = alg.ECLAT(inputFile,minSup, sep='\t')
 
     #start the mining process
-    obj.startMine()
+    obj.mine()
 
     #append the results into the data frame
     result.loc[result.shape[0]] = [algorithmName, minSup, len(obj.getPatterns()), obj.getRuntime(), obj.getMemoryRSS()]

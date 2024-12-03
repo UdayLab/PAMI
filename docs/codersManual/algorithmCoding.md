@@ -14,7 +14,7 @@ Before writing any code using hash mark (#) write the text about explaining the 
 #
 # from PAMI.model.patternType import AlgorithmX as alg
 # obj = alg.AlgorithmX(inputParameters)
-# obj.startMine()
+# obj.mine()
 # interestingPatterns = obj.getPatterns()
 # print("Total number of interesting patterns:", len(interestingPatterns))
 # obj.savePatterns(oFile)
@@ -86,7 +86,7 @@ class AlgorithmX(_ab._patternModel):
     
             from PAMI.model.patternType import AlgorithmX as alg
             obj = alg.AlgorithmX(inputParameters)
-            obj.startMine()
+            obj.mine()
             interestingPatterns = obj.getPatterns()
             print("Total number of interesting patterns:", len(interestingPatterns))
             obj.savePatterns(oFile)

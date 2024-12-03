@@ -8,7 +8,7 @@
 #
 #             obj = alg.cuREFIM(iFile, minUtil, ratio, '\t')
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             periodicFrequentPatterns = obj.getPatterns()
 #
@@ -171,7 +171,7 @@ class GPUEFIM:
 
         read_file(): Read the input file and return the filtered transactions, primary items, and secondary items.
         search(collections): Search for high utility itemsets in the given collections.
-        startMine(): Start the EFIM algorithm.
+        mine(): Start the EFIM algorithm.
         savePatterns(outputFile): Save the patterns discovered by the algorithm to an output file.
         getPatterns(): Get the patterns discovered by the algorithm.
         getRuntime(): Get the runtime of the algorithm.
@@ -416,7 +416,7 @@ class GPUEFIM:
                 joined = " ".join(key) + " #UTIL: " + str(value) + "\n"
                 f.write(joined)
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self):
         """
         Start the EFIM algorithm.
@@ -539,7 +539,7 @@ if __name__ == "__main__":
 
     sep = "\t"
     f = GPUEFIM(inputFile, minUtil, ratio, sep)
-    f.startMine()
+    f.mine()
     f.savePatterns("output.txt")
     print("# of patterns: " + str(len(f.getPatterns())))
     print("Time taken: " + str(f.getRuntime()))

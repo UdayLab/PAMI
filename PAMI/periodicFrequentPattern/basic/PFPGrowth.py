@@ -147,7 +147,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
                         - **tree** (*class*) -- *it represents the Tree class.*
                         - **itemSetCount** (*int*) -- *it represents the total no of patterns.*
 
-    :**Methods**:       - **startMine()** -- *Mining process will start from here.*
+    :**Methods**:       - **mine()** -- *Mining process will start from here.*
                         - **getPatterns()** -- *Complete set of patterns will be retrieved with this function.*
                         - **save(oFile)** -- *Complete set of periodic-frequent patterns will be loaded in to a output file.*
                         - **getPatternsAsDataFrame()** -- *Complete set of periodic-frequent patterns will be loaded in to a dataframe.*
@@ -297,7 +297,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
                 value = int(value)
         return value
 
-    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self) -> None:
         self.mine()
 
@@ -587,7 +587,7 @@ if __name__ == "__main__":
             _ap = PFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
             _ap = PFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
-        _ap.startMine()
+        _ap.mine()
         _ap.mine()
         print("Total number of Periodic-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])

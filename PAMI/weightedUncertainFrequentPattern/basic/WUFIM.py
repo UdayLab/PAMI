@@ -393,7 +393,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -417,7 +417,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
             After updating the Database, remaining items will be added into the tree by setting root node as null
         convert()
             to convert the user specified value
-        startMine()
+        mine()
             Mining process will start from this function
 
     Execution methods
@@ -729,10 +729,10 @@ class WUFIM(_ab._weightedFrequentPatterns):
                 self._finalPatterns[sample] = y
 
     @deprecated(
-        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+        "It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self) -> None:
         """
-        startMine() method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns.
+        mine() method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns.
         """
         self.mine()
 
@@ -859,7 +859,7 @@ if __name__ == "__main__":
             _ap = WUFIM(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
         if len(_ab._sys.argv) == 6:
             _ap = WUFIM(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
-        _ap.startMine()
+        _ap.mine()
         _ap.mine()
         print("Total number of Weighted Uncertain Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
@@ -870,7 +870,7 @@ if __name__ == "__main__":
         for k in [120, 140, 160, 180, 200]:
             _ap = WUFIM('/Users/likhitha/Downloads/uncertainTransaction_T10I4D200K.csv', '/Users/likhitha/Downloads/T10_weights.txt',
                         k, 500, '\t')
-            _ap.startMine()
+            _ap.mine()
             print("Total number of Weighted Uncertain Frequent Patterns:", len(_ap.getPatterns()))
             _ap.save('/Users/likhitha/Downloads/WUFIM_output.txt')
             print("Total Memory in USS:", _ap.getMemoryUSS())

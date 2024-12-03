@@ -149,7 +149,7 @@ seperator = ' '  # specify the seperator. Default seperator is tab space.
 oFile = 'frequentSpatialPatterns.txt'  # specify the output file name
 
 obj = alg.FSPGrowth(iFile, nFile, minSup, seperator)  # initialize the algorithm 
-obj.startMine()  # start the mining process 
+obj.mine()  # start the mining process 
 df = obj.getPatternsAsDataFrame()  # Get the patterns discovered into a dataframe 
 obj.save(oFile)  # store the patterns in file 
 obj.printResults()  # Print the stats of mining process

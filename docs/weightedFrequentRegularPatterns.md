@@ -137,7 +137,7 @@ seperator = ' ' #specify the seperator. Default seperator is tab space. <br>
 oFile = 'weightedFrequentRegularPatterns.txt'   #specify the output file name<br>
 
 obj = alg.WFRIMiner(iFile, wFile, minWS, regularity, seperator) #initialize the algorithm <br>
-obj.startMine()                       #start the mining process <br>
+obj.mine()                       #start the mining process <br>
 obj.save(oFile)               #store the patterns in file <br>
 df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe <br>
 obj.printResults()                      #Print the stats of mining process

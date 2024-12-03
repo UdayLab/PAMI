@@ -11,7 +11,7 @@
 #
 #     obj = alg.ThreePGrowth(iFile, periodicSupport, period)
 #
-#     obj.startMine()
+#     obj.mine()
 #
 #     partialPeriodicPatterns = obj.partialPeriodicPatterns()
 #
@@ -457,7 +457,7 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getFrequentPatterns()
             Complete set of patterns will be retrieved with this function
@@ -479,7 +479,7 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
             update the Databases by removing aperiodic items and sort the Database by item decreased support
         buildTree()
             after updating the Databases ar added into the tree by setting root node as null
-        startMine()
+        mine()
             the main method to run the program
 
     **Executing the code on terminal:**
@@ -498,7 +498,7 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
 
             obj = alg.ThreePGrowth(iFile, periodicSupport, period)
 
-            obj.startMine()
+            obj.mine()
 
             partialPeriodicPatterns = obj.partialPeriodicPatterns()
 

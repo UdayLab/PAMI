@@ -7,7 +7,7 @@
 #
 #             obj = alg.PPPClose("../basic/sampleTDB.txt", "2", "6")
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             periodicFrequentPatterns = obj.getPatterns()
 #
@@ -122,7 +122,7 @@ class PPPClose(_abstract._partialPeriodicPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -159,7 +159,7 @@ class PPPClose(_abstract._partialPeriodicPatterns):
 
             obj = alg.PPPClose("../basic/sampleTDB.txt", "2", "6")
 
-            obj.startMine()
+            obj.mine()
 
             periodicFrequentPatterns = obj.getPatterns()
 
@@ -445,7 +445,7 @@ class PPPClose(_abstract._partialPeriodicPatterns):
                 self._processEquivalenceClass(newPrefix, classItemSets, classTidSets)
             self._save(prefix, list(set(itemSetX)), tidSetX)
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self):
         """
         Mining process will start from here
@@ -575,7 +575,7 @@ if __name__ == "__main__":
             _ap = PPPClose(_sys.argv[1], _sys.argv[3], _sys.argv[4], _sys.argv[5])
         if len(_sys.argv) == 5:
             _ap = PPPClose(_sys.argv[1], _sys.argv[3], _sys.argv[4])
-        _ap.startMine()
+        _ap.mine()
         print("Total number of  Patterns:", len(_ap.getPatterns()))
         _ap.save(_sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

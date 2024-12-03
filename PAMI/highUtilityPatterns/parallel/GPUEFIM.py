@@ -416,7 +416,7 @@ class GPUEFIM:
                 joined = " ".join(key) + " #UTIL: " + str(value) + "\n"
                 f.write(joined)
 
-    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self):
         """
         Start the EFIM algorithm.
@@ -515,7 +515,7 @@ if __name__ == "__main__":
 
     sep = " "
     f = GPUEFIM(inputFile, minUtil, sep)
-    f.startMine()
+    f.mine()
     f.mine()
     f.save("output.txt")
     print("# of patterns: " + str(len(f.getPatterns())))

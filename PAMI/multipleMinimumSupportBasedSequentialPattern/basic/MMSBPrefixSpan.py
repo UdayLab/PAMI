@@ -64,7 +64,7 @@ class MMSBprefixSpan(_ab._sequentialPatterns):
                 to calculate MIS for each items
         Methods:
         -------
-            startMine()
+            mine()
                 Mining process will start from here
             getPatterns()
                 Complete set of patterns will be retrieved with this function
@@ -105,7 +105,7 @@ class MMSBprefixSpan(_ab._sequentialPatterns):
         ---------------------------------
             import PAMI.multipleMinimumSupportBasedSequentialPattern.basic.MMSBprefixSpan as alg
             obj = alg.MMSBprefixSpan(iFile, minSup)
-            obj.startMine()
+            obj.mine()
             frequentPatterns = obj.getPatterns()
             print("Total number of Frequent Patterns:", len(frequentPatterns))
             obj.savePatterns(oFile)
@@ -615,7 +615,7 @@ if __name__ == "__main__":
             _ap = MMSBprefixSpan(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4],_ab._sys.argv[5])
         if len(_ab._sys.argv) == 4:
             _ap = MMSBprefixSpan(_ab._sys.argv[1], _ab._sys.argv[3],_ab._sys.argv[4])
-        _ap.startMine()
+        _ap.mine()
         _Patterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_Patterns))
         _ap.savePatterns(_ab._sys.argv[2])

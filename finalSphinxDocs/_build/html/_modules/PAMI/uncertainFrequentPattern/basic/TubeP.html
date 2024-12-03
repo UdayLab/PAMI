@@ -257,7 +257,7 @@
 <span class="sd">            After updating the Database, remaining items will be added into the tree by setting root node as null</span>
 <span class="sd">        convert()</span>
 <span class="sd">            to convert the user specified value</span>
-<span class="sd">        startMine()</span>
+<span class="sd">        mine()</span>
 <span class="sd">            Mining process will start from this function</span>
 
 <span class="sd">    Execution methods</span>
@@ -514,7 +514,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_Generation</span><span class="p">(</span><span class="n">newPrefix</span><span class="p">,</span> <span class="n">classItemSets</span><span class="p">,</span> <span class="n">classTidSets</span><span class="p">)</span>
             <span class="c1">#self.save(prefix, list(set(itemSetX)), tidSetI)</span>
 
-<div class="viewcode-block" id="TUFP.startMine"><a class="viewcode-back" href="../../../../uncertainFrequentPatternBasicTubeP.html#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use &#39;mine()&#39; instead of &#39;startMine()&#39; for mining process. Starting from January 2025, &#39;startMine()&#39; will be completely terminated.&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="TUFP.startMine"><a class="viewcode-back" href="../../../../uncertainFrequentPatternBasicTubeP.html#PAMI.uncertainFrequentPattern.basic.TubeP.TUFP.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use &#39;mine()&#39; instead of &#39;mine()&#39; for mining process. Starting from January 2025, &#39;mine()&#39; will be completely terminated.&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</span>
@@ -656,7 +656,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="n">_run</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;ap = TUFP(&quot;/home/apiiit-rkv/Desktop/uncertain/tubeSample&quot;, 10, &#39; &#39;)</span>
-<span class="sd">        ap.startMine()</span>
+<span class="sd">        ap.mine()</span>
 <span class="sd">        Patterns = ap.getPatterns()</span>
 <span class="sd">        print(&quot;Total number of Patterns:&quot;, len(Patterns))</span>
 <span class="sd">        ap.save(&quot;patterns.txt&quot;)</span>

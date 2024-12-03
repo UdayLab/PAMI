@@ -8,7 +8,7 @@
 #
 #         obj = alg.PPPGrowth(iFile, minPS, period)
 #
-#         obj.startMine()
+#         obj.mine()
 #
 #         partialPeriodicPatterns = obj.getPatterns()
 #
@@ -179,7 +179,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -202,7 +202,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
             by decreasing support
         buildTree()
             constrcuts the main tree by setting the root node as null
-        startMine()
+        mine()
             main program to mine the partial periodic patterns
 
     **Executing the code on terminal:**
@@ -227,7 +227,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
 
             obj = alg.PPPGrowth(iFile, minPS, period)
 
-            obj.startMine()
+            obj.mine()
 
             partialPeriodicPatterns = obj.getPatterns()
 
@@ -334,7 +334,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
         return value
 
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree.
@@ -607,7 +607,7 @@ if __name__ == "__main__":
             _ap = PPPGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4], _sys.argv[5])
         if len(_sys.argv) == 5:
             _ap = PPPGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4])
-        _ap.startMine()
+        _ap.mine()
         print("Total number of Partial Periodic Patterns:", len(_ap.getPatterns()))
         _ap.save(_sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
@@ -617,7 +617,7 @@ if __name__ == "__main__":
         print("Error! The number of input parameters do not match the total number of parameters provided")
         for i in [100, 200, 300, 400, 500]:
             _ap = PPPGrowth('/Users/tarunsreepada/Downloads/Temporal_T10I4D100K.csv', i, 5000, '\t')
-            _ap.startMine()
+            _ap.mine()
             print("Total number of Maximal Partial Periodic Patterns:", len(_ap.getPatterns()))
             _ap.save('/Users/tarunsreepada/Downloads/output.txt')
             print(_ap.getPatternsAsDataFrame())

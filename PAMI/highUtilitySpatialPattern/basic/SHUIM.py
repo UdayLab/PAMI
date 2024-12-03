@@ -462,7 +462,7 @@ class SHUIM(_ab._utilityPatterns):
     def __init__(self, iFile: str, nFile: str, minUtil: int, sep: str="\t") -> None:
         super().__init__(iFile, nFile, minUtil, sep)
 
-    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         main program to start the operation
@@ -916,7 +916,7 @@ if __name__ == '__main__':
             _ap = SHUIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]), _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
             _ap = SHUIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]))
-        _ap.startMine()
+        _ap.mine()
         _ap.mine()
         print("Total number of Spatial High Utility Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
@@ -926,7 +926,7 @@ if __name__ == '__main__':
     else:
         for i in [100000, 500000]:
             _ap = SHUIM('/Users/Likhitha/Downloads/mushroom_main_2000.txt', '/Users/Likhitha/Downloads/mushroom_neighbors_2000.txt', i, ' ')
-            _ap.startMine()
+            _ap.mine()
             _ap.mine()
             print("Total number of Spatial High Utility Patterns:", len(_ap.getPatterns()))
             #_ap.save(_ab._sys.argv[2])

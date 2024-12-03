@@ -57,7 +57,7 @@ class _partialPeriodicPatterns(_ABC):
             To store the total amount of RSS memory consumed by the program
         Methods
         -------
-        startMine()
+        mine()
             Mining process will start from here
         getFrequentPatterns()
             Complete set of patterns will be retrieved with this function

@@ -88,7 +88,7 @@ class _weightedFrequentRegularPatterns(_ABC):
 
        :Methods:
 
-        startMine()
+        mine()
             Calling this function will start the actual mining process
 
         getPatterns()

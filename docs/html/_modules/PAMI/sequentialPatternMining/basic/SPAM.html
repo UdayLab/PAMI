@@ -105,7 +105,7 @@
 <span class="c1">#</span>
 <span class="c1">#             obj = alg.SPAM(iFile, minSup)</span>
 <span class="c1">#</span>
-<span class="c1">#             obj.startMine()</span>
+<span class="c1">#             obj.mine()</span>
 <span class="c1">#</span>
 <span class="c1">#             sequentialPatternMining = obj.getPatterns()</span>
 <span class="c1">#</span>
@@ -219,7 +219,7 @@
 <span class="sd">                the main algorithm of spam. This can search sstep and istep items and find next patterns, its sstep, and its istep. And call this function again by using them. Recursion until there are no more items available for exploration.</span>
 <span class="sd">            Sstep(s):</span>
 <span class="sd">                To convert bit to ssteo bit.The first time you get 1, you set it to 0 and subsequent ones to 1.(like 010101=&gt;001111, 00001001=&gt;00000111)</span>
-<span class="sd">            startMine()</span>
+<span class="sd">            mine()</span>
 <span class="sd">                Mining process will start from here</span>
 <span class="sd">            getPatterns()</span>
 <span class="sd">                Complete set of patterns will be retrieved with this function</span>
@@ -261,7 +261,7 @@
 
 <span class="sd">            obj = alg.SPAM(iFile, minSup)</span>
 
-<span class="sd">            obj.startMine()</span>
+<span class="sd">            obj.mine()</span>
 
 <span class="sd">            sequentialPatternMining = obj.getPatterns()</span>
 

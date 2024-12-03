@@ -550,7 +550,7 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
             temp = temp + self.__rankDup[i] + "\t"
         return temp
 
-    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         Main program to start the operation
@@ -688,7 +688,7 @@ if __name__ == "__main__":
                              _fp._sys.argv[5], _fp._sys.argv[6], _fp._sys.argv[7])
         if len(_fp._sys.argv) == 7:
             _ap = FTFPGrowth(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4], _fp._sys.argv[5], _fp._sys.argv[6])
-        _ap.startMine()
+        _ap.mine()
         _ap.mine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_fp._sys.argv[2])

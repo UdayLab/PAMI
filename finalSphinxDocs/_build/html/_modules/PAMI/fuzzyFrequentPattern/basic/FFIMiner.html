@@ -509,7 +509,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">_ap</span> <span class="o">=</span> <span class="n">FFIMiner</span><span class="p">(</span><span class="s1">&#39;/Users/tarunsreepada/Downloads/Fuzzy_T10I4D100K.csv&#39;</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="c1"># _ap.startMine()</span>
+        <span class="c1"># _ap.mine()</span>
         <span class="n">_ap</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Fuzzy-Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ap</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="n">_ap</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;output.txt&#39;</span><span class="p">)</span>

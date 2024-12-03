@@ -7,7 +7,7 @@
           from PAMI.frequentPattern.basic import FPGrowth  as alg
           
           obj = alg.FPGrowth(inputFile,minSup,sep)
-          obj.startMine()
+          obj.mine()
           obj.save('patterns.txt')
           df = obj.getPatternsAsDataFrame()
           print('Runtime: ' + str(obj.getRuntime()))
@@ -25,7 +25,7 @@
             algorithm = 'FPGrowth'
             for minSup in minSupList:
                obj = alg.FPGrowth(dataset, minSup=minSup)
-               obj.startMine()
+               obj.mine()
                df = pd.DataFrame([algorithm, minSup, len(obj.getPatterns()), obj.getRuntime(), obj.getMemoryRSS()], index=result.columns).T
                result = result.append(df, ignore_index=True)
     
@@ -35,7 +35,7 @@
             algorithm = 'ECLAT'
             for minSup in minSupList:
                obj = alg.ECLAT(dataset, minSup=minSup)
-               obj.startMine()
+               obj.mine()
                df = pd.DataFrame([algorithm, minSup, len(obj.getPatterns()), obj.getRuntime(), obj.getMemoryRSS()], index=result.columns).T
                result = result.append(df, ignore_index=True)
     

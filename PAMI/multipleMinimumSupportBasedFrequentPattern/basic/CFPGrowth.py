@@ -8,7 +8,7 @@
 #
 #             obj = alg.basic(iFile, mIS)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             frequentPatterns = obj.getPatterns()
 #
@@ -289,7 +289,7 @@ class CFPGrowth(_fp._frequentPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -333,7 +333,7 @@ class CFPGrowth(_fp._frequentPatterns):
 
             obj = alg.basic(iFile, mIS)
 
-            obj.startMine()
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -543,7 +543,7 @@ class CFPGrowth(_fp._frequentPatterns):
             temp = temp + self.__rankDup[i] + "\t"
         return temp
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self) -> None:
         """
         main program to start the operation
@@ -667,7 +667,7 @@ if __name__ == "__main__":
             _ap = CFPGrowth(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4])
         if len(_fp._sys.argv) == 4:
             _ap = CFPGrowth(_fp._sys.argv[1], _fp._sys.argv[3])
-        _ap.startMine()
+        _ap.mine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_fp._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
@@ -675,7 +675,7 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         _ap = CFPGrowth('/Users/Likhitha/Downloads/Transactional_T10I4D100K-3.csv', '/Users/Likhitha/Downloads/MIS_T10I4D100K_.csv', '\t')
-        _ap.startMine()
+        _ap.mine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save('/Users/Likhitha/Downloads/CFPGrowth_output.txt')
         print("Total Memory in USS:", _ap.getMemoryUSS())

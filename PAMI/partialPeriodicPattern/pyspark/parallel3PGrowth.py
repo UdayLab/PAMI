@@ -6,7 +6,7 @@
 #
 #             obj = alg.parallel3PGrowth(iFile, minPS, period,numWorkers)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             partialPeriodicPatterns = obj.getPatterns()
 #
@@ -383,7 +383,7 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -406,7 +406,7 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
             by decreasing support
         buildTree()
             constrcuts the main tree by setting the root node as null
-        startMine()
+        mine()
             main program to mine the partial periodic patterns
 
     **Executing the code on terminal:**
@@ -430,7 +430,7 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
 
             obj = alg.4PGrowth(iFile, periodicSupport, period)
 
-            obj.startMine()
+            obj.mine()
 
             partialPeriodicPatterns = obj.getPatterns()
 
@@ -476,7 +476,7 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
 
     numPartitions = 5
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self):
         """
         Main method where the patterns are mined by constructing tree.
@@ -889,7 +889,7 @@ if __name__ == "__main__":
             _ap = parallel3PGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4], _sys.argv[5])
         if len(_sys.argv) == 5:
             _ap = parallel3PGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4])
-        _ap.startMine()
+        _ap.mine()
         print("Total number of Partial Periodic Patterns:", len(_ap.getPatterns()))
         _ap.save(_sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
@@ -903,5 +903,5 @@ if __name__ == "__main__":
 
         _ap = parallel3PGrowth('Temporal_T10I4D100K.csv', minPS, period, '\t')
         _ap.setPartitions(20)
-        _ap.startMine()
+        _ap.mine()
         

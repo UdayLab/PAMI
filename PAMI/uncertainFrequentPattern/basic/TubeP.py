@@ -161,7 +161,7 @@ class TUFP(_ab._frequentPatterns):
             After updating the Database, remaining items will be added into the tree by setting root node as null
         convert()
             to convert the user specified value
-        startMine()
+        mine()
             Mining process will start from this function
 
     Execution methods
@@ -418,7 +418,7 @@ class TUFP(_ab._frequentPatterns):
             self._Generation(newPrefix, classItemSets, classTidSets)
             #self.save(prefix, list(set(itemSetX)), tidSetI)
 
-    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
@@ -547,7 +547,7 @@ if __name__ == "__main__":
             _ap = TUFP(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
             _ap = TUFP(_ab._sys.argv[1], _ab._sys.argv[3])
-        _ap.startMine()
+        _ap.mine()
         _ap.mine()
         _Patterns = _ap.getPatterns()
         print("Total number of Patterns:", len(_Patterns))
@@ -560,7 +560,7 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _run)
     else:
         '''ap = TUFP("/home/apiiit-rkv/Desktop/uncertain/tubeSample", 10, ' ')
-        ap.startMine()
+        ap.mine()
         Patterns = ap.getPatterns()
         print("Total number of Patterns:", len(Patterns))
         ap.save("patterns.txt")

@@ -8,7 +8,7 @@
 #
 #             obj = alg.parallelRHUIM(iFile, minUtil, ratio, '\t')
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             periodicFrequentPatterns = obj.getPatterns()
 #
@@ -99,7 +99,7 @@ class efimParallel(_ab._utilityPatterns):
         binarySearch(arr, item): Perform a binary search on the given array to find the given item.
         project(beta, file_data, secondary): Project the given beta itemset on the given database.
         search(collections): Search for high utility itemsets in the given collections.
-        startMine(): Start the EFIM algorithm.
+        mine(): Start the EFIM algorithm.
         savePatterns(outputFile): Save the patterns discovered by the algorithm to an output file.
         getPatterns(): Get the patterns discovered by the algorithm.
         getRuntime(): Get the runtime of the algorithm.
@@ -380,7 +380,7 @@ class efimParallel(_ab._utilityPatterns):
                 collections = new_collections
 
 
-    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
+    @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self):
         """
         Start the EFIM algorithm.
@@ -516,7 +516,7 @@ if __name__ == "__main__":
 
     # sep = " "
     # f = efimParallel(inputFile, minUtil, sep, 1)
-    # f.startMine()
+    # f.mine()
     # print("# of patterns: " + str(len(f.getPatterns())))
     # print("Time taken: " + str(f.getRuntime()))
     # f.savePatterns("mine.txt")
@@ -528,7 +528,7 @@ if __name__ == "__main__":
             _ap = efimParallel(_ab._sys.argv[1], int(_ab._sys.argv[3]), _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:    #takes "\t" as a separator
             _ap = efimParallel(_ab._sys.argv[1], int(_ab._sys.argv[3]))
-        _ap.startMine()
+        _ap.mine()
         print("Total number of High Utility Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
@@ -536,7 +536,7 @@ if __name__ == "__main__":
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
         _ap = efimParallel('Utility_T10I4D100K.csv', 150000, 0.1, '\t', 10)
-        _ap.startMine()
+        _ap.mine()
         print("Total number of High Utility Patterns:", len(_ap.getPatterns()))
         _ap.save('UPGrowth_output.txt')
         print("Total Memory in USS:", _ap.getMemoryUSS())

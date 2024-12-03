@@ -54,7 +54,7 @@ print('The output file is saved at ' + db.getFileName())
 # Using the generated transactional database in FP-growth algorithm to discover frequent patterns
 
 obj = alg.fpGrowth(iFile=db.getFileName(), minSup='10.0')
-obj.startMine()
+obj.mine()
 patternsDF = obj.getPatternsAsDataFrame()
 
    ```
@@ -86,7 +86,7 @@ db.createTransactional(outputFile='/home/userName/temporalDB.txt')
 print('The output file is saved at ' + db.getFileName())
 
 obj = alg.PFPGrowthPlus(db.getFileName(), minSup="2", maxPer="6")
-obj.startMine()
+obj.mine()
 patternsDF = obj.getPatternsAsDataFrame()
 
 ``` 

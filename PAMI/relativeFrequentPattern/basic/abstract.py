@@ -42,7 +42,7 @@ class _frequentPatterns(_ABC):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getFrequentPatterns()
             Complete set of patterns will be retrieved with this function

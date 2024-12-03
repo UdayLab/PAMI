@@ -10,7 +10,7 @@
 #
 #             obj = alg.prefixSpan(iFile, minSup,oFile,sep)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             frequentPatterns = obj.getPatterns()
 #
@@ -109,7 +109,7 @@ class PrefixSpan(_ab._sequentialPatterns):
 
     :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -153,7 +153,7 @@ class PrefixSpan(_ab._sequentialPatterns):
 
             obj = alg.PrefixSpan(iFile, minSup)
 
-            obj.startMine()
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 

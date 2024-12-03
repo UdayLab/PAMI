@@ -186,7 +186,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 </dd>
 <dt>Generation(prefix, itemsets, tidsets)</dt><dd><p>Userd to implement prefix class equibalence method to generate the periodic patterns recursively</p>
 </dd>
-<dt>startMine()</dt><dd><p>Mining process will start from here</p>
+<dt>mine()</dt><dd><p>Mining process will start from here</p>
 </dd>
 <dt>getPartialPeriodicPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
 </dd>
@@ -224,7 +224,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 <blockquote>
 <div><p>from PAMI.partialPeriodicFrequentpattern.basic import PPF_DFS as alg</p>
 <p>obj = alg.PPF_DFS(iFile, minSup)</p>
-<p>obj.startMine()</p>
+<p>obj.mine()</p>
 <p>frequentPatterns = obj.getPatterns()</p>
 <p>print(“Total number of Frequent Patterns:”, len(frequentPatterns))</p>
 <p>obj.save(oFile)</p>

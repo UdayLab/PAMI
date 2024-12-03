@@ -399,7 +399,7 @@ class PUFGrowth(_ab._frequentPatterns):
             After updating the Database, remaining items will be added into the tree by setting root node as null
         convert()
             to convert the user specified value
-        startMine()
+        mine()
             Mining process will start from this function
 
     Execution methods
@@ -433,7 +433,7 @@ class PUFGrowth(_ab._frequentPatterns):
 
             obj = alg.PUFGrowth(iFile, minSup)
 
-            obj.startmine()
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -663,7 +663,7 @@ class PUFGrowth(_ab._frequentPatterns):
                 self._finalPatterns[sample] = y
 
     @deprecated(
-        "It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
+        "It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns

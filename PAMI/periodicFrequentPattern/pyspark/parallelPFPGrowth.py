@@ -8,7 +8,7 @@
 #
 #             obj = alg.parallelPFPGrowth(iFile, minSup, maxPer, numWorkers, sep='\t')
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             periodicFrequentPatterns = obj.getPatterns()
 #
@@ -442,7 +442,7 @@ if __name__ == "__main__":
     if len(sys.argv) == 6:
         inputData = sys.argv[1] if sys.argv[1].lower().endswith('.txt') else sc.textFile(sys.argv[1])
         pp_fp = Parallel_PPFP(inputData, sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
-        pp_fp.startMine()
+        pp_fp.mine()
         finalPatterns = pp_fp.getPatterns()
         print("Total number of Periodic Frequent Patterns:", len(finalPatterns))
         pp_fp.save(sys.argv[2])

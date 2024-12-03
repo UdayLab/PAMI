@@ -9,7 +9,7 @@
 #
 #             obj = alg.PFPGrowthPlus("../basic/sampleTDB.txt", "2", "6")
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             periodicFrequentPatterns = obj.getPatterns()
 #
@@ -343,7 +343,7 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
 
    :Methods:
 
-        startMine()
+        mine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -367,7 +367,7 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
             update the Databases by removing aperiodic items and sort the Database by item decreased support
         buildTree()
             after updating the Databases ar added into the tree by setting root node as null
-        startMine()
+        mine()
             the main method to run the program
 
 
@@ -395,7 +395,7 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
 
             obj = alg.PFPGrowthPlus("../basic/sampleTDB.txt", "2", "6")
 
-            obj.startMine()
+            obj.mine()
 
             periodicFrequentPatterns = obj.getPatterns()
 
@@ -742,7 +742,7 @@ if __name__ == "__main__":
             _ap = PFPGrowthPlus(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
             _ap = PFPGrowthPlus(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
-        _ap.startMine()
+        _ap.mine()
         print("Total number of Periodic-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

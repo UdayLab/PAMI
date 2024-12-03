@@ -143,7 +143,7 @@ seperator = ' '  # specify the seperator. Default seperator is tab space.
 oFile = 'utilityfrequentPatterns.txt'  # specify the output file name
 
 obj = alg.HUFIM(iFile, minUtil, minSup, seperator)  # initialize the algorithm 
-obj.startMine()  # start the mining process 
+obj.mine()  # start the mining process 
 obj.save(oFile)  # store the patterns in file 
 df = obj.getPatternsAsDataFrame()  # Get the patterns discovered into a dataframe 
 obj.printResults()  # Print the stats of mining process

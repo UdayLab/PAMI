@@ -256,7 +256,7 @@ derive the statistical details of a database.
           from PAMI.frequentPattern.basic import fpGrowth  as alg
           
           obj = alg.fpGrowth(inputFile,minSup,sep)
-          obj.startMine()
+          obj.mine()
           obj.save('patterns.txt')
           df = obj.getPatternsAsDataFrame()
           print('Runtime: ' + str(obj.getRuntime()))
