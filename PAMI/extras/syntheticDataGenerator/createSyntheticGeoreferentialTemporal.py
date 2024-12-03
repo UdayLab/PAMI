@@ -61,9 +61,9 @@ class createGeoreferentialTemporalDatabase:
             writer.write("%s \n" % st)
             count += 1
             
-if __name__ == "__main__":
-    _ap = str()
-    _ap = createSyntheticGeoreferentialTemporal(100000, 870, 10)
-    _ap.createGeoreferentialTemporalDatabase("T10_geo_temp.txt")
-else:
-    print("Error! The number of input parameters do not match the total number of parameters provided")
+# if __name__ == "__main__":
+#     _ap = str()
+#     _ap = createSyntheticGeoreferentialTemporal(100000, 870, 10)
+#     _ap.createGeoreferentialTemporalDatabase("T10_geo_temp.txt")
+# else:
+#     print("Error! The number of input parameters do not match the total number of parameters provided")

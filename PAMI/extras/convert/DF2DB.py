@@ -38,6 +38,16 @@ import PAMI.extras.convert.denseDF2DB as dense
 import PAMI.extras.convert.sparseDF2DB as sparse
 import sys,psutil,os,time
 from typing import Union
+import operator
+
+condition_operator = {
+    '<': operator.lt,
+    '>': operator.gt,
+    '<=': operator.le,
+    '>=': operator.ge,
+    '==': operator.eq,
+    '!=': operator.ne
+}
 
 class DF2DB:
     """
@@ -93,8 +103,12 @@ class DF2DB:
         self._endTime = float()
         self._memoryUSS = float()
         self._memoryRSS = float()
+        self.tids = []
+        self.items = []
+        self.items = list(self.inputDF.columns.values)
+        self.tids = list(self.inputDF.index)
 
-    def convert2TransactionalDatabase(self, oFile: str, condition: str, thresholdValue: Union[int, float]) -> str:
+    def convert2TransactionalDatabase(self, oFile: str, condition: str, thresholdValue: Union[int, float]) -> None:
         """
         create transactional database and return oFileName
         :param oFile: file name or path to store database
@@ -103,14 +117,28 @@ class DF2DB:
         :rtype: str
         """
         self._startTime = time.time()
-        self.DF2DB.convert2TransactionalDatabase(oFile,condition,thresholdValue)
+        with open(oFile, 'w') as f:
+            if condition not in condition_operator:
+                print('Condition error')
+            else:
+                for tid in self.tids:
+                    transaction = [item for item in self.items if
+                                   condition_operator[condition](self.inputDF.at[tid, item], thresholdValue)]
+                    if len(transaction) > 1:
+                        f.write(f'{transaction[0]}')
+                        for item in transaction[1:]:
+                            f.write(f'\t{item}')
+                    elif len(transaction) == 1:
+                        f.write(f'{transaction[0]}')
+                    else:
+                        continue
+                    f.write('\n')
         process = psutil.Process(os.getpid())
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
         self._endTime  = time.time()
-        return self.DF2DB.getFileName()
 
-    def convert2TemporalDatabase(self, oFile: str, condition: str, thresholdValue: Union[int, float]) -> str:
+    def convert2TemporalDatabase(self, oFile: str, condition: str, thresholdValue: Union[int, float]) -> None:
         """
         create temporal database and return oFile name
         :param oFile: file name or path to store database
@@ -119,14 +147,29 @@ class DF2DB:
         :rtype: str
         """
         self._startTime = time.time()
-        self.DF2DB.convert2TemporalDatabase(oFile,condition,thresholdValue)
+        with open(oFile, 'w') as f:
+            if condition not in condition_operator:
+                print('Condition error')
+            else:
+                for tid in self.tids:
+                    transaction = [item for item in self.items if
+                                   condition_operator[condition](self.inputDF.at[tid, item], thresholdValue)]
+                    if len(transaction) > 1:
+                        f.write(f'{tid + 1}')
+                        for item in transaction:
+                            f.write(f'\t{item}')
+                    elif len(transaction) == 1:
+                        f.write(f'{tid + 1}')
+                        f.write(f'\t{transaction[0]}')
+                    else:
+                        continue
+                    f.write('\n')
         process = psutil.Process(os.getpid())
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
         self._endTime  = time.time()
-        return self.DF2DB.getFileName()
 
-    def convert2UtilityDatabase(self, oFile: str) -> str:
+    def convert2UtilityDatabase(self, oFile: str) ->None:
         """
         create utility database and return oFile name
         :param oFile:  file name or path to store database
@@ -135,12 +178,22 @@ class DF2DB:
         :rtype: str
         """
         self._startTime = time.time()
-        self.DF2DB.convert2UtilityDatabase(oFile)
+        with open(oFile, 'w') as f:
+            for tid in self.tids:
+                df = self.inputDF.loc[tid].dropna()
+                f.write(f'{df.index[0]}')
+                for item in df.index[1:]:
+                    f.write(f'\t{item}')
+                f.write(f':{df.sum()}:')
+                f.write(f'{df.at[df.index[0]]}')
+
+                for item in df.index[1:]:
+                    f.write(f'\t{df.at[item]}')
+                f.write('\n')
         process = psutil.Process(os.getpid())
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
         self._endTime = time.time()
-        return self.DF2DB.getFileName()
 
     def convert2geoReferencedTransactionalDatabase(self, oFile: str, condition: str, thresholdValue: Union[int, float]) -> str:
         """
@@ -151,7 +204,22 @@ class DF2DB:
         :rtype: str
         """
         self._startTime = time.time()
-        self.DF2DB.convert2TransactionalDatabase(oFile,condition,thresholdValue)
+        with open(oFile, 'w') as f:
+            if condition not in condition_operator:
+                print('Condition error')
+            else:
+                for tid in self.tids:
+                    transaction = [item for item in self.items if
+                                   condition_operator[condition](self.inputDF.at[tid, item], thresholdValue)]
+                    if len(transaction) > 1:
+                        f.write(f'{transaction[0]}')
+                        for item in transaction[1:]:
+                            f.write(f'\t{item}')
+                    elif len(transaction) == 1:
+                        f.write(f'{transaction[0]}')
+                    else:
+                        continue
+                    f.write('\n')
         process = psutil.Process(os.getpid())
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
@@ -167,12 +235,115 @@ class DF2DB:
         :rtype: str
         """
         self._startTime = time.time()
-        self.DF2DB.convert2TemporalDatabase(oFile,condition,thresholdValue)
+        with open(oFile, 'w') as f:
+            if condition not in condition_operator:
+                print('Condition error')
+            else:
+                for tid in self.tids:
+                    transaction = [item for item in self.items if
+                                   condition_operator[condition](self.inputDF.at[tid, item], thresholdValue)]
+                    if len(transaction) > 1:
+                        f.write(f'{tid + 1}')
+                        for item in transaction:
+                            f.write(f'\t{item}')
+                    elif len(transaction) == 1:
+                        f.write(f'{tid + 1}')
+                        f.write(f'\t{transaction[0]}')
+                    else:
+                        continue
+                    f.write('\n')
         process = psutil.Process(os.getpid())
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
         self._endTime  = time.time()
         return self.DF2DB.getFileName()
+
+
+    def convert2MultipleTimeSeries(self, oFile: str, condition: str,
+                                   thresholdValue: Union[int, float], interval: int) -> None:
+        """
+        :Description: Create the multiple time series database.
+
+        :param outputFile:  Write multiple time series database into outputFile.
+
+        :type outputFile:  str
+
+        :param interval: Breaks the given timeseries into intervals.
+
+        :type interval: int
+
+        :param condition: It is condition to judge the value in dataframe
+
+        :param thresholdValue: User defined value.
+
+        :type thresholdValue: int or float
+        """
+        self._startTime = time.time()
+        writer = open(oFile, 'w+')
+        # with open(self.outputFile, 'w+') as f:
+        count = 0
+        tids = []
+        items = []
+        values = []
+        for tid in self.tids:
+            count += 1
+            transaction = [item for item in self.items if
+                           condition_operator[condition](self.inputDF.at[tid, item], thresholdValue)]
+            for i in transaction:
+                tids.append(count)
+                items.append(i)
+                values.append(self.inputDF.at[tid, i])
+            if count == interval:
+                s1, s, ss = str(), str(), str()
+                if len(values) > 0:
+
+                    for j in range(len(tids)):
+                        s1 = s1 + str(tids[j]) + '\t'
+                    for j in range(len(items)):
+                        s = s + items[j] + '\t'
+                    for j in range(len(values)):
+                        ss = ss + str(values[j]) + '\t'
+
+                s2 = s1 + ':' + s + ':' + ss
+                writer.write("%s\n" % s2)
+                tids, items, values = [], [], []
+                count = 0
+        process = psutil.Process(os.getpid())
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        self._endTime = time.time()
+
+
+
+    def convert2UncertainTransactionalDatabase(self, oFile: str, condition: str,
+                                       thresholdValue: Union[int, float]) -> None:
+        with open(oFile, 'w') as f:
+            if condition not in condition_operator:
+                print('Condition error')
+            else:
+                for tid in self.tids:
+                    transaction = [item for item in self.items if
+                                   condition_operator[condition](self.inputDF.at[tid, item], thresholdValue)]
+                    uncertain = [self.inputDF.at[tid, item] for item in self.items if
+                                 condition_operator[condition](self.inputDF.at[tid, item], thresholdValue)]
+                    if len(transaction) > 1:
+                        f.write(f'{transaction[0]}')
+                        for item in transaction[1:]:
+                            f.write(f'\t{item}')
+                        f.write(f':')
+                        for value in uncertain:
+                            tt = 0.1 + 0.036 * abs(25 - value)
+                            tt = round(tt, 2)
+                            f.write(f'\t{tt}')
+                    elif len(transaction) == 1:
+                        f.write(f'{transaction[0]}')
+                        tt = 0.1 + 0.036 * abs(25 - uncertain[0])
+                        tt = round(tt, 2)
+                        f.write(f':{tt}')
+                    else:
+                        continue
+                    f.write('\n')
+
 
     def getMemoryUSS(self) -> float:
         """

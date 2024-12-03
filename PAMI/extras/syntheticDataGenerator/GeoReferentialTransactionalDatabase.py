@@ -37,7 +37,7 @@ import pandas as pd
 import sys
 
 
-class geoReferentialTransactionalDatabase:
+class GeoReferentialTransactionalDatabase:
     """
     :Description Generate a transactional database with the given number of lines, average number of items per line, and total number of items
 
@@ -196,13 +196,17 @@ class geoReferentialTransactionalDatabase:
             self.db.append(nline)
             # self.db.append(line)
 
-    def save(self, sep, filename) -> None:
+    def save(self,filename, sep='\t') -> None:
         """
         Save the transactional database to a file
 
         :param filename: name of the file
 
         :type filename: str
+
+        :param sep: seperator for the items
+
+        :type sep: str
 
         :return: None
         """
@@ -225,15 +229,15 @@ class geoReferentialTransactionalDatabase:
         return df
 
 
-if __name__ == "__main__":
-    # test the class
-    db = generateSpatioTransactional(10, 5, 10, 1, 5, 5, 10)
-    db.create()
-    db.save('\t', '2.txt')
-    print(db.getTransactions())
-
-    obj = generateSpatioTransactional(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6],
-                                      sys.argv[7])
-    obj.create()
-    obj.save(sys.argv[8])
-    # print(obj.getTransactions())
+# if __name__ == "__main__":
+#     # test the class
+#     # db = GenerateSpatioTransactional(10, 5, 10, 1, 5, 5, 10)
+#     # db.create()
+#     # db.save('\t', '2.txt')
+#     # print(db.getTransactions())
+#
+#     obj = GeoreferentialTransactionalDatabase(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6],
+#                                       sys.argv[7])
+#     obj.create()
+#     obj.save(sys.argv[8])
+#     # print(obj.getTransactions())
