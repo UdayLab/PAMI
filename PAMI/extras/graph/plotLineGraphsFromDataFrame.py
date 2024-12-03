@@ -1,17 +1,29 @@
-# plotLineGraphFromDataFrame is used to convert the given dataframe into plotLineGraph.
+# plotLineGraphsFromDataFrame is used to convert the given dataframe into a Line Graph.
 #
 #  **Importing this algorithm into a python program**
-#  --------------------------------------------------------
 #
 #     from PAMI.extras.graph import plotLineGraphsFromDataFrame as plt
 #
-#     obj = plt.plotLineGraphsFromDictionary(idf)
+#     dataFrame = pd.DataFrame(data)
 #
-#     obj.save()
+#     obj = plt.plotLineGraphsFromDataFrame(dataFrame)
 #
-
-
-
+#     obj.plot(result=dataFrame, xaxis='minSup', yaxis='patterns', label='algorithm')
+#
+#     obj.plot(result=dataFrame, xaxis='minSup', yaxis='runtime', label='algorithm')
+#
+#     obj.plot(result=dataFrame, xaxis='minSup', yaxis='memoryRSS', label='algorithm')
+#
+#     obj.plot(result=dataFrame, xaxis='minSup', yaxis='memoryUSS', label='algorithm')
+#
+#     obj.save(result=dataFrame, xaxis='minSup', yaxis='patterns', label='algorithm', oFile='patterns.png')
+#
+#     obj.save(result=dataFrame, xaxis='minSup', yaxis='runtime', label='algorithm', oFile='runtime.png')
+#
+#     obj.save(result=dataFrame, xaxis='minSup', yaxis='memoryRSS', label='algorithm', oFile='memoryRSS.png')
+#
+#     obj.save(result=dataFrame, xaxis='minSup', yaxis='memoryUSS', label='algorithm', oFile='memoryUSS.png')
+#
 
 
 __copyright__ = """
@@ -32,69 +44,89 @@ Copyright (C)  2021 Rage Uday Kiran
 """
 
 import matplotlib.pyplot as plt
-import pandas as _pd
-import sys
+import pandas as pd
 
-class plotGraphsFromDataFrame():
+
+class plotLineGraphsFromDataFrame:
     """
-    plotLineGraphFromDataFrame is used to convert the given dataframe into plotLineGraph.
+    A class to generate and save line graphs from a given DataFrame.
 
     :Attributes:
-
-        :param dataFrame : DataFrame
-            store input data as DataFrame
+        dataFrame (pd.DataFrame): Input DataFrame to generate graphs.
 
     :Methods:
-
-        plotLineGraphFromDatFrame()
-            draw line graph of input data. input data's key is x and value is y.
-
-    **Importing this algorithm into a python program**
-    --------------------------------------------------------
-    .. code-block:: python
-
-            from PAMI.extras.graph import plotLineGraphsFromDataframe as plt
-
-            obj = plt.plotLineGraphsFromDataFrame(idf)
-
-            obj.save()
+        plot(result, xaxis, yaxis, label): Plots a line graph based on the specified axes.
+        save(result, xaxis, yaxis, label, oFile): Saves the line graph to the specified file.
     """
 
-    def __init__(self, dataFrame: _pd.DataFrame) -> None:
+    def __init__(self, dataFrame: pd.DataFrame) -> None:
+        """
+        Initialize the class with a DataFrame.
 
-        self._dataFrame = dataFrame
+        :param dataFrame: Input DataFrame
+        """
+        self.dataFrame = dataFrame
 
-    def plotGraphsFromDataFrame(self) -> None:
-        self._dataFrame.plot(x='minSup', y='patterns', kind='line')
+    def plot(self, result: pd.DataFrame, xaxis: str, yaxis: str, label: str) -> None:
+        """
+        Plots a line graph.
+
+        :param result: Input DataFrame
+        :param xaxis: Column name for the x-axis
+        :param yaxis: Column name for the y-axis
+        :param label: Column name to use for legend labels
+        """
+        plt.figure()
+        for key, grp in result.groupby(label):
+            plt.plot(grp[xaxis], grp[yaxis], label=f"{label}: {key}")
+        plt.xlabel(xaxis)
+        plt.ylabel(yaxis)
+        plt.title(f"{yaxis} vs {xaxis}")
+        plt.legend()
         plt.show()
-        print('Graph for No Of Patterns is successfully generated!')
-        self._dataFrame.plot(x='minSup', y='runtime', kind='line')
-        plt.show()
-        print('Graph for Runtime taken is successfully generated!')
-        self._dataFrame.plot(x='minSup', y='memory', kind='line')
-        plt.show()
-        print('Graph for memory consumption is successfully generated!')
+        print(f"Graph for {yaxis} vs {xaxis} is successfully generated!")
 
+    def save(self, result: pd.DataFrame, xaxis: str, yaxis: str, label: str, oFile: str) -> None:
+        """
+        Saves the line graph to a file.
 
+        :param result: Input DataFrame
+        :param xaxis: Column name for the x-axis
+        :param yaxis: Column name for the y-axis
+        :param label: Column name to use for legend labels
+        :param oFile: Output file name to save the graph
+        """
+        plt.figure()
+        for key, grp in result.groupby(label):
+            plt.plot(grp[xaxis], grp[yaxis], label=f"{label}: {key}")
+        plt.xlabel(xaxis)
+        plt.ylabel(yaxis)
+        plt.title(f"{yaxis} vs {xaxis}")
+        plt.legend()
+        plt.savefig(oFile)
+        plt.close()
+        print(f"Graph saved as {oFile}!")
 
-
-if __name__ == '__main__':
-    #data = {'algorithm': ['FPGrowth','FPGrowth', 'FPGrowth', 'FPGrowth', 'FPGrowth', 'ECLAT', 'ECLAT', 'ECLAT', 'ECLAT', 'ECLAT'],
-    #        'minSup': [0.01, 0.02, 0.03, 0.04, 0.05, 0.01, 0.02, 0.03, 0.04, 0.05],
-    #        'patterns': [386, 155, 60, 36, 10, 386, 155, 60, 26, 10],
-    #        'runtime': [7.351629, 4.658654 , 4.658654 , 1.946843, 1.909376, 4.574833, 2.514252, 1.834948, 1.889892, 1.809999],
-    #        'memory': [426545152, 309182464, 241397760, 225533952, 220950528, 233537536, 267165696, 252841984, 245690368,
-    #                    295710720]
-    #        }
+if __name__ == "__main__":
+    # Example DataFrame
     data = {
         'algorithm': ['FPGrowth', 'FPGrowth', 'FPGrowth', 'FPGrowth', 'FPGrowth'],
-        'minSup': [0.01, 0.02, 0.03, 0.04, 0.05],
-        'patterns': [386, 155, 60, 36, 10],
-        'runtime': [7.351629, 4.658654, 4.658654, 1.946843, 1.909376],
-        'memory': [426545152, 309182464, 241397760, 225533952, 220950528]
-        }
-    dataFrame = _pd.DataFrame(data)
-    ab = plotGraphsFromDataFrame(dataFrame)
-    ab.plotGraphsFromDataFrame()
-    obj = plotGraphsFromDataFrame(sys.argv[1])
-    obj.plotGraphsFromDataFrame(sys.argv[2])
+        'minSup': [0.01, 0.02, 0.03, 0.01, 0.02],
+        'patterns': [386, 155, 60, 386, 155],
+        'runtime': [7.35, 4.66, 4.66, 4.57, 2.51],
+        'memoryRSS': [426545152, 309182464, 241397760, 233537536, 267165696],
+        'memoryUSS': [426545152, 309182464, 241397760, 233537536, 267165696]
+    }
+    dataFrame = pd.DataFrame(data)
+
+    obj = plotLineGraphsFromDataFrame(dataFrame)
+
+    obj.plot(result=dataFrame, xaxis='minSup', yaxis='patterns', label='algorithm')
+    obj.plot(result=dataFrame, xaxis='minSup', yaxis='runtime', label='algorithm')
+    obj.plot(result=dataFrame, xaxis='minSup', yaxis='memoryRSS', label='algorithm')
+    obj.plot(result=dataFrame, xaxis='minSup', yaxis='memoryUSS', label='algorithm')
+
+    obj.save(result=dataFrame, xaxis='minSup', yaxis='patterns', label='algorithm', oFile='patterns.png')
+    obj.save(result=dataFrame, xaxis='minSup', yaxis='runtime', label='algorithm', oFile='runtime.png')
+    obj.save(result=dataFrame, xaxis='minSup', yaxis='memoryRSS', label='algorithm', oFile='memoryRSS.png')
+    obj.save(result=dataFrame, xaxis='minSup', yaxis='memoryUSS', label='algorithm', oFile='memoryUSS.png')
