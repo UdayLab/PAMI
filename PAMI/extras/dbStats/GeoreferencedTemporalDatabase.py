@@ -43,7 +43,7 @@ from urllib.request import urlopen
 from typing import Dict, Union
 import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
-class georeferencedTemporalDatabase:
+class GeoreferencedTemporalDatabase:
     """
     :Description:   TemporalDatabase is class to get stats of database.
 
@@ -103,15 +103,15 @@ class georeferencedTemporalDatabase:
             obj.printStats()
     """
 
-    def __init__(self, inputFile: Union[str, pd.DataFrame], sep: str = '\t') -> None:
+    def __init__(self, iFile: Union[str, pd.DataFrame], sep: str = '\t') -> None:
         """
-        :param inputFile: input file name or path
-        :type inputFile: str
+        :param iFile: input file name or path
+        :type iFile: str
         :param sep: separator
         :type sep: str
         :return: None
         """
-        self.inputFile = inputFile
+        self.inputFile = iFile
         self.database = {}
         self.lengthList = []
         self.timeStampCount = {}

@@ -121,7 +121,7 @@ foo@bar: cd PAMI/highUtilityPattern/basic
 ```
 * Execute the python program on their terminal using the following syntax:
 ```console
-foo@bar: python3 algorithmName.py inputFile outputFile minUtil seperator
+foo@bar: python3 algorithmName.py iFile outputFile minUtil seperator
 ```
 
 __Example:__ python3 `EFIM.py` `inputFile.txt` `outputFile.txt` $20$ &nbsp; `' '`

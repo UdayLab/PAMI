@@ -42,7 +42,7 @@ from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 
-class georeferencedTransactionalDatabase:
+class GeoreferencedTransactionalDatabase:
     """
     :Description:  TransactionalDatabase is class to get stats of database.
 
@@ -102,15 +102,15 @@ class georeferencedTransactionalDatabase:
 
     """
 
-    def __init__(self, inputFile: Union[str, pd.DataFrame], sep: str = '\t') -> None:
+    def __init__(self, iFile: Union[str, pd.DataFrame], sep: str = '\t') -> None:
         """
-        :param inputFile: input file name or path
-        :type inputFile: str
+        :param iFile: input file name or path
+        :type iFile: str
         :param sep: separator
         :type sep: str
         :return: None
         """
-        self.inputFile = inputFile
+        self.inputFile = iFile
         self.lengthList = []
         self.sep = sep
         self.database = {}
@@ -332,24 +332,24 @@ class georeferencedTransactionalDatabase:
                                         'frequency')
 
 
-if __name__ == '__main__':
-    data = {'tid': [1, 2, 3, 4, 5, 6, 7],
-
-            'Transactions': [['a', 'd', 'e'], ['b', 'a', 'f', 'g', 'h'], ['b', 'a', 'd', 'f'], ['b', 'a', 'c'],
-                             ['a', 'd', 'g', 'k'],
-
-                             ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
-
-    # data = pd.DataFrame.from_dict('transactional_T10I4D100K.csv')
-    import PAMI.extras.graph.plotLineGraphFromDictionary as plt
-    import pandas as pd
-
-    # obj = TransactionalDatabase(data)
-    obj = TransactionalDatabase(sys.argv[1], sys.argv[2])
-    obj = TransactionalDatabase(pd.DataFrame(data))
-    obj.run()
-    obj.printStats()
-    obj.plotGraphs()
+# if __name__ == '__main__':
+#     data = {'tid': [1, 2, 3, 4, 5, 6, 7],
+# 
+#             'Transactions': [['a', 'd', 'e'], ['b', 'a', 'f', 'g', 'h'], ['b', 'a', 'd', 'f'], ['b', 'a', 'c'],
+#                              ['a', 'd', 'g', 'k'],
+# 
+#                              ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
+# 
+#     # data = pd.DataFrame.from_dict('transactional_T10I4D100K.csv')
+#     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
+#     import pandas as pd
+# 
+#     # obj = TransactionalDatabase(data)
+#     obj = TransactionalDatabase(sys.argv[1], sys.argv[2])
+#     obj = TransactionalDatabase(pd.DataFrame(data))
+#     obj.run()
+#     obj.printStats()
+#     obj.plotGraphs()
 
 
 
