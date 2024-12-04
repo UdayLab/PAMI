@@ -79,7 +79,6 @@ class TemporalDatabase:
 
 
         self.current_timestamp = 0  # Initialize current timestamp
-
         sumRes = self.databaseSize * self.avgItemsPerTransaction  # Total number of items
 
         for i in range(self.databaseSize):

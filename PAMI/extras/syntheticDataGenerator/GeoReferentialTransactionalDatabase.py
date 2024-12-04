@@ -34,9 +34,8 @@ Copyright (C)  2021 Rage Uday Kiran
 
 import numpy as np
 import pandas as pd
-import sys
 import time
-
+import sys, psutil, os, time
 
 class GeoReferentialTransactionalDatabase:
     """
@@ -230,6 +229,7 @@ class GeoReferentialTransactionalDatabase:
         """
         df = pd.DataFrame(['\t'.join(map(str, line)) for line in self.db], columns=['Transactions'])
         return df
+
     def getRuntime(self) -> float:
         """
         Get the runtime of the transactional database
@@ -240,3 +240,15 @@ class GeoReferentialTransactionalDatabase:
         :rtype: float
         """
         return self._endTime - self._startTime
+
+    def getMemoryUSS(self) -> float:
+
+        process = psutil.Process(os.getpid())
+        self._memoryUSS = process.memory_full_info().uss
+        return self._memoryUSS
+
+    def getMemoryRSS(self) -> float:
+
+        process = psutil.Process(os.getpid())
+        self._memoryRSS = process.memory_info().rss
+        return self._memoryRSS
