@@ -162,6 +162,7 @@ class TransactionalDatabase:
         for i in range(self.databaseSize):
             self.db.append(np.random.choice(range(1,self.numItems+1), noofItemsperTrans[i], replace=False))
 
+        self._endTime = time.time()
 
     def save(self, filename):
         with open(filename, 'w') as f:
@@ -191,7 +192,6 @@ class TransactionalDatabase:
         return self._memoryRSS
 
     def getRuntime(self) -> float:
-        self._endTime = time.time()
         return self._endTime - self._startTime
 
 if __name__ == "__main__":

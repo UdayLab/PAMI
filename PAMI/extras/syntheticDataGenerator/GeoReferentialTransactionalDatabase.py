@@ -35,6 +35,7 @@ Copyright (C)  2021 Rage Uday Kiran
 import numpy as np
 import pandas as pd
 import sys
+import time
 
 
 class GeoReferentialTransactionalDatabase:
@@ -182,6 +183,7 @@ class GeoReferentialTransactionalDatabase:
         Generate the transactional database
         :return: None
         """
+        self._startTime = time.time()
         db = set()
 
         values = self.generateArray(self.databaseSize, self.avgItemsPerTransaction, self.numItems)
@@ -195,6 +197,7 @@ class GeoReferentialTransactionalDatabase:
             #     line[i] = self.itemPoint[line[i]]
             self.db.append(nline)
             # self.db.append(line)
+        self._endTime = time.time()
 
     def save(self,filename, sep='\t') -> None:
         """
@@ -227,17 +230,13 @@ class GeoReferentialTransactionalDatabase:
         """
         df = pd.DataFrame(['\t'.join(map(str, line)) for line in self.db], columns=['Transactions'])
         return df
+    def getRuntime(self) -> float:
+        """
+        Get the runtime of the transactional database
+
+        :return: the runtime of the transactional database
 
 
-# if __name__ == "__main__":
-#     # test the class
-#     # db = GenerateSpatioTransactional(10, 5, 10, 1, 5, 5, 10)
-#     # db.create()
-#     # db.save('\t', '2.txt')
-#     # print(db.getTransactions())
-#
-#     obj = GeoreferentialTransactionalDatabase(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6],
-#                                       sys.argv[7])
-#     obj.create()
-#     obj.save(sys.argv[8])
-#     # print(obj.getTransactions())
+        :rtype: float
+        """
+        return self._endTime - self._startTime
