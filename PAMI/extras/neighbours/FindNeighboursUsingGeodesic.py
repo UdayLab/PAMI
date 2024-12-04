@@ -32,7 +32,8 @@ Copyright (C)  2021 Rage Uday Kiran
 import sys
 import re
 from geopy.distance import geodesic
-
+import time
+import sys, psutil, os
 
 class FindNeighboursUsingGeodesic:
     """
@@ -70,14 +71,14 @@ class FindNeighboursUsingGeodesic:
             obj.save()
     """
 
-    def __init__(self, iFile: str, oFile: str, maxDist: float, sep='\t'):
+    def __init__(self, iFile: str,  maxDist: float, sep='\t'):
         self.iFile = iFile
-        self.oFile = oFile
         self.maxGeodesicDistance = maxDist
         self.seperator = sep
 
+    def create(self)->None:
         coordinates = []
-        result = {}
+        self.result = {}
         with open(self.iFile, "r") as f:
             for line in f:
                 l = line.rstrip().split(self.seperator)
@@ -98,20 +99,19 @@ class FindNeighboursUsingGeodesic:
                     dist = geodesic((lat1, long1), (lat2, long2)).kilometers
 
                     if dist <= float(self.maxGeodesicDistance):
-                        result[tuple(firstCoordinate)] = result.get(tuple(firstCoordinate), [])
-                        result[tuple(firstCoordinate)].append(secondCoordinate)
+                        self.result[tuple(firstCoordinate)] = self.result.get(tuple(firstCoordinate), [])
+                        self.result[tuple(firstCoordinate)].append(secondCoordinate)
 
-        with open(self.oFile, "w+") as f:
-            for i in result:
+    def save(self,oFile:str)->None:
+        with open(oFile, "w+") as f:
+            for i in self.result:
                 string = "Point(" + i[0] + " " + i[1] + ")" + self.seperator
                 f.write(string)
-                for j in result[i]:
+                for j in self.result[i]:
                     string = "Point(" + j[0] + " " + j[1] + ")" + self.seperator
                     f.write(string)
                 f.write("\n")
 
-    def getFileName(self):
-        return self.oFile
 
 
 if __name__ == "__main__":
