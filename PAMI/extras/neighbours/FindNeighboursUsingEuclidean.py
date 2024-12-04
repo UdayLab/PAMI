@@ -99,7 +99,7 @@ class FindNeighboursUsingEuclidean:
                         self.result[tuple(firstCoordinate)].append(secondCoordinate)
         self._endTime = time.time()
 
-    def save(oFile: str) -> None:
+    def save(self,oFile: str) -> None:
         with open(oFile, "w+") as f:
             for i in self.result:
                 string = "Point(" + i[0] + " " + i[1] + ")" + self.seperator

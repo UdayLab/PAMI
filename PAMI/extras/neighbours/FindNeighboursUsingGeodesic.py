@@ -11,8 +11,6 @@
 #
 
 
-
-
 __copyright__ = """
 Copyright (C)  2021 Rage Uday Kiran
 
@@ -29,11 +27,14 @@ Copyright (C)  2021 Rage Uday Kiran
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-import sys
+
 import re
 from geopy.distance import geodesic
 import time
-import sys, psutil, os
+import sys
+import psutil
+import os
+
 
 class FindNeighboursUsingGeodesic:
     """
@@ -43,8 +44,6 @@ class FindNeighboursUsingGeodesic:
 
         :param iFile : file
             Input file name or path of the input file
-        :param oFile : file
-            Output file name or path pf the output file
         :param maxDist : float
             The user can specify maxDist in Km(Kilometers).
             This program find pairs of values whose Geodesic distance is less than or equal to maxDistace
@@ -71,14 +70,15 @@ class FindNeighboursUsingGeodesic:
             obj.save()
     """
 
-    def __init__(self, iFile: str,  maxDist: float, sep='\t'):
+    def __init__(self, iFile: str, maxDist: float, sep='\t'):
         self.iFile = iFile
         self.maxGeodesicDistance = maxDist
         self.seperator = sep
-
-    def create(self)->None:
-        coordinates = []
         self.result = {}
+
+    def create(self) -> None:
+        self._startTime = time.time()
+        coordinates = []
         with open(self.iFile, "r") as f:
             for line in f:
                 l = line.rstrip().split(self.seperator)
@@ -101,8 +101,9 @@ class FindNeighboursUsingGeodesic:
                     if dist <= float(self.maxGeodesicDistance):
                         self.result[tuple(firstCoordinate)] = self.result.get(tuple(firstCoordinate), [])
                         self.result[tuple(firstCoordinate)].append(secondCoordinate)
+        self._endTime = time.time()
 
-    def save(self,oFile:str)->None:
+    def save(self, oFile: str) -> None:
         with open(oFile, "w+") as f:
             for i in self.result:
                 string = "Point(" + i[0] + " " + i[1] + ")" + self.seperator
@@ -112,6 +113,28 @@ class FindNeighboursUsingGeodesic:
                     f.write(string)
                 f.write("\n")
 
+    def getRuntime(self) -> float:
+        """
+        Get the runtime of the transactional database
+
+        :return: the runtime of the transactional database
+
+
+        :rtype: float
+        """
+        return self._endTime - self._startTime
+
+    def getMemoryUSS(self) -> float:
+
+        process = psutil.Process(os.getpid())
+        self._memoryUSS = process.memory_full_info().uss
+        return self._memoryUSS
+
+    def getMemoryRSS(self) -> float:
+
+        process = psutil.Process(os.getpid())
+        self._memoryRSS = process.memory_info().rss
+        return self._memoryRSS
 
 
 if __name__ == "__main__":
