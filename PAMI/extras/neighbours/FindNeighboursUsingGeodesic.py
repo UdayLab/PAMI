@@ -31,7 +31,6 @@ Copyright (C)  2021 Rage Uday Kiran
 """
 import sys
 import re
-from math import sqrt
 from geopy.distance import geodesic
 
 
@@ -45,11 +44,11 @@ class FindNeighboursUsingGeodesic:
             Input file name or path of the input file
         :param oFile : file
             Output file name or path pf the output file
-        :param maxDistance : float
-            The user can specify maxDistance in Km(Kilometers).
+        :param maxDist : float
+            The user can specify maxDist in Km(Kilometers).
             This program find pairs of values whose Geodesic distance is less than or equal to maxDistace
             and store the pairs.
-        :param  seperator: str :
+        :param  sep: str :
                     This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
 
@@ -71,16 +70,17 @@ class FindNeighboursUsingGeodesic:
             obj.save()
     """
 
-    def __init__(self, iFile: str, oFile: str, maxDistance: float, seperator='\t'):
+    def __init__(self, iFile: str, oFile: str, maxDist: float, sep='\t'):
         self.iFile = iFile
         self.oFile = oFile
-        self.maxDistance = maxDistance
+        self.maxGeodesicDistance = maxDist
+        self.seperator = sep
 
         coordinates = []
         result = {}
         with open(self.iFile, "r") as f:
             for line in f:
-                l = line.rstrip().split(seperator)
+                l = line.rstrip().split(self.seperator)
                 # print(l)
                 l[2] = re.sub(r'[^0-9. ]', '', l[2])
                 coordinates.append(l[2].rstrip().split(' '))
@@ -97,16 +97,16 @@ class FindNeighboursUsingGeodesic:
 
                     dist = geodesic((lat1, long1), (lat2, long2)).kilometers
 
-                    if dist <= float(self.maxDistance):
+                    if dist <= float(self.maxGeodesicDistance):
                         result[tuple(firstCoordinate)] = result.get(tuple(firstCoordinate), [])
                         result[tuple(firstCoordinate)].append(secondCoordinate)
 
         with open(self.oFile, "w+") as f:
             for i in result:
-                string = "Point(" + i[0] + " " + i[1] + ")" + seperator
+                string = "Point(" + i[0] + " " + i[1] + ")" + self.seperator
                 f.write(string)
                 for j in result[i]:
-                    string = "Point(" + j[0] + " " + j[1] + ")" + seperator
+                    string = "Point(" + j[0] + " " + j[1] + ")" + self.seperator
                     f.write(string)
                 f.write("\n")
 
@@ -115,4 +115,4 @@ class FindNeighboursUsingGeodesic:
 
 
 if __name__ == "__main__":
-    obj = FindNeighboursUsingGeodesic(sys.argv[1], sys.argv[2], sys.argv[4])
+    obj = FindNeighboursUsingGeodesic(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])

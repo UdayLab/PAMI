@@ -34,7 +34,7 @@ import sys
 import re
 from math import sqrt
 
-class findNeighboursUsingEuclidean:
+class FindNeighboursUsingEuclidean:
     """
     This class create a neighbourhood file using euclid distance.
 
@@ -44,11 +44,11 @@ class findNeighboursUsingEuclidean:
             Input file name or path of the input file
         :param oFile : file
             Output file name or path pf the output file
-        :param maxEuclideanDistance : int
+        :param maxDist : int
             The user can specify maxEuclideanDistance.
             This program find pairs of values whose Euclidean distance is less than or equal to maxEucledianDistace
             and store the pairs.
-        :param  seperator: str :
+        :param  sep: str :
                     This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
     :Methods:
@@ -69,16 +69,18 @@ class findNeighboursUsingEuclidean:
             obj.save()
     """
 
-    def __init__(self,iFile: str,oFile: str,maxEucledianDistance: int, seperator='\t') -> None:
+    def __init__(self,iFile: str,oFile: str,maxDist: int, sep='\t') -> None:
         self.iFile = iFile
         self.oFile = oFile
-        self.maxEucledianDistance = maxEucledianDistance
+        self.maxEucledianDistance = maxDist
+        self.seperator = sep
+
 
         coordinates = []
         result = {}
         with open(self.iFile,"r") as f:
             for line in f:
-                l = line.rstrip().split(seperator)
+                l = line.rstrip().split(self.seperator)
                 #print(l)
                 l[0] = re.sub(r'[^0-9. ]', '', l[0])
                 coordinates.append(l[0].rstrip().split(' '))
@@ -102,10 +104,10 @@ class findNeighboursUsingEuclidean:
 
         with open(self.oFile,"w+") as f:
             for i in result:
-                string = "Point(" +i[0]+" "+i[1] + ")"+ seperator
+                string = "Point(" +i[0]+" "+i[1] + ")"+ self.seperator
                 f.write(string)
                 for j in result[i]:
-                    string = "Point(" + j[0] + " " + j[1] + ")"+ seperator
+                    string = "Point(" + j[0] + " " + j[1] + ")"+ self.seperator
                     f.write(string)
                 f.write("\n")
 
@@ -114,4 +116,4 @@ class findNeighboursUsingEuclidean:
         return self.oFile
 
 if __name__ == "__main__":
-    obj = findNeighboursUsingEuclidean(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    obj = FindNeighboursUsingEuclidean(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
