@@ -34,7 +34,7 @@ import sys
 import re
 from math import sqrt
 
-class createNeighborhoodFileUsingEuclideanDistance:
+class findNeighboursUsingEuclidean:
     """
     This class create a neighbourhood file using euclid distance.
 
@@ -114,4 +114,4 @@ class createNeighborhoodFileUsingEuclideanDistance:
         return self.oFile
 
 if __name__ == "__main__":
-    obj = createNeighborhoodFileUsingEuclideanDistance(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    obj = findNeighboursUsingEuclidean(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])

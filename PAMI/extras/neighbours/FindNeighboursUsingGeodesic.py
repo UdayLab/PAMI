@@ -35,7 +35,7 @@ from math import sqrt
 from geopy.distance import geodesic
 
 
-class createNeighborhoodFileUsingGeodesicDistance:
+class FindNeighboursUsingGeodesic:
     """
     This class create a neighbourhood file using Geodesic distance.
 
@@ -115,4 +115,4 @@ class createNeighborhoodFileUsingGeodesicDistance:
 
 
 if __name__ == "__main__":
-    obj = createNeighborhoodFileUsingGeodesicDistance(sys.argv[1], sys.argv[2], sys.argv[4])
+    obj = FindNeighboursUsingGeodesic(sys.argv[1], sys.argv[2], sys.argv[4])
