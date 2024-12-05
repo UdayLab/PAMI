@@ -39,6 +39,7 @@ import statistics
 from urllib.request import urlopen
 import pandas as pd
 from typing import Union
+import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class UtilityDatabase:
     """
@@ -342,8 +343,6 @@ class UtilityDatabase:
 
 
 if __name__ == '__main__':
-    import PAMI.extras.graph.plotLineGraphFromDictionary as plt
-
     try:
         if len(sys.argv) != 3:
             raise ValueError("Missing some of the input parameters. Format: python UtilityDatabase.py <fileName> <seperator (optional)>")

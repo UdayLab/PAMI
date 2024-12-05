@@ -123,6 +123,12 @@ class _utilityPatterns(_ABC):
         pass
 
     @_abstractmethod
+    def mine(self):
+        """Code for the mining process will start from this function"""
+
+        pass
+
+    @_abstractmethod
     def getPatterns(self):
         """Complete set of frequent patterns generated will be retrieved from this function"""
 
