@@ -4,6 +4,7 @@ import time
 import os
 import psutil
 import numpy as np
+import tqdm
 
 
 class GeoReferentialTemporalDatabase:
@@ -193,7 +194,7 @@ class GeoReferentialTemporalDatabase:
         lineSize = self.tuning(lineSize, sumRes)
 
         # For each transaction, generate items
-        for i in range(len(lineSize)):
+        for i in tqdm.tqdm(range(len(lineSize))):
             transaction_index = lineSize[i][0]
             num_items = lineSize[i][1]
 
