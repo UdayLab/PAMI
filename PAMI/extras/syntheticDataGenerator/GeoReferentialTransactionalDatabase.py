@@ -99,7 +99,10 @@ class GeoReferentialTransactionalDatabase:
             while point in usedPoints:
                 point = self.getPoint(x1, y1, x2, y2)
             self.itemPoint[i] = point
-
+        self._startTime = float()
+        self._endTime = float()
+        self._memoryUSS = float()
+        self._memoryRSS = float()
     def tuning(self, array, sumRes) -> list:
         """
         Tune the array so that the sum of the values is equal to sumRes
