@@ -4,9 +4,10 @@ import time
 import os
 import psutil
 import numpy as np
+import tqdm
 
 
-class GeoreferentialTemporalDatabase:
+class GeoReferentialTemporalDatabase:
     """
     This class create synthetic geo-referential temporal database.
 
@@ -23,7 +24,7 @@ class GeoreferentialTemporalDatabase:
 
     :Methods:
 
-        GeoreferentialTemporalDatabase(outputFile)
+        GeoReferentialTemporalDatabase(outputFile)
             Create geo-referential temporal database and store into outputFile
 
     **Credits:**
@@ -56,7 +57,10 @@ class GeoreferentialTemporalDatabase:
         self.seperator = sep
         self.occurrenceProbabilityOfSameTimestamp = occurrenceProbabilityOfSameTimestamp
         self.occurrenceProbabilityToSkipSubsequentTimestamp = occurrenceProbabilityToSkipSubsequentTimestamp
-
+        self._startTime = float()
+        self._endTime = float()
+        self._memoryUSS = float()
+        self._memoryRSS = float()
         if numItems > ((x2 - x1) * (y2 - y1)):
             raise ValueError("Number of points is less than the number of lines * average items per line")
 
@@ -163,7 +167,7 @@ class GeoreferentialTemporalDatabase:
 
     def create(self) -> None:
         """
-        Generate the transactional database
+        Generate the Temporal database
         :return: None
         """
         self._startTime = time.time()
@@ -190,7 +194,7 @@ class GeoreferentialTemporalDatabase:
         lineSize = self.tuning(lineSize, sumRes)
 
         # For each transaction, generate items
-        for i in range(len(lineSize)):
+        for i in tqdm.tqdm(range(len(lineSize))):
             transaction_index = lineSize[i][0]
             num_items = lineSize[i][1]
 
@@ -205,6 +209,36 @@ class GeoreferentialTemporalDatabase:
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
 
+    def save(self,filename, sep='\t') -> None:
+        """
+        Save the Temporal database to a file
+
+        :param filename: name of the file
+
+        :type filename: str
+
+        :param sep: seperator for the items
+
+        :type sep: str
+
+        :return: None
+        """
+
+        with open(filename, 'w') as f:
+            for line in self.db:
+                # f.write(','.join(map(str, line)) + '\n')
+                line = list(map(str, line))
+                f.write(sep.join(line) + '\n')
+    def getTransactions(self) -> pd.DataFrame:
+        """
+        Get the Temporal database
+
+        :return: the Temporal database
+
+        :rtype: pd.DataFrame
+        """
+        df = pd.DataFrame(['\t'.join(map(str, line)) for line in self.db], columns=['Transactions'])
+        return df
 
 
     def getRuntime(self) -> float:
@@ -220,14 +254,10 @@ class GeoreferentialTemporalDatabase:
 
     def getMemoryUSS(self) -> float:
 
-        process = psutil.Process(os.getpid())
-        self._memoryUSS = process.memory_full_info().uss
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
 
-        process = psutil.Process(os.getpid())
-        self._memoryRSS = process.memory_info().rss
         return self._memoryRSS
 # if __name__ == "__main__":
 #     _ap = str()

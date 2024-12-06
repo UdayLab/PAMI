@@ -35,7 +35,7 @@ Copyright (C)  2021 Rage Uday Kiran
 import numpy as np
 import pandas as pd
 import time
-import sys, psutil, os, time
+import sys, psutil, os, time, tqdm
 
 class GeoReferentialTransactionalDatabase:
     """
@@ -93,13 +93,16 @@ class GeoReferentialTransactionalDatabase:
         self.itemPoint = {}
         usedPoints = set()
 
-        for i in range(1, numItems + 1):
+        for i in (range(1, numItems + 1)):
             # self.itemPoint[i] = (np.random.randint(x1, x2), np.random.randint(y1, y2))
             point = self.getPoint(x1, y1, x2, y2)
             while point in usedPoints:
                 point = self.getPoint(x1, y1, x2, y2)
             self.itemPoint[i] = point
-
+        self._startTime = float()
+        self._endTime = float()
+        self._memoryUSS = float()
+        self._memoryRSS = float()
     def tuning(self, array, sumRes) -> list:
         """
         Tune the array so that the sum of the values is equal to sumRes
@@ -187,7 +190,7 @@ class GeoReferentialTransactionalDatabase:
 
         values = self.generateArray(self.databaseSize, self.avgItemsPerTransaction, self.numItems)
 
-        for value in values:
+        for value in tqdm.tqdm(values):
             line = np.random.choice(range(1, self.numItems + 1), value, replace=False)
             nline = [self.itemPoint[i] for i in line]
             # print(line, nline)
