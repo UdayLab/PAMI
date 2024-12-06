@@ -32,8 +32,8 @@ import re
 from geopy.distance import geodesic
 import time
 import sys
-import psutil
-import os
+import psutil,os,tqdm
+import pandas as pd
 
 
 class FindNeighboursUsingGeodesic:
@@ -70,25 +70,40 @@ class FindNeighboursUsingGeodesic:
             obj.save()
     """
 
-    def __init__(self, iFile: str, maxDist: float, sep='\t'):
+    def __init__(self, iFile: str, maxDist: float, sep='\t',DBtype="temp"):
         self.iFile = iFile
         self.maxGeodesicDistance = maxDist
         self.seperator = sep
         self.result = {}
+        self.DBtype = DBtype
+        self._startTime = float()
+        self._endTime = float()
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+
+
 
     def create(self) -> None:
         self._startTime = time.time()
         coordinates = []
         with open(self.iFile, "r") as f:
-            for line in f:
-                l = line.rstrip().split(self.seperator)
-                # print(l)
-                l[2] = re.sub(r'[^0-9. ]', '', l[2])
-                coordinates.append(l[2].rstrip().split(' '))
-                # print(l[0])
-        for i in range(len(coordinates)):
-            for j in range(len(coordinates)):
-                if i != j:
+            if self.DBtype == "temp":
+                for line in f:
+                    l = line.rstrip().split(self.seperator)
+                    for i in l[1:]:
+                        i = re.sub(r'[^0-9. ]', '', i)
+                        if i not in coordinates:
+                            coordinates.append(i.rstrip().split(' '))
+            else:
+                for line in f:
+                    l = line.rstrip().split(self.seperator)
+                    for i in l:
+                        i = re.sub(r'[^0-9. ]', '', i)
+                        if i not in coordinates:
+                            coordinates.append(i.rstrip().split(' '))
+        for i in tqdm.tqdm(range(len(coordinates))):
+            for j in range(len(coordinates - i - 1)):
+                    j = j + i + 1
                     firstCoordinate = coordinates[i]
                     secondCoordinate = coordinates[j]
                     long1 = float(firstCoordinate[0])
@@ -101,6 +116,8 @@ class FindNeighboursUsingGeodesic:
                     if dist <= float(self.maxGeodesicDistance):
                         self.result[tuple(firstCoordinate)] = self.result.get(tuple(firstCoordinate), [])
                         self.result[tuple(firstCoordinate)].append(secondCoordinate)
+                        self.result[tuple(secondCoordinate)] = self.result.get(tuple(secondCoordinate), [])
+                        self.result[tuple(secondCoordinate)].append(firstCoordinate)
         self._endTime = time.time()
 
     def save(self, oFile: str) -> None:
@@ -113,6 +130,9 @@ class FindNeighboursUsingGeodesic:
                     f.write(string)
                 f.write("\n")
 
+    def getNeighboringInformation(self):
+        df = pd.DataFrame(['\t'.join(map(str, line)) for line in self.result], columns=['Neighbors'])
+        return df
     def getRuntime(self) -> float:
         """
         Get the runtime of the transactional database
