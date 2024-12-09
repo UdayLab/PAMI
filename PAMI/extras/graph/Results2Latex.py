@@ -1,10 +1,10 @@
-# results2Latex is used to convert the given results into LatexFile.
+# Results2Latex is used to convert the given results into LatexFile.
 #
 # **Importing this algorithm into a python program**
 #
-#             from PAMI.extras.graph import results2Latex
+#             from PAMI.extras.graph import Results2Latex
 #
-#             obj = results2Latex()
+#             obj = Results2Latex()
 #
 #             obj.print(resultsDF, xaxis='minSup', yaxis='patterns', label='algorithm')
 #
@@ -44,7 +44,7 @@ Copyright (C)  2021 Rage Uday Kiran
 
 import pandas as pd
 
-class results2Latex:
+class Results2Latex:
     """
     **About this algorithm**
 
