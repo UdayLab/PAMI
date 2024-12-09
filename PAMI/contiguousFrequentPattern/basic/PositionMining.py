@@ -83,12 +83,23 @@ class PositionMining:
         self.min_sup=minsup
         self.datapath=datapath
         self.maxlength=maxlength
+        self.seq_prefixes = None
+        self.data = None
+        self.symbol_freq = None
+        self.total_length = None
+        self._startTime = None
+        self._endTime = None
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self.table = None
+        self.current_candidate = None
+        self.frequentPatterns = None
     
 
     def readData(self):
         df=pd.read_csv(self.datapath)
         vals=df.values
-        self.seq_prefixes={}
+        self.seq_prefixes = {}
         # prev=0
         # self.seq_prefixes[vals[0][0]]=len(vals[0])
         # for i in range(1,len(vals)):

@@ -140,6 +140,7 @@ class generateTemporalDatabase:
         self.avgLenOfTransactions = avgLenOfTransactions
         self.numItems = numItems
         self.outputFile = outputFile
+        self.df = None
         if percentage > 1:
             self.percentage = percentage / 100
         else:
@@ -269,7 +270,6 @@ class generateTemporalDatabase:
         for i in range(len(form)):
             database[form[i][0]] = np.random.choice(range(1, self.numItems + 1), form[i][1], replace=False).tolist().sort()
             database[form[i][0]] = self.sep.join([str(i) for i in database[form[i][0]]])
-
         self.df = pd.DataFrame({'Timestamp': [i+1 for i in range(self.numOfTransactions)], 'Transactions': database})
         print(self.df)
 

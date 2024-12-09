@@ -366,7 +366,7 @@ class cudaAprioriTID:
         minSup = self._minSup
 
 
-        data = dict(filter(lambda x: len(x[1]) >= self.minSup, self._Database()))
+        data = dict(filter(lambda x: len(x[1]) >= self.minSup, self._Database))
         for key, value in data.items():
             final[key] = len(value)
 

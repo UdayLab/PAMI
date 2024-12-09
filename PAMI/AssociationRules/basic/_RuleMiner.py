@@ -379,6 +379,11 @@ class RuleMiner:
         self._threshold = threshold
         self._finalPatterns = {}
         self._sep = sep
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._startTime = None
+        self._endTime = None
+        self._oFile = str
     
     def _readPatterns(self):
         """

@@ -79,6 +79,7 @@ class createTDB:
         self._threshold = int(threshold)
         self._items = []
         self._updatedItems = []
+        self._oFile = str
 
     def createTDB(self):
         """

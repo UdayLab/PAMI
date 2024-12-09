@@ -140,6 +140,7 @@ class generateTemporalDatabase:
         self.avgLenOfTransactions = avgLenOfTransactions
         self.numItems = numItems
         self.outputFile = outputFile
+        self.df = None
         if percentage > 1:
             self.percentage = percentage / 100
         else:
