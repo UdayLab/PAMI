@@ -75,6 +75,7 @@ class usingSD():
         self._iFile = iFile
         self._threshold = threshold
         self._sep = sep
+        self._oFile = str
 
     def _creatingItemSets(self) -> None:
         """

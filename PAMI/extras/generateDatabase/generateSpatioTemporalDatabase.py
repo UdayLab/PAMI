@@ -154,6 +154,7 @@ class generateTemporalDatabase:
         self.y1 = y1
         self.x2 = x2
         self.y2 = y2
+        self.df = None
 
         numPoints = (x2 - x1) * (y2 - y1)
         if numItems > numPoints:

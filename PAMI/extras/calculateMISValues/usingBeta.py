@@ -75,6 +75,7 @@ class usingBeta():
         self._LS = LS
         self._sep = sep
         self._lno = 0
+        self._oFile = str
 
     def _creatingItemSets(self) -> None:
         """

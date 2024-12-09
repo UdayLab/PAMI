@@ -411,6 +411,11 @@ class CSV2Parquet:
         self.inputFile = inputFile
         self.outputFile = outputFile
         self.sep = sep
+        self.start = None
+        self.end = None
+        self.pid = None
+        self.memoryUSS = float()
+        self.memoryRSS = float()
 
     def convert(self):
         """
@@ -546,6 +551,11 @@ class Parquet2CSV:
         self.inputFile = inputFile
         self.outputFile = outputFile
         self.sep = sep
+        self.start = None
+        self.end = None
+        self.pid = None
+        self.memoryUSS = float()
+        self.memoryRSS = float()
 
     def convert(self):
         """

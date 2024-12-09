@@ -76,6 +76,7 @@ class sparseDF2DB:
         self.condition = ""
         self.thresholdValue = 0
         self.outputFile = ''
+        self.df = None
         
     def setParametors(self,outputFile: str, condition: str, thresholdValue:  Union[int, float]):
         self.condition = condition

@@ -238,6 +238,13 @@ class ARWithLeverage:
         self._minConf = minConf
         self._finalPatterns = {}
         self._sep = sep
+        self._startTime = None
+        self._endTime = None
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._oFile = str
+
+
 
 
     def _readPatterns(self) -> list:
@@ -306,8 +313,6 @@ class ARWithLeverage:
         self._finalPatterns = a._finalPatterns
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
         print("Association rules successfully  generated from frequent patterns ")
