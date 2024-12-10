@@ -5,7 +5,7 @@ import os
 import psutil
 import numpy as np
 import tqdm
-
+import pandas as pd
 
 class GeoReferentialTemporalDatabase:
     """
@@ -172,7 +172,7 @@ class GeoReferentialTemporalDatabase:
         """
         self._startTime = time.time()
         db = set()
-
+        lineSize = [] #may be error. need to check it.
         sumRes = self.databaseSize * self.avgItemsPerTransaction  # Total number of items
 
         for i in range(self.databaseSize):
@@ -204,7 +204,7 @@ class GeoReferentialTemporalDatabase:
             items = np.random.choice(range(1, self.numItems + 1), num_items, replace=False)
             self.db[transaction_index].extend(items)
 
-        self._runTime = time.time() - start
+        self._runTime = time.time() - self._startTime
         process = psutil.Process(os.getpid())
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
