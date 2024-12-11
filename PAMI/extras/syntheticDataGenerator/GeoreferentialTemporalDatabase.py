@@ -78,7 +78,7 @@ class GeoReferentialTemporalDatabase:
 
     def getPoint(self, x1, y1, x2, y2):
 
-        return "POINT"+str((np.random.randint(x1, x2),np.random.randint(y1, y2)))
+        return (np.random.randint(x1, x2),np.random.randint(y1, y2))
 
     def performCoinFlip(self, probability: float) -> bool:
         """
