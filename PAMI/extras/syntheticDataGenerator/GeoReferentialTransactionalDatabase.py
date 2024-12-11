@@ -64,7 +64,7 @@ class GeoReferentialTransactionalDatabase:
 
     def getPoint(self, x1, y1, x2, y2):
 
-        return (np.random.randint(x1, x2), np.random.randint(y1, y2))
+        return "POINT"+str((np.random.randint(x1, x2), np.random.randint(y1, y2)))
 
     def __init__(self, databaseSize, avgItemsPerTransaction, numItems, x1, y1, x2, y2, sep='\t') -> None:
         """
@@ -121,15 +121,14 @@ class GeoReferentialTransactionalDatabase:
         """
 
         while np.sum(array) != sumRes:
-            # get index of largest value
-            randIndex = np.random.randint(0, len(array))
             # if sum is too large, decrease the largest value
             if np.sum(array) > sumRes:
-                array[randIndex] -= 1
+                maxIndex = np.argmax(array)
+                array[maxIndex] -= 1
             # if sum is too small, increase the smallest value
             else:
                 minIndex = np.argmin(array)
-                array[randIndex] += 1
+                array[minIndex] += 1
         return array
 
     def generateArray(self, nums, avg, maxItems) -> list:
@@ -154,7 +153,7 @@ class GeoReferentialTransactionalDatabase:
         """
 
         # generate n random values
-        values = np.random.randint(1, maxItems, nums)
+        values = np.random.randint(1, avg*1.5, nums)
 
         sumRes = nums * avg
 
