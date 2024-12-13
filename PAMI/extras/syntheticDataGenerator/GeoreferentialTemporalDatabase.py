@@ -57,6 +57,7 @@ class GeoReferentialTemporalDatabase:
         self.seperator = sep
         self.occurrenceProbabilityOfSameTimestamp = occurrenceProbabilityOfSameTimestamp
         self.occurrenceProbabilityToSkipSubsequentTimestamp = occurrenceProbabilityToSkipSubsequentTimestamp
+        self.current_timestamp = int()
         self._startTime = float()
         self._endTime = float()
         self._memoryUSS = float()
@@ -76,7 +77,7 @@ class GeoReferentialTemporalDatabase:
 
     def getPoint(self, x1, y1, x2, y2):
 
-        return (np.random.randint(x1, x2), np.random.randint(y1, y2))
+        return (np.random.randint(x1, x2),np.random.randint(y1, y2))
 
     def performCoinFlip(self, probability: float) -> bool:
         """
@@ -86,7 +87,7 @@ class GeoReferentialTemporalDatabase:
         :return: True if the coin lands heads, False otherwise.
         """
         result = np.random.choice([0, 1], p=[1 - probability, probability])
-        return result == 1
+        return result
 
     def tuning(self, array, sumRes) -> list:
         """
@@ -106,16 +107,14 @@ class GeoReferentialTemporalDatabase:
         """
 
         while np.sum(array) != sumRes:
-            # get index of largest value
-            randIndex = np.random.randint(0, len(array))
-            # if sum is too large, decrease the largest value
             if np.sum(array) > sumRes:
-                array[randIndex] -= 1
-            # if sum is too small, increase the smallest value
+                maxIndex = np.argmax(array)
+                array[maxIndex] -= 1
+                # if sum is too small, increase the smallest value
             else:
                 minIndex = np.argmin(array)
-                array[randIndex] += 1
-        return array
+                array[minIndex] += 1
+            return array
 
     def generateArray(self, nums, avg, maxItems) -> list:
         """
@@ -139,7 +138,7 @@ class GeoReferentialTemporalDatabase:
         """
 
         # generate n random values
-        values = np.random.randint(1, maxItems, nums)
+        values = np.random.randint(1, avg*1.5, nums)
 
         sumRes = nums * avg
 
@@ -172,15 +171,15 @@ class GeoReferentialTemporalDatabase:
         """
         self._startTime = time.time()
         db = set()
-        lineSize = [] #may be error. need to check it.
-        sumRes = self.databaseSize * self.avgItemsPerTransaction  # Total number of items
+
+        values = self.generateArray(self.databaseSize, self.avgItemsPerTransaction, self.numItems)
 
         for i in range(self.databaseSize):
             # Determine the timestamp
             if self.performCoinFlip(self.occurrenceProbabilityOfSameTimestamp):
                 timestamp = self.current_timestamp
             else:
-                if self.performCoinFlip(self.occurrenceProbabilityToSkipSubsequentTimestamp):
+                if self.performCoinFlip(self.occurrenceProbabilityToSkipSubsequentTimestamp)==1:
                     self.current_timestamp += 2
                 else:
                     self.current_timestamp += 1
@@ -188,23 +187,13 @@ class GeoReferentialTemporalDatabase:
 
             self.db.append([timestamp])  # Start the transaction with the timestamp
 
-            lineSize.append([i, 0])  # Initialize lineSize with 0 for each transaction
-
-        # Adjust lineSize to ensure sum of sizes equals sumRes
-        lineSize = self.tuning(lineSize, sumRes)
-
         # For each transaction, generate items
-        for i in tqdm.tqdm(range(len(lineSize))):
-            transaction_index = lineSize[i][0]
-            num_items = lineSize[i][1]
+        for i in tqdm.tqdm(range(self.databaseSize)):
+            items = np.random.choice(range(1, self.numItems + 1), values[i], replace=False)
+            nline = [self.itemPoint[i] for i in items]
+            self.db[i].extend(nline)
 
-            if num_items > self.numItems:
-                raise ValueError(
-                    "Error: Either increase numItems or decrease avgItemsPerTransaction or modify percentage")
-            items = np.random.choice(range(1, self.numItems + 1), num_items, replace=False)
-            self.db[transaction_index].extend(items)
-
-        self._runTime = time.time() - self._startTime
+        self._endTime = time.time()
         process = psutil.Process(os.getpid())
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss

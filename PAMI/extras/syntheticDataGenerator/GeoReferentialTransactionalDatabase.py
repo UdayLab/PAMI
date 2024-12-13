@@ -1,7 +1,7 @@
 # generateTransactionalDatabase is a code used to convert the database into Temporal database.
 #
 #  **Importing this algorithm into a python program**
-#  --------------------------------------------------------
+#
 #     from PAMI.extras.generateDatabase import generateTransactionalDatabase as db
 #     obj = db(10, 5, 10)
 #     obj.create()
@@ -9,7 +9,7 @@
 #     print(obj.getTransactions()) to get the transactional database as a pandas dataframe
 
 # **Running the code from the command line**
-# --------------------------------------------------------
+#
 #     python generateDatabase.py 10 5 10 db.txt
 #     cat db.txt
 #
@@ -121,16 +121,15 @@ class GeoReferentialTransactionalDatabase:
         """
 
         while np.sum(array) != sumRes:
-            # get index of largest value
-            randIndex = np.random.randint(0, len(array))
-            # if sum is too large, decrease the largest value
+
             if np.sum(array) > sumRes:
-                array[randIndex] -= 1
-            # if sum is too small, increase the smallest value
+                maxIndex = np.argmax(array)
+                array[maxIndex] -= 1
+                # if sum is too small, increase the smallest value
             else:
                 minIndex = np.argmin(array)
-                array[randIndex] += 1
-        return array
+                array[minIndex] += 1
+            return array
 
     def generateArray(self, nums, avg, maxItems) -> list:
         """
@@ -154,7 +153,7 @@ class GeoReferentialTransactionalDatabase:
         """
 
         # generate n random values
-        values = np.random.randint(1, maxItems, nums)
+        values = np.random.randint(1, avg * 1.5, nums)
 
         sumRes = nums * avg
 
