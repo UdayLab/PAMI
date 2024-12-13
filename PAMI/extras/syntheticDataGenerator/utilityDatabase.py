@@ -3,17 +3,17 @@ import pandas as pd
 import random
 
 
-class UtilityDataGenerator:
+class UtilityDatabase:
     def __init__(self, databaseSize, numberOfItems, averageLengthOfTransaction,
                  minimumInternalUtilityValue, maximumInternalUtilityValue,
                  minimumExternalUtilityValue, maximumExternalUtilityValue):
         self.databaseSize = databaseSize
-        self.numberOfItems = numberOfItems
-        self.averageLengthOfTransaction = averageLengthOfTransaction
-        self.minInternalUtilityValue = minimumInternalUtilityValue
-        self.maxInternalUtilityValue = maximumInternalUtilityValue
-        self.minExternalUtilityValue = minimumExternalUtilityValue
-        self.maxExternalUtilityValue = maximumExternalUtilityValue
+        self.numItems = numItems
+        self.avgItemsPerTransaction = avgItemsPerTransaction
+        self.minInternalUtilityValue = minInternalUtilityValue
+        self.maxInternalUtilityValue = maxInternalUtilityValue
+        self.minExternalUtilityValue = minExternalUtilityValue
+        self.maxExternalUtilityValue = maxExternalUtilityValue
         self.entries = []
         self.ExternalUtilityData = self.GenerateExternalUtilityData()
 
