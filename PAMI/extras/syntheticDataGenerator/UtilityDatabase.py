@@ -1,12 +1,13 @@
 import numpy as np
 import pandas as pd
 import random
+import psutil, os, time
 
 
 class UtilityDatabase:
-    def __init__(self, databaseSize, numberOfItems, averageLengthOfTransaction,
-                 minimumInternalUtilityValue, maximumInternalUtilityValue,
-                 minimumExternalUtilityValue, maximumExternalUtilityValue):
+    def __init__(self, databaseSize, numItems, avgItemsPerTransaction,
+                 minInternalUtilityValue, maxInternalUtilityValue,
+                 minExternalUtilityValue, maxExternalUtilityValue):
         self.databaseSize = databaseSize
         self.numItems = numItems
         self.avgItemsPerTransaction = avgItemsPerTransaction
@@ -16,28 +17,49 @@ class UtilityDatabase:
         self.maxExternalUtilityValue = maxExternalUtilityValue
         self.entries = []
         self.ExternalUtilityData = self.GenerateExternalUtilityData()
+        self._startTime = float()
+        self._endTime = float()
+        self._memoryUSS = float()
+        self._memoryRSS = float()
 
     def GenerateExternalUtilityData(self):
-        items = range(1, self.numberOfItems + 1)
+        items = range(1, self.numItems + 1)
         ExternalUtilityData = {f'item{item}': random.randint(100, 900) for item in items}
         return ExternalUtilityData
 
-    def Generate(self):
+    def create(self):
+        self._startTime = time.time()
         for entry_id in range(1, self.databaseSize + 1):
-            entry_length = np.random.randint(1, self.averageLengthOfTransaction * 2)
+            entry_length = np.random.randint(1, self.avgItemsPerTransaction * 2)
             entry = np.random.randint(self.minInternalUtilityValue, self.maxInternalUtilityValue + 1,
-                                      size=self.numberOfItems)
+                                      size=self.numItems)
             entry_sum = entry.sum()
             self.entries.append((entry, entry_sum))
+        self._endTime = time.time()
 
-    def Save(self, fileName):
+    def save(self, fileName):
         with open(fileName, 'w') as file:
             for idx, (entry, entry_sum) in enumerate(self.entries, start=1):
                 entry_str = '\t'.join(map(str, entry))
                 file.write(f'{idx}\t{entry_str}\t{entry_sum}\n')
 
+    def getMemoryUSS(self) -> float:
+
+        process = psutil.Process(os.getpid())
+        self._memoryUSS = process.memory_full_info().uss
+        return self._memoryUSS
+
+    def getMemoryRSS(self) -> float:
+
+        process = psutil.Process(os.getpid())
+        self._memoryRSS = process.memory_info().rss
+        return self._memoryRSS
+
+    def getRuntime(self) -> float:
+        return self._endTime - self._startTime
+
     def SaveItemsInternalUtilityValues(self, fileName):
-        items = random.sample(range(1, self.numberOfItems + 1), self.numberOfItems)
+        items = random.sample(range(1, self.numItems + 1), self.numItems)
         internal_utility_data = [np.random.randint(self.minInternalUtilityValue, self.maxInternalUtilityValue + 1) for _
                                  in items]
         data = {'Item': items, 'Internal Utility Value': internal_utility_data}
@@ -45,7 +67,7 @@ class UtilityDatabase:
         df.to_csv(fileName, sep='\t', index=False)
 
     def Saveitemsexternalutilityvalues(self, fileName):
-        items = random.sample(range(1, self.numberOfItems + 1), self.numberOfItems)
+        items = random.sample(range(1, self.numItems + 1), self.numItems)
         data = {'Item': [f'item{item}' for item in items],
                 'External Utility Value': list(self.ExternalUtilityData.values())}
         df = pd.DataFrame(data)
@@ -59,7 +81,7 @@ class UtilityDatabase:
         return df
 
     def GetInternalUtilityData(self):
-        items = random.sample(range(1, self.numberOfItems + 1), self.numberOfItems)
+        items = random.sample(range(1, self.numItems + 1), self.numItems)
         InternalUtilityData = [np.random.randint(self.minInternalUtilityValue, self.maxInternalUtilityValue + 1) for _
                                  in items]
         data = {'Item': items, 'Internal Utility Value': InternalUtilityData}
@@ -67,14 +89,14 @@ class UtilityDatabase:
         return df
 
     def GetExternalUtilityData(self):
-        items = random.sample(range(1, self.numberOfItems + 1), self.numberOfItems)
+        items = random.sample(range(1, self.numItems + 1), self.numItems)
         data = {'Item': [f'item{item}' for item in items],
                 'External Utility Value': list(self.ExternalUtilityData.values())}
         df = pd.DataFrame(data)
         return df
 
     def GenerateAndPrintItemPairs(self):
-        items = random.sample(range(1, self.numberOfItems + 1), 2)
+        items = random.sample(range(1, self.numItems + 1), 2)
         item1_id = f'item{items[0]}'
         item2_id = f'item{items[1]}'
         item1_value = self.ExternalUtilityData[item1_id]
@@ -87,12 +109,15 @@ class UtilityDatabase:
 
 
 if __name__ == "__main__":
-    data_generator = UtilityDataGenerator(100000, 2000, 10, 1, 100, 1, 10)
-    data_generator.Generate()
-    data_generator.Save("utility_data-6.csv")
+    data_generator = UtilityDatabase(100000, 2000, 10, 1, 100, 1, 10)
+    data_generator.create()
+    data_generator.save("utility_data-6.csv")
     data_generator.SaveItemsInternalUtilityValues("items_internal_utility.csv")
     data_generator.Saveitemsexternalutilityvalues("items_external_utility.csv")
-    utility_data = data_generator.GetUtilityData()
+    utilityDataFrame = data_generator.GetUtilityData()
+    print('Runtime: ' + str(data_generator.getRuntime()))
+    print('Memory (RSS): ' + str(data_generator.getMemoryRSS()))
+    print('Memory (USS): ' + str(data_generator.getMemoryUSS()))
     InternalUtilityData = data_generator.GetInternalUtilityData()
     ExternalUtilityData = data_generator.GetExternalUtilityData()
 
