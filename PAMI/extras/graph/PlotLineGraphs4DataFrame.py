@@ -1,12 +1,12 @@
-# plotLineGraphsFromDataFrame is used to convert the given dataframe into a Line Graph.
+# PlotLineGraphs4DataFrame is used to convert the given dataframe into a Line Graph.
 #
 #  **Importing this algorithm into a python program**
 #
-#     from PAMI.extras.graph import plotLineGraphsFromDataFrame as plt
+#     from PAMI.extras.graph import PlotLineGraphs4DataFrame as plt
 #
 #     dataFrame = pd.DataFrame(data)
 #
-#     obj = plt.plotLineGraphsFromDataFrame(dataFrame)
+#     obj = plt.PlotLineGraphs4DataFrame(dataFrame)
 #
 #     obj.plot(result=dataFrame, xaxis='minSup', yaxis='patterns', label='algorithm')
 #
@@ -47,7 +47,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-class plotLineGraphsFromDataFrame:
+class PlotLineGraphs4DataFrame:
     """
     A class to generate and save line graphs from a given DataFrame.
 
@@ -119,7 +119,7 @@ if __name__ == "__main__":
     }
     dataFrame = pd.DataFrame(data)
 
-    obj = plotLineGraphsFromDataFrame(dataFrame)
+    obj = PlotLineGraphs4DataFrame(dataFrame)
 
     obj.plot(result=dataFrame, xaxis='minSup', yaxis='patterns', label='algorithm')
     obj.plot(result=dataFrame, xaxis='minSup', yaxis='runtime', label='algorithm')

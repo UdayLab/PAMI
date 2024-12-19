@@ -118,6 +118,7 @@ class MultipleTimeSeriesFuzzyDatabaseStats:
         self.sep = sep
         self.database = {}
         self.itemFrequencies = {}
+        self._transactions, self._fuzzyValues, self._Database, self._ts = [], [], [], []
 
     def run(self) -> None:
         self.readDatabase()

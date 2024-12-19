@@ -81,6 +81,7 @@ class UtilityDatabase:
         self.lengthList = []
         self.utility = {}
         self.sep = sep
+        self.Database,self.utilityValues = None,None
 
     def run(self) -> None:
         self.readDatabase()

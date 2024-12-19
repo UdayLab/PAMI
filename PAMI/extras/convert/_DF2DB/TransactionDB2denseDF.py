@@ -140,7 +140,7 @@ class TransactionDB2denseDF():
         
         self._creatingItemSets()
         self.makeDic()
-    def getDF()
+    def getDF(self):
         """
         get database 
         :return: df
@@ -149,17 +149,17 @@ class TransactionDB2denseDF():
         
 if __name__ == '__main__':
 
-    if len(sys.argv)=3:
+    if len(sys.argv)==3:
         obj = TransactionDB2denseDF( sys.argv[0], sys.argv[2])
         obj.createDB()
-        self.save(sys.argv[1])
-    elif len(sys.argv)=2:
+        obj.save(sys.argv[1])
+    elif len(sys.argv)==2:
         obj = TransactionDB2denseDF( sys.argv[0])
         obj.createDB()
-        self.save(sys.argv[1])
-    elif len(sys.argv)=1:
+        obj.save(sys.argv[1])
+    elif len(sys.argv)==1:
         obj = TransactionDB2denseDF( sys.argv[0])
         obj.createDB()
-        self.save(obj.oFile)
+        #self.save(obj.oFile)
     else:
         print("Err:wrong input")

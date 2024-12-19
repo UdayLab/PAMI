@@ -30,3 +30,4 @@ linter: jetbrains/qodana-<linter>:latest
 exclude:
   - name: PyProtectedMemberInspection
   - name: PyPep8NamingInspection
+  - name: PySetFunctionToLiteralInspection
