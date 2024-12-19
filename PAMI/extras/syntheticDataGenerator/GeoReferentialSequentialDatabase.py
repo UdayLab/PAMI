@@ -1,9 +1,9 @@
-# generateTransactionalDatabase is a code used to convert the database into Temporal database.
+# generateSequentialDatabase is a code used to generate sequential database.
 #
 #  **Importing this algorithm into a python program**
 #  --------------------------------------------------------
-#     from PAMI.extras.generateDatabase import generateTransactionalDatabase as db
-#     obj = db(10, 5, 10)
+#     from PAMI.extras.generateDatabase import generateSequentialDatabase as db
+#     obj = db(10,10, 5, 10)
 #     obj.create()
 #     obj.save('db.txt')
 #     print(obj.getTransactions()) to get the transactional database as a pandas dataframe
@@ -16,7 +16,7 @@
 
 
 __copyright__ = """
-Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2024 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -32,77 +32,81 @@ Copyright (C)  2021 Rage Uday Kiran
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import math
+
 import numpy as np
 import pandas as pd
-import time
-import sys, psutil, os, time, tqdm
+import sys
 
-class GeoReferentialTransactionalDatabase:
+
+class GeoReferentialSequentialDatabase:
     """
-    :Description Generate a transactional database with the given number of lines, average number of items per line, and total number of items
+    :Description Generate a sequential database with the given number of lines, average number of items per line, and total number of items
 
     :Attributes:
-    numLines: int
-        - number of lines
-    avgItemsPerTransaction: int
-        - average number of items per line
+    numSeq: int
+        - number of sequences in database
+    avgItemsetPerSeq:int
+        - avarage number of itemset in one sequence
+    avgItemsPeritemset: int
+        - average number of items per itemset
     numItems: int
-        - total number of items
+        - total kind of items
+    maxItem: int(default:numItems)
+        - maximum number of items per itemset
+    maxItemset: int(default:avgItemsetPerSeq * 2)
+        - maximum number of itemset per sequence
+    seqSep: str
+        - Separator for each item set
 
     :Methods:
         create:
             Generate the transactional database
         save:
-            Save the transactional database to a file
+            Save the sequential database to a file
         getTransactions:
-            Get the transactional database
+            Get the sequential database
 
 
 
 
     """
 
-    def getPoint(self, x1, y1, x2, y2):
-
-        return (np.random.randint(x1, x2), np.random.randint(y1, y2))
-
-    def __init__(self, databaseSize, avgItemsPerTransaction, numItems, x1, y1, x2, y2, sep='\t') -> None:
+    def __init__(self, numSeq, avgItemsetPerSeq, avgItemsPerItemset, numItems,x1=0,y1=0,x2=100,y2=100, maxItem=0, maxItemset=0,
+                 seqSep="-1") -> None:
         """
         Initialize the transactional database with the given parameters
 
-        Parameters:
-        databaseSize: int - number of lines
-        avgItemsPerTransaction: int - average number of items per line
-        numItems: int - total number of items
         """
 
-        self.databaseSize = databaseSize
-        self.avgItemsPerTransaction = avgItemsPerTransaction
+        self.numSeq = numSeq
+        self.avgItemsetPerSeq = avgItemsetPerSeq
+        self.avgItemsPerItemset = avgItemsPerItemset
         self.numItems = numItems
+        if maxItem == 0:
+            self.maxItem = numItems
+        else:
+            self.maxItem = maxItem
+        if maxItemset == 0:
+            self.maxItemset = avgItemsetPerSeq * 2
+        else:
+            self.maxItemset = maxItemset
+        self.seqSep = seqSep
         self.db = []
-        self.x1 = x1
-        self.y1 = y1
-        self.x2 = x2
-        self.y2 = y2
-        self.seperator = sep
-
         numPoints = (x2 - x1) * (y2 - y1)
         if numItems > numPoints:
             raise ValueError("Number of points is less than the number of lines * average items per line")
 
         self.itemPoint = {}
-        usedPoints = set()
+
 
         for i in (range(1, numItems + 1)):
             # self.itemPoint[i] = (np.random.randint(x1, x2), np.random.randint(y1, y2))
             point = self.getPoint(x1, y1, x2, y2)
-            while point in usedPoints:
+            while point in self.itemPoint:
                 point = self.getPoint(x1, y1, x2, y2)
             self.itemPoint[i] = point
-        self._startTime = float()
-        self._endTime = float()
-        self._memoryUSS = float()
-        self._memoryRSS = float()
+
     def tuning(self, array, sumRes) -> list:
         """
         Tune the array so that the sum of the values is equal to sumRes
@@ -121,19 +125,20 @@ class GeoReferentialTransactionalDatabase:
         """
 
         while np.sum(array) != sumRes:
+            # get index of largest value
+            randIndex = np.random.randint(0, len(array))
             # if sum is too large, decrease the largest value
             if np.sum(array) > sumRes:
-                maxIndex = np.argmax(array)
-                array[maxIndex] -= 1
+                array[randIndex] -= 1
             # if sum is too small, increase the smallest value
             else:
                 minIndex = np.argmin(array)
-                array[minIndex] += 1
+                array[randIndex] += 1
         return array
 
     def generateArray(self, nums, avg, maxItems) -> list:
         """
-        Generate a random array of length n whose values average to m
+        Generate a random array of length nums whose values average to avg
 
         :param nums: number of values
 
@@ -153,54 +158,57 @@ class GeoReferentialTransactionalDatabase:
         """
 
         # generate n random values
-        values = np.random.randint(1, avg*1.5, nums)
-
+        values = np.random.randint(1, maxItems, nums)
         sumRes = nums * avg
 
-        self.tuning(values, sumRes)
+        values = self.tuning(values, sumRes)
 
         # if any value is less than 1, increase it and tune the array again
         while np.any(values < 1):
             for i in range(nums):
                 if values[i] < 1:
                     values[i] += 1
-            self.tuning(values, sumRes)
+            values = self.tuning(values, sumRes)
 
         while np.any(values > maxItems):
             for i in range(nums):
                 if values[i] > maxItems:
                     values[i] -= 1
-            self.tuning(values, sumRes)
+            values = self.tuning(values, sumRes)
 
         # if all values are same then randomly increase one value and decrease another
         while np.all(values == values[0]):
             values[np.random.randint(0, nums)] += 1
-            self.tuning(values, sumRes)
+            values = self.tuning(values, sumRes)
 
         return values
 
-    def create(self) -> None:
+    def create(self, item="") -> None:
         """
-        Generate the transactional database
+        :param item: list (default:generate random numItems items)
+            item list to make database
+        Generate the sequential database
         :return: None
         """
-        self._startTime = time.time()
+        if item == "":
+            item=self.itemPoint
+
         db = set()
+        sequences = self.generateArray(self.numSeq, self.avgItemsetPerSeq - 1, self.maxItemset)
 
-        values = self.generateArray(self.databaseSize, self.avgItemsPerTransaction, self.numItems)
+        for numItemset in sequences:
+            seq = []
+            values = self.generateArray(numItemset + 1, self.avgItemsPerItemset, self.maxItem)
 
-        for value in tqdm.tqdm(values):
-            line = np.random.choice(range(1, self.numItems + 1), value, replace=False)
-            nline = [self.itemPoint[i] for i in line]
-            # print(line, nline)
-            # for i in range(len(line)):
-            #     print(line[i], self.itemPoint[line[i]])
-            #     line[i] = self.itemPoint[line[i]]
-            self.db.append(nline)
-            # self.db.append(line)
-        self._endTime = time.time()
+            for value in values:
+                line = list(set(np.random.choice(item, value, replace=False)))
+                seq = seq + line
+                seq = seq + [self.seqSep]
+            seq.pop()
 
-    def save(self,filename, sep='\t') -> None:
+            self.db.append(seq)
+
+    def save(self, filename, sep="\t") -> None:
         """
         Save the transactional database to a file
 
@@ -208,49 +216,28 @@ class GeoReferentialTransactionalDatabase:
 
         :type filename: str
 
-        :param sep: seperator for the items
-
-        :type sep: str
-
         :return: None
         """
 
         with open(filename, 'w') as f:
             for line in self.db:
-                # f.write(','.join(map(str, line)) + '\n')
-                line = list(map(str, line))
-                f.write(sep.join(line) + '\n')
+                f.write(sep.join(map(str, line)) + '\n')
 
-    def getTransactions(self) -> pd.DataFrame:
+    def getSequence(self) -> pd.DataFrame:
         """
-        Get the transactional database
+        Get the sequential database
 
-        :return: the transactional database
+        :return: the sequential database
 
         :rtype: pd.DataFrame
         """
-        df = pd.DataFrame(['\t'.join(map(str, line)) for line in self.db], columns=['Transactions'])
+        df = pd.DataFrame(self.db)
         return df
 
-    def getRuntime(self) -> float:
-        """
-        Get the runtime of the transactional database
 
-        :return: the runtime of the transactional database
-
-
-        :rtype: float
-        """
-        return self._endTime - self._startTime
-
-    def getMemoryUSS(self) -> float:
-
-        process = psutil.Process(os.getpid())
-        self._memoryUSS = process.memory_full_info().uss
-        return self._memoryUSS
-
-    def getMemoryRSS(self) -> float:
-
-        process = psutil.Process(os.getpid())
-        self._memoryRSS = process.memory_info().rss
-        return self._memoryRSS
+if __name__ == "__main__":
+    # test the class
+    db = GeoReferentialSequentialDatabase(10, 5, 5, 10)
+    db.create()
+    db.save('db.txt')
+    print(db.getTransactions())

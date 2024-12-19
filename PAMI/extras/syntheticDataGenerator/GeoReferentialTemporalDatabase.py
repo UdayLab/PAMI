@@ -7,6 +7,7 @@ import numpy as np
 import tqdm
 import pandas as pd
 
+
 class GeoReferentialTemporalDatabase:
     """
     This class create synthetic geo-referential temporal database.
@@ -57,7 +58,7 @@ class GeoReferentialTemporalDatabase:
         self.seperator = sep
         self.occurrenceProbabilityOfSameTimestamp = occurrenceProbabilityOfSameTimestamp
         self.occurrenceProbabilityToSkipSubsequentTimestamp = occurrenceProbabilityToSkipSubsequentTimestamp
-        self.current_timestamp = int()
+        self.current_timestamp=int()
         self._startTime = float()
         self._endTime = float()
         self._memoryUSS = float()
@@ -107,14 +108,15 @@ class GeoReferentialTemporalDatabase:
         """
 
         while np.sum(array) != sumRes:
+            # if sum is too large, decrease the largest value
             if np.sum(array) > sumRes:
                 maxIndex = np.argmax(array)
                 array[maxIndex] -= 1
-                # if sum is too small, increase the smallest value
+            # if sum is too small, increase the smallest value
             else:
                 minIndex = np.argmin(array)
                 array[minIndex] += 1
-            return array
+        return array
 
     def generateArray(self, nums, avg, maxItems) -> list:
         """
@@ -173,7 +175,7 @@ class GeoReferentialTemporalDatabase:
         db = set()
 
         values = self.generateArray(self.databaseSize, self.avgItemsPerTransaction, self.numItems)
-
+        
         for i in range(self.databaseSize):
             # Determine the timestamp
             if self.performCoinFlip(self.occurrenceProbabilityOfSameTimestamp):
@@ -187,8 +189,11 @@ class GeoReferentialTemporalDatabase:
 
             self.db.append([timestamp])  # Start the transaction with the timestamp
 
+            
+
         # For each transaction, generate items
         for i in tqdm.tqdm(range(self.databaseSize)):
+
             items = np.random.choice(range(1, self.numItems + 1), values[i], replace=False)
             nline = [self.itemPoint[i] for i in items]
             self.db[i].extend(nline)
