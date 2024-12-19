@@ -36,8 +36,9 @@ import numpy as np
 import pandas as pd
 import time
 import sys, psutil, os, time, tqdm
-
-class GeoReferentialTransactionalDatabase:
+from matplotlib import pyplot as plt
+import random
+class GeoReferentialTransactionalDatabaseByTriangle:
     """
     :Description Generate a transactional database with the given number of lines, average number of items per line, and total number of items
 
@@ -61,12 +62,121 @@ class GeoReferentialTransactionalDatabase:
 
 
     """
+    def __tran_1(self, p):
+        """
+        To set a harf point
+        :param
+            p:list
+            point(x,y)
+        :return
+            x1 :float
+                new x-coordinate
+            y1 :float
+                new y-coordinate
+        """
+        x = p[0]
+        y = p[1]
+        x1 = 0.5 * x
+        y1 = 0.5 * y
 
-    def getPoint(self, x1, y1, x2, y2):
+        return x1, y1
 
-        return (np.random.randint(x1, x2), np.random.randint(y1, y2))
+    def __tran_2(self, p):
+        """
+        to get harf point starts from center
+        :param p:list
+            point(x,y)
+        :return:
+            x1 :float
+                new x-coordinate
+            y1 :float
+                new y-coordinate
+        """
+        x = p[0]
+        y = p[1]
+        x1 = 0.5 * x + self.maxDis/4
+        y1 = 0.5 * y + self.maxDis/4
+        return x1, y1
 
-    def __init__(self, databaseSize, avgItemsPerTransaction, numItems, x1, y1, x2, y2, sep='\t') -> None:
+    def __tran_3(self, p):
+        """
+        To get a harf point start from top
+        :param p:list
+            point(x,y)
+        :return:
+            x1 :float
+                new x-coordinate
+            y1 :float
+                new y-coordinate
+        """
+        x = p[0]
+        y = p[1]
+        x1 = 0.5 * x + self.maxDis/2
+        y1 = 0.5 * y
+        return x1, y1
+
+    def __get_index(self):
+        """
+        To get index
+        :return: int
+            the number of point
+        """
+        prob = [0.333, 0.333, 0.333]
+        r = random.random()
+        c = 0
+        sump = []
+        for p in prob:
+            c += p
+            sump.append(c)
+        for item, sp in enumerate(sump):
+            if(r <= sp):
+                return item
+        return len(prob) - 1
+
+    def __tran(self, p):
+        """
+        To set transactioon
+        :param p: list
+            (point(x,y))
+        :return:
+            x:float
+                new x-coordinates
+            y:float
+                new y-coordinate
+        """
+        trans = [self.__tran_1, self.__tran_2, self.__tran_3]
+        tindex = self.__get_index()
+        t = trans[tindex]
+        x, y = t(p)
+        return x, y
+
+    def __draw(self, n):
+        """
+        To set points
+        :param n: int
+            the number of points
+        :return:
+        """
+        x1 = 0
+        y1 = 0
+        for i in range(n):
+            x1, y1 = self.__tran((x1, y1))
+            self.__tx.append(x1)
+            self.__ty.append(y1)
+        return self.__tx, self.__ty
+
+    def draw(self, n=5000):
+        """
+        To grow a graph
+        :param n:int
+            the number of point
+        :return:float
+            points
+        """
+        x, y = self.__draw(n)
+        point=[(x[i],y[i])for i in range(n)]
+        return point
+    def __init__(self, databaseSize, avgItemsPerTransaction, numItems, maxDis, sep='\t') -> None:
         """
         Initialize the transactional database with the given parameters
 
@@ -80,25 +190,16 @@ class GeoReferentialTransactionalDatabase:
         self.avgItemsPerTransaction = avgItemsPerTransaction
         self.numItems = numItems
         self.db = []
-        self.x1 = x1
-        self.y1 = y1
-        self.x2 = x2
-        self.y2 = y2
+        self.__tx = [0]
+        self.__ty = [0]
+        self.maxDis=maxDis
         self.seperator = sep
 
-        numPoints = (x2 - x1) * (y2 - y1)
-        if numItems > numPoints:
-            raise ValueError("Number of points is less than the number of lines * average items per line")
+        numPoints = numItems*10
 
         self.itemPoint = {}
-        usedPoints = set()
 
-        for i in (range(1, numItems + 1)):
-            # self.itemPoint[i] = (np.random.randint(x1, x2), np.random.randint(y1, y2))
-            point = self.getPoint(x1, y1, x2, y2)
-            while point in usedPoints:
-                point = self.getPoint(x1, y1, x2, y2)
-            self.itemPoint[i] = point
+        self.itemPoint= self.draw(numPoints)
         self._startTime = float()
         self._endTime = float()
         self._memoryUSS = float()
