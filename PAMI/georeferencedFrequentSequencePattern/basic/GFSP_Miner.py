@@ -223,7 +223,7 @@ class GFSP_Miner(_ab._sequentialSpatialPatterns):
             if 'Transactions' in i:
                 temp = self._iFile['Transactions'].tolist()
             if "tid" in i:
-                temp2 = self._iFile[''].tolist()
+                temp2 = self._iFile('').tolist()
             addList = []
             addList.append(temp[0])
             for k in range(len(temp) - 1):
@@ -403,7 +403,7 @@ class GFSP_Miner(_ab._sequentialSpatialPatterns):
             keyNumber += 1
             for key2 in keyList[keyNumber:]:
                 if key1 != key2:
-                    if (key1 in self._NeighboursMap.keys() and key2 in self._NeighboursMap.keys()):
+                    if key1 in self._NeighboursMap.keys() and key2 in self._NeighboursMap.keys():
                         if key1 in self._NeighboursMap[key2]:
 
                             if len(self._Database[key1].keys()) >= len(self._Database[key1].keys()):

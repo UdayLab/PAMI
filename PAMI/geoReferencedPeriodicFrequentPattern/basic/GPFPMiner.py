@@ -328,7 +328,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
 
 
         """
-        if prefix == None:
+        if prefix is None:
             prefix = suffix
         else:
             prefix = prefix + suffix
@@ -354,7 +354,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
             return
         for i in range(len(itemSets)):
             itemX = itemSets[i]
-            if itemX == None:
+            if itemX is None:
                 continue
             tidSetX = tidSets[i]
             classItemSets = []

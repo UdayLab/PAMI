@@ -109,7 +109,7 @@ class GTCP:
         
         intersection=lastcoverage & lastbutcoverage
         cs= (lastcoverage | lastbutcoverage).count()/len(self.Sf)
-        return (intersection.count()/self.Df[lastitem].count(),cs)
+        return intersection.count()/self.Df[lastitem].count(),cs
 
 
     def GetFIDBasedFlatTransactions(self):
@@ -150,16 +150,16 @@ class GTCP:
         newpattern=[]
         for i in range(len(l1)):
             for j in range(i+1,len(l2)):
-                if(l1[i][:-1]==l2[j][:-1]):
-                    if(self.Coverage(l1[i][-1])>=self.Coverage(l2[j][-1])):
+                if l1[i][:-1]==l2[j][:-1]:
+                    if self.Coverage(l1[i][-1])>=self.Coverage(l2[j][-1]):
                         newpattern= l1[i]+[l2[j][-1]]
                     else:
                         newpattern=l2[j]+[l1[i][-1]]
                     
                     ov,cs=self.OverlapRatio(newpattern)
                     
-                    if(ov<=self.maxOR):
-                        if(cs>=self.minGTPC):
+                    if ov<=self.maxOR:
+                        if cs>=self.minGTPC:
                             self.L.append((newpattern,cs))
                         else:
                             self.Nol.append(newpattern)
@@ -187,7 +187,7 @@ class GTCP:
         self.L=[]
         self.Nol_1_temp=[]
         for g in self.Nol_1:
-            if(self.Coverage(g[0])>=self.minGTPC):
+            if self.Coverage(g[0])>=self.minGTPC:
                 self.L.append((g,self.Coverage(g[0])))
             else:
                 self.Nol_1_temp.append(g)
@@ -196,7 +196,7 @@ class GTCP:
         self.Nol=[]
 
 
-        while(len(self.Nol_1)>0):
+        while len(self.Nol_1)>0:
             self.Nol=[]
             # print(len(self.Nol_1))
             self.join(self.Nol_1,self.Nol_1)

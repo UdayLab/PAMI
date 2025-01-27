@@ -492,7 +492,7 @@ class UPGrowth(_ab._utilityPatterns):
             if 'UtilitySum' in i:
                 data = self._iFile['UtilitySum'].tolist()
             for i in range(len(data)):
-                tr = [timeStamp[i]]
+                tr = timeStamp[i]
                 tr.append(data[i])
                 self._Database.append(tr)
         if isinstance(self._iFile, str):
