@@ -54,7 +54,7 @@ Copyright (C)  2021 Rage Uday Kiran
 
 
 from PAMI.AssociationRules.basic import abstract as _ab
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
+#from typing import List, Dict, Tuple, Set, Union, Any, Generator
 from deprecated import deprecated
 
 
@@ -97,7 +97,7 @@ class _Leverage:
 
 
         if len(suffix) == 1:
-            conf = self._generateWithLeverage(prefix, suffix[0])
+            self._generateWithLeverage(prefix, suffix[0])
         for i in range(len(suffix)):
             suffix1 = suffix[:i] + suffix[i + 1:]
             prefix1 = prefix + ' ' + suffix[i]
@@ -140,7 +140,7 @@ class _Leverage:
             suffix = self._singleItems[:i] + self._singleItems[i + 1:]
             prefix = self._singleItems[i]
             for j in range(i + 1, len(self._singleItems)):
-                conf = self._generateWithLeverage(self._singleItems[i], self._singleItems[j])
+                self._generateWithLeverage(self._singleItems[i], self._singleItems[j])
             self._generation(prefix, suffix)
 
 
@@ -234,6 +234,7 @@ class ARWithLeverage:
         :type sep: str
         :return: None
         """
+        self._frequentPattern = None
         self._iFile = iFile
         self._minConf = minConf
         self._finalPatterns = {}

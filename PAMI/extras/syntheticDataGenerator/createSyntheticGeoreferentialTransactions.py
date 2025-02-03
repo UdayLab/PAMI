@@ -61,7 +61,7 @@ class createSyntheticGeoreferentialTransaction:
             writer.write("%s \n" % st)
             
 if __name__ == "__main__":
-    _ap = str()
+    #_ap = str()
     _ap = createSyntheticGeoreferentialTransaction(100000, 870, 10)
     _ap.createGeoreferentialTransactionalDatabase("T10_geo.txt")
 else:

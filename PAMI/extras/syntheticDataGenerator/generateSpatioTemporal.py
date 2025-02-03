@@ -101,8 +101,8 @@ class generateSpatioTemporal:
     def getPoint(self, x1, y1, x2, y2):
         return (np.random.randint(x1, x2), np.random.randint(y1, y2))
 
-    def __init__(self, numOfTransactions: int, avgLenOfTransactions: int, 
-                 numItems: int, outputFile: str, x1, y1, x2, y2, percentage: int=50,
+    def __init__(self, numOfTransactions: int, avgLenOfTransactions: float,
+                 numItems: int, outputFile: str, x1, y1, x2, y2, percentage: float=50.0,
                  sep: str='\t', typeOfFile: str="Database") -> None:
         
         """
@@ -197,13 +197,13 @@ class generateSpatioTemporal:
         return result == 1
 
 
-    def tuning(self, array, sumRes) -> list:
+    def tuning(self, array, sumRes):
         """
         Tune the array so that the sum of the values is equal to sumRes
 
-        :param array: list of values
+        :param array: numpy.ndarray of values
 
-        :type array: list
+        :type array: numpy.ndarray
 
         :param sumRes: the sum of the values in the array to be tuned
 
@@ -211,7 +211,7 @@ class generateSpatioTemporal:
 
         :return: list of values with the tuned values and the sum of the values in the array to be tuned and sumRes is equal to sumRes
 
-        :rtype: list
+        :rtype: numpy array
         """
 
         while np.sum(array) != sumRes:
@@ -227,17 +227,17 @@ class generateSpatioTemporal:
         return array
         
 
-    def generateArray(self, nums, avg, maxItems, sumRes) -> list:
+    def generateArray(self, nums, avg, maxItems, sumRes):
         """
         Generate a random array of length n whose values average to m
 
         :param nums: number of values
 
-        :type nums: list
+        :type nums: int
 
         :param avg: average value
 
-        :type avg: float
+        :type avg: int
 
         :param maxItems: maximum value
 
@@ -339,6 +339,6 @@ if __name__ == '__main__':
 
 
 
-    obj = generateSpatioTemporal(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8])
+    obj = generateSpatioTemporal(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), sys.argv[4], int(sys.argv[5]), int(sys.argv[6]), int(sys.argv[7]), int(sys.argv[8]))
     obj.createTemporalFile()
-    obj.getFileName(sys.argv[9])
+    obj.getFileName()

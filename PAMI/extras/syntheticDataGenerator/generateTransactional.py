@@ -47,7 +47,7 @@ class generateTransactional:
     :Attributes:
     numLines: int  
         - number of lines
-    avgItemsPerLine: int 
+    avgItemsPerLine: float
         - average number of items per line
     numItems: int 
         - total number of items
@@ -80,13 +80,13 @@ class generateTransactional:
         self.numItems = numItems
         self.db = []
     
-    def tuning(self, array, sumRes) -> list:
+    def tuning(self, array, sumRes) -> np.ndarray:
         """
         Tune the array so that the sum of the values is equal to sumRes
 
         :param array: list of values
 
-        :type array: list
+        :type array: numpy.ndarray
 
         :param sumRes: the sum of the values in the array to be tuned
 
@@ -94,7 +94,7 @@ class generateTransactional:
 
         :return: list of values with the tuned values and the sum of the values in the array to be tuned and sumRes is equal to sumRes
 
-        :rtype: list
+        :rtype: numpy.ndarray
         """
 
         while np.sum(array) != sumRes:
@@ -110,17 +110,17 @@ class generateTransactional:
         return array
         
 
-    def generateArray(self, nums, avg, maxItems) -> list:
+    def generateArray(self, nums, avg, maxItems) -> np.ndarray:
         """
         Generate a random array of length n whose values average to m
 
         :param nums: number of values
 
-        :type nums: list
+        :type nums: int
 
         :param avg: average value
 
-        :type avg: float
+        :type avg: int
 
         :param maxItems: maximum value
 
@@ -128,7 +128,7 @@ class generateTransactional:
 
         :return: random array
 
-        :rtype: list
+        :rtype: numpy.ndarray
         """
 
         # generate n random values
@@ -164,7 +164,7 @@ class generateTransactional:
         Generate the transactional database
         :return: None
         """
-        db = set()
+        self.db = set()
 
         values = self.generateArray(self.numLines, self.avgItemsPerLine, self.numItems)
 
@@ -209,8 +209,8 @@ if __name__ == "__main__":
     db.save("\t", '4.txt')
     print(db.getTransactions())
 
-    obj = generateTransactional(sys.argv[1], sys.argv[2], sys.argv[3])
+    obj = generateTransactional(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]))
     obj.create()
-    obj.save(sys.argv[4])
+    #obj.save(sys.argv[4])
     # print(obj.getTransactions())
     

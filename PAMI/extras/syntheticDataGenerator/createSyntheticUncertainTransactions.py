@@ -56,7 +56,7 @@ class createSyntheticUncertainTransaction:
             
             
 if __name__ == "__main__":
-    _ap = str()
+    #_ap = str()
     _ap = createSyntheticUncertainTransaction(100000, 870, 10)
     _ap.createUncertainTransactionalDatabase("T10_uncertain.txt")
 else:

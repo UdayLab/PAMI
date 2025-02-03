@@ -107,7 +107,7 @@ class TransactionalDatabase:
         self.sep = sep
         self.db = []
 
-    def _generateArray(self, nums, avg, maxItems) -> list:
+    def _generateArray(self, nums, avg, maxItems):
         """
         Generate a random array of length n whose values average to m
 

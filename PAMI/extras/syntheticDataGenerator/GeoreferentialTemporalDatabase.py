@@ -17,7 +17,7 @@ class GeoReferentialTemporalDatabase:
             No of transactions
         noOfItems : int or float
             No of items
-        avgTransactionLength : str
+        avgTransactionLength : int
             The length of average transaction
         outputFile: str
             Name of the output file.
@@ -88,13 +88,13 @@ class GeoReferentialTemporalDatabase:
         result = np.random.choice([0, 1], p=[1 - probability, probability])
         return result == 1
 
-    def tuning(self, array, sumRes) -> list:
+    def tuning(self, array, sumRes) -> np.ndarray:
         """
         Tune the array so that the sum of the values is equal to sumRes
 
         :param array: list of values
 
-        :type array: list
+        :type array: numpy.ndarray
 
         :param sumRes: the sum of the values in the array to be tuned
 
@@ -102,7 +102,7 @@ class GeoReferentialTemporalDatabase:
 
         :return: list of values with the tuned values and the sum of the values in the array to be tuned and sumRes is equal to sumRes
 
-        :rtype: list
+        :rtype: numpy.ndarray
         """
 
         while np.sum(array) != sumRes:
@@ -117,17 +117,17 @@ class GeoReferentialTemporalDatabase:
                 array[randIndex] += 1
         return array
 
-    def generateArray(self, nums, avg, maxItems) -> list:
+    def generateArray(self, nums, avg, maxItems) -> np.ndarray:
         """
         Generate a random array of length n whose values average to m
 
         :param nums: number of values
 
-        :type nums: list
+        :type nums: int
 
         :param avg: average value
 
-        :type avg: float
+        :type avg: int
 
         :param maxItems: maximum value
 

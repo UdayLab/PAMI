@@ -103,13 +103,13 @@ class GeoReferentialTransactionalDatabase:
         self._endTime = float()
         self._memoryUSS = float()
         self._memoryRSS = float()
-    def tuning(self, array, sumRes) -> list:
+    def tuning(self, array, sumRes) -> np.ndarray:
         """
         Tune the array so that the sum of the values is equal to sumRes
 
         :param array: list of values
 
-        :type array: list
+        :type array: numpy.ndarray
 
         :param sumRes: the sum of the values in the array to be tuned
 
@@ -117,7 +117,7 @@ class GeoReferentialTransactionalDatabase:
 
         :return: list of values with the tuned values and the sum of the values in the array to be tuned and sumRes is equal to sumRes
 
-        :rtype: list
+        :rtype: numpy.ndarray
         """
 
         while np.sum(array) != sumRes:
@@ -132,17 +132,17 @@ class GeoReferentialTransactionalDatabase:
                 array[randIndex] += 1
         return array
 
-    def generateArray(self, nums, avg, maxItems) -> list:
+    def generateArray(self, nums, avg, maxItems) -> np.ndarray:
         """
         Generate a random array of length n whose values average to m
 
         :param nums: number of values
 
-        :type nums: list
+        :type nums: int
 
         :param avg: average value
 
-        :type avg: float
+        :type avg: int
 
         :param maxItems: maximum value
 
@@ -150,7 +150,7 @@ class GeoReferentialTransactionalDatabase:
 
         :return: random array
 
-        :rtype: list
+        :rtype: numpy.ndarray
         """
 
         # generate n random values

@@ -94,7 +94,7 @@ class SequentialDatabase:
         self.seqSep = seqSep
         self.db = []
 
-    def tuning(self, array, sumRes) -> list:
+    def tuning(self, array, sumRes) -> np.ndarray:
         """
         Tune the array so that the sum of the values is equal to sumRes
 
@@ -123,17 +123,17 @@ class SequentialDatabase:
                 array[randIndex] += 1
         return array
 
-    def generateArray(self, nums, avg, maxItems) -> list:
+    def generateArray(self, nums, avg, maxItems) -> np.ndarray:
         """
         Generate a random array of length nums whose values average to avg
 
         :param nums: number of values
 
-        :type nums: list
+        :type nums: int
 
         :param avg: average value
 
-        :type avg: float
+        :type avg: int
 
         :param maxItems: maximum value
 

@@ -51,7 +51,7 @@ class createSyntheticTemporal:
             count += 1
             
 if __name__ == "__main__":
-    _ap = str()
+    #_ap = str()
     _ap = createSyntheticTemporal(100000, 870, 10)
     _ap.createTemporalDatabase("temporal_T10.txt")
 else:
