@@ -1,81 +1,52 @@
-# generateTransactionalDatabase is a code used to convert the database into Temporal database.
-#
-#  **Importing this algorithm into a python program**
-#  --------------------------------------------------------
-#     from PAMI.extras.generateDatabase import generateTransactionalDatabase as db
-#     obj = db(10, 5, 10)
-#     obj.create()
-#     obj.save('db.txt')
-#     print(obj.getTransactions()) to get the transactional database as a pandas dataframe
-
-# **Running the code from the command line**
-# --------------------------------------------------------
-#     python generateDatabase.py 10 5 10 db.txt
-#     cat db.txt
-#
-
-
-__copyright__ = """
-Copyright (C)  2021 Rage Uday Kiran
-
-     This program is free software: you can redistribute it and/or modify
-     it under the terms of the GNU General Public License as published by
-     the Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
-
-     This program is distributed in the hope that it will be useful,
-     but WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     GNU General Public License for more details.
-
-     You should have received a copy of the GNU General Public License
-     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-"""
-
-import numpy as np
-import pandas as pd
+import random as _rd
+import sys as _sys
 import time
-import sys, psutil, os, time, tqdm
+import os
+import psutil
+import numpy as np
+import tqdm
+import pandas as pd
 
-class GeoReferentialTransactionalDatabase:
+
+class GeoReferentialTemporalDatabase:
     """
-    :Description Generate a transactional database with the given number of lines, average number of items per line, and total number of items
+    This class create synthetic geo-referential temporal database.
 
-    :Attributes:
-    numLines: int
-        - number of lines
-    avgItemsPerTransaction: int
-        - average number of items per line
-    numItems: int
-        - total number of items
+    :Attribute:
+
+        totalTransactions : int
+            No of transactions
+        noOfItems : int or float
+            No of items
+        avgTransactionLength : int
+            The length of average transaction
+        outputFile: str
+            Name of the output file.
 
     :Methods:
-        create:
-            Generate the transactional database
-        save:
-            Save the transactional database to a file
-        getTransactions:
-            Get the transactional database
 
+        GeoReferentialTemporalDatabase(outputFile)
+            Create geo-referential temporal database and store into outputFile
 
-
+    **Credits:**
+    ---------------
+             The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.
 
     """
 
-    def getPoint(self, x1, y1, x2, y2):
-
-        return (np.random.randint(x1, x2), np.random.randint(y1, y2))
-
-    def __init__(self, databaseSize, avgItemsPerTransaction, numItems, x1, y1, x2, y2, sep='\t') -> None:
-        """
-        Initialize the transactional database with the given parameters
-
-        Parameters:
-        databaseSize: int - number of lines
-        avgItemsPerTransaction: int - average number of items per line
-        numItems: int - total number of items
-        """
-
+    def __init__(
+            self,
+            databaseSize: int,
+            avgItemsPerTransaction: int,
+            numItems: int,
+            x1: int,
+            y1: int,
+            x2: int,
+            y2: int,
+            sep: str = '\t',
+            occurrenceProbabilityOfSameTimestamp: float = 0,
+            occurrenceProbabilityToSkipSubsequentTimestamp: float = 0,
+    ) -> None:
         self.databaseSize = databaseSize
         self.avgItemsPerTransaction = avgItemsPerTransaction
         self.numItems = numItems
@@ -85,24 +56,40 @@ class GeoReferentialTransactionalDatabase:
         self.x2 = x2
         self.y2 = y2
         self.seperator = sep
-
-        numPoints = (x2 - x1) * (y2 - y1)
-        if numItems > numPoints:
+        self.occurrenceProbabilityOfSameTimestamp = occurrenceProbabilityOfSameTimestamp
+        self.occurrenceProbabilityToSkipSubsequentTimestamp = occurrenceProbabilityToSkipSubsequentTimestamp
+        self.current_timestamp=int()
+        self._startTime = float()
+        self._endTime = float()
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        if numItems > ((x2 - x1) * (y2 - y1)):
             raise ValueError("Number of points is less than the number of lines * average items per line")
 
         self.itemPoint = {}
         usedPoints = set()
 
-        for i in (range(1, numItems + 1)):
+        for i in range(1, numItems + 1):
             # self.itemPoint[i] = (np.random.randint(x1, x2), np.random.randint(y1, y2))
             point = self.getPoint(x1, y1, x2, y2)
             while point in usedPoints:
                 point = self.getPoint(x1, y1, x2, y2)
             self.itemPoint[i] = point
-        self._startTime = float()
-        self._endTime = float()
-        self._memoryUSS = float()
-        self._memoryRSS = float()
+
+    def getPoint(self, x1, y1, x2, y2):
+
+        return (np.random.randint(x1, x2),np.random.randint(y1, y2))
+
+    def performCoinFlip(self, probability: float) -> bool:
+        """
+        Perform a coin flip with the given probability.
+
+        :param probability: Probability of the coin landing heads (i.e., the event occurring).
+        :return: True if the coin lands heads, False otherwise.
+        """
+        result = np.random.choice([0, 1], p=[1 - probability, probability])
+        return result
+
     def tuning(self, array, sumRes) -> np.ndarray:
         """
         Tune the array so that the sum of the values is equal to sumRes
@@ -149,7 +136,7 @@ class GeoReferentialTransactionalDatabase:
 
         :return: random array
 
-        :rtype: numpy.ndarray
+        :rtype: list
         """
 
         # generate n random values
@@ -181,28 +168,44 @@ class GeoReferentialTransactionalDatabase:
 
     def create(self) -> None:
         """
-        Generate the transactional database
+        Generate the Temporal database
         :return: None
         """
         self._startTime = time.time()
         db = set()
 
         values = self.generateArray(self.databaseSize, self.avgItemsPerTransaction, self.numItems)
+        
+        for i in range(self.databaseSize):
+            # Determine the timestamp
+            if self.performCoinFlip(self.occurrenceProbabilityOfSameTimestamp):
+                timestamp = self.current_timestamp
+            else:
+                if self.performCoinFlip(self.occurrenceProbabilityToSkipSubsequentTimestamp)==1:
+                    self.current_timestamp += 2
+                else:
+                    self.current_timestamp += 1
+                timestamp = self.current_timestamp
 
-        for value in tqdm.tqdm(values):
-            line = np.random.choice(range(1, self.numItems + 1), value, replace=False)
-            nline = [self.itemPoint[i] for i in line]
-            # print(line, nline)
-            # for i in range(len(line)):
-            #     print(line[i], self.itemPoint[line[i]])
-            #     line[i] = self.itemPoint[line[i]]
-            self.db.append(nline)
-            # self.db.append(line)
+            self.db.append([timestamp])  # Start the transaction with the timestamp
+
+            
+
+        # For each transaction, generate items
+        for i in tqdm.tqdm(range(self.databaseSize)):
+
+            items = np.random.choice(range(1, self.numItems + 1), values[i], replace=False)
+            nline = [self.itemPoint[i] for i in items]
+            self.db[i].extend(nline)
+
         self._endTime = time.time()
+        process = psutil.Process(os.getpid())
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
 
     def save(self,filename, sep='\t') -> None:
         """
-        Save the transactional database to a file
+        Save the Temporal database to a file
 
         :param filename: name of the file
 
@@ -220,17 +223,17 @@ class GeoReferentialTransactionalDatabase:
                 # f.write(','.join(map(str, line)) + '\n')
                 line = list(map(str, line))
                 f.write(sep.join(line) + '\n')
-
     def getTransactions(self) -> pd.DataFrame:
         """
-        Get the transactional database
+        Get the Temporal database
 
-        :return: the transactional database
+        :return: the Temporal database
 
         :rtype: pd.DataFrame
         """
         df = pd.DataFrame(['\t'.join(map(str, line)) for line in self.db], columns=['Transactions'])
         return df
+
 
     def getRuntime(self) -> float:
         """
@@ -245,12 +248,14 @@ class GeoReferentialTransactionalDatabase:
 
     def getMemoryUSS(self) -> float:
 
-        process = psutil.Process(os.getpid())
-        self._memoryUSS = process.memory_full_info().uss
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
 
-        process = psutil.Process(os.getpid())
-        self._memoryRSS = process.memory_info().rss
         return self._memoryRSS
+# if __name__ == "__main__":
+#     _ap = str()
+#     _ap = createSyntheticGeoreferentialTemporal(100000, 870, 10)
+#     _ap.GeoreferentialTemporalDatabase("T10_geo_temp.txt")
+# else:
+#     print("Error! The number of input parameters do not match the total number of parameters provided")

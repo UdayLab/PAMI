@@ -645,7 +645,7 @@ class SHUGrowth(_hus._highUtilityPatternStreamMining):
         activeBatch = [i for i, e in enumerate(stack[0].utility) if e != 0]
 
         for batch in activeBatch:
-            if(stack[nodeIndex + 1].tail == None or stack[nodeIndex + 1].tail[batch] == False):
+            if stack[nodeIndex + 1].tail is None or stack[nodeIndex + 1].tail[batch] is False:
                 minUtil += (stack[nodeIndex].utility[batch] - stack[nodeIndex + 1].utility[batch])
             
         return minUtil
@@ -669,7 +669,7 @@ class SHUGrowth(_hus._highUtilityPatternStreamMining):
         """
         stack = []
 
-        while(root is not None):
+        while root is not None:
             stack.append(root)
             root = root.parent
 
@@ -699,10 +699,10 @@ class SHUGrowth(_hus._highUtilityPatternStreamMining):
         :type root: _Node
         """
         
-        if(root is None):
+        if root is None:
             return
         
-        if(len(root.utility) > 1):
+        if len(root.utility) > 1:
             root.utility = [sum(root.utility)]
 
         for child in root.children:
@@ -731,14 +731,14 @@ class SHUGrowth(_hus._highUtilityPatternStreamMining):
         
         for transaction in transactions:
             for item in transaction["transaction"]:
-                if(root.headerTable.table[item][0] < minUtil):
+                if root.headerTable.table[item][0] < minUtil:
                     itemIndex = transaction["transaction"].index(item)
                     transaction["transaction"].remove(item)
                     del transaction["itemwiseUtility"][itemIndex]
 
         tempTree = _SHUTree(1, 1, True)
         for transaction in transactions:
-            if(len(transaction["transaction"]) != 0):
+            if len(transaction["transaction"]) != 0:
                 tempTree.addTransaction(transaction["transaction"], transaction["utility"], transaction["itemwiseUtility"])
 
 
@@ -763,7 +763,7 @@ class SHUGrowth(_hus._highUtilityPatternStreamMining):
      
         return reduce(and_, [i in superset for i in subset])
 
-    def treeGenerations(self, root, netUtil, candidatePattern, curItem = []):
+    def treeGenerations(self, root, netUtil, candidatePattern, curItem =None):
         """
         Generates the tree of the high utility patterns
 
@@ -784,12 +784,12 @@ class SHUGrowth(_hus._highUtilityPatternStreamMining):
         :type curItem: list
         """
 
-        if(root is None):
+        if root is None:
             return
 
 
         for item in reversed(root.headerTable.orderedItems):
-            if(root.headerTable.table[item][0] >= netUtil):
+            if root.headerTable.table[item][0] >= netUtil:
                 prefixBranches = []
 
                 tempNode = root.headerTable.table[item][1]
@@ -818,13 +818,13 @@ class SHUGrowth(_hus._highUtilityPatternStreamMining):
                 newItemset = curItem.copy()
                 newItemset.append(item)
 
-                if(len(newItemset) not in candidatePattern):
+                if len(newItemset) not in candidatePattern:
                     candidatePattern[len(newItemset)] = [newItemset]
 
                 else:
                     candidatePattern[len(newItemset)].append(newItemset)
 
-                if(len(conditionalTree.headerTable.table) != 0):
+                if len(conditionalTree.headerTable.table) != 0:
                     self.treeGenerations(conditionalTree, netUtil, candidatePattern, newItemset)
 
     @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
@@ -873,7 +873,7 @@ class SHUGrowth(_hus._highUtilityPatternStreamMining):
         startIndex = 0
         endIndex = self.__windowSize * self.__paneSize
 
-        while (endIndex <= len(self._transactions)):
+        while endIndex <= len(self._transactions):
 
             filteredItemsets = {}
 
@@ -885,16 +885,16 @@ class SHUGrowth(_hus._highUtilityPatternStreamMining):
                 for itemSet in filteredItemsets[itemSetLen]:
                     itemSetUtility = 0
                     for transId in range(startIndex, endIndex):
-                        if (self.contains(list(transactionwiseUtility[transId].keys()), itemSet)):
+                        if self.contains(list(transactionwiseUtility[transId].keys()), itemSet):
                             for item in itemSet:
                                 itemSetUtility += transactionwiseUtility[transId][item]
 
-                    if (itemSetUtility >= self._minUtil):
+                    if itemSetUtility >= self._minUtil:
                         results.append([itemSet, itemSetUtility])
 
             self.__finalPatterns[(startIndex, endIndex)] = results
 
-            if (endIndex >= len(self._transactions)):
+            if endIndex >= len(self._transactions):
                 break
 
             self.__tree.removeBatch()
@@ -928,7 +928,7 @@ class SHUGrowth(_hus._highUtilityPatternStreamMining):
 
         print('  ' * level, level, root.itemName, root.utility, root.parent.itemName if root.parent else None )
         
-        if(root.tail is not None):
+        if root.tail is not None:
             print('  ' * (level + 1), level + 1, root.tail)
 
         for child in root.children.values():

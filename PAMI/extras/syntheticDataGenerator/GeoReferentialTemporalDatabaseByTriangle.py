@@ -7,7 +7,8 @@ import numpy as np
 import tqdm
 import pandas as pd
 
-class GeoReferentialTemporalDatabase:
+
+class GeoReferentialTemporalDatabaseByTriangle:
     """
     This class create synthetic geo-referential temporal database.
 
@@ -17,7 +18,7 @@ class GeoReferentialTemporalDatabase:
             No of transactions
         noOfItems : int or float
             No of items
-        avgTransactionLength : int
+        avgTransactionLength : str
             The length of average transaction
         outputFile: str
             Name of the output file.
@@ -38,10 +39,7 @@ class GeoReferentialTemporalDatabase:
             databaseSize: int,
             avgItemsPerTransaction: int,
             numItems: int,
-            x1: int,
-            y1: int,
-            x2: int,
-            y2: int,
+            maxDis:int=1,
             sep: str = '\t',
             occurrenceProbabilityOfSameTimestamp: float = 0,
             occurrenceProbabilityToSkipSubsequentTimestamp: float = 0,
@@ -49,34 +47,22 @@ class GeoReferentialTemporalDatabase:
         self.databaseSize = databaseSize
         self.avgItemsPerTransaction = avgItemsPerTransaction
         self.numItems = numItems
-        self.db = []
-        self.x1 = x1
-        self.y1 = y1
-        self.x2 = x2
-        self.y2 = y2
+        self.__tx = [0]
+        self.__ty = [0]
+        self.maxDis = maxDis
         self.seperator = sep
         self.occurrenceProbabilityOfSameTimestamp = occurrenceProbabilityOfSameTimestamp
         self.occurrenceProbabilityToSkipSubsequentTimestamp = occurrenceProbabilityToSkipSubsequentTimestamp
+        self.current_timestamp=int()
         self._startTime = float()
         self._endTime = float()
         self._memoryUSS = float()
         self._memoryRSS = float()
-        if numItems > ((x2 - x1) * (y2 - y1)):
-            raise ValueError("Number of points is less than the number of lines * average items per line")
+        numPoints = numItems * 10
 
         self.itemPoint = {}
-        usedPoints = set()
 
-        for i in range(1, numItems + 1):
-            # self.itemPoint[i] = (np.random.randint(x1, x2), np.random.randint(y1, y2))
-            point = self.getPoint(x1, y1, x2, y2)
-            while point in usedPoints:
-                point = self.getPoint(x1, y1, x2, y2)
-            self.itemPoint[i] = point
-
-    def getPoint(self, x1, y1, x2, y2):
-
-        return (np.random.randint(x1, x2), np.random.randint(y1, y2))
+        self.itemPoint = self.draw(numPoints)
 
     def performCoinFlip(self, probability: float) -> bool:
         """
@@ -86,15 +72,15 @@ class GeoReferentialTemporalDatabase:
         :return: True if the coin lands heads, False otherwise.
         """
         result = np.random.choice([0, 1], p=[1 - probability, probability])
-        return result == 1
+        return result
 
-    def tuning(self, array, sumRes) -> np.ndarray:
+    def tuning(self, array, sumRes) -> list:
         """
         Tune the array so that the sum of the values is equal to sumRes
 
         :param array: list of values
 
-        :type array: numpy.ndarray
+        :type array: list
 
         :param sumRes: the sum of the values in the array to be tuned
 
@@ -102,32 +88,31 @@ class GeoReferentialTemporalDatabase:
 
         :return: list of values with the tuned values and the sum of the values in the array to be tuned and sumRes is equal to sumRes
 
-        :rtype: numpy.ndarray
+        :rtype: list
         """
 
         while np.sum(array) != sumRes:
-            # get index of largest value
-            randIndex = np.random.randint(0, len(array))
             # if sum is too large, decrease the largest value
             if np.sum(array) > sumRes:
-                array[randIndex] -= 1
+                maxIndex = np.argmax(array)
+                array[maxIndex] -= 1
             # if sum is too small, increase the smallest value
             else:
                 minIndex = np.argmin(array)
-                array[randIndex] += 1
+                array[minIndex] += 1
         return array
 
-    def generateArray(self, nums, avg, maxItems) -> np.ndarray:
+    def generateArray(self, nums, avg, maxItems) -> list:
         """
         Generate a random array of length n whose values average to m
 
         :param nums: number of values
 
-        :type nums: int
+        :type nums: list
 
         :param avg: average value
 
-        :type avg: int
+        :type avg: float
 
         :param maxItems: maximum value
 
@@ -139,7 +124,7 @@ class GeoReferentialTemporalDatabase:
         """
 
         # generate n random values
-        values = np.random.randint(1, maxItems, nums)
+        values = np.random.randint(1, avg*1.5, nums)
 
         sumRes = nums * avg
 
@@ -172,15 +157,15 @@ class GeoReferentialTemporalDatabase:
         """
         self._startTime = time.time()
         db = set()
-        lineSize = [] #may be error. need to check it.
-        sumRes = self.databaseSize * self.avgItemsPerTransaction  # Total number of items
 
+        values = self.generateArray(self.databaseSize, self.avgItemsPerTransaction, self.numItems)
+        
         for i in range(self.databaseSize):
             # Determine the timestamp
             if self.performCoinFlip(self.occurrenceProbabilityOfSameTimestamp):
                 timestamp = self.current_timestamp
             else:
-                if self.performCoinFlip(self.occurrenceProbabilityToSkipSubsequentTimestamp):
+                if self.performCoinFlip(self.occurrenceProbabilityToSkipSubsequentTimestamp)==1:
                     self.current_timestamp += 2
                 else:
                     self.current_timestamp += 1
@@ -188,23 +173,16 @@ class GeoReferentialTemporalDatabase:
 
             self.db.append([timestamp])  # Start the transaction with the timestamp
 
-            lineSize.append([i, 0])  # Initialize lineSize with 0 for each transaction
-
-        # Adjust lineSize to ensure sum of sizes equals sumRes
-        lineSize = self.tuning(lineSize, sumRes)
+            
 
         # For each transaction, generate items
-        for i in tqdm.tqdm(range(len(lineSize))):
-            transaction_index = lineSize[i][0]
-            num_items = lineSize[i][1]
+        for i in tqdm.tqdm(range(self.databaseSize)):
 
-            if num_items > self.numItems:
-                raise ValueError(
-                    "Error: Either increase numItems or decrease avgItemsPerTransaction or modify percentage")
-            items = np.random.choice(range(1, self.numItems + 1), num_items, replace=False)
-            self.db[transaction_index].extend(items)
+            items = np.random.choice(range(1, self.numItems + 1), values[i], replace=False)
+            nline = [self.itemPoint[i] for i in items]
+            self.db[i].extend(nline)
 
-        self._runTime = time.time() - self._startTime
+        self._endTime = time.time()
         process = psutil.Process(os.getpid())
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
