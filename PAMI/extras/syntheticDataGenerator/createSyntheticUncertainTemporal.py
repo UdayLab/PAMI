@@ -58,7 +58,7 @@ class createSyntheticUncertainTemporal:
             
             
 if __name__ == "__main__":
-    _ap = str()
+    #_ap = str()
     _ap = createSyntheticUncertainTemporal(50000, 870, 10)
     _ap.createUncertainTemporalDatabase("T10_uncertain_temp.txt")
 else:

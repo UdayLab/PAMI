@@ -50,7 +50,7 @@ class generateTemporal:
     :Attributes:
         :param numOfTransactions: int
             number of transactions
-        :param avgLenOfTransactions: int
+        :param avgLenOfTransactions: float
             average length of transactions
         :param numItems: int
             number of items
@@ -97,7 +97,7 @@ class generateTemporal:
             print(temporalDB.getDatabaseAsDataFrame())
 
     """
-    def __init__(self, numOfTransactions: int, avgLenOfTransactions: int, 
+    def __init__(self, numOfTransactions: int, avgLenOfTransactions: float,
                  numItems: int, outputFile: str, percentage: int=50,
                  sep: str='\t', typeOfFile: str="Database") -> None:
         
@@ -175,13 +175,13 @@ class generateTemporal:
         return result == 1
 
 
-    def tuning(self, array, sumRes) -> list:
+    def tuning(self, array, sumRes) -> np.ndarray:
         """
         Tune the array so that the sum of the values is equal to sumRes
 
         :param array: list of values
 
-        :type array: list
+        :type array: numpy.ndarray
 
         :param sumRes: the sum of the values in the array to be tuned
 
@@ -189,7 +189,7 @@ class generateTemporal:
 
         :return: list of values with the tuned values and the sum of the values in the array to be tuned and sumRes is equal to sumRes
 
-        :rtype: list
+        :rtype: numpy.ndarray
         """
 
         while np.sum(array) != sumRes:
@@ -207,13 +207,13 @@ class generateTemporal:
         return array
         
 
-    def generateArray(self, nums, avg, maxItems, sumRes) -> list:
+    def generateArray(self, nums, avg, maxItems, sumRes)->np.ndarray:
         """
         Generate a random array of length n whose values average to m
 
         :param nums: number of values
 
-        :type nums: list
+        :type nums: int
 
         :param avg: average value
 
@@ -225,7 +225,7 @@ class generateTemporal:
 
         :return: random array
 
-        :rtype: list
+        :rtype: numpy array
         """
 
         # generate n random values
@@ -311,9 +311,9 @@ if __name__ == '__main__':
     temporalDB.save(sep, outFileName)
     print(temporalDB.getTransactions())
 
-    obj = generateTemporal(sys.argv[1], sys.argv[2], sys.argv[3])
+    obj = generateTemporal(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]),sys.argv[4])
     obj.create()
-    obj.save("\t", sys.argv[4])
+    #obj.save("\t", sys.argv[4])
 
     # numOfTransactions = 100
     # numItems = 15

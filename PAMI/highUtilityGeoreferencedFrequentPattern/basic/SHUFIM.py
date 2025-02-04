@@ -298,7 +298,7 @@ class _Dataset:
         utilities = []
         pmus = []
         for idx, item in enumerate(itemsString):
-            if (self.strToInt).get(item) is None:
+            if self.strToInt.get(item) is None:
                 self.strToInt[item] = self.cnt
                 self.intToStr[self.cnt] = item
                 self.cnt += 1
@@ -307,9 +307,9 @@ class _Dataset:
                 self.maxItem = itemInt
             items.append(itemInt)
             utilities.append(int(utilityString[idx]))
-            if pmuString != None:
+            if pmuString is not None:
                 pmus.append(int(pmuString[idx]))
-        if pmuString == None:
+        if pmuString is None:
             pmus = None
         return _Transaction(items, utilities, transactionUtility, pmus)
 
@@ -643,7 +643,7 @@ class SHUFIM(_ab._utilityPatterns):
                     else:
                         projectedTransaction = transaction.projectTransaction(positionE)
                         utilityPe += projectedTransaction.prefixUtility
-                        if previousTransaction == []:
+                        if previousTransaction is []:
                             previousTransaction = projectedTransaction
                         elif self._isEqual(projectedTransaction, previousTransaction):
                             if consecutiveMergeCount == 0:
@@ -682,7 +682,7 @@ class SHUFIM(_ab._utilityPatterns):
                             previousTransaction = projectedTransaction
                             consecutiveMergeCount = 0
                     transaction.offset = positionE
-            if previousTransaction != []:
+            if previousTransaction is not []:
                 transactionsPe.append(previousTransaction)
                 supportPe += previousTransaction.getSupport()
             self._temp[prefixLength] = self._newNamesToOldNames[e]

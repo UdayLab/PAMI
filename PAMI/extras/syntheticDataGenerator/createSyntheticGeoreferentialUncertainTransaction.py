@@ -65,7 +65,7 @@ class createSyntheticGeoreferentialUncertainTransaction:
             writer.write("%s \n" % st1)
             
 if __name__ == "__main__":
-    _ap = str()
+    #_ap = str()
     _ap = createSyntheticGeoreferentialUncertainTransaction(100000, 870, 10)
     _ap.createGeoreferentialUncertainTransactionalDatabase("T10_geo_un.txt")
 else:

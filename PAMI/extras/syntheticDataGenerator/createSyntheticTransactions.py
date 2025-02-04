@@ -49,7 +49,7 @@ class createSyntheticTransaction:
             writer.write("%s \n" % st)
             
 if __name__ == "__main__":
-    _ap = str()
+    #_ap = str()
     _ap = createSyntheticTransaction(100000, 870, 10)
     _ap.createTransactionalDatabase("T10.txt")
 else:

@@ -63,7 +63,7 @@ class createSyntheticUtility:
             writer.write("%s \n" % st1)
             
 if __name__ == "__main__":
-    _ap = str()
+    #_ap = str()
     _ap = createSyntheticUtility(100000, 870, 100, 10)
     _ap.createUtilityDatabase("T10_util.txt")
 else:

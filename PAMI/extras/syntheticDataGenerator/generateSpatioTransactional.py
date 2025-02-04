@@ -47,7 +47,7 @@ class generateSpatioTransactional:
     :Attributes:
     numLines: int  
         - number of lines
-    avgItemsPerLine: int 
+    avgItemsPerLine: int
         - average number of items per line
     numItems: int 
         - total number of items
@@ -101,13 +101,13 @@ class generateSpatioTransactional:
                 point = self.getPoint(x1, y1, x2, y2)
             self.itemPoint[i] = point
     
-    def tuning(self, array, sumRes) -> list:
+    def tuning(self, array, sumRes):
         """
         Tune the array so that the sum of the values is equal to sumRes
 
-        :param array: list of values
+        :param array: numpy.ndarray of values of values
 
-        :type array: list
+        :type array: numpy.ndarray of values
 
         :param sumRes: the sum of the values in the array to be tuned
 
@@ -115,7 +115,7 @@ class generateSpatioTransactional:
 
         :return: list of values with the tuned values and the sum of the values in the array to be tuned and sumRes is equal to sumRes
 
-        :rtype: list
+        :rtype: numpy array
         """
 
         while np.sum(array) != sumRes:
@@ -131,17 +131,17 @@ class generateSpatioTransactional:
         return array
         
 
-    def generateArray(self, nums, avg, maxItems) -> list:
+    def generateArray(self, nums, avg, maxItems):
         """
         Generate a random array of length n whose values average to m
 
         :param nums: number of values
 
-        :type nums: list
+        :type nums: int
 
         :param avg: average value
 
-        :type avg: float
+        :type avg: int
 
         :param maxItems: maximum value
 
@@ -149,7 +149,7 @@ class generateSpatioTransactional:
 
         :return: random array
 
-        :rtype: list
+        :rtype: numpy array
         """
 
         # generate n random values
@@ -235,8 +235,8 @@ if __name__ == "__main__":
     db.save('\t','2.txt')
     print(db.getTransactions())
 
-    obj = generateSpatioTransactional(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7])
+    obj = generateSpatioTransactional(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]), int(sys.argv[7]))
     obj.create()
-    obj.save(sys.argv[8])
+    #obj.save('\t',sys.argv[8])
     # print(obj.getTransactions())
     
