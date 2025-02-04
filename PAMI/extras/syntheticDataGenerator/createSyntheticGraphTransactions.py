@@ -90,14 +90,16 @@ class SyntheticGraphGenerator:
                     self._writeGraphToFile(graph, oFile, i)
 
 
-    def _writeGraphToFile(self, graph, oFile, i):
+    @staticmethod
+    def _writeGraphToFile(graph, oFile, i):
         oFile.write(f't # {i}\n')
         for node in graph['nodes']:
             oFile.write(f"v {node[0]} {node[1]}\n")
         for edge in graph['edges']:
             oFile.write(f"e {edge[0]} {edge[1]} {edge[2]}\n")
 
-    def _writeGraphToFileNewFormat(self, graph, oFile):
+    @staticmethod
+    def _writeGraphToFileNewFormat(graph, oFile):
         node_str = ' '.join(f"{node} {label}" for node, label in sorted(graph['nodes']))
         edge_str = ' '.join(f"{u} {v} {label}" for u, v, label in graph['edges'])
         oFile.write(f"{node_str} : {edge_str}\n")
