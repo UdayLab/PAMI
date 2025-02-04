@@ -370,7 +370,7 @@ class HMiner(_ab._utilityPatterns):
             for i in range(0, len(items_str)):
                 item = items_str[i]
                 twu = self._mapOfTWU.get(item)
-                if twu == None:
+                if twu is None:
                     twu = transUtility
                 else:
                     twu += transUtility
@@ -431,7 +431,7 @@ class HMiner(_ab._utilityPatterns):
             for i in range(len(revisedTrans) - 1, -1, -1):
                 pair = revisedTrans[i]
                 mapFMAPItem = self._mapFMAP.get(pair.item)
-                if mapFMAPItem == None:
+                if mapFMAPItem is None:
                     mapFMAPItem = {}
                     self._mapFMAP[pair.item] = mapFMAPItem
                 for j in range(i + 1, len(revisedTrans)):
@@ -503,9 +503,9 @@ class HMiner(_ab._utilityPatterns):
         exSZ = sz
         for j in range(st + 1, len(culs)):
             mapOfTWUF = self._mapFMAP[x.item]
-            if mapOfTWUF != None:
+            if mapOfTWUF is not None:
                 twuf = mapOfTWUF.get(culs[j].item)
-                if twuf != None and twuf < minutil:
+                if twuf is not None and twuf < minutil:
                     excul[j] = None
                     exSZ = sz - 1
                 else:

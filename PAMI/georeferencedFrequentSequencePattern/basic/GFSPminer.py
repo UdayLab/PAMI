@@ -428,7 +428,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
             keyNumber += 1
             for key2 in keyList[keyNumber:]:
                 if key1 != key2:
-                    if (key1 in self._NeighboursMap.keys() and key2 in self._NeighboursMap.keys()):
+                    if key1 in self._NeighboursMap.keys() and key2 in self._NeighboursMap.keys():
                         if key1 in self._NeighboursMap[key2]:
 
                             if len(self._Database[key1].keys()) >= len(self._Database[key1].keys()):

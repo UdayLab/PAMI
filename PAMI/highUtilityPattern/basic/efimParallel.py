@@ -411,7 +411,7 @@ class efimParallel(_ab._utilityPatterns):
         :type collections: list
         """
 
-        if (self.threads > 1):
+        if self.threads > 1:
             with Parallel(n_jobs=self.threads) as parallel:
                 while len(collections) > 0:
                     new_collections = []

@@ -640,7 +640,7 @@ class HUFIM(_ab._utilityPatterns):
                     else:
                         projectedTransaction = transaction.projectTransaction(positionE)
                         utilityPe += projectedTransaction.prefixUtility
-                        if previousTransaction == []:
+                        if previousTransaction is []:
                             previousTransaction = projectedTransaction
                         elif self._isEqual(projectedTransaction, previousTransaction):
                             if consecutiveMergeCount == 0:
@@ -679,7 +679,7 @@ class HUFIM(_ab._utilityPatterns):
                             previousTransaction = projectedTransaction
                             consecutiveMergeCount = 0
                     transaction.offset = positionE
-            if previousTransaction != []:
+            if previousTransaction is not []:
                 transactionsPe.append(previousTransaction)
                 supportPe += previousTransaction.getSupport()
             # print("support is", supportPe)
