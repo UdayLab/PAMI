@@ -207,6 +207,7 @@ class SPADE(_ab._sequentialPatterns):
         Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
+        temp2 = None
 
         if isinstance(self._iFile, _ab._pd.DataFrame):
             temp = []

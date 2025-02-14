@@ -243,6 +243,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
 
         if isinstance(self._iFile, _ab._pd.DataFrame):
             temp = []
+            temp2 = []
             if self._iFile.empty:
                 print("its empty..")
             i = self._iFile.columns.values.tolist()

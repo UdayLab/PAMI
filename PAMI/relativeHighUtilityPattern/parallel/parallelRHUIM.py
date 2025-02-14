@@ -523,11 +523,11 @@ if __name__ == "__main__":
 
 
     _ap = str()
-    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
-        if len(_ab._sys.argv) == 5:    #includes separator
-            _ap = efimParallel(_ab._sys.argv[1], int(_ab._sys.argv[3]), _ab._sys.argv[4])
-        if len(_ab._sys.argv) == 4:    #takes "\t" as a separator
-            _ap = efimParallel(_ab._sys.argv[1], int(_ab._sys.argv[3]))
+    if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
+        if len(_ab._sys.argv) == 6:    #includes separator
+            _ap = efimParallel(_ab._sys.argv[1], int(_ab._sys.argv[3]), _ab._sys.argv[4],_ab._sys.argv[5])
+        if len(_ab._sys.argv) == 5:    #takes "\t" as a separator
+            _ap = efimParallel(_ab._sys.argv[1], int(_ab._sys.argv[3]),_ab._sys.argv[4])
         _ap.mine()
         print("Total number of High Utility Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])

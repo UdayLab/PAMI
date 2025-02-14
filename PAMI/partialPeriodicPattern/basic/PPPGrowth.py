@@ -269,6 +269,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
     _rank = {}
     _rankdup = {}
     _lno = 0
+    _maxTS = None
 
     def _creatingItemSets(self) -> None:
         """
@@ -489,7 +490,6 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
         self._creatingItemSets()
         
 
-        self._maxTS = 0
         items = {}
         for line in self._Database:
             index = int(line[0])

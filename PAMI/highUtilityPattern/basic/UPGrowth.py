@@ -473,6 +473,7 @@ class UPGrowth(_ab._utilityPatterns):
 
     def __init__(self, iFile: str, minUtil: int, sep: str='\t') -> None:
         super().__init__(iFile, minUtil, sep)
+        self.oFile = None
 
     def _creatingItemSets(self) -> None:
         """

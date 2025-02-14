@@ -463,6 +463,12 @@ class TKG(_ab._TKG):
                     self.infrequentVerticesRemovedCount += 1
 
     def removeInfrequentVertexPairs(self, graphDB):
+
+        alreadySeenPair = None
+        matrix = None
+        mapEdgeLabelToSupport = None
+        alreadySeenEdgeLabel = None
+
         if TKG.ELIMINATE_INFREQUENT_EDGE_LABELS:
             matrix = _ab.SparseTriangularMatrix()
             alreadySeenPair = set()

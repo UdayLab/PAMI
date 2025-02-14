@@ -263,7 +263,8 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
     _fuzzyValuesDB = []
 
     def __init__(self, iFile, nFile, FuzFile, minSup, maxPer, sep):
-        super().__init__(iFile, nFile, FuzFile, minSup, maxPer, sep)
+        super().__init__(iFile, nFile, FuzFile, minSup, maxPer)
+        self.oFile = None
         self._mapItemNeighbours = {}
         self._startTime = 0
         self._endTime = 0
@@ -840,12 +841,12 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
 
 if __name__ == "__main__":
     _ap = str()
-    if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 7:
-        if len(_ab._sys.argv) == 6:
+    if len(_ab._sys.argv) == 6 or len(_ab._sys.argv) == 7:
+        if len(_ab._sys.argv) == 7:
             _ap = FGPFPMiner(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5],
                              _ab._sys.argv[6])
-        if len(_ab._sys.argv) == 5:
-            _ap = FGPFPMiner(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+        if len(_ab._sys.argv) == 6:
+            _ap = FGPFPMiner(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5],_ab._sys.argv[6])
         _ap.mine()
         _ap.mine()
         print("Total number of Spatial Fuzzy Periodic Frequent  Patterns:", len(_ap.getPatterns()))

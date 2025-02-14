@@ -913,7 +913,7 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
         print("Total ExecutionTime in ms:", self.getRuntime())
 
 
-    def save(self):
+    def save(self,):
         """
         Complete set of frequent patterns will be loaded in to an output file
         """

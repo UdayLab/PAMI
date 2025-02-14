@@ -139,6 +139,6 @@ class visualizeFuzzyPatterns():
 
 
 if __name__ == "__main__":
-    _ap = str()
+    #_ap = str()
     _ap = visualizeFuzzyPatterns('soramame_frequentPatterns.txt', 10)
     _ap.visualize()

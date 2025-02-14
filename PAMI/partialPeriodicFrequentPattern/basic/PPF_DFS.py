@@ -176,6 +176,9 @@ class PPF_DFS(partialPeriodicPatterns):
     _partialPeriodicPatterns__startTime = float()
     _partialPeriodicPatterns__endTime = float()
     __Database = []
+    _maxTS = None
+    _dbSize = None
+    oFile = None
 
 
     def _creatingItemSets(self) -> None:

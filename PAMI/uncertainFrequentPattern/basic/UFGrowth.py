@@ -50,7 +50,7 @@ __copyright__ = """
 """
 
 from PAMI.uncertainFrequentPattern.basic import abstract as _ab
-import deprecated
+from deprecated import deprecated
 
 _minSup = str()
 _ab._sys.setrecursionlimit(20000)

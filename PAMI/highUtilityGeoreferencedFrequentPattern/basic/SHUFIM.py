@@ -497,12 +497,15 @@ class SHUFIM(_ab._utilityPatterns):
     _maxPer = float()
     _finalPatterns = {}
     _iFile = " "
-    _oFile = " "
+    oFile = " "
     _nFile = " "
     _sep = "\t"
     _minUtil = 0
     _memoryUSS = float()
     _memoryRSS = float()
+    _patternCount = 0
+    _dataset = 0
+
     
     def __init__(self, iFile, nFile, minUtil, minSup, sep="\t"):
         super().__init__(iFile, nFile, minUtil, minSup, sep)
@@ -540,7 +543,6 @@ class SHUFIM(_ab._utilityPatterns):
         High Utility Frequent Pattern mining start here
         """
         self._startTime = _ab._time.time()
-        self._patternCount = 0
         self._finalPatterns = {}
         self._dataset = _Dataset(self._iFile, self._sep)
         self._singleItemSetsSupport = _ab._defaultdict(int)

@@ -155,5 +155,5 @@ if __name__ == "__main__":
     itemChanceHigh = 0.9
     timeStampChanceLow = 0.5
     timeStampChanceHigh = 0.9
-    obj = spatioTemporalDatabaseGenerator(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
-    obj.saveAsFile(sys.argv[5])
+    obj = spatioTemporalDatabaseGenerator(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]),int(sys.argv[5]),int(sys.argv[6]),float(sys.argv[7]),float(sys.argv[8]),float(sys.argv[9]),float(sys.argv[10]))
+    obj.saveAsFile(sys.argv[11])

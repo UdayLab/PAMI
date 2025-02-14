@@ -71,7 +71,8 @@ class transactionalToFuzzy(_ab._convert):
     _oFile: str = ' '
 
 
-    def __init__(self, iFile: str, fuzFile: str, oFile: str, sep: str='\t'):
+    def __init__(self, iFile: str, fuzFile: str, oFile: str, sep: str = '\t'):
+        super().__init__(iFile, fuzFile, oFile, sep)
         self._iFile = iFile
         self._fuzFile = fuzFile
         self._oFile = oFile

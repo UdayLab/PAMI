@@ -44,6 +44,8 @@ class cuGPPMiner(partialPeriodicPatterns):
   _partialPeriodicPatterns__startTime = float()
   _partialPeriodicPatterns__endTime = float()
   __Database = []
+  _memoryRSS = float()
+  _memoryUSS = float()
 
   supportAndPeriod = cp.RawKernel('''
 
@@ -428,8 +430,7 @@ class cuGPPMiner(partialPeriodicPatterns):
 
     self.__runTime = time.time() - self._partialPeriodicPatterns__startTime
     process = psutil.Process(os.getpid())
-    self._memoryRSS = float()
-    self._memoryUSS = float()
+
     self._memoryUSS = process.memory_full_info().uss
     self._memoryRSS = process.memory_info().rss
     print("Periodic-Frequent patterns were generated successfully using gPPMiner algorithm ")

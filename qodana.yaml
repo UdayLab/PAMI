@@ -31,3 +31,9 @@ exclude:
   - name: PyProtectedMemberInspection
   - name: PyPep8NamingInspection
   - name: PySetFunctionToLiteralInspection
+  - name: All
+    paths:
+      - finalSphinxDocs
+      - docs
+      - docs\codersManual
+  - name: PyTypeCheckerInspection

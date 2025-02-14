@@ -217,13 +217,14 @@ class GFSP_Miner(_ab._sequentialSpatialPatterns):
 
         if isinstance(self._iFile, _ab._pd.DataFrame):
             temp = []
+            temp2 = []
             if self._iFile.empty:
                 print("its empty..")
             i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
                 temp = self._iFile['Transactions'].tolist()
             if "tid" in i:
-                temp2 = self._iFile('').tolist()
+                temp2 = self._iFile[''].tolist()
             addList = []
             addList.append(temp[0])
             for k in range(len(temp) - 1):

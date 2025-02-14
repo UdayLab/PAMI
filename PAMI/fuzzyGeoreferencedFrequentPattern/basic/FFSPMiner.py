@@ -280,6 +280,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
 
     def __init__(self, iFile: str, nFile: str, minSup: float, sep: str="\t") -> None:
         super().__init__(iFile, nFile, minSup, sep)
+        self.oFile = None
         self._mapItemNeighbours = {}
         self._startTime = 0
         self._endTime = 0

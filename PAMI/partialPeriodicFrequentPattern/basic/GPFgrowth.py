@@ -223,6 +223,11 @@ class GPFgrowth(partialPeriodicPatterns):
     _partialPeriodicPatterns__memoryUSS = float()
     _partialPeriodicPatterns__memoryRSS = float()
     __Database = []
+    _maxTS = None
+    __runTime = None
+    oFile = None
+
+
 
     def __convert(self, value):
         """

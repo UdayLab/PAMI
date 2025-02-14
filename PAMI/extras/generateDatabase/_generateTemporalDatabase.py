@@ -259,7 +259,7 @@ if __name__ == '__main__':
     avgTransactionLength = 6
     outFileName = 'temporal_out.txt'
     sep = '\t'
-    frameOrBase = "database"
+    #frameOrBase = "database"
 
     temporalDB = generateTemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName)
 
@@ -269,7 +269,7 @@ if __name__ == '__main__':
     numItems = 15
     avgTransactionLength = 6
     outFileName = 'temporal_ot.txt'
-    sep = '\t'
+    #sep = '\t'
     percent = 75
     frameOrBase = "dataframe"
 
@@ -278,4 +278,4 @@ if __name__ == '__main__':
     print(temporalDB.getDatabaseAsDataFrame())
 
     obj = generateTemporalDatabase(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
-    obj.createTemporalFile(sys.argv[5])
+    obj.createTemporalFile()

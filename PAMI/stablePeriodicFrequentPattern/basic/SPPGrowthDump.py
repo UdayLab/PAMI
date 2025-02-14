@@ -50,8 +50,8 @@ __copyright__ = """
 
 """
 
-from PAMI.stableperiodicFrequentPattern.basic import abstract as _ab
-import pandas as pd
+from PAMI.stablePeriodicFrequentPattern.basic import abstract as _ab
+#import pandas as pd
 from deprecated import deprecated
 
 from urllib.request import urlopen
@@ -543,11 +543,11 @@ class SPPGrowth():
 
 if __name__ == "__main__":
     _ap = str()
-    if len(sys.argv) == 5 or len(sys.argv) == 6:
+    if len(sys.argv) == 6 or len(sys.argv) == 7:
+        if len(sys.argv) == 7:
+            _ap = SPPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5],sys.argv[6])
         if len(sys.argv) == 6:
-            _ap = SPPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
-        if len(sys.argv) == 5:
-            _ap = SPPGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
+            _ap = SPPGrowth(sys.argv[1], sys.argv[3], sys.argv[4],sys.argv[5])
         _ap.mine()
         _ap.mine()
         _Patterns = _ap.getPatterns()

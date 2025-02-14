@@ -345,7 +345,7 @@ if __name__ == '__main__':
     import pandas as pd
     # obj = TransactionalDatabase(data)
     obj = TransactionalDatabase(sys.argv[1], sys.argv[2])
-    obj = TransactionalDatabase(pd.DataFrame(data))
+    #obj = TransactionalDatabase(pd.DataFrame(data))
     obj.run()
     obj.printStats()
     obj.plotGraphs()

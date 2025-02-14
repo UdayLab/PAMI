@@ -468,9 +468,10 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
     __rankDup = {}
     _numTrans = str()
     __tarunpat = {}
+    _perFreqItems = None
 
     def __init__(self, iFile, minSup, maxPer, numWorker, sep='\t'):
-        super().__init__(iFile, minSup, maxPer, numWorker, sep)
+        super().__init__(iFile, minSup, maxPer, numWorker)
 
     def func1(self, ps1, tid):
         """

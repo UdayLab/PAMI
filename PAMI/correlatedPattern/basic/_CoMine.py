@@ -438,7 +438,7 @@ class CoMine(_ab._correlatedPatterns):
         self._itemSetCount += 1
         self._finalPatterns[tuple(l)] = [support, all_conf]
     
-    def _convert(self, value: Union[int, float, str]) -> None:
+    def _convert(self, value: Union[int, float, str]) -> float | int | str:
         """
         To convert the type of user specified minSup value
 

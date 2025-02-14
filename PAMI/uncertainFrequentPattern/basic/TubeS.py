@@ -523,6 +523,7 @@ class TubeS(_fp._frequentPatterns):
         Scans the databases and stores the transactions into Database variable
         """
         self._Database = []
+        temp = None
         if isinstance(self._iFile, _fp._pd.DataFrame):
             uncertain, data = [], []
             if self._iFile.empty:
@@ -547,7 +548,7 @@ class TubeS(_fp._frequentPatterns):
                 for line in data:
                     line = line.strip()
                     line = line.decode("utf-8")
-                    temp1 = line.split(':')
+                    #temp1 = line.split(':')
                     temp = [i.rstrip() for i in temp[0].split(self._sep)]
                     uncertain = [float(i.rstrip()) for i in temp[1].split(self._sep)]
                     tr = []

@@ -580,6 +580,12 @@ class GSpan(_ab._gSpan):
         :param graphDb: The `graphDb` parameter  refers to a graph database that the algorithm is 
         operating on.
         """
+        alreadySeenPair = None
+        matrix = None
+        mapEdgeLabelToSupport = None
+        alreadySeenEdgeLabel = None
+
+
         if GSpan.eliminate_infrequent_edge_labels:
             matrix = _ab.SparseTriangularMatrix()
             alreadySeenPair = set() # To avoid double counting pairs in the same graph

@@ -57,7 +57,7 @@ import pandas as pd
 from deprecated import deprecated
 
 # from PAMI.periodicFrequentPattern.basic
-import abstract as _ab
+#import abstract as _ab
 
 _maxPer = float()
 _minSup = float()
@@ -470,9 +470,10 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
     __rank = {}
     __rankDup = {}
     _numTrans = str()
+    _perFreqItems = None
 
     def __init__(self, iFile, minSup, maxPer, numWorker, sep='\t'):
-        super().__init__(iFile, minSup, maxPer, numWorker, sep)
+        super().__init__(iFile, minSup, maxPer, numWorker)
 
     def func1(self, ps1, tid):
         """

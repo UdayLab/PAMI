@@ -458,6 +458,8 @@ class SHUIM(_ab._utilityPatterns):
     _minUtil = 0
     _memoryUSS = float()
     _memoryRSS = float()
+    _dataset = None
+    _patternCount = None
     
     def __init__(self, iFile: str, nFile: str, minUtil: int, sep: str="\t") -> None:
         super().__init__(iFile, nFile, minUtil, sep)
