@@ -37,6 +37,12 @@ class TKG(_ab._TKG):
     THREADED_DYNAMIC_SEARCH = True
 
     def __init__(self, iFile, k, maxNumberOfEdges=float('inf'), outputSingleVertices=True, outputGraphIds=False):
+        self._memoryRSS = None
+        self._memoryUSS = None
+        self.runtime = None
+        self.minSup = None
+        self.candidates = None
+        self.kSubgraphs = None
         self.iFile = iFile
         self.k = k
         self.outputGraphIds = outputGraphIds

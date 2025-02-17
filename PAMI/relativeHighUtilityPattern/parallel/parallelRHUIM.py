@@ -111,6 +111,11 @@ class efimParallel(_ab._utilityPatterns):
 
     def __init__(self, iFile, minUtil, ratio, sep="\t", threads=1):
         super().__init__(iFile, minUtil, sep)
+        self.oFile = None
+        self.runtime = None
+        self.memoryUSS = None
+        self.memoryRSS = None
+        self.start = None
         self.inputFile = iFile
         self.minUtil = minUtil
         self.sep = sep
@@ -321,7 +326,7 @@ class efimParallel(_ab._utilityPatterns):
 
         self.allStore = {}
 
-        if (self.threads > 1):
+        if self.threads > 1:
             print("Im with the lads")
             with Parallel(n_jobs=self.threads) as parallel:
                 a = 0

@@ -185,8 +185,8 @@ class utilityToFuzzy(_ab._convert):
             for i in range(0, len(item_list)):
                 item = item_list[i]
                 fuzzy_ref = fuzzyValues_list[i]
-                regionsList = self._Regions(int(fuzzy_ref))
-                self._fuzzyRegionReferenceMap[fuzzy_ref] = regionsList
+                self._Regions(int(fuzzy_ref))
+                #self._fuzzyRegionReferenceMap[fuzzy_ref] = regionsList
                 s1 = [self._list.index(i) for i in self._list if i!=0]
                 for k in s1:
                     s = s + item + '.' + self._LabelKeyOne[k] + '\t'

@@ -192,7 +192,8 @@ class Parallel_PPFP:
 
     """
 
-    def _init_(self, inputData, minSup, maxPeriod, numWorkers, sep='\t'):
+    def __init__(self, inputData, minSup, maxPeriod, numWorkers, sep='\t'):
+        self._oFile = None
         self._minSup = minSup
         self._maxPeriod = int(maxPeriod)
         self._numPartitions = int(numWorkers)

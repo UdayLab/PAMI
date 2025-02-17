@@ -263,7 +263,7 @@ class _Tree:
                     yield q
             self.removeNode(i)
 
-class SPPGrowth():
+class SPPGrowth:
     _startTime = float()
     _endTime = float()
     _minSup = str()
@@ -444,7 +444,7 @@ class SPPGrowth():
         Mining process will start from this function
         """
 
-        global _minSup, _maxPer, _lno, _maxLa
+        global _minSup, _maxPer, _maxLa # _lno,
         self._startTime = time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")

@@ -409,10 +409,10 @@ class UFGrowth(_ab._frequentPatterns):
     _minSup = str()
     _finalPatterns = {}
     _iFile = " "
-    _oFile = " "
+    oFile = " "
     _sep = " "
     _memoryUSS = float()
-    _memoryRSS = float()
+    memoryRSS = float()
     _Database = []
     _rank = {}
     _mapSupport = {}
@@ -555,8 +555,8 @@ class UFGrowth(_ab._frequentPatterns):
                             prefixPaths.append(prefixPath)
                         path = path.nodeLink
                     treeBeta = _Tree()
-                    for i in prefixPaths:
-                        q = treeBeta.addPrefixPath(i, mapSupportBeta, self._minSup)
+                    for j in prefixPaths:
+                        q = treeBeta.addPrefixPath(j, mapSupportBeta, self._minSup)
                         self._conditionalnodes += q
                     if len(treeBeta.root.child) > 0:
                         treeBeta.createHeaderList(mapSupportBeta, self._minSup)

@@ -259,7 +259,7 @@ class TemporalDatabase:
         """
         big_array = self.convertDataIntoMatrix()
         n_zeros = np.count_nonzero(big_array == 0)
-        return (n_zeros / big_array.size)
+        return n_zeros / big_array.size
 
     def getDensity(self) -> float:
         """
@@ -269,7 +269,7 @@ class TemporalDatabase:
         """
         big_array = self.convertDataIntoMatrix()
         n_zeros = np.count_nonzero(big_array == 1)
-        return (1.0 - n_zeros / big_array.size)
+        return 1.0 - n_zeros / big_array.size
 
     def getTotalNumberOfItems(self) -> int:
         """

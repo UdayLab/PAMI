@@ -448,11 +448,11 @@ class GSpan(_ab._gSpan):
         for extension, newGraphIds in extensions.items():
             sup = len(newGraphIds)
             
-            if (sup >= self.minSup):
+            if sup >= self.minSup:
                 newC = c.copy()
                 newC.add(extension)
                 
-                if (self.isCanonical(newC)):
+                if self.isCanonical(newC):
                     subgraph = _ab.FrequentSubgraph(newC, newGraphIds, sup)
                     self.frequentSubgraphs.append(subgraph)
 

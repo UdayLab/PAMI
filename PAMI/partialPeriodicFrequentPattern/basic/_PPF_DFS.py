@@ -259,7 +259,7 @@ class PPF_DFS(partialPeriodicPatterns):
         for j in range(len(tids) - 1):
             i = j + 1
             per = abs(tids[i] - tids[j])
-            if (per <= self._partialPeriodicPatterns__maxPer):
+            if per <= self._partialPeriodicPatterns__maxPer:
                 sup += 1
             cur = tids[j]
         if abs(self.__last - tids[len(tids) - 1]) <= self._partialPeriodicPatterns__maxPer:
@@ -289,7 +289,7 @@ class PPF_DFS(partialPeriodicPatterns):
         for j in range(len(tids) - 1):
             i = j + 1
             per = abs(tids[i] - tids[j])
-            if (per <= self._partialPeriodicPatterns__maxPer):
+            if per <= self._partialPeriodicPatterns__maxPer:
                 sup += 1
         if abs(tids[len(tids) - 1] - self.__last) <= self._partialPeriodicPatterns__maxPer:
             sup += 1
@@ -376,7 +376,7 @@ class PPF_DFS(partialPeriodicPatterns):
         :type tidsetx: list
         """
         tidsetx = list(set(tidsetx))
-        if (prefix == None):
+        if prefix == None:
             prefix = suffix
         else:
             prefix = prefix + suffix
@@ -396,14 +396,14 @@ class PPF_DFS(partialPeriodicPatterns):
         :param tidsets: time stamps of the items in the argument itemSets
         :type tidsets: list
         """
-        if (len(itemsets) == 1):
+        if len(itemsets) == 1:
             i = itemsets[0]
             tidi = tidsets[0]
             self.__save(prefix, [i], tidi)
             return
         for i in range(len(itemsets)):
             itemx = itemsets[i]
-            if (itemx == None):
+            if itemx == None:
                 continue
             tidsetx = tidsets[i]
             classItemsets = []

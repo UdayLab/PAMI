@@ -558,8 +558,8 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                 qaunt[pair.item] = pair.quantity
                 remainUtil = 0
                 temp = list(set(self._mapItemNeighbours[pair.item]).intersection(set(qaunt.keys())))
-                for j in temp:
-                    remainUtil += float(qaunt[j])
+                for k in temp:
+                    remainUtil += float(qaunt[k])
                 del temp
                 remainingUtility = remainUtil
                 FFListObject = mapItemsToFFLIST[pair.item]
@@ -820,10 +820,10 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             for num in range(0, len(legendary)):
                 latexwriter.write("\n\\addplot+  [" + color[num] + "]\n\tcoordinates {\n")
                 for num2 in range(0, len(xaxis)):
-                    if (legendary[num] == algo[num2]):
+                    if legendary[num] == algo[num2]:
                         latexwriter.write("(" + str(xaxis[num2]) + "," + str(yaxis[num2]) + ")\n")
                 latexwriter.write("\t};   \\addlegendentry{" + legendary[num] + "}\n")
-                if (num + 1 == len(legendary)):
+                if num + 1 == len(legendary):
                     latexwriter.write("\\end{axis}")
         print("Latex file generated successfully")
 

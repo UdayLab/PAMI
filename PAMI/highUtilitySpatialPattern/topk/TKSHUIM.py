@@ -232,13 +232,13 @@ class Dataset:
         transactionUtility = int(trans_list[1])
         itemsString = trans_list[0].strip().split(self.sep)
         utilityString = trans_list[2].strip().split(self.sep)
-        if (len(trans_list) == 4):
+        if len(trans_list) == 4:
             pmuString = trans_list[3].strip().split(self.sep)
         items = []
         utilities = []
         pmus = []
         for idx, item in enumerate(itemsString):
-            if (self.strToint).get(item) is None:
+            if self.strToint.get(item) is None:
                 self.strToint[item] = self.cnt
                 self.intTostr[self.cnt] = item
                 self.cnt += 1
@@ -247,7 +247,7 @@ class Dataset:
                 self.maxItem = item_int
             items.append(item_int)
             utilities.append(int(utilityString[idx]))
-            if (len(trans_list) == 4):
+            if len(trans_list) == 4:
                 pmus.append(int(pmuString[idx]))
         return Transaction(items, utilities, transactionUtility, pmus)
 
@@ -794,9 +794,9 @@ class TKSHUIM(utilityPatterns):
                 pmu = transaction.getUtilities()[idx]
                 if item in self.Neighbours:
                     neighbors = self.Neighbours[item]
-                    for idx, item in enumerate(transaction.getItems()):
-                        if item in neighbors:
-                            pmu += transaction.getUtilities()[idx]
+                    for idn, item1 in enumerate(transaction.getItems()):
+                        if item1 in neighbors:
+                            pmu += transaction.getUtilities()[idn]
                 if item in self.utilityBinArrayLU:
                     # self.utilityBinArrayLU[item] += transaction.getPmus()[idx]
                     self.utilityBinArrayLU[item] += pmu

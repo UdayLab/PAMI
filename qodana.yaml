@@ -35,5 +35,11 @@ exclude:
     paths:
       - finalSphinxDocs
       - docs
-      - docs\codersManual
+      - notebooks
+      - images
+      - PAMI\fuzzyFrequentPattern\basic\FFIMiner_old.py
   - name: PyTypeCheckerInspection
+  - name: PyRedundantParenthesesInspection
+    paths:
+      - PAMI\extras\generateDatabase\generateSpatioTemporalDatabase.py
+      - PAMI\extras\generateDatabase\generateSpatioTransactionalDatabase.py

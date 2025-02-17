@@ -38,7 +38,7 @@ from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import pandas
 import sys
 
-class spatioTemporalDatabaseGenerator():
+class spatioTemporalDatabaseGenerator:
     """
 
     :Description:   generateSpatioTemporalDatabase is a code used to convert the database into SpatioTemporal database.

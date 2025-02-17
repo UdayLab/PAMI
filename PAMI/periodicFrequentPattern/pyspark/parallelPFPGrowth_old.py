@@ -139,8 +139,8 @@ class Node(object):
                 count -= t[2]
                 t[0].insert(0, child.item)
                 yield t
-        if (count > 0):
-            yield ([], tids, count)
+        if count > 0:
+            yield [], tids, count
 
 
 class PFPTree(object):
@@ -210,7 +210,7 @@ class PFPTree(object):
             child.count += count
             for j in tid:
                 summary.tids.add(j)
-                if (i == len(basket) - 1):
+                if i == len(basket) - 1:
                     child.tids.add(j)
             curr = child
         return self
@@ -281,11 +281,11 @@ class PFPTree(object):
         """
         for item in sorted(self.summaries, reverse=True):
             summary = self.summaries[item]
-            if (isResponsible(item)):
-                if (summary.count >= minCount and self.satisfyPer(summary.tids, maxPer, numTrans)):
-                    yield ([item], summary.count)
+            if isResponsible(item):
+                if summary.count >= minCount and self.satisfyPer(summary.tids, maxPer, numTrans):
+                    yield [item], summary.count
                     for element in self.project(item).extract(minCount, maxPer, numTrans):
-                        yield ([item] + element[0], element[1])
+                        yield [item] + element[0], element[1]
             for element in summary.nodes:
                 parent = element.parent
                 parent.tids |= element.tids

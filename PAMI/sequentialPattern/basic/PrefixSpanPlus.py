@@ -172,8 +172,8 @@ class PrefixSpanPlus(_ab._sequentialPatterns):
                             seq = []
                             for i in temp:
                                 if len(i)>1:
-                                   for i in list(sorted(set(i.split()))):
-                                       seq.append(i)
+                                   for j in list(sorted(set(i.split()))):
+                                       seq.append(j)
                                    seq.append(self._sepSeq)
 
                                 else:
@@ -265,7 +265,7 @@ class PrefixSpanPlus(_ab._sequentialPatterns):
                 for i in line:
                     if supDatabase[i]>=self._minSup or i in head:
                         if len(newLine)>1:
-                            if (newLine[-1]!=self._sepSeq or i!=self._sepSeq):
+                            if newLine[-1]!=self._sepSeq or i!=self._sepSeq:
                                 newLine.append(i)
                         else:
                             newLine.append(i)

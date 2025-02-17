@@ -509,7 +509,7 @@ class TubeS(_fp._frequentPatterns):
     _minSup = float()
     _finalPatterns = {}
     _iFile = " "
-    _oFile = " "
+    oFile = " "
     _sep = " "
     _memoryUSS = float()
     _memoryRSS = float()
@@ -623,7 +623,7 @@ class TubeS(_fp._frequentPatterns):
             for i in range(0, len(tr)):
                 if tr[i].item in dict1:
                     list2.append(tr[i])
-            if (len(list2) >= 2):
+            if len(list2) >= 2:
                 basket = list2
                 basket.sort(key=lambda val: self._rank[val.item])
                 list2 = basket

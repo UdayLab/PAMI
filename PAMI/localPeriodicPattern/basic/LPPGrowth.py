@@ -460,9 +460,9 @@ class LPPGrowth(_ab._localPeriodicPatterns):
                     tsPre[item] = ts
                     start[item] = -1
                     LPPList[item] = set()
-            for line in self.__Database:
-                ts = int(line.pop(0))
-                for item in line:
+            for line1 in self.__Database:
+                ts = int(line1.pop(0))
+                for item in line1:
                     if item in LPPList:
                         per = ts - tsPre[item]
                         if per <= self._localPeriodicPatterns__maxPer and start[item] == -1:

@@ -40,7 +40,7 @@ import pandas as pd
 import sys
 
 
-class visualizeFuzzyPatterns():
+class visualizeFuzzyPatterns:
     """
 
    :Description:   visualizeFuzzyPatterns is used to visualize points produced by pattern miner .

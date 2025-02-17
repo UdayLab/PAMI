@@ -40,7 +40,7 @@ __copyright__ = """
 
 import pandas as pd
 import sys
-class denseDF2DB():
+class denseDF2DB:
     """
     :Description: This class create Data Base from DataFrame.
 

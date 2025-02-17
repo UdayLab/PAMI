@@ -33,7 +33,7 @@ Copyright (C)  2024 Rage Uday Kiran
 
      You should have received a copy of the GNU General Public License
 """     
-class TransactionDB2denseDF():
+class TransactionDB2denseDF:
     """
     :Description:  DB2DF in this code transactional databases is converting dense dataframe.
 

@@ -245,7 +245,7 @@ class _Dataset:
         utilities = []
         pmus = []
         for idx, item in enumerate(itemsString):
-            if (self.strToInt).get(item) is None:
+            if self.strToInt.get(item) is None:
                 self.strToInt[item] = self.cnt
                 self.intToStr[self.cnt] = item
                 self.cnt += 1

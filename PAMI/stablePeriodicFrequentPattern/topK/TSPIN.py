@@ -168,7 +168,7 @@ class _Tree(object):
                 currentNode = currentNode.children[transaction[i]]
         currentNode.timeStamps = currentNode.timeStamps + tid
 
-    def getConditionalPatterns(self, alpha) -> None:
+    def getConditionalPatterns(self, alpha):
         """
         Generates all the conditional patterns of a respective node
 
@@ -257,7 +257,7 @@ class _Tree(object):
         :returns: Returns conditional transactions by removing non-periodic and non-frequent items
         """
 
-        global _maxPer, _minSup
+        global _maxPer #_minSup
         pat = []
         timeStamps = []
         data1 = {}

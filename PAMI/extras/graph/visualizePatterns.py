@@ -36,7 +36,7 @@ import pandas as pd
 import sys
 
 
-class visualizePatterns():
+class visualizePatterns:
     """
 
        :Description:   visualizePatterns is used to visualize points produced by pattern miner .

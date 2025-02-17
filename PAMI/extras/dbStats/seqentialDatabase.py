@@ -262,7 +262,7 @@ class sequentialDatabase:
         """
         big_array = self.convertDataIntoMatrix()
         n_zeros = np.count_nonzero(big_array == 0)
-        return (n_zeros / big_array.size)
+        return n_zeros / big_array.size
 
     def getDensity(self):
         """
@@ -271,7 +271,7 @@ class sequentialDatabase:
         """
         big_array = self.convertDataIntoMatrix()
         n_zeros = np.count_nonzero(big_array != 0)
-        return (n_zeros / big_array.size)
+        return n_zeros / big_array.size
 
     def getSortedListOfItemFrequencies(self):
         """

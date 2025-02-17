@@ -910,9 +910,9 @@ class SHUFIM(_ab._utilityPatterns):
                 pmu = transaction.getUtilities()[idx]
                 if item in self._Neighbours:
                     neighbors = self._Neighbours[item]
-                    for idx, item in enumerate(transaction.getItems()):
-                        if item in neighbors:
-                            pmu += transaction.getUtilities()[idx]
+                    for idn, item1 in enumerate(transaction.getItems()):
+                        if item1 in neighbors:
+                            pmu += transaction.getUtilities()[idn]
                 if item in self._utilityBinArrayLU:
                     # self._utilityBinArrayLU[item] += transaction.getPmus()[idx]
                     self._utilityBinArrayLU[item] += pmu

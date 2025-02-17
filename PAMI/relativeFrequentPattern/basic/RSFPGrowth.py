@@ -408,6 +408,7 @@ class RSFPGrowth(_ab._frequentPatterns):
     __fpNodeTempBuffer = []
     __itemSetCount = 0
     __maxPatternLength = 1000
+    __oFile = None
 
     def __init__(self, iFile: Union[str, pd.DataFrame], minSup: Union[int, float, str], minRS: float, sep: str='\t') -> None:
         super().__init__(iFile, minSup, minRS, sep)

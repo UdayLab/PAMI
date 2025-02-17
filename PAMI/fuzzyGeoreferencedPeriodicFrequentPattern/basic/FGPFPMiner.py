@@ -498,8 +498,8 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                 remainUtil = 0
                 temp = list(set(self._mapItemNeighbours[pair.item[0]]).intersection(set(qaunt.keys())))
                 # print(temp, self._mapItemNeighbours[pair.item[0]], qaunt)
-                for j in temp:
-                    remainUtil += float(qaunt[j])
+                for k in temp:
+                    remainUtil += float(qaunt[k])
                 del temp
                 remainingUtility = remainUtil
                 FFListObject = mapItemsToFFLIST[pair.item]

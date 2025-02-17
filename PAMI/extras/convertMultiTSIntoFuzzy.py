@@ -37,7 +37,7 @@ import sys
 import pandas as pd
 import plotly.express as px
 
-class convertMultipleTSIntoFuzzy():
+class convertMultipleTSIntoFuzzy:
     """
     :Description: Converting multiple time series into fuzzy
 

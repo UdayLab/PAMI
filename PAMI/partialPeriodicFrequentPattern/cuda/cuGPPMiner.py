@@ -320,7 +320,7 @@ class cuGPPMiner(partialPeriodicPatterns):
             self._rename[number] = str(k[0])
             number += 1
             satisfy = self._partialPeriodicPatterns__minPR * (self._partialPeriodicPatterns__minSup + 1)
-            ratio = (perSup)/(len(v) + 1)
+            ratio = perSup / (len(v) + 1)
             if ratio >= self._partialPeriodicPatterns__minPR:
                 # print(len(v),perSup)
                 # print(k, len(v), v, nv, differences, maxDiff)

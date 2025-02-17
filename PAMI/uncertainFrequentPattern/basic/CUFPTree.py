@@ -489,12 +489,13 @@ class CUFPTree(_ab._frequentPatterns):
     _minSup = str()
     _finalPatterns = {}
     _iFile = " "
-    _oFile = " "
+    oFile = " "
     _sep = " "
-    _memoryUSS = float()
-    _memoryRSS = float()
+    memoryUSS = float()
+    memoryRSS = float()
     _Database = []
     _rank = {}
+    Database1 = None
 
     def __init__(self, iFile, minSup, sep='\t') -> None:
         super().__init__(iFile, minSup, sep)
