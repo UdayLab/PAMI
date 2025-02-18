@@ -309,7 +309,8 @@ class generatePFListver2:
         :return: timestamps and last timestamp
         """
         global orderOfItem
-        tidList = {}
+        #tidList = {}
+        last = None
         tid = 1
         for transaction in self.Database:
             timestamp = int(transaction[0])
@@ -612,6 +613,9 @@ class GPFgrowth(partialPeriodicPatterns):
     _partialPeriodicPatterns__memoryUSS = float()
     _partialPeriodicPatterns__memoryRSS = float()
     __Database = []
+    __inputFile = None
+    __runTime = None
+    oFile = None
 
     def __convert(self, value):
         """

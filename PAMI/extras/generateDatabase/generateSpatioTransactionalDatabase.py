@@ -235,7 +235,7 @@ if __name__ == "__main__":
     db.save('db.txt')
     print(db.getTransactions())
 
-    obj = generateSpatioTransactionalDatabase(sys.argv[1], sys.argv[2], sys.argv[3])
+    obj = generateSpatioTransactionalDatabase(sys.argv[1], sys.argv[2], sys.argv[3],int(sys.argv[4]),int(sys.argv[5]),int(sys.argv[6]),int(sys.argv[7]))
     obj.create()
     obj.save(sys.argv[4])
     # print(obj.getTransactions())

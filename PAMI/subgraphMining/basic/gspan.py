@@ -448,11 +448,11 @@ class GSpan(_ab._gSpan):
         for extension, newGraphIds in extensions.items():
             sup = len(newGraphIds)
             
-            if (sup >= self.minSup):
+            if sup >= self.minSup:
                 newC = c.copy()
                 newC.add(extension)
                 
-                if (self.isCanonical(newC)):
+                if self.isCanonical(newC):
                     subgraph = _ab.FrequentSubgraph(newC, newGraphIds, sup)
                     self.frequentSubgraphs.append(subgraph)
 
@@ -580,6 +580,12 @@ class GSpan(_ab._gSpan):
         :param graphDb: The `graphDb` parameter  refers to a graph database that the algorithm is 
         operating on.
         """
+        alreadySeenPair = None
+        matrix = None
+        mapEdgeLabelToSupport = None
+        alreadySeenEdgeLabel = None
+
+
         if GSpan.eliminate_infrequent_edge_labels:
             matrix = _ab.SparseTriangularMatrix()
             alreadySeenPair = set() # To avoid double counting pairs in the same graph

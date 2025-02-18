@@ -210,6 +210,7 @@ class SPAM(_ab._sequentialPatterns):
         Storing the complete sequences of the database/input file in a database variable
         """
         self._Database = []
+        temp2 = None
 
         if isinstance(self._iFile, _ab._pd.DataFrame):
             temp = []

@@ -176,6 +176,9 @@ class PPF_DFS(partialPeriodicPatterns):
     _partialPeriodicPatterns__startTime = float()
     _partialPeriodicPatterns__endTime = float()
     __Database = []
+    _maxTS = None
+    _dbSize = None
+    oFile = None
 
 
     def _creatingItemSets(self) -> None:
@@ -244,7 +247,7 @@ class PPF_DFS(partialPeriodicPatterns):
         for j in range(len(tids) - 1):
             i = j + 1
             per = abs(tids[i] - tids[j])
-            if (per <= self._partialPeriodicPatterns__maxPer):
+            if per <= self._partialPeriodicPatterns__maxPer:
                 sup += 1
         if abs(tids[len(tids) - 1] - self.__last) <= self._partialPeriodicPatterns__maxPer:
             sup += 1

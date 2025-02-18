@@ -207,6 +207,7 @@ class GSP(_ab._sequentialPatterns):
         Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
+        temp2 = None
 
         if isinstance(self._iFile, _ab._pd.DataFrame):
             temp = []
@@ -470,7 +471,7 @@ class GSP(_ab._sequentialPatterns):
         self._minSup = self._convert(self._minSup)
         self.make1LenDatabase()
         nextPatterns=self.make2LenDatabase()
-        while(len(nextPatterns)>0):
+        while len(nextPatterns)>0:
             nextPatterns= self.makexLenDatabase(nextPatterns)
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())

@@ -252,7 +252,7 @@ class TransactionalDatabase:
         """
         big_array = self.convertDataIntoMatrix()
         n_zeros = np.count_nonzero(big_array == 0)
-        return (n_zeros / big_array.size)
+        return n_zeros / big_array.size
 
     def getDensity(self) -> float:
         """
@@ -262,7 +262,7 @@ class TransactionalDatabase:
         """
         big_array = self.convertDataIntoMatrix()
         n_zeros = np.count_nonzero(big_array != 0)
-        return (n_zeros / big_array.size)
+        return n_zeros / big_array.size
 
     def getSortedListOfItemFrequencies(self) -> dict:
         """
@@ -345,7 +345,7 @@ if __name__ == '__main__':
     import pandas as pd
     # obj = TransactionalDatabase(data)
     obj = TransactionalDatabase(sys.argv[1], sys.argv[2])
-    obj = TransactionalDatabase(pd.DataFrame(data))
+    #obj = TransactionalDatabase(pd.DataFrame(data))
     obj.run()
     obj.printStats()
     obj.plotGraphs()

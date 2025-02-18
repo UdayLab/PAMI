@@ -494,12 +494,14 @@ class GFPGrowth(_ab._frequentPatterns):
     _minSup = str()
     _finalPatterns = {}
     _iFile = " "
-    _oFile = " "
+    oFile = " "
     _sep = " "
     _memoryUSS = float()
-    _memoryRSS = float()
+    memoryRSS = float()
     _Database = []
     _rank = {}
+    Database1 = None
+
 
     def __init__(self, iFile, nFile, minSup, sep='\t'):
         super().__init__(iFile, nFile, minSup, sep)

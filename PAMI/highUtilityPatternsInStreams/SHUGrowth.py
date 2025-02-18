@@ -122,7 +122,7 @@ class _Node:
         Shifts the tail pointer of the node to the left
         """
 
-        if(self.tail is not None):
+        if self.tail is not None:
             self.tail.pop(0)
             self.tail.append(False)
 
@@ -305,7 +305,7 @@ class _SHUTree:
             
             item = transaction[iter]
 
-            if(self.localTree is False):
+            if self.localTree is False:
                 curUtility += itemUtility[iter]
             else:
                 curUtility = itemUtility[iter]
@@ -315,7 +315,7 @@ class _SHUTree:
                 currentNode = currentNode.children[item]
                 currentNode.addUtility(curUtility, self.batchIndex)
 
-                if(self.localTree is False):
+                if self.localTree is False:
                     self.headerTable.addUtility(item, curUtility)
 
                 else:
@@ -326,7 +326,7 @@ class _SHUTree:
                 currentNode.children[item] = newNode
                 newNode.parent = currentNode
 
-                if(self.localTree is False):
+                if self.localTree is False:
                     self.headerTable.updateUtility(item, curUtility, newNode)
 
                 else:
@@ -350,10 +350,10 @@ class _SHUTree:
         :rtype: int
         """
 
-        if(root is None):
+        if root is None:
             return 0
 
-        if(root.tail is not None):
+        if root.tail is not None:
             return root.utility[0]
 
         netUtility = 0
@@ -376,7 +376,7 @@ class _SHUTree:
             self.windowUtility -= self.tailUtilities(currentNode.children[child])
             self.removeBatchUtility(currentNode.children[child])
 
-            if(sum(currentNode.children[child].utility) == 0):
+            if sum(currentNode.children[child].utility) == 0:
                 del currentNode.children[child]
 
 
@@ -399,18 +399,18 @@ class _SHUTree:
         tempNode.shiftUtility()
         tempNode.shiftTail()
 
-        if(sum(tempNode.utility) == 0):
-            if(tempNode.itemName in self.headerTable.table):
+        if sum(tempNode.utility) == 0:
+            if tempNode.itemName in self.headerTable.table:
                 curNode = self.headerTable.table[tempNode.itemName][1]
 
-                if(curNode == tempNode):
+                if curNode == tempNode:
                     self.headerTable.table[tempNode.itemName][1] = tempNode.next
 
                 else:
-                    while(curNode != None and curNode.next != tempNode):
+                    while curNode != None and curNode.next != tempNode:
                         curNode = curNode.next
 
-                    if(curNode != None):
+                    if curNode != None:
                         curNode.next = tempNode.next
 
                 del tempNode.tail
@@ -419,7 +419,7 @@ class _SHUTree:
 
         curChilds = list(tempNode.children.keys())
         for child in curChilds:
-            if(sum(tempNode.children[child].utility) == 0):
+            if sum(tempNode.children[child].utility) == 0:
                 del tempNode.children[child]
 
     
@@ -838,7 +838,7 @@ class SHUGrowth(_hus._highUtilityPatternStreamMining):
         """
         This function will start the mining process
         """
-        global _minUtil
+        #global _minUtil
         self.__startTime = _hus._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")

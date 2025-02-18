@@ -173,7 +173,7 @@ class _Regions:
                     mapOfRegions[t1] = 1
                 else:
                     temp = mapOfRegions[t1]
-                    mapOfRegions = temp + 1
+                    mapOfRegions[t1] = temp + 1
 
 
 class _Pair:
@@ -672,7 +672,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         :rtype: float
         """
         res = 1.0
-        n = prefixLen
+        #n = prefixLen
         for i in prefix:
             if self._mapItemRegionSum.get((i.item, i.region)) is not None and res < self._mapItemRegionSum[(i.item, i.region)]:
                 res = self._mapItemRegionSum[(i.item, i.region)]
@@ -764,7 +764,7 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:
-            _ap = FCPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]), _ab._sys.argv[5])
+            _ap = FCPGrowth(_ab._sys.argv[1], int(_ab._sys.argv[3]), float(_ab._sys.argv[4]), _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
             _ap = FCPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
         _ap.mine()

@@ -293,6 +293,7 @@ class HDSHUIM(_ab._utilityPatterns):
 
     def __init__(self, iFile: str, nFile: str, minUtil: int, sep: str="\t") -> None:
         super().__init__(iFile, nFile, minUtil, sep)
+        self.oFile = None
         self._startTime = 0
         self._endTime = 0
         self._huiCount = 0

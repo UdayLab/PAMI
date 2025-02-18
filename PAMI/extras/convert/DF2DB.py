@@ -87,7 +87,7 @@ class DF2DB:
             obj.convert2Temporal("outputFileName",condition,threshold) # To create temporal database
 
             obj.convert2Utility("outputFileName",condition,threshold) # To create utility database
-    """,
+    """
 
 
     def __init__(self, inputDF, DFtype='dense') -> None:

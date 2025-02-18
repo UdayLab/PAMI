@@ -228,8 +228,8 @@ class PrefixSpan(_ab._sequentialPatterns):
                             seq = []
                             for i in temp:
                                 if len(i)>1:
-                                   for i in list(sorted(set(i.split()))):
-                                       seq.append(i)
+                                   for j in list(sorted(set(i.split()))):
+                                       seq.append(j)
                                    seq.append(":")
 
                                 else:
@@ -323,7 +323,7 @@ class PrefixSpan(_ab._sequentialPatterns):
                 for i in line:
                     if supDatabase[i]>=self._minSup or i in head:
                         if len(newLine)>1:
-                            if (newLine[-1]!=":" or i!=":"):
+                            if newLine[-1]!= ":" or i!= ":":
                                 newLine.append(i)
                         else:
                             newLine.append(i)

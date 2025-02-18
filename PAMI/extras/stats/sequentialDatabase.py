@@ -43,7 +43,7 @@ import sys
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
-class sequentialDatabase():
+class sequentialDatabase:
     """
     SequentialDatabase is to get stats of database like avarage, minimun, maximum  and so on.
 

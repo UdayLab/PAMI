@@ -553,7 +553,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
     _maxPer = float()
     _finalPatterns = {}
     _iFile = " "
-    _oFile = " "
+    oFile = " "
     _sep = " "
     _memoryUSS = float()
     _memoryRSS = float()

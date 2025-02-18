@@ -245,7 +245,7 @@ class _Dataset:
         utilities = []
         pmus = []
         for idx, item in enumerate(itemsString):
-            if (self.strToInt).get(item) is None:
+            if self.strToInt.get(item) is None:
                 self.strToInt[item] = self.cnt
                 self.intToStr[self.cnt] = item
                 self.cnt += 1
@@ -458,6 +458,8 @@ class SHUIM(_ab._utilityPatterns):
     _minUtil = 0
     _memoryUSS = float()
     _memoryRSS = float()
+    _dataset = None
+    _patternCount = None
     
     def __init__(self, iFile: str, nFile: str, minUtil: int, sep: str="\t") -> None:
         super().__init__(iFile, nFile, minUtil, sep)

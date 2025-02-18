@@ -190,6 +190,16 @@ class GPUEFIM:
    """
 
     def __init__(self, inputFile, minUtil, sep = '\t'):
+        self.runtime = None
+        self.memoryUSS = None
+        self.memoryRSS = None
+        self.start = None
+        self.numTransactions = None
+        self.indexesEnd = None
+        self.secondaryLen = None
+        self.indexesStart = None
+        self.utils = None
+        self.items = None
         self.inputFile = inputFile
         self.minUtil = minUtil
         self.sep = sep

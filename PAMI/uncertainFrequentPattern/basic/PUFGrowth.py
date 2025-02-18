@@ -463,12 +463,13 @@ class PUFGrowth(_ab._frequentPatterns):
     _minSup = str()
     _finalPatterns = {}
     _iFile = " "
-    _oFile = " "
+    oFile = " "
     _sep = " "
     _memoryUSS = float()
-    _memoryRSS = float()
+    memoryRSS = float()
     _Database = []
     _rank = {}
+    Database1 = None
 
     def __init__(self, iFile, minSup, sep='\t') -> None:
         super().__init__(iFile, minSup, sep)
@@ -478,6 +479,7 @@ class PUFGrowth(_ab._frequentPatterns):
         Scans the uncertain transactional dataset
         """
         self._Database = []
+        temp = None
         if isinstance(self._iFile, _ab._pd.DataFrame):
             uncertain, data = [], []
             if self._iFile.empty:
@@ -501,7 +503,7 @@ class PUFGrowth(_ab._frequentPatterns):
                 for line in data:
                     line = line.strip()
                     line = line.decode("utf-8")
-                    temp1 = line.split(':')
+                    #temp1 = line.split(':')
                     temp = [i.rstrip() for i in temp[0].split(self._sep)]
                     uncertain = [float(i.rstrip()) for i in temp[1].split(self._sep)]
                     temp = [x for x in temp if x]

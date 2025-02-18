@@ -163,7 +163,7 @@ class cudaEclatGCT:
     _minSup = 0
     _finalPatterns = {}
 
-    def __init__(self, filePath, minSup, sep):
+    def __init__(self, filePath, minSup, sep='\t'):
         self._iFile = filePath
         self._sep = sep
         self._minSup = minSup

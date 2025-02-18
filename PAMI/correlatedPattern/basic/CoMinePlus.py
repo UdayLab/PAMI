@@ -268,7 +268,7 @@ class CoMinePlus(_ab._correlatedPatterns):
                     quit()
 
     
-    def _convert(self, value: Union[int, float, str]) -> None:
+    def _convert(self, value: Union[int, float, str]):
         """
         To convert the type of user specified minSup value
 
