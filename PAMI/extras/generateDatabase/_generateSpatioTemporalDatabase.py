@@ -145,15 +145,15 @@ class spatioTemporalDatabaseGenerator:
 
 
 if __name__ == "__main__":
-    xmin=0
-    xmax=100
-    ymin=0
-    ymax=100
-    maxTimeStamp = 10
-    numberOfItems = 10
-    itemChanceLow = 0.5
-    itemChanceHigh = 0.9
-    timeStampChanceLow = 0.5
-    timeStampChanceHigh = 0.9
+    xmin_=0
+    xmax_=100
+    ymin_=0
+    ymax_=100
+    maxTimeStamp_ = 10
+    numberOfItems_ = 10
+    itemChanceLow_ = 0.5
+    itemChanceHigh_ = 0.9
+    timeStampChanceLow_ = 0.5
+    timeStampChanceHigh_ = 0.9
     obj = spatioTemporalDatabaseGenerator(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]),int(sys.argv[5]),int(sys.argv[6]),float(sys.argv[7]),float(sys.argv[8]),float(sys.argv[9]),float(sys.argv[10]))
     obj.saveAsFile(sys.argv[11])

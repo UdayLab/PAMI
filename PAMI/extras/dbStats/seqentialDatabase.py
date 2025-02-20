@@ -75,11 +75,11 @@ class sequentialDatabase:
                 self.database = self.inputFile.set_index('tid').T.to_dict(orient='records')[0]
             if 'tid' in i and 'Patterns' in i:
                 self.database = self.inputFile.set_index('tid').T.to_dict(orient='records')[0]
-            for data in self.database.kays():
+            for _data in self.database.keys():
                 numberOfTransaction=numberOfTransaction+1
                 seqlist = []
                 NumOfSeq = 0
-                for i in self.database[data]:
+                for i in self.database[_data]:
                     if i == "-1":
                         NumOfSeq = NumOfSeq + 1
                     elif i != "-2":
@@ -90,8 +90,8 @@ class sequentialDatabase:
 
         if isinstance(self.inputFile, str):
             if validators.url(self.inputFile):
-                data = urlopen(self.inputFile)
-                for line in data:
+                _data = urlopen(self.inputFile)
+                for line in _data:
                     numberOfTransaction += 1
                     line.strip()
                     line = line.decode("utf-8")
@@ -251,8 +251,8 @@ class sequentialDatabase:
                     else:
                         itemsets[item] = [0]
         # new = pd.DataFrame.from_dict(itemsets)
-        data = list(itemsets.values())
-        an_array = np.array(data)
+        data_ = list(itemsets.values())
+        an_array = np.array(data_)
         return an_array
 
     def getSparsity(self):
@@ -308,16 +308,16 @@ class sequentialDatabase:
             transactionLength[length] += 1
         return {k: v for k, v in sorted(transactionLength.items(), key=lambda x: x[0])}
 
-    def save(self, data, outputFile):
+    def save(self, data_, outputFile):
         """
         store data into outputFile
-        :param data: input data
-        :type data: dict
+        :param data_: input data
+        :type data_: dict
         :param outputFile: output file name or path to store
         :type outputFile: str
         """
         with open(outputFile, 'w') as f:
-            for key, value in data.items():
+            for key, value in data_.items():
                 f.write(f'{key}\t{value}\n')
 
     def printStats(self):

@@ -305,17 +305,17 @@ class generateTemporal:
 
 
 if __name__ == '__main__':
-    numOfTransactions = 100
-    numItems = 20
+    numOfTransactions_ = 100
+    numItems_ = 20
     avgTransactionLength = 6
     outFileName = '3.txt'
-    sep = '\t'
+    sep_ = '\t'
     frameOrBase = "database"
 
-    temporalDB = generateTemporal(numOfTransactions, avgTransactionLength, numItems, outFileName)
+    temporalDB = generateTemporal(numOfTransactions_, avgTransactionLength, numItems_, outFileName)
 
     temporalDB.createTemporalFile()
-    temporalDB.save(sep, outFileName)
+    temporalDB.save(sep_, outFileName)
     print(temporalDB.getTransactions())
 
     obj = generateTemporal(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]),sys.argv[4])

@@ -178,7 +178,8 @@ class CMine(_ab._coveragePatterns):
     _lno = 0
 
 
-    def _convert(self, value) -> Union[int, float]:
+    @staticmethod
+    def _convert(value) -> Union[int, float]:
         """
         To convert the user specified minSup value
 

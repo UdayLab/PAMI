@@ -301,14 +301,14 @@ class _SHUTree:
         self.windowUtility += utility
 
         curUtility = 0
-        for iter in range(len(transaction)):
+        for _iter in range(len(transaction)):
             
-            item = transaction[iter]
+            item = transaction[_iter]
 
             if self.localTree is False:
-                curUtility += itemUtility[iter]
+                curUtility += itemUtility[_iter]
             else:
-                curUtility = itemUtility[iter]
+                curUtility = itemUtility[_iter]
 
             
             if item in currentNode.children:

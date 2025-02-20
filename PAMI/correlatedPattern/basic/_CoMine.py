@@ -195,7 +195,7 @@ class _Tree:
         for x, y in mapSupport.items():
             if y >= minSup:
                 t1.append(x)
-        itemSetBuffer = [k for k, v in sorted(mapSupport.items(), key=lambda x: x[1], reverse=True)]
+        itemSetBuffer = [k for k, v in sorted(mapSupport.items(), key=lambda _x: _x[1], reverse=True)]
         self.headerList = [i for i in t1 if i in itemSetBuffer]
 
     def addPrefixPath(self, prefix: List['_Node'], mapSupportBeta, minSup) -> None:

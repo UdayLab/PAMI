@@ -38,6 +38,7 @@ exclude:
       - notebooks
       - images
       - PAMI\fuzzyFrequentPattern\basic\FFIMiner_old.py
+      - conf.py
   - name: PyTypeCheckerInspection
   - name: PyRedundantParenthesesInspection
     paths:
@@ -48,3 +49,4 @@ exclude:
       - PAMI\partialPeriodicFrequentPattern\basic\_PPF_DFS.py
       - PAMI\partialPeriodicFrequentPattern\basic\GPFgrowth.py
       - PAMI\partialPeriodicFrequentPattern\cuda\cuGPPMiner.py
+  - name: PyMethodMayBeStaticInspection

@@ -164,7 +164,7 @@ class generateTransactionalDatabase:
         Generate the transactional database
         :return: None
         """
-        db = set()
+        #db = set()
 
         values = self.generate_array(self.numLines, self.avgItemsPerLine, self.numItems)
 

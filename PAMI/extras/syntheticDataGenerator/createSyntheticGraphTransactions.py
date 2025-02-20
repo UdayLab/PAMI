@@ -6,14 +6,14 @@ import random
 from PAMI.extras.visualize import graphs
 
 class SyntheticGraphGenerator:
-    def __init__(self, numGraphs, avgNumVertices, avgNumEdges, numVertexLabels, numEdgeLabels, outputFileName, format='old'):
+    def __init__(self, numGraphs, avgNumVertices, avgNumEdges, numVertexLabels, numEdgeLabels, outputFileName, graphFormat='old'):
         self.numGraphs = numGraphs
         self.avgNumVertices = avgNumVertices
         self.avgNumEdges = avgNumEdges
         self.numVertexLabels = numVertexLabels
         self.numEdgeLabels = numEdgeLabels
         self.outputFileName = outputFileName
-        self.format = format
+        self.format = graphFormat
         self._validate()
         self.generate()
 

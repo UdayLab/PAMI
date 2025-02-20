@@ -187,7 +187,7 @@ class TKG(_ab._TKG):
 
                 # Include graph IDs if the feature is enabled
                 if self.outputGraphIds and subgraph.setOfGraphsIds:
-                    sb.append("x " + " ".join(str(id) for id in subgraph.setOfGraphsIds))
+                    sb.append("x " + " ".join(str(iD) for iD in subgraph.setOfGraphsIds))
 
                 sb.append("\n\n")
                 bw.write("".join(sb))
@@ -568,7 +568,7 @@ class TKG(_ab._TKG):
 
             # Include graph IDs if the feature is enabled
             if self.outputGraphIds and subgraph.setOfGraphsIds:
-                subgraphDescription.append("x " + " ".join(str(id) for id in subgraph.setOfGraphsIds))
+                subgraphDescription.append("x " + " ".join(str(ID) for ID in subgraph.setOfGraphsIds))
             sb.append('\n'.join(subgraphDescription)) 
         return '\n\n'.join(sb)  
 

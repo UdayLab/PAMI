@@ -136,8 +136,8 @@ class TransactionalDatabase:
                 self.database = self.inputFile.set_index('tid').T.to_dict(orient='records')[0]
         if isinstance(self.inputFile, str):
             if validators.url(self.inputFile):
-                data = urlopen(self.inputFile)
-                for line in data:
+                data_ = urlopen(self.inputFile)
+                for line in data_:
                     numberOfTransaction += 1
                     line.strip()
                     line = line.decode("utf-8")
@@ -240,8 +240,8 @@ class TransactionalDatabase:
                     else:
                         itemsets[item] = [0]
         # new = pd.DataFrame.from_dict(itemsets)
-        data = list(itemsets.values())
-        an_array = np.array(data)
+        data_ = list(itemsets.values())
+        an_array = np.array(data_)
         return an_array
 
     def getSparsity(self) -> float:
@@ -302,17 +302,17 @@ class TransactionalDatabase:
             transactionLength[length] += 1
         return {k: v for k, v in sorted(transactionLength.items(), key=lambda x: x[0])}
 
-    def save(self, data: dict, outputFile: str) -> None:
+    def save(self, data_: dict, outputFile: str) -> None:
         """
         store data into outputFile
-        :param data: input data
-        :type data: dict
+        :param data_: input data
+        :type data_: dict
         :param outputFile: output file name or path to store
         :type outputFile: str
         :return: None
         """
         with open(outputFile, 'w') as f:
-            for key, value in data.items():
+            for key, value in data_.items():
                 f.write(f'{key}\t{value}\n')
                    
     def printStats(self) -> None:

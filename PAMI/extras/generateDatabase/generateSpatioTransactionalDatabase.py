@@ -185,7 +185,7 @@ class generateSpatioTransactionalDatabase:
         Generate the transactional database
         :return: None
         """
-        db = set()
+        #db = set()
 
         values = self.generateArray(self.numLines, self.avgItemsPerLine, self.numItems)
 

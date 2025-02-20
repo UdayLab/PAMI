@@ -333,16 +333,16 @@ class generateSpatioTemporal:
 
 
 if __name__ == '__main__':
-    numOfTransactions = 100
-    numItems = 20
-    avgTransactionLength = 6
+    numOfTransactions_ = 100
+    numItems_ = 20
+    avgTransactionLength_ = 6
     outFileName = '1.txt'
-    sep = '\t'
+    sep_ = '\t'
 
-    temporalDB = generateSpatioTemporal(numOfTransactions, avgTransactionLength, numItems, outFileName,1,1,10,10)
+    temporalDB = generateSpatioTemporal(numOfTransactions_, avgTransactionLength_, numItems_, outFileName,1,1,10,10)
 
     temporalDB.createTemporalFile()
-    temporalDB.save(sep, outFileName)
+    temporalDB.save(sep_, outFileName)
     print(temporalDB.getTransactions())
 
 

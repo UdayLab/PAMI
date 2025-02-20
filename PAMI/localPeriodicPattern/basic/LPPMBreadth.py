@@ -351,10 +351,10 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
                 I |= {item}
                 self._localPeriodicPatterns__finalPatterns[item] = PTL[item]
         I = sorted(list(I))
-        map = {-1 : I}
+        _map = {-1 : I}
         I = set(I)
-        while len(map) > 0:
-            map = self.__LPPMBreadthSearch(map)
+        while len(_map) > 0:
+            _map = self.__LPPMBreadthSearch(_map)
 
     def __calculatePTL(self, tsList: int) -> Set[Tuple[int, int]]:
         """
