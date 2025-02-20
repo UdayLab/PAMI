@@ -51,11 +51,12 @@ __copyright__ = """
 
 """
 
+from abc import ABC
 
 from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
-import deprecated
+#import deprecated
 
-class PPF_DFS(partialPeriodicPatterns):
+class PPF_DFS(partialPeriodicPatterns, ABC):
     """
     :Description:   PPF_DFS is algorithm to mine the partial periodic frequent patterns.
 
@@ -376,7 +377,7 @@ class PPF_DFS(partialPeriodicPatterns):
         :type tidsetx: list
         """
         tidsetx = list(set(tidsetx))
-        if prefix == None:
+        if prefix is None:
             prefix = suffix
         else:
             prefix = prefix + suffix
@@ -403,7 +404,7 @@ class PPF_DFS(partialPeriodicPatterns):
             return
         for i in range(len(itemsets)):
             itemx = itemsets[i]
-            if itemx == None:
+            if itemx is None:
                 continue
             tidsetx = tidsets[i]
             classItemsets = []

@@ -417,7 +417,7 @@ class CoMinePlus(_ab._correlatedPatterns):
                         nitemsCounts[trans] = 0
                     nitemsCounts[trans] += count
 
-            nitemsCounts = {k:v for k, v in nitemsCounts.items() if v <= bound and v >= self._minSup}
+            nitemsCounts = {k:v for k, v in nitemsCounts.items() if bound >= v >= self._minSup}
             nitemNode = {}
             for transaction, count in ntransactions:
                 temp = []

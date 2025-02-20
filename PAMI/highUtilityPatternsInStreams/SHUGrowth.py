@@ -407,10 +407,10 @@ class _SHUTree:
                     self.headerTable.table[tempNode.itemName][1] = tempNode.next
 
                 else:
-                    while curNode != None and curNode.next != tempNode:
+                    while curNode is not None and curNode.next != tempNode:
                         curNode = curNode.next
 
-                    if curNode != None:
+                    if curNode is not None:
                         curNode.next = tempNode.next
 
                 del tempNode.tail

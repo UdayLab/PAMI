@@ -57,6 +57,8 @@ __copyright__ = """
 
 """
 
+from abc import ABC
+
 import deprecated
 from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
 
@@ -117,7 +119,7 @@ class _Node(object):
         return transaction[::-1], locs
 
 
-class GPFgrowth(partialPeriodicPatterns):
+class GPFgrowth(partialPeriodicPatterns, ABC):
     """
     **About this algorithm**
 

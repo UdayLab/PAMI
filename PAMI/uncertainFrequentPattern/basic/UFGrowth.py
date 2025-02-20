@@ -540,14 +540,13 @@ class UFGrowth(_ab._frequentPatterns):
                     mapSupportBeta = {}
                     while path is not None:
                         if path.parent.itemid != -1:
-                            prefixPath = []
-                            prefixPath.append(path)
+                            prefixPath = [path]
                             pathCount = path.counter
                             parent1 = path.parent
                             while parent1.itemid != -1:
                                 prefixPath.append(parent1)
                                 s = (pathCount * path.expSup) * parent1.probability
-                                if mapSupportBeta.get(parent1.itemid) == None:
+                                if mapSupportBeta.get(parent1.itemid) is None:
                                     mapSupportBeta[parent1.itemid] = s
                                 else:
                                     mapSupportBeta[parent1.itemid] = mapSupportBeta[parent1.itemid] + s

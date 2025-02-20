@@ -240,8 +240,7 @@ class GSpan(_ab._gSpan):
 
         # Find all vertices in the graph that match the start label and initialize isomorphisms with them
         for vId in g.findAllWithLabel(startLabel):
-            hMap = {}
-            hMap[0] = vId
+            hMap = {0: vId}
             isoms.append(hMap)
 
         # For each edge in the DFS code, try to extend each partial isomorphism

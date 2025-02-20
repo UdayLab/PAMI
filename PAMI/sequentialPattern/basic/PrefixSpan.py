@@ -273,21 +273,19 @@ class PrefixSpan(_ab._sequentialPatterns):
             newrow=[i for i in startrow]
 
             if len(sepDatabase[head])>=self._minSup:
-                if newrow!=[]:
+                if newrow:
                     newrow.append(":")
                 newrow.append(head)
                 newrow.append(":")
                 if str(newrow) not in self._finalPatterns:
                     self._finalPatterns[str(newrow)]=len(sepDatabase[head])
-                    give = []
-                    give.append(head)
+                    give = [head]
                     sepDatabase[head] = self.makeSupDatabase(sepDatabase[head], give)
                     newrow.pop()
                     self.makeSeqDatabaseSame(sepDatabase[head], newrow)
                 elif len(sepDatabase[head]) > self._finalPatterns[str(newrow)]:
                     self._finalPatterns[str(newrow)] = len(sepDatabase[head])
-                    give = []
-                    give.append(head)
+                    give = [head]
                     sepDatabase[head] = self.makeSupDatabase(sepDatabase[head], give)
                     newrow.pop()
                     self.makeSeqDatabaseSame(sepDatabase[head], newrow)
@@ -402,8 +400,7 @@ class PrefixSpan(_ab._sequentialPatterns):
         :param give: list
             the word in the latest sequence of startrow
         """
-        sepDatabaseSame={}
-        sepDatabaseSame[startrow[-1]]=[]
+        sepDatabaseSame= {startrow[-1]: []}
         for line in database:
             addLine=0
             i=0

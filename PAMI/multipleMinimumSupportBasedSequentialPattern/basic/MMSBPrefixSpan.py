@@ -217,7 +217,7 @@ class MMSBprefixSpan(_ab._sequentialPatterns):
 
             if len(sepDatabase[head])>=self._minSup:
                 newMIS=baseMIS
-                if newrow!=[]:
+                if newrow:
                     newrow.append(-1)
                 newrow.append(head)
                 newrow.append(-1)
@@ -226,8 +226,7 @@ class MMSBprefixSpan(_ab._sequentialPatterns):
                         newMIS=self._MIS[head]
                     if len(sepDatabase[head])>=newMIS:
                         self._finalPatterns[str(newrow)]=len(sepDatabase[head])
-                    give = []
-                    give.append(head)
+                    give = [head]
                     sepDatabase[head] = self.makeSupDatabase(sepDatabase[head], give)
                     newrow.pop()
                     seqDatabase, seqDatabaseSame = self.makeSeqDatabaseSame(sepDatabase[head], newrow)
@@ -240,8 +239,7 @@ class MMSBprefixSpan(_ab._sequentialPatterns):
                         newMIS = self._MIS[head]
                     if len(sepDatabase[head]) >= newMIS:
                         self._finalPatterns[str(newrow)] = len(sepDatabase[head])
-                    give = []
-                    give.append(head)
+                    give = [head]
                     sepDatabase[head] = self.makeSupDatabase(sepDatabase[head], give)
                     newrow.pop()
                     seqDatabase, seqDatabaseSame = self.makeSeqDatabaseSame(sepDatabase[head],newrow)
@@ -419,8 +417,7 @@ class MMSBprefixSpan(_ab._sequentialPatterns):
             the word in latest sequence of startrow
         :return:
         """
-        sepDatabaseSame={}
-        sepDatabaseSame[startrow[-1]]=[]
+        sepDatabaseSame= {startrow[-1]: []}
         for line in database:
             addLine=0
             i=0

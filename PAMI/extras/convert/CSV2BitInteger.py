@@ -66,7 +66,7 @@ class csvToBitInteger:
         self._sep = sep
 
 
-    def csvToBitInteger(file, output, sep = "\t"):
+    def csvToBitInteger(self, file, output, sep = "\t"):
 
         fileData = {}
         rename = {}

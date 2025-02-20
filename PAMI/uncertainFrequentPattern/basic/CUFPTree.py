@@ -61,6 +61,7 @@ from typing import List, Tuple
 _minSup = str()
 _ab._sys.setrecursionlimit(20000)
 _finalPatterns = {}
+global minSup
 
 
 class _Item:
@@ -277,7 +278,7 @@ class _Tree(object):
         :rtype: Tuple
         """
 
-        global minSup
+
         pat = []
         sup = []
         count = {}
@@ -308,7 +309,7 @@ class _Tree(object):
         :return: None
         """
 
-        global _finalPatterns, minSup
+        global _finalPatterns
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x))):
             pattern = prefix[:]
             pattern.append(i)
@@ -706,7 +707,7 @@ class CUFPTree(_ab._frequentPatterns):
 
         :return: None
         """
-        global minSup
+
         self._startTime = _ab._time.time()
         self._creatingItemSets()
         self._minSup = self._convert(self._minSup)

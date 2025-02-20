@@ -647,8 +647,7 @@ class UPGrowth(_ab._utilityPatterns):
         while path != -1:
             nodeUtility = path.nodeUtility
             if path.parent != -1:
-                prefixPath = []
-                prefixPath.append(path)
+                prefixPath = [path]
                 ParentNode = path.parent
                 while ParentNode.itemId != -1:
                     prefixPath.append(ParentNode)

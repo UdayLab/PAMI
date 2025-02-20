@@ -827,7 +827,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                     latexwriter.write("\\end{axis}")
         print("Latex file generated successfully")
 
-    def generateGraphs(result):
+    def generateGraphs(self, result):
 
         fig = px.line(result, x='minsup', y='patterns', color='algorithm', title='Patterns)', markers=True)
         fig.show()

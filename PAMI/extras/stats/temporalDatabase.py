@@ -298,10 +298,10 @@ class temporalDatabase:
         maximum = max([i for i in fre.values()])
         values = [int(i * maximum / 6) for i in range(1, 6)]
         # print(maximum)
-        va = len({key: val for key, val in fre.items() if val > 0 and val < values[0]})
+        va = len({key: val for key, val in fre.items() if 0 < val < values[0]})
         rangeFrequencies[va] = values[0]
         for i in range(1, len(values)):
-            va = len({key: val for key, val in fre.items() if val < values[i] and val > values[i - 1]})
+            va = len({key: val for key, val in fre.items() if values[i] > val > values[i - 1]})
             rangeFrequencies[va] = values[i]
         return rangeFrequencies
 
@@ -311,10 +311,10 @@ class temporalDatabase:
         maximum = max([i for i in fre.values()])
         values = [int(i * maximum / 6) for i in range(1, 6)]
         # print(maximum)
-        va = len({key: val for key, val in fre.items() if val > 0 and val < values[0]})
+        va = len({key: val for key, val in fre.items() if 0 < val < values[0]})
         rangePeriods[va] = values[0]
         for i in range(1, len(values)):
-            va = len({key: val for key, val in fre.items() if val < values[i] and val > values[i - 1]})
+            va = len({key: val for key, val in fre.items() if values[i] > val > values[i - 1]})
             rangePeriods[va] = values[i]
         return rangePeriods
 

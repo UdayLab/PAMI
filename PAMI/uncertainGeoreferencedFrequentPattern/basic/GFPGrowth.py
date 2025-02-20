@@ -176,7 +176,7 @@ class _Tree(object):
                 l1 = i - 1
                 lp = []
                 while l1 >= 0:
-                    if nei == None:
+                    if nei is None:
                         break
                     if transaction[l1].item in nei:
                         lp.append(transaction[l1].probability)

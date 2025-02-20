@@ -50,6 +50,8 @@ __copyright__ = """
 
 """
 
+from abc import ABC
+
 import deprecated
 from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
 
@@ -500,7 +502,7 @@ class PFgrowth:
                 result = {**result, **result1}
         return result
 
-class GPFgrowth(partialPeriodicPatterns):
+class GPFgrowth(partialPeriodicPatterns, ABC):
     """
     :Description:   GPFgrowth is algorithm to mine the partial periodic frequent pattern in temporal database.
     

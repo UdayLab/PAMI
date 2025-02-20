@@ -524,7 +524,7 @@ class HDSHUIM(_ab._utilityPatterns):
             mapOfTWUF = self._mapFMAP[x.item]
             if mapOfTWUF is not None:
                 twuf = mapOfTWUF.get(compactUList[j].item)
-                if twuf != None and twuf < minUtil or (not (exCul[j].item in exNeighbours)):
+                if twuf is not None and twuf < minUtil or (not (exCul[j].item in exNeighbours)):
                     exCul[j] = None
                     exSZ = sz - 1
                 else:

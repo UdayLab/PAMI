@@ -233,7 +233,7 @@ class Tree(object):
         for i in self.summaries[alpha]:
             set1=i.tids
             set2=[]
-            while i.parent.item!=None:
+            while i.parent.item is not None:
                 set2.append(i.parent.item)
                 i=i.parent
             if len(set2)>0:

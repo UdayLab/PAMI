@@ -113,7 +113,7 @@ class spatioTemporalDatabaseGenerator:
                         itemSet.append(coordinate)
                         coordinate=tuple(coordinate)
                         self.alreadyAdded.add(coordinate)
-            if itemSet != []:
+            if itemSet:
                 self.timeStampList.append(
                     timeStamp)
                 self.itemList.append(

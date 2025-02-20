@@ -43,3 +43,8 @@ exclude:
     paths:
       - PAMI\extras\generateDatabase\generateSpatioTemporalDatabase.py
       - PAMI\extras\generateDatabase\generateSpatioTransactionalDatabase.py
+  - name: PyListCreationInspection
+    paths:
+      - PAMI\partialPeriodicFrequentPattern\basic\_PPF_DFS.py
+      - PAMI\partialPeriodicFrequentPattern\basic\GPFgrowth.py
+      - PAMI\partialPeriodicFrequentPattern\cuda\cuGPPMiner.py

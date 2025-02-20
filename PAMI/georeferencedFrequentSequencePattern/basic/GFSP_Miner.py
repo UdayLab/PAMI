@@ -225,15 +225,13 @@ class GFSP_Miner(_ab._sequentialSpatialPatterns):
                 temp = self._iFile['Transactions'].tolist()
             if "tid" in i:
                 temp2 = self._iFile[''].tolist()
-            addList = []
-            addList.append(temp[0])
+            addList = [temp[0]]
             for k in range(len(temp) - 1):
                 if temp2[k] == temp[k + 1]:
                     addList.append(temp[k + 1])
                 else:
                     self._Database.append(addList)
-                    addList = []
-                    addList.append(temp[k + 1])
+                    addList = [temp[k + 1]]
             self._Database.append(addList)
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
@@ -767,7 +765,7 @@ class GFSP_Miner(_ab._sequentialSpatialPatterns):
 
             for seq in self._xLenDatabase[rowLen][bs][latestWord].keys():
                 if seq in self._xLenDatabaseSame[rowLen][bs][latestWord2].keys():
-                    if self._xLenDatabaseSame[rowLen][bs][latestWord2][seq] != []:
+                    if self._xLenDatabaseSame[rowLen][bs][latestWord2][seq]:
                         x = [i for i in self._xLenDatabase[rowLen][bs][latestWord][seq] if
                              i > self._xLenDatabaseSame[rowLen][bs][latestWord2][seq][0]]
                         if len(x) != 0:
@@ -792,7 +790,7 @@ class GFSP_Miner(_ab._sequentialSpatialPatterns):
             next = {}
             for seq in self._xLenDatabaseSame[rowLen][bs][latestWord2].keys():
                 if seq in self._xLenDatabase[rowLen][bs][latestWord].keys():
-                    if self._xLenDatabaseSame[rowLen][bs][latestWord2][seq] != []:
+                    if self._xLenDatabaseSame[rowLen][bs][latestWord2][seq]:
                         x = [i for i in self._xLenDatabase[rowLen][bs][latestWord][seq] if
                              i > self._xLenDatabaseSame[rowLen][bs][latestWord2][seq][0]]
                         if len(x) != 0:

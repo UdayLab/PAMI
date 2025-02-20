@@ -530,8 +530,7 @@ class CoMine(_ab._correlatedPatterns):
                     mapSupportBeta = {}
                     while path is not None:
                         if path.parent.itemId != -1:
-                            prefixPath = []
-                            prefixPath.append(path)
+                            prefixPath = [path]
                             pathCount = path.counter
                             parent1 = path.parent
                             while parent1.itemId != -1:

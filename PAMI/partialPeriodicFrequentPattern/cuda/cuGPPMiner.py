@@ -17,6 +17,8 @@ __copyright__ = """
 
 """
 
+from abc import ABC
+
 # import abstract as _ab
 
 from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
@@ -25,7 +27,7 @@ import numpy as np
 import pandas as pd
 from deprecated import deprecated
 
-class cuGPPMiner(partialPeriodicPatterns):
+class cuGPPMiner(partialPeriodicPatterns, ABC):
   __path = ' '
   _partialPeriodicPatterns__iFile = ' '
   _partialPeriodicPatterns__oFile = ' '

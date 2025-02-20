@@ -57,6 +57,7 @@ __copyright__ = """
 
 """
 
+from abc import ABC
 
 from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
 import deprecated
@@ -64,7 +65,7 @@ import numpy as np
 import pandas as pd
 
 
-class PPF_DFS(partialPeriodicPatterns):
+class PPF_DFS(partialPeriodicPatterns, ABC):
     """
     **About this algorithm**
 

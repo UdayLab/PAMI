@@ -112,7 +112,7 @@ class Node(object):
 
         :param level: level of a node
         """
-        if self.item == None:
+        if self.item is None:
             s = "Root("
         else:
             s = "(item=" + str(self.item)
