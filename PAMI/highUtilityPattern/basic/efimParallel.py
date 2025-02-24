@@ -225,7 +225,7 @@ class efimParallel(_ab._utilityPatterns):
         twu = {k: v for k, v in twu.items() if v >= self.minUtil}
 
         # Sort TWU items by utility
-        twu = {k: v for k, v in sorted(twu.items(), key=lambda item: item[1], reverse=True)}
+        twu = {k: v for k, v in sorted(twu.items(), key=lambda item_: item_[1], reverse=True)}
 
         strToInt = {}
         t = len(twu)

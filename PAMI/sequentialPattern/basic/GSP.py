@@ -339,7 +339,7 @@ class GSP(_ab._sequentialPatterns):
     def getSup(self,pattern):
         """
         count up the support of the pattern
-        :param pattren:list the candidate pattern 
+        :param pattern:list the candidate pattern
         :return:  sup:int  the support of the pattern
         """
         sup=0
@@ -388,7 +388,7 @@ class GSP(_ab._sequentialPatterns):
     def makeCandidateDatabase(self,patterns):
         """
         make the database to find new candidate
-        :param pattrens:list the patterns fond before
+        :param patterns:list the patterns fond before
         :return:  bothBefore:dict   the patterns have same item without last one item
                   bothAfter:dict   the patterns have same item without first one item
         """
@@ -423,7 +423,7 @@ class GSP(_ab._sequentialPatterns):
     def makeCandidate(self,patterns):
         """
         make the candidate patterns
-        :param pattrens:list the patterns found before
+        :param patterns:list the patterns found before
         :return:  newPatterns:list  the candidate pattern
         """
         before,after=self.makeCandidateDatabase(patterns)
@@ -442,9 +442,7 @@ class GSP(_ab._sequentialPatterns):
         """
         To make 3 or more length frequent patterns from pattern which the latest word is in different seq  by depth-first search technique  and update xlenDatabase to sequential database
 
-        :param rowLen: row length of previous patterns.
-        :param bs : previous patterns without the latest one
-        :param latestWord : latest word of previous patterns
+        :param patterns: patterns
         
         """
         patterns=self.makeCandidate(patterns)

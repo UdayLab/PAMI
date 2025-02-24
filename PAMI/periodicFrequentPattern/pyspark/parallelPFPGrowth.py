@@ -292,7 +292,7 @@ class Parallel_PPFP:
         """
         Get the frequent items from the database
 
-        :param data: database
+        :param value: value
         :return: frequent items
 
         """
@@ -302,10 +302,8 @@ class Parallel_PPFP:
         """
         Get the conditional transactions from the database
 
-        :param tid: timestamp of a database
-        :param basket: basket of a database
+        :param trans: Transactions
         :param rank: rank of a database
-        :param nPartitions: number of partitions
         """
         newTrans = [rank[item] for item in trans if item in rank.keys()]
         newTrans = sorted(newTrans)

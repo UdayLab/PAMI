@@ -285,8 +285,11 @@ class _Tree(object):
         """
         Generates the patterns
 
+        :param minSup: minimum support value
+        :type minSup: float
         :param prefix: Forms the combination of items
         :type prefix: list
+        :param Qk: patterns
         :returns: yields patterns with their support and periodicity
         """
 

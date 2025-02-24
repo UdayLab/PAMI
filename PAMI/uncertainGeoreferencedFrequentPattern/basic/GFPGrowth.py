@@ -275,11 +275,11 @@ class _Tree(object):
 
         :param condPatterns : conditionalPatterns generated from conditionalPattern method for respective node
         :type condPatterns : list
-        :support : the support of conditional pattern in tree
-        :support : int
+        :param support : the support of conditional pattern in tree
+        :type support : int
         """
 
-        global minSup
+        #global minSup
         pat = []
         sup = []
         count = {}
@@ -309,7 +309,8 @@ class _Tree(object):
         :type prefix : list
         """
 
-        global _finalPatterns, minSup
+        _finalPatterns = None
+        minSup = None
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x))):
             pattern = prefix[:]
             pattern.append(i)
@@ -751,7 +752,7 @@ class GFPGrowth(_ab._frequentPatterns):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
-        global minSup
+        #global minSup
         self._startTime = _ab._time.time()
         self._creatingItemSets()
         self._creatingNeighbours()

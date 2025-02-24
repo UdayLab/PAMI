@@ -211,6 +211,8 @@ class MMSBprefixSpan(_ab._sequentialPatterns):
             what words and rows startrow have to add it
         :param startrow:
             the patterns get before
+        :param baseMIS:
+            base MIS
         """
         for head in sepDatabase.keys():
             newrow=[i for i in startrow]
@@ -294,6 +296,7 @@ class MMSBprefixSpan(_ab._sequentialPatterns):
             what words and rows startrow have to add it
         :param startrow:
             the patterns get before
+        :param baseMIS: base MIS
         """
         
         for head in sepDatabase.keys():

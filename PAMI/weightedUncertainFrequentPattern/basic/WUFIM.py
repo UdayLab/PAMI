@@ -264,8 +264,8 @@ class _Tree(object):
 
         :param condPatterns : conditionalPatterns generated from conditionalPattern method for respective node
         :type condPatterns : list
-        :support : the support of conditional pattern in tree
-        :support : int
+        :param support : the support of conditional pattern in tree
+        :type support : int
         :return: tuple
         """
         #global _expSup, _expWSup

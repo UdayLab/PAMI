@@ -125,4 +125,4 @@ class plotPointOnMap:
 
 if __name__ == '__main__':
     obj = plotPointOnMap('visualizePatterns.csv')
-    mmap = obj.plotPointInMap()
+    mmap_ = obj.plotPointInMap()

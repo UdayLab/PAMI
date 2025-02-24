@@ -615,11 +615,11 @@ class UFGrowth(_ab._frequentPatterns):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
-        global minSup
+        #global minSup
         self._startTime = _ab._time.time()
         self._creatingItemSets()
         self._minSup = self._convert(self._minSup)
-        minSup = self._minSup
+        #minSup = self._minSup
         self._finalPatterns = {}
         _mapSupport, plist = self._frequentOneItem()
         for i in self._Database:

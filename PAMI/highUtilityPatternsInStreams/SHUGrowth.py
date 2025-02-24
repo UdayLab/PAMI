@@ -288,12 +288,11 @@ class _SHUTree:
         Adds transaction to the tree
 
         :param transaction: list of items in the transaction
-
         :type transaction: list
-
         :param utility: Net utility of the transaction
-
         :type utility: int
+        :param itemUtility: item utility
+        :type itemUtility: str
         """
         # print("Transaction", transaction, itemUtility, self.localTree)
         transaction.sort(key = lambda x: x[0])

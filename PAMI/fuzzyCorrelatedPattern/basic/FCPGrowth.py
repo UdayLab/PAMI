@@ -393,17 +393,17 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         :return: element eith tid as given
         :rtype: element if exists or None
         """
-        List = uList.elements
+        List_ = uList.elements
         first = 0
-        last = len(List) - 1
+        last = len(List_) - 1
         while first <= last:
             mid = (first + last) >> 1
-            if List[mid].tid < tid:
+            if List_[mid].tid < tid:
                 first = mid + 1
-            elif List[mid].tid > tid:
+            elif List_[mid].tid > tid:
                 last = mid - 1
             else:
-                return List[mid]
+                return List_[mid]
         return None
 
     def _convert(self, value: Union[int, float, str]) -> float:

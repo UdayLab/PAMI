@@ -118,8 +118,8 @@ if __name__ == "__main__":
     print('Runtime: ' + str(data_generator.getRuntime()))
     print('Memory (RSS): ' + str(data_generator.getMemoryRSS()))
     print('Memory (USS): ' + str(data_generator.getMemoryUSS()))
-    InternalUtilityData = data_generator.GetInternalUtilityData()
-    ExternalUtilityData = data_generator.GetExternalUtilityData()
+    InternalUtilityData_ = data_generator.GetInternalUtilityData()
+    ExternalUtilityData_ = data_generator.GetExternalUtilityData()
 
     for _ in range(10):  # Print pairs for demonstration, adjust the range as needed
         data_generator.GenerateAndPrintItemPairs()

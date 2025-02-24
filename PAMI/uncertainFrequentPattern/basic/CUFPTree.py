@@ -272,8 +272,8 @@ class _Tree(object):
 
         :param condPatterns : conditionalPatterns generated from conditionalPattern method for respective node
         :type condPatterns : list
-        :support : the support of conditional pattern in tree
-        :support : int
+        :param support : the support of conditional pattern in tree
+        :type support : int
         :return: Tuple consist of patterns,support and updated Dictionary
         :rtype: Tuple
         """
