@@ -119,7 +119,7 @@ class Node(object):
             s += ", count=" + str(self.count)
             for i in self.tids:
                 s += " " + str(i)
-        tabs = "\t".join(['' for i in range(0, level + 2)])
+        tabs = "\t".join(['' for _ in range(0, level + 2)])
         for v in self.children.values():
             s += tabs + "\n"
             s += tabs + v.toString(level=level + 1)
@@ -472,7 +472,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
     _numTrans = str()
     _perFreqItems = None
 
-    def __init__(self, iFile, minSup, maxPer, numWorker, sep='\t'):
+    def __init__(self, iFile, minSup, maxPer, numWorker):
         super().__init__(iFile, minSup, maxPer, numWorker)
 
     def func1(self, ps1, tid):

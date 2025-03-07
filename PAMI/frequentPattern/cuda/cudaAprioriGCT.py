@@ -344,7 +344,7 @@ class cudaAprioriGCT(_ab._frequentPatterns):
 
         self.__creatingItemSets()
         self._minSup = self.__convert(self._minSup)
-        minSup = self._minSup
+        #minSup = self._minSup
         vb_data, idx2item = self.compute_vertical_bitvector_data()
 
         for i in range(len(vb_data)):

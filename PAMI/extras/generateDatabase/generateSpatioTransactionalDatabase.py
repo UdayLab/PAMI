@@ -126,7 +126,7 @@ class generateSpatioTransactionalDatabase:
                 array[randIndex] -= 1
             # if sum is too small, increase the smallest value
             else:
-                minIndex = np.argmin(array)
+                #minIndex = np.argmin(array)
                 array[randIndex] += 1
         return array
         

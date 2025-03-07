@@ -285,7 +285,7 @@ class efimParallel(_ab._utilityPatterns):
 
         low = 0
         high = len(arr) - 1
-        mid = 0
+        #mid = 0
 
         while low <= high:
             mid = (high + low) // 2
@@ -337,7 +337,7 @@ class efimParallel(_ab._utilityPatterns):
         item = beta[-1]
 
         temp = [v for k, v in file_data.items() if item in k]
-        start = time.time()
+        #start = time.time()
 
         for v in temp:
             index = self._binarySearch(v[0], item)

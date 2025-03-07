@@ -445,7 +445,7 @@ class MMSBprefixSpan(_ab._sequentialPatterns):
                             sepDatabaseSame[startrow[-1]].append(line[i+1:])
                             break
                         i+=1
-        startrow2=[startrow[0]]
+        #startrow2=[startrow[0]]
         startrow.append(-1)
         return sepDatabaseSame[startrow[-2]]
 

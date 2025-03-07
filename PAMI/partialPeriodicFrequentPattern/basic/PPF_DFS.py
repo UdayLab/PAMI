@@ -238,9 +238,9 @@ class PPF_DFS(partialPeriodicPatterns, ABC):
         # print(lno)
         tids = list(set(tids))
         tids.sort()
-        per = 0
+        #per = 0
         sup = 0
-        cur = 0
+        #cur = 0
         if len(tids) == 0:
             return 0
         if abs(0 - tids[0]) <= self._partialPeriodicPatterns__maxPer:

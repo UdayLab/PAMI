@@ -309,15 +309,15 @@ class _Tree(object):
         :type prefix : list
         """
 
-        _finalPatterns = None
+        _finalPatterns_ = None
         minSup = None
-        for i in sorted(self.summaries, key=lambda x: (self.info.get(x))):
+        for i in sorted(self.summaries, key=lambda x_: (self.info.get(x_))):
             pattern = prefix[:]
             pattern.append(i)
             s = 0
             for x in self.summaries[i]:
                 s += x.probability
-            _finalPatterns[tuple(pattern)] = self.info[i]
+            _finalPatterns_[tuple(pattern)] = self.info[i]
             if s >= minSup:
                 patterns, support, info = self.conditionalPatterns(i)
                 conditionalTree = _Tree()
@@ -757,7 +757,7 @@ class GFPGrowth(_ab._frequentPatterns):
         self._creatingItemSets()
         self._creatingNeighbours()
         # self._minSup = self._convert(self._minSup)
-        minSup = self._minSup
+        #minSup = self._minSup
         self._finalPatterns = {}
         mapSupport, plist = self._frequentOneItem()
         self.Database1 = self._updateTransactions(mapSupport)

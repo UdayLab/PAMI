@@ -289,7 +289,7 @@ class cuEclatBit(_ab._frequentPatterns):
         self._Database = []
         self._startTime = _ab._time.time()
         self._creatingItemSets()
-        itemsList = sorted(list(set.union(*self._Database)))  # because Database is list
+        #itemsList = sorted(list(set.union(*self._Database)))  # because Database is list
         self._minSup = self._convert(self._minSup)
 
         ArraysAndItems = self.arraysAndItems()
@@ -305,7 +305,7 @@ class cuEclatBit(_ab._frequentPatterns):
                 # print(i, "/", len(ArraysAndItems), end="\r")
                 for j in range(i+1, len(ArraysAndItems)):
                     jList = list(keys[j])
-                    union = []
+                    #union = []
                     if iList[:-1] == jList[:-1] and iList[-1] != jList[-1]:
                         union = iList + [jList[-1]]
                         union = tuple(union)

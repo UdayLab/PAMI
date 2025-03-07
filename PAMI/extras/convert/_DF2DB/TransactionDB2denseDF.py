@@ -93,7 +93,7 @@ class TransactionDB2denseDF:
             """
             self._Database = []
             if isinstance(self._iFile, pd.DataFrame):
-                temp = []
+                #temp = []
                 if self._iFile.empty:
                     print("its empty..")
                 i = self._iFile.columns.values.tolist()

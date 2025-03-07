@@ -143,17 +143,17 @@ class _Tree(object):
         :return: pftree
         """
         currentNode = self.root
-        for i in range(len(transaction)):
-            if transaction[i] not in currentNode.children:
-                newNode = _Node(transaction[i], {})
+        for i_ in range(len(transaction)):
+            if transaction[i_] not in currentNode.children:
+                newNode = _Node(transaction[i_], {})
                 currentNode.addChild(newNode)
-                if transaction[i] in self.summaries:
-                    self.summaries[transaction[i]].append(newNode)
+                if transaction[i_] in self.summaries:
+                    self.summaries[transaction[i_]].append(newNode)
                 else:
-                    self.summaries[transaction[i]] = [newNode]
+                    self.summaries[transaction[i_]] = [newNode]
                 currentNode = newNode
             else:
-                currentNode = currentNode.children[transaction[i]]
+                currentNode = currentNode.children[transaction[i_]]
         currentNode.timeStamps = currentNode.timeStamps + tid
 
     def getConditionalPatterns(self, alpha: Any) -> Tuple[List[List[Any]], List[List[int]], Dict[Any, List[int]]]:
@@ -165,12 +165,12 @@ class _Tree(object):
         """
         finalPatterns = []
         finalSets = []
-        for i in self.summaries[alpha]:
-            set1 = i.timeStamps
+        for i__ in self.summaries[alpha]:
+            set1 = i__.timeStamps
             set2 = []
-            while i.parent.item is not None:
-                set2.append(i.parent.item)
-                i = i.parent
+            while i__.parent.item is not None:
+                set2.append(i__.parent.item)
+                i__ = i__.parent
             if len(set2) > 0:
                 set2.reverse()
                 finalPatterns.append(set2)
@@ -185,10 +185,10 @@ class _Tree(object):
         :param nodeValue: node of a tree
         :return: None
         """
-        for i in self.summaries[nodeValue]:
-            i.parent.timeStamps = i.parent.timeStamps + i.timeStamps
-            del i.parent.children[nodeValue]
-            i = None
+        for _i in self.summaries[nodeValue]:
+            _i.parent.timeStamps = _i.parent.timeStamps + _i.timeStamps
+            del _i.parent.children[nodeValue]
+            _i = None
 
     def getTimeStamps(self, alpha: Any) -> List[int]:
         """
@@ -198,8 +198,8 @@ class _Tree(object):
         :return: timestamps of a node
         """
         temp = []
-        for i in self.summaries[alpha]:
-            temp += i.timeStamps
+        for j in self.summaries[alpha]:
+            temp += j.timeStamps
         return temp
 
     def generatePatterns(self, prefix: List[Any], patterns: Dict[Tuple[Any], Tuple[int, int]], maximalTree: Any) -> None:
@@ -212,10 +212,10 @@ class _Tree(object):
         :return: maximal periodic frequent patterns
         """
         #global maximalTree
-        for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
+        for _i__ in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
-            pattern.append(i)
-            condPattern, timeStamps, info = self.getConditionalPatterns(i)
+            pattern.append(_i__)
+            condPattern, timeStamps, info = self.getConditionalPatterns(_i__)
             conditionalTree = _Tree()
             conditionalTree.info = info.copy()
             head = pattern[:]
@@ -230,8 +230,8 @@ class _Tree(object):
                     conditionalTree.generatePatterns(pattern, patterns, maximalTree)
                 else:
                     maximalTree.addTransaction(pattern)
-                    patterns[tuple(pattern)] = self.info[i]
-            self.removeNode(i)
+                    patterns[tuple(pattern)] = self.info[_i__]
+            self.removeNode(_i__)
 
 
 class _MNode(object):
@@ -296,17 +296,17 @@ class _MPTree(object):
         """
         currentNode = self.root
         transaction.sort()
-        for i in range(len(transaction)):
-            if transaction[i] not in currentNode.children:
-                newNode = _MNode(transaction[i], {})
+        for k in range(len(transaction)):
+            if transaction[k] not in currentNode.children:
+                newNode = _MNode(transaction[k], {})
                 currentNode.addChild(newNode)
-                if transaction[i] in self.summaries:
-                    self.summaries[transaction[i]].insert(0, newNode)
+                if transaction[k] in self.summaries:
+                    self.summaries[transaction[k]].insert(0, newNode)
                 else:
-                    self.summaries[transaction[i]] = [newNode]
+                    self.summaries[transaction[k]] = [newNode]
                 currentNode = newNode
             else:
-                currentNode = currentNode.children[transaction[i]]
+                currentNode = currentNode.children[transaction[k]]
 
     def checkerSub(self, items: List[Any]) -> int:
         """
@@ -324,11 +324,11 @@ class _MPTree(object):
                 return 0
         for t in self.summaries[item]:
             cur = t.parent
-            i = 1
+            k_ = 1
             while cur.item is not None:
-                if items[i] == cur.item:
-                    i += 1
-                    if i == len(items):
+                if items[k_] == cur.item:
+                    k_ += 1
+                    if k_ == len(items):
                         return 0
                 cur = cur.parent
         return 1
@@ -369,12 +369,12 @@ def _conditionalTransactions(condPatterns: List[List[int]], condTimeStamps: List
     pat = []
     timeStamps = []
     data1 = {}
-    for i in range(len(condPatterns)):
-        for j in condPatterns[i]:
+    for cond in range(len(condPatterns)):
+        for j in condPatterns[cond]:
             if j in data1:
-                data1[j] = data1[j] + condTimeStamps[i]
+                data1[j] = data1[j] + condTimeStamps[cond]
             else:
-                data1[j] = condTimeStamps[i]
+                data1[j] = condTimeStamps[cond]
     updatedDict = {}
     for m in data1:
         updatedDict[m] = _getPeriodAndSupport(data1[m])
@@ -560,13 +560,13 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
             data, ts = [], []
             if self._iFile.empty:
                 print("its empty..")
-            i = self._iFile.columns.values.tolist()
-            if 'TS' in i:
+            itemList = self._iFile.columns.values.tolist()
+            if 'TS' in itemList:
                 ts = self._iFile['TS'].tolist()
-            if 'Transactions' in i:
+            if 'Transactions' in itemList:
                 data = self._iFile['Transactions'].tolist()
-            for i in range(len(data)):
-                tr = [ts[i][0]] + data[i]
+            for num in range(len(data)):
+                tr = [ts[num][0]] + data[num]
                 self._Database.append(tr)
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
@@ -574,7 +574,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self._sep)]
+                    temp = [item.rstrip() for item in line.split(self._sep)]
                     temp = [x for x in temp if x]
                     self._Database.append(temp)
             else:
@@ -582,7 +582,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
                     with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split(self._sep)]
+                            temp = [item_.rstrip() for item_ in line.split(self._sep)]
                             temp = [x for x in temp if x]
                             self._Database.append(temp)
                 except IOError:
@@ -599,13 +599,13 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         """
         data = {}
         for tr in self._Database:
-            for i in range(1, len(tr)):
-                if tr[i] not in data:
-                    data[tr[i]] = [int(tr[0]), int(tr[0]), 1]
+            for tr1 in range(1, len(tr)):
+                if tr[tr1] not in data:
+                    data[tr[tr1]] = [int(tr[0]), int(tr[0]), 1]
                 else:
-                    data[tr[i]][0] = max(data[tr[i]][0], (int(tr[0]) - data[tr[i]][1]))
-                    data[tr[i]][1] = int(tr[0])
-                    data[tr[i]][2] += 1
+                    data[tr[tr1]][0] = max(data[tr[tr1]][0], (int(tr[0]) - data[tr[tr1]][1]))
+                    data[tr[tr1]][1] = int(tr[0])
+                    data[tr[tr1]][2] += 1
         for key in data:
             data[key][0] = max(data[key][0], abs(len(self._Database) - data[key][1]))
         data = {k: [v[2], v[0]] for k, v in data.items() if v[0] <= self._maxPer and v[2] >= self._minSup}
@@ -624,9 +624,9 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         list1 = []
         for tr in self._Database:
             list2 = [int(tr[0])]
-            for i in range(1, len(tr)):
-                if tr[i] in dict1:
-                    list2.append(self._rank[tr[i]])
+            for ij in range(1, len(tr)):
+                if tr[ij] in dict1:
+                    list2.append(self._rank[tr[ij]])
             if len(list2) >= 2:
                 basket = list2[1:]
                 basket.sort()
@@ -648,9 +648,9 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
 
         rootNode = _Tree()
         rootNode.info = info.copy()
-        for i in range(len(data)):
-            set1 = [data[i][0]]
-            rootNode.addTransaction(data[i][1:], set1)
+        for num_ in range(len(data)):
+            set1 = [data[num_][0]]
+            rootNode.addTransaction(data[num_][1:], set1)
         return rootNode
 
     def _savePeriodic(self, itemSet: List[Any]) -> List[Any]:
@@ -661,8 +661,8 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         :return: frequent pattern with original item names
         """
         t1 = []
-        for i in itemSet:
-            t1.append(self._rankedUp[i])
+        for _ in itemSet:
+            t1.append(self._rankedUp[_])
         return t1
 
     def _convert(self, value: Union[int, float, str]) -> Union[int, float]:
@@ -709,15 +709,15 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         for x, y in self._rank.items():
             self._rankedUp[y] = x
         _info = {self._rank[k]: v for k, v in _generatedItems.items()}
-        _Tree = self._buildTree(_updatedDatabases, _info)
+        _Tree_ = self._buildTree(_updatedDatabases, _info)
         self._finalPatterns = {}
         self._maximalTree = _MPTree()
-        _Tree.generatePatterns([], self._patterns, self._maximalTree)
+        _Tree_.generatePatterns([], self._patterns, self._maximalTree)
         for x, y in self._patterns.items():
             pattern = str()
             x = self._savePeriodic(x)
-            for i in x:
-                pattern = pattern + i + " "
+            for i__ in x:
+                pattern = pattern + i__ + " "
             self._finalPatterns[pattern] = y
         self._endTime = _ab._time.time()
         _process = _ab._psutil.Process(_ab._os.getpid())
@@ -751,15 +751,15 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         for x, y in self._rank.items():
             self._rankedUp[y] = x
         _info = {self._rank[k]: v for k, v in _generatedItems.items()}
-        _Tree = self._buildTree(_updatedDatabases, _info)
+        __Tree = self._buildTree(_updatedDatabases, _info)
         self._finalPatterns = {}
         self._maximalTree = _MPTree()
-        _Tree.generatePatterns([], self._patterns, self._maximalTree)
+        __Tree.generatePatterns([], self._patterns, self._maximalTree)
         for x, y in self._patterns.items():
             pattern = str()
             x = self._savePeriodic(x)
-            for i in x:
-                pattern = pattern + i + " "
+            for _i_ in x:
+                pattern = pattern + _i_ + " "
             self._finalPatterns[pattern] = y
         self._endTime = _ab._time.time()
         _process = _ab._psutil.Process(_ab._os.getpid())

@@ -211,7 +211,7 @@ class _Tree(object):
         for x, y in mapSupport.items():
             if y >= min_sup:
                 t1.append(x)
-        mapSup = [k for k, v in sorted(mapSupport.items(), key=lambda x: x[1], reverse=True)]
+        mapSup = [k for k, v in sorted(mapSupport.items(), key=lambda x_: x_[1], reverse=True)]
         self.headerList = self.update(mapSup, t1)
 
     def addPrefixPath(self, prefix, mapSupportBeta, min_sup):

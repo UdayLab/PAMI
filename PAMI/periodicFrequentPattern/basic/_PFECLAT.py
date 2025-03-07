@@ -252,7 +252,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         Storing the complete transactions of the database/input file in a database variable
         :return: list
         """
-        plist = []
+        #plist = []
         Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             ts, data = [], []
@@ -287,7 +287,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                 except IOError:
                     print("File Not Found")
                     quit()
-        tid = 0
+        #tid = 0
         itemsets = {}  # {key: item, value: list of tids}
         periodicHelper = {}  # {key: item, value: [period, last_tid]}
         for line in Database:

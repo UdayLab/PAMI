@@ -316,7 +316,7 @@ class parallelECLAT(_ab._frequentPatterns):
         self._lno = data.count()
         self._minSup = self._convert(self._minSup)
 
-        frequentItems = None
+        #frequentItems = None
         frequentItems = data.zipWithIndex() \
             .flatMap(lambda x: [(str(item), x[1]) for item in x[0]]) \
             .groupByKey() \

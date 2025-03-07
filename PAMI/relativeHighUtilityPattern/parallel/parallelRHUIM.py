@@ -163,7 +163,7 @@ class efimParallel(_ab._utilityPatterns):
         twu = {k: v for k, v in twu.items() if v >= self.minUtil}
 
         # Sort TWU items by utility
-        twu = {k: v for k, v in sorted(twu.items(), key=lambda item: item[1], reverse=True)}
+        twu = {k: v for k, v in sorted(twu.items(), key=lambda item_: item_[1], reverse=True)}
 
         strToInt = {}
         t = len(twu)
@@ -224,7 +224,7 @@ class efimParallel(_ab._utilityPatterns):
 
         low = 0
         high = len(arr) - 1
-        mid = 0
+        #mid = 0
 
         while low <= high:
             mid = (high + low) // 2
@@ -267,7 +267,7 @@ class efimParallel(_ab._utilityPatterns):
         item = beta[-1]
 
         temp = [v for k, v in file_data.items() if item in k]
-        start = time.time()
+        #start = time.time()
 
         for v in temp:
             index = self._binarySearch(v[0], item)
@@ -329,7 +329,7 @@ class efimParallel(_ab._utilityPatterns):
         if self.threads > 1:
             print("Im with the lads")
             with Parallel(n_jobs=self.threads) as parallel:
-                a = 0
+                #a = 0
                 while len(collections) > 0:
                     new_collections = []
 
@@ -358,7 +358,7 @@ class efimParallel(_ab._utilityPatterns):
 
         else:
             # print("solo-ing")
-            a = 0
+            #a = 0
             while len(collections) > 0:
                 new_collections = []
                 for i in range(len(collections)):

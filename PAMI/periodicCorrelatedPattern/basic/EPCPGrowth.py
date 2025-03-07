@@ -281,7 +281,7 @@ class _Tree(object):
         :returns: Returns conditional transactions by removing non-periodic and non-frequent items
         """
         global _maxPer, _minSup
-        temp = pattern
+        #temp = pattern
         pat = []
         timeStamps = []
         data1 = {}
@@ -534,7 +534,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         for key in data:
             data[key][0] = max(data[key][0], abs(len(self._Database) - data[key][1]))
         data = {k: [v[2], v[0], 1, 1] for k, v in data.items() if v[0] <= self._maxPer and v[2] >= self._minSup}
-        pfList = [k for k, v in sorted(data.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
+        pfList = [k for k, v in sorted(data.items(), key=lambda x_: (x_[1][0], x_[0]), reverse=True)]
         self._rank = dict([(index, item) for (item, index) in enumerate(pfList)])
         for x, y in self._rank.items():
             _frequentList[y] = data[x]

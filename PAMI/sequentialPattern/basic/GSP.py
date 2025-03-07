@@ -246,7 +246,7 @@ class GSP(_ab._sequentialPatterns):
 
                             seq = []
                             for i in temp:
-                                k = -2
+                                #k = -2
                                 if len(i)>1:
                                     seq.append(list(sorted(set(i.split()))))
 
@@ -288,7 +288,7 @@ class GSP(_ab._sequentialPatterns):
         idDatabase=[]
         for line in self._Database:
             x=[]
-            for seq in line:
+            for _ in line:
                 
                 x+=list(itertools.chain.from_iterable(line))
             

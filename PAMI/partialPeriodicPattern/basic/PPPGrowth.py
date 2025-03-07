@@ -561,7 +561,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
         #     data.append([a.replace('\t', ' '), b])
         #     dataFrame = _abstract._pd.DataFrame(data, columns=['Patterns', 'periodicSupport'])
         # return dataFrame
-        dataFrame = {}
+        #dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
             data.append([a, b])

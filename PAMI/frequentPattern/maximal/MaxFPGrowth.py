@@ -258,7 +258,7 @@ class _Tree(object):
         """
         for i in self.summaries[nodeValue]:
             del i.parent.children[nodeValue]
-            i = None
+            #i = None
 
     def generatePatterns(self, prefix, patterns, maximalTree):
         """

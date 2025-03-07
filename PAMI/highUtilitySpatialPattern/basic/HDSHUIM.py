@@ -355,7 +355,7 @@ class HDSHUIM(_ab._utilityPatterns):
                 parts = line.split(":")
                 itemString = (parts[0].split("\n")[0]).split(self._sep)
                 utilityString = (parts[2].split("\n")[0]).split(self._sep)
-                transUtility = int(parts[1])
+                #transUtility = int(parts[1])
                 trans1 = set()
                 for j in range(0, len(itemString)):
                     trans1.add(itemString[j])
@@ -472,7 +472,7 @@ class HDSHUIM(_ab._utilityPatterns):
             if x.item not in exNeighbours:
                 continue
             self._candidates += 1
-            sortedPrefix = [0] * (len(prefix) + 1)
+            #sortedPrefix = [0] * (len(prefix) + 1)
             sortedPrefix = prefix[0:len(prefix) + 1]
             sortedPrefix.append(x.item)
             if (x.sumSnu + x.sumCu >= minUtil) and (x.item in exNeighbours):

@@ -258,7 +258,7 @@ class FuzzyDatabase:
         :rtype: dict
         """
         itemFrequencies = {}
-        rangeFrequencies = {}
+        #rangeFrequencies = {}
         for tid in self.database:
             for item in self.database[tid]:
                 itemFrequencies[item] = itemFrequencies.get(item, 0)

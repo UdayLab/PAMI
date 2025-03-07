@@ -149,8 +149,8 @@ class convertMultipleTSIntoFuzzy:
             item_list = self._transactionsDB[line]
             fuzzyValues_list = self._fuzzyValuesDB[line]
             times = self._timeEvents[line]
-            s = str()
-            s2 = str()
+            #s = str()
+            #s2 = str()
             s1, s, ss = str(), str(), str()
             for i in range(0, len(item_list)):
                 item = item_list[i]

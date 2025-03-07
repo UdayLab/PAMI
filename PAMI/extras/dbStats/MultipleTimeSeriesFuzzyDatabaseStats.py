@@ -291,7 +291,7 @@ class MultipleTimeSeriesFuzzyDatabaseStats:
         """
         itemFrequencies = {}
         for line in range(len(self._transactions)):
-            times = self._ts[line]
+            #times = self._ts[line]
             items = self._transactions[line]
             quantities = self._fuzzyValues[line]
             for i in range(0, len(items)):

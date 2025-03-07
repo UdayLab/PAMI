@@ -254,7 +254,7 @@ class GFSP_Miner(_ab._sequentialSpatialPatterns):
 
                             seq = []
                             for i in temp:
-                                k = -2
+                                #k = -2
                                 if len(i) > 1:
                                     seq.append(list(sorted(set(i.split()))))
 
@@ -933,7 +933,7 @@ class GFSP_Miner(_ab._sequentialSpatialPatterns):
         """
 
         bs = list(bs)
-        x = 1
+        #x = 1
         x2 = [latestWord, ]
         while bs:
             x = bs.pop()
@@ -962,7 +962,7 @@ class GFSP_Miner(_ab._sequentialSpatialPatterns):
         """
 
         bs = list(bs)
-        x = 1
+        #x = 1
         x2 = [latestWord, latestWord2]
         while bs:
             x = bs.pop()

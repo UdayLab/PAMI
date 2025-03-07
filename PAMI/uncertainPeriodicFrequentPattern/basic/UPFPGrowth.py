@@ -363,7 +363,7 @@ class _Tree(object):
         """
 
         global _minSup
-        for i in sorted(self.summaries, key=lambda x: (self.info.get(x)[0])):
+        for i in sorted(self.summaries, key=lambda x_: (self.info.get(x_)[0])):
             pattern = prefix[:]
             pattern.append(i)
             s = 0
@@ -611,7 +611,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
                     self._Database.append(tr)
             else:
                 try:
-                    count = 0
+                    #count = 0
                     with open(self._iFile, 'r') as f:
                         for line in f:
                             #count += 1

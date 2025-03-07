@@ -274,7 +274,7 @@ class _Tree(object):
         count = 0
         for p in conditionalPatterns:
             p1 = [v for v in p if v in updatedDictionary]
-            trans = sorted(p1, key=lambda x: (updatedDictionary.get(x)[0], -x), reverse=True)
+            trans = sorted(p1, key=lambda _x: (updatedDictionary.get(_x)[0], -_x), reverse=True)
             if len(trans) > 0:
                 pat.append(trans)
                 timeStamps.append(conditionalTimeStamps[count])
@@ -294,7 +294,7 @@ class _Tree(object):
         """
 
         global _k
-        for i in sorted(self.summaries, key=lambda x: (self.info.get(x)[0], -x)):
+        for i in sorted(self.summaries, key=lambda x_: (self.info.get(x_)[0], -x_)):
             pattern = prefix[:]
             pattern.append(i)
             Qk[tuple(pattern)] = self.info[i]
@@ -490,7 +490,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
                     line.strip()
                     line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self._sep)]
-                    temp = [x for x in temp if x]
+                    temp = [x__ for x__ in temp if x__]
                     self._Database.append(temp)
             else:
                 try:
@@ -500,7 +500,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
                             count += 1
                             line.strip()
                             temp = [i.rstrip() for i in line.split(self._sep)]
-                            temp = [x for x in temp if x]
+                            temp = [item for item in temp if item]
                             self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
@@ -532,7 +532,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
             la[item] = max(0, la[item] + _last - tidLast[item] - self._maxPer)
             self._SPPList[item][1] = max(la[item], self._SPPList[item][1])
         self._SPPList = {k: v for k, v in self._SPPList.items() if v[1] <= self._maxLa}
-        self._SPPList = {k: v for k, v in sorted(self._SPPList.items(), key=lambda x: (x[1][0]), reverse=True)}
+        self._SPPList = {k: v for k, v in sorted(self._SPPList.items(), key=lambda _x_: (_x_[1][0]), reverse=True)}
         data = self._SPPList
         pfList = [k for k, v in data.items()]
         self._rank = dict([(index, item) for (item, index) in enumerate(pfList)])
@@ -629,16 +629,16 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
             raise Exception("Please enter the minSup in range between 0 to 1")
         generatedItems, pfList = self._periodicFrequentOneItem()
         updatedDatabases = self._updateDatabases(generatedItems)
-        for x, y in self._rank.items():
-            self._rankedUp[y] = x
+        for X, Y in self._rank.items():
+            self._rankedUp[Y] = X
         info = {self._rank[k]: v for k, v in generatedItems.items()}
         Tree = self._buildTree(updatedDatabases, info)
         patterns = {}
         Tree.generatePatterns(1, [], patterns)
         self._finalPatterns = {}
-        for x, y in patterns.items():
-            sample = self._savePeriodic(x)
-            self._finalPatterns[sample] = y
+        for X, Y in patterns.items():
+            sample = self._savePeriodic(X)
+            self._finalPatterns[sample] = Y
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
@@ -698,8 +698,8 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
-        for x, y in self._finalPatterns.items():
-            s1 = x + ":" + str(y[0]) + ":" + str(y[1])
+        for X_, Y_ in self._finalPatterns.items():
+            s1 = X_ + ":" + str(Y_[0]) + ":" + str(Y_[1])
             writer.write("%s \n" % s1)
 
     def getPatterns(self) -> dict:

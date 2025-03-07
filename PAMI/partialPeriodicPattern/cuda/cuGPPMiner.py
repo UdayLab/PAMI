@@ -250,7 +250,7 @@ class cuGPPMiner(_ab._partialPeriodicPatterns):
         """
         Storing the complete transactions of the database/input file in a database variable
         """
-        plist = []
+        #plist = []
         Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             ts, data = [], []

@@ -333,7 +333,7 @@ class _Tree(object):
         :type prefix : list
         """
         global _finalPatterns, _minSup
-        for i in sorted(self.summaries, key=lambda x: (self.info.get(x))):
+        for i in sorted(self.summaries, key=lambda x_: (self.info.get(x_))):
             pattern = prefix[:]
             pattern.append(i)
             s = 0
@@ -547,7 +547,7 @@ class TubeS(_fp._frequentPatterns):
                 data = _fp._urlopen(self._iFile)
                 for line in data:
                     line = line.strip()
-                    line = line.decode("utf-8")
+                    #line = line.decode("utf-8")
                     #temp1 = line.split(':')
                     temp = [i.rstrip() for i in temp[0].split(self._sep)]
                     uncertain = [float(i.rstrip()) for i in temp[1].split(self._sep)]

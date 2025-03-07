@@ -151,9 +151,9 @@ class GTCP:
                 l1: Pattern 1
                 l2: Pattern 2
         """
-        patterns=[]
-        Nol=[]
-        temp_l=[]
+        #patterns=[]
+        #Nol=[]
+        #temp_l=[]
         newpattern=[]
         for i in range(len(l1)):
             for j in range(i+1,len(l2)):

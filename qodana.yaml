@@ -50,3 +50,10 @@ exclude:
       - PAMI\partialPeriodicFrequentPattern\basic\GPFgrowth.py
       - PAMI\partialPeriodicFrequentPattern\cuda\cuGPPMiner.py
   - name: PyMethodMayBeStaticInspection
+  - name: PyAssignmentToLoopOrWithParameterInspection
+    paths:
+      - PAMI\highUtilitySpatialPattern\basic\HDSHUIM.py
+  - name: PyShadowingNamesInspection
+  - name: PyUnusedLocalInspection
+    paths:
+      - PAMI\graphTransactionalCoveragePattern\basic\abstract.py

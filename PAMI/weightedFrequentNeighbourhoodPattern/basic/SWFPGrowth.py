@@ -321,7 +321,7 @@ class _Tree:
                 for q in conditionalTree.generatePatterns(pattern):
                     yield q
 
-
+global _maxWeight
 class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
     """
     About this algorithm
@@ -599,13 +599,14 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
                 value = int(value)
         return value
 
+
     def __frequentOneItem(self) -> List[str]:
         """
         Generating One frequent items sets
 
         :return: None
         """
-        global _maxWeight
+
         self._mapSupport = {}
         for tr in self._Database:
             for i in tr:

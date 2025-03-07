@@ -119,7 +119,7 @@ class _Node(object):
         self.children[node.item] = node
         node.parent = self
 
-
+global _finalPatterns, _expSup, _expWSup, _weights
 class _Tree(object):
     """
     A class used to represent the frequentPatternGrowth tree structure
@@ -279,7 +279,7 @@ class _Tree(object):
                 else:
                     count[j] = support[i]
         updatedDict = {}
-        updatedDict = {k: v for k, v in count.items() if v >= _expSup}
+        updatedDict = {key: v for key, v in count.items() if v >= _expSup}
         count = 0
         for p in condPatterns:
             p1 = [v for v in p if v in updatedDict]
@@ -290,6 +290,7 @@ class _Tree(object):
                 count += 1
         return pat, sup, updatedDict
 
+
     def generatePatterns(self, prefix) -> None:
         """
         Generates the patterns
@@ -299,13 +300,13 @@ class _Tree(object):
         :return: None
         """
 
-        global _finalPatterns, _expSup, _expWSup, _weights
+
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x))):
             pattern = prefix[:]
             pattern.append(i)
             weight = 0
-            for k in pattern:
-                weight = weight + _weights[k]
+            for k_ in pattern:
+                weight = weight + _weights[k_]
             weight = weight/len(pattern)
             if self.info.get(i) >= _expSup and self.info.get(i) * weight >= _expWSup:
                 _finalPatterns[tuple(pattern)] = self.info.get(i)
@@ -509,10 +510,10 @@ class WUFIM(_ab._weightedFrequentPatterns):
                 self._Database = self._iFile['Transactions'].tolist()
             if 'uncertain' in i:
                 uncertain = self._iFile['uncertain'].tolist()
-            for k in range(len(data)):
+            for k__ in range(len(data)):
                 tr = []
-                for j in range(len(data[k])):
-                    product = _Item(data[k][j], uncertain[k][j])
+                for j in range(len(data[k__])):
+                    product = _Item(data[k__][j], uncertain[k__][j])
                     tr.append(product)
                 self._Database.append(tr)
 
@@ -570,8 +571,8 @@ class WUFIM(_ab._weightedFrequentPatterns):
                 data = self._wFile['items'].tolist()
             if 'weights' in i:
                 weights = self._wFile['weights'].tolist()
-            for k in range(len(data)):
-                self._weights[data[k]] = int(float(weights[k]))
+            for _k in range(len(data)):
+                self._weights[data[_k]] = int(float(weights[_k]))
 
             # print(self.Database)
         if isinstance(self._wFile, str):
@@ -610,8 +611,8 @@ class WUFIM(_ab._weightedFrequentPatterns):
                         mapSupport[j.item] = [j.probability, self._weights[j.item]]
                 else:
                     mapSupport[j.item][0] += j.probability
-        mapSupport = {k: v[0] for k, v in mapSupport.items() if v[0] >= self._expSup and v[0] * v[1] >= self._expWSup}
-        plist = [k for k, v in sorted(mapSupport.items(), key=lambda x: x[1], reverse=True)]
+        mapSupport = {key_: v[0] for key_, v in mapSupport.items() if v[0] >= self._expSup and v[0] * v[1] >= self._expWSup}
+        plist = [_key for _key, v in sorted(mapSupport.items(), key=lambda x: x[1], reverse=True)]
         self.rank = dict([(index, item) for (item, index) in enumerate(plist)])
         return mapSupport, plist
 
@@ -668,11 +669,11 @@ class WUFIM(_ab._weightedFrequentPatterns):
 
         # This method taken a transaction as input and returns the tree
         for m in x:
-            k = 0
+            z = 0
             for n in i:
                 if m == n.item:
-                    k += 1
-            if k == 0:
+                    z += 1
+            if z == 0:
                 return 0
         return 1
 
@@ -694,13 +695,14 @@ class WUFIM(_ab._weightedFrequentPatterns):
                 value = int(value)
         return value
 
+    #global _finalPatterns
     def _removeFalsePositives(self) -> None:
         """
         To remove the false positive patterns generated in frequent patterns.
 
         :return: patterns with accurate probability
         """
-        global _finalPatterns
+
         periods = {}
         for i in self._Database:
             for x, y in _finalPatterns.items():
@@ -736,11 +738,12 @@ class WUFIM(_ab._weightedFrequentPatterns):
         """
         self.mine()
 
+
     def mine(self) -> None:
         """
         mine() method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patternS
         """
-        global _expSup, _expWSup, _weights, _finalPatterns
+
         self._startTime = _ab._time.time()
         self._creatingItemSets()
         self._scanningWeights()
@@ -752,7 +755,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
         self._finalPatterns = {}
         mapSupport, plist = self._frequentOneItem()
         self.Database1 = self._updateTransactions(mapSupport)
-        info = {k: v for k, v in mapSupport.items()}
+        info = {keys: v for keys, v in mapSupport.items()}
         Tree1 = self._buildTree(self.Database1, info)
         Tree1.generatePatterns([])
         self._removeFalsePositives()

@@ -465,7 +465,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
 
         listOfFFList = []
         mapItemsToFFLIST = {}
-        region_label = []
+        #region_label = []
         #self._minSup = self._convert(self._minSup)
         for item in self._itemSupData.keys():
             if self._itemSupData[item] >= self._minSup:

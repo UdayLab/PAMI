@@ -363,7 +363,7 @@ class cudaAprioriTID:
 
         self._creatingItemSets()
         self._minSup = self._convert(self._minSup)
-        minSup = self._minSup
+       # minSup = self._minSup
 
 
         data = dict(filter(lambda x: len(x[1]) >= self.minSup, self._Database))

@@ -317,17 +317,13 @@ class GPUEFIM:
         
         return primary, secondary
 
-    def search(self, collection, depth):
+    def search(self, collection):
         """
         Search for frequent patterns in the given collections.
 
         :param collection: The collection to search in.
 
         :type collection: list
-
-        :param depth: The depth of the search tree
-
-        :type depth: int
         """
         while len(collection) > 0:
             candidates = []
@@ -447,7 +443,7 @@ class GPUEFIM:
 
         collection = [[[], primary, secondary]]
 
-        self.search(collection, 1)
+        self.search(collection)
 
         self.memoryRSS = ps.memory_info().rss
         self.memoryUSS = ps.memory_full_info().uss

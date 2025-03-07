@@ -321,7 +321,7 @@ class cuGPPMiner(partialPeriodicPatterns, ABC):
             newArraysAndItems[tuple([number])] = bitRep
             self._rename[number] = str(k[0])
             number += 1
-            satisfy = self._partialPeriodicPatterns__minPR * (self._partialPeriodicPatterns__minSup + 1)
+            #satisfy = self._partialPeriodicPatterns__minPR * (self._partialPeriodicPatterns__minSup + 1)
             ratio = perSup / (len(v) + 1)
             if ratio >= self._partialPeriodicPatterns__minPR:
                 # print(len(v),perSup)
@@ -401,7 +401,7 @@ class cuGPPMiner(partialPeriodicPatterns, ABC):
       period = period.get()
       support = support.get()
 
-      satisfy = self._partialPeriodicPatterns__minPR * (self._partialPeriodicPatterns__minSup + 1)
+      #satisfy = self._partialPeriodicPatterns__minPR * (self._partialPeriodicPatterns__minSup + 1)
 
       newCandidates = []
       for i in range(len(newKeys)):

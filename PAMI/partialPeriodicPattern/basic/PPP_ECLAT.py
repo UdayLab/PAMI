@@ -432,7 +432,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         :rtype: pd.DataFrame
         """
 
-        dataframe = {}
+        #dataframe = {}
         data = []
         for a, b in self._finalPatterns.items():
             data.append([a, b])

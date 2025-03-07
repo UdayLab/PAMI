@@ -231,7 +231,7 @@ class PPF_DFS(partialPeriodicPatterns, ABC):
                     with open(self._partialPeriodicPatterns__iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             self.__lno += 1
-                            temp = [i.rstrip() for i in line.split(self._partialPeriodicPatterns__sep)]
+                            temp = [i__.rstrip() for i__ in line.split(self._partialPeriodicPatterns__sep)]
                             temp = [x for x in temp if x]
                             self.__Database.append(temp)
                 except IOError:
@@ -250,9 +250,9 @@ class PPF_DFS(partialPeriodicPatterns, ABC):
         # print(lno)
         tids = list(set(tids))
         tids.sort()
-        per = 0
+        #per = 0
         sup = 0
-        cur = 0
+        #cur = 0
         if len(tids) == 0:
             return 0
         if abs(0 - tids[0]) <= self._partialPeriodicPatterns__maxPer:
@@ -262,7 +262,7 @@ class PPF_DFS(partialPeriodicPatterns, ABC):
             per = abs(tids[k] - tids[j])
             if per <= self._partialPeriodicPatterns__maxPer:
                 sup += 1
-            cur = tids[j]
+            #cur = tids[j]
         if abs(self.__last - tids[len(tids) - 1]) <= self._partialPeriodicPatterns__maxPer:
             sup += 1
         if sup == 0:
@@ -280,16 +280,16 @@ class PPF_DFS(partialPeriodicPatterns, ABC):
         # print(lno)
         tids = list(set(tids))
         tids.sort()
-        per = 0
+        #per = 0
         sup = 0
-        cur = 0
+        #cur = 0
         if len(tids) == 0:
             return 0
         if abs(0 - tids[0]) <= self._partialPeriodicPatterns__maxPer:
             sup += 1
         for j in range(len(tids) - 1):
-            i = j + 1
-            per = abs(tids[i] - tids[j])
+            i_ = j + 1
+            per = abs(tids[i_] - tids[j])
             if per <= self._partialPeriodicPatterns__maxPer:
                 sup += 1
         if abs(tids[len(tids) - 1] - self.__last) <= self._partialPeriodicPatterns__maxPer:
@@ -317,14 +317,14 @@ class PPF_DFS(partialPeriodicPatterns, ABC):
                 value = int(value)
         return value
 
-    def __oneItems(self, path):
+    def __oneItems(self):
         """
         scan all lines of database and create support list
 
         :param path: it represents input file name
         :return: support list each item
         """
-        id1 = 0
+        #id1 = 0
         self._partialPeriodicPatterns__maxPer = self.__convert(self._partialPeriodicPatterns__maxPer)
         self._partialPeriodicPatterns__minSup = self.__convert(self._partialPeriodicPatterns__minSup)
         self._partialPeriodicPatterns__minPR = float(self._partialPeriodicPatterns__minPR)
@@ -433,7 +433,7 @@ class PPF_DFS(partialPeriodicPatterns, ABC):
         self.__path = self._partialPeriodicPatterns__iFile
         self._partialPeriodicPatterns__startTime = time.time()
         self.__creatingItemSets()
-        plist = self.__oneItems(self.__path)
+        plist = self.__oneItems()
         self._partialPeriodicPatterns__finalPatterns = {}
         for i__ in range(len(plist)):
             itemx = plist[i__]

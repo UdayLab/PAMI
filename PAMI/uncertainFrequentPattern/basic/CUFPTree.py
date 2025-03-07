@@ -310,7 +310,7 @@ class _Tree(object):
         """
 
         global _finalPatterns
-        for i in sorted(self.summaries, key=lambda x: (self.info.get(x))):
+        for i in sorted(self.summaries, key=lambda x_: (self.info.get(x_))):
             pattern = prefix[:]
             pattern.append(i)
             s = 0
@@ -711,7 +711,7 @@ class CUFPTree(_ab._frequentPatterns):
         self._startTime = _ab._time.time()
         self._creatingItemSets()
         self._minSup = self._convert(self._minSup)
-        minSup = self._minSup
+        #minSup = self._minSup
         self._finalPatterns = {}
         mapSupport, plist = self._frequentOneItem()
         self.Database1 = self._updateTransactions(mapSupport)

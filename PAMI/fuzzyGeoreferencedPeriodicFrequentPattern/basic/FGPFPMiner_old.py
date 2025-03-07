@@ -262,7 +262,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
     _transactionsDB = []
     _fuzzyValuesDB = []
 
-    def __init__(self, iFile, nFile, FuzFile, minSup, maxPer, sep):
+    def __init__(self, iFile, nFile, FuzFile, minSup, maxPer):
         super().__init__(iFile, nFile, FuzFile, minSup, maxPer)
         self.oFile = None
         self._mapItemNeighbours = {}

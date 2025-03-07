@@ -255,7 +255,7 @@ class Tree(object):
         for i in self.summaries[node_val]:
             i.parent.tids +=i.tids
             del i.parent.children[node_val]
-            i=None
+            #i=None
 
     def get_ts(self,j):
         """
@@ -496,8 +496,8 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
 
         self._period = self._convert(self._period)
         self._minPS = self._convert(self._minPS)
-        minPS = self._minPS
-        period = self._period
+        #minPS = self._minPS
+        #period = self._period
 
         APP_NAME = "4PGrowth"
         conf = SparkConf().setAppName(APP_NAME)
@@ -691,7 +691,7 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
         inf={}
         # print(rank)
         # print(PSinfo)
-        v=len(perFreqItems)
+        #v=len(perFreqItems)
         for i in rank:
             inf[rank[i]]=PSinfo[i]
             c+=1
@@ -869,7 +869,7 @@ def getps(tid_list):
     return pf
 
 
-def getPF(self,tid_list):
+def getPF(tid_list):
     tid_list.sort()
     tids=tid_list
     cur=tids[0]

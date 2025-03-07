@@ -272,7 +272,7 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
         self._maxPer = self._convert(self._maxPer)
         self._k = self._convert(self._k)
         self._mapSupport = {k: [v[0], v[1]] for k, v in self._mapSupport.items() if v[1] <= self._maxPer}
-        plist = [key for key, value in sorted(self._mapSupport.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
+        plist = [key for key, value in sorted(self._mapSupport.items(), key=lambda _x: (_x[1][0], _x[0]), reverse=True)]
         self._finalPatterns = {}
         #print(len(plist))
         for i in plist:
@@ -331,7 +331,7 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
                                   sorted(self._finalPatterns.items(), key=lambda item: item[1], reverse=True)}
                 self._minimum = min([self._finalPatterns[i][0] for i in self._finalPatterns.keys()])
         else:
-            for x, y in sorted(self._finalPatterns.items(), key=lambda x: x[1][0]):
+            for x, y in sorted(self._finalPatterns.items(), key=lambda x_: x_[1][0]):
                 if val[0] > y[0]:
                     del self._finalPatterns[x]
                     self._finalPatterns[x] = y

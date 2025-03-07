@@ -93,8 +93,7 @@ class spatioTemporalDatabaseGenerator:
         return coordinate
 
     def __init__(self,xmin: int,xmax: int,ymin: int,ymax: int,maxTimeStamp: int,numberOfItems: int, itemChanceLow: float,
-                 itemChanceHigh: float, timeStampChanceLow: float,
-                 timeStampChanceHigh: float) -> None:
+                 itemChanceHigh: float, timeStampChanceLow: float) -> None:
         coinFlip = [True, False]
         timeStamp = 1
         self.timeStampList = list()

@@ -352,7 +352,7 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
                 self._localPeriodicPatterns__finalPatterns[item] = PTL[item]
         I = sorted(list(I))
         _map = {-1 : I}
-        I = set(I)
+        #I = set(I)
         while len(_map) > 0:
             _map = self.__LPPMBreadthSearch(_map)
 

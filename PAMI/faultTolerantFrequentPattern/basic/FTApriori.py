@@ -241,7 +241,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         :rtype: tuple
 
         """
-        count = 0
+        #count = 0
         items = []
         k = list(k)
         n = len(k) - self._faultTolerance
@@ -279,8 +279,8 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         :rtype: int
 
         """
-        tids = {}
-        res = True
+        #tids = {}
+        #res = True
         count = 0
         for x in self._Database:
             if abs(len(itemset) - len(set(x) & set(itemset))) <= self._faultTolerance:

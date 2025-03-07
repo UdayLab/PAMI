@@ -439,8 +439,8 @@ class Parallel_PPFP:
 
 if __name__ == "__main__":
     if len(sys.argv) == 6:
-        inputData = sys.argv[1] if sys.argv[1].lower().endswith('.txt') else sc.textFile(sys.argv[1])
-        pp_fp = Parallel_PPFP(inputData, sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+        inputData_ = sys.argv[1] if sys.argv[1].lower().endswith('.txt') else sc.textFile(sys.argv[1])
+        pp_fp = Parallel_PPFP(inputData_, sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
         pp_fp.mine()
         finalPatterns = pp_fp.getPatterns()
         print("Total number of Periodic Frequent Patterns:", len(finalPatterns))

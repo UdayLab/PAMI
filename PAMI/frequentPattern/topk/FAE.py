@@ -226,7 +226,7 @@ class FAE(_ab._frequentPatterns):
         else:
             prefix = prefix + suffix
         val = len(tidSetI)
-        sample = str()
+        #sample = str()
         # for i in prefix:
         #     sample = sample + i + "\t"
         sample = "\t".join(prefix)

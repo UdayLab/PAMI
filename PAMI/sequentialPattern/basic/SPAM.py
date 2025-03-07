@@ -249,7 +249,7 @@ class SPAM(_ab._sequentialPatterns):
 
                             seq = []
                             for i in temp:
-                                k = -2
+                                #k = -2
                                 if len(i)>1:
                                     seq.append(list(sorted(set(i.split()))))
 

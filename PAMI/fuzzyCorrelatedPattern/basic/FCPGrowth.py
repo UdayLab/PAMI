@@ -599,7 +599,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         for i in range(0, len(FSFIM)):
             X = FSFIM[i]
             if X.sumIUtil >= minSup:
-                ratio = self._getRatio(prefix, prefixLen, X)
+                ratio = self._getRatio(prefix, X)
                 if ratio >= self._minAllConf:
                     self._WriteOut(prefix, prefixLen, X, ratio)
             if X.sumRUtil >= minSup:
@@ -658,14 +658,12 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         """
         return self._endTime - self._startTime
 
-    def _getRatio(self, prefix: List[_FFList], prefixLen: int, item: _FFList) -> float:
+    def _getRatio(self, prefix: List[_FFList], item: _FFList) -> float:
         """
         Method to calculate the ration of itemSet
 
         :param prefix: prefix of itemSet
         :type prefix: list
-        :param prefixLen: length of prefix
-        :type prefixLen: int
         :param item: the last item
         :type item: FFList
         :return : correlated ratio
