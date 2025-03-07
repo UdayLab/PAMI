@@ -230,7 +230,7 @@ class TUFP(_ab._frequentPatterns):
     _minSup = str()
     _finalPatterns = {}
     _iFile = " "
-    _oFile = " "
+    oFile = " "
     _sep = " "
     _memoryUSS = float()
     _memoryRSS = float()
@@ -317,7 +317,7 @@ class TUFP(_ab._frequentPatterns):
                 else:
                     mapSupport[j.item] += j.probability
                     self._cupList[j.item].update({k: j.probability})
-        plist = [k for k,v in sorted(mapSupport.items(), key=lambda x: x[1], reverse=True)]
+        plist = [k for k,v in sorted(mapSupport.items(), key=lambda x_: x_[1], reverse=True)]
         k = 0
         for x, in plist:
             k +=1
@@ -408,7 +408,7 @@ class TUFP(_ab._frequentPatterns):
                 itemJ = itemSets[j]
                 tidSetJ = tidSets[j]
                 y = {key: tidSetJ[key] * tidSetI.get(key, 0) for key in tidSetJ.keys()}
-                sum2 = sum(list(y.values()))
+                #sum2 = sum(list(y.values()))
                 # print(prefix, itemJ, y, sum2)
                 # if sum2 >= self.minimum:
                 self._save(prefix, [itemJ], y)

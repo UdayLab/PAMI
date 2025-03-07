@@ -328,7 +328,7 @@ class gPFMinerBit:
         index2id = []
         bitValues = []
         for key, value in fileData.items():
-            if (len(value) >= self.minSup and self.__getMaxPeriod(value) <= self.maxPeriod):
+            if len(value) >= self.minSup and self.__getMaxPeriod(value) <= self.maxPeriod:
                 index2id.append(key)
                 bits = [0] * self.bitsToGen * self.numberOfBits
                 for item in value:
@@ -465,8 +465,8 @@ class gPFMinerBit:
             keys = newKeys
             newKeys = []
 
-            counter = 0
-            top = 5
+            #counter = 0
+            #top = 5
             for i in range(len(locations)-1):
                 # print(support[i], period[i])
                 # if i == 0:
@@ -525,12 +525,12 @@ if __name__ == "__main__":
     if len(sys.argv) != 6:
         print("Usage: python3 gPFMinerBit.py <input file> <min support> <max period> <separator> <output file>")
         sys.exit(1)
-    filePath = sys.argv[1]
-    support = int(sys.argv[2])
-    maxPeriod = int(sys.argv[3])
-    sep = sys.argv[4]
+    filePath_ = sys.argv[1]
+    support_ = int(sys.argv[2])
+    maxPeriod_ = int(sys.argv[3])
+    sep_ = sys.argv[4]
     output = sys.argv[5]
-    obj = gPFMinerBit(filePath, support, maxPeriod, sep)
+    obj = gPFMinerBit(filePath_, support_, maxPeriod_, sep_)
     obj.mine()
     obj.savePatterns(output)
     print("Time: ", obj.getRuntime())

@@ -223,29 +223,22 @@ class generateTemporalDatabase:
                 array[randIndex] -= 1
             # if sum is too small, increase the smallest value
             else:
-                minIndex = np.argmin(array)
+                #minIndex = np.argmin(array)
                 array[randIndex] += 1
         return array
         
 
-    def generateArray(self, nums, avg, maxItems, sumRes) -> list:
+    def generateArray(self, nums, maxItems, sumRes) -> list:
         """
         Generate a random array of length n whose values average to m
 
         :param nums: number of values
-
-        :type nums: list
-
-        :param avg: average value
-
-        :type avg: float
-
+        :type nums: int
         :param maxItems: maximum value
-
         :type maxItems: int
-
+        :param sumRes: Resultant sum
+        :type sumRes: float
         :return: random array
-
         :rtype: list
         """
 
@@ -284,13 +277,13 @@ class generateTemporalDatabase:
         """
 
         lines = [i for i in range(self.numOfTransactions) if self.performCoinFlip(self.percentage)]
-        values = self.generateArray(len(lines), self.avgLenOfTransactions, self.numItems, self.avgLenOfTransactions * self.numOfTransactions)
+        values = self.generateArray(len(lines), self.numItems, self.avgLenOfTransactions * self.numOfTransactions)
         # print(values, sum(values), self.avgLenOfTransactions * self.numOfTransactions, sum(values)/self.numOfTransactions)
         # print(lines)
 
         form = list(zip(lines, values))
 
-        database = [[] for i in range(self.numOfTransactions)]
+        database = [[] for _ in range(self.numOfTransactions)]
 
         for i in range(len(form)):
             database[form[i][0]] = np.random.choice(range(1, self.numItems + 1), form[i][1], replace=False).tolist()
@@ -302,14 +295,14 @@ class generateTemporalDatabase:
         print(self.df)
 
 if __name__ == '__main__':
-    numOfTransactions = 100
-    numItems = 20
-    avgTransactionLength = 6
+    numOfTransactions_ = 100
+    numItems_ = 20
+    avgTransactionLength_ = 6
     outFileName = 'temporal_out.txt'
-    sep = '\t'
+    sep_ = '\t'
     frameOrBase = "database"
 
-    temporalDB = generateTemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName,1,1,10,10)
+    temporalDB = generateTemporalDatabase(numOfTransactions_, avgTransactionLength_, numItems_, outFileName,1,1,10,10)
 
     temporalDB.createTemporalFile()
 

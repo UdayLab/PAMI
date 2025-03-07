@@ -224,7 +224,7 @@ class kPFPMiner(_ab._periodicFrequentPatterns):
         tids.sort()
         cur=0
         per=list()
-        sup=0
+        #sup=0
         #print(tids)
         for i in range(len(tids)-1):
             j = i + 1
@@ -257,7 +257,7 @@ class kPFPMiner(_ab._periodicFrequentPatterns):
                     self._tidList[si].append(n)
         for x, y in self._mapSupport.items():
             self._mapSupport[x][1] = max(self._mapSupport[x][1], abs(n - self._mapSupport[x][2]))
-        plist = [key for key, value in sorted(self._mapSupport.items(), key=lambda x: x[1], reverse=True)]
+        plist = [key for key, value in sorted(self._mapSupport.items(), key=lambda x_: x_[1], reverse=True)]
         for i in plist:
             if len(self._finalPatterns) >= self._k:
                 break
@@ -293,7 +293,7 @@ class kPFPMiner(_ab._periodicFrequentPatterns):
                 self._finalPatterns = {k: v for k, v in sorted(self._finalPatterns.items(), key=lambda item: item[1], reverse=True)}
                 self._maximum = max([i for i in self._finalPatterns.values()])
         else:
-            for x, y in sorted(self._finalPatterns.items(), key=lambda x: x[1], reverse=True):
+            for x, y in sorted(self._finalPatterns.items(), key=lambda _x: _x[1], reverse=True):
                 if val < y:
                     del self._finalPatterns[x]
                     self._finalPatterns[sample] = val

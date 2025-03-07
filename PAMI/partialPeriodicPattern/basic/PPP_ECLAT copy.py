@@ -52,9 +52,9 @@ __copyright__ = """
 
 
 
-from PAMI.partialPeriodicPattern.basic import abstract as _ab
+#from PAMI.partialPeriodicPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
-import pandas as pd
+#import pandas as pd
 
 from PAMI.partialPeriodicPattern.basic import abstract as _ab
 import pandas as pd
@@ -293,7 +293,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         Scans the Temporal database / Input file and stores the 1-length partial-periodic patterns.
         :return: list
         """
-        plist = []
+        #plist = []
         self._tidList = {}
         self._mapSupport = {}
         self._period = self._convert(self._period)

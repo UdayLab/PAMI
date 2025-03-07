@@ -209,7 +209,7 @@ class ECLATDiffset(_ab._frequentPatterns):
         tidSets = {}
         # uniqueItem will store all frequent 1 items
         uniqueItem = []
-        for line in self._Database:
+        for _ in self._Database:
                 transNum = 0
                 # Database = [set([i.rstrip() for i in transaction.split('\t')]) for transaction in f]
                 for transaction in self._Database:
@@ -286,7 +286,7 @@ class ECLATDiffset(_ab._frequentPatterns):
         self._creatingItemSets()
         #print(len(self._Database))
         self._minSup = self._convert(self._minSup)
-        uniqueItemList = []
+        #uniqueItemList = []
         uniqueItemList = self._getUniqueItemList()
         self._runDeclat(uniqueItemList)
         self._finalPatterns = self._diffSets

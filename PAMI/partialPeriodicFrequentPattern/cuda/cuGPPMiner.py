@@ -17,6 +17,8 @@ __copyright__ = """
 
 """
 
+from abc import ABC
+
 # import abstract as _ab
 
 from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
@@ -25,7 +27,7 @@ import numpy as np
 import pandas as pd
 from deprecated import deprecated
 
-class cuGPPMiner(partialPeriodicPatterns):
+class cuGPPMiner(partialPeriodicPatterns, ABC):
   __path = ' '
   _partialPeriodicPatterns__iFile = ' '
   _partialPeriodicPatterns__oFile = ' '
@@ -44,6 +46,8 @@ class cuGPPMiner(partialPeriodicPatterns):
   _partialPeriodicPatterns__startTime = float()
   _partialPeriodicPatterns__endTime = float()
   __Database = []
+  _memoryRSS = float()
+  _memoryUSS = float()
 
   supportAndPeriod = cp.RawKernel('''
 
@@ -317,8 +321,8 @@ class cuGPPMiner(partialPeriodicPatterns):
             newArraysAndItems[tuple([number])] = bitRep
             self._rename[number] = str(k[0])
             number += 1
-            satisfy = self._partialPeriodicPatterns__minPR * (self._partialPeriodicPatterns__minSup + 1)
-            ratio = (perSup)/(len(v) + 1)
+            #satisfy = self._partialPeriodicPatterns__minPR * (self._partialPeriodicPatterns__minSup + 1)
+            ratio = perSup / (len(v) + 1)
             if ratio >= self._partialPeriodicPatterns__minPR:
                 # print(len(v),perSup)
                 # print(k, len(v), v, nv, differences, maxDiff)
@@ -397,7 +401,7 @@ class cuGPPMiner(partialPeriodicPatterns):
       period = period.get()
       support = support.get()
 
-      satisfy = self._partialPeriodicPatterns__minPR * (self._partialPeriodicPatterns__minSup + 1)
+      #satisfy = self._partialPeriodicPatterns__minPR * (self._partialPeriodicPatterns__minSup + 1)
 
       newCandidates = []
       for i in range(len(newKeys)):
@@ -428,8 +432,7 @@ class cuGPPMiner(partialPeriodicPatterns):
 
     self.__runTime = time.time() - self._partialPeriodicPatterns__startTime
     process = psutil.Process(os.getpid())
-    self._memoryRSS = float()
-    self._memoryUSS = float()
+
     self._memoryUSS = process.memory_full_info().uss
     self._memoryRSS = process.memory_info().rss
     print("Periodic-Frequent patterns were generated successfully using gPPMiner algorithm ")

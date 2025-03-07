@@ -57,7 +57,7 @@ from deprecated import deprecated
 
 
 _minSup = str()
-global maximalTree
+#global maximalTree
 
 
 class _Node(object):
@@ -258,7 +258,7 @@ class _Tree(object):
         """
         for i in self.summaries[nodeValue]:
             del i.parent.children[nodeValue]
-            i = None
+            #i = None
 
     def generatePatterns(self, prefix, patterns, maximalTree):
         """

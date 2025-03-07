@@ -411,7 +411,7 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
         self._startTime = _ab._time.time()
         self._creatingItemsets()
         for line in range(len(self._transactions)):
-            times = self._ts[line]
+            #times = self._ts[line]
             items = self._transactions[line]
             quantities = self._fuzzyValues[line]
             self._dbLen += 1
@@ -425,7 +425,7 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
         mapItemsToFFLIST = {}
         #self._minSup = float(self._minSup)
         self._minSup = self._convert(self._minSup)
-        minSup = self._minSup
+        #minSup = self._minSup
         for item1 in self._mapItemSum.keys():
             item = item1
             # print(type(self._mapItemSum[item]))

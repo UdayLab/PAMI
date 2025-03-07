@@ -109,14 +109,14 @@ class Node(object):
 
         :param level: level of a node
         """
-        if self.item == None:
+        if self.item is None:
             s = "Root("
         else:
             s = "(item=" + str(self.item)
             s += ", count=" + str(self.count)
             for i in self.tids:
                 s += " " + str(i)
-        tabs = "\t".join(['' for i in range(0, level + 2)])
+        tabs = "\t".join(['' for _ in range(0, level + 2)])
         for v in self.children.values():
             s += tabs + "\n"
             s += tabs + v.toString(level=level + 1)
@@ -139,8 +139,8 @@ class Node(object):
                 count -= t[2]
                 t[0].insert(0, child.item)
                 yield t
-        if (count > 0):
-            yield ([], tids, count)
+        if count > 0:
+            yield [], tids, count
 
 
 class PFPTree(object):
@@ -210,7 +210,7 @@ class PFPTree(object):
             child.count += count
             for j in tid:
                 summary.tids.add(j)
-                if (i == len(basket) - 1):
+                if i == len(basket) - 1:
                     child.tids.add(j)
             curr = child
         return self
@@ -281,11 +281,11 @@ class PFPTree(object):
         """
         for item in sorted(self.summaries, reverse=True):
             summary = self.summaries[item]
-            if (isResponsible(item)):
-                if (summary.count >= minCount and self.satisfyPer(summary.tids, maxPer, numTrans)):
-                    yield ([item], summary.count)
+            if isResponsible(item):
+                if summary.count >= minCount and self.satisfyPer(summary.tids, maxPer, numTrans):
+                    yield [item], summary.count
                     for element in self.project(item).extract(minCount, maxPer, numTrans):
-                        yield ([item] + element[0], element[1])
+                        yield [item] + element[0], element[1]
             for element in summary.nodes:
                 parent = element.parent
                 parent.tids |= element.tids
@@ -468,9 +468,10 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
     __rankDup = {}
     _numTrans = str()
     __tarunpat = {}
+    _perFreqItems = None
 
-    def __init__(self, iFile, minSup, maxPer, numWorker, sep='\t'):
-        super().__init__(iFile, minSup, maxPer, numWorker, sep)
+    def __init__(self, iFile, minSup, maxPer, numWorker):
+        super().__init__(iFile, minSup, maxPer, numWorker)
 
     def func1(self, ps1, tid):
         """
@@ -646,7 +647,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         self._maxPer = self.__convert(self._maxPer)
         self._numTrans = sc.broadcast(data.count())
         self._perFreqItems = self.getFrequentItems(data)
-        freqItemsets = self.getFrequentItemsets(data, self._perFreqItems)
+        #freqItemsets = self.getFrequentItemsets(data, self._perFreqItems)
         self.__finalPatterns = self.__tarunpat
         sc.stop()
         self.__endTime = _ab._time.time()
@@ -678,7 +679,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         self._maxPer = self.__convert(self._maxPer)
         self._numTrans = sc.broadcast(data.count())
         self._perFreqItems = self.getFrequentItems(data)
-        freqItemsets = self.getFrequentItemsets(data, self._perFreqItems)
+        #freqItemsets = self.getFrequentItemsets(data, self._perFreqItems)
         self.__finalPatterns = self.__tarunpat
         sc.stop()
         self.__endTime = _ab._time.time()

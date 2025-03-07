@@ -271,7 +271,7 @@ class MultipleTimeSeriesFuzzyDatabaseStats:
         """
         big_array = self.convertDataIntoMatrix()
         n_zeros = np.count_nonzero(big_array == 0)
-        return (n_zeros / big_array.size)
+        return n_zeros / big_array.size
 
     def getDensity(self) -> float:
         """
@@ -281,7 +281,7 @@ class MultipleTimeSeriesFuzzyDatabaseStats:
         """
         big_array = self.convertDataIntoMatrix()
         n_zeros = np.count_nonzero(big_array != 0)
-        return (n_zeros / big_array.size)
+        return n_zeros / big_array.size
 
     def getSortedListOfItemFrequencies(self) -> dict:
         """
@@ -291,7 +291,7 @@ class MultipleTimeSeriesFuzzyDatabaseStats:
         """
         itemFrequencies = {}
         for line in range(len(self._transactions)):
-            times = self._ts[line]
+            #times = self._ts[line]
             items = self._transactions[line]
             quantities = self._fuzzyValues[line]
             for i in range(0, len(items)):
@@ -308,10 +308,10 @@ class MultipleTimeSeriesFuzzyDatabaseStats:
         rangeFrequencies = {}
         maximum = max([i for i in fre.values()])
         values = [int(i*maximum/6) for i in range(1,6)]
-        va = len({key: val for key, val in fre.items() if val > 0 and val < values[0]})
+        va = len({key: val for key, val in fre.items() if 0 < val < values[0]})
         rangeFrequencies[va] = values[0]
         for i in range(1,len(values)):
-            va = len({key: val for key, val in fre.items() if val < values[i] and val > values[i-1]})
+            va = len({key: val for key, val in fre.items() if values[i] > val > values[i - 1]})
             rangeFrequencies[va] = values[i]
         return rangeFrequencies
 

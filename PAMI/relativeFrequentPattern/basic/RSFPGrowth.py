@@ -52,9 +52,9 @@ __copyright__ = """
 
 """
 
-from PAMI.relativeFrequentPattern.basic import abstract as _ab
+#from PAMI.relativeFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
-import pandas as pd
+#import pandas as pd
 
 from PAMI.relativeFrequentPattern.basic import abstract as _ab
 import pandas as pd
@@ -217,7 +217,7 @@ class _Tree:
         for x, y in __mapSupport.items():
             if y >= minSup:
                 t1.append(x)
-        __itemSetBuffer = [k for k, v in sorted(__mapSupport.items(), key=lambda x: x[1], reverse=True)]
+        __itemSetBuffer = [k for k, v in sorted(__mapSupport.items(), key=lambda _x: _x[1], reverse=True)]
         self.headerList = [i for i in t1 if i in __itemSetBuffer]
 
     def addPrefixPath(self, prefix: List['_Node'], __mapSupportBeta: Dict[int, int], minSup: float) -> None:
@@ -408,6 +408,7 @@ class RSFPGrowth(_ab._frequentPatterns):
     __fpNodeTempBuffer = []
     __itemSetCount = 0
     __maxPatternLength = 1000
+    __oFile = None
 
     def __init__(self, iFile: Union[str, pd.DataFrame], minSup: Union[int, float, str], minRS: float, sep: str='\t') -> None:
         super().__init__(iFile, minSup, minRS, sep)

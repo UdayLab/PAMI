@@ -19,7 +19,7 @@ __copyright__ = """
 """
 
 import abstract as _ab
-import deprecated
+from deprecated import deprecated
 
 class cuGPPMiner(_ab._partialPeriodicPatterns):
     """
@@ -250,7 +250,7 @@ class cuGPPMiner(_ab._partialPeriodicPatterns):
         """
         Storing the complete transactions of the database/input file in a database variable
         """
-        plist = []
+        #plist = []
         Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             ts, data = [], []

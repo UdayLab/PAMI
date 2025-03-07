@@ -192,7 +192,8 @@ class Parallel_PPFP:
 
     """
 
-    def _init_(self, inputData, minSup, maxPeriod, numWorkers, sep='\t'):
+    def __init__(self, inputData, minSup, maxPeriod, numWorkers, sep='\t'):
+        self._oFile = None
         self._minSup = minSup
         self._maxPeriod = int(maxPeriod)
         self._numPartitions = int(numWorkers)
@@ -291,7 +292,7 @@ class Parallel_PPFP:
         """
         Get the frequent items from the database
 
-        :param data: database
+        :param value: value
         :return: frequent items
 
         """
@@ -301,10 +302,8 @@ class Parallel_PPFP:
         """
         Get the conditional transactions from the database
 
-        :param tid: timestamp of a database
-        :param basket: basket of a database
+        :param trans: Transactions
         :param rank: rank of a database
-        :param nPartitions: number of partitions
         """
         newTrans = [rank[item] for item in trans if item in rank.keys()]
         newTrans = sorted(newTrans)
@@ -440,8 +439,8 @@ class Parallel_PPFP:
 
 if __name__ == "__main__":
     if len(sys.argv) == 6:
-        inputData = sys.argv[1] if sys.argv[1].lower().endswith('.txt') else sc.textFile(sys.argv[1])
-        pp_fp = Parallel_PPFP(inputData, sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+        inputData_ = sys.argv[1] if sys.argv[1].lower().endswith('.txt') else sc.textFile(sys.argv[1])
+        pp_fp = Parallel_PPFP(inputData_, sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
         pp_fp.mine()
         finalPatterns = pp_fp.getPatterns()
         print("Total number of Periodic Frequent Patterns:", len(finalPatterns))

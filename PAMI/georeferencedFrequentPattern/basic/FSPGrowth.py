@@ -195,7 +195,7 @@ class _Tree:
                 if node.count != 0:
                     transaction = node.prefix
                     transaction.append(node.item)
-                    transactions.extend([transaction for i in range(node.count)])
+                    transactions.extend([transaction for _ in range(node.count)])
                     current = self.root
                     for i in transaction:
                         current = current.children[i]

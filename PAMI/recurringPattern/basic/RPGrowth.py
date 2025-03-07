@@ -731,7 +731,7 @@ class RPGrowth(_ab._recurringPatterns):
             s = str()
             for i in a:
                 s = s + i + ' '
-            z = []
+            #z = []
             str1 = '{'
             for z in b[0]:
                 str1 += '{' + str([z[0], z[1]]) + ' : ' + str(z[2]) + '}'
