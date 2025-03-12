@@ -135,7 +135,7 @@ class UncertainTransactionalDatabase:
                     line = line.decode("utf-8")
                     temp = line.split(':')
                     temp1 = [i.rstrip() for i in temp[0].split(self.sep)]
-                    temp1 = [x for x in temp if x]
+                    temp1 = [x for x in temp1 if x]
                     self.database[numberOfTransaction] = temp1
             else:
                 try:

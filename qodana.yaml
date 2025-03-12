@@ -57,3 +57,18 @@ exclude:
   - name: PyUnusedLocalInspection
     paths:
       - PAMI\graphTransactionalCoveragePattern\basic\abstract.py
+      - PAMI\highUtilityPattern\basic\HMiner.py
+      - PAMI\highUtilitySpatialPattern\basic\HDSHUIM.py
+      - PAMI\partialPeriodicPattern\pyspark\parallel3PGrowth.py
+      - PAMI\periodicFrequentPattern\basic\parallelPFPGrowth.py
+      - PAMI\periodicFrequentPattern\pyspark\parallelPFPGrowth_old.py
+      - PAMI\uncertainFrequentPattern\basic\UFGrowth.py
+      - PAMI\uncertainGraphMining\muse\dfsCode.py
+  - name: PyArgumentListInspection
+    paths:
+      - PAMI\extras\generateDatabase\_generateSpatioTemporalDatabase.py
+      - PAMI\fuzzyGeoreferencedPeriodicFrequentPattern\basic\FGPFPMiner_old.py
+      - PAMI\periodicFrequentPattern\basic\parallelPFPGrowth.py
+      - PAMI\periodicFrequentPattern\pyspark\parallelPFPGrowth_old.py
+      - PAMI\periodicFrequentPattern\pyspark\parallelPFPGrowth.py
+      - PAMI\uncertainGraphMining\muse\graph.py

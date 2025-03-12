@@ -471,7 +471,7 @@ class GPUEFIM:
 
         collection = [[[], primary, secondary]]
 
-        self.search(collection, 1)
+        self.search(collection)
 
         self.memoryRSS = ps.memory_info().rss
         self.memoryUSS = ps.memory_full_info().uss

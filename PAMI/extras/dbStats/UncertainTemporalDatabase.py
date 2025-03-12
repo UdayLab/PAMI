@@ -145,8 +145,8 @@ class UncertainTemporalDatabase:
                     numberOfTransaction += 1
                     line.strip()
                     line = line.decode("utf-8")
-                    temp = line.split(':')
-                    temp1 = [i.rstrip() for i in temp[0].split(self.sep)]
+                    temp1 = line.split(':')
+                    temp = [i.rstrip() for i in temp1[0].split(self.sep)]
                     self.database[numberOfTransaction] = temp[1:]
                     self.timeStampCount[int(temp[0])] = self.timeStampCount.get(int(line[0]), 0)
                     self.timeStampCount[int(temp[0])] += 1

@@ -67,7 +67,7 @@ class temporalToFuzzy(_ab._convert):
 
 
     def __init__(self, iFile: str, fuzFile: str, oFile: str, sep: str = '\t'):
-        super().__init__(iFile, fuzFile, oFile, sep)
+        super().__init__(iFile, fuzFile, oFile)
         self._iFile = iFile
         self._fuzFile = fuzFile
         self._oFile = oFile

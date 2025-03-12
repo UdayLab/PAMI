@@ -267,7 +267,7 @@ class CMine(_ab._coveragePatterns):
             for i in range(1,len(v)):
                 diff = int(v[i]) - int(v[i-1])
                 bitset[k] = (bitset[k] << diff) | 0b1
-            bitset[k] = (bitset[k] << (self._lno - int(v[i])))
+            bitset[k] = (bitset[k] << (self._lno - int(v[-1])))
         return bitset
 
     def genPatterns(self,prefix: Tuple[str, int],tidData: List[Tuple[str, int]]) -> None:

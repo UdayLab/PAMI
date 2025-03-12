@@ -61,11 +61,12 @@ from deprecated import deprecated
 from PAMI.uncertainPeriodicFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Union
 
-_minSup = float()
+#_minSup = float()
 __maxPer = float()
 __first = int()
-_last = int()
+#_last = int()
 __lno = int()
+global _lno, _maxPer, _minSup, _first, _last, periodic
 #rank = {}
 #periodic = {}
 
@@ -322,7 +323,7 @@ class _Tree(object):
         :param support : the support of conditional pattern in tree
         :type support : list
         """
-        global _minSup, _maxPer
+
         pat = []
         timeStamps = []
         sup = []
@@ -803,7 +804,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
 
         :return: None
         """
-        global _lno, _maxPer, _minSup, _first, _last, periodic
+
         self._startTime = _ab._time.time()
         self._creatingItemSets()
         self._finalPatterns = {}

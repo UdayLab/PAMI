@@ -154,7 +154,7 @@ class GTCP:
         #patterns=[]
         #Nol=[]
         #temp_l=[]
-        newpattern=[]
+        #newpattern=[]
         for i in range(len(l1)):
             for j in range(i+1,len(l2)):
                 if l1[i][:-1]==l2[j][:-1]:
