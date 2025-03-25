@@ -61,6 +61,7 @@ from typing import List, Tuple
 _minSup = str()
 _ab._sys.setrecursionlimit(20000)
 _finalPatterns = {}
+global minSup
 
 
 class _Item:
@@ -271,13 +272,13 @@ class _Tree(object):
 
         :param condPatterns : conditionalPatterns generated from conditionalPattern method for respective node
         :type condPatterns : list
-        :support : the support of conditional pattern in tree
-        :support : int
+        :param support : the support of conditional pattern in tree
+        :type support : int
         :return: Tuple consist of patterns,support and updated Dictionary
         :rtype: Tuple
         """
 
-        global minSup
+
         pat = []
         sup = []
         count = {}
@@ -308,8 +309,8 @@ class _Tree(object):
         :return: None
         """
 
-        global _finalPatterns, minSup
-        for i in sorted(self.summaries, key=lambda x: (self.info.get(x))):
+        global _finalPatterns
+        for i in sorted(self.summaries, key=lambda x_: (self.info.get(x_))):
             pattern = prefix[:]
             pattern.append(i)
             s = 0
@@ -489,12 +490,13 @@ class CUFPTree(_ab._frequentPatterns):
     _minSup = str()
     _finalPatterns = {}
     _iFile = " "
-    _oFile = " "
+    oFile = " "
     _sep = " "
-    _memoryUSS = float()
-    _memoryRSS = float()
+    memoryUSS = float()
+    memoryRSS = float()
     _Database = []
     _rank = {}
+    Database1 = None
 
     def __init__(self, iFile, minSup, sep='\t') -> None:
         super().__init__(iFile, minSup, sep)
@@ -705,11 +707,11 @@ class CUFPTree(_ab._frequentPatterns):
 
         :return: None
         """
-        global minSup
+
         self._startTime = _ab._time.time()
         self._creatingItemSets()
         self._minSup = self._convert(self._minSup)
-        minSup = self._minSup
+        #minSup = self._minSup
         self._finalPatterns = {}
         mapSupport, plist = self._frequentOneItem()
         self.Database1 = self._updateTransactions(mapSupport)

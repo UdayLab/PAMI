@@ -333,7 +333,7 @@ class _Tree(object):
         :type prefix : list
         """
         global _finalPatterns, _minSup
-        for i in sorted(self.summaries, key=lambda x: (self.info.get(x))):
+        for i in sorted(self.summaries, key=lambda x_: (self.info.get(x_))):
             pattern = prefix[:]
             pattern.append(i)
             s = 0
@@ -509,7 +509,7 @@ class TubeS(_fp._frequentPatterns):
     _minSup = float()
     _finalPatterns = {}
     _iFile = " "
-    _oFile = " "
+    oFile = " "
     _sep = " "
     _memoryUSS = float()
     _memoryRSS = float()
@@ -523,6 +523,7 @@ class TubeS(_fp._frequentPatterns):
         Scans the databases and stores the transactions into Database variable
         """
         self._Database = []
+        #temp = None
         if isinstance(self._iFile, _fp._pd.DataFrame):
             uncertain, data = [], []
             if self._iFile.empty:
@@ -547,7 +548,7 @@ class TubeS(_fp._frequentPatterns):
                 for line in data:
                     line = line.strip()
                     line = line.decode("utf-8")
-                    temp1 = line.split(':')
+                    temp = line.split(':')
                     temp = [i.rstrip() for i in temp[0].split(self._sep)]
                     uncertain = [float(i.rstrip()) for i in temp[1].split(self._sep)]
                     tr = []
@@ -622,7 +623,7 @@ class TubeS(_fp._frequentPatterns):
             for i in range(0, len(tr)):
                 if tr[i].item in dict1:
                     list2.append(tr[i])
-            if (len(list2) >= 2):
+            if len(list2) >= 2:
                 basket = list2
                 basket.sort(key=lambda val: self._rank[val.item])
                 list2 = basket

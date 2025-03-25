@@ -111,6 +111,11 @@ class efimParallel(_ab._utilityPatterns):
 
     def __init__(self, iFile, minUtil, ratio, sep="\t", threads=1):
         super().__init__(iFile, minUtil, sep)
+        self.oFile = None
+        self.runtime = None
+        self.memoryUSS = None
+        self.memoryRSS = None
+        self.start = None
         self.inputFile = iFile
         self.minUtil = minUtil
         self.sep = sep
@@ -158,7 +163,7 @@ class efimParallel(_ab._utilityPatterns):
         twu = {k: v for k, v in twu.items() if v >= self.minUtil}
 
         # Sort TWU items by utility
-        twu = {k: v for k, v in sorted(twu.items(), key=lambda item: item[1], reverse=True)}
+        twu = {k: v for k, v in sorted(twu.items(), key=lambda item_: item_[1], reverse=True)}
 
         strToInt = {}
         t = len(twu)
@@ -219,7 +224,7 @@ class efimParallel(_ab._utilityPatterns):
 
         low = 0
         high = len(arr) - 1
-        mid = 0
+        #mid = 0
 
         while low <= high:
             mid = (high + low) // 2
@@ -262,7 +267,7 @@ class efimParallel(_ab._utilityPatterns):
         item = beta[-1]
 
         temp = [v for k, v in file_data.items() if item in k]
-        start = time.time()
+        #start = time.time()
 
         for v in temp:
             index = self._binarySearch(v[0], item)
@@ -321,10 +326,10 @@ class efimParallel(_ab._utilityPatterns):
 
         self.allStore = {}
 
-        if (self.threads > 1):
+        if self.threads > 1:
             print("Im with the lads")
             with Parallel(n_jobs=self.threads) as parallel:
-                a = 0
+                #a = 0
                 while len(collections) > 0:
                     new_collections = []
 
@@ -353,7 +358,7 @@ class efimParallel(_ab._utilityPatterns):
 
         else:
             # print("solo-ing")
-            a = 0
+            #a = 0
             while len(collections) > 0:
                 new_collections = []
                 for i in range(len(collections)):
@@ -523,11 +528,11 @@ if __name__ == "__main__":
 
 
     _ap = str()
-    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
-        if len(_ab._sys.argv) == 5:    #includes separator
-            _ap = efimParallel(_ab._sys.argv[1], int(_ab._sys.argv[3]), _ab._sys.argv[4])
-        if len(_ab._sys.argv) == 4:    #takes "\t" as a separator
-            _ap = efimParallel(_ab._sys.argv[1], int(_ab._sys.argv[3]))
+    if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
+        if len(_ab._sys.argv) == 6:    #includes separator
+            _ap = efimParallel(_ab._sys.argv[1], int(_ab._sys.argv[3]), _ab._sys.argv[4],_ab._sys.argv[5])
+        if len(_ab._sys.argv) == 5:    #takes "\t" as a separator
+            _ap = efimParallel(_ab._sys.argv[1], int(_ab._sys.argv[3]),_ab._sys.argv[4])
         _ap.mine()
         print("Total number of High Utility Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])

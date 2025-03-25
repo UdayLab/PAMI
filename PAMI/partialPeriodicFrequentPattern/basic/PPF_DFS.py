@@ -57,6 +57,7 @@ __copyright__ = """
 
 """
 
+from abc import ABC
 
 from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
 import deprecated
@@ -64,7 +65,7 @@ import numpy as np
 import pandas as pd
 
 
-class PPF_DFS(partialPeriodicPatterns):
+class PPF_DFS(partialPeriodicPatterns, ABC):
     """
     **About this algorithm**
 
@@ -176,6 +177,9 @@ class PPF_DFS(partialPeriodicPatterns):
     _partialPeriodicPatterns__startTime = float()
     _partialPeriodicPatterns__endTime = float()
     __Database = []
+    _maxTS = None
+    _dbSize = None
+    oFile = None
 
 
     def _creatingItemSets(self) -> None:
@@ -234,9 +238,9 @@ class PPF_DFS(partialPeriodicPatterns):
         # print(lno)
         tids = list(set(tids))
         tids.sort()
-        per = 0
+        #per = 0
         sup = 0
-        cur = 0
+        #cur = 0
         if len(tids) == 0:
             return 0
         if abs(0 - tids[0]) <= self._partialPeriodicPatterns__maxPer:
@@ -244,7 +248,7 @@ class PPF_DFS(partialPeriodicPatterns):
         for j in range(len(tids) - 1):
             i = j + 1
             per = abs(tids[i] - tids[j])
-            if (per <= self._partialPeriodicPatterns__maxPer):
+            if per <= self._partialPeriodicPatterns__maxPer:
                 sup += 1
         if abs(tids[len(tids) - 1] - self.__last) <= self._partialPeriodicPatterns__maxPer:
             sup += 1

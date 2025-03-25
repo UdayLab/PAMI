@@ -57,7 +57,7 @@ from PAMI.periodicFrequentPattern.basic import abstract as _ab
 import pandas as pd
 from deprecated import deprecated
 
-import abstract as _ab
+# import abstract as _ab
 
 class cuGPFMiner(_ab._periodicFrequentPatterns):
     """
@@ -307,7 +307,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
         """
         Storing the complete transactions of the database/input file in a database variable
         """
-        plist = []
+        #plist = []
         Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             ts, data = [], []

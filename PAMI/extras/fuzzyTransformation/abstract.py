@@ -91,7 +91,7 @@ class _convert(_ABC):
 
     """
 
-    def __init__(self, iFile: str, fuzFile: str, oFile: str, sep: str="\t"):
+    def __init__(self, iFile: str, fuzFile: str, sep: str="\t"):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str or DataFrame

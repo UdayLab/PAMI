@@ -61,7 +61,7 @@ import psutil
 import cupy as cp
 import numpy as np
 
-from PAMI.relativeHighUtilitytPattern.basic import abstract as _ab
+from PAMI.relativeHighUtilityPattern.basic import abstract as _ab
 import pandas as pd
 from deprecated import deprecated
 
@@ -183,6 +183,16 @@ class GPUEFIM:
 
 
     def __init__(self, inputFile, minUtil, ratio, sep = '\t'):
+        self.runtime = None
+        self.start = None
+        self.memoryUSS = None
+        self.memoryRSS = None
+        self.numTransactions = None
+        self.secondaryLen = None
+        self.indexesEnd = None
+        self.indexesStart = None
+        self.utils = None
+        self.items = None
         self.inputFile = inputFile
         self.minUtil = minUtil
         self.sep = sep
@@ -205,8 +215,8 @@ class GPUEFIM:
         file_data = []
         twu = {}
 
-        with open(self.inputFile, 'r') as f:
-            fd = mmap.mmap(f.fileno(), 0, prot=mmap.PROT_READ)
+        with open(self.inputFile, 'r') as f_:
+            fd = mmap.mmap(f_.fileno(), 0, prot=mmap.PROT_READ)
 
             for line in iter(fd.readline, b""):
                 line = line.decode('utf-8').strip().split(":")
@@ -228,7 +238,7 @@ class GPUEFIM:
         twu = {k: v for k, v in twu.items() if v >= self.minUtil}
 
         # Sort TWU items by utility
-        twu = {k: v for k, v in sorted(twu.items(), key=lambda item: item[1], reverse=True)}
+        twu = {k: v for k, v in sorted(twu.items(), key=lambda item_: item_[1], reverse=True)}
 
         strToInt = {}
         t = len(twu)
@@ -301,7 +311,7 @@ class GPUEFIM:
         
         return primary, secondary
 
-    def search(self, collection, depth):
+    def search(self, collection):
         """
         Search for frequent patterns in the given collections.
 
@@ -411,10 +421,10 @@ class GPUEFIM:
 
 
     def savePatterns(self, outputFile):
-        with open(outputFile, 'w') as f:
+        with open(outputFile, 'w') as file:
             for key, value in self.Patterns.items():
                 joined = " ".join(key) + " #UTIL: " + str(value) + "\n"
-                f.write(joined)
+                file.write(joined)
 
     @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self):
@@ -432,7 +442,7 @@ class GPUEFIM:
 
         collection = [[[], primary, secondary]]
 
-        self.search(collection, 1)
+        self.search(collection)
 
         self.memoryRSS = ps.memory_info().rss
         self.memoryUSS = ps.memory_full_info().uss
@@ -461,7 +471,7 @@ class GPUEFIM:
 
         collection = [[[], primary, secondary]]
 
-        self.search(collection, 1)
+        self.search(collection)
 
         self.memoryRSS = ps.memory_info().rss
         self.memoryUSS = ps.memory_full_info().uss
@@ -521,9 +531,9 @@ class GPUEFIM:
 
 if __name__ == "__main__":
 
-    inputFile = 'Utility_T10I4D100K.csv'
-    minUtil = 150000
-    ratio = 0.1
+    inputFile_ = 'Utility_T10I4D100K.csv'
+    minUtil_ = 150000
+    ratio_ = 0.1
 
     # inputFile = 'EFIM/chainstore.txt'
     # minUtil = 2500000
@@ -537,8 +547,8 @@ if __name__ == "__main__":
     # inputFile = "EFIM/Utility_pumsb.csv"
     # minUtil = 4500000
 
-    sep = "\t"
-    f = GPUEFIM(inputFile, minUtil, ratio, sep)
+    sep_ = "\t"
+    f = GPUEFIM(inputFile_, minUtil_, ratio_, sep_)
     f.mine()
     f.savePatterns("output.txt")
     print("# of patterns: " + str(len(f.getPatterns())))

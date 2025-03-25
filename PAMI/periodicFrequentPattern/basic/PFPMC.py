@@ -214,54 +214,54 @@ class PFPMC(_ab._periodicFrequentPatterns):
     _memoryUSS = float()
     _memoryRSS = float()
 
-    def _getPeriodic(self, tids: set) -> int:
-        """
-        To get  Periodic frequent patterns
+    # def _getPeriodic(self, tids: set) -> int:
+    #     """
+    #     To get  Periodic frequent patterns
+    #
+    #     :param tids: represents the timestamp of a transaction
+    #     :type tids: set
+    #     :return: None
+    #     """
+    #     tids = list(tids)
+    #     tids.sort()
+    #     temp = self._maxPer + 1
+    #     diffs = []
+    #     if self._lastTid in tids:
+    #         tids.remove(self._lastTid)
+    #     for k, g in _groupby(enumerate(tids), lambda ix: ix[0] - ix[1]):
+    #         diffs.append(len(list(map(_itemgetter(1), g))))
+    #     if len(diffs) < 1:
+    #         return temp
+    #     return max(diffs) + 1
 
-        :param tids: represents the timestamp of a transaction
-        :type tids: set
-        :return: None
-        """
-        tids = list(tids)
-        tids.sort()
-        temp = self._maxPer + 1
-        diffs = []
-        if self._lastTid in tids:
-            tids.remove(self._lastTid)
-        for k, g in _groupby(enumerate(tids), lambda ix: ix[0] - ix[1]):
-            diffs.append(len(list(map(_itemgetter(1), g))))
-        if len(diffs) < 1:
-            return temp
-        return max(diffs) + 1
+    # def _getPeriodic(self, tids: set):
+    #
+    #     tids = list(tids)
+    #     tids.sort()
+    #     temp = self._maxPer + 1
+    #     if self._lastTid in tids:
+    #         tids.remove(self._lastTid)
+    #     diffs = []
+    #     # find the longest consecutive period
+    #
+    #     count = 0
+    #     for i in range(len(tids) - 1):
+    #         if tids[i + 1] == tids[i] + 1:
+    #             count += 1
+    #         else:
+    #             diffs.append(count)
+    #             count = 0
+    #     if len(diffs) < 1:
+    #         return temp
+    #     return max(diffs) + 1
 
     def _getPeriodic(self, tids: set):
-
         tids = list(tids)
         tids.sort()
         temp = self._maxPer + 1
         if self._lastTid in tids:
             tids.remove(self._lastTid)
-        diffs = []
-        # find the longest consecutive period
-
-        count = 0
-        for i in range(len(tids) - 1):
-            if tids[i + 1] == tids[i] + 1:
-                count += 1
-            else:
-                diffs.append(count)
-                count = 0
-        if len(diffs) < 1:
-            return temp
-        return max(diffs) + 1
-
-    def _getPeriodic(self, tids: set):
-        tids = list(tids)
-        tids.sort()
-        temp = self._maxPer + 1
-        if self._lastTid in tids:
-            tids.remove(self._lastTid)
-        diffs = []
+        #diffs = []
         tempPer = 0
         period = 0
         for i in range(len(tids) - 1):
@@ -299,7 +299,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
         Storing the complete transactions of the database/input file in a database variable
         :return: list
         """
-        plist = []
+        #plist = []
         Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             ts, data = [], []
@@ -337,9 +337,9 @@ class PFPMC(_ab._periodicFrequentPatterns):
                 except IOError:
                     print("File Not Found")
                     quit()
-        tid = 0
+        #tid = 0
         itemsets = {}  # {key: item, value: list of tids}
-        periodicHelper = {}  # {key: item, value: [period, last_tid]}
+        #periodicHelper = {}  # {key: item, value: [period, last_tid]}
         for line in Database:
             tid = int(line[0])
             self._tidSet.add(tid)

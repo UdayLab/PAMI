@@ -61,11 +61,12 @@ from deprecated import deprecated
 from PAMI.uncertainPeriodicFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Union
 
-_minSup = float()
+#_minSup = float()
 __maxPer = float()
 __first = int()
-_last = int()
+#_last = int()
 __lno = int()
+global _lno, _maxPer, _minSup, _first, _last, periodic
 #rank = {}
 #periodic = {}
 
@@ -298,7 +299,7 @@ class _Tree(object):
         :return: A list containing the support and period of the item.
         :rtype: List[float]
         """
-        global _lno, _maxPer
+        #_lno, _maxPer
         timeStamps.sort()
         cur = 0
         per = 0
@@ -322,7 +323,7 @@ class _Tree(object):
         :param support : the support of conditional pattern in tree
         :type support : list
         """
-        global _minSup, _maxPer
+
         pat = []
         timeStamps = []
         sup = []
@@ -357,11 +358,13 @@ class _Tree(object):
 
         :param prefix : forms the combination of items
         :type prefix : list
+        :param periodic: periodic patterns
+        :type periodic: dictionary
         :return: None
         """
 
         global _minSup
-        for i in sorted(self.summaries, key=lambda x: (self.info.get(x)[0])):
+        for i in sorted(self.summaries, key=lambda x_: (self.info.get(x_)[0])):
             pattern = prefix[:]
             pattern.append(i)
             s = 0
@@ -553,7 +556,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
     _maxPer = float()
     _finalPatterns = {}
     _iFile = " "
-    _oFile = " "
+    oFile = " "
     _sep = " "
     _memoryUSS = float()
     _memoryRSS = float()
@@ -609,7 +612,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
                     self._Database.append(tr)
             else:
                 try:
-                    count = 0
+                    #count = 0
                     with open(self._iFile, 'r') as f:
                         for line in f:
                             #count += 1
@@ -801,7 +804,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
 
         :return: None
         """
-        global _lno, _maxPer, _minSup, _first, _last, periodic
+
         self._startTime = _ab._time.time()
         self._creatingItemSets()
         self._finalPatterns = {}

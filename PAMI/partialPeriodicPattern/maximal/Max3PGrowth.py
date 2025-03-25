@@ -191,7 +191,7 @@ class _Tree(object):
         for i in self.summaries[nodeValue]:
             i.parent.timeStamps = i.parent.timeStamps + i.timeStamps
             del i.parent.children[nodeValue]
-            i = None
+            #i = None
 
     def _getTimeStamps(self, alpha):
         """
