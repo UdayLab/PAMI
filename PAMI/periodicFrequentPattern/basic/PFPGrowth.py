@@ -424,7 +424,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
                 # pat = "\t".join([str(x) for x in newRoot.item + [item]])
                 # self.patCount += 1
                 # patterns[pat] = [itemLocs[item], maxPerResults[item]]
-                patterns[tuple(newRoot.item4 + [item4])] = [itemLocs[item4], maxPerResults[item4]]
+                patterns[tuple(newRoot.item + [item4])] = [itemLocs[item4], maxPerResults[item4]]
             
             if not itemLocs:
                 continue
