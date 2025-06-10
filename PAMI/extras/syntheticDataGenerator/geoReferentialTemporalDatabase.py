@@ -8,7 +8,7 @@ import tqdm
 import pandas as pd
 
 
-class GeoReferentialTemporalDatabase:
+class geoReferentialTemporalDatabase:
     """
     This class create synthetic geo-referential temporal database.
 
