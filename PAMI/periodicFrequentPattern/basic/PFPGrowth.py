@@ -407,11 +407,11 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
                 else:
                     transactions[tuple(transaction)] = locs
 
-                for item2 in transaction:
-                    if item2 in itemLocs:
-                        itemLocs[item2] += locs
+                for item in transaction:
+                    if item in itemLocs:
+                        itemLocs[item] += locs
                     else:
-                        itemLocs[item2] = list(locs)
+                        itemLocs[item] = list(locs)
 
             # Precompute getMaxPer results for itemLocs
             maxPerResults = {item: self._getMaxPer(itemLocs[item], maxTS) for item in itemLocs if len(itemLocs[item]) >= minSup}
@@ -420,11 +420,11 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
             itemLocs = {k: len(v) for k, v in itemLocs.items() if k in maxPerResults and maxPerResults[k] <= maxPer}
 
             # Iterate over filtered itemLocs
-            for item4 in itemLocs:
+            for item in itemLocs:
                 # pat = "\t".join([str(x) for x in newRoot.item + [item]])
                 # self.patCount += 1
                 # patterns[pat] = [itemLocs[item], maxPerResults[item]]
-                patterns[tuple(newRoot.item4 + [item4])] = [itemLocs[item4], maxPerResults[item4]]
+                patterns[tuple(newRoot.item + [item])] = [itemLocs[item], maxPerResults[item]]
             
             if not itemLocs:
                 continue
@@ -436,12 +436,12 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
                 if len(transaction) < 1:
                     continue
                 currNode = newRoot
-                for item3 in transaction:
-                    currNode = currNode.addChild(item3, locs)
-                    if item3 in newItemNodes:
-                        newItemNodes[item3].add(currNode)
+                for item in transaction:
+                    currNode = currNode.addChild(item, locs)
+                    if item in newItemNodes:
+                        newItemNodes[item].add(currNode)
                     else:
-                        newItemNodes[item3] = set([currNode])
+                        newItemNodes[item] = set([currNode])
 
             self._recursive(newRoot, newItemNodes, minSup, maxPer, patterns, _lno)
 

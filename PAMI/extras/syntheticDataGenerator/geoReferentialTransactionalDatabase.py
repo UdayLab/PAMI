@@ -37,7 +37,7 @@ import pandas as pd
 #import time
 import psutil, os, time, tqdm
 
-class GeoReferentialTransactionalDatabase:
+class geoReferentialTransactionalDatabase:
     """
     :Description Generate a transactional database with the given number of lines, average number of items per line, and total number of items
 
