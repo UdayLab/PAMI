@@ -5,7 +5,7 @@
 import random
 from PAMI.extras.visualize import graphs
 
-class SyntheticGraphGenerator:
+class certainGraphTransactions:
     def __init__(self, numGraphs, avgNumVertices, avgNumEdges, numVertexLabels, numEdgeLabels, outputFileName, graphFormat='old'):
         self.numGraphs = numGraphs
         self.avgNumVertices = avgNumVertices
