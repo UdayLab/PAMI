@@ -80,53 +80,56 @@ class FindNeighboursUsingEuclidean:
         self._memoryRSS = float()
     def create(self):
         self._startTime = time.time()
-        coordinates = []
-        with open(self.iFile, "r") as f:
-            if self.DBtype=="temp":
+        # Load coordinates
+        if self.DBtype == "csv":
+            df = pd.read_csv(self.iFile)
+            self.coords = df.iloc[:, [0, 1]].astype(float).values
+        else:
+            coords = []
+            seen = set()
+            with open(self.iFile, "r") as f:
                 for line in f:
-                    l = line.rstrip().split(self.seperator)
-                    for i in l[1:]:
-                        i = re.sub(r'[^0-9. ]', '', i)
-                        if i not in coordinates:
-                            coordinates.append(i.rstrip().split(' '))
-            else:
-                for line in f:
-                    l = line.rstrip().split(self.seperator)
-                    for i in l:
-                        i = re.sub(r'[^0-9. ]', '', i)
-                        if i not in coordinates:
-                            coordinates.append(i.rstrip().split(' '))
-        for i in tqdm.tqdm(range(len(coordinates))):
-            for j in range(len(coordinates-i-1)):
-                    j=j+i+1
-                    firstCoordinate = coordinates[i]
-                    secondCoordinate = coordinates[j]
-                    x1 = float(firstCoordinate[0])
-                    y1 = float(firstCoordinate[1])
-                    x2 = float(secondCoordinate[0])
-                    y2 = float(secondCoordinate[1])
-                    ansX = x2 - x1
-                    ansY = y2 - y1
-                    dist = abs(pow(ansX, 2) - pow(ansY, 2))
-                    norm = sqrt(dist)
-                    if norm <= float(self.maxEucledianDistance):
-                        self.result[tuple(firstCoordinate)] = self.result.get(tuple(firstCoordinate), [])
-                        self.result[tuple(firstCoordinate)].append(secondCoordinate)
-                        self.result[tuple(secondCoordinate)] = self.result.get(tuple(secondCoordinate), [])
-                        self.result[tuple(secondCoordinate)].append(firstCoordinate)
+                    parts = line.rstrip().split(self.seperator)
+                    for part in parts[1:]:
+                        cleaned = re.sub(r'[^0-9. ]', '', part).strip()
+                        if cleaned and cleaned not in seen:
+                            seen.add(cleaned)
+                            try:
+                                x, y = map(float, cleaned.split())
+                                coords.append([x, y])
+                            except ValueError:
+                                continue
+            self.coords = np.array(coords)
+
+        if self.coords.shape[0] == 0:
+            print("No coordinates found.")
+            return
+
+        # Compute Euclidean distances
+        dists = np.linalg.norm(self.coords[:, None, :] - self.coords[None, :, :], axis=2)
+        self.within_dist = (dists <= self.maxEucledianDistance) & (dists > 0)
+
+        print(f"Number of points: {self.coords.shape[0]}")
+        print(f"Number of neighbors: {self.within_dist.sum()}")
+
         self._endTime = time.time()
 
     def save(self,oFile: str) -> None:
-        with open(oFile, "w+") as f:
-            for i in self.result:
-                string = "Point(" + i[0] + " " + i[1] + ")" + self.seperator
-                f.write(string)
-                for j in self.result[i]:
-                    string = "Point(" + j[0] + " " + j[1] + ")" + self.seperator
-                    f.write(string)
-                f.write("\n")
+        if self.coords is None or self.within_dist is None:
+            raise ValueError("Run create() before calling save().")
 
-    def getNeighboringInformation(self):
+        with open(oFile, "w") as f:
+            for i in tqdm(range(self.coords.shape[0])):
+                point = self.coords[i]
+                neighbor_mask = self.within_dist[i]
+                if neighbor_mask.any():
+                    line = f"Point({point[0]}, {point[1]})"
+                    neighbors = self.coords[neighbor_mask]
+                    for neighbor in neighbors:
+                        line += f"\tPoint({int(neighbor[0])}, {int(neighbor[1])})"
+                    f.write(line + "\n")
+
+    def getNeighboringInformationAsDataFrame(self):
         df = pd.DataFrame(['\t'.join(map(str, line)) for line in self.result], columns=['Neighbors'])
         return df
 
