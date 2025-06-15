@@ -263,7 +263,7 @@ class _Tree(object):
         :param support : the support of conditional pattern in tree
         :type support : int
         """
-        #global minSup
+        global minSup
         pat = []
         sup = []
         count = {}
@@ -293,7 +293,7 @@ class _Tree(object):
         :type prefix : list
         """
 
-        global _finalPatterns#, minSup
+        global _finalPatterns, minSup
         for i in sorted(self.summaries, key=lambda x_: (self.info.get(x_))):
             pattern = prefix[:]
             pattern.append(i)
@@ -670,11 +670,11 @@ class PUFGrowth(_ab._frequentPatterns):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
-        #global minSup
+        global minSup
         self._startTime = _ab._time.time()
         self._creatingItemSets()
         self._minSup = self._convert(self._minSup)
-        #minSup = self._minSup
+        minSup = self._minSup
         self._finalPatterns = {}
         mapSupport, plist = self._frequentOneItem()
         self.Database1 = self._updateTransactions(mapSupport)
