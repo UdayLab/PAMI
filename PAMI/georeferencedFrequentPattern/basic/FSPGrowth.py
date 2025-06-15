@@ -53,7 +53,7 @@ Copyright (C)  2021 Rage Uday Kiran
 
 
 from PAMI.georeferencedFrequentPattern.basic import abstract as _ab
-from typing import List, Dict
+from typing import List, Dict,Union
 from deprecated import deprecated
 
 class _Node:
@@ -231,7 +231,7 @@ class _Tree:
             frequentPatterns.extend(pTree.getPattern(i, pattern, minSup, neighbour))
         return frequentPatterns
 
-    def mining(self, minSup:callable[int, float], neighbourhood: [Dict[int, List[int]]] = None):
+    def mining(self, minSup: Union[int, float], neighbourhood: Dict[int, List[int]] = None):
         """
         Pattern mining on your own
 
