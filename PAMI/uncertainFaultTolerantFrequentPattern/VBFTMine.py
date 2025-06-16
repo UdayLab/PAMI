@@ -281,7 +281,7 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
         :type tidsetx: list
         :return: None
         """
-        if prefix is None:
+        if prefix == None:
             prefix = suffix
         else:
             prefix = prefix + suffix
@@ -310,7 +310,7 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
             return
         for i in range(len(itemsets)):
             itemx = itemsets[i]
-            if itemx is None:
+            if itemx == None:
                 continue
             tidsetx = tidsets[i]
             classItemsets = []
