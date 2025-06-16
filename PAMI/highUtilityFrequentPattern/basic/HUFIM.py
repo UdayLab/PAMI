@@ -230,7 +230,7 @@ class _Dataset:
         self.cnt = 1
         self.sep = sep
         self.createItemSets(datasetPath)
-        self.Database = []
+        #self.Database = []
 
     def createItemSets(self, datasetPath: List[str]) -> None:
         """
@@ -241,7 +241,7 @@ class _Dataset:
         :return: None
 
         """
-
+        self.Database = []
         self.transactions = []
         if isinstance(datasetPath, _ab._pd.DataFrame):
             utilities, data, utilitySum = [], [], []
@@ -514,7 +514,6 @@ class HUFIM(_ab._utilityPatterns):
 
     def __init__(self, iFile: str, minUtil: Union[int, float], minSup: Union[int, float], sep: str="\t") -> None:
         super().__init__(iFile, minUtil, minSup, sep)
-        self._dataset = None
 
     def _convert(self, value) -> Union[int, float]:
         """
@@ -643,7 +642,7 @@ class HUFIM(_ab._utilityPatterns):
                     else:
                         projectedTransaction = transaction.projectTransaction(positionE)
                         utilityPe += projectedTransaction.prefixUtility
-                        if previousTransaction is []:
+                        if previousTransaction == []:
                             previousTransaction = projectedTransaction
                         elif self._isEqual(projectedTransaction, previousTransaction):
                             if consecutiveMergeCount == 0:
@@ -682,7 +681,7 @@ class HUFIM(_ab._utilityPatterns):
                             previousTransaction = projectedTransaction
                             consecutiveMergeCount = 0
                     transaction.offset = positionE
-            if previousTransaction is not []:
+            if previousTransaction != []:
                 transactionsPe.append(previousTransaction)
                 supportPe += previousTransaction.getSupport()
             # print("support is", supportPe)
@@ -759,7 +758,7 @@ class HUFIM(_ab._utilityPatterns):
 
         :param  transaction1: the first transaction
         :type  transaction1: Trans
-        :param  transaction2:    the second transaction
+        :param  transaction2: the second transaction
         :type  transaction2: Trans
         :return : whether both are identical or not
         :rtype: bool
