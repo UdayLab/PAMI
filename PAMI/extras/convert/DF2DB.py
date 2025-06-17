@@ -39,6 +39,7 @@ import PAMI.extras.convert.sparseDF2DB as sparse
 import sys,psutil,os,time
 from typing import Union
 import operator
+import pandas as pd
 
 condition_operator = {
     '<': operator.lt,
@@ -107,6 +108,50 @@ class DF2DB:
         self.items = []
         self.items = list(self.inputDF.columns.values)
         self.tids = list(self.inputDF.index)
+
+    def convert2SequentialDatabase(self,
+                                   sep: str = '\t',
+                                   txn_sep: str = '\t',
+                                   seq_sep: str = '-1',
+                                   oFile: str = 'sequential_database.csv') -> None:
+        """
+        Groups transactions by 'customerID' into sequences.
+
+        :param iFile: Output CSV filename.
+        :param sep:   Field separator for the output file.
+        :param txn_sep: Separator between items within a transaction.
+        :param seq_sep: Separator between transactions within a sequence.
+        """
+
+        self.df = self.inputDF
+
+        if 'customerID' not in self.df.columns:
+            raise ValueError("DataFrame must contain 'customerID' column.")
+
+        # Identify item columns (all except 'customerID')
+        item_cols = [c for c in self.df.columns if c != 'customerID']
+
+        # Build sequence strings per customer
+        sequences = []
+        for cust_id, group in self.df.groupby('customerID'):
+            # For each row (transaction), join non-null item values
+            txns = []
+            for _, row in group.iterrows():
+                items = [str(row[col]) for col in item_cols if pd.notna(row[col])]
+                txn_str = txn_sep.join(items)
+                txns.append(txn_str)
+            # Join transactions into one sequence string
+            seq_str = seq_sep.join(txns)
+            sequences.append({'customerID': cust_id, 'sequence': seq_str})
+
+        # Create output DataFrame
+        out_df = pd.DataFrame(sequences)
+
+        # Save to CSV
+        # out_df.to_csv(oFile, sep=sep, index=False, header=False)
+        with open(oFile, 'w') as f:
+            for _, row in out_df.iterrows():
+                f.write(f"{row['sequence']}\n")
 
     def convert2TransactionalDatabase(self, oFile: str, condition: str, thresholdValue: Union[int, float]) -> None:
         """

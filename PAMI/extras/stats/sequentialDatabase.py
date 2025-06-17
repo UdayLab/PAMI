@@ -41,7 +41,8 @@ from urllib.request import urlopen
 import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 import sys
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
-
+# import counter
+from collections import Counter
 
 class sequentialDatabase:
     """
@@ -184,8 +185,9 @@ class sequentialDatabase:
                 with open(self.inputFile, 'r') as f:
                     rowNum = 0
                     for line in f:
-                        temp = [i.rstrip(self.sep) for i in line.split('-1')]
+                        temp = [i.rstrip(self.sep) for i in line.strip().split('-1')]
                         temp = [x for x in temp if x]
+
                         temp.pop()
                         seq = []
                         self.seqLengthList.append(len(temp))
@@ -203,6 +205,7 @@ class sequentialDatabase:
                         rowNum += 1
                         if seq:
                             self.database[rowNum] = seq
+
 
 
     def getDatabaseSize(self) -> int:
@@ -236,6 +239,7 @@ class sequentialDatabase:
         :rtype: float
         """
         totalLength = sum(self.seqLengthList)
+        print(f"Total Length of all sequences: {totalLength} and number of sequences: {len(self.database)}")
         return totalLength / len(self.database)
 
     def getAverageItemPerSubsequenceLength(self) -> float:
@@ -412,9 +416,18 @@ class sequentialDatabase:
         itemFrequencies = self.getFrequenciesInRange()
         seqLen = self.getSequencialLengthDistribution()
         subLen=self.getSubsequencialLengthDistribution()
-        plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'Frequency', 'No of items', 'frequency')
-        plt.plotLineGraphFromDictionary(seqLen, 100, 'sequence length', 'sequence length', 'frequency')
-        plt.plotLineGraphFromDictionary(subLen, 100, 'subsequence length', 'subsequence length', 'frequency')
+
+        custom_counter = Counter()
+        for seq in self.database.values():
+            for sub in seq:
+                custom_counter.update(sub)
+
+        # print(custom_counter)
+
+        # print(itemFrequencies)
+        plt.plotLineGraphFromDictionary(custom_counter, 100, 0, 'No of items', 'frequency')
+        plt.plotLineGraphFromDictionary(seqLen, 100, 0, 'sequence length', 'frequency')
+        plt.plotLineGraphFromDictionary(subLen, 100, 0, 'subsequence length', 'frequency')
 
 if __name__ == '__main__':
     _ap=str()
