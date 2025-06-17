@@ -504,7 +504,8 @@ class spatialPrefixSpan(_ab._sequentialSpatialPatterns):
         if len(seqDatabaseSame)!=0:
             self.makeNextSame(seqDatabaseSame,startrow)
 
-
+    def startMine(self) -> None:
+        self.mine()
 
     def mine(self):
         """
@@ -523,7 +524,7 @@ class spatialPrefixSpan(_ab._sequentialSpatialPatterns):
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-        print("Frequent patterns were generated successfully using Apriori algorithm ")
+        print("Frequent patterns were generated successfully using spatialPrefixSpan algorithm ")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function

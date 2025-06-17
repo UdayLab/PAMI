@@ -412,7 +412,10 @@ class SPAM(_ab._sequentialPatterns):
                 count+=1
         return count
 
-    def startMine(self):
+    def startMine(self) -> None:
+        self.mine()
+
+    def mine(self):
         """
         Frequent pattern mining process will start from here
         """
