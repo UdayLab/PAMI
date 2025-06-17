@@ -298,7 +298,7 @@ class lift:
         # return dataFrame
 
         # dataFrame = _ab._pd.DataFrame(list(self._associationRules.items()), columns=['Patterns', 'Support'])
-        dataFrame = _ab._pd.DataFrame(list([[" ".join(x), y] for x, y in self._associationRules.items()]), columns=['Patterns', 'Support'])
+        dataFrame = _ab._pd.DataFrame(list([[self._sep.join(x), y] for x, y in self._associationRules.items()]), columns=['Patterns', 'Support'])
         return dataFrame
 
     def save(self, outFile: str) -> None:

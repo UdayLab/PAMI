@@ -329,7 +329,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         #     data.append([a.replace('\t', ' '), b])
         #     dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         # dataFrame = _fp._pd.DataFrame(list([[" ".join(x), y] for x,y in self._finalPatterns.items()]), columns=['Patterns', 'Support'])
-        dataFrame = _ab._pd.DataFrame(list([[" ".join(x), y] for x, y in self._finalPatterns.items()]), columns=['Patterns', 'Support'])
+        dataFrame = _ab._pd.DataFrame(list([[self._sep.join(x), y] for x, y in self._finalPatterns.items()]), columns=['Patterns', 'Support'])
         return dataFrame
 
     def getPatterns(self) -> dict:
