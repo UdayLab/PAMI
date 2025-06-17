@@ -1,234 +1,108 @@
-# generateSequentialDatabase is a code used to generate sequential database.
-#
-#  **Importing this algorithm into a python program**
-#  --------------------------------------------------------
-#     from PAMI.extras.generateDatabase import generateSequentialDatabase as db
-#     obj = db(10,10, 5, 10)
-#     obj.create()
-#     obj.save('db.txt')
-#     print(obj.getTransactions()) to get the transactional database as a pandas dataframe
-
-# **Running the code from the command line**
-# --------------------------------------------------------
-#     python generateDatabase.py 10 5 10 db.txt
-#     cat db.txt
-#
-
-
-__copyright__ = """
-Copyright (C)  2024 Rage Uday Kiran
-
-     This program is free software: you can redistribute it and/or modify
-     it under the terms of the GNU General Public License as published by
-     the Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
-
-     This program is distributed in the hope that it will be useful,
-     but WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     GNU General Public License for more details.
-
-     You should have received a copy of the GNU General Public License
-     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-"""
-
-#import math
-
 import numpy as np
 import pandas as pd
-#import sys
-
+import time
+import os
+import psutil
 
 class SequentialDatabase:
-    """
-    :Description Generate a sequential database with the given number of lines, average number of items per line, and total number of items
-
-    :Attributes:
-    numSeq: int
-        - number of sequences in database
-    avgItemsetPerSeq:int
-        - avarage number of itemset in one sequence
-    avgItemsPeritemset: int
-        - average number of items per itemset
-    numItems: int
-        - total kind of items
-    maxItem: int(default:numItems)
-        - maximum number of items per itemset
-    maxItemset: int(default:avgItemsetPerSeq * 2)
-        - maximum number of itemset per sequence
-    seqSep: str
-        - Separator for each item set
-
-    :Methods:
-        create:
-            Generate the transactional database
-        save:
-            Save the sequential database to a file
-        getTransactions:
-            Get the sequential database
-
-
-
-
-    """
-
-    def __init__(self, numSeq, avgItemsetPerSeq, avgItemsPerItemset, numItems, maxItem=0, maxItemset=0,
-                 seqSep="-1") -> None:
-        """
-        Initialize the transactional database with the given parameters
-
-        """
-
-        self.numSeq = numSeq
-        self.avgItemsetPerSeq = avgItemsetPerSeq
-        self.avgItemsPerItemset = avgItemsPerItemset
+    def __init__(self,
+                 databaseSize: int,
+                 numItems: int,
+                 avgItemsPerPatterns: int,
+                 avgPatternsPerSequence: int,
+                 seqSep: str = ':',
+                 txnSep: str = '\t',
+                 groupDist: str = 'poisson'  # 'poisson' or 'uniform'
+                 ):
+        self.databaseSize = databaseSize
         self.numItems = numItems
-        if maxItem == 0:
-            self.maxItem = numItems
-        else:
-            self.maxItem = maxItem
-        if maxItemset == 0:
-            self.maxItemset = avgItemsetPerSeq * 2
-        else:
-            self.maxItemset = maxItemset
+        self.avgItems = avgItemsPerPatterns
+        self.avgTxns = avgPatternsPerSequence
         self.seqSep = seqSep
-        self.db = []
+        self.txnSep = txnSep
+        self.groupDist = groupDist
+        self._proc = psutil.Process(os.getpid())
 
-    @staticmethod
-    def tuning(array, sumRes) -> np.ndarray:
-        """
-        Tune the array so that the sum of the values is equal to sumRes
+    def create(self):
+        t0 = time.time()
 
-        :param array: list of values
+        # 1) Generate each transaction as a fixed-size random sample of items
+        txs = [
+            list(np.random.choice(
+                np.arange(1, self.numItems + 1),
+                size=min(self.avgItems, self.numItems),
+                replace=False
+            ))
+            for _ in range(self.databaseSize)
+        ]
 
-        :type array: list
-
-        :param sumRes: the sum of the values in the array to be tuned
-
-        :type sumRes: int
-
-        :return: list of values with the tuned values and the sum of the values in the array to be tuned and sumRes is equal to sumRes
-
-        :rtype: list
-        """
-
-        while np.sum(array) != sumRes:
-            # get index of largest value
-            randIndex = np.random.randint(0, len(array))
-            # if sum is too large, decrease the largest value
-            if np.sum(array) > sumRes:
-                array[randIndex] -= 1
-            # if sum is too small, increase the smallest value
+        # 2) Group transactions into sequences using chosen distribution
+        seq_ids = []
+        idx = 0
+        seq_id = 1
+        while idx < self.databaseSize:
+            if self.groupDist == 'poisson':
+                L = np.random.poisson(lam=self.avgTxns)
             else:
-                #minIndex = np.argmin(array)
-                array[randIndex] += 1
-        return array
+                L = np.random.randint(1, max(2, int(2 * self.avgTxns)))
+            L = max(1, min(L, self.databaseSize - idx))
+            seq_ids.extend([seq_id] * L)
+            idx += L
+            seq_id += 1
 
-    def generateArray(self, nums, avg, maxItems) -> np.ndarray:
-        """
-        Generate a random array of length nums whose values average to avg
+        # 3) Build sequence strings
+        sequences = []
+        total_sequences = seq_id - 1
+        for sid in range(1, total_sequences + 1):
+            group = [txs[i] for i, s in enumerate(seq_ids) if s == sid]
+            seq_str = self.seqSep.join(
+                self.txnSep.join(map(str, txn)) for txn in group
+            )
+            sequences.append(seq_str)
 
-        :param nums: number of values
+        # 4) Store into DataFrame
+        self._df = pd.DataFrame({'sequence': sequences})
 
-        :type nums: int
+        t1 = time.time()
+        self._runtime = t1 - t0
+        self._rss = self._proc.memory_info().rss
+        self._uss = self._proc.memory_full_info().uss
 
-        :param avg: average value
-
-        :type avg: int
-
-        :param maxItems: maximum value
-
-        :type maxItems: int
-
-        :return: random array
-
-        :rtype: list
-        """
-
-        # generate n random values
-        values = np.random.randint(1, maxItems, nums)
-        sumRes = nums * avg
-
-        values = self.tuning(values, sumRes)
-
-        # if any value is less than 1, increase it and tune the array again
-        while np.any(values < 1):
-            for i in range(nums):
-                if values[i] < 1:
-                    values[i] += 1
-            values = self.tuning(values, sumRes)
-
-        while np.any(values > maxItems):
-            for i in range(nums):
-                if values[i] > maxItems:
-                    values[i] -= 1
-            values = self.tuning(values, sumRes)
-
-        # if all values are same then randomly increase one value and decrease another
-        while np.all(values == values[0]):
-            values[np.random.randint(0, nums)] += 1
-            values = self.tuning(values, sumRes)
-
-        return values
-
-    def create(self, item="") -> None:
-        """
-        :param item: list (default:generate random numItems items)
-            item list to make database
-        Generate the sequential database
-        :return: None
-        """
-        if item == "":
-            item = range(1, self.numItems + 1)
-        #db = set()
-        sequences = self.generateArray(self.numSeq, self.avgItemsetPerSeq - 1, self.maxItemset)
-
-        for numItemset in sequences:
-            seq = []
-            values = self.generateArray(numItemset + 1, self.avgItemsPerItemset, self.maxItem)
-
-            for value in values:
-                line = list(set(np.random.choice(item, value, replace=False)))
-                seq = seq + line
-                seq = seq + [self.seqSep]
-            seq.pop()
-
-            self.db.append(seq)
-
-    def save(self, filename, sep="\t") -> None:
-        """
-        Save the transactional database to a file
-
-        :param sep: Separator
-
-        :type sep: str
-
-        :param filename: name of the file
-
-        :type filename: str
-
-        :return: None
-        """
-
+    def save(self, filename: str):
+        # self._df.to_csv(filename, index=False)
         with open(filename, 'w') as f:
-            for line in self.db:
-                f.write(sep.join(map(str, line)) + '\n')
-
-    def getSequence(self) -> pd.DataFrame:
-        """
-        Get the sequential database
-
-        :return: the sequential database
-
-        :rtype: pd.DataFrame
-        """
-        df = pd.DataFrame(self.db)
-        return df
+            for seq in self._df['sequence']:
+                f.write(seq + '\n')
 
 
-if __name__ == "__main__":
-    # test the class
-    db = SequentialDatabase(10, 5, 5, 10)
-    db.create()
-    db.save('db.txt')
-    print(db.getSequence())
+    def getTransactions(self) -> pd.DataFrame:
+        return self._df
+
+    def getRuntime(self) -> float:
+        return self._runtime
+
+    def getMemoryRSS(self) -> int:
+        return self._rss
+
+    def getMemoryUSS(self) -> int:
+        return self._uss
+
+
+if __name__ == '__main__':
+# Example Usage:
+    obj = SequentialDatabase(
+        databaseSize=10000,
+        numItems=50,
+        avgItemsPerPatterns=10,
+        avgPatternsPerSequence=5,
+        seqSep=':',
+        txnSep='\t',
+        groupDist='poisson'
+    )
+    obj.create()
+    obj.save('sequentialDatabase.csv')
+    df = obj.getTransactions()
+    print('Generated sequences:', df.shape[0])
+    print('Runtime:', obj.getRuntime())
+    print('Memory (RSS):', obj.getMemoryRSS())
+    print('Memory (USS):', obj.getMemoryUSS())

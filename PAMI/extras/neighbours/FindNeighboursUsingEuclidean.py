@@ -33,6 +33,7 @@ from math import sqrt
 import time
 import sys, psutil, os,tqdm
 import pandas as pd
+import numpy as np
 
 
 class FindNeighboursUsingEuclidean:
@@ -119,7 +120,7 @@ class FindNeighboursUsingEuclidean:
             raise ValueError("Run create() before calling save().")
 
         with open(oFile, "w") as f:
-            for i in tqdm(range(self.coords.shape[0])):
+            for i in tqdm.tqdm(range(self.coords.shape[0])):
                 point = self.coords[i]
                 neighbor_mask = self.within_dist[i]
                 if neighbor_mask.any():

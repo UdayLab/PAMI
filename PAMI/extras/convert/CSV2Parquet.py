@@ -120,6 +120,8 @@ class CSV2Parquet:
 
         df = pd.DataFrame(file)
 
+        df.columns = [f"{i}" for i in range(maxLen)]  # Assigning generic column names
+
         df.to_parquet(self.outputFile)
 
         self.end = time.time()
