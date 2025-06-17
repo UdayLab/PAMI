@@ -485,7 +485,7 @@ class FPGrowth(_fp._frequentPatterns):
         # #     data.append([a.replace('\t', ' '), b])
         # #     dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
         # dataFrame = _fp._pd.DataFrame(list(self._finalPatterns.items()), columns=['Patterns', 'Support'])
-        dataFrame = _fp._pd.DataFrame(list([[" ".join(x), y] for x,y in self._finalPatterns.items()]), columns=['Patterns', 'Support'])
+        dataFrame = _fp._pd.DataFrame(list([[self._sep.join(x), y] for x,y in self._finalPatterns.items()]), columns=['Patterns', 'Support'])
 
         return dataFrame
 

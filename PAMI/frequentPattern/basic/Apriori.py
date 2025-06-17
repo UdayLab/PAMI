@@ -349,7 +349,7 @@ class Apriori(_ab._frequentPatterns):
         #     dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         # print("Time taken to convert the frequent patterns into DataFrame is: ", _ab._time.time() - time)
 
-        dataFrame = _ab._pd.DataFrame(list([[" ".join(x), y] for x,y in self._finalPatterns.items()]), columns=['Patterns', 'Support'])
+        dataFrame = _ab._pd.DataFrame(list([[self._sep.join(x), y] for x,y in self._finalPatterns.items()]), columns=['Patterns', 'Support'])
 
         return dataFrame
 
