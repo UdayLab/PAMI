@@ -30,8 +30,9 @@ Copyright (C)  2021 Rage Uday Kiran
 
 import re
 from math import sqrt
+from tqdm import tqdm
 import time
-import sys, psutil, os,tqdm
+import sys, psutil, os
 import pandas as pd
 import numpy as np
 
@@ -69,12 +70,12 @@ class FindNeighboursUsingEuclidean:
             obj.save()
     """
 
-    def __init__(self, iFile: str, maxDist: int, sep='\t',DBtype="temp") -> None:
+    def __init__(self, iFile: str, maxDist: int, sep='\t', DBtype="temp") -> None:
         self.iFile = iFile
         self.maxEucledianDistance = maxDist
         self.seperator = sep
-        self.result = {}
-        self.DBtype =DBtype
+        self.result = []
+        self.DBtype = DBtype
         self._startTime = float()
         self._endTime = float()
         self._memoryUSS = float()
@@ -83,7 +84,7 @@ class FindNeighboursUsingEuclidean:
         self._startTime = time.time()
         # Load coordinates
         if self.DBtype == "csv":
-            df = pd.read_csv(self.iFile)
+            df = pd.read_csv(self.iFile, sep=self.seperator)
             self.coords = df.iloc[:, [0, 1]].astype(float).values
         else:
             coords = []
@@ -113,14 +114,19 @@ class FindNeighboursUsingEuclidean:
         print(f"Number of points: {self.coords.shape[0]}")
         print(f"Number of neighbors: {self.within_dist.sum()}")
 
+        self.result = []
+        for i in range(self.coords.shape[0]):
+            neighbors = self.coords[self.within_dist[i]]
+            self.result.append([(self.coords[i][0], self.coords[i][1])] + [(n[0], n[1]) for n in neighbors])
+
         self._endTime = time.time()
 
-    def save(self,oFile: str) -> None:
+    def save(self, oFile: str) -> None:
         if self.coords is None or self.within_dist is None:
             raise ValueError("Run create() before calling save().")
 
         with open(oFile, "w") as f:
-            for i in tqdm.tqdm(range(self.coords.shape[0])):
+            for i in tqdm(range(self.coords.shape[0]), desc="Saving"):
                 point = self.coords[i]
                 neighbor_mask = self.within_dist[i]
                 if neighbor_mask.any():
@@ -131,8 +137,12 @@ class FindNeighboursUsingEuclidean:
                     f.write(line + "\n")
 
     def getNeighboringInformationAsDataFrame(self):
-        df = pd.DataFrame(['\t'.join(map(str, line)) for line in self.result], columns=['Neighbors'])
-        return df
+        data = []
+        for line in self.result:
+            formatted = self.seperator.join([f"Point({int(x)}, {int(y)})" for x, y in line])
+            data.append([formatted])
+
+        return pd.DataFrame(data, columns=['Neighbors'])
 
     def getRuntime(self) -> float:
         """
