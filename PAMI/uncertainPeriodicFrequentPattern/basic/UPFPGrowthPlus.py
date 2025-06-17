@@ -382,8 +382,8 @@ class _Tree(object):
             pattern = prefix[:]
             pattern.append(i)
             s = 0
-            #secProb = []
-            #kk = int()
+            secProb = []
+            kk = int()
             for x in self.summaries[i]:
                 if x.k <= 2:
                     s += x.probability
@@ -403,7 +403,7 @@ class _Tree(object):
                     conditionalTree.generatePatterns(pattern, periodic)
             self.removeNode(i)
 
-global first, last
+#global first, last
 
 class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
     """
@@ -635,7 +635,7 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
                     self._Database.append(tr)
             else:
                 try:
-                    #count = 0
+                    count = 0
                     with open(self._iFile, 'r') as f:
                         for line in f:
                             line = line.strip()
@@ -660,7 +660,7 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
         """
         Takes the transactions and calculates the support of each item in the dataset and assign the ranks to the items by decreasing support and returns the frequent items list
         """
-
+        global first, last
         mapSupport = {}
         for i in self._Database:
             n = int(i[0])

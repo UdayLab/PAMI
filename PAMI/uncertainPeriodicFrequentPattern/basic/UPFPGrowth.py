@@ -299,7 +299,7 @@ class _Tree(object):
         :return: A list containing the support and period of the item.
         :rtype: List[float]
         """
-        #_lno, _maxPer
+        global _lno, _maxPer
         timeStamps.sort()
         cur = 0
         per = 0
@@ -323,7 +323,7 @@ class _Tree(object):
         :param support : the support of conditional pattern in tree
         :type support : list
         """
-
+        global _minSup, _maxPer
         pat = []
         timeStamps = []
         sup = []
@@ -364,7 +364,7 @@ class _Tree(object):
         """
 
         global _minSup
-        for i in sorted(self.summaries, key=lambda x_: (self.info.get(x_)[0])):
+        for i in sorted(self.summaries, key=lambda x: (self.info.get(x)[0])):
             pattern = prefix[:]
             pattern.append(i)
             s = 0
@@ -556,7 +556,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
     _maxPer = float()
     _finalPatterns = {}
     _iFile = " "
-    oFile = " "
+    _oFile = " "
     _sep = " "
     _memoryUSS = float()
     _memoryRSS = float()
@@ -612,7 +612,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
                     self._Database.append(tr)
             else:
                 try:
-                    #count = 0
+                    count = 0
                     with open(self._iFile, 'r') as f:
                         for line in f:
                             #count += 1
@@ -804,7 +804,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
 
         :return: None
         """
-
+        global _lno, _maxPer, _minSup, _first, _last, periodic
         self._startTime = _ab._time.time()
         self._creatingItemSets()
         self._finalPatterns = {}

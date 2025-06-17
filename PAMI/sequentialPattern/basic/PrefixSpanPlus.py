@@ -457,7 +457,8 @@ class PrefixSpanPlus(_ab._sequentialPatterns):
         if len(seqDatabaseSame)!=0:
             self.makeNextSame(seqDatabaseSame,startrow)
 
-
+    def startMine(self) -> None:
+        self.mine()
 
     def mine(self):
         """

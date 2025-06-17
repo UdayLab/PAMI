@@ -300,7 +300,7 @@ class _Tree:
             count += 1
         return pat, timeStamps, updatedDictionary
 
-    def generatePatterns(self, prefix: list):
+    def generatePatterns(self, prefix: list) -> None:
         """
         Generates the patterns
 
@@ -519,16 +519,16 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
                 self._Database = self._iFile['Transactions'].tolist()
 
         if isinstance(self._wFile, _fp._pd.DataFrame):
-            _items, _weights_ = [], []
+            _items, _weights = [], []
             if self._wFile.empty:
                 print("its empty..")
             i = self._wFile.columns.values.tolist()
             if 'items' in i:
                 _items = self._wFile['items'].tolist()
             if 'weight' in i:
-                _weights_ = self._wFile['weight'].tolist()
+                _weights = self._wFile['weight'].tolist()
             for i in range(len(_items)):
-                self._weight[_items[i]] = _weights_[i]
+                self._weight[_items[i]] = _weights[i]
 
             # print(self.Database)
         if isinstance(self._iFile, str):
@@ -624,7 +624,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
             temp = self._weight[x] * y[0]
             _wf[x] = temp
             self._mapSupport[x].append(temp)
-        genList = [k for k, v in sorted(self._mapSupport.items(), key=lambda x_: x_[1], reverse= True)]
+        genList = [k for k, v in sorted(self._mapSupport.items(), key=lambda x: x[1], reverse= True)]
         self._rank = dict([(index, item) for (item, index) in enumerate(genList)])
         for x, y in self._rank.items():
             _weights[y] = self._weight[x]
@@ -710,8 +710,8 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         for x, y in self._rank.items():
             self._rankDup[y] = x
         info = {self._rank[k]: v for k, v in self._mapSupport.items()}
-        _Tree_ = self._buildTree(updatedTransactions, info)
-        patterns = _Tree_.generatePatterns([])
+        _Tree = self._buildTree(updatedTransactions, info)
+        patterns = _Tree.generatePatterns([])
         self._finalPatterns = {}
         for k in patterns:
             s = self._savePeriodic(k[0])

@@ -1,62 +1,61 @@
-# TUFP is one of the fundamental algorithm to discover top-k frequent patterns in a uncertain transactional database using CUP-Lists.
+# TubeP is one of the fastest algorithm to discover frequent patterns in an uncertain transactional database.
 #
 # **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#             from PAMI.uncertainFrequentPattern.basic import TUFP as alg
+#     from PAMI.uncertainFrequentPattern.basic import TubeP as alg
 #
-#             iFile = 'sampleDB.txt'
+#     obj = alg.TubeP(iFile, minSup)
 #
-#             minSup = 10  # can also be specified between 0 and 1
+#     obj.startMine()
 #
-#             obj = alg.TUFP(iFile, minSup)
+#     frequentPatterns = obj.getPatterns()
 #
-#             obj.mine()
+#     print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#             frequentPatterns = obj.getPatterns()
+#     obj.save(oFile)
 #
-#             print("Total number of Frequent Patterns:", len(frequentPatterns))
+#     Df = obj.getPatternsAsDataFrame()
 #
-#             obj.save(oFile)
+#     memUSS = obj.getMemoryUSS()
 #
-#             Df = obj.getPatternsAsDataFrame()
+#     print("Total Memory in USS:", memUSS)
 #
-#             memUSS = obj.getMemoryUSS()
+#     memRSS = obj.getMemoryRSS()
 #
-#             print("Total Memory in USS:", memUSS)
+#     print("Total Memory in RSS", memRSS)
 #
-#             memRSS = obj.getMemoryRSS()
+#     run = obj.getRuntime()
 #
-#             print("Total Memory in RSS", memRSS)
+#     print("Total ExecutionTime in seconds:", run)
 #
-#             run = obj.getRuntime()
 #
-#             print("Total ExecutionTime in seconds:", run)
-#
-
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
+
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
      the Free Software Foundation, either version 3 of the License, or
      (at your option) any later version.
-     
+
      This program is distributed in the hope that it will be useful,
      but WITHOUT ANY WARRANTY; without even the implied warranty of
      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
      GNU General Public License for more details.
-     
+
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
 """
 
-
-from PAMI.uncertainFrequentPattern.basic import abstract as _ab
-from typing import List, Dict, Union
+from PAMI.uncertainFrequentPattern.basic import abstract as _fp
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import pandas as pd
-from deprecated import deprecated
 
 _minSup = float()
+_fp._sys.setrecursionlimit(20000)
 _finalPatterns = {}
 
 
@@ -66,84 +65,330 @@ class _Item:
 
     :Attributes:
 
-        item : int or word
-          Represents the name of the item
-
-        probability : float
-          Represent the existential probability(likelihood presence) of an item
+    item : int or word
+            Represents the name of the item
+    probability : float
+            Represent the existential probability(likelihood presence) of an item
     """
 
-    def __init__(self, item, probability) -> None:
+    def __init__(self, item: int, probability: float) -> None:
         self.item = item
         self.probability = probability
 
 
-class TUFP(_ab._frequentPatterns):
+class _Node(object):
     """
-    About this algorithm
-    ====================
+    A class used to represent the node of frequentPatternTree
 
-    :Description: It is one of the fundamental algorithm to discover top-k frequent patterns in a uncertain transactional database using CUP-Lists.
+    :Attributes:
 
-    :Reference:  Tuong Le, Bay Vo, Van-Nam Huynh, Ngoc Thanh Nguyen, Sung Wook Baik 5, "Mining top-k frequent patterns from uncertain databases",
-                 Springer Science+Business Media, LLC, part of Springer Nature 2020, https://doi.org/10.1007/s10489-019-01622-1
+        item : int
+            storing item of a node
+        probability : int
+            To maintain the expected support of node
+        parent : node
+            To maintain the parent of every node
+        children : list
+            To maintain the children of node
+
+    :Methods:
+
+        addChild(itemName)
+            storing the children to their respective parent nodes
+    """
+
+    def __init__(self, item: int, children: list) -> None:
+        self.item = item
+        self.probability = 1
+        self.maxPrefixProbability = 1
+        self.p = 1
+        self.children = children
+        self.parent = None
+
+    def addChild(self, node) -> None:
+        """
+        This function is used to add a child
+        """
+        self.children[node.item] = node
+        node.parent = self
+
+
+def printTree(root) -> None:
+    """
+    To print the tree with root node through recursion
+
+    :param root: root node of  tree
+    :return: details of tree
+    """
+    for x, y in root.children.items():
+        print(x, y.item, y.probability, y.parent.item, y.tids, y.maxPrefixProbability)
+        printTree(y)
+
+
+class _Tree(object):
+    """
+    A class used to represent the frequentPatternGrowth tree structure
+
+    :Attributes:
+
+        root : Node
+            Represents the root node of the tree
+        summaries : dictionary
+            storing the nodes with same item name
+        info : dictionary
+            stores the support of items
+
+    :Methods:
+
+        addTransaction(transaction)
+            creating transaction as a branch in frequentPatternTree
+        addConditionalTransaction(prefixPaths, supportOfItems)
+            construct the conditional tree for prefix paths
+        conditionalPatterns(Node)
+            generates the conditional patterns from tree for specific node
+        conditionalTransactions(prefixPaths,Support)
+                takes the prefixPath of a node and support at child of the path and extract the frequent items from
+                prefixPaths and generates prefixPaths with items which are frequent
+        remove(Node)
+                removes the node from tree once after generating all the patterns respective to the node
+        generatePatterns(Node)
+            starts from the root node of the tree and mines the frequent patterns
+    """
+
+    def __init__(self) -> None:
+        self.root = _Node(None, {})
+        self.summaries = {}
+        self.info = {}
+
+    def addTransaction(self, transaction: list) -> None:
+        """
+        Adding transaction into tree
+
+        :param transaction : it represents the one transaction in database
+        :type transaction : list
+        """
+        currentNode = self.root
+        k = 0
+        for i in range(len(transaction)):
+            k += 1
+            if transaction[i].item not in currentNode.children:
+                newNode = _Node(transaction[i].item, {})
+                newNode.k = k
+                newNode.prefixProbability = transaction[i].probability
+                l1 = i - 1
+                temp = []
+                while l1 >= 0:
+                    temp.append(transaction[l1].probability)
+                    l1 -= 1
+                if len(temp) == 0:
+                    newNode.probability = round(transaction[i].probability, 2)
+                else:
+                    newNode.probability = round(max(temp) * transaction[i].probability, 2)
+                currentNode.addChild(newNode)
+                if transaction[i].item in self.summaries:
+                    self.summaries[transaction[i].item].append(newNode)
+                else:
+                    self.summaries[transaction[i].item] = [newNode]
+                currentNode = newNode
+            else:
+                currentNode = currentNode.children[transaction[i].item]
+                currentNode.prefixProbability = max(transaction[i].probability, currentNode.prefixProbability)
+                currentNode.k = k
+                l1 = i - 1
+                temp = []
+                while l1 >= 0:
+                    temp.append(transaction[l1].probability)
+                    l1 -= 1
+                if len(temp) == 0:
+                    currentNode.probability += round(transaction[i].probability, 2)
+                else:
+                    nn = max(temp) * transaction[i].probability
+                    currentNode.probability += round(nn, 2)
+
+    def addConditionalTransaction(self, transaction: list, sup: int, second: float) -> None:
+        """
+        Constructing conditional tree from prefixPaths
+
+        :param transaction: it represents the one transaction in database
+        :type transaction: list
+        :param sup: support of prefixPath taken at last child of the path
+        :type sup: int
+        :param second: the second probability of the node
+        :type second: float
+        """
+        currentNode = self.root
+        k = 0
+        for i in range(len(transaction)):
+            k += 1
+            if transaction[i] not in currentNode.children:
+                newNode = _Node(transaction[i], {})
+                newNode.k = k
+                newNode.prefixProbability = second
+                newNode.probability = sup
+                currentNode.addChild(newNode)
+                if transaction[i] in self.summaries:
+                    self.summaries[transaction[i]].append(newNode)
+                else:
+                    self.summaries[transaction[i]] = [newNode]
+                currentNode = newNode
+            else:
+                currentNode = currentNode.children[transaction[i]]
+                currentNode.k = k
+                currentNode.prefixProbability = max(currentNode.prefixProbability, second)
+                currentNode.probability += sup
+
+    def conditionalPatterns(self, alpha) -> Tuple:
+        """
+        Generates all the conditional patterns of respective node
+
+        :param alpha : it represents the Node in tree
+        :type alpha : _Node
+        """
+        finalPatterns = []
+        sup = []
+        second = []
+        for i in self.summaries[alpha]:
+            s = i.probability
+            s1 = i.maxPrefixProbability
+            set2 = []
+            while i.parent.item is not None:
+                set2.append(i.parent.item)
+                i = i.parent
+            if len(set2) > 0:
+                set2.reverse()
+                finalPatterns.append(set2)
+                second.append(s1)
+                sup.append(s)
+        finalPatterns, support, info = self.conditionalTransactions(finalPatterns, sup)
+        return finalPatterns, support, info, second
+
+    def conditionalTransactions(self, condPatterns: list, support: list) -> Tuple:
+        """
+        It generates the conditional patterns with frequent items
+
+        :param condPatterns: condPatterns generated from condition pattern method for respective node
+        :type condPatterns: list
+        :param support: the support of conditional pattern in tree
+        :type support: list
+        """
+        global _minSup
+        pat = []
+        sup = []
+        data1 = {}
+        for i in range(len(condPatterns)):
+            for j in condPatterns[i]:
+                if j in data1:
+                    data1[j] += support[i]
+                else:
+                    data1[j] = support[i]
+        updatedDict = {}
+        updatedDict = {k: v for k, v in data1.items() if v >= _minSup}
+        count = 0
+        for p in condPatterns:
+            p1 = [v for v in p if v in updatedDict]
+            trans = sorted(p1, key=lambda x: (updatedDict.get(x)), reverse=True)
+            if len(trans) > 0:
+                pat.append(trans)
+                sup.append(support[count])
+            count += 1
+        return pat, sup, updatedDict
+
+    def removeNode(self, nodeValue) -> None:
+        """
+        Removing the node from tree
+
+        :param nodeValue : it represents the node in tree
+        :type nodeValue : node
+        """
+        for i in self.summaries[nodeValue]:
+            del i.parent.children[nodeValue]
+
+    def generatePatterns(self, prefix: list) -> None:
+        """
+        Generates the patterns
+
+        :param prefix : forms the combination of items
+        :type prefix : list
+        """
+        global _finalPatterns, _minSup
+        for i in sorted(self.summaries, key=lambda x: (self.info.get(x))):
+            pattern = prefix[:]
+            pattern.append(i)
+            s = 0
+            for x in self.summaries[i]:
+                #if x.k <= 2:
+                    #s += x.probability
+                #elif x.k >= 3:
+                    #n = x.probability * pow(x.prefixProbability, (x.k - 2))
+                    #s += n
+                if len(pattern) <= 2:
+                    s += x.probability
+                elif len(pattern) >= 3:
+                    n = x.probability * pow(x.prefixProbability, (x.k - 2))
+                    s += n
+            _finalPatterns[tuple(pattern)] = self.info[i]
+            if s >= _minSup:
+                patterns, support, info, second = self.conditionalPatterns(i)
+                conditionalTree = _Tree()
+                conditionalTree.info = info.copy()
+                for pat in range(len(patterns)):
+                    conditionalTree.addConditionalTransaction(patterns[pat], support[pat], second[pat])
+                if len(patterns) > 0:
+                    conditionalTree.generatePatterns(pattern)
+            self.removeNode(i)
+
+
+class TubeP(_fp._frequentPatterns):
+    """
+    :Description: TubeP is one of the fastest algorithm to discover frequent patterns in a uncertain transactional database.
+
+    :Reference:
+        Carson Kai-Sang Leung and Richard Kyle MacKinnon. 2014. Fast Algorithms for Frequent Itemset Mining from Uncertain Data.
+        In Proceedings of the 2014 IEEE International Conference on Data Mining (ICDM '14). IEEE Computer Society, USA, 893–898. https://doi.org/10.1109/ICDM.2014.146
 
     :Attributes:
 
         iFile : file
             Name of the Input file or path of the input file
-
         oFile : file
             Name of the output file or path of the output file
-
         minSup : float or int or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
-
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
-
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-
         startTime : float
             To record the start time of the mining process
-
         endTime : float
             To record the completion time of the mining process
-
         Database : list
             To store the transactions of a database in list
-
         mapSupport : Dictionary
             To maintain the information of item and their frequency
-
         lno : int
             To represent the total no of transaction
-
         tree : class
             To represents the Tree class
-
         itemSetCount : int
             To represents the total no of patterns
-
         finalPatterns : dict
             To store the complete patterns
-
     :Methods:
-        mine()
+
+        startMine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        storePatternsInFile(oFile)
+        save(oFile)
             Complete set of frequent patterns will be loaded in to a output file
-        getPatternsInDataFrame()
+        getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
         getMemoryUSS()
             Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -161,43 +406,26 @@ class TUFP(_ab._frequentPatterns):
             After updating the Database, remaining items will be added into the tree by setting root node as null
         convert()
             to convert the user specified value
-        mine()
-            Mining process will start from this function
 
-    Execution methods
-    =================
+    **Methods to execute code on terminal**
+    --------------------------------------------
+            Format:
+                      >>> python3 TubeP.py <inputFile> <outputFile> <minSup>
 
+            Example:
+                      >>>  python3 TubeP.py sampleTDB.txt patterns.txt 3
 
-    **Terminal command**
+                    .. note:: minSup  will be considered in support count or frequency
 
-
-    .. code-block:: console
-
-      Format:
-
-      (.venv) $ python3 TUFP.py <inputFile> <outputFile> <minSup>
-
-      Example Usage:
-
-      (.venv) $ python3 TUFP.py sampleDB.txt patterns.txt 10.0
-
-    .. note:: minSup can be specified  in support count or a value between 0 and 1.
-
-
-    **Calling from a python program**
-
+    **Importing this algorithm into a python program**
+    -----------------------------------------------------
     .. code-block:: python
 
-            from PAMI.uncertainFrequentPattern.basic import TUFP as alg
+            from PAMI.uncertainFrequentPattern.basic import TubeP as alg
 
+            obj = alg.TubeP(iFile, minSup)
 
-            iFile = 'sampleDB.txt'
-
-            minSup = 10  # can also be specified between 0 and 1
-
-            obj = alg.TUFP(iFile, minSup)
-
-            obj.mine()
+            obj.startMine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -219,12 +447,10 @@ class TUFP(_ab._frequentPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    Credits
-    =======
-
-            The complete program was written by   P.Likhitha   under the supervision of Professor Rage Uday Kiran.
-    """
-
+    **Credits:**
+    --------------
+             The complete program was written by  P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+"""
     _startTime = float()
     _endTime = float()
     _minSup = str()
@@ -235,21 +461,17 @@ class TUFP(_ab._frequentPatterns):
     _memoryUSS = float()
     _memoryRSS = float()
     _Database = []
-    _cupList = {}
-    _topk = {}
-    _minimum = 9999
-    oFile = None
+    _rank = {}
 
-    def __init__(self, iFile, minSup, sep='\t'):
+    def __init__(self, iFile, minSup, sep='\t') -> None:
         super().__init__(iFile, minSup, sep)
-
 
     def _creatingItemSets(self) -> None:
         """
-        Scans the dataset
+        Scans the dataset and stores the transactions into Database variable
         """
         self._Database = []
-        if isinstance(self._iFile, _ab._pd.DataFrame):
+        if isinstance(self._iFile, _fp._pd.DataFrame):
             uncertain, data = [], []
             if self._iFile.empty:
                 print("its empty..")
@@ -267,19 +489,18 @@ class TUFP(_ab._frequentPatterns):
 
             # print(self.Database)
         if isinstance(self._iFile, str):
-            if _ab._validators.url(self._iFile):
-                data = _ab._urlopen(self._iFile)
+            if _fp._validators.url(self._iFile):
+                data = _fp._urlopen(self._iFile)
                 for line in data:
-                    line.strip()
+                    line = line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self._sep)]
-                    temp = [x for x in temp if x]
+                    temp1 = line.split(':')
+                    temp = [i.rstrip() for i in temp[0].split(self._sep)]
+                    uncertain = [float(i.rstrip()) for i in temp[1].split(self._sep)]
                     tr = []
-                    for i in temp:
-                        i1 = i.index('(')
-                        i2 = i.index(')')
-                        item = i[0:i1]
-                        probability = float(i[i1 + 1:i2])
+                    for i in range(len(temp)):
+                        item = temp[i]
+                        probability = uncertain[i]
                         product = _Item(item, probability)
                         tr.append(product)
                     self._Database.append(temp)
@@ -287,51 +508,91 @@ class TUFP(_ab._frequentPatterns):
                 try:
                     with open(self._iFile, 'r') as f:
                         for line in f:
-                            temp = [i.rstrip() for i in line.split(self._sep)]
-                            temp = [x for x in temp if x]
+                            temp1 = line.strip()
+                            temp1 = temp1.split(':')
+                            temp = [i.rstrip() for i in temp1[0].split(self._sep)]
+                            uncertain = [float(i.rstrip()) for i in temp1[1].split(self._sep)]
                             tr = []
-                            for i in temp:
-                                i1 = i.index('(')
-                                i2 = i.index(')')
-                                item = i[0:i1]
-                                probability = float(i[i1 + 1:i2])
+                            for i in range(len(temp)):
+                                item = temp[i]
+                                probability = uncertain[i]
                                 product = _Item(item, probability)
                                 tr.append(product)
                             self._Database.append(tr)
                 except IOError:
                     print("File Not Found")
 
-    def _frequentOneItem(self) -> List[str]:
+    def _frequentOneItem(self) -> Tuple:
         """
-        Takes the self.Database and calculates the support of each item in the dataset and assign the ranks to the items by decreasing support and returns the frequent items list
-
-        :param self.Database : it represents the one self.Database in database
-        :type self.Database : list
+        Takes the transactions and calculates the support of each item in the dataset and assign the ranks to the items by decreasing support and returns the frequent items list
         """
-
+        global _minSup
         mapSupport = {}
-        k = 0
         for i in self._Database:
-            k += 1
             for j in i:
                 if j.item not in mapSupport:
-                    mapSupport[j.item] = j.probability
-                    self._cupList[j.item] = {k:j.probability}
+                    mapSupport[j.item] = round(j.probability, 2)
                 else:
-                    mapSupport[j.item] += j.probability
-                    self._cupList[j.item].update({k: j.probability})
-        plist = [k for k,v in sorted(mapSupport.items(), key=lambda x_: x_[1], reverse=True)]
-        k = 0
-        for x, in plist:
-            k +=1
-            if k >= self._minSup:
-                break
-            self._finalPatterns[x] = mapSupport[x]
-        self._minimum = min(list(self._finalPatterns.values()))
-        return plist
+                    mapSupport[j.item] += round(j.probability, 2)
+        mapSupport = {k: round(v, 2) for k, v in mapSupport.items() if v >= self._minSup}
+        plist = [k for k, v in sorted(mapSupport.items(), key=lambda x: x[1], reverse=True)]
+        self._rank = dict([(index, item) for (item, index) in enumerate(plist)])
+        return mapSupport, plist
 
-    @staticmethod
-    def _convert(value: Union[int, float, str]) -> Union[int, float]:
+    def _buildTree(self, data: list, info) -> _Tree:
+        """
+        It takes the transactions and support of each item and construct the main tree with setting root node as null
+
+        :param data : it represents the one transaction in database
+        :type data : list
+        :param info : it represents the support of each item
+        :type info : dictionary
+        """
+        rootNode = _Tree()
+        rootNode.info = info.copy()
+        for i in range(len(data)):
+            rootNode.addTransaction(data[i])
+        return rootNode
+
+    def _updateTransactions(self, dict1) -> List:
+        """
+        Remove the items which are not frequent from transactions and updates the transactions with rank of items
+
+        :param dict1 : frequent items with support
+        :type dict1 : dictionary
+        """
+        list1 = []
+        for tr in self._Database:
+            list2 = []
+            for i in range(0, len(tr)):
+                if tr[i].item in dict1:
+                    list2.append(tr[i])
+            if len(list2) >= 2:
+                basket = list2
+                basket.sort(key=lambda val: self._rank[val.item])
+                list2 = basket
+                list1.append(list2)
+        return list1
+
+    def _Check(self, i, x) -> int:
+        """
+        To check the presence of item or pattern in transaction
+
+        :param x: it represents the pattern
+        :type x : list
+        :param i : represents the uncertain transactions
+        :type i : list
+        """
+        for m in x:
+            k = 0
+            for n in i:
+                if m == n.item:
+                    k += 1
+            if k == 0:
+                return 0
+        return 1
+
+    def _convert(self, value) -> Union[int, float]:
         """
         To convert the type of user specified minSup value
 
@@ -341,131 +602,70 @@ class TUFP(_ab._frequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = float(value)
+            value = (len(self._Database) * value)
         if type(value) is str:
             if '.' in value:
-                value = float(value)
+                value = (len(self._Database) * value)
             else:
                 value = int(value)
         return value
 
-    def _save(self, prefix: List[str], suffix: List[str], tidSetI: Dict[int, float]) -> None:
+    def _removeFalsePositives(self) -> None:
         """
-        Saves the patterns that satisfy the periodic frequent property.
+        To remove the false positive patterns generated in frequent patterns.
 
-        :param prefix: the prefix of a pattern
-        :type prefix: list
-        :param suffix: the suffix of a patterns
-        :type suffix: list
-        :param tidSetI: the timestamp of a patterns
-        :type tidSetI: dict
+        :return: patterns with accurate probability
         """
-
-        if prefix is None:
-            prefix = suffix
-        else:
-            prefix = prefix + suffix
-        val = sum(tidSetI.values())
-        #print(prefix, val)
-        if len(self._finalPatterns) <= self._minSup:
-            sample = str()
-            for i in prefix:
-                sample = sample + i + " "
-            self._finalPatterns[sample] = val
-        if len(self._finalPatterns) == self._minSup:
-            if val > self._minimum:
+        global _finalPatterns
+        periods = {}
+        for i in self._Database:
+            for x, y in _finalPatterns.items():
+                if len(x) == 1:
+                    periods[x] = y
+                else:
+                    s = 1
+                    check = self._Check(i, x)
+                    if check == 1:
+                        for j in i:
+                            if j.item in x:
+                                s *= j.probability
+                        if x in periods:
+                            periods[x] += s
+                        else:
+                            periods[x] = s
+        for x, y in periods.items():
+            if y >= self._minSup:
                 sample = str()
-                for i in prefix:
-                    sample = sample + i + " "
-                index = list(self._finalPatterns.keys())[list(self._finalPatterns.values()).index(self._minimum)]
-                del self._finalPatterns[index]
-                self._finalPatterns[sample] = val
-                self._minimum = min(list(self._finalPatterns.values()))
-        #print(self.finalPatterns, self.minimum, self.minSup)
+                for i in x:
+                    sample = sample + i + "\t"
+                self._finalPatterns[sample] = y
 
-
-    def _Generation(self, prefix: List[str], itemSets: List[str], tidSets: List[Dict[int, float]]) -> None:
-        """
-        Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.
-
-        :param prefix:  main equivalence prefix
-        :type prefix: periodic-frequent item or pattern
-        :param itemSets: patterns which are items combined with prefix and satisfying the periodicity and frequent with their timestamps
-        :type itemSets: list
-        :param tidSets: timestamps of the items in the argument itemSets
-        :type tidSets: list
-        """
-        if len(itemSets) == 1:
-            i = itemSets[0]
-            tidI = tidSets[0]
-            self._save(prefix, [i], tidI)
-            return
-        for i in range(0, len(itemSets)):
-            itemI = itemSets[i]
-            if itemI is None:
-                continue
-            tidSetI = tidSets[i]
-            classItemSets = []
-            classTidSets = []
-            itemSetX = [itemI]
-            for j in range(i+1, len(itemSets)):
-                itemJ = itemSets[j]
-                tidSetJ = tidSets[j]
-                y = {key: tidSetJ[key] * tidSetI.get(key, 0) for key in tidSetJ.keys()}
-                #sum2 = sum(list(y.values()))
-                #print(prefix, itemJ, y, sum2)
-                #if sum2 >= self.minimum:
-                self._save(prefix, [itemJ], y)
-                classItemSets.append(itemJ)
-                classTidSets.append(y)
-            #print(itemI, tidSetI, classItemSets)
-            newPrefix = list(set(itemSetX)) + prefix
-            self._Generation(newPrefix, classItemSets, classTidSets)
-            #self.save(prefix, list(set(itemSetX)), tidSetI)
-
-    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
-        self.mine()
-
-
-    def mine(self) -> None:
-        """
-        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
-        """
         global _minSup
-        self._startTime = _ab._time.time()
+        self._startTime = _fp._time.time()
         self._creatingItemSets()
         self._minSup = self._convert(self._minSup)
         _minSup = self._minSup
-        plist = self._frequentOneItem()
-        for i in range(len(plist)):
-            itemI = plist[i]
-            tidSetI = self._cupList[itemI]
-            itemSetX = [itemI]
-            itemSets = []
-            tidSets = []
-            for j in range(i+1, len(plist)):
-                itemJ = plist[j]
-                tidSetJ = self._cupList[itemJ]
-                y1 = {key: tidSetJ[key] * tidSetI.get(key, 0)  for key in tidSetJ.keys()}
-                self._save(itemSetX, [itemJ], y1)
-                itemSets.append(itemJ)
-                tidSets.append(y1)
-            self._Generation(itemSetX, itemSets, tidSets)
-        print("Top-K Frequent patterns were generated from uncertain databases successfully using TUFP algorithm")
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
+        self._finalPatterns = {}
+        mapSupport, plist = self._frequentOneItem()
+        transactions1 = self._updateTransactions(mapSupport)
+        info = {k: v for k, v in mapSupport.items()}
+        Tree1 = self._buildTree(transactions1, info)
+        Tree1.generatePatterns([])
+        self._removeFalsePositives()
+        print("Uncertain Frequent patterns were generated successfully using TubeP algorithm")
+        self._endTime = _fp._time.time()
+        process = _fp._psutil.Process(_fp._os.getpid())
         self._memoryRSS = float()
+        self._memoryUSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self) -> float:
         """
-
         Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -476,7 +676,6 @@ class TUFP(_ab._frequentPatterns):
 
     def getMemoryRSS(self) -> float:
         """
-
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -487,7 +686,6 @@ class TUFP(_ab._frequentPatterns):
 
     def getRuntime(self) -> float:
         """
-
         Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
@@ -498,7 +696,6 @@ class TUFP(_ab._frequentPatterns):
 
     def getPatternsAsDataFrame(self) -> pd.DataFrame:
         """
-
         Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -508,13 +705,12 @@ class TUFP(_ab._frequentPatterns):
         dataframe = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
-            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+            data.append([a.replace('\t', ' '), b])
+            dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
     def save(self, outFile: str) -> None:
         """
-
         Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
@@ -523,57 +719,40 @@ class TUFP(_ab._frequentPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            s1 = x + ":" + str(y)
+            s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPatterns(self) -> Dict[str, float]:
+    def getPatterns(self) -> int:
         """
-
         Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
         :rtype: dict
         """
-        return self._finalPatterns
+        return len(self._finalPatterns)
 
     def printResults(self) -> None:
         """
-        This function is used to print the results
+        This Function is used to print the results
         """
         print("Total number of  Uncertain Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
         print("Total ExecutionTime in ms:",  self.getRuntime())
 
+
 if __name__ == "__main__":
     _ap = str()
-    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
-        if len(_ab._sys.argv) == 5:
-            _ap = TUFP(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
-        if len(_ab._sys.argv) == 4:
-            _ap = TUFP(_ab._sys.argv[1], _ab._sys.argv[3])
-        _ap.mine()
-        _ap.mine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Patterns:", len(_Patterns))
-        _ap.save(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+    if len(_fp._sys.argv) == 4 or len(_fp._sys.argv) == 5:
+        if len(_fp._sys.argv) == 5:
+            _ap = TubeP(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4])
+        if len(_fp._sys.argv) == 4:
+            _ap = TubeP(_fp._sys.argv[1], _fp._sys.argv[3])
+        _ap.startMine()
+        print("Total number of  Uncertain Frequent Patterns:", len(_ap.getPatterns()))
+        _ap.save(_fp._sys.argv[2])
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        '''ap = TUFP("/home/apiiit-rkv/Desktop/uncertain/tubeSample", 10, ' ')
-        ap.mine()
-        Patterns = ap.getPatterns()
-        print("Total number of Patterns:", len(Patterns))
-        ap.save("patterns.txt")
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")
-

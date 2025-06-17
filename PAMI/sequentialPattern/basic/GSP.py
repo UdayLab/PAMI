@@ -454,8 +454,8 @@ class GSP(_ab._sequentialPatterns):
                     nextPatterns.append(pattern)
         return nextPatterns
                     
-        
-       
+    def startMine(self) -> None:
+        self.mine()
 
     def mine(self):
         """

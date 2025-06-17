@@ -56,7 +56,8 @@ __copyright__ = """
 import pandas as pd
 from deprecated import deprecated
 
-from PAMI.sequentialPatternMining.basic import abstract as _ab
+#from PAMI.sequentialPatternMining.basic import abstract as _ab
+from PAMI.sequentialPattern.basic import abstract as _ab
 import copy
 import re
 _ab._sys.setrecursionlimit(10000)
