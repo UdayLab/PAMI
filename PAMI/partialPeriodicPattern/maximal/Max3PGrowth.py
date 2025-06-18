@@ -684,6 +684,9 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
             t1.append(self._pfList[i])
         return t1
 
+    def startMine(self) -> None:
+        self.mine()
+
     def mine(self):
         """
         Mining process will start from this function

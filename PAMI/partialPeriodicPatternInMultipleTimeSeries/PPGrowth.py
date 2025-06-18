@@ -659,7 +659,7 @@ class PPGrowth(_ab._partialPeriodicPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Periodic Frequent patterns were generated successfully using PPGrowth algorithm ")
 
-    def Mine(self):
+    def mine(self):
         """
         Mining process will start from this function
         """

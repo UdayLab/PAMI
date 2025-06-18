@@ -570,6 +570,8 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
                 value = int(value)
         return value
 
+    def startMine(self) -> None:
+        self.mine()
 
     def mine(self) -> None:
         """
