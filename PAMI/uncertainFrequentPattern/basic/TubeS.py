@@ -696,6 +696,9 @@ class TubeS(_fp._frequentPatterns):
                     sample = sample + i + "\t"
                 self._finalPatterns[sample] = y
 
+    def startMine(self) -> None:
+        self.mine()
+
     def mine(self):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns

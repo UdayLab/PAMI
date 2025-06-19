@@ -641,6 +641,9 @@ class TubeP(_fp._frequentPatterns):
                 self._finalPatterns[sample] = y
 
     def startMine(self) -> None:
+        self.mine()
+
+    def mine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
@@ -748,7 +751,7 @@ if __name__ == "__main__":
             _ap = TubeP(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4])
         if len(_fp._sys.argv) == 4:
             _ap = TubeP(_fp._sys.argv[1], _fp._sys.argv[3])
-        _ap.startMine()
+        _ap.mine()
         print("Total number of  Uncertain Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_fp._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

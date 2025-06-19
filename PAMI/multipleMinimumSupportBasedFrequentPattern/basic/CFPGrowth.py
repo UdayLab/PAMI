@@ -552,7 +552,7 @@ class CFPGrowth(_fp._frequentPatterns):
         """
         self.mine()
 
-    def Mine(self) -> None:
+    def mine(self) -> None:
         """
         main program to start the operation
         :return: none

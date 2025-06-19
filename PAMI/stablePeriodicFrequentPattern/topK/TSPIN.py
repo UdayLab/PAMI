@@ -610,6 +610,9 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         return value
 
     def startMine(self) -> None:
+        self.mine()
+
+    def mine(self) -> None:
         """
         Mining process will start from this function
         """

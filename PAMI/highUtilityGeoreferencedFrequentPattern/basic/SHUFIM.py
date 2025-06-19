@@ -1005,19 +1005,19 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
-    # _ap = str()
-    # if len(_ab._sys.argv) == 6 or len(_ab._sys.argv) == 7:
-    #     if len(_ab._sys.argv) == 7:
-    #         _ap = SHUFIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]), _ab._sys.argv[5], _ab._sys.argv[6])
-    #     if len(_ab._sys.argv) == 6:
-    #         _ap = SHUFIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]), _ab._sys.argv[5])
-    #     _ap.mine()
-    #     _ap.mine()
-    #     print("Total number of Spatial High Utility Frequent Patterns:", len(_ap.getPatterns()))
-    #     _ap.save(_ab._sys.argv[2])
-    #     print("Total Memory in USS:", _ap.getMemoryUSS())
-    #     print("Total Memory in RSS", _ap.getMemoryRSS())
-    #     print("Total ExecutionTime in seconds:", _ap.getRuntime())
-    # else:
-    #     print("Error! The number of input parameters do not match the total number of parameters provided")
+    #main()
+    _ap = str()
+    if len(_ab._sys.argv) == 6 or len(_ab._sys.argv) == 7:
+        if len(_ab._sys.argv) == 7:
+            _ap = SHUFIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]), _ab._sys.argv[5], _ab._sys.argv[6])
+        if len(_ab._sys.argv) == 6:
+            _ap = SHUFIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]), _ab._sys.argv[5])
+        _ap.mine()
+        _ap.mine()
+        print("Total number of Spatial High Utility Frequent Patterns:", len(_ap.getPatterns()))
+        _ap.save(_ab._sys.argv[2])
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", _ap.getRuntime())
+    else:
+        print("Error! The number of input parameters do not match the total number of parameters provided")
