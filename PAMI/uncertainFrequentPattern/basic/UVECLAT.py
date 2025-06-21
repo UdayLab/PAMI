@@ -457,6 +457,9 @@ class UVEclat(_ab._frequentPatterns):
             self._Generation(newPrefix, classItemSets, classTidSets)
             self._save(prefix, list(set(itemSetX)), tidSetI)
 
+    def startMine(self) -> None:
+        self.mine()
+
     def mine(self):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
