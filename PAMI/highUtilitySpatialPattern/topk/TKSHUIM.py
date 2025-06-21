@@ -227,7 +227,7 @@ class Dataset:
         :return : Transaction.
         :rtype: int
         """
-        pmuString = None
+        #pmuString = None
         trans_list = line.strip().split(':')
         transactionUtility = int(trans_list[1])
         itemsString = trans_list[0].strip().split(self.sep)
@@ -431,7 +431,7 @@ class TKSHUIM(utilityPatterns):
     memoryUSS = float()
     memoryRSS = float()
     heapList = []
-    dataset = None
+    #dataset = None
 
     def __init__(self, iFile, nFile, k, sep="\t"):
         super().__init__(iFile, nFile, k, sep)

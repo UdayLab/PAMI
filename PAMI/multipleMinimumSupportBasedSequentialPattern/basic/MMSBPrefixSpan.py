@@ -219,7 +219,7 @@ class MMSBprefixSpan(_ab._sequentialPatterns):
 
             if len(sepDatabase[head])>=self._minSup:
                 newMIS=baseMIS
-                if newrow:
+                if newrow!=[]:
                     newrow.append(-1)
                 newrow.append(head)
                 newrow.append(-1)

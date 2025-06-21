@@ -884,7 +884,7 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
         :rtype: pandas.DataFrame
         """
 
-        #dataframe = {}
+        dataframe = {}
         data = []
         for x, y in self.__finalPatterns.items():
             for pattern in y:
