@@ -39,12 +39,12 @@ __copyright__ = """
      it under the terms of the GNU General Public License as published by
      the Free Software Foundation, either version 3 of the License, or
      (at your option) any later version.
-     
+
      This program is distributed in the hope that it will be useful,
      but WITHOUT ANY WARRANTY; without even the implied warranty of
      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
      GNU General Public License for more details.
-     
+
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
@@ -100,7 +100,7 @@ class _Node(object):
     """
 
     def __init__(self):
-        self.itemId = -1
+        self.itemid = -1
         self.counter = 0
         self.probability = 0
         self.child = []
@@ -429,9 +429,9 @@ class UFGrowth(_ab._frequentPatterns):
     def __init__(self, iFile, minSup, sep='\t'):
         super().__init__(iFile, minSup, sep)
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
-        Scans the uncertain transactional dataset
+        Scans the dataset and stores the transactions into Database variable
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -455,16 +455,15 @@ class UFGrowth(_ab._frequentPatterns):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
                 for line in data:
-                    line.strip()
+                    line = line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self._sep)]
-                    temp = [x for x in temp if x]
+                    temp1 = line.split(':')
+                    temp = [i.rstrip() for i in temp[0].split(self._sep)]
+                    uncertain = [float(i.rstrip()) for i in temp[1].split(self._sep)]
                     tr = []
-                    for i in temp:
-                        i1 = i.index('(')
-                        i2 = i.index(')')
-                        item = i[0:i1]
-                        probability = float(i[i1 + 1:i2])
+                    for i in range(len(temp)):
+                        item = temp[i]
+                        probability = uncertain[i]
                         product = _Item(item, probability)
                         tr.append(product)
                     self._Database.append(temp)
@@ -472,14 +471,14 @@ class UFGrowth(_ab._frequentPatterns):
                 try:
                     with open(self._iFile, 'r') as f:
                         for line in f:
-                            temp = [i.rstrip() for i in line.split(self._sep)]
-                            temp = [x for x in temp if x]
+                            temp1 = line.strip()
+                            temp1 = temp1.split(':')
+                            temp = [i.rstrip() for i in temp1[0].split(self._sep)]
+                            uncertain = [float(i.rstrip()) for i in temp1[1].split(self._sep)]
                             tr = []
-                            for i in temp:
-                                i1 = i.index('(')
-                                i2 = i.index(')')
-                                item = i[0:i1]
-                                probability = float(i[i1 + 1:i2])
+                            for i in range(len(temp)):
+                                item = temp[i]
+                                probability = uncertain[i]
                                 product = _Item(item, probability)
                                 tr.append(product)
                             self._Database.append(tr)
@@ -626,7 +625,7 @@ class UFGrowth(_ab._frequentPatterns):
         for i in self._Database:
             transaction = []
             for j in i:
-                if _mapSupport.get(j.item) >= self._minSup:
+                if _mapSupport.get(j.item,0) >= self._minSup:
                     transaction.append(j)
             transaction.sort(key=lambda val: _mapSupport[val.item], reverse=True)
             o = self._tree.addTransaction(transaction)
