@@ -39,12 +39,12 @@ __copyright__ = """
      it under the terms of the GNU General Public License as published by
      the Free Software Foundation, either version 3 of the License, or
      (at your option) any later version.
-     
+
      This program is distributed in the hope that it will be useful,
      but WITHOUT ANY WARRANTY; without even the implied warranty of
      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
      GNU General Public License for more details.
-     
+
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
@@ -226,9 +226,9 @@ class UVEclat(_ab._frequentPatterns):
     _tidList = {}
     _rank = {}
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
-        Scans the dataset
+        Scans the dataset and stores the transactions into Database variable
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -252,16 +252,15 @@ class UVEclat(_ab._frequentPatterns):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
                 for line in data:
-                    line.strip()
+                    line = line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self._sep)]
-                    temp = [x for x in temp if x]
+                    temp1 = line.split(':')
+                    temp = [i.rstrip() for i in temp[0].split(self._sep)]
+                    uncertain = [float(i.rstrip()) for i in temp[1].split(self._sep)]
                     tr = []
-                    for i in temp:
-                        i1 = i.index('(')
-                        i2 = i.index(')')
-                        item = i[0:i1]
-                        probability = float(i[i1 + 1:i2])
+                    for i in range(len(temp)):
+                        item = temp[i]
+                        probability = uncertain[i]
                         product = _Item(item, probability)
                         tr.append(product)
                     self._Database.append(temp)
@@ -269,14 +268,14 @@ class UVEclat(_ab._frequentPatterns):
                 try:
                     with open(self._iFile, 'r') as f:
                         for line in f:
-                            temp = [i.rstrip() for i in line.split(self._sep)]
-                            temp = [x for x in temp if x]
+                            temp1 = line.strip()
+                            temp1 = temp1.split(':')
+                            temp = [i.rstrip() for i in temp1[0].split(self._sep)]
+                            uncertain = [float(i.rstrip()) for i in temp1[1].split(self._sep)]
                             tr = []
-                            for i in temp:
-                                i1 = i.index('(')
-                                i2 = i.index(')')
-                                item = i[0:i1]
-                                probability = float(i[i1 + 1:i2])
+                            for i in range(len(temp)):
+                                item = temp[i]
+                                probability = uncertain[i]
                                 product = _Item(item, probability)
                                 tr.append(product)
                             self._Database.append(tr)
@@ -299,7 +298,7 @@ class UVEclat(_ab._frequentPatterns):
                     mapSupport[str(j.item)] += j.probability
                     self._tidList[str(j.item)].update({k: j.probability})
         mapSupport = {k: v for k, v in mapSupport.items() if v >= self._minSup}
-        plist = dict( sorted(mapSupport.items(), key=_operator.itemgetter(1),reverse=True))
+        plist = dict(sorted(mapSupport.items(), key=_operator.itemgetter(1), reverse=True))
         return list(plist.keys())
 
     @staticmethod
@@ -476,7 +475,7 @@ class UVEclat(_ab._frequentPatterns):
             itemSetX = [itemI]
             itemSets = []
             tidSets = []
-            for j in range(i+1, len(plist)):
+            for j in range(i + 1, len(plist)):
                 itemJ = plist[j]
                 tidSetJ = self._tidList[itemJ]
                 y1 = self._Intersection(tidSetI, tidSetJ)
@@ -574,7 +573,7 @@ class UVEclat(_ab._frequentPatterns):
         print("Total number of  Uncertain Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
-        print("Total ExecutionTime in ms:",  self.getRuntime())
+        print("Total ExecutionTime in ms:", self.getRuntime())
 
 
 if __name__ == "__main__":
