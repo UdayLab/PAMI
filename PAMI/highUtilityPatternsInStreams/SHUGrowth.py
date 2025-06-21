@@ -674,12 +674,12 @@ class SHUGrowth(_hus._highUtilityPatternStreamMining):
 
         chosenItemset = stack[0]
         lastUtil = sum(chosenItemset.utility)
-        #curBacthes = [i for i, e in enumerate(chosenItemset.utility) if e != 0]
+        curBacthes = [i for i, e in enumerate(chosenItemset.utility) if e != 0]
 
         otherUtilites = []
 
         for i in range(1, len(stack)-1):
-            #curItemset = stack[i]
+            curItemset = stack[i]
             epu = lastUtil
 
             for j in range(i-1, 0, -1):
@@ -968,7 +968,7 @@ class SHUGrowth(_hus._highUtilityPatternStreamMining):
         :rtype: pandas.DataFrame
         """
 
-        #dataframe = {}
+        dataframe = {}
         data = []
         for x, y in self.__finalPatterns.items():
             for pattern in y:

@@ -190,16 +190,16 @@ class GPUEFIM:
    """
 
     def __init__(self, inputFile, minUtil, sep = '\t'):
-        self.runtime = None
-        self.memoryUSS = None
-        self.memoryRSS = None
-        self.start = None
-        self.numTransactions = None
-        self.indexesEnd = None
-        self.secondaryLen = None
-        self.indexesStart = None
-        self.utils = None
-        self.items = None
+        # self.runtime = None
+        # self.memoryUSS = None
+        # self.memoryRSS = None
+        # self.start = None
+        # self.numTransactions = None
+        # self.indexesEnd = None
+        # self.secondaryLen = None
+        # self.indexesStart = None
+        # self.utils = None
+        # self.items = None
         self.inputFile = inputFile
         self.minUtil = minUtil
         self.sep = sep
@@ -221,8 +221,8 @@ class GPUEFIM:
         file_data = []
         twu = {}
 
-        with open(self.inputFile, 'r') as file:
-            fd = mmap.mmap(file.fileno(), 0, prot=mmap.PROT_READ)
+        with open(self.inputFile, 'r') as f:
+            fd = mmap.mmap(f.fileno(), 0, prot=mmap.PROT_READ)
 
             for line in iter(fd.readline, b""):
                 line = line.decode('utf-8').strip().split(":")
@@ -244,7 +244,7 @@ class GPUEFIM:
         twu = {k: v for k, v in twu.items() if v >= self.minUtil}
 
         # Sort TWU items by utility
-        twu = {k: v for k, v in sorted(twu.items(), key=lambda item_: item_[1], reverse=True)}
+        twu = {k: v for k, v in sorted(twu.items(), key=lambda item: item[1], reverse=True)}
 
         strToInt = {}
         t = len(twu)
@@ -417,10 +417,10 @@ class GPUEFIM:
         :param outputFile: name of the output file
         :type outputFile: csv file
         """
-        with open(outputFile, 'w') as file_:
+        with open(outputFile, 'w') as f:
             for key, value in self.Patterns.items():
                 joined = " ".join(key) + " #UTIL: " + str(value) + "\n"
-                file_.write(joined)
+                f.write(joined)
 
     @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self):

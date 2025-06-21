@@ -50,7 +50,7 @@ __copyright__ = """
 
 """
 
-from PAMI.periodicFrequentPattern.basic import abstract as _ab
+from PAMI.periodicFrequentPattern.topk.TopkPFP import abstract as _ab
 import pandas as pd
 from deprecated import deprecated
 
@@ -272,7 +272,7 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
         self._maxPer = self._convert(self._maxPer)
         self._k = self._convert(self._k)
         self._mapSupport = {k: [v[0], v[1]] for k, v in self._mapSupport.items() if v[1] <= self._maxPer}
-        plist = [key for key, value in sorted(self._mapSupport.items(), key=lambda _x: (_x[1][0], _x[0]), reverse=True)]
+        plist = [key for key, value in sorted(self._mapSupport.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
         self._finalPatterns = {}
         #print(len(plist))
         for i in plist:
@@ -291,7 +291,7 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
         :return: support, periodicity
         """
 
-        #global lno
+        global lno
         timeStamps.sort()
         cur = 0
         per = list()
@@ -331,7 +331,7 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
                                   sorted(self._finalPatterns.items(), key=lambda item: item[1], reverse=True)}
                 self._minimum = min([self._finalPatterns[i][0] for i in self._finalPatterns.keys()])
         else:
-            for x, y in sorted(self._finalPatterns.items(), key=lambda x_: x_[1][0]):
+            for x, y in sorted(self._finalPatterns.items(), key=lambda x: x[1][0]):
                 if val[0] > y[0]:
                     del self._finalPatterns[x]
                     self._finalPatterns[x] = y
@@ -412,7 +412,7 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
         self._memoryUSS = _process.memory_full_info().uss
         self._memoryRSS = _process.memory_info().rss
 
-    def Mine(self):
+    def mine(self):
         """
         Main function of the program
         """
