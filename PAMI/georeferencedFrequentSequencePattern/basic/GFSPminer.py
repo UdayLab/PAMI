@@ -293,6 +293,8 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
                     print("File Not Found")
                     quit()
 
+        print(self._Database)
+
     def _convert(self, value):
         """
         To convert the user specified minSup value
@@ -1052,7 +1054,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-        print("Frequent patterns were generated successfully using Apriori algorithm ")
+        print("Frequent patterns were generated successfully using GFSPMiner algorithm ")
 
     def getMemoryUSS(self):
         """
