@@ -297,7 +297,7 @@ class ECLATbitset(_ab._frequentPatterns):
         cands = []
         for key in list(items.keys()):
             if len(items[key]) >= self._minSup:
-                self._finalPatterns["\t".join(key)] = len(items[key])
+                self._finalPatterns[key] = len(items[key])
                 cands.append(key)
                 items[key] = self._bitPacker(items[key], index)
             else:
@@ -363,7 +363,8 @@ class ECLATbitset(_ab._frequentPatterns):
         #     data.append([a.replace('\t', ' '), b])
         #     dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
 
-        dataFrame = _ab._pd.DataFrame(list([[x.replace("\t", " "), y] for x,y in self._finalPatterns.items()]), columns=['Patterns', 'Support'])
+        # dataFrame = _ab._pd.DataFrame(list([self._sep.join(x)dataFrame = _ab._pd.DataFrame(list([self._sep.join(x), y] for x,y in self._finalPatterns.items()), columns=['Patterns', 'Support']), y] for x,y in self._finalPatterns.items()]), columns=['Patterns', 'Support'])
+        dataFrame = _ab._pd.DataFrame(list([self._sep.join(x), y] for x,y in self._finalPatterns.items()), columns=['Patterns', 'Support'])
         return dataFrame
 
     def save(self, outFile: str, seperator = "\t" ) -> None:
