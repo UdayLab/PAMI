@@ -329,8 +329,21 @@ class TransactionalDatabase:
         # itemFrequencies = self.getFrequenciesInRange()
         transactionLength = self.getTransanctionalLengthDistribution()
         plt.plotLineGraphFromDictionary(self.itemFrequencies, 100, 0, 'Frequency', 'No of items', 'frequency')
-        plt.plotLineGraphFromDictionary(transactionLength, 100, 0, 'transaction length', 'transaction length', 'frequency')
+        # plt.plotLineGraphFromDictionary(transactionLength, 100, 0, 'transaction length', 'transaction length', 'frequency')
+        trx_len_dist = self.getTransanctionalLengthDistribution()
+        lengths = list(trx_len_dist.keys())  # real X values: 6, 10, 11, …
+        counts = list(trx_len_dist.values())  # Y values:      1,  1,  1, …
 
+        import matplotlib.pyplot as plta
+        plta.figure()
+        plta.plot(lengths, counts, marker='o')
+        plta.title('Transaction length')
+        plta.xlabel('Length (#items)')
+        plta.ylabel('Frequency')
+        plta.xticks(lengths)  # show every actual length
+        plta.grid(True, axis='y', alpha=0.3)
+        plta.tight_layout()
+        plta.show()
 
 if __name__ == '__main__':
     data = {'tid': [1, 2, 3, 4, 5, 6, 7],
