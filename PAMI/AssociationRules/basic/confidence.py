@@ -54,13 +54,16 @@ Copyright (C)  2021 Rage Uday Kiran
      
 """
 
-from PAMI.AssociationRules.basic import abstract as _ab
-from deprecated import deprecated
-# increase reucursion depth
-import os
 import sys
+
+from deprecated import deprecated
+
+from PAMI.AssociationRules.basic import abstract as _ab
+
 sys.setrecursionlimit(10**4)
 from itertools import combinations
+import time, psutil, os, validators, pandas as pd, urllib.request as urlopen   # whatever you aliased as _ab.*
+
 
 class confidence:
     """
@@ -164,98 +167,71 @@ class confidence:
         """
         self._iFile = iFile
         self._minConf = minConf
-        self._associationRules = {}
+        self._frequentPatterns = {}
+        self._associationRules = []
         self._sep = sep
 
     def _readPatterns(self):
         """
-        Reading the input file and storing all the frequent patterns and their support respectively in a frequentPatterns variable.
+        Populate self._frequentPatterns from a dataframe, URL or local text file.
+        Accepted line-format in files:  item1<sep>item2 ... : support
         """
-        self._associationRules = {}
-        if isinstance(self._iFile, _ab._pd.DataFrame):
-            pattern, support = [], []
-            if self._iFile.empty:
-                print("its empty..")
-            cols = self._iFile.columns.values.tolist()
-            for col in cols:
-                if 'pattern' in col.lower():
-                    pattern = self._iFile[col].tolist()
-                    # print("Using column: ", col, "for pattern")
-                if 'support' in col.lower():
-                    support = self._iFile[col].tolist()
-                    # print("Using column: ", col, "for support")
-            for i in range(len(pattern)):
-                # if pattern[i] != tuple(): exit()
-                if type(pattern[i]) != str:
-                    raise ValueError("Pattern should be a tuple. PAMI is going through a major revision.\
-                                      Please raise an issue in the github repository regarding this error and provide information regarding input and algorithm.\
-                                      In the meanwhile try saving the patterns to a file using (alg).save() and use the file as input. \
-                                      If that doesn't work, please raise an issue in the github repository.\
-                                      Got pattern: ", pattern[i], "at index: ", i, "in the dataframe, type: ", type(pattern[i]))
-                # s = tuple(sorted(pattern[i]))
-                s = pattern[i].split(self._sep)
-                s = tuple(sorted(s))
-                self._associationRules[s] = support[i]
-        if isinstance(self._iFile, str):
-            if _ab._validators.url(self._iFile):
-                f = _ab._urlopen(self._iFile)
-                for line in f:
-                    line = line.strip()
-                    line = line.split(':')
-                    s = line[0].split(self._sep)
-                    s = tuple(sorted(s))
-                    self._associationRules[s] = int(line[1])
-            else:
-                try:
-                    with open(self._iFile, 'r', encoding='utf-8') as f:
-                        for line in f:
-                            line = line.strip()
-                            line = line.split(':')
-                            s = line[0].split(self._sep)
-                            s = [x.strip() for x in s]
-                            s = tuple(sorted(s))
-                            self._associationRules[s] = int(line[1])
-                except IOError:
-                    print("File Not Found")
-                    quit()
-        # sorted(k, key=lambda x: self._frequentPatterns[x], reverse=True)
-        # return k
+        fp = {}  # local scratch
 
-    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
-    def startMine(self):
-        """
-        Association rule mining process will start from here
-        """
-        self.mine()
+        # ▸ dataframe input -----------------------------------------------------
+        if isinstance(self._iFile, pd.DataFrame):
+            pat_col = next(c for c in self._iFile.columns if 'pattern' in c.lower())
+            sup_col = next(c for c in self._iFile.columns if 'support' in c.lower())
+            for pat, sup in zip(self._iFile[pat_col], self._iFile[sup_col]):
+                pat = tuple(sorted(str(pat).split(self._sep)))
+                fp[pat] = int(sup)
 
+        # ▸ URL / local file input ---------------------------------------------
+        else:
+            fh = urlopen.urlopen(self._iFile) if validators.url(self._iFile) \
+                else open(self._iFile, encoding='utf-8')
+            with fh:
+                for line in fh:
+                    line = line.decode() if not isinstance(line, str) else line
+                    items, sup = line.strip().split(':')
+                    pat = tuple(sorted(x.strip() for x in items.split(self._sep) if x))
+                    fp[pat] = int(sup)
 
+        self._frequentPatterns = fp
 
     def mine(self):
         """
-        Association rule mining process will start from here
+        Create association rules that satisfy minConf.
+        Stores results in self._associationRules as a list of
+        (antecedent, consequent, support, confidence).
         """
-        self._startTime = _ab._time.time()
+        self._startTime = time.time()
         self._readPatterns()
 
-        keys = list(self._associationRules.keys())
+        for itemset, sup in self._frequentPatterns.items():
+            k = len(itemset)
+            if k < 2:           # singleton → no rule possible
+                continue
 
-        for i in range(len(self._associationRules)):
-            key = self._associationRules[keys[i]]
-            for idx in range(len(keys[i]) - 1, 0, -1):
-                for c in combinations(keys[i], r=idx):
-                    antecedent = c
-                    # consequent = keys[i] - antecedent
-                    conf = key / self._associationRules[antecedent]
+            # all non-empty proper subsets are candidate antecedents
+            for r in range(1, k):
+                for antecedent in combinations(itemset, r):
+                    antecedent = tuple(sorted(antecedent))
+                    consequent = tuple(sorted(set(itemset) - set(antecedent)))
+
+                    conf = sup / self._frequentPatterns[antecedent]
                     if conf >= self._minConf:
-                        self._associationRules[antecedent + tuple(['->']) + keys[i]] = conf
+                        self._associationRules.append(
+                            (antecedent, consequent, sup, conf)
+                        )
 
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
-        print("Association rules successfully  generated from frequent patterns ")
+        # bookkeeping
+        self._endTime   = time.time()
+        proc            = psutil.Process(os.getpid())
+        self._memoryUSS = proc.memory_full_info().uss
+        self._memoryRSS = proc.memory_info().rss
+        print("Association rules successfully generated")
+
 
     def getMemoryUSS(self):
         """
@@ -289,38 +265,35 @@ class confidence:
 
     def getAssociationRulesAsDataFrame(self):
         """
-        Storing final frequent patterns in a dataframe
+        Return a DataFrame with **four** columns:
+            Antecedent | Consequent | Support | Confidence
 
-        :return: returning frequent patterns in a dataframe
-        :rtype: pd.DataFrame
+        :return: DataFrame containing association rules
+        :rtype: pandas.DataFrame
         """
+        rows = [
+            {
+                "Antecedent": self._sep.join(ante),
+                "Consequent": self._sep.join(cons),
+                "Support":    sup,
+                "Confidence": conf,
+            }
+            for ante, cons, sup, conf in self._associationRules
+        ]
+        return pd.DataFrame(rows)
 
-        # dataFrame = {}
-        # data = []
-        # for a, b in self._finalPatterns.items():
-        #     data.append([a.replace('\t', ' '), b])
-        #     dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
-        # # dataFrame = dataFrame.replace(r'\r+|\n+|\t+',' ', regex=True)
-        # return dataFrame
-
-        # dataFrame = _ab._pd.DataFrame(list(self._associationRules.items()), columns=['Patterns', 'Support'])
-        # dataFrame = _ab._pd.DataFrame(list([[self._sep.join(x), y] for x,y in self._finalPatterns.items()]), columns=['Patterns', 'Support'])
-        dataFrame = _ab._pd.DataFrame(list([[self._sep.join(x), y] for x, y in self._associationRules.items()]), columns=['Patterns', 'Support'])
-        return dataFrame
-
-    def save(self, outFile: str) -> None:
+    def save(self, outFile:str):
         """
+        Write rules in the new text format:
 
-        Complete set of frequent patterns will be loaded in to an output file
-
-        :param outFile: name of the output file
-        :type outFile: csvfile
-        :return: None
+            itemA<sep>itemB -> itemC<sep>itemD : support : confidence
         """
-        with open(outFile, 'w') as f:
-            for x, y in self._associationRules.items():
-                x = self._sep.join(x)
-                f.write(f"{x} : {y}\n")
+        with open(outFile, 'w', encoding='utf-8') as f:
+            f.write("Antecedent -> Consequent : Support : Confidence\n")
+            for ante, cons, sup, conf in self._associationRules:
+                lhs = self._sep.join(ante)
+                rhs = self._sep.join(cons)
+                f.write(f"{lhs} -> {rhs} : {sup} : {conf:.6f}\n")
 
     def getAssociationRules(self):
         """
