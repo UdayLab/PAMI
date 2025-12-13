@@ -51,8 +51,7 @@ Copyright (C)  2021 Rage Uday Kiran
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from . import abstract as _ab
-
+from PAMI.frequentPattern.basic import abstract as _ab
 from typing import Dict, Union
 from deprecated import deprecated
 
