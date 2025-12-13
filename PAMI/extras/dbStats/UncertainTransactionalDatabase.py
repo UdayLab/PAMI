@@ -243,9 +243,15 @@ class UncertainTransactionalDatabase:
         :return: database sparsity
         :rtype: float
         """
-        big_array = self.convertDataIntoMatrix()
-        n_zeros = np.count_nonzero(big_array == 0)
-        return n_zeros / big_array.size
+        # big_array = self.convertDataIntoMatrix()
+        item_freq = self.getSortedListOfItemFrequencies()
+        total_cells = self.getDatabaseSize() * self.getTotalNumberOfItems()
+
+        # n_zeros = np.count_nonzero(big_array == 0)
+        non_zero_cells = sum(item_freq.values())
+
+        # return n_zeros / big_array.size
+        return (total_cells - non_zero_cells) / total_cells
 
     def getDensity(self) -> float:
         """
