@@ -258,10 +258,11 @@ class SequentialDatabase:
         an_array = np.array(data_)
         return an_array
 
-    def getSparsity(self):
+    def getSparsity(self) -> float:
         """
         get the sparsity of database. sparsity is percentage of 0 of database.
         :return: database sparsity
+        :rtype: float
         """
         # big_array = self.convertDataIntoMatrix()
         total_cells = self.getDatabaseSize() * self.getTotalNumberOfItems()

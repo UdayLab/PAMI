@@ -244,8 +244,8 @@ class UncertainTransactionalDatabase:
         :rtype: float
         """
         # big_array = self.convertDataIntoMatrix()
-        item_freq = self.getSortedListOfItemFrequencies()
         total_cells = self.getDatabaseSize() * self.getTotalNumberOfItems()
+        item_freq = self.getSortedListOfItemFrequencies()
 
         # n_zeros = np.count_nonzero(big_array == 0)
         non_zero_cells = sum(item_freq.values())
