@@ -245,20 +245,21 @@ class TransactionalDatabase:
         return an_array
 
     def getSparsity(self) -> float:
-        n_transactions = len(self.database)
+        """
+        get the sparsity of database. sparsity is percentage of 0 of database.
+        :return: database sparsity
+        :rtype: float
+        """
 
-        # Get the number of unique items
-        n_items = self.getTotalNumberOfItems()
+        # big_array = self.convertDataIntoMatrix()
+        total_cells = self.getDatabaseSize() * self.getTotalNumberOfItems()
+        item_freq = self.getSortedListOfItemFrequencies()
 
-        # If the database is empty, return 0.0
-        if n_transactions == 0 or n_items == 0:
-            return 0
+        # n_zeros = np.count_nonzero(big_array == 0)
+        non_zero_cells = sum(item_freq.values())
 
-        # Calculate Sparsity
-        matrix_size = n_transactions * n_items
-        total_present = sum(self.lengthList)
-
-        return 1.0 - (total_present / matrix_size)
+        # return n_zeros / big_array.size
+        return (total_cells - non_zero_cells) / total_cells
 
     def getDensity(self) -> float:
         """
