@@ -261,7 +261,6 @@ class sequentialDatabase:
         :return: database sparsity
         :rtype: float
         """
-
         # big_array = self.convertDataIntoMatrix()
         total_cells = self.getDatabaseSize() * self.getTotalNumberOfItems()
         item_freq = self.getSortedListOfItemFrequencies()
