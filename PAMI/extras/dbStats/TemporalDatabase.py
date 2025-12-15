@@ -252,20 +252,17 @@ class TemporalDatabase:
         return an_array
 
     def getSparsity(self) -> float:
-        """
-        get the sparsity of database. sparsity is percentage of 0 of database.
-        :return: database sparsity
-        :rtype: float
-        """
-        # big_array = self.convertDataIntoMatrix()
-        total_cells = self.getDatabaseSize() * self.getTotalNumberOfItems()
-        item_freq = self.getSortedListOfItemFrequencies()
+        n_transactions = len(self.database)
 
-        # n_zeros = np.count_nonzero(big_array == 0)
-        non_zero_cells = sum(item_freq.values())
+        n_items = self.getTotalNumberOfItems()
 
-        # return n_zeros / big_array.size
-        return (total_cells - non_zero_cells) / total_cells
+        if n_transactions == 0 or n_items == 0:
+            return 0
+
+        matrix_size = n_transactions * n_items
+        total_present = sum(self.lengthList)
+
+        return 1.0 - (total_present / matrix_size)
 
     def getDensity(self) -> float:
         """
