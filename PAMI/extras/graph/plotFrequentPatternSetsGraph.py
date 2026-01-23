@@ -78,21 +78,24 @@ class plotFrequentPatternSetsGraph:
         plt.savefig(oFile)
         plt.close()
 
-    def getStatistics(self) -> Dict[str, Union[int, float]]:
+    def getStatistics(self) -> None:
         if not self.patternCounts:
-            return {}
+            return None
 
-        return {
-            'totalPatterns': sum(self.patternCounts.values()),
-            'minPatternSize': min(self.patternCounts.keys()),
-            'maxPatternSize': max(self.patternCounts.keys()),
-            'patternSizeDistribution': self.patternCounts
-        }
+        minLen = min(self.patternCounts.keys())
+        maxLen = max(self.patternCounts.keys())
+
+        print("Statistics:")
+        print(f" Length range: {minLen}-{maxLen}")
+        print(" Pattern Size Distribution <size: #count>:")
+        for size, count in sorted(self.patternCounts.items()):
+            print(f"   {size}:{count}")
+        return None
 
 
 if __name__ == "__main__":
     samplePatterns = {
-        ('A',): 100,
+        ('A',): 110,
         ('B',): 150,
         ('C',): 120,
         ('A', 'B'): 80,
@@ -106,3 +109,4 @@ if __name__ == "__main__":
 
     obj = plotFrequentPatternSetsGraph(samplePatterns)
     obj.plot()
+    obj.getStatistics()
