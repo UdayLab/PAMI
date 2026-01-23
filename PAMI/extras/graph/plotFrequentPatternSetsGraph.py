@@ -27,6 +27,8 @@ Copyright (C)  2021 Rage Uday Kiran
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+import sys
+
 import matplotlib.pyplot as plt
 from typing import Dict, Union
 
@@ -94,19 +96,7 @@ class plotFrequentPatternSetsGraph:
 
 
 if __name__ == "__main__":
-    samplePatterns = {
-        ('A',): 110,
-        ('B',): 150,
-        ('C',): 120,
-        ('A', 'B'): 80,
-        ('A', 'C'): 70,
-        ('B', 'C'): 90,
-        ('A', 'B', 'C'): 50,
-        ('D',): 110,
-        ('A', 'D'): 60,
-        ('B', 'D'): 65,
-    }
-
-    obj = plotFrequentPatternSetsGraph(samplePatterns)
+    # Usage: python plotFrequentPatternSetsGraph.py patterns.txt
+    obj = plotFrequentPatternSetsGraph(sys.argv[1])
     obj.plot()
     obj.getStatistics()
