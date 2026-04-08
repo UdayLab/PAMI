@@ -55,7 +55,7 @@ from PAMI.fuzzyFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 from deprecated import deprecated
 
-class FFIMiner(_ab._fuzzyFrequentPattenrs):
+class FFIMiner(_ab._fuzzyFrequentPatterns):
     """
     **About this algorithm**
 

@@ -41,7 +41,7 @@ from urllib.request import urlopen as _urlopen
 import functools as _functools
 
 
-class _fuzzyFrequentPattenrs(_ABC):
+class _fuzzyFrequentPatterns(_ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
         employ in PAMI
 
