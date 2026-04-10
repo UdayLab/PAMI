@@ -330,7 +330,7 @@ class TransactionalDatabase:
         print(f'Variance in Transaction Sizes : {self.getVarianceTransactionLength()}')
         print(f'Sparsity : {self.getSparsity()}')
   
-    def plotGraphs(self) -> None:
+    def plotGraphs(self, allTicks: bool = False) -> None:
         # itemFrequencies = self.getFrequenciesInRange()
         transactionLength = self.getTransanctionalLengthDistribution()
         plt.plotLineGraphFromDictionary(self.itemFrequencies, 100, 0, 'Frequency', 'No of items', 'frequency')
@@ -345,7 +345,8 @@ class TransactionalDatabase:
         plta.title('Transaction length')
         plta.xlabel('Length (#items)')
         plta.ylabel('Frequency')
-        plta.xticks(lengths)  # show every actual length
+        if allTicks:
+            plta.xticks(lengths) # show every actual length
         plta.grid(True, axis='y', alpha=0.3)
         plta.tight_layout()
         plta.show()
