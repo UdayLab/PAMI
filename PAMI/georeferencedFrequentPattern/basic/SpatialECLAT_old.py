@@ -30,6 +30,9 @@
 #             print("Total ExecutionTime in seconds:", run)
 #
 
+
+
+
 __copyright__ = """
 Copyright (C)  2021 Rage Uday Kiran
 
@@ -68,6 +71,8 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
                    Name of the output file to store complete set of Geo-referenced frequent patterns
     :param  minSup: int or float or str :
                    The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param maxPer: float :
+                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
     :param nFile: str :
                    Name of the input file to mine complete set of Geo-referenced frequent patterns
     :param  sep: str :
@@ -127,7 +132,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         generateSpatialFrequentPatterns(tidList)
             It will generate the combinations of frequent items from a list of items
         convert(value)
-            To convert the given user specified value
+            To convert the given user specified value    
         getNeighbourItems(keySet)
             A function to get common neighbours of a itemSet
         mapNeighbours(file)
@@ -140,11 +145,11 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
 
       Format:
 
-      (.venv) $ python3 SpatialECLAT.py <inputFile> <outputFile> <neighbourFile> <minSup>
+      (.venv) $ python3 SpatialECLAT_old.py <inputFile> <outputFile> <neighbourFile> <minSup>
 
       Example Usage:
 
-      (.venv) $ python3 SpatialECLAT.py sampleTDB.txt output.txt sampleN.txt 0.5
+      (.venv) $ python3 SpatialECLAT_old.py sampleTDB.txt output.txt sampleN.txt 0.5
 
     .. note:: minSup will be considered in percentage of database transactions
 
@@ -155,7 +160,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
     .. code-block:: python
 
         from PAMI.georeferencedFrequentPattern.basic import SpatialECLAT as alg
-
+        
         obj = alg.SpatialECLAT("sampleTDB.txt", "sampleN.txt", 5)
 
         obj.mine()
@@ -177,6 +182,11 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         run = obj.getRuntime()
 
         print("Total ExecutionTime in seconds:", run)
+
+
+    **Credits:**
+    ----------------
+        The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
     """
 
     _minSup = float()
@@ -208,7 +218,6 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
                 self._Database = self._iFile['Transactions'].tolist()
             if 'Patterns' in i:
                 self._Database = self._iFile['Patterns'].tolist()
-
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
@@ -229,6 +238,21 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
                 except IOError:
                     print("File Not Found")
                     quit()
+
+    # function to get frequent one pattern
+    def _frequentOneItem(self):
+        """
+        Generating one frequent patterns
+        """
+        self._finalPatterns = {}
+        candidate = {}
+        for i in range(len(self._Database)):
+            for j in range(len(self._Database[i])):
+                if self._Database[i][j] not in candidate:
+                    candidate[self._Database[i][j]] = [i]
+                else:
+                    candidate[self._Database[i][j]] += [i]
+        self._finalPatterns = {keys: value for keys, value in candidate.items() if len(value) >= self._minSup}
 
     def _convert(self, value):
         """
@@ -251,6 +275,101 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
                 value = int(value)
         return value
 
+    @staticmethod
+    def _dictKeysToInt(iList):
+        """
+        Converting dictionary keys to integer elements
+
+        :param iList: Dictionary with patterns as keys and their support count as a value
+        :type iList: dict
+        :returns: list of integer patterns to represent dictionary keys
+        :rtype: list
+        """
+
+        temp = []
+        for ite in iList.keys():
+            ite = [int(i) for i in ite.strip('[]').split('\t')]
+            temp.append(ite)
+            # print(sorted(temp))
+        return sorted(temp)
+
+    def _eclatGeneration(self, cList):
+        """It will generate the combinations of frequent items
+
+        :param cList :it represents the items with their respective transaction identifiers
+        :type cList: dictionary
+        :return: returning transaction dictionary
+        :rtype: dict
+        """
+        # to generate all
+        tidList = {}
+        key = list(cList.keys())
+        for i in range(0, len(key)):
+            NeighboursItems = self._getNeighbourItems(key[i])
+            for j in range(i + 1, len(key)):
+                # print(c[key[i]],c[key[j]])
+                if not key[j] in NeighboursItems:
+                    continue
+                intersectionList = list(set(cList[key[i]]).intersection(set(cList[key[j]])))
+                itemList = []
+                itemList += key[i]
+                itemList += key[j]
+                if len(intersectionList) >= self._minSup:
+                    itemList.sort()
+                    if tuple(itemList) not in tidList:
+                        tidList[tuple(set(itemList))] = intersectionList
+        return tidList
+
+    def _generateSpatialFrequentPatterns(self, tidList):
+        """
+        It will generate the combinations of frequent items from a list of items
+
+        :param tidList: it represents the items with their respective transaction identifiers
+        :type tidList: dictionary
+        :return: returning transaction dictionary
+        :rtype: dict
+        """
+        tidList1 = {}
+        if len(tidList) == 0:
+            print("There are no more candidate sets")
+        else:
+            key = list(tidList.keys())
+            for i in range(0, len(key)):
+                NeighboursItems = self._getNeighbourItems(key[i])
+                for j in range(i + 1, len(key)):
+                    if not key[j] in NeighboursItems:
+                        continue
+                    intersectionList = list(set(tidList[key[i]]).intersection(set(tidList[key[j]])))
+                    itemList = []
+                    if len(intersectionList) >= self._minSup:
+                        itemList += key[i], key[j]
+                        itemList.sort()
+                        tidList1[tuple(itemList)] = intersectionList
+
+        return tidList1
+
+    def _getNeighbourItems(self, keySet):
+        """
+        A function to get Neighbours of a item
+
+        :param keySet: itemSet
+        :type keySet: str or tuple
+        :return: set of common neighbours
+        :rtype: set
+        """
+        itemNeighbours = self._NeighboursMap.keys()
+        if isinstance(keySet, str):
+            if self._NeighboursMap.get(keySet) is None:
+                return []
+            itemNeighbours = list(set(itemNeighbours).intersection(set(self._NeighboursMap.get(keySet))))
+        if isinstance(keySet, tuple):
+            keySet = list(keySet)
+            # print(keySet)
+            for j in range(0, len(keySet)):
+                i = keySet[j]
+                itemNeighbours = list(set(itemNeighbours).intersection(set(self._NeighboursMap.get(i))))
+        return itemNeighbours
+
     def _mapNeighbours(self):
         """
         A function to map items to their Neighbours
@@ -267,7 +386,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
                 data = self._nFile['Neighbours'].tolist()
             for k in range(len(items)):
                 self._NeighboursMap[items[k]] = data[k]
-
+            # print(self.Database)
         if isinstance(self._nFile, str):
             if _ab._validators.url(self._nFile):
                 data = _ab._urlopen(self._nFile)
@@ -276,113 +395,59 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
                     line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self._NeighboursMap[temp[0]] = set(temp[1:])
-                    self._NeighboursMap[temp[0]].add(temp[0])
+                    self._NeighboursMap[temp[0]] = temp[1:]
             else:
                 try:
                     with open(self._nFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            parts = line.strip().split(self._sep)
-                            if len(parts) < 1: continue
-                            item = parts[0]
-                            # Optimization: Use Sets for O(1) lookup
-                            neighbors = set(parts[1:])
-                            neighbors.add(item)
-                            self._NeighboursMap[item] = neighbors
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self._sep)]
+                            temp = [x for x in temp if x]
+                            self._NeighboursMap[temp[0]] = temp[1:]
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def _getNeighbourItems(self, pattern):
-        """
-        Optimized function to get Neighbors of a item set
-        """
-        if not pattern: return set()
-
-        #Fast lookup using sets
-        common = self._NeighboursMap.get(pattern[0], set())
-        for i in range(1, len(pattern)):
-            neighs = self._NeighboursMap.get(pattern[i], set())
-            common = common.intersection(neighs)
-            if not common: break
-        return common
-
-    @deprecated(
-        "It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self):
         """
         Frequent pattern mining process will start from here
         """
+
         self.mine()
 
     def mine(self):
         """
         Frequent pattern mining process will start from here
         """
-        self._startTime = _ab._time.time()
 
+        # global items_sets, endTime, startTime
+        self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
-
         self._creatingItemSets()
         self._minSup = self._convert(self._minSup)
         self._mapNeighbours()
-
-        # Use Sets for Vertical DB
-        tid_list = {}
-        for r_idx, trans in enumerate(self._Database):
-            for item in trans:
-                if item not in tid_list: tid_list[item] = set()
-                tid_list[item].add(r_idx)
-
-        frequent_1_items = {}
-        for item, tids in tid_list.items():
-            if len(tids) >= self._minSup:
-                frequent_1_items[(item,)] = tids
-                self._finalPatterns[(item,)] = len(tids)
-
-        # Start Optimized DFS
-        self._dfs(frequent_1_items)
-
+        self._finalPatterns = {}
+        self._frequentOneItem()
+        frequentSet = self._generateSpatialFrequentPatterns(self._finalPatterns)
+        for x, y in frequentSet.items():
+            if x not in self._finalPatterns:
+                self._finalPatterns[x] = y
+        while 1:
+            frequentSet = self._eclatGeneration(frequentSet)
+            for x, y in frequentSet.items():
+                if x not in self._finalPatterns:
+                    self._finalPatterns[x] = y
+            if len(frequentSet) == 0:
+                break
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
         print("Spatial Frequent patterns were generated successfully using SpatialECLAT algorithm")
-
-    def _dfs(self, current_level_patterns):
-        """
-        Recursive Depth First Search with Optimized Spatial Pruning
-        """
-        patterns = sorted(list(current_level_patterns.keys()))
-
-        for i in range(len(patterns)):
-            pattern_a = patterns[i]
-            tids_a = current_level_patterns[pattern_a]
-
-            # Spatial Pruning (Fastest check first)
-            valid_neighbors = self._getNeighbourItems(pattern_a)
-
-            for j in range(i + 1, len(patterns)):
-                pattern_b = patterns[j]
-
-                # Prefix Check
-                if pattern_a[:-1] != pattern_b[:-1]: continue
-
-                item_b = pattern_b[-1]
-
-                # Spatial Check (O(1) Lookup)
-                if item_b not in valid_neighbors: continue
-
-                # Support Check (Intersection)
-                tids_b = current_level_patterns[pattern_b]
-                intersection = tids_a.intersection(tids_b)
-                support = len(intersection)
-
-                if support >= self._minSup:
-                    new_pattern = pattern_a + (item_b,)
-                    self._finalPatterns[new_pattern] = support
-                    self._dfs({new_pattern: intersection})
 
     def getMemoryUSS(self):
         """
@@ -391,6 +456,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
+
         return self._memoryUSS
 
     def getMemoryRSS(self):
@@ -400,6 +466,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
+
         return self._memoryRSS
 
     def getRuntime(self):
@@ -409,6 +476,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
+
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
@@ -418,6 +486,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
+
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
@@ -427,8 +496,6 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
             if type(a) == list:
                 for _ in a:
                     pat = pat + a + ' '
-            if type(a) == tuple:
-                pat = " ".join(a)
             data.append([pat.strip(), b])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
@@ -444,11 +511,12 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
             pat = str()
-            if isinstance(x, str):
-                pat = x
-            if isinstance(x, tuple) or isinstance(x, list):
-                pat = "\t".join(x)
-            patternsAndSupport = pat.strip() + ":" + str(y)
+            if type(x) == str:
+                pat = x 
+            if type(x) == list:
+                for _ in x:
+                    pat = pat + x + '\t'
+            patternsAndSupport = pat.strip() + ":" + str(len(y))
             writer.write("%s \n" % patternsAndSupport)
 
     def getPatterns(self):
@@ -467,7 +535,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         print("Total number of Spatial Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
-        print("Total ExecutionTime in ms:", self.getRuntime())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
 
 
 if __name__ == "__main__":
@@ -477,6 +545,7 @@ if __name__ == "__main__":
             _ap = SpatialECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
             _ap = SpatialECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+        _ap.mine()
         _ap.mine()
         print("Total number of Spatial Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
