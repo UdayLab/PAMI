@@ -222,11 +222,20 @@ class Aprioribitset(_ab._frequentPatterns):
         :param maxIndex: It converts the data into bits By taking the maxIndex value as condition.
         :type maxIndex: int
         """
-        packed_bits = 0
+        s = ['0'] * (maxIndex + 1)
         for i in data:
-            packed_bits |= 1 << (maxIndex - i)
+            s[i] = '1'
+        return int(''.join(s), 2)
 
-        return packed_bits
+    @staticmethod
+    def _popcount(x):
+        """
+        Count set bits in a Python big int
+        """
+        try:
+            return x.bit_count()
+        except AttributeError:
+            return bin(x).count('1')
 
     def mine(self, memorySaver = True) -> None:
         """
@@ -234,6 +243,7 @@ class Aprioribitset(_ab._frequentPatterns):
         """
         self._startTime = _ab._time.time()
 
+        self._finalPatterns = {}
         self._Database = []
 
         self._creatingItemSets()
@@ -256,7 +266,6 @@ class Aprioribitset(_ab._frequentPatterns):
                 self._finalPatterns[key] = len(items[key])
                 cands.append(key)
                 items[key] = self._bitPacker(items[key], index)
-                # print(key, items[key])
             else:
                 break
 
@@ -270,7 +279,7 @@ class Aprioribitset(_ab._frequentPatterns):
                             intersection = items[tuple([newCand[0]])]
                             for k in range(1, len(newCand)):
                                 intersection &= items[tuple([newCand[k]])]
-                            count = int.bit_count(intersection)
+                            count = self._popcount(intersection)
                             if count >= self._minSup:
                                 newCands.append(newCand)
                                 self._finalPatterns[newCand] = count
@@ -285,11 +294,8 @@ class Aprioribitset(_ab._frequentPatterns):
                     for j in range(i + 1, len(cands)):
                         if cands[i][:-1] == cands[j][:-1]:
                             newCand = tuple(cands[i] + tuple([cands[j][-1]]))
-                            # intersection = items[tuple([newCand[0]])]
-                            # for k in range(1, len(newCand)):
-                            #     intersection &= items[tuple([newCand[k]])]
                             intersection = items[cands[i]] & items[cands[j]]
-                            count = int.bit_count(intersection)
+                            count = self._popcount(intersection)
                             if count >= self._minSup:
                                 newCands.append(newCand)
                                 self._finalPatterns[newCand] = count
