@@ -225,12 +225,21 @@ class ECLATbitset(_ab._frequentPatterns):
         :param maxIndex: It converts the data into bits By taking the maxIndex value as condition.
         :type maxIndex: int
         """
-        packed_bits = 0
+        s = ['0'] * (maxIndex + 1)
         for i in data:
-            packed_bits |= 1 << (maxIndex - i)
+            s[i] = '1'
+        return int(''.join(s), 2)
 
-        return packed_bits
-    
+    @staticmethod
+    def _popcount(x):
+        """
+        Count set bits in a Python big int
+        """
+        try:
+            return x.bit_count()
+        except AttributeError:
+            return bin(x).count('1')
+
     def __recursive(self, items, cands, memorySaver):
         """
 
@@ -251,7 +260,7 @@ class ECLATbitset(_ab._frequentPatterns):
                     intersection = items[tuple([newCand[0]])]
                     for k in newCand[1:]:
                         intersection &= items[tuple([k])]
-                    count = int.bit_count(intersection)
+                    count = self._popcount(intersection)
                     if count >= self._minSup:
                         newCands.append(newCand)
                         self._finalPatterns[newCand] = count
@@ -263,7 +272,7 @@ class ECLATbitset(_ab._frequentPatterns):
                 for j in range(i + 1, len(cands)):
                     newCand = tuple(cands[i] + tuple([cands[j][-1]]))
                     intersection = items[cands[i]] & items[cands[j]]
-                    count = int.bit_count(intersection)
+                    count = self._popcount(intersection)
                     if count >= self._minSup:
                         newCands.append(newCand)
                         self._finalPatterns[newCand] = count
@@ -271,13 +280,14 @@ class ECLATbitset(_ab._frequentPatterns):
                 if len(newCands) > 1:
                     self.__recursive(items, newCands, memorySaver)
 
-    def mine(self, memorySaver = True) -> None:
+    def mine(self, memorySaver=True) -> None:
         """
         Frequent pattern mining process will start from here
         # Bitset implementation
         """
         self._startTime = _ab._time.time()
 
+        self._finalPatterns = {}
         self._Database = []
 
         self._creatingItemSets()
@@ -303,9 +313,7 @@ class ECLATbitset(_ab._frequentPatterns):
             else:
                 break
 
-
         self.__recursive(items, cands, memorySaver)
-        
 
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
