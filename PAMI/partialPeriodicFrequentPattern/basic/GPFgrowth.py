@@ -313,14 +313,13 @@ class GPFgrowth(partialPeriodicPatterns, ABC):
         :type arr: array
         :return: locs
         """
-        arr = list(arr) + [self._maxTS, 0]
-        arr = list(set(arr))
-        arr = np.sort(arr)
-        arr = np.diff(arr)
-
-        locs = len(np.where(arr <= self._partialPeriodicPatterns__maxPer)[0])
-
-        return locs
+        arr = list(set(arr)) + [self._maxTS, 0]
+        sorted_arr = sorted(arr)
+        count = 0
+        for i in range(1, len(sorted_arr)):
+            if sorted_arr[i] - sorted_arr[i-1] <= self._partialPeriodicPatterns__maxPer:
+                count += 1
+        return count
     
     def _construct(self, items, data):
 
