@@ -55,7 +55,7 @@ from PAMI.fuzzyFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 from deprecated import deprecated
 
-class FFIMiner(_ab._fuzzyFrequentPattenrs):
+class FFIMiner(_ab._fuzzyFrequentPatterns):
     """
     **About this algorithm**
 
@@ -261,13 +261,15 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         """
         for i in range(len(cands)):
             newCands = []
+            cand_i_db = self._Database[cands[i]]
+            cand_i_keys = cand_i_db.keys()
             for j in range(i + 1, len(cands)):
-                newCand = tuple(cands[i] + tuple([cands[j][-1]]))
-                # print(items[cands[i]], items[cands[j]])
-                newCandItems = {}
-                keys = self._Database[cands[i]].keys() & self._Database[cands[j]].keys()
-                for k in keys:
-                    newCandItems[k] = min(self._Database[cands[i]][k], self._Database[cands[j]][k])
+                cand_j_db = self._Database[cands[j]]
+                keys = cand_i_keys & cand_j_db.keys()
+                if not keys:
+                    continue
+                newCand = cands[i] + (cands[j][-1],)
+                newCandItems = {k: cand_i_db[k] if cand_i_db[k] < cand_j_db[k] else cand_j_db[k] for k in keys}
                 count = sum(newCandItems.values())
                 if count >= self._minSup:
                     newCands.append(newCand)
@@ -282,17 +284,15 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         """
         self._startTime = _ab._time.time()
         items = {}
-        lineNo = 0
         self._creatingItemsets()
 
         self._dbLen = len(self._transactions)
-        for transactions, fuzzyValues in zip(self._transactions, self._fuzzyValues):
+        for lineNo, (transactions, fuzzyValues) in enumerate(zip(self._transactions, self._fuzzyValues)):
             for item, fuzzyValue in zip(transactions, fuzzyValues):
-                item = tuple([item])
+                item = (item,)
                 if item not in items:
                     items[item] = {}
                 items[item][lineNo] = fuzzyValue
-            lineNo += 1
 
         self._minSup = self._convert(self._minSup)
         self._Database = items.copy()
