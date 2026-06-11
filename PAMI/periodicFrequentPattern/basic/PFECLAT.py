@@ -245,11 +245,22 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         self.mine()
 
     def _getMaxPer(self, arr, maxTS):
-        arr = np.append(list(arr), [0, maxTS])
-        arr = np.sort(arr)
-        arr = np.diff(arr)
-
-        return np.max(arr)
+        if not arr:
+            return maxTS
+            
+        sorted_arr = sorted(arr)
+        max_per = sorted_arr[0]
+        
+        for i in range(1, len(sorted_arr)):
+            per = sorted_arr[i] - sorted_arr[i-1]
+            if per > max_per:
+                max_per = per
+                
+        last_per = maxTS - sorted_arr[-1]
+        if last_per > max_per:
+            max_per = last_per
+            
+        return max_per
 
     def mine(self) -> None:
         """
