@@ -30,6 +30,7 @@
 #             print("Total ExecutionTime in seconds:", run)
 #
 
+
 __copyright__ = """
 Copyright (C)  2021 Rage Uday Kiran
 
@@ -68,6 +69,8 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
                    Name of the output file to store complete set of Geo-referenced frequent patterns
     :param  minSup: int or float or str :
                    The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param maxPer: float :
+                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
     :param nFile: str :
                    Name of the input file to mine complete set of Geo-referenced frequent patterns
     :param  sep: str :
@@ -118,14 +121,6 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
             Total amount of runtime taken by the mining process will be retrieved from this function
         creatingItemSets(iFileName)
             Storing the complete transactions of the database/input file in a database variable
-        frequentOneItem()
-            Generating one frequent patterns
-        dictKeysToInt(iList)
-            Converting dictionary keys to integer elements
-        eclatGeneration(cList)
-            It will generate the combinations of frequent items
-        generateSpatialFrequentPatterns(tidList)
-            It will generate the combinations of frequent items from a list of items
         convert(value)
             To convert the given user specified value
         getNeighbourItems(keySet)
@@ -177,6 +172,11 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         run = obj.getRuntime()
 
         print("Total ExecutionTime in seconds:", run)
+
+
+    **Credits:**
+    ----------------
+        The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
     """
 
     _minSup = float()
@@ -194,6 +194,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
     def __init__(self, iFile, nFile, minSup, sep="\t"):
         super().__init__(iFile, nFile, minSup, sep)
         self._NeighboursMap = {}
+        self._finalPatterns = {}
 
     def _creatingItemSets(self):
         """
@@ -213,19 +214,19 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
                 for line in data:
-                    line.strip()
                     line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self._Database.append(temp)
+                    if temp:
+                        self._Database.append(temp)
             else:
                 try:
                     with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            line.strip()
                             temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            self._Database.append(temp)
+                            if temp:
+                                self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -261,54 +262,65 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
             if self._nFile.empty:
                 print("its empty..")
             i = self._nFile.columns.values.tolist()
-            if 'item' in i:
+            if 'items' in i:
                 items = self._nFile['items'].tolist()
             if 'Neighbours' in i:
                 data = self._nFile['Neighbours'].tolist()
             for k in range(len(items)):
-                self._NeighboursMap[items[k]] = data[k]
+                item = items[k]
+                neighbours = set(data[k])
+                neighbours.add(item)
+                self._NeighboursMap[item] = neighbours
 
         if isinstance(self._nFile, str):
             if _ab._validators.url(self._nFile):
                 data = _ab._urlopen(self._nFile)
                 for line in data:
-                    line.strip()
                     line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self._NeighboursMap[temp[0]] = set(temp[1:])
-                    self._NeighboursMap[temp[0]].add(temp[0])
+                    if not temp:
+                        continue
+                    neighbours = set(temp[1:])
+                    neighbours.add(temp[0])
+                    self._NeighboursMap[temp[0]] = neighbours
             else:
                 try:
                     with open(self._nFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            parts = line.strip().split(self._sep)
-                            if len(parts) < 1: continue
+                            parts = [i.rstrip() for i in line.strip().split(self._sep)]
+                            parts = [x for x in parts if x]
+                            if not parts:
+                                continue
                             item = parts[0]
-                            # Optimization: Use Sets for O(1) lookup
-                            neighbors = set(parts[1:])
-                            neighbors.add(item)
-                            self._NeighboursMap[item] = neighbors
+                            neighbours = set(parts[1:])
+                            neighbours.add(item)
+                            self._NeighboursMap[item] = neighbours
                 except IOError:
                     print("File Not Found")
                     quit()
 
     def _getNeighbourItems(self, pattern):
         """
-        Optimized function to get Neighbors of a item set
-        """
-        if not pattern: return set()
+        A function to get common neighbours of a itemSet
 
-        #Fast lookup using sets
+        :param pattern: current pattern
+        :type pattern: tuple
+        :return: set of common neighbour items
+        :rtype: set
+        """
+        if not pattern:
+            return set()
         common = self._NeighboursMap.get(pattern[0], set())
         for i in range(1, len(pattern)):
-            neighs = self._NeighboursMap.get(pattern[i], set())
-            common = common.intersection(neighs)
-            if not common: break
+            common = common.intersection(self._NeighboursMap.get(pattern[i], set()))
+            if not common:
+                break
         return common
 
     @deprecated(
-        "It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
+        "It is recommended to use 'mine()' instead of 'startMine()' for the mining process. "
+        "Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
         """
         Frequent pattern mining process will start from here
@@ -320,6 +332,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         Frequent pattern mining process will start from here
         """
         self._startTime = _ab._time.time()
+        self._finalPatterns = {}
 
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -328,21 +341,21 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         self._minSup = self._convert(self._minSup)
         self._mapNeighbours()
 
-        # Use Sets for Vertical DB
         tid_list = {}
         for r_idx, trans in enumerate(self._Database):
             for item in trans:
-                if item not in tid_list: tid_list[item] = set()
+                if item not in tid_list:
+                    tid_list[item] = set()
                 tid_list[item].add(r_idx)
 
-        frequent_1_items = {}
-        for item, tids in tid_list.items():
+        frequent_items = []
+        for item in sorted(tid_list):
+            tids = tid_list[item]
             if len(tids) >= self._minSup:
-                frequent_1_items[(item,)] = tids
                 self._finalPatterns[(item,)] = len(tids)
+                frequent_items.append(((item,), tids))
 
-        # Start Optimized DFS
-        self._dfs(frequent_1_items)
+        self._dfs(frequent_items)
 
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
@@ -350,39 +363,32 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Spatial Frequent patterns were generated successfully using SpatialECLAT algorithm")
 
-    def _dfs(self, current_level_patterns):
+    def _dfs(self, siblings):
         """
-        Recursive Depth First Search with Optimized Spatial Pruning
+        Recursive depth-first search.
         """
-        patterns = sorted(list(current_level_patterns.keys()))
+        for i in range(len(siblings)):
+            pattern_a, tids_a = siblings[i]
 
-        for i in range(len(patterns)):
-            pattern_a = patterns[i]
-            tids_a = current_level_patterns[pattern_a]
+            valid_neighbours = self._getNeighbourItems(pattern_a)
 
-            # Spatial Pruning (Fastest check first)
-            valid_neighbors = self._getNeighbourItems(pattern_a)
-
-            for j in range(i + 1, len(patterns)):
-                pattern_b = patterns[j]
-
-                # Prefix Check
-                if pattern_a[:-1] != pattern_b[:-1]: continue
-
+            children = []
+            for j in range(i + 1, len(siblings)):
+                pattern_b, tids_b = siblings[j]
                 item_b = pattern_b[-1]
 
-                # Spatial Check (O(1) Lookup)
-                if item_b not in valid_neighbors: continue
+                if item_b not in valid_neighbours:
+                    continue
 
-                # Support Check (Intersection)
-                tids_b = current_level_patterns[pattern_b]
                 intersection = tids_a.intersection(tids_b)
                 support = len(intersection)
-
                 if support >= self._minSup:
                     new_pattern = pattern_a + (item_b,)
                     self._finalPatterns[new_pattern] = support
-                    self._dfs({new_pattern: intersection})
+                    children.append((new_pattern, intersection))
+
+            if children:
+                self._dfs(children)
 
     def getMemoryUSS(self):
         """
@@ -418,38 +424,34 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
-        dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            pat = str()
-            if type(a) == str:
+            if isinstance(a, str):
                 pat = a
-            if type(a) == list:
-                for _ in a:
-                    pat = pat + a + ' '
-            if type(a) == tuple:
-                pat = " ".join(a)
+            elif isinstance(a, (tuple, list)):
+                pat = " ".join(str(x) for x in a)
+            else:
+                pat = str(a)
             data.append([pat.strip(), b])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
-        return dataFrame
+        return _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
 
     def save(self, outFile):
         """
         Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
-        :type outFile: csv file
+        :type outFile: str
         """
         self._oFile = outFile
-        writer = open(self._oFile, 'w+')
-        for x, y in self._finalPatterns.items():
-            pat = str()
-            if isinstance(x, str):
-                pat = x
-            if isinstance(x, tuple) or isinstance(x, list):
-                pat = "\t".join(x)
-            patternsAndSupport = pat.strip() + ":" + str(y)
-            writer.write("%s \n" % patternsAndSupport)
+        with open(self._oFile, 'w+', encoding='utf-8') as writer:
+            for x, y in self._finalPatterns.items():
+                if isinstance(x, str):
+                    pat = x
+                elif isinstance(x, (tuple, list)):
+                    pat = "\t".join(str(i) for i in x)
+                else:
+                    pat = str(x)
+                writer.write("%s:%s \n" % (pat.strip(), str(y)))
 
     def getPatterns(self):
         """
@@ -467,7 +469,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         print("Total number of Spatial Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
-        print("Total ExecutionTime in ms:", self.getRuntime())
+        print("Total ExecutionTime in seconds:", self.getRuntime())
 
 
 if __name__ == "__main__":
