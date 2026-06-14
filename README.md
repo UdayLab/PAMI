@@ -443,14 +443,14 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 | WFRIMiner <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/weightedFrequentRegularPatterns/basic/WFRI.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
 
-#### 4.8. Weighted frequent neighbourhood pattern mining: [Sample](https://github.com/UdayLab/PAMI/blob/main/docs/weightedSpatialFrequentPattern.html)
+#### 4.8. Weighted frequent neighbourhood pattern mining: [Sample](https://udaylab.github.io/PAMI/weightedSpatialFrequentPattern.html)
 
 | Basic       |
 |-------------|
 | SSWFPGrowth |
 
 ### 5. Mining  patterns from fuzzy transactional/temporal/geo-referenced databases
-#### 5.1. Fuzzy Frequent pattern mining: [Sample](https://github.com/UdayLab/PAMI/fuzzyFrequentPatternMining.html)
+#### 5.1. Fuzzy Frequent pattern mining: [Sample](https://udaylab.github.io/PAMI/fuzzyFrequentPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                   |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -464,19 +464,19 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 | FCP-growth <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/fuzzyCorrelatedPattern/basic/FCPGrowth.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
 
-#### 5.3. Fuzzy geo-referenced frequent pattern mining: [Sample](https://github.com/UdayLab/PAMI/fuzzyFrequentSpatialPatternMining.html)
+#### 5.3. Fuzzy geo-referenced frequent pattern mining: [Sample](https://udaylab.github.io/PAMI/fuzzyFrequentSpatialPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                                  |
 |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | FFSP-Miner <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/fuzzyGeoreferencedFrequentPattern/basic/FFSPMiner.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
-#### 5.4. Fuzzy periodic frequent pattern mining: [Sample](https://github.com/UdayLab/PAMI/fuzzyPeriodicFrequentPatternMining.html)
+#### 5.4. Fuzzy periodic frequent pattern mining: [Sample](https://udaylab.github.io/PAMI/fuzzyPeriodicFrequentPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                             |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | FPFP-Miner <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/fuzzyPeriodicFrequentPattern/basic/FPFPMiner.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
-#### 5.5. Fuzzy geo-referenced periodic frequent pattern mining: [Sample](https://github.com/UdayLab/PAMI/fuzzySpatialPeriodicFrequentPatternMining.html)
+#### 5.5. Fuzzy geo-referenced periodic frequent pattern mining: [Sample](https://udaylab.github.io/PAMI/fuzzySpatialPeriodicFrequentPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                                                                 |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -510,7 +510,7 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 
 ### 7. Mining patterns from sequence databases
 
-#### 7.1. Sequence frequent pattern mining: [Sample](https://github.com/UdayLab/PAMI/blob/main/docs/weightedSpatialFrequentPattern.html)
+#### 7.1. Sequence frequent pattern mining: [Sample](https://udaylab.github.io/PAMI/sequentialFrequentPatternMining.html)
     
 | Basic                                                                                                                                                                                                                                                       |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
