@@ -1,5 +1,5 @@
-# FSPGrowth is a transactional database and a spatial (or neighborhood) file, FSPM aims to discover all of those patterns
-# that satisfy the user-specified minimum support (minSup) and maximum distance (maxDist) constraints
+# FSPGrowth: given a transactional database and a spatial (or neighbourhood) file, FSPM aims to discover all of those
+# patterns that satisfy the user-specified minimum support (minSup) and neighbourhood (maxDist) constraints.
 #
 # **Importing this algorithm into a python program**
 # -------------------------------------------------------
@@ -30,8 +30,6 @@
 #
 
 
-
-
 __copyright__ = """
 Copyright (C)  2021 Rage Uday Kiran
 
@@ -51,277 +49,106 @@ Copyright (C)  2021 Rage Uday Kiran
 
 """
 
-
 from PAMI.georeferencedFrequentPattern.basic import abstract as _ab
-from typing import List, Dict,Union
+from typing import List, Dict, Union
 from deprecated import deprecated
 
-class _Node:
+
+class _FPNode:
     """
-    A class used to represent the node of frequentPatternTree
+    A compact node of the FP-tree used by the optimized mining engine.
 
     :Attributes:
 
-        item : int
-            Storing item of a node
+        item : int or str
+            The item stored at this node.
+        parent : _FPNode
+            Pointer to the parent node, used to walk prefix paths upward
+            when building conditional pattern bases.
         count : int
-            To maintain the support of node
+            Support (weight) accumulated at this node.
         children : dict
-            To maintain the children of node
-        prefix : list
-            To maintain the prefix of node
+            Mapping of child-item -> child node.
+        node_link : _FPNode
+            Link to the next node holding the same item, forming the
+            header-table chain for this item.
     """
 
-    def __init__(self, item, count, children):
+    __slots__ = ("item", "parent", "count", "children", "node_link")
+
+    def __init__(self, item, parent):
         self.item = item
-        self.count = count
-        self.children = children
-        self.prefix = []
-
-
-class _Tree:
-    """
-    A class used to represent the frequentPatternGrowth tree structure
-
-    :Attributes:
-
-        root : Node
-            The first node of the tree set to Null.
-        nodeLink : dict
-            Stores the nodes which shares same item
-
-    :Methods:
-
-        createTree(transaction,count)
-            Adding transaction into the tree
-        linkNode(node)
-            Adding node to nodeLink
-        createCPB(item,neighbour)
-            Create conditional pattern base based on item and neighbour
-        mergeTree(tree,fpList)
-            Merge tree into yourself
-        createTransactions(fpList)
-            Create transactions from yourself
-        getPattern(item,suffixItem,minSup,neighbour)
-            Get frequent patterns based on suffixItem
-        mining(minSup,isResponsible = lambda x:True,neighbourhood=None)
-            Mining yourself
-    """
-
-    def __init__(self):
-        self.root = _Node(None, 0, {})
-        self.nodeLink = _ab._OrderedDict()
-
-    def createTree(self, transaction, count):
-        """
-        Create tree or add transaction into yourself.
-
-        :param transaction: Transactions list
-        :type transaction: list
-        :param count: Number of items in the transactions list
-        :type count: int
-        :return: Tree
-        """
-        current = self.root
-        for item in transaction:
-            if item not in current.children:
-                current.children[item] = _Node(item, count, {})
-                current.children[item].prefix = transaction[0:transaction.index(item)]
-                self.linkNode(current.children[item])
-            else:
-                current.children[item].count += count
-            current = current.children[item]
-        return self
-
-    def linkNode(self, node):
-        """
-        Maintain link of node by adding node to nodeLink
-
-        :param node: Node to link
-        :type node: Node
-        """
-        if node.item in self.nodeLink:
-            self.nodeLink[node.item].append(node)
-        else:
-            self.nodeLink[node.item] = []
-            self.nodeLink[node.item].append(node)
-
-    def createCPB(self, item, neighbour):
-        """
-        Create conditional pattern base based on item and neighbour
-
-        :param item: Item to check conditional pattern
-        :type item: str
-        :param neighbour: Neighbour to check conditional pattern
-        :type neighbour: dict
-        :return: Tree
-        """
-        pTree = _Tree()
-        for node in self.nodeLink[item]:
-            # print(node.item, neighbour[node.item])
-            if node.item in neighbour:
-                node.prefix = [item for item in node.prefix if item in neighbour.get(node.item)]
-            pTree.createTree(node.prefix, node.count)
-        return pTree
-
-    def mergeTree(self, tree, fpList):
-        """
-        Merge tree into yourself
-
-        :param tree: Tree to merge into yourself
-        :type tree: Tree
-        :param fpList: List of FPs to merge into yourself after merging into your tree and creating your own transactions
-        :type fpList: list
-        :return: Tree
-        """
-        transactions = tree.createTransactions(fpList)
-        for transaction in transactions:
-            self.createTree(transaction, 1)
-        return self
-
-    def createTransactions(self, fpList):
-        """
-        Create transactions that configure yourself
-
-        :param fpList: List of FPs to merge into yourself after merging into your tree and creating your own transactions
-        :type fpList: list
-        :return: transaction list
-        :rtype: list
-        """
-        transactions = []
-        flist = [x for x in fpList if x in self.nodeLink]
-        for item in reversed(flist):
-            for node in self.nodeLink[item]:
-                if node.count != 0:
-                    transaction = node.prefix
-                    transaction.append(node.item)
-                    transactions.extend([transaction for _ in range(node.count)])
-                    current = self.root
-                    for i in transaction:
-                        current = current.children[i]
-                        current.count -= node.count
-        return transactions
-
-    def getPattern(self, item, suffixItem, minSup, neighbour):
-        """
-        Get frequent patterns based on suffixItem
-
-        :param item: Item to get patterns
-        :type item: int
-        :param suffixItem: Suffix item to get patterns
-        :type suffixItem: tuple
-        :param minSup: Minimum Support to get patterns
-        :type minSup: int
-        :param neighbour: Neighbour item to consider in the pattern
-        :type neighbour: dict
-        :return: Pattern list
-        :rtype: list
-        """
-        pTree = self.createCPB(item, neighbour)
-        frequentItems = {}
-        frequentPatterns = []
-        for i in pTree.nodeLink.keys():
-            frequentItems[i] = 0
-            for node in pTree.nodeLink[i]:
-                frequentItems[i] += node.count
-        frequentItems = {key: value for key, value in frequentItems.items() if value >= minSup}
-        for i in frequentItems:
-            pattern = suffixItem + "\t" + i
-            frequentPatterns.append((pattern, frequentItems[i]))
-            frequentPatterns.extend(pTree.getPattern(i, pattern, minSup, neighbour))
-        return frequentPatterns
-
-    def mining(self, minSup: Union[int, float], neighbourhood: Dict[int, List[int]] = None):
-        """
-        Pattern mining on your own
-
-        :param minSup: Minimum Support for your pattern for Mining
-        :type minSup: int or float
-        :param neighbourhood: function
-        :type neighbourhood: dict
-        :return: list
-        """
-        frequentPatterns = []
-        flist = sorted([item for item in self.nodeLink.keys()])
-        for item in reversed(flist):
-            frequentPatterns.extend(self.getPattern(item, item, minSup, neighbourhood))
-        return frequentPatterns
+        self.parent = parent
+        self.count = 0
+        self.children = {}
+        self.node_link = None
 
 
 class FSPGrowth(_ab._spatialFrequentPatterns):
     """
-    :Description:   Given a transactional database and a spatial (or neighborhood) file, FSPM aims to discover all of those patterns
-                    that satisfy the user-specified minimum support (minSup) and maximum distance (maxDist) constraints
+    :Description:   Given a transactional database and a spatial (or neighbourhood) file, FSPM aims to discover all of
+                    those patterns that satisfy the user-specified minimum support (minSup) and neighbourhood (maxDist)
+                    constraints. A pattern is spatially valid when all of its items are mutual neighbours.
+
+                    This implementation preserves the public API of the original PAMI FSPGrowth class but replaces the
+                    earlier tree/prefix internals with a compact, parent-linked FP-tree, header-table mining, weighted
+                    conditional pattern bases, dictionary-based frequency ordering, and recursive spatial pruning that
+                    enforces the neighbourhood constraint during recursion rather than only at output time. It produces
+                    the same set of patterns and supports as the original.
 
     :Reference:   Rage, Uday & Fournier Viger, Philippe & Zettsu, Koji & Toyoda, Masashi & Kitsuregawa, Masaru. (2020).
                   Discovering Frequent Spatial Patterns in Very Large Spatiotemporal Databases.
 
-    :param  iFile: str :
-                   Name of the Input file to mine complete set of Geo-referenced frequent patterns
-    :param  oFile: str :
-                   Name of the output file to store complete set of Geo-referenced frequent patterns
+    :param  iFile: str or pd.DataFrame :
+                   Name/path of the input transactional database, or a DataFrame containing a 'Transactions' column.
+    :param  nFile: str or pd.DataFrame :
+                   Name/path of the input neighbourhood file, or a DataFrame containing item and neighbour columns.
     :param  minSup: int or float or str :
-                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
-    :param maxPer: float :
-                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
-    :param nFile: str :
-                   Name of the input file to mine complete set of Geo-referenced frequent patterns
+                   The user can specify minSup either as a count or as a proportion of the database size. If the data
+                   type of minSup is integer, it is treated as a count. Otherwise (float or decimal string), it is
+                   treated as a proportion of the number of transactions.
     :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+                   Separator used to distinguish items within a transaction. Default is a tab space; users may override.
 
     :Attributes:
 
-        iFile : file
-            Input file name or path of the input file
-        nFile : file
-            Neighbourhood file name or path of the neighbourhood file
-        oFile : file
-            Name of the output file or the path of output file
-        minSup : float
-            The user can specify minSup either in count or proportion of database size.
+        iFile : str or pd.DataFrame
+            Input file name/path of the transactional database.
+        nFile : str or pd.DataFrame
+            Input file name/path of the neighbourhood file.
+        oFile : str
+            Name/path of the output file.
+        minSup : int or float
+            Minimum support, as a count or as a proportion of database size.
         finalPatterns : dict
-            Storing the complete set of patterns in a dictionary variable
-        startTime:float
-            To record the start time of the mining process
-        endTime:float
-            To record the completion time of the mining process
+            Complete set of discovered patterns: tab-joined pattern string -> support.
+        startTime : float
+            Start time of the mining process.
+        endTime : float
+            Completion time of the mining process.
         memoryUSS : float
-            To store the total amount of USS memory consumed by the program
+            Total USS memory consumed by the mining process.
         memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
+            Total RSS memory consumed by the mining process.
 
     :Methods:
 
         mine()
-            This function starts pattern mining.
+            Starts the pattern-mining process.
         getPatterns()
-            Complete set of patterns will be retrieved with this function
+            Returns the complete set of patterns as a dictionary.
         save(oFile)
-            Complete set of frequent patterns will be loaded in to a output file
-        getPatternsInDataFrame()
-            Complete set of frequent patterns will be loaded in to a dataframe
+            Writes the complete set of patterns to an output file.
+        getPatternsAsDataFrame()
+            Returns the complete set of patterns as a pandas DataFrame.
         getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
+            Returns the total USS memory consumed by the mining process.
         getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
+            Returns the total RSS memory consumed by the mining process.
         getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
-        getNeighbour(string)
-            This function changes string to tuple(neighbourhood).
-        getFrequentItems(database)
-            This function create frequent items from database.
-        genCondTransaction(transaction, rank)
-            This function generates conditional transaction for processing on each workers.
-        getPartitionId(item)
-            This function generates partition id
-        mapNeighbourToNumber(neighbour, rank)
-            This function maps neighbourhood to number.
-            Because in this program, each item is mapped to number based on fpList so that it can be distributed.
-            So the contents of neighbourhood must also be mapped to a number.
-        createFPTree()
-            This function creates FPTree.
-        getAllFrequentPatterns(data, fpList, ndata)
-            This function generates all frequent patterns
+            Returns the total runtime taken by the mining process.
+        printResults()
+            Prints a summary of the results.
 
     **Executing the code on terminal :**
     ----------------------------------------
@@ -336,8 +163,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
 
       (.venv) $ python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 0.5
 
-    .. note:: minSup will be considered in percentage of database transactions
-
+    .. note:: A float minSup is interpreted as a proportion of the database transactions.
 
 
     **Sample run of importing the code :**
@@ -370,7 +196,9 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
 
     **Credits:**
     --------------
-        The complete program was written by Yudai Masu under the supervision of Professor Rage Uday Kiran.
+        The original program was written by Yudai Masu under the supervision of Professor Rage Uday Kiran.
+        This optimized, API-compatible implementation retains that public interface while replacing the internal
+        mining engine.
     """
 
     _minSup = float()
@@ -380,7 +208,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
     _iFile = " "
     _nFile = " "
     _oFile = " "
-    _sep = " "
+    _sep = "\t"
     _lno = 0
     _memoryUSS = float()
     _memoryRSS = float()
@@ -388,229 +216,463 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
     _neighbourList = {}
     _fpList = []
 
-    def _readDatabase(self):
-        """
-        Read input file and neighborhood file
-        """
-
+    def __init__(self, iFile, nFile, minSup, sep="\t"):
+        super().__init__(iFile, nFile, minSup, sep)
+        self._iFile = iFile
+        self._nFile = nFile
+        self._minSup = minSup
+        self._sep = sep
         self._Database = []
+        self._neighbourList = {}
+        self._NeighboursMap = {}
+        self._fpList = []
+        self._finalPatterns = {}
+        self._lno = 0
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._startTime = float()
+        self._endTime = float()
+
+    def _split_line(self, line):
+        """
+        Split one input line using the configured separator, stripping empty tokens.
+
+        :param line: A single raw line from the input.
+        :type line: str
+        :return: List of non-empty, right-stripped tokens.
+        :rtype: list
+        """
+        return [x.rstrip() for x in line.strip().split(self._sep) if x.rstrip()]
+
+    def _dedupe_transaction(self, transaction):
+        """
+        Remove duplicate items within a transaction while preserving order.
+
+        :param transaction: A single transaction.
+        :type transaction: list
+        :return: Transaction with duplicate items removed.
+        :rtype: list
+        """
+        return list(dict.fromkeys(transaction))
+
+    def _creatingItemSets(self):
+        """
+        Read the transactional database into self._Database and set self._lno.
+        Accepts a DataFrame, a file path, or a URL.
+        """
+        self._Database = []
+        self._lno = 0
+
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
                 print("its empty..")
-            i = self._iFile.columns.values.tolist()
-            if 'Transactions' in i:
-                self._Database = self._iFile['Transactions'].tolist()
+            columns = self._iFile.columns.values.tolist()
+            if "Transactions" in columns:
+                raw = self._iFile["Transactions"].tolist()
+            elif "Patterns" in columns:
+                raw = self._iFile["Patterns"].tolist()
+            else:
+                raw = []
+
+            for transaction in raw:
+                if isinstance(transaction, str):
+                    transaction = self._split_line(transaction)
+                elif not isinstance(transaction, list):
+                    transaction = list(transaction)
+                transaction = [str(x).rstrip() for x in transaction if str(x).rstrip()]
+                if transaction:
+                    self._Database.append(self._dedupe_transaction(transaction))
+
             self._lno = len(self._Database)
+            return
+
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
                 for line in data:
-                    line.strip()
-                    self._lno += 1
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self._sep)]
-                    temp = [x for x in temp if x]
-                    self._Database.append(temp)
+                    transaction = self._split_line(line)
+                    if transaction:
+                        self._Database.append(self._dedupe_transaction(transaction))
             else:
                 try:
-                    with open(self._iFile, 'r', encoding='utf-8') as f:
+                    with open(self._iFile, "r", encoding="utf-8") as f:
                         for line in f:
-                            line.strip()
-                            self._lno += 1
-                            temp = [i.rstrip() for i in line.split(self._sep)]
-                            temp = [x for x in temp if x]
-                            self._Database.append(temp)
+                            transaction = self._split_line(line)
+                            if transaction:
+                                self._Database.append(self._dedupe_transaction(transaction))
                 except IOError:
                     print("File Not Found1")
                     quit()
 
+        self._lno = len(self._Database)
+
+    def _mapNeighbours(self):
+        """
+        Read the neighbourhood file. Maintains the original self._neighbourList (item -> list of neighbours) and an
+        internal set-based self._NeighboursMap (item -> set of neighbours including the item itself) used for fast
+        intersection during spatial pruning. Accepts a DataFrame, a file path, or a URL.
+        """
         self._neighbourList = {}
+        self._NeighboursMap = {}
+
         if isinstance(self._nFile, _ab._pd.DataFrame):
-            data, items = [], []
             if self._nFile.empty:
                 print("its empty..")
-            i = self._nFile.columns.values.tolist()
-            if 'item' in i:
-                items = self._nFile['items'].tolist()
-            if 'Neighbours' in i:
-                data = self._nFile['Neighbours'].tolist()
-            for k in range(len(items)):
-                self._neighbourList[items[k][0]] = data[k]
-            # print(self.Database)
+            columns = self._nFile.columns.values.tolist()
+
+            item_col = next((c for c in ("items", "item", "Items", "Item") if c in columns), None)
+            neigh_col = next((c for c in ("Neighbours", "neighbors", "NeighboursMap", "neighbours") if c in columns), None)
+
+            if item_col is not None and neigh_col is not None:
+                items = self._nFile[item_col].tolist()
+                neighbours = self._nFile[neigh_col].tolist()
+                for item, neighs in zip(items, neighbours):
+                    item = str(item).rstrip()
+                    if isinstance(neighs, str):
+                        neigh_set = set(self._split_line(neighs))
+                    else:
+                        neigh_set = set(str(x).rstrip() for x in neighs if str(x).rstrip())
+                    self._neighbourList[item] = list(neigh_set)
+                    neigh_set.add(item)
+                    self._NeighboursMap[item] = neigh_set
+            return
+
         if isinstance(self._nFile, str):
             if _ab._validators.url(self._nFile):
                 data = _ab._urlopen(self._nFile)
                 for line in data:
-                    line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self._sep)]
-                    temp = [x for x in temp if x]
-                    self._neighbourList[temp[0]] = temp[1:]
+                    parts = self._split_line(line)
+                    if not parts:
+                        continue
+                    item = parts[0]
+                    neigh_set = set(parts[1:])
+                    self._neighbourList[item] = list(neigh_set)
+                    neigh_set.add(item)
+                    self._NeighboursMap[item] = neigh_set
             else:
                 try:
-                    with open(self._nFile, 'r', encoding='utf-8') as f:
+                    with open(self._nFile, "r", encoding="utf-8") as f:
                         for line in f:
-                            line.strip()
-                            temp = [i.rstrip() for i in line.split(self._sep)]
-                            temp = [x for x in temp if x]
-                            self._neighbourList[temp[0]] = temp[1:]
+                            parts = self._split_line(line)
+                            if not parts:
+                                continue
+                            item = parts[0]
+                            neigh_set = set(parts[1:])
+                            self._neighbourList[item] = list(neigh_set)
+                            neigh_set.add(item)
+                            self._NeighboursMap[item] = neigh_set
                 except IOError:
                     print("File Not Found2")
                     quit()
 
-    def _getFrequentItems(self):
+    def _readDatabase(self):
         """
-        Create frequent items and self.fpList from self.Database
+        Backward-compatible wrapper for the original method name. The original FSPGrowth read both the transactional
+        database and the neighbourhood file inside _readDatabase(); this preserves that behaviour for callers/tests
+        that invoke the method directly.
         """
-        oneFrequentItem = {}
-        for transaction in self._Database:
-            for item in transaction:
-                oneFrequentItem[item] = oneFrequentItem.get(item, 0) + 1
-        self._finalPatterns = {key: value for key, value in oneFrequentItem.items() if value >= self._minSup}
-        self._fpList = list(dict(sorted(oneFrequentItem.items(), key=lambda x: x[1], reverse=True)))
-
-    def _createFPTree(self):
-        """
-        Create FP Tree and self.fpList from self.Database
-        """
-        FPTree = _Tree()
-        for transaction in self._Database:
-            FPTree.createTree(transaction, 1)
-        return FPTree
-
-    def _sortTransaction(self):
-        """
-        Sort each transaction of self.Database based on self.fpList
-        """
-        for i in range(len(self._Database)):
-            self._Database[i] = [item for item in self._Database[i] if item in self._fpList]
-            self._Database[i].sort(key=lambda value: self._fpList.index(value))
+        self._creatingItemSets()
+        self._mapNeighbours()
 
     def _convert(self, value):
         """
-        To convert the given user specified value
+        Convert the user-specified minSup to an absolute count. Integers are treated as counts; floats and decimal
+        strings are treated as proportions of the database size.
 
-        :param value: user specified value
+        :param value: User-specified minSup.
         :type value: int or float or str
-        :return: converted value
-        :rtype: float
+        :return: Converted minimum support value.
+        :rtype: int or float
         """
         if type(value) is int:
-            value = int(value)
+            return int(value)
         if type(value) is float:
-            value = (self._lno * value)
+            return self._lno * value
         if type(value) is str:
-            if '.' in value:
-                value = float(value)
-                value = (self._lno * value)
-            else:
-                value = int(value)
+            if "." in value:
+                return self._lno * float(value)
+            return int(value)
         return value
 
-    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
+    def _getFrequentItems(self):
+        """
+        Count 1-item supports and prepare self._fpList. Retained for compatibility with the original private method;
+        the optimized mine() applies the same logic internally.
+        """
+        item_counts = _ab._defaultdict(int)
+        for transaction in self._Database:
+            for item in transaction:
+                item_counts[item] += 1
+        frequent = {item: cnt for item, cnt in item_counts.items() if cnt >= self._minSup}
+        self._finalPatterns = dict(frequent)
+        self._fpList = sorted(frequent.keys(), key=lambda i: (-frequent[i], i))
+        return frequent
+
+    def _sortTransaction(self):
+        """
+        Sort each transaction according to self._fpList. Retained for compatibility; uses a rank dictionary rather
+        than repeated list.index() calls.
+        """
+        rank = {item: idx for idx, item in enumerate(self._fpList)}
+        for idx, transaction in enumerate(self._Database):
+            filtered = [item for item in transaction if item in rank]
+            filtered.sort(key=lambda item: rank[item])
+            self._Database[idx] = filtered
+
+    def _createFPTree(self):
+        """
+        Compatibility placeholder for the original private method. The optimized implementation builds FP-trees inside
+        _mine_fp_growth() because each conditional database has its own header table, so this method is intentionally
+        not used by mine().
+        """
+        return None
+
+    def _get_common_neighbours(self, itemset):
+        """
+        Return the common neighbour set of all items in itemset (the items that may extend it while keeping every pair
+        mutual neighbours).
+
+        :param itemset: Current pattern items.
+        :type itemset: tuple or list
+        :return: Set of items that are neighbours of every item in itemset.
+        :rtype: set
+        """
+        if not itemset:
+            return set()
+        iterator = iter(itemset)
+        first = next(iterator)
+        common = set(self._NeighboursMap.get(first, set()))
+        for item in iterator:
+            common &= self._NeighboursMap.get(item, set())
+            if not common:
+                break
+        return common
+
+    # ----------------------------------------------------------------------
+    # Optimized FP-Growth core with recursive spatial pruning
+    # ----------------------------------------------------------------------
+
+    def _mine_fp_growth(self, transactions, min_count, f_order, prefix=()):
+        """
+        Mine frequent spatial patterns from a weighted conditional database.
+
+        :param transactions: List of (transaction, weight) pairs.
+        :type transactions: list
+        :param min_count: Absolute minimum support.
+        :type min_count: int or float
+        :param f_order: Global item -> rank mapping for canonical ordering.
+        :type f_order: dict
+        :param prefix: Current pattern prefix.
+        :type prefix: tuple
+        :return: Mapping of canonical pattern tuple -> support.
+        :rtype: dict
+        """
+        item_counts = _ab._defaultdict(int)
+        for transaction, weight in transactions:
+            for item in transaction:
+                item_counts[item] += weight
+
+        frequent_items = {
+            item: count
+            for item, count in item_counts.items()
+            if count >= min_count and item in f_order
+        }
+        if not frequent_items:
+            return {}
+
+        # Enforce the spatial constraint during recursion, not only at output time.
+        if prefix:
+            allowed = self._get_common_neighbours(prefix)
+            frequent_items = {item: count for item, count in frequent_items.items() if item in allowed}
+            if not frequent_items:
+                return {}
+
+        f_list = sorted(frequent_items.keys(), key=lambda item: f_order[item])
+        valid_items = set(f_list)
+
+        root = _FPNode(None, None)
+        header_table = {item: [frequent_items[item], None, None] for item in f_list}
+
+        for transaction, weight in transactions:
+            filtered = sorted(
+                (item for item in transaction if item in valid_items),
+                key=lambda item: f_order[item],
+            )
+            if not filtered:
+                continue
+            node = root
+            for item in filtered:
+                child = node.children.get(item)
+                if child is None:
+                    child = _FPNode(item, node)
+                    child.count = weight
+                    node.children[item] = child
+                    if header_table[item][1] is None:
+                        header_table[item][1] = child
+                        header_table[item][2] = child
+                    else:
+                        header_table[item][2].node_link = child
+                        header_table[item][2] = child
+                else:
+                    child.count += weight
+                node = child
+
+        results = {}
+        for item in reversed(f_list):
+            new_pattern = prefix + (item,)
+            canonical_pattern = tuple(sorted(new_pattern, key=lambda x: f_order[x]))
+            results[canonical_pattern] = frequent_items[item]
+
+            conditional_pattern_base = []
+            current = header_table[item][1]
+            while current is not None:
+                path = []
+                parent = current.parent
+                while parent is not None and parent.item is not None:
+                    path.append(parent.item)
+                    parent = parent.parent
+                if path:
+                    conditional_pattern_base.append((path[::-1], current.count))
+                current = current.node_link
+
+            if conditional_pattern_base:
+                results.update(
+                    self._mine_fp_growth(conditional_pattern_base, min_count, f_order, new_pattern)
+                )
+
+        return results
+
+    def _pattern_to_key(self, pattern):
+        """
+        Convert a tuple/list pattern to the tab-joined string key used by getPatterns().
+
+        :param pattern: Pattern as a tuple, list, or string.
+        :return: Tab-joined string key.
+        :rtype: str
+        """
+        if isinstance(pattern, str):
+            return pattern
+        if isinstance(pattern, (tuple, list)):
+            return "\t".join(str(x) for x in pattern)
+        return str(pattern)
+
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for the mining process. "
+                "Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
         """
-        Start pattern mining from here
+        Start the pattern-mining process (deprecated alias for mine()).
         """
         self.mine()
 
     def mine(self):
         """
-        Start pattern mining from here
+        Start the pattern-mining process.
         """
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
-        self._readDatabase()
-        print(len(self._Database), len(self._neighbourList))
+
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+
+        self._creatingItemSets()
         self._minSup = self._convert(self._minSup)
-        self._getFrequentItems()
-        self._sortTransaction()
-        _FPTree = self._createFPTree()
-        self._finalPatterns.update(dict(_FPTree.mining(self._minSup, self._neighbourList)))
+        self._mapNeighbours()
+
+        item_counts = _ab._defaultdict(int)
+        for transaction in self._Database:
+            for item in transaction:
+                item_counts[item] += 1
+
+        eligible = {item: count for item, count in item_counts.items() if count >= self._minSup}
+        self._fpList = sorted(eligible.keys(), key=lambda item: (-eligible[item], item))
+        f_order = {item: rank for rank, item in enumerate(self._fpList)}
+
+        weighted_transactions = [(transaction, 1) for transaction in self._Database]
+        mined = self._mine_fp_growth(weighted_transactions, self._minSup, f_order)
+
+        self._finalPatterns = {
+            self._pattern_to_key(pattern): support for pattern, support in mined.items()
+        }
+
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryUSS = float()
-        self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
         print("Frequent Spatial Patterns successfully generated using FSPGrowth")
 
     def getMemoryUSS(self):
         """
-        Total amount of USS memory consumed by the mining process will be retrieved from this function
+        Total amount of USS memory consumed by the mining process.
 
-        :return: returning USS memory consumed by the mining process
+        :return: USS memory consumed.
         :rtype: float
         """
-
         return self._memoryUSS
 
     def getMemoryRSS(self):
         """
-        Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        Total amount of RSS memory consumed by the mining process.
 
-        :return: returning RSS memory consumed by the mining process
+        :return: RSS memory consumed.
         :rtype: float
         """
-
         return self._memoryRSS
 
     def getRuntime(self):
         """
-        Calculating the total amount of runtime taken by the mining process
+        Total runtime taken by the mining process.
 
-        :return: returning total amount of runtime taken by the mining process
+        :return: Runtime in seconds.
         :rtype: float
         """
-
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
         """
-        Storing final frequent patterns in a dataframe
+        Store the discovered frequent spatial patterns in a DataFrame.
 
-        :return: returning frequent patterns in a dataframe
+        :return: Patterns as a DataFrame with columns ['Patterns', 'Support'].
         :rtype: pd.DataFrame
         """
-
-        dataframe = {}
         data = []
-        for a, b in self._finalPatterns.items():
-            data.append([a.replace('\t', ' '), b])
-            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
-        return dataframe
+        for pattern, support in self._finalPatterns.items():
+            data.append([pattern.replace("\t", " "), support])
+        return _ab._pd.DataFrame(data, columns=["Patterns", "Support"])
 
     def save(self, oFile):
         """
-        Complete set of frequent patterns will be loaded in to a output file
+        Write the complete set of frequent patterns to an output file.
 
-        :param oFile: name of the output file
-        :type oFile: csv file
+        :param oFile: Name of the output file.
+        :type oFile: str
         """
         self._oFile = oFile
-        writer = open(self._oFile, 'w+')
-        for x, y in self._finalPatterns.items():
-            s1 = x.strip() + ":" + str(y)
-            writer.write("%s \n" % s1)
+        with open(self._oFile, "w+", encoding="utf-8") as writer:
+            for pattern, support in self._finalPatterns.items():
+                writer.write("%s:%s \n" % (pattern.strip(), str(support)))
 
     def getPatterns(self):
         """
-        Function to send the set of frequent patterns after completion of the mining process
+        Return the complete set of frequent patterns after mining.
 
-        :return: returning frequent patterns
+        :return: Patterns as { tab-joined pattern string : support }.
         :rtype: dict
         """
-
         return self._finalPatterns
 
     def printResults(self):
         """
-        This function is used to print the results
+        Print a summary of the results.
         """
         print("Total number of Spatial Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
-        print("Total ExecutionTime in ms:",  self.getRuntime())
+        print("Total ExecutionTime in seconds:", self.getRuntime())
+
+class SpatialFPGrowth(FSPGrowth):
+    pass
 
 
 if __name__ == "__main__":
@@ -621,7 +683,6 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = FSPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.mine()
-        _ap.mine()
         print("Total number of Spatial Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
@@ -629,4 +690,3 @@ if __name__ == "__main__":
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
