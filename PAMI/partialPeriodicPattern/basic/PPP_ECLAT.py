@@ -311,12 +311,14 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         self.mine()
 
     def _getPerSup(self, arr):
-        arr = list(arr)
-        arr = np.sort(arr)
-        arr = np.diff(arr)
-        locs = len(np.where(arr <= self._period)[0])
-
-        return locs
+        if len(arr) < 2:
+            return 0
+        sorted_arr = sorted(arr)
+        count = 0
+        for i in range(1, len(sorted_arr)):
+            if sorted_arr[i] - sorted_arr[i-1] <= self._period:
+                count += 1
+        return count
     
     def _recursive(self, cands, items):
         for i in range(len(cands)):

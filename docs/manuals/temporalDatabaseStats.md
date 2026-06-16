@@ -73,7 +73,7 @@ Once the program is executed, users can call different methods to get the statis
 
    This method returns the variance of the lengths of transactions in a database
 ```Python
-    print(f'Variance in Transaction Sizes : {obj.getVarianceTransactionLength()')
+    print(f'Variance in Transaction Sizes : {obj.getVarianceTransactionLength()}')
 ```    
 #### getVarianceTransactionLength()
    This method returns the varience of the lengths of transactions in database.

@@ -277,6 +277,8 @@ class FFIMiner(_ab._fuzzyFrequentPatterns):
                     self._Database[newCand] = newCandItems
             if len(newCands) > 1:
                 self.dfs(newCands)
+            for cand in newCands:
+                del self._Database[cand]
 
     def mine(self):
         """

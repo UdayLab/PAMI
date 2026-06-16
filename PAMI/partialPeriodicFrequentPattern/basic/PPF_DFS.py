@@ -288,16 +288,15 @@ class PPF_DFS(partialPeriodicPatterns, ABC):
         :type arr: array
         :return: locs
         """
-        arr = list(arr)
+        arr = list(set(arr))
         arr.append(self._maxTS)
         arr.append(0)
-        arr = list(set(arr))
-        arr = np.sort(arr)
-        arr = np.diff(arr)
-
-        locs = len(np.where(arr <= self._partialPeriodicPatterns__maxPer)[0])
-
-        return locs
+        sorted_arr = sorted(arr)
+        count = 0
+        for i in range(1, len(sorted_arr)):
+            if sorted_arr[i] - sorted_arr[i-1] <= self._partialPeriodicPatterns__maxPer:
+                count += 1
+        return count
     
     def __recursive(self, cands, items):
         """

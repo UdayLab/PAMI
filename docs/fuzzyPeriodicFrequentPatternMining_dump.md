@@ -123,7 +123,7 @@ seperator = ' '  # specify the seperator. Default seperator is tab space.
 maxPer = 3  # specify the maxPer value
 oFile = 'FuzzyPeriodicPatterns.txt'  # specify the output file name
 
-obj = alg.FPFPMiner(iFile, minSup, maxPer, ' ')
+obj = alg.FPFPMiner(iFile, minSup, maxPer, seperator)
 obj.mine()
 obj.save(oFile)  # (to store the patterns in file) 
 Df = obj.getPatternsAsDataFrame()  # (to store the patterns in dataframe) 
