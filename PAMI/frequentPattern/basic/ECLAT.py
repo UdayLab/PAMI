@@ -35,7 +35,7 @@
 
 
 __copyright__ = """
-Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2026 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -396,7 +396,7 @@ if __name__ == "__main__":
             _ap = ECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
             _ap = ECLAT(_ab._sys.argv[1], _ab._sys.argv[3])
-        _ap.mine()
+
         _ap.mine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
