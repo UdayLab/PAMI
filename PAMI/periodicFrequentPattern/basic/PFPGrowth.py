@@ -98,10 +98,9 @@ class _Node(object):
         :rtype: _Node
         """
         if item not in self.children:
-            self.children[item] = _Node(item, locations, self)
+            self.children[item] = _Node(item, list(locations), self)
         else:
-            self.children[item].locations = locations + self.children[item].locations
-            
+            self.children[item].locations.extend(locations)
         return self.children[item]
 
     def traverse(self):
