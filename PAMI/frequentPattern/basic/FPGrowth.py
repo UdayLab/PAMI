@@ -96,7 +96,7 @@ class _Node:
         else:
             self.children[item].count += count
         return self.children[item]
-    
+
     def traverse(self) -> Tuple[List[int], int]:
         """
         Traversing the tree to get the transaction
@@ -227,7 +227,7 @@ class FPGrowth(_fp._frequentPatterns):
                 self.__Database = [x.split(self._sep) for x in self.__Database]
             else:
                 print("The column name should be Transactions and each line should be separated by tab space or a seperator specified by the user")
-                
+
 
             #print(self.Database)
         if isinstance(self._iFile, str):
@@ -271,7 +271,7 @@ class FPGrowth(_fp._frequentPatterns):
             else:
                 value = int(value)
         return value
-    
+
     def _construct(self, items, data, minSup):
         """
         Constructs the FP-tree from the given transactions.
@@ -310,15 +310,13 @@ class FPGrowth(_fp._frequentPatterns):
 
         :param arr: A list of items in a transaction.
         :type arr: List
-        :return: A list containing all possible combinations of items.
-        :rtype: List
+        :return: Generator yielding all possible combinations of items.
+        :rtype: Generator
         """
 
-        all_combinations_list = []
         for r in range(1, len(arr) + 1):
-            all_combinations_list.extend(combinations(arr, r))
-        return all_combinations_list
-    
+            yield from combinations(arr, r)
+
     def _recursive(self, root, itemNode, minSup, patterns):
         """
 
@@ -337,7 +335,7 @@ class FPGrowth(_fp._frequentPatterns):
 
         for item in itemNode:
             if itemNode[item][1] < self._minSup:
-                break 
+                break
 
             newRoot = _Node(root.item + [item], 0, None)
             # pat = "\t".join([str(i) for i in newRoot.item])
@@ -354,9 +352,8 @@ class FPGrowth(_fp._frequentPatterns):
                     # pat = "\t".join([str(i) for i in comb])
                     # pat = pat + "\t" + "\t".join([str(i) for i in newRoot.item])
                     # self.__finalPatterns[pat] = count
-                    self._finalPatterns[tuple(list(comb) + newRoot.item)] = count
+                    self._finalPatterns[comb + tuple(newRoot.item)] = count
                 pass
-
 
             itemCount = {}
             transactions = {}
@@ -369,13 +366,11 @@ class FPGrowth(_fp._frequentPatterns):
                 else:
                     transactions[tuple(transaction)] = count
 
-
                 for transaction_item in transaction:
                     if transaction_item in itemCount:
                         itemCount[transaction_item] += count
                     else:
                         itemCount[transaction_item] = count
-
 
             # remove items that are below minSup
             itemCount = {k: v for k, v in itemCount.items() if v >= minSup}
@@ -420,7 +415,7 @@ class FPGrowth(_fp._frequentPatterns):
 
         root, itemNode = self._construct(itemCount, self.__Database, self._minSup)
         self._recursive(root, itemNode, self._minSup, self.__finalPatterns)
-        
+
         print("Frequent patterns were generated successfully using frequentPatternGrowth algorithm")
         self.__endTime = _fp._time.time()
         self.__memoryUSS = float()
@@ -468,7 +463,7 @@ class FPGrowth(_fp._frequentPatterns):
         """
 
         return self.__endTime - self.__startTime
-    
+
 
     def getPatternsAsDataFrame(self) -> _fp._pd.DataFrame:
         """
@@ -514,7 +509,7 @@ class FPGrowth(_fp._frequentPatterns):
         :rtype: dict
         """
         return self._finalPatterns
-    
+
     def printResults(self) -> None:
         """
         This function is used to print the results
@@ -532,9 +527,9 @@ if __name__ == "__main__":
             _ap = FPGrowth(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4])
         if len(_fp._sys.argv) == 4:
             _ap = FPGrowth(_fp._sys.argv[1], _fp._sys.argv[3])
-            
+
         _ap.mine()
-        print("Total number of Frequent Patterns:", len( _ap.getPatterns()))
+        print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_fp._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
