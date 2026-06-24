@@ -212,7 +212,7 @@ class ECLAT(_ab._frequentPatterns):
 
         self.mine()
 
-    def __recursive(self, items, cands, memorySaver):
+    def __recursive(self, items, cands, memorySaver, candTids=None):
         """
 
         This function generates new candidates by taking input as original candidates.
@@ -225,26 +225,28 @@ class ECLAT(_ab._frequentPatterns):
         """
 
         if not memorySaver:
+            if candTids is None:
+                candTids = {cand: items[cand] for cand in cands}
             for i in range(len(cands)):
                 newCands = []
+                newTids = {}
                 for j in range(i + 1, len(cands)):
-                    intersection = items[cands[i]].intersection(items[cands[j]])
+                    intersection = candTids[cands[i]].intersection(candTids[cands[j]])
                     if len(intersection) >= self._minSup:
-                        newCand = tuple(cands[i] + tuple([cands[j][-1]]))
+                        newCand = cands[i] + (cands[j][-1],)
                         newCands.append(newCand)
-                        items[newCand] = intersection
+                        newTids[newCand] = intersection
                         self._finalPatterns[newCand] = len(intersection)
                 if len(newCands) > 1:
-                    self.__recursive(items, newCands, memorySaver)
+                    self.__recursive(items, newCands, memorySaver, newTids)
         else:
             for i in range(len(cands)):
                 newCands = []
                 for j in range(i + 1, len(cands)):
-
-                    newCand = tuple(cands[i] + tuple([cands[j][-1]]))
-                    intersection = items[tuple([newCand[0]])]
+                    newCand = cands[i] + (cands[j][-1],)
+                    intersection = items[(newCand[0],)]
                     for k in newCand[1:]:
-                        intersection = intersection.intersection(items[tuple([k])])
+                        intersection = intersection.intersection(items[(k,)])
                     if len(intersection) >= self._minSup:
                         newCands.append(newCand)
                         self._finalPatterns[newCand] = len(intersection)
@@ -265,7 +267,7 @@ class ECLAT(_ab._frequentPatterns):
 
         self._minSup = self._convert(self._minSup)
 
-    
+
         items = {}
         index = 0
         for line in self._Database:
@@ -274,7 +276,7 @@ class ECLAT(_ab._frequentPatterns):
                     items[item] = []
                 items[item].append(index)
             index += 1
-        
+
         items = {tuple([k]): set(v) for k, v in items.items() if len(v) >= self._minSup}
         items = {k: v for k, v in sorted(items.items(), key=lambda item_: len(item_[1]), reverse=False)}
         for k, v in items.items():
