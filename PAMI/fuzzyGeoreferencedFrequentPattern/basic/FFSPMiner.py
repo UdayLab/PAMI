@@ -278,13 +278,14 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
     _nFile = " "
     _sep = "\t"
 
-    def __init__(self, iFile: str, nFile: str, minSup: float, sep: str="\t") -> None:
+    def __init__(self, iFile: str, nFile: str, minSup: float, sep: str = "\t", k: int = 1) -> None:
         super().__init__(iFile, nFile, minSup, sep)
         self.oFile = None
         self._mapItemNeighbours = {}
         self._startTime = 0
         self._endTime = 0
         self._mapItemSum = {}
+        self._k = k
         self._joinsCnt = 0
         self._BufferSize = 200
         self._itemSetBuffer = []
@@ -446,6 +447,20 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
                     self._mapItemSum[item] += quantities[i]
                 else:
                     self._mapItemSum[item] = quantities[i]
+
+        if self._k >= 1:
+            #default k = 1 (max cardinality)
+            labelsByBaseItem = {}
+            for label in self._mapItemSum:
+                baseItem = label.rsplit('.', 1)[0] if '.' in label else label
+                labelsByBaseItem.setdefault(baseItem, []).append(label)
+            for baseItem, labels in labelsByBaseItem.items():
+                if len(labels) <= self._k:
+                    continue
+                ranked = sorted(labels, key=lambda lbl: self._mapItemSum[lbl], reverse=True)
+                for lbl in ranked[self._k:]:
+                    del self._mapItemSum[lbl]
+
         listOfFFList = []
         mapItemsToFFLIST = {}
         #self._minSup = self._convert(self._minSup)
@@ -466,7 +481,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
                 pair.item = items[i]
                 pair.quantity = quantities[i]
                 item = pair.item
-                if self._mapItemSum[item] >= self._minSup:
+                if self._mapItemSum.get(item, 0) >= self._minSup:
                     if pair.quantity > 0:
                         revisedTransaction.append(pair)
             revisedTransaction.sort(key=_ab._functools.cmp_to_key(self._compareItems))
