@@ -162,7 +162,8 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                    The user can specify fuzFile.
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
-
+    :param  k: int :
+                   Number of top fuzzy terms to keep per item, ranked by total fuzzy value. k=1 (default) keeps only the best term per item, k=2 the top two
     
     :Attributes:
 
@@ -268,13 +269,14 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
     _sep = "\t"
 
 
-    def __init__(self, iFile, nFile, minSup, maxPer, sep):
+    def __init__(self, iFile, nFile, minSup, maxPer, sep, k=1):
         super().__init__(iFile, nFile, minSup, maxPer, sep)
         self.oFile = None
         self._mapItemNeighbours = {}
         self._startTime = 0
         self._endTime = 0
         self._itemsCnt = 0
+        self._k = k
         self._itemSupData = {}
         self._mapItemSum = {}
         self._joinsCnt = 0
@@ -462,6 +464,19 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         Step2. prune out all items whose regional support is less than the given minSup
         Step3. At the end, sort the list of stored Candidate Frequent-Periodic Patterns in ascending order
         """
+
+        if self._k >= 1:
+            #default k = 1 (max cardinality)
+            labelsByBaseItem = {}
+            for label in self._itemSupData:
+                baseItem = label.rsplit('.', 1)[0] if '.' in label else label
+                labelsByBaseItem.setdefault(baseItem, []).append(label)
+            for baseItem, labels in labelsByBaseItem.items():
+                if len(labels) <= self._k:
+                    continue
+                ranked = sorted(labels, key=lambda lbl: self._itemSupData[lbl], reverse=True)
+                for lbl in ranked[self._k:]:
+                    del self._itemSupData[lbl]
 
         listOfFFList = []
         mapItemsToFFLIST = {}
