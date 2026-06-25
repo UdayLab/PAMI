@@ -71,6 +71,7 @@ class FFIMiner(_ab._fuzzyFrequentPatterns):
                         - **oFile** (*str*) -- *Name of the output file to store complete set of correlated patterns*
                         - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.*
                         - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
+                        - **k** (*int*) -- *Number of top fuzzy terms to keep per item, ranked by total fuzzy value. k=1 (default) keeps only the best term per item, k=2 the top two*
 
     :**Attributes**:   - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
                         - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
@@ -164,7 +165,7 @@ class FFIMiner(_ab._fuzzyFrequentPatterns):
     _memoryRSS = float()
     _sep = "\t"
 
-    def __init__(self, iFile: str, minSup: float, sep: str="\t") -> None:
+    def __init__(self, iFile: str, minSup: float, sep: str = "\t", k: int = 1) -> None:
         super().__init__(iFile, minSup, sep)
         self._Database = None
         self._startTime = 0
@@ -173,6 +174,7 @@ class FFIMiner(_ab._fuzzyFrequentPatterns):
         self._minSup = minSup
         self._iFile = iFile
         self._sep = sep
+        self._k = k
         self._finalPatterns = {}
         self._memoryUSS = 0
         self._memoryRSS = 0
@@ -219,7 +221,7 @@ class FFIMiner(_ab._fuzzyFrequentPatterns):
                 except IOError:
                     print("File Not Found")
                     quit()
-    
+
     def startMine(self):
         self.mine()
 
@@ -243,7 +245,7 @@ class FFIMiner(_ab._fuzzyFrequentPatterns):
             else:
                 value = int(value)
         return value
-    
+
     def dfs(self, cands):
         """
         Perform depth-first search (DFS) to find frequent patterns in a database.
@@ -295,6 +297,20 @@ class FFIMiner(_ab._fuzzyFrequentPatterns):
                 if item not in items:
                     items[item] = {}
                 items[item][lineNo] = fuzzyValue
+
+        if self._k >= 1:
+            #default k = 1 (max cardinality)
+            labelsByBaseItem = {}
+            for label in items:
+                token = label[0]
+                baseItem = token.rsplit('.', 1)[0] if '.' in token else token
+                labelsByBaseItem.setdefault(baseItem,[]).append(label)
+            for baseItem,labels in labelsByBaseItem.items():
+                if len(labels) <= self._k:
+                    continue
+                ranked = sorted(labels, key=lambda lbl: sum(items[lbl].values()), reverse=True)
+                for lbl in ranked[self._k:]:
+                    del items[lbl]
 
         self._minSup = self._convert(self._minSup)
         self._Database = items.copy()
