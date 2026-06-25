@@ -160,6 +160,8 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
                    The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :param  k: int :
+                   Number of top fuzzy terms to keep per item, ranked by total fuzzy value. k=1 (default) keeps only the best term per item, k=2 the top two
 
 
 
@@ -284,8 +286,9 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
     _memoryRSS = float()
     _sep = "\t"
 
-    def __init__(self, iFile, minSup, sep="\t"):
+    def __init__(self, iFile, minSup, sep="\t", k=1):
         super().__init__(iFile, minSup, sep)
+        self._k = k
         self._startTime = 0
         self._endTime = 0
         self._itemsCnt = 0
@@ -421,6 +424,20 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
                     self._mapItemSum[item] += quantities[i]
                 else:
                     self._mapItemSum[item] = quantities[i]
+
+        if self._k >= 1:
+            #default k = 1 (max cardinality)
+            labelsByBaseItem = {}
+            for label in self._mapItemSum:
+                baseItem = label.rsplit('.', 1)[0] if '.' in label else label
+                labelsByBaseItem.setdefault(baseItem, []).append(label)
+            for baseItem, labels in labelsByBaseItem.items():
+                if len(labels) <= self._k:
+                    continue
+                ranked = sorted(labels, key=lambda lbl: self._mapItemSum[lbl], reverse=True)
+                for lbl in ranked[self._k:]:
+                    del self._mapItemSum[lbl]
+
         listOfffilist = []
         mapItemsToFFLIST = {}
         #self._minSup = float(self._minSup)
@@ -444,7 +461,7 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
                 pair.item = items[i]
                 pair.quantity = quantities[i]
                 item = pair.item
-                if self._mapItemSum[item] >= self._minSup:
+                if self._mapItemSum.get(item, 0) >= self._minSup:
                     if pair.quantity > 0:
                         revisedTransaction.append(pair)
             revisedTransaction.sort(key=_ab._functools.cmp_to_key(self._compareItems))
