@@ -67,8 +67,8 @@ class FFIMiner(_ab._fuzzyFrequentPatterns):
                       2373-2379. 10.3233/IFS-151936.
                       https://www.researchgate.net/publication/286510908_A_fast_Algorithm_for_mining_fuzzy_frequent_itemSets
 
-    :**parameters**:    - **iFile** (*str*) -- *Name of the Input file to mine complete set of correlated patterns*
-                        - **oFile** (*str*) -- *Name of the output file to store complete set of correlated patterns*
+    :**parameters**:    - **iFile** (*str*) -- *Name of the Input file to mine complete set of fuzzy frequent patterns*
+                        - **oFile** (*str*) -- *Name of the output file to store complete set of fuzzy frequent patterns*
                         - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.*
                         - **sep** (*str*) -- *This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.*
                         - **k** (*int*) -- *Number of top fuzzy terms to keep per item, ranked by total fuzzy value. k=1 (default) keeps only the best term per item, k=2 the top two*
@@ -77,7 +77,7 @@ class FFIMiner(_ab._fuzzyFrequentPatterns):
                         - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
                         - **startTime** (*float*) -- *To record the start time of the mining process.*
                         - **endTime** (*float*) -- *To record the completion time of the mining process.*
-                        - **itemsCnt** (*int*) -- *To record the number of fuzzy spatial itemSets generated.*
+                        - **itemsCnt** (*int*) -- *To record the number of fuzzy frequent itemSets generated.*
                         - **mapItemSum** (*int*) -- *To keep track of sum of Fuzzy Values of items.*
                         - **joinsCnt** (*int*) -- * To keep track of the number of ffi-list that was constructed.*
                         - **BufferSize** (*int*) -- *Represent the size of Buffer.*
@@ -156,7 +156,6 @@ class FFIMiner(_ab._fuzzyFrequentPatterns):
     _startTime = float()
     _endTime = float()
     _minSup = str()
-    _maxPer = float()
     _finalPatterns = {}
     _iFile = " "
     _oFile = " "

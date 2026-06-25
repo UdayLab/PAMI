@@ -157,9 +157,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
     :param maxPer: float :
                    The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
     :param nFile: str :
-                   Name of the input file to mine complete set of frequent patterns
-    :param  FuzFile: str :
-                   The user can specify fuzFile.
+                   Name of the neighbourhood file that contains the spatial neighbours of each item.
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
     :param  k: int :

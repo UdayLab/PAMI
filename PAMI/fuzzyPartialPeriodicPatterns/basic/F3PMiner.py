@@ -156,8 +156,6 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
                    Name of the output file to store complete set of frequent patterns
     :param  minSup: int or float or str :
                    The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
-    :param maxPer: float :
-                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
     :param  k: int :
@@ -168,9 +166,9 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
     :Attributes:
 
         iFile : string
-            Name of the input file to mine complete set of fuzzy spatial frequent patterns
+            Name of the input file to mine complete set of fuzzy partial periodic patterns
         oFile : string
-               Name of the oFile file to store complete set of fuzzy spatial frequent patterns
+               Name of the oFile file to store complete set of fuzzy partial periodic patterns
         minSup : float
             The user given minimum support
         memoryRSS : float
@@ -180,7 +178,7 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
         endTime : float
             To record the completion time of the mining process
         itemsCnt : int
-            To record the number of fuzzy spatial itemSets generated
+            To record the number of fuzzy partial periodic itemSets generated
         mapItemsGSum : map
             To keep track of G region values of items
         mapItemsMidSum: map
@@ -278,7 +276,6 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
     _startTime = float()
     _endTime = float()
     _minSup = str()
-    _maxPer = float()
     _finalPatterns = {}
     _iFile = " "
     _oFile = " "

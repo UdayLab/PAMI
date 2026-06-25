@@ -156,10 +156,8 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
                    Name of the output file to store complete set of frequent patterns
     :param  minSup: int or float or str :
                    The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
-    :param maxPer: float :
-                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
     :param nFile: str :
-                   Name of the input file to mine complete set of frequent patterns
+                   Name of the neighbourhood file that contains the spatial neighbours of each item.
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
     :param  k: int :
