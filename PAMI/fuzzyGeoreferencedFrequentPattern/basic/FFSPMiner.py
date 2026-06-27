@@ -686,7 +686,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            patternsAndSupport = x.strip() + " : " + str(y)
+            patternsAndSupport = x.strip() + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
     def printResults(self) -> None:

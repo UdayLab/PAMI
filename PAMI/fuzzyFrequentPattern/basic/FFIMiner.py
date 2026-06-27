@@ -221,7 +221,11 @@ class FFIMiner(_ab._fuzzyFrequentPatterns):
                     print("File Not Found")
                     quit()
 
-    def startMine(self):
+    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
+    def startMine(self) -> None:
+        """
+        Fuzzy frequent pattern mining process will start from here
+        """
         self.mine()
 
     def _convert(self, value) -> Union[int, float]:
