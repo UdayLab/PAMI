@@ -35,7 +35,7 @@
 
 
 __copyright__ = """
-Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2026 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -64,7 +64,7 @@ class ECLATDiffset(_ab._frequentPatterns):
 
     :**Reference**:  KDD '03: Proceedings of the ninth ACM SIGKDD international conference on Knowledge discovery and data mining
                      August 2003 Pages 326–335 https://doi.org/10.1145/956750.956788
-            
+
     :**Parameters**:    - **iFile** (*str or URL or dataFrame*) -- *Name of the Input file to mine complete set of frequent patterns.*
                         - **oFile** (*str*) -- *Name of the output file to store complete set of frequent patterns*
                         - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.*
@@ -76,8 +76,8 @@ class ECLATDiffset(_ab._frequentPatterns):
                         - **memoryUSS** (*float*) -- *To store the total amount of USS memory consumed by the program.*
                         - **memoryRSS** *(float*) -- *To store the total amount of RSS memory consumed by the program.*
                         - **Database** (*list*) -- *To store the transactions of a database in list.*
-          
-        
+
+
     **Execution methods**
 
     **Terminal command**
@@ -94,7 +94,7 @@ class ECLATDiffset(_ab._frequentPatterns):
 
     .. note:: minSup can be specified  in support count or a value between 0 and 1.
 
-    
+
     **Calling from a python program**
 
     .. code-block:: python
@@ -227,13 +227,14 @@ class ECLATDiffset(_ab._frequentPatterns):
         :return: None
         """
 
+        db_size = len(self._db)
         for i in range(len(cands)):
             newCands = []
             for j in range(i + 1, len(cands)):
                 intersection = items[cands[i]] | items[cands[j]]
-                supp = len(self._db - intersection)
+                supp = db_size - len(intersection)
                 if supp >= self._minSup:
-                    newCand = tuple(cands[i] + tuple([cands[j][-1]]))
+                    newCand = cands[i] + (cands[j][-1],)
                     newCands.append(newCand)
                     items[newCand] = intersection
                     self._finalPatterns[newCand] = supp
@@ -260,14 +261,14 @@ class ECLATDiffset(_ab._frequentPatterns):
         self._minSup = self._convert(self._minSup)
 
         items = {}
-        db = set([i for i in range(len(self._Database))])
+        db = set(range(len(self._Database)))
         for i in range(len(self._Database)):
             for item in self._Database[i]:
                 if tuple([item]) in items:
                     items[tuple([item])].append(i)
                 else:
                     items[tuple([item])] = [i]
-        
+
         items = dict(sorted(items.items(), key=lambda x: len(x[1]), reverse=True))
 
         keys = []
@@ -342,7 +343,7 @@ class ECLATDiffset(_ab._frequentPatterns):
         #     dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
 
         dataFrame = _ab._pd.DataFrame(list([[self._sep.join(x), y] for x,y in self._finalPatterns.items()]), columns=['Patterns', 'Support'])
-        
+
         return dataFrame
 
     def save(self, outFile: str, seperator = "\t" ) -> None:
@@ -394,7 +395,7 @@ if __name__ == "__main__":
             _ap = ECLATDiffset(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
             _ap = ECLATDiffset(_ab._sys.argv[1], _ab._sys.argv[3])
-        _ap.mine()
+
         _ap.mine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
@@ -404,4 +405,3 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
