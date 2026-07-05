@@ -396,8 +396,8 @@ class UncertainTemporalDatabase:
         itemFrequencies = self.getFrequenciesInRange()
         transactionLength = self.getTransanctionalLengthDistribution()
         #numberOfTransactionPerTimeStamp = self.getNumberOfTransactionsPerTimestamp()
-        plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'Frequency', 'no of items', 'frequency')
-        plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
+        plt.plotLineGraphFromDictionary(itemFrequencies, 100, 0, 'Frequency', 'no of items', 'frequency')
+        plt.plotLineGraphFromDictionary(transactionLength, 100, 0, 'transaction length', 'transaction length', 'frequency')
         #plt.plotLineGraphFromDictionary(numberOfTransactionPerTimeStamp, 100)
 
 
