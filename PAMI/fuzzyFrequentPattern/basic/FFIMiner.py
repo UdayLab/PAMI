@@ -390,14 +390,13 @@ class FFIMiner(_ab._fuzzyFrequentPatterns):
         """
         return self._endTime - self._startTime
 
-    def save(self, outFile) -> dict:
+    def save(self, outFile) -> None:
         """
         Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: csv file
-        :return: dictionary of frequent patterns
-        :rtype: dict
+        :return: None
         """
         # self._oFile = outFile
         # writer = open(self._oFile, 'w+')
