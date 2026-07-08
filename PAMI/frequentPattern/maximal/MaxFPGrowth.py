@@ -239,10 +239,11 @@ class _Tree(object):
                     data1[j] += condFreq[i]
         updatedDict = {}
         updatedDict = {k: v for k, v in data1.items() if v >= _minSup}
+        order = {k: (v, -k) for k, v in updatedDict.items()}
         count = 0
         for p in condPatterns:
             p1 = [v for v in p if v in updatedDict]
-            trans = sorted(p1, key=lambda x: (updatedDict.get(x), -x), reverse=True)
+            trans = sorted(p1, key=order.__getitem__, reverse=True)
             if len(trans) > 0:
                 pat.append(trans)
                 tids.append(condFreq[count])
@@ -762,7 +763,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
         :rtype: dict
         """
         return self._finalPatterns
-    
+
     def printResults(self):
         """
         This functon is used to print the results
