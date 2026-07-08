@@ -205,21 +205,21 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
                    Name of the output file to store complete set of frequent patterns
     :param  minSup: int or float or str :
                    The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
-    :param maxPer: float :
-                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
     :param minAllConf: float :
                     The user can specify minAllConf values within the range (0, 1).
 
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :param  k: int :
+                   Number of top fuzzy regions to keep per item, ranked by total fuzzy value. k=1 (default) keeps only the single best region per item, k=2 the top two, k<=0 keeps every non-zero region
 
 
     :Attributes:
 
         iFile : file
-            Name of the input file to mine complete set of fuzzy spatial frequent patterns
+            Name of the input file to mine complete set of correlated fuzzy frequent patterns
         oFile : file
-            Name of the oFile file to store complete set of fuzzy spatial frequent patterns
+            Name of the oFile file to store complete set of correlated fuzzy frequent patterns
         minSup : int
             The user given support
         minAllConf: float
@@ -231,7 +231,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         endTime:float
             To record the completion time of the mining process
         itemsCnt: int
-            To record the number of fuzzy spatial itemSets generated
+            To record the number of correlated fuzzy itemSets generated
         mapItemsLowSum: map
             To keep track of low region values of items
         mapItemsMidSum: map
@@ -331,7 +331,6 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
     _startTime = float()
     _endTime = float()
     _minSup = str()
-    _maxPer = float()
     _finalPatterns = {}
     _iFile = " "
     _oFile = " "
@@ -341,8 +340,9 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
     _memoryRSS = float()
     _Database = []
 
-    def __init__(self, iFile: str, minSup: int, minAllConf: float, sep: str="\t") -> None:
+    def __init__(self, iFile: str, minSup: int, minAllConf: float, sep: str="\t", k: int = 1) -> None:
         super().__init__(iFile, minSup, minAllConf, sep)
+        self._k = k
         self._temp = {}
         self._mapItemRegionSum = {}
         self._itemsCnt = 0
@@ -375,7 +375,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
 
         :rtype: int
         """
-        compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
+        compare = self._mapItemSum[(o1.item, o1.region)] - self._mapItemSum[(o2.item, o2.region)]
         if compare == 0:
             # return int(o1.item) - int(o2.item)
             return 1
@@ -471,7 +471,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
                     print("File Not Found")
                     quit()
 
-    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
         """ 
         Frequent pattern mining process will startTime from here
@@ -516,26 +516,24 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         self._minAllConf = float(self._minAllConf)
         for item1 in self._mapItemsLowSum.keys():
             item = item1
-            region = 'N'
-            low = self._mapItemsLowSum[item]
-            mid = self._mapItemsMidSum[item]
-            high = self._mapItemsHighSum[item]
-            if low >= mid and low >= high:
-                self._mapItemSum[item] = low
-                self._mapItemRegions[item] = "L"
-                region = 'L'
-            elif mid >= low and mid >= high:
-                self._mapItemSum[item] = mid
-                self._mapItemRegions[item] = "M"
-                region = 'M'
-            elif high >= low and high >= mid:
-                self._mapItemRegions[item] = "H"
-                region = 'H'
-                self._mapItemSum[item] = high
-            if self._mapItemSum[item] >= self._minSup:
-                fuList = _FFList(item, region)
-                mapItemsToFFLIST[item] = fuList
-                listOfFFIList.append(fuList)
+            #rank the three fuzzy regions by their total membership value.
+            #the stable sort keeps the L > M > H order on ties, so k=1 reproduces
+            #the original "single dominant region" behaviour exactly.
+            regionSums = [('L', self._mapItemsLowSum[item]),
+                          ('M', self._mapItemsMidSum[item]),
+                          ('H', self._mapItemsHighSum[item])]
+            ranked = sorted(regionSums, key=lambda rs: rs[1], reverse=True)
+            if self._k >= 1:
+                #default k = 1 (max cardinality)
+                ranked = ranked[:self._k]
+            self._mapItemRegions[item] = []
+            for region, regionSum in ranked:
+                self._mapItemSum[(item, region)] = regionSum
+                self._mapItemRegions[item].append(region)
+                if regionSum >= self._minSup:
+                    fuList = _FFList(item, region)
+                    mapItemsToFFLIST[(item, region)] = fuList
+                    listOfFFIList.append(fuList)
         listOfFFIList.sort(key=_ab._functools.cmp_to_key(self._compareItems))
         tid = 0
         for tr in range(len(self._transactions)):
@@ -543,22 +541,17 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
             quantities = self._fuzzyValues[tr]
             revisedTransaction = []
             for i in range(0, len(items)):
-                pair = _Pair()
-                pair.item = items[i]
-                regions = _Regions(pair.item, float(quantities[i]), 3, self._temp)
-                item = pair.item
-                if self._mapItemSum[item] >= self._minSup:
-                    if self._mapItemRegions[pair.item] == "L":
-                        pair.quantity = regions.low
-                        pair.region = 'L'
-                    elif self._mapItemRegions[pair.item] == "M":
-                        pair.region = 'M'
-                        pair.quantity = regions.middle
-                    elif self._mapItemRegions[pair.item] == "H":
-                        pair.quantity = regions.high
-                        pair.region = 'H'
-                    if pair.quantity > 0:
-                        revisedTransaction.append(pair)
+                item = items[i]
+                regions = _Regions(item, float(quantities[i]), 3, self._temp)
+                regionValue = {'L': regions.low, 'M': regions.middle, 'H': regions.high}
+                for region in self._mapItemRegions.get(item, []):
+                    if self._mapItemSum.get((item, region), 0) >= self._minSup:
+                        pair = _Pair()
+                        pair.item = item
+                        pair.region = region
+                        pair.quantity = regionValue[region]
+                        if pair.quantity > 0:
+                            revisedTransaction.append(pair)
             revisedTransaction.sort(key=_ab._functools.cmp_to_key(self._compareItems))
             for i in range(len(revisedTransaction) - 1, -1, -1):
                 pair = revisedTransaction[i]
@@ -569,8 +562,8 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
                     remainingUtility = pair.quantity
                 else:
                     remainingUtility = remainUtil
-                if mapItemsToFFLIST.get(pair.item) is not None:
-                    FFListOfItem = mapItemsToFFLIST[pair.item]
+                if mapItemsToFFLIST.get((pair.item, pair.region)) is not None:
+                    FFListOfItem = mapItemsToFFLIST[(pair.item, pair.region)]
                     element = Element(tid, pair.quantity, remainingUtility)
                     FFListOfItem.addElement(element)
             tid += 1

@@ -91,14 +91,15 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 ***
 # Recent Updates
 
-- **Version 2024.07.02:** 
+- **Version 2026.07.01:**
 In this latest version, the following updates have been made:
-  - Included one new algorithms, **PrefixSpan**, for Sequential Pattern.
-  - Optimized the following pattern mining algorithms: **PFPGrowth, PFECLAT, GPFgrowth and PPF_DFS**.
-  - Test cases are implemented for the following algorithms, **Contiguous Frequent patterns, Correlated Frequent Patterns, Coverage Frequent Patterns, Fuzzy Correlated Frequent Patterns, Fuzzy Frequent Patterns, Fuzzy Georeferenced Patterns, Georeferenced Frequent Patterns, Periodic Frequent Patterns, Partial Periodic Frequent Patterns, HighUtility Frequent Patterns, HighUtility Patterns, HighUtility Georeferenced Frequent Patterns, Frequent Patterns, Multiple Minimum Frequent Patterns, Periodic Frequent Patterns, Recurring Patterns, Sequential Patterns, Uncertain Frequent Patterns, Weighted Uncertain Frequent Patterns**.
-  - The algorithms mentioned below are automatically tested, **Frequent Patterns, Correlated Frequent Patterns, Contiguous Frequent patterns, Coverage Frequent Patterns, Recurring Patterns, Sequential Patterns**.
+  - Added a **k (maximum-cardinality)** parameter to the fuzzy pattern-mining algorithms -- **FFIMiner, FPFPMiner, FFSPMiner, FGPFPMiner, FCPGrowth, and F3PMiner** -- to control how many top fuzzy terms are retained per item during mining. `k=1` (default) keeps only the highest-support term per item, `k=2` keeps the top two, and `k<=0` disables the filter (mines every term).
+  - Added two new visualization utilities for association analysis: an item co-occurrence heatmap and an association-rule scatter plot.
+  - Fixed the lattice traversal in **SpatialECLAT** so that itemsets larger than size 2 are mined correctly.
+  - Optimized the following pattern mining algorithms: **SpatialECLAT, FSPGrowth, ECLAT, ECLATDiffset, FPGrowth, FFIMiner, PFECLAT, GPFgrowth, PPF_DFS, PPP_ECLAT, PPPGrowth, Aprioribitset, ECLATbitset, and PFPGrowth**.
+  - Fixed duplicate mining calls and output-path issues in the command-line entry points of **Apriori, ECLAT, and FPGrowth**.
 
-Total number of algorithms: 89
+Total number of algorithms: 123
 
 ***
 # Features
