@@ -56,6 +56,41 @@ Copyright (C)  2021 Rage Uday Kiran
 import abstract as _ab
 from deprecated import deprecated
 
+
+def _makeBatchedSupportKernel():
+    """
+    Build the batched support RawKernel used by cuEclatBit.
+
+    One thread computes the support (popcount of the bit-wise AND) of one candidate
+    pair, so a whole candidate level is evaluated in a single kernel launch instead
+    of one launch per pair.
+    """
+    return _ab._cp.RawKernel(r'''
+
+    #define uint32_t unsigned int
+
+    extern "C" __global__
+
+    void batchedSupport(const uint32_t* M, const int* left, const int* right,
+                        uint32_t* supports, int numPairs, int numWords)
+    {
+        int p = blockDim.x * blockIdx.x + threadIdx.x;
+        if (p < numPairs)
+        {
+            const uint32_t* a = M + (size_t)left[p]  * numWords;
+            const uint32_t* b = M + (size_t)right[p] * numWords;
+            uint32_t s = 0;
+            for (int w = 0; w < numWords; ++w)
+            {
+                s += __popc(a[w] & b[w]);
+            }
+            supports[p] = s;
+        }
+        return;
+    }
+
+    ''', 'batchedSupport')
+
 class cuEclatBit(_ab._frequentPatterns):
     """
     :Description: ECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.
@@ -161,23 +196,7 @@ class cuEclatBit(_ab._frequentPatterns):
     _memoryRSS = float()
     _Database = []
 
-    _sumKernel = _ab._cp.RawKernel(r'''
-
-    #define uint32_t unsigned int
-
-    extern "C" __global__
-
-    void sumKernel(uint32_t *d_a, uint32_t *sum, uint32_t numElements)
-    {
-        uint32_t i = blockDim.x * blockIdx.x + threadIdx.x;
-        if (i < numElements)
-        {  
-            atomicAdd(&sum[0], __popc(d_a[i]));
-        }
-        return;    
-    }
-
-    ''', 'sumKernel')
+    _batchedSupportKernel = _makeBatchedSupportKernel()
 
     def _creatingItemSets(self):
         """
@@ -296,29 +315,56 @@ class cuEclatBit(_ab._frequentPatterns):
 
         ArraysAndItems = self.createBitRepresentation(ArraysAndItems)
 
-        while len(ArraysAndItems) > 0:
-            # print("Total number of ArraysAndItems:", len(ArraysAndItems))
-            newArraysAndItems = {}
+        while len(ArraysAndItems) > 1:
             keys = list(ArraysAndItems.keys())
-            for i in range(len(ArraysAndItems)):
+            leftIdx, rightIdx, unions = [], [], []
+            for i in range(len(keys)):
                 iList = list(keys[i])
-                # print(i, "/", len(ArraysAndItems), end="\r")
-                for j in range(i+1, len(ArraysAndItems)):
+                for j in range(i + 1, len(keys)):
                     jList = list(keys[j])
-                    #union = []
                     if iList[:-1] == jList[:-1] and iList[-1] != jList[-1]:
-                        union = iList + [jList[-1]]
-                        union = tuple(union)
-                        unionData = _ab._cp.bitwise_and(ArraysAndItems[keys[i]], ArraysAndItems[keys[j]])
-                        _sum = _ab._cp.zeros(1, dtype=_ab._np.uint32)
-                        self._sumKernel((len(unionData) // 32 + 1,), (32,), (unionData, _sum, _ab._cp.uint32(len(unionData))))
-                        _sum = _sum[0]
-                        if _sum >= self._minSup and union not in self._finalPatterns:
-                            newArraysAndItems[union] = unionData
-                            string = "\t".join(union)
-                            self._finalPatterns[string] = _sum
+                        leftIdx.append(i)
+                        rightIdx.append(j)
+                        unions.append(tuple(iList + [jList[-1]]))
+            if not leftIdx:
+                break
+
+            M = _ab._cp.stack([ArraysAndItems[k] for k in keys])
+            numWords = int(M.shape[1])
+            left = _ab._cp.asarray(_ab._np.asarray(leftIdx, dtype=_ab._np.int32))
+            right = _ab._cp.asarray(_ab._np.asarray(rightIdx, dtype=_ab._np.int32))
+
+            numPairs = len(leftIdx)
+            supports = _ab._cp.zeros(numPairs, dtype=_ab._np.uint32)
+            threads = 256
+            blocks = (numPairs + threads - 1) // threads
+            self._batchedSupportKernel(
+                (blocks,), (threads,),
+                (M.ravel(), left, right, supports,
+                 _ab._np.int32(numPairs), _ab._np.int32(numWords)))
+
+            supportsHost = _ab._cp.asnumpy(supports)
+
+            newArraysAndItems = {}
+            keepLeft, keepRight = [], []
+            for p in range(numPairs):
+                if supportsHost[p] >= self._minSup:
+                    union = unions[p]
+                    if union in newArraysAndItems:
+                        continue
+                    newArraysAndItems[union] = None
+                    keepLeft.append(leftIdx[p])
+                    keepRight.append(rightIdx[p])
+                    self._finalPatterns["\t".join(union)] = int(supportsHost[p])
+
+            if keepLeft:
+                kl = _ab._cp.asarray(_ab._np.asarray(keepLeft, dtype=_ab._np.int32))
+                kr = _ab._cp.asarray(_ab._np.asarray(keepRight, dtype=_ab._np.int32))
+                newM = _ab._cp.bitwise_and(M[kl], M[kr])
+                for idx, union in enumerate(newArraysAndItems.keys()):
+                    newArraysAndItems[union] = newM[idx]
+
             ArraysAndItems = newArraysAndItems
-            # print()
 
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
