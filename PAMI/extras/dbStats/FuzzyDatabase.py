@@ -361,8 +361,8 @@ class FuzzyDatabase:
         rangeFrequencies = self.getFrequenciesInRange()
         print(rangeFrequencies)
         transactionLength = self.getTransanctionalLengthDistribution()
-        plt.plotLineGraphFromDictionary(rangeFrequencies, 100, 'Frequency', 'No of items', 'frequency')
-        plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
+        plt.plotLineGraphFromDictionary(rangeFrequencies, 100, 0, 'Frequency', 'No of items', 'frequency')
+        plt.plotLineGraphFromDictionary(transactionLength, 100, 0, 'transaction length', 'transaction length', 'frequency')
 
 
 if __name__ == '__main__':

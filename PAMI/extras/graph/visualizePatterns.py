@@ -92,7 +92,7 @@ class visualizePatterns:
 
         lines = list(dict(sorted(lines.items(), key=lambda x: x[1])[-self.topk:]).keys())
 
-        start = 1
+        start = 0
 
         print("Number \t Pattern")
         for line in lines:
