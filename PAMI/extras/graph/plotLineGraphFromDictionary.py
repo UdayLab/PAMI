@@ -75,7 +75,7 @@ class plotLineGraphFromDictionary:
         """
         end = int(len(data) * end / 100)
         start = int(len(data) * start / 100)
-        x = list(range(len(data)))
+        x = list(range(start, end))
         y = list(tuple(data.values())[start:end])
         fig, ax = plt.subplots()
         ax.plot(x, y, marker='.')

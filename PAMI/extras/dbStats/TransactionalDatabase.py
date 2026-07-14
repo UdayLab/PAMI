@@ -40,7 +40,6 @@ import validators
 import numpy as np
 from urllib.request import urlopen
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
-import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 
 class TransactionalDatabase:
@@ -331,25 +330,32 @@ class TransactionalDatabase:
         print(f'Sparsity : {self.getSparsity()}')
   
     def plotGraphs(self, allTicks: bool = False) -> None:
+        import plotly.express as px
         # itemFrequencies = self.getFrequenciesInRange()
-        transactionLength = self.getTransanctionalLengthDistribution()
-        plt.plotLineGraphFromDictionary(self.itemFrequencies, 100, 0, 'Frequency', 'No of items', 'frequency')
-        # plt.plotLineGraphFromDictionary(transactionLength, 100, 0, 'transaction length', 'transaction length', 'frequency')
+        itemFrequencies = self.getSortedListOfItemFrequencies()
+        items = list(itemFrequencies.keys())
+        frequencies = list(itemFrequencies.values())
+        ranks = list(range(1, len(items) + 1))
+        itemDf = pd.DataFrame({'Rank': ranks, 'Item': items, 'Frequency': frequencies})
+        itemFig = px.line(
+            itemDf, x='Rank', y='Frequency', markers=True, title='Item frequencies',
+            hover_name='Item', hover_data={'Item': False, 'Rank': True, 'Frequency': True},
+        )
+        itemFig.update_layout(xaxis_title='No of items (rank)', yaxis_title='Frequency')
+        itemFig.show()
+
         trx_len_dist = self.getTransanctionalLengthDistribution()
         lengths = list(trx_len_dist.keys())  # real X values: 6, 10, 11, …
         counts = list(trx_len_dist.values())  # Y values:      1,  1,  1, …
-
-        import matplotlib.pyplot as plta
-        plta.figure()
-        plta.plot(lengths, counts, marker='o')
-        plta.title('Transaction length')
-        plta.xlabel('Length (#items)')
-        plta.ylabel('Frequency')
+        lengthDf = pd.DataFrame({'Length': lengths, 'Frequency': counts})
+        lengthFig = px.line(
+            lengthDf, x='Length', y='Frequency', markers=True, title='Transaction length',
+            hover_data={'Length': True, 'Frequency': True},
+        )
+        lengthFig.update_layout(xaxis_title='Length (#items)', yaxis_title='Frequency')
         if allTicks:
-            plta.xticks(lengths) # show every actual length
-        plta.grid(True, axis='y', alpha=0.3)
-        plta.tight_layout()
-        plta.show()
+            lengthFig.update_xaxes(tickmode='array', tickvals=lengths)  # show every actual length
+        lengthFig.show()
 
 if __name__ == '__main__':
     data = {'tid': [1, 2, 3, 4, 5, 6, 7],
