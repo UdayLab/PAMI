@@ -58,7 +58,7 @@ Copyright (C)  2021 Rage Uday Kiran
 
 from PAMI.coveragePattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
-from deprecation import deprecated
+from deprecated import deprecated
 
 
 class CMine(_ab._coveragePatterns):
@@ -241,41 +241,45 @@ class CMine(_ab._coveragePatterns):
         tidData = {}
         self._lno = 0
         for transaction in self._Database:
-            self._lno = self._lno + 1
-            for item in transaction[1:]:
+            for item in transaction:
                 if item not in tidData:
                     tidData[item] = [self._lno]
                 else:
                     tidData[item].append(self._lno)
+            self._lno = self._lno + 1
         coverageTidData = {k: v for k, v in tidData.items() if len(v) / len(self._Database) >= self._minRF}
         coverageTidData = dict(sorted(coverageTidData.items(), reverse=True, key=lambda x: len(x[1])))
         return coverageTidData
 
-    def tidToBitset(self,item_set: Dict[str, int]) -> Dict[str, int]:
+    def tidToBitset(self,item_set: Dict[str, List[int]]) -> Dict[str, int]:
         """
-        This function converts tid list to bitset.
+        This function converts tid list to bitset. Each item's transactions become one
+        integer with one bit per transaction of the database.
 
-        :param item_set:
+        :param item_set: coverage items and their tid lists
         :return: Dictionary
         :rtype: dict[str,int]
         """
         bitset = {}
+        size = (self._lno + 7) >> 3
 
         for k,v in item_set.items():
-            bitset[k] = 0b1
-            bitset[k] = (bitset[k] << int(v[0])) | 0b1
-            for i in range(1,len(v)):
-                diff = int(v[i]) - int(v[i-1])
-                bitset[k] = (bitset[k] << diff) | 0b1
-            bitset[k] = (bitset[k] << (self._lno - int(v[-1])))
+            buffer = bytearray(size)
+            for tid in v:
+                buffer[tid >> 3] |= 128 >> (tid & 7)
+            bitset[k] = int.from_bytes(bytes(buffer), 'big')
         return bitset
 
-    def genPatterns(self,prefix: Tuple[str, int],tidData: List[Tuple[str, int]]) -> None:
+    def genPatterns(self,prefix: Tuple[str, int],tidData: List[Tuple[str, int]],start: int=0) -> None:
         """
-        This function generate coverage pattern about prefix.
+        This function generate coverage pattern about prefix. The prefix carries the union
+        of the transactions covered by its items, and it is extended with every later item
+        whose overlap ratio stays within maxOR (sorted closure property). Coverage support
+        only grows with more items, so it gates the output but never the growth.
 
-        :param prefix: String
-        :param tidData: list
+        :param prefix: the pattern and the bitset of the transactions it covers
+        :param tidData: list of coverage items and their bitsets
+        :param start: index of the first item eligible to extend the prefix
         :return: None
         """
         # variables to store coverage item set and
@@ -283,16 +287,16 @@ class CMine(_ab._coveragePatterns):
 
         # Get the length of tidData
         length = len(tidData)
-        for i in range(length):
+        for i in range(start, length):
             tid = prefix[1] & tidData[i][1]
-            tid1 = prefix[1] | tidData[i][1]
-            andCount = bin(tid).count("1") - 1
-            orCount = bin(tid1).count("1") - 1
-            if orCount/len(self._Database) >= self._minCS and andCount / len(str(prefix[1])) <= self._maxOR:
+            andCount = tid.bit_count()
+            if andCount <= self._maxOR * self._mapSupport[tidData[i][0]]:
+                tid1 = prefix[1] | tidData[i][1]
+                orCount = tid1.bit_count()
                 coverageItem_set = item_set + '\t' + tidData[i][0]
-                if orCount / len(self._Database) >= self._minRF:
-                    self._finalPatterns[coverageItem_set] = andCount
-                self.genPatterns((coverageItem_set,tid),tidData[i+1:length])
+                if orCount / len(self._Database) >= self._minCS:
+                    self._finalPatterns[coverageItem_set] = orCount
+                self.genPatterns((coverageItem_set,tid1),tidData,i+1)
 
     def generateAllPatterns(self,coverageItems: Dict[str, int]) -> None:
         """
@@ -305,7 +309,7 @@ class CMine(_ab._coveragePatterns):
         length = len(tidData)
         for i in range(length):
             #print(i,tidData[i][0])
-            self.genPatterns(tidData[i],tidData[i+1:length])
+            self.genPatterns(tidData[i],tidData,i+1)
 
     @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self) -> None:
@@ -324,10 +328,10 @@ class CMine(_ab._coveragePatterns):
         self._minRF =  self._convert(self._minRF)
         self._maxOR = self._convert(self._maxOR)
         coverageItems = self.creatingCoverageItems()
+        self._mapSupport = {k: len(v) for k, v in coverageItems.items()}
         self._finalPatterns = {k: len(v) for k, v in coverageItems.items()}
         coverageItemsBitset = self.tidToBitset(coverageItems)
         self.generateAllPatterns(coverageItemsBitset)
-        self.save('output.txt')
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
@@ -421,7 +425,6 @@ if __name__=="__main__":
             _ap = CMine(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
         if len(_ab._sys.argv) == 6:
             _ap = CMine(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
-        _ap.mine()
         _ap.mine()
         print("Total number of coverage Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
