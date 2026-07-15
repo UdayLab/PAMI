@@ -344,10 +344,10 @@ class CoMine(_ab._correlatedPatterns):
         for node in nodes:
             transaction, count = node.traverse()
             transactions.append([transaction, count])
-            for item in transaction:
-                if item not in itemCounts:
-                    itemCounts[item] = 0
-                itemCounts[item] += count
+            for _i in transaction:
+                if _i not in itemCounts:
+                    itemCounts[_i] = 0
+                itemCounts[_i] += count
 
         # print(newRoot.item, itemCounts.keys())
         itemCounts = {k:v for k, v in itemCounts.items() if v >= self._minSup}
@@ -357,14 +357,14 @@ class CoMine(_ab._correlatedPatterns):
         itemNodes = {}
         for transaction, count in transactions:
             transaction = [i for i in transaction if i in itemCounts]
-            transaction = sorted(transaction, key=lambda _item: itemCounts[_item], reverse=True)
+            transaction = sorted(transaction, key=lambda _item: (itemCounts[_item], _item), reverse=True)
             node = newRoot
-            for item in transaction:
-                node = node.addChild(item, count)
-                if item not in itemNodes:
-                    itemNodes[item] = [set(), 0]
-                itemNodes[item][0].add(node)
-                itemNodes[item][1] += count
+            for _i in transaction:
+                node = node.addChild(_i, count)
+                if _i not in itemNodes:
+                    itemNodes[_i] = [set(), 0]
+                itemNodes[_i][0].add(node)
+                itemNodes[_i][1] += count
 
         itemNodes = {k:v for k, v in sorted(itemNodes.items(), key=lambda x: x[1][1], reverse=True)}
 
@@ -391,7 +391,7 @@ class CoMine(_ab._correlatedPatterns):
 
         self._mapSupport = {k: v for k, v in itemCount.items() if v >= self._minSup}
         self._Database = [[item for item in transaction if item in self._mapSupport] for transaction in self._Database]
-        self._Database = [sorted(transaction, key=lambda item: self._mapSupport[item], reverse=True) for transaction in self._Database]
+        self._Database = [sorted(transaction, key=lambda item: (self._mapSupport[item], item), reverse=True) for transaction in self._Database]
         
         root = _Node(None, 0, None)
         itemNode = {}
@@ -511,7 +511,6 @@ if __name__ == "__main__":
             _ap = CoMine(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]), _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
             _ap = CoMine(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
-        _ap.mine()
         _ap.mine()
         print("Total number of Correlated-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
