@@ -1,22 +1,20 @@
-# FTFPGrowth algorithm aims to discover all fault-tolerant frequent patterns that may exist in a transactional database.
+# FTECLAT is a vertical algorithm to discover fault-tolerant frequent patterns in a transactional database.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------
+# ----------------------------------------------------------------
 #
 #
-#             from PAMI.faultTolerantFrequentPattern.basic import FTFPGrowth as alg
+#             from PAMI.faultTolerantFrequentPattern.basic import FTECLAT as alg
 #
-#             obj = alg.FTFPGrowth(inputFile,minSup,itemSup,minLength,faultTolerance)
+#             obj = alg.FTECLAT(inputFile,minSup,itemSup,minLength,faultTolerance)
 #
 #             obj.mine()
 #
-#             faultTolerantFrequentPatterns = obj.getPatterns()
+#             patterns = obj.getPatterns()
 #
-#             print("Total number of fault-tolerant frequent patterns:", len(faultTolerantFrequentPatterns))
+#             print("Total number of fault-tolerant frequent patterns:", len(patterns))
 #
-#             obj.save(oFile)
-#
-#             Df = obj.getPatternsAsDataFrame()
+#             obj.save("outputFile")
 #
 #             memUSS = obj.getMemoryUSS()
 #
@@ -50,118 +48,116 @@ Copyright (C)  2026 Rage Uday Kiran
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
      Copyright (C)  2026 Rage Uday Kiran
-     
+
 """
 
-
-from PAMI.faultTolerantFrequentPattern.basic import abstract as _fp
+from PAMI.faultTolerantFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Union
 import pandas as pd
 import numpy as _np
 from deprecated import deprecated
 
-_fp._sys.setrecursionlimit(20000)
+_ab._sys.setrecursionlimit(20000)
 
 
-class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
+class FTECLAT(_ab._faultTolerantFrequentPatterns):
     """
-    :Description:   FTFPGrowth discovers the complete set of fault-tolerant frequent patterns in a transactional
-                    database. A transaction fault-tolerantly contains an itemset ``P`` if it holds all but at most
-                    ``faultTolerance`` of its items; the fault-tolerant support of ``P`` is the number of such
-                    transactions. It mines the patterns with a pattern-growth (prefix-growth) depth-first traversal
-                    over the candidate items taken in support-descending order (the FP-Growth item ordering),
-                    pruning with the downward-closure property of the fault-tolerant support.
 
-    .. note::  A classical FP-tree / conditional-pattern-base cannot be used to compute the fault-tolerant support:
-               the conditional projection keeps only the transactions that *contain* the prefix, whereas the
-               fault-tolerant support must also count transactions that *miss* up to ``faultTolerance`` items of the
-               pattern. FTFPGrowth therefore grows patterns over the full database, counting the number of present
-               items of a pattern per transaction with a single vectorised column addition.
+    :Description:   FTECLAT is a vertical algorithm to discover the complete set of fault-tolerant frequent patterns
+                    in a transactional database. A transaction fault-tolerantly contains an itemset ``P`` if it holds
+                    all but at most ``faultTolerance`` of its items; the fault-tolerant support of ``P`` is the number
+                    of such transactions. Following the ECLAT strategy, patterns are explored depth-first over
+                    prefix-equivalence classes of the candidate items taken in support-ascending order. Each itemset
+                    carries a per-transaction count of its present items, so extending an itemset costs a single
+                    vectorised column addition, and the downward-closure property of the fault-tolerant support prunes
+                    the search.
 
-    :Reference:   Han, J., Pei, J., Yin, Y. et al. Mining Frequent Patterns without Candidate Generation: A Frequent-Pattern
-                  Tree Approach. Data  Mining and Knowledge Discovery 8, 53-87 (2004). https://doi.org/10.1023
+    :Reference:    Pei, Jian & Tung, Anthony & Han, Jiawei. (2001). Fault-Tolerant Frequent Pattern Mining: Problems and Challenges.
 
-    :param iFile: file :
-            Name of the Input file to mine complete set of fault Tolerant frequent patterns
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of fault Tolerant frequent patterns
     :param  oFile: str :
                    Name of the output file to store complete set of falut Tolerant frequent patterns
-    :param minSup: float or int or str :
-            The user can specify minSup either in count or proportion of database size.
+    :param  minSup: float or int or str :
+                    The user can specify minSup either in count or proportion of database size.
     :param  itemSup: int or float :
-            Minimum support of an item to be considered as a candidate item of a fault-tolerant pattern
+                    Minimum support of an item to be considered as a candidate item of a fault-tolerant pattern
     :param minLength: int :
-            minimum length of a pattern
+                     minimum length of a pattern
     :param faultTolerance: int :
-            maximum number of items of a pattern that a transaction is allowed to miss
-    :param sep : str :
-            This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
-            However, the users can override their default separator.
+                     maximum number of items of a pattern that a transaction is allowed to miss
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
 
     :Attributes:
 
-        startTime: float :
-            To record the start time of the mining process
-        endTime: float :
-            To record the completion time of the mining process
-        memoryUSS : float
-            To store the total amount of USS memory consumed by the program
-        memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
-        Database : list
-            To store the transactions of a database in list
-        finalPatterns : dict
-            it represents to store the patterns
+        startTime : float
+          To record the start time of the mining process
 
-    **Executing the code on terminal:**
-    ----------------------------------------
+        endTime : float
+          To record the completion time of the mining process
+
+        finalPatterns : dict
+          Storing the complete set of patterns in a dictionary variable
+
+        memoryUSS : float
+          To store the total amount of USS memory consumed by the program
+
+        memoryRSS : float
+          To store the total amount of RSS memory consumed by the program
+
+        Database : list
+          To store the transactions of a database in list
+
+
+    **Methods to execute code on terminal**
+    ------------------------------------------
 
     .. code-block:: console
 
       Format:
 
-      (.venv) $ python3 FTFPGrowth.py <inputFile> <outputFile> <minSup> <itemSup> <minLength> <faultTolerance>
+      (.venv) $ python3 FTECLAT.py <inputFile> <outputFile> <minSup> <itemSup> <minLength> <faultTolerance>
 
       Example Usage:
 
-      (.venv) $ python3 FTFPGrowth.py sampleDB.txt patterns.txt 10.0 3.0 3 1
+      (.venv) $ python3 FTECLAT.py sampleDB.txt patterns.txt 10.0 3.0 3 1
+
 
     .. note:: minSup will be considered in times of minSup and count of database transactions
 
-
-    **Sample run of the importing code:**
-    -------------------------------------------
+    **Importing this algorithm into a python program**
+    ----------------------------------------------------------------
     .. code-block:: python
 
-            from PAMI.faultTolerantFrequentPattern.basic import FTFPGrowth as alg
+            from PAMI.faultTolerantFrequentPattern.basic import FTECLAT as alg
 
-            obj = alg.FTFPGrowth(inputFile,minSup,itemSup,minLength,faultTolerance)
+            obj = alg.FTECLAT(inputFile,minSup,itemSup,minLength,faultTolerance)
 
             obj.mine()
 
             patterns = obj.getPatterns()
 
-            print("Total number of Frequent Patterns:", len(patterns))
+            print("Total number of fault-tolerant frequent patterns:",  len(patterns))
 
-            obj.save(oFile)
-
-            Df = obj.getPatternsAsDataFrame()
+            obj.save("outputFile")
 
             memUSS = obj.getMemoryUSS()
 
-            print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:",  memUSS)
 
             memRSS = obj.getMemoryRSS()
 
-            print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS",  memRSS)
 
             run = obj.getRuntime()
 
-            print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:",  run)
 
     **Credits:**
-    ---------------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+    ----------------
+             The complete program was written under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -189,7 +185,7 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
-        if isinstance(self._iFile, _fp._pd.DataFrame):
+        if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
                 print("its empty..")
             i = self._iFile.columns.values.tolist()
@@ -198,8 +194,8 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
                 for k in temp:
                     self._Database.append(set(k))
         if isinstance(self._iFile, str):
-            if _fp._validators.url(self._iFile):
-                data = _fp._urlopen(self._iFile)
+            if _ab._validators.url(self._iFile):
+                data = _ab._urlopen(self._iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
@@ -218,17 +214,17 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
                     print("File Not Found")
                     quit()
 
-    def _convert(self, value: Union[int, float, str]) -> Union[int, float]:
+    def _convert(self, value) -> float:
         """
-        To convert the type of user specified minSup value
+        To convert the user specified minSup value
 
         :param value: user specified minSup value
 
-        :type value: Union[int, float, str]
+        :type value: int or float
 
         :return: converted type
 
-        :rtype: int, float
+        :rtype: float
         """
         if type(value) is int:
             value = int(value)
@@ -254,13 +250,13 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
 
     def _buildMatrix(self) -> Tuple[List[str], _np.ndarray]:
         """
-        Builds the boolean transaction x candidate-item matrix with items ordered by support descending
-        (the FP-Growth item ordering).
+        Builds the boolean transaction x candidate-item matrix with items ordered by support ascending
+        (the ECLAT item ordering).
 
         :return: the ordered list of candidate item names and the ``|D| x nItems`` 0/1 matrix.
         :rtype: tuple(list, numpy.ndarray)
         """
-        items = [k for k, _ in sorted(self._mapSupport.items(), key=lambda x: (-x[1], x[0]))]
+        items = [k for k, _ in sorted(self._mapSupport.items(), key=lambda x: (x[1], x[0]))]
         colOf = {item: j for j, item in enumerate(items)}
         matrix = _np.zeros((len(self._Database), len(items)), dtype=_np.int32)
         for row, transaction in enumerate(self._Database):
@@ -270,24 +266,41 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
                     matrix[row, j] = 1
         return items, matrix
 
+    def _recursive(self, members: List[Tuple[Tuple[int, ...], _np.ndarray]], items: List[str], matrix: _np.ndarray) -> None:
+        """
+        Depth-first ECLAT over a prefix-equivalence class. Every member shares the same prefix; member ``i`` is
+        extended with the last item of each later member ``j`` and the fault-tolerant support of the union is the
+        number of transactions whose present-item count reaches ``len(newItemset) - faultTolerance``.
+        """
+        c = self._faultTolerance
+        minSup = self._minSup
+        for i in range(len(members)):
+            children: List[Tuple[Tuple[int, ...], _np.ndarray]] = []
+            for j in range(i + 1, len(members)):
+                candidate = members[i][0] + (members[j][0][-1],)
+                presentCount = members[i][1] + matrix[:, candidate[-1]]
+                support = int((presentCount >= len(candidate) - c).sum())
+                if support >= minSup:
+                    if len(candidate) >= self._minLength:
+                        self._finalPatterns[tuple(items[col] for col in candidate)] = support
+                    children.append((candidate, presentCount))
+            if len(children) > 1:
+                self._recursive(children, items, matrix)
+
     @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
         """
-        Main program to start the operation
+        Fault-tolerant frequent pattern mining process will start from here
         """
         self.mine()
 
     def mine(self) -> None:
         """
-        Main program to start the operation
+        Fault-tolerant frequent pattern mining process will start from here
         """
-        self._startTime = _fp._time.time()
-        if self._iFile is None:
-            raise Exception("Please enter the file path or file name:")
-        if self._minSup is None:
-            raise Exception("Please enter the Minimum Support")
         self._Database = []
         self._finalPatterns = {}
+        self._startTime = _ab._time.time()
         self._creatingItemSets()
         self._minSup = self._convert(self._minSup)
         self._itemSup = self._convert(self._itemSup)
@@ -298,34 +311,26 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         items, matrix = self._buildMatrix()
         if items:
             c = self._faultTolerance
-            minSup = self._minSup
-            minLength = self._minLength
-            nItems = len(items)
+            members: List[Tuple[Tuple[int, ...], _np.ndarray]] = []
+            for j in range(len(items)):
+                presentCount = matrix[:, j]
+                support = int((presentCount >= 1 - c).sum())
+                if support >= self._minSup:
+                    if self._minLength <= 1:
+                        self._finalPatterns[(items[j],)] = support
+                    members.append(((j,), presentCount))
+            if len(members) > 1:
+                self._recursive(members, items, matrix)
 
-            def grow(prefix: List[int], presentCount: _np.ndarray, startIdx: int) -> None:
-                # Pattern-growth: extend the current prefix with each later item (support-descending order).
-                for x in range(startIdx, nItems):
-                    newCount = presentCount + matrix[:, x]
-                    length = len(prefix) + 1
-                    support = int((newCount >= length - c).sum())
-                    if support < minSup:
-                        continue  # downward closure: no superset of this itemset can be frequent
-                    prefix.append(x)
-                    if length >= minLength:
-                        self._finalPatterns[tuple(items[p] for p in prefix)] = support
-                    grow(prefix, newCount, x + 1)
-                    prefix.pop()
-
-            grow([], _np.zeros(len(self._Database), dtype=_np.int32), 0)
-
-        print("Fault-Tolerant Frequent patterns were generated successfully using FTFPGrowth algorithm")
-        self._endTime = _fp._time.time()
-        process = _fp._psutil.Process(_fp._os.getpid())
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
+        print("Fault-Tolerant Frequent patterns were generated successfully using FTECLAT algorithm ")
 
     def getMemoryUSS(self) -> float:
         """
+
         Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -338,6 +343,7 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
 
     def getMemoryRSS(self) -> float:
         """
+
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -350,6 +356,7 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
 
     def getRuntime(self) -> float:
         """
+
         Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
@@ -362,6 +369,7 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
 
     def getPatternsAsDataFrame(self) -> pd.DataFrame:
         """
+
         Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -375,16 +383,17 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         for a, b in self._finalPatterns.items():
             s = ' '.join(a)
             data.append([s, b])
-            dataFrame = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def save(self, outFile: str) -> None:
+    def save(self, outFile) -> None:
         """
+
         Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
 
-        :type outFile: csv file
+        :type outFile: csvfile
 
         :return: None
 
@@ -397,6 +406,7 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
 
     def getPatterns(self) -> Dict[Tuple[str, ...], int]:
         """
+
         Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -408,7 +418,7 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
 
     def printResults(self) -> None:
         """
-        This function is used to print the results
+        This is function is used to print the result
         """
         print("Total number of Fault-Tolerant Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
@@ -418,15 +428,15 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
 
 if __name__ == "__main__":
     _ap = str()
-    if len(_fp._sys.argv) == 7 or len(_fp._sys.argv) == 8:
-        if len(_fp._sys.argv) == 8:
-            _ap = FTFPGrowth(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4],
-                             _fp._sys.argv[5], _fp._sys.argv[6], _fp._sys.argv[7])
-        if len(_fp._sys.argv) == 7:
-            _ap = FTFPGrowth(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4], _fp._sys.argv[5], _fp._sys.argv[6])
+    if len(_ab._sys.argv) == 7 or len(_ab._sys.argv) == 8:
+        if len(_ab._sys.argv) == 8:
+            _ap = FTECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4],
+                          _ab._sys.argv[5], _ab._sys.argv[6], _ab._sys.argv[7])
+        if len(_ab._sys.argv) == 7:
+            _ap = FTECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
         _ap.mine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.save(_fp._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
