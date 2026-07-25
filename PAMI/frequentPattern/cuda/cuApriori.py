@@ -35,7 +35,7 @@
 
 
 __copyright__ = """
-Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2026 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -54,6 +54,51 @@ Copyright (C)  2021 Rage Uday Kiran
 from deprecated import deprecated
 from PAMI.frequentPattern.cuda import abstract as _ab
 # import abstract as _ab
+
+
+def _makeBatchedIntersectKernel():
+    """
+    Build the batched support RawKernel used by cuApriori.
+
+    One thread computes the support of one candidate pair by a two-pointer
+    merge-intersection over the two candidates' sorted tid-lists. The tid-lists are
+    CSR-packed into ``flat`` with ``offsets`` marking each list's bounds, so a whole
+    candidate level is scored in a single kernel launch instead of one
+    ``cupy.intersect1d`` call per pair.
+    """
+    return _ab._cp.RawKernel(r'''
+
+    #define uint32_t unsigned int
+
+    extern "C" __global__
+
+    void batchedIntersectCount(const uint32_t* flat, const int* offsets,
+                               const int* left, const int* right,
+                               uint32_t* supports, int numPairs)
+    {
+        int p = blockDim.x * blockIdx.x + threadIdx.x;
+        if (p < numPairs)
+        {
+            int a  = offsets[left[p]];
+            int aE = offsets[left[p] + 1];
+            int b  = offsets[right[p]];
+            int bE = offsets[right[p] + 1];
+            uint32_t c = 0;
+            while (a < aE && b < bE)
+            {
+                uint32_t va = flat[a];
+                uint32_t vb = flat[b];
+                if (va == vb) { c++; a++; b++; }
+                else if (va < vb) { a++; }
+                else { b++; }
+            }
+            supports[p] = c;
+        }
+        return;
+    }
+
+    ''', 'batchedIntersectCount')
+
 
 class cuApriori(_ab._frequentPatterns):
     """
@@ -161,23 +206,7 @@ class cuApriori(_ab._frequentPatterns):
     _memoryRSS = float()
     _Database = []
 
-    _sumKernel = _ab._cp.RawKernel(r'''
-
-    #define uint32_t unsigned int
-
-    extern "C" __global__
-
-    void sumKernel(uint32_t *d_a, uint32_t *sum, uint32_t numElements)
-    {
-        uint32_t i = blockDim.x * blockIdx.x + threadIdx.x;
-        if (i < numElements)
-        {  
-            atomicAdd(&sum[0], __popc(d_a[i]));
-        }
-        return;    
-    }
-
-    ''', 'sumKernel')
+    _batchedIntersectKernel = _makeBatchedIntersectKernel()
 
     def _creatingItemSets(self):
         """
@@ -278,23 +307,54 @@ class cuApriori(_ab._frequentPatterns):
 
         ArraysAndItems = self.arraysAndItems()
 
-        while len(ArraysAndItems) > 0:
-            # print("Total number of ArraysAndItems:", len(ArraysAndItems))
-            newArraysAndItems = {}
+        while len(ArraysAndItems) > 1:
             keys = list(ArraysAndItems.keys())
-            for i in range(len(ArraysAndItems)):
-                # print(i, "/", len(ArraysAndItems), end="\r")
-                iList = list(keys[i])
-                for j in range(i + 1, len(ArraysAndItems)):
-                    jList = list(keys[j])
-                    union = tuple(sorted(set(iList + jList)))
-                    intersect = _ab._cp.intersect1d(ArraysAndItems[keys[i]], ArraysAndItems[keys[j]],
-                                                    assume_unique=True)
-                    if len(intersect) >= self._minSup and union not in self._finalPatterns:
-                        newArraysAndItems[union] = intersect
-                        self._finalPatterns[union] = len(intersect)
+            numCands = len(keys)
+            tidArrays = [ArraysAndItems[k] for k in keys]     # sorted uint32 tid-lists on GPU
+
+            # CSR-pack the level's tid-lists so every pair can be scored in one launch.
+            lengths = [int(a.size) for a in tidArrays]         # host-side, no device sync
+            flat = _ab._cp.concatenate(tidArrays)
+            offsets = _ab._cp.asarray(
+                _ab._np.concatenate(([0], _ab._np.cumsum(lengths))).astype(_ab._np.int32))
+
+            # Enumerate all candidate pairs (i < j) once.
+            iIdx, jIdx = _ab._np.triu_indices(numCands, k=1)
+            numPairs = int(iIdx.shape[0])
+            if numPairs == 0:
+                break
+            left = _ab._cp.asarray(iIdx, dtype=_ab._np.int32)
+            right = _ab._cp.asarray(jIdx, dtype=_ab._np.int32)
+
+            # One launch computes the intersection size (support) of every pair.
+            supports = _ab._cp.zeros(numPairs, dtype=_ab._np.uint32)
+            threads = 256
+            blocks = (numPairs + threads - 1) // threads
+            self._batchedIntersectKernel(
+                (blocks,), (threads,),
+                (flat, offsets, left, right, supports, _ab._np.int32(numPairs)))
+
+            supportsHost = _ab._cp.asnumpy(supports)           # single device->host sync
+            survivors = _ab._np.where(supportsHost >= self._minSup)[0]
+
+            # Record frequent unions (same dedup as before) and remember which parent
+            # pairs to materialize; only survivors pay for an intersect1d.
+            newArraysAndItems = {}
+            toMaterialize = []
+            for p in survivors:
+                i = int(iIdx[p])
+                j = int(jIdx[p])
+                union = tuple(sorted(set(keys[i]) | set(keys[j])))
+                if union in self._finalPatterns:
+                    continue
+                self._finalPatterns[union] = int(supportsHost[p])
+                toMaterialize.append((union, i, j))
+
+            for union, i, j in toMaterialize:
+                newArraysAndItems[union] = _ab._cp.intersect1d(
+                    tidArrays[i], tidArrays[j], assume_unique=True)
+
             ArraysAndItems = newArraysAndItems
-            # print()
 
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
@@ -391,7 +451,3 @@ if __name__ == "__main__":
         print("Total ExecutionTime in s:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
-
-
-

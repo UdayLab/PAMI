@@ -1,8 +1,8 @@
-# CoMine is one of the fundamental algorithm to discover correlated patterns in a transactional database.
+# CorrelatedECLAT is a vertical algorithm to discover correlated patterns in a transactional database.
 #
 # **Importing this algorithm into a python program**
 #
-#             from PAMI.correlatedPattern.basic import CoMine as alg
+#             from PAMI.correlatedPattern.basic import CorrelatedECLAT as alg
 #
 #             iFile = 'sampleTDB.txt'
 #
@@ -10,13 +10,13 @@
 #
 #             minAllConf = 0.2 # can  be specified between 0 and 1
 #
-#             obj = alg.CoMine(iFile, minSup, minAllConf, sep)
+#             obj = alg.CorrelatedECLAT(iFile, minSup, minAllConf, sep)
 #
 #             obj.mine()
 #
-#             Rules = obj.getPatterns()
+#             patterns = obj.getPatterns()
 #
-#             print("Total number of  Patterns:", len(Patterns))
+#             print("Total number of  Patterns:", len(patterns))
 #
 #             obj.save(oFile)
 #
@@ -59,69 +59,25 @@ from PAMI.correlatedPattern.basic import abstract as _ab
 import pandas as _pd
 from typing import List, Dict, Tuple, Union
 from deprecated import deprecated
-from collections import Counter
+
+_ab._sys.setrecursionlimit(20000)
 
 
-class _Node:
-    """
-    A class used to represent the node of frequentPatternTree
-
-    :**Attributes**:    - **itemId** (*int*) -- *storing item of a node.*
-                        - **counter** (*int*) -- *To maintain the support of node.*
-                        - **parent** (*node*) -- *To maintain the parent of node.*
-                        - **children** (*list*) -- *To maintain the children of node.*
-
-    :**Methods**:   - **addChild(node)** -- *Updates the nodes children list and parent for the given node.*
-    """
-
-    def __init__(self, item, count, parent) -> None:
-        self.item = item
-        self.count = count
-        self.parent = parent
-        self.children = {}
-
-    def addChild(self, item, count = 1):
-        """
-
-        Adds a child node to the current node with the specified item and count.
-
-        :param item: The item associated with the child node.
-        :type item: List
-        :param count: The count or support of the item. Default is 1.
-        :type count: int
-        :return: The child node added.
-        :rtype: List
-        """
-        if item not in self.children:
-            self.children[item] = _Node(item, count, self)
-        else:
-            self.children[item].count += count
-        return self.children[item]
-    
-    def traverse(self) -> Tuple[List[int], int]:
-        """
-        Traversing the tree to get the transaction
-
-        :return: transaction and count of each item in transaction
-        :rtype: Tuple, List and int
-        """
-        transaction = []
-        count = self.count
-        node = self.parent
-        while node.parent is not None:
-            transaction.append(node.item)
-            node = node.parent
-        return transaction[::-1], count
-
-class CoMine(_ab._correlatedPatterns):
+class CorrelatedECLAT(_ab._correlatedPatterns):
     """
     **About this algorithm**
 
-    :**Description**: CoMine is one of the fundamental algorithm to discover correlated  patterns in a transactional database. It is based on the traditional FP-Growth algorithm. This algorithm uses depth-first search technique to find all correlated patterns in a transactional database.
+    :**Description**: CorrelatedECLAT discovers the complete set of correlated patterns in a transactional database using
+                      the vertical (tidset) ECLAT strategy. A pattern is correlated when its support is at least ``minSup``
+                      and its all-confidence ``support(P) / max_{i in P} support(i)`` is at least ``minAllConf``. Both
+                      support and all-confidence are anti-monotone, so the depth-first search over prefix-equivalence
+                      classes prunes any itemset that is not itself correlated. It returns the same patterns as CoMine
+                      and CoMinePlus.
 
-    :**Reference**: Lee, Y.K., Kim, W.Y., Cao, D., Han, J. (2003). CoMine: efficient mining of correlated patterns. In ICDM (pp. 581–584).
+    :**Reference**: Omiecinski, E. R. (2003). Alternative interest measures for mining associations in databases. IEEE TKDE 15(1), 57-69.
+                    Lee, Y.K., Kim, W.Y., Cao, D., Han, J. (2003). CoMine: efficient mining of correlated patterns. In ICDM (pp. 581-584).
 
-    :**parameters**:    - **iFile** (*str*) -- *Name of the Input file to mine complete set of correlated patterns*
+    :**parameters**:    - **iFile** (*str or DataFrame or URL*) -- *Name of the Input file to mine complete set of correlated patterns*
                         - **oFile** (*str*) -- *Name of the output file to store complete set of correlated patterns*
                         - **minSup** (*int or float or str*) -- *The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.*
                         - **minAllConf** (*float*) -- *The user can specify minAllConf values within the range (0, 1).*
@@ -131,16 +87,7 @@ class CoMine(_ab._correlatedPatterns):
                         - **memoryRSS** (*float*) -- *To store the total amount of RSS memory consumed by the program.*
                         - **startTime** (*float*) -- *To record the start time of the mining process.*
                         - **endTime** (*float*) -- *To record the completion time of the mining process.*
-                        - **minSup** (*int*) -- *The user given minSup.*
-                        - **minAllConf** (*float*) -- *The user given minimum all confidence Ratio(should be in range of 0 to 1).*
-                        - **Database** (*list*) -- *To store the transactions of a database in list.*
-                        - **mapSupport** (*Dictionary*) -- *To maintain the information of item and their frequency.*
-                        - **lno** (*int*) -- *it represents the total no of transactions.*
-                        - **tree** (*class*) -- *it represents the Tree class.*
-                        - **itemSetCount** (*int*) -- *it represents the total no of patterns.*
                         - **finalPatterns** (*dict*) -- *it represents to store the patterns.*
-                        - **itemSetBuffer** (*list*) -- *it represents the store the items in mining.*
-                        - **maxPatternLength** (*int*) -- *it represents the constraint for pattern length.*
 
     **Execution methods**
 
@@ -150,11 +97,11 @@ class CoMine(_ab._correlatedPatterns):
 
       Format:
 
-      (.venv) $ python3 CoMine.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
+      (.venv) $ python3 CorrelatedECLAT.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
 
       Example Usage:
 
-      (.venv) $ python3 CoMine.py sampleTDB.txt output.txt 0.25 0.2
+      (.venv) $ python3 CorrelatedECLAT.py sampleTDB.txt output.txt 0.25 0.2
 
     .. note:: minSup can be specified in support count or a value between 0 and 1.
 
@@ -162,7 +109,7 @@ class CoMine(_ab._correlatedPatterns):
 
     .. code-block:: python
 
-            from PAMI.correlatedPattern.basic import CoMine as alg
+            from PAMI.correlatedPattern.basic import CorrelatedECLAT as alg
 
             iFile = 'sampleTDB.txt'
 
@@ -170,7 +117,7 @@ class CoMine(_ab._correlatedPatterns):
 
             minAllConf = 0.2 # can  be specified between 0 and 1
 
-            obj = alg.CoMine(iFile, minSup, minAllConf,sep)
+            obj = alg.CorrelatedECLAT(iFile, minSup, minAllConf, sep)
 
             obj.mine()
 
@@ -178,7 +125,7 @@ class CoMine(_ab._correlatedPatterns):
 
             print("Total number of  Patterns:", len(patterns))
 
-            obj.savePatterns(oFile)
+            obj.save(oFile)
 
             df = obj.getPatternsAsDataFrame()
 
@@ -196,7 +143,7 @@ class CoMine(_ab._correlatedPatterns):
 
     **Credits**
 
-    The complete program was written by B.Sai Chitra and revised by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
+    The complete program was written under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -211,25 +158,9 @@ class CoMine(_ab._correlatedPatterns):
     _minAllConf = 0.0
     _Database = []
     _mapSupport = {}
-    _lno = 0
-    _tree = str()
-    _itemSetBuffer = None
-    _fpNodeTempBuffer = []
-    _itemSetCount = 0
-    _maxPatternLength = 1000
     _sep = "\t"
-    _counter = 0
 
-    def __init__(self, iFile: Union[str, _pd.DataFrame], minSup: Union[int, float, str], minAllConf: float, sep: str="\t") ->None:
-        """
-        param iFile: give the input file
-        type iFile: str or DataFrame or url
-        param minSup: minimum support
-        type minSup:   int or float
-        param sep: Delimiter of input file
-        type sep: str
-        """
-
+    def __init__(self, iFile: Union[str, _pd.DataFrame], minSup: Union[int, float, str], minAllConf: float, sep: str = "\t") -> None:
         super().__init__(iFile, minSup, minAllConf, sep)
 
     def _creatingItemSets(self) -> None:
@@ -267,14 +198,13 @@ class CoMine(_ab._correlatedPatterns):
                     print("File Not Found")
                     quit()
 
-    
     def _convert(self, value: Union[int, float, str]):
         """
         To convert the type of user specified minSup value
 
         :param value: user specified minSup value
         :type value: int or float or str
-        :return: None
+        :return: converted value
         """
         if type(value) is int:
             value = int(value)
@@ -288,92 +218,38 @@ class CoMine(_ab._correlatedPatterns):
                 value = int(value)
         return value
 
-    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         main method to start
         """
         self.mine()
 
-    def _maxSup(self, itemSet, item):
+    def _maxSup(self, itemSet: Tuple[str, ...]) -> int:
         """
-        Calculate the maximum support value for a given itemSet and item.
-
-        :param itemSet: A set of items to compare.
-        :type itemSet: list or set
-        :param item: An individual item to compare.
-        :type item: Any
-        :return: The maximum support value from the itemSet and the individual item.
-        :rtype: float or int
+        Maximum single-item support among the items of ``itemSet`` (the all-confidence denominator).
         """
-        sups = [self._mapSupport[i] for i in itemSet] + [self._mapSupport[item]]
-        return max(sups)
+        return max(self._mapSupport[i] for i in itemSet)
 
-    def _allConf(self, itemSet):
+    def _recursive(self, members: List[Tuple[Tuple[str, ...], set]]) -> None:
         """
-        Calculate the all-confidence value for a given itemSet.
-
-        :param itemSet: A set of items for which to calculate the all-confidence.
-        :type itemSet: list or set
-        :return: The all-confidence value for the itemSet.
-        :rtype: float
+        Depth-first ECLAT over a prefix-equivalence class. Member ``i`` is extended with the last item of each later
+        member ``j``; the extension's tidset is the intersection of the two tidsets and its all-confidence is
+        ``support / maxSup(items)``. Only correlated itemsets are extended (support and all-confidence are anti-monotone).
         """
-        return self._finalPatterns[itemSet] / max([self._mapSupport[i] for i in itemSet])
-    
-    def recursive(self, item, nodes, root):
-        """
-        Recursively build the tree structure for itemsets and find patterns that meet
-        the minimum support and all-confidence thresholds.
-
-        :param item: The current item being processed.
-        :type item: Any
-        :param nodes: The list of nodes to be processed.
-        :type nodes: list of _Node
-        :param root: The root node of the current tree.
-        :type root: _Node
-        :return: None
-        """
-
-        if root.item is None:
-            newRoot = _Node([item], 0, None)
-        else:
-            newRoot = _Node(root.item + [item], 0, None)
-
-        itemCounts = {}
-        transactions = []
-        for node in nodes:
-            transaction, count = node.traverse()
-            transactions.append([transaction, count])
-            for _i in transaction:
-                if _i not in itemCounts:
-                    itemCounts[_i] = 0
-                itemCounts[_i] += count
-
-        # print(newRoot.item, itemCounts.keys())
-        itemCounts = {k:v for k, v in itemCounts.items() if v >= self._minSup}
-        if len(itemCounts) == 0:
-            return
-
-        itemNodes = {}
-        for transaction, count in transactions:
-            transaction = [i for i in transaction if i in itemCounts]
-            transaction = sorted(transaction, key=lambda _item: (itemCounts[_item], _item), reverse=True)
-            node = newRoot
-            for _i in transaction:
-                node = node.addChild(_i, count)
-                if _i not in itemNodes:
-                    itemNodes[_i] = [set(), 0]
-                itemNodes[_i][0].add(node)
-                itemNodes[_i][1] += count
-
-        itemNodes = {k:v for k, v in sorted(itemNodes.items(), key=lambda x: x[1][1], reverse=True)}
-
-
-        for item in itemCounts:
-            conf = itemNodes[item][1] / self._maxSup(newRoot.item, item)
-            if conf >= self._minAllConf:
-                self._finalPatterns[tuple(newRoot.item + [item])] = [itemCounts[item], conf]
-                self.recursive(item, itemNodes[item][0], newRoot)
+        for i in range(len(members)):
+            children: List[Tuple[Tuple[str, ...], set]] = []
+            for j in range(i + 1, len(members)):
+                candidate = members[i][0] + (members[j][0][-1],)
+                tidset = members[i][1] & members[j][1]
+                support = len(tidset)
+                if support >= self._minSup:
+                    allConf = support / self._maxSup(candidate)
+                    if allConf >= self._minAllConf:
+                        self._finalPatterns[candidate] = [support, allConf]
+                        children.append((candidate, tidset))
+            if len(children) > 1:
+                self._recursive(children)
 
     def mine(self) -> None:
         """
@@ -382,39 +258,31 @@ class CoMine(_ab._correlatedPatterns):
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
+        self._finalPatterns = {}
         self._creatingItemSets()
         self._minSup = self._convert(self._minSup)
 
-        itemCount = Counter()
-        for transaction in self._Database:
-            itemCount.update(transaction)
-
-        self._mapSupport = {k: v for k, v in itemCount.items() if v >= self._minSup}
-        self._Database = [[item for item in transaction if item in self._mapSupport] for transaction in self._Database]
-        self._Database = [sorted(transaction, key=lambda item: (self._mapSupport[item], item), reverse=True) for transaction in self._Database]
-        
-        root = _Node(None, 0, None)
-        itemNode = {}
-        # itemNode[item] = [node, count]
-        for transaction in self._Database:
-            node = root
+        # Build the vertical representation: tidset (set of transaction ids) of every item.
+        tidsets: Dict[str, set] = {}
+        for tid, transaction in enumerate(self._Database):
             for item in transaction:
-                node = node.addChild(item)
-                if item not in itemNode:
-                    itemNode[item] = [set(), 0]
-                itemNode[item][0].add(node)
-                itemNode[item][1] += 1
+                if item not in tidsets:
+                    tidsets[item] = set()
+                tidsets[item].add(tid)
 
-        itemNode = {k:v for k, v in sorted(itemNode.items(), key=lambda x: x[1][1], reverse=True)}
+        self._mapSupport = {k: len(v) for k, v in tidsets.items() if len(v) >= self._minSup}
+        # Support-ascending total order (with item tiebreaker) - the ECLAT processing order.
+        frequentItems = sorted(self._mapSupport.keys(), key=lambda it: (self._mapSupport[it], it))
 
-        for item in itemNode:
-            self._finalPatterns[tuple([item])] = [itemNode[item][1],1]
-            self.recursive(item, itemNode[item][0], root)
+        members: List[Tuple[Tuple[str, ...], set]] = []
+        for item in frequentItems:
+            self._finalPatterns[(item,)] = [self._mapSupport[item], 1.0]
+            members.append(((item,), tidsets[item]))
+        if len(members) > 1:
+            self._recursive(members)
 
-        print("Correlated patterns were generated successfully using CoMine algorithm")
+        print("Correlated patterns were generated successfully using CorrelatedECLAT algorithm")
         self._endTime = _ab._time.time()
-        self._memoryUSS = float()
-        self._memoryRSS = float()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
@@ -426,7 +294,6 @@ class CoMine(_ab._correlatedPatterns):
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
-
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
@@ -436,7 +303,6 @@ class CoMine(_ab._correlatedPatterns):
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
-
         return self._memoryRSS
 
     def getRuntime(self) -> float:
@@ -446,7 +312,6 @@ class CoMine(_ab._correlatedPatterns):
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
-
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self) -> _pd.DataFrame:
@@ -456,7 +321,6 @@ class CoMine(_ab._correlatedPatterns):
         :return: returning correlated patterns in a dataframe
         :rtype: pd.DataFrame
         """
-
         dataframe = {}
         data = []
         for a, b in self._finalPatterns.items():
@@ -484,7 +348,7 @@ class CoMine(_ab._correlatedPatterns):
             patternsAndSupport = pat.strip() + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % patternsAndSupport)
 
-    def getPatterns(self) -> Dict[Tuple[int], List[Union[int, float]]]:
+    def getPatterns(self) -> Dict[Tuple[str, ...], List[Union[int, float]]]:
         """
         Function to send the set of correlated patterns after completion of the mining process
 
@@ -502,15 +366,16 @@ class CoMine(_ab._correlatedPatterns):
         print("Total number of Correlated Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
-        print("Total ExecutionTime in ms:",  self.getRuntime())
+        print("Total ExecutionTime in ms:", self.getRuntime())
+
 
 if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:
-            _ap = CoMine(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]), _ab._sys.argv[5])
+            _ap = CorrelatedECLAT(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]), _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
-            _ap = CoMine(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
+            _ap = CorrelatedECLAT(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
         _ap.mine()
         print("Total number of Correlated-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])

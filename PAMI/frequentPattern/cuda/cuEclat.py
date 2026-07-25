@@ -56,6 +56,50 @@ Copyright (C)  2021 Rage Uday Kiran
 import abstract as _ab
 from deprecated import deprecated
 
+
+def _makeBatchedIntersectKernel():
+    """
+    Build the batched support RawKernel used by cuEclat.
+
+    One thread computes the support of one candidate pair by a two-pointer
+    merge-intersection over the two candidates' sorted tid-lists. The tid-lists are
+    CSR-packed into ``flat`` with ``offsets`` marking each list's bounds, so a whole
+    candidate level is scored in a single kernel launch instead of one
+    ``cupy.intersect1d`` call per pair.
+    """
+    return _ab._cp.RawKernel(r'''
+
+    #define uint32_t unsigned int
+
+    extern "C" __global__
+
+    void batchedIntersectCount(const uint32_t* flat, const int* offsets,
+                               const int* left, const int* right,
+                               uint32_t* supports, int numPairs)
+    {
+        int p = blockDim.x * blockIdx.x + threadIdx.x;
+        if (p < numPairs)
+        {
+            int a  = offsets[left[p]];
+            int aE = offsets[left[p] + 1];
+            int b  = offsets[right[p]];
+            int bE = offsets[right[p] + 1];
+            uint32_t c = 0;
+            while (a < aE && b < bE)
+            {
+                uint32_t va = flat[a];
+                uint32_t vb = flat[b];
+                if (va == vb) { c++; a++; b++; }
+                else if (va < vb) { a++; }
+                else { b++; }
+            }
+            supports[p] = c;
+        }
+        return;
+    }
+
+    ''', 'batchedIntersectCount')
+
 class cuEclat(_ab._frequentPatterns):
     """
     :Description: ECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.
@@ -166,6 +210,7 @@ class cuEclat(_ab._frequentPatterns):
     _memoryRSS = float()
     _Database = []
 
+    _batchedIntersectKernel = _makeBatchedIntersectKernel()
 
     def _creatingItemSets(self):
         """
@@ -270,27 +315,49 @@ class cuEclat(_ab._frequentPatterns):
 
         ArraysAndItems = self._arraysAndItems()
 
-        while len(ArraysAndItems) > 0:
-            # print("Total number of ArraysAndItems:", len(ArraysAndItems))
-            newArraysAndItems = {}
+        while len(ArraysAndItems) > 1:
             keys = list(ArraysAndItems.keys())
-            for i in range(len(ArraysAndItems)):
+            tidArrays = [ArraysAndItems[k] for k in keys]
+            leftIdx, rightIdx, unions = [], [], []
+            for i in range(len(keys)):
                 iList = list(keys[i])
-                for j in range(i+1, len(ArraysAndItems)):
-                    # print(i, "/", len(ArraysAndItems), end="\r")
+                for j in range(i + 1, len(keys)):
                     jList = list(keys[j])
                     if iList[:-1] == jList[:-1] and iList[-1] != jList[-1]:
-                        union = iList + [jList[-1]]
-                        union = tuple(union)
-                        intersect = _ab._cp.intersect1d(ArraysAndItems[keys[i]], ArraysAndItems[keys[j]], assume_unique=True)
-                        if len(intersect) >= self._minSup:
-                            newArraysAndItems[union] = intersect
-                            self._finalPatterns[union] = len(intersect)
+                        leftIdx.append(i)
+                        rightIdx.append(j)
+                        unions.append(tuple(iList + [jList[-1]]))
                     else:
                         break
+            if not leftIdx:
+                break
+
+            lengths = [int(a.size) for a in tidArrays]
+            flat = _ab._cp.concatenate(tidArrays)
+            offsets = _ab._cp.asarray(
+                _ab._np.concatenate(([0], _ab._np.cumsum(lengths))).astype(_ab._np.int32))
+            left = _ab._cp.asarray(_ab._np.asarray(leftIdx, dtype=_ab._np.int32))
+            right = _ab._cp.asarray(_ab._np.asarray(rightIdx, dtype=_ab._np.int32))
+
+            numPairs = len(leftIdx)
+            supports = _ab._cp.zeros(numPairs, dtype=_ab._np.uint32)
+            threads = 256
+            blocks = (numPairs + threads - 1) // threads
+            self._batchedIntersectKernel(
+                (blocks,), (threads,),
+                (flat, offsets, left, right, supports, _ab._np.int32(numPairs)))
+
+            supportsHost = _ab._cp.asnumpy(supports)
+
+            newArraysAndItems = {}
+            for p in range(numPairs):
+                if supportsHost[p] >= self._minSup:
+                    union = unions[p]
+                    self._finalPatterns[union] = int(supportsHost[p])
+                    newArraysAndItems[union] = _ab._cp.intersect1d(
+                        tidArrays[leftIdx[p]], tidArrays[rightIdx[p]], assume_unique=True)
 
             ArraysAndItems = newArraysAndItems
-            # print()
 
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
