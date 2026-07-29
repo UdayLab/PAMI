@@ -408,7 +408,7 @@ class CFPGrowth(_fp._frequentPatterns):
                     with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line = line.strip()
-                            temp = [i.rstrip() for i in line.split('\t')]
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
                             # print(temp)
                             self.__Database.append(temp)
@@ -559,6 +559,7 @@ class CFPGrowth(_fp._frequentPatterns):
 
         """
         global _MIS
+        _MIS = {}  # reset shared state so repeated runs / multiple instances do not leak stale ranks
         self.__startTime = _fp._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
