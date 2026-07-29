@@ -34,7 +34,7 @@
 
 
 __copyright__ = """
-Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2026 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -53,6 +53,41 @@ Copyright (C)  2021 Rage Uday Kiran
 # from PAMI.frequentPattern.cuda import abstract as _ab
 import abstract as _ab
 from deprecated import deprecated
+
+
+def _makeBatchedSupportKernel():
+    """
+    Build the batched support RawKernel used by cuAprioriBit.
+
+    One thread computes the support (popcount of the bit-wise AND) of one candidate
+    pair, so a whole candidate level is evaluated in a single kernel launch instead
+    of one launch per pair.
+    """
+    return _ab._cp.RawKernel(r'''
+
+    #define uint32_t unsigned int
+
+    extern "C" __global__
+
+    void batchedSupport(const uint32_t* M, const int* left, const int* right,
+                        uint32_t* supports, int numPairs, int numWords)
+    {
+        int p = blockDim.x * blockIdx.x + threadIdx.x;
+        if (p < numPairs)
+        {
+            const uint32_t* a = M + (size_t)left[p]  * numWords;
+            const uint32_t* b = M + (size_t)right[p] * numWords;
+            uint32_t s = 0;
+            for (int w = 0; w < numWords; ++w)
+            {
+                s += __popc(a[w] & b[w]);
+            }
+            supports[p] = s;
+        }
+        return;
+    }
+
+    ''', 'batchedSupport')
 
 
 class cuAprioriBit(_ab._frequentPatterns):
@@ -159,23 +194,7 @@ class cuAprioriBit(_ab._frequentPatterns):
     _memoryRSS = float()
     _Database = []
 
-    _sumKernel = _ab._cp.RawKernel(r'''
-
-    #define uint32_t unsigned int
-
-    extern "C" __global__
-
-    void sumKernel(uint32_t *d_a, uint32_t *sum, uint32_t numElements)
-    {
-        uint32_t i = blockDim.x * blockIdx.x + threadIdx.x;
-        if (i < numElements)
-        {  
-            atomicAdd(&sum[0], __popc(d_a[i]));
-        }
-        return;    
-    }
-
-    ''', 'sumKernel')
+    _batchedSupportKernel = _makeBatchedSupportKernel()
 
     def _creatingItemSets(self):
         """
@@ -291,27 +310,59 @@ class cuAprioriBit(_ab._frequentPatterns):
         ArraysAndItems = self.arraysAndItems()
         ArraysAndItems = self.createBitRepresentation(ArraysAndItems)
 
-        while len(ArraysAndItems) > 0:
-            # print("Total number of ArraysAndItems:", len(ArraysAndItems))
-            newArraysAndItems = {}
+        while len(ArraysAndItems) > 1:
             keys = list(ArraysAndItems.keys())
-            for i in range(len(ArraysAndItems)):
-                # print(i, "/", len(ArraysAndItems), end="\r")
-                iList = list(keys[i])
-                for j in range(i + 1, len(ArraysAndItems)):
-                    unionData = _ab._cp.bitwise_and(ArraysAndItems[keys[i]], ArraysAndItems[keys[j]])
-                    _sum = _ab._cp.zeros(1, dtype=_ab._np.uint32)
-                    self._sumKernel((len(unionData) // 32 + 1,), (32,),
-                                    (unionData, _sum, _ab._cp.uint32(len(unionData))))
-                    _sum = _sum[0]
-                    jList = list(keys[j])
-                    union = tuple(sorted(set(iList + jList)))
-                    if _sum >= self._minSup and union not in self._finalPatterns:
-                        newArraysAndItems[union] = unionData
-                        string = "\t".join(union)
-                        self._finalPatterns[string] = _sum
+            numCands = len(keys)
+
+            # Stack this level's bit-sets into one contiguous (numCands x numWords)
+            # matrix so every candidate pair can be scored in a single kernel launch.
+            M = _ab._cp.stack([ArraysAndItems[k] for k in keys])
+            numWords = int(M.shape[1])
+
+            # Enumerate all candidate pairs (i < j) once.
+            iIdx, jIdx = _ab._np.triu_indices(numCands, k=1)
+            numPairs = int(iIdx.shape[0])
+            if numPairs == 0:
+                break
+            left = _ab._cp.asarray(iIdx, dtype=_ab._np.int32)
+            right = _ab._cp.asarray(jIdx, dtype=_ab._np.int32)
+
+            # One launch computes the support (popcount of the AND) of every pair.
+            supports = _ab._cp.zeros(numPairs, dtype=_ab._np.uint32)
+            threads = 256
+            blocks = (numPairs + threads - 1) // threads
+            self._batchedSupportKernel(
+                (blocks,), (threads,),
+                (M.ravel(), left, right, supports,
+                 _ab._np.int32(numPairs), _ab._np.int32(numWords)))
+
+            supportsHost = _ab._cp.asnumpy(supports)          # single device->host sync
+            survivors = _ab._np.where(supportsHost >= self._minSup)[0]
+
+            # Record the frequent unions (deduped within the level) and remember which
+            # parent rows to AND together for the next level's bit-sets.
+            newArraysAndItems = {}
+            keepLeft, keepRight = [], []
+            for p in survivors:
+                i = int(iIdx[p])
+                j = int(jIdx[p])
+                union = tuple(sorted(set(keys[i]) | set(keys[j])))
+                if union in newArraysAndItems:
+                    continue
+                newArraysAndItems[union] = None               # bit-set filled in below
+                keepLeft.append(i)
+                keepRight.append(j)
+                self._finalPatterns["\t".join(union)] = int(supportsHost[p])
+
+            if keepLeft:
+                # Build every surviving candidate's bit-set in one vectorized GPU AND.
+                kl = _ab._cp.asarray(keepLeft, dtype=_ab._np.int32)
+                kr = _ab._cp.asarray(keepRight, dtype=_ab._np.int32)
+                newM = _ab._cp.bitwise_and(M[kl], M[kr])
+                for idx, union in enumerate(newArraysAndItems.keys()):
+                    newArraysAndItems[union] = newM[idx]
+
             ArraysAndItems = newArraysAndItems
-            # print()
 
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
@@ -410,5 +461,3 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
-

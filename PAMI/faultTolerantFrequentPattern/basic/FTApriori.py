@@ -33,7 +33,7 @@
 
 
 __copyright__ = """
-Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2026 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -47,21 +47,24 @@ Copyright (C)  2021 Rage Uday Kiran
 
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-     Copyright (C)  2021 Rage Uday Kiran
+     Copyright (C)  2026 Rage Uday Kiran
      
 """
 
 from PAMI.faultTolerantFrequentPattern.basic import abstract as _ab
 import pandas as pd
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
+import numpy as _np
+from typing import List, Dict, Tuple, Union
 from deprecated import deprecated
 
 
 class FTApriori(_ab._faultTolerantFrequentPatterns):
     """
-    
+
     :Description:   FT-Apriori is one of the fundamental algorithm to discover fault-tolerant frequent patterns in a transactional database.
-                    This program employs apriori property (or downward closure property) to  reduce the search space effectively.
+                    This implementation employs the downward-closure property of the fault-tolerant support (which is
+                    anti-monotone for a fixed ``faultTolerance``) to prune the search space with level-wise apriori
+                    candidate generation, instead of enumerating the whole power set.
 
     :Reference:    Pei, Jian & Tung, Anthony & Han, Jiawei. (2001). Fault-Tolerant Frequent Pattern Mining: Problems and Challenges.
 
@@ -75,10 +78,11 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
                     Otherwise, it will be treated as float.
                     Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
     :param  itemSup: int or float :
-                    Frequency of an item
+                    Minimum support of an item to be considered as a candidate item of a fault-tolerant pattern
     :param minLength: int :
                      minimum length of a pattern
-    :param faultTolerance: int
+    :param faultTolerance: int :
+                     maximum number of items of a pattern that a transaction is allowed to miss
 
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
@@ -103,8 +107,8 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
 
         Database : list
           To store the transactions of a database in list
-    
-        
+
+
     **Methods to execute code on terminal**
     ------------------------------------------
 
@@ -118,37 +122,37 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
 
       (.venv) $ python3 FTApriori.py sampleDB.txt patterns.txt 10.0 3.0 3 1
 
-    
+
     .. note:: minSup will be considered in times of minSup and count of database transactions
-    
+
     **Importing this algorithm into a python program**
     ----------------------------------------------------------------
     .. code-block:: python
-    
+
             from PAMI.faultTolerantFrequentPattern.basic import FTApriori as alg
-    
+
             obj = alg.FTApriori(inputFile,minSup,itemSup,minLength,faultTolerance)
-    
+
             obj.mine()
-    
+
             patterns = obj.getPatterns()
-    
+
             print("Total number of fault-tolerant frequent patterns:",  len(patterns))
-    
+
             obj.save("outputFile")
-    
+
             memUSS = obj.getMemoryUSS()
-    
+
             print("Total Memory in USS:",  memUSS)
-    
+
             memRSS = obj.getMemoryRSS()
-    
+
             print("Total Memory in RSS",  memRSS)
-    
+
             run = obj.getRuntime
-    
+
             print("Total ExecutionTime in seconds:",  run)
-    
+
     **Credits:**
     ----------------
              The complete program was written by  P.Likhitha under the supervision of Professor Rage Uday Kiran.
@@ -230,33 +234,10 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
                 value = int(value)
         return value
 
-    def _Count(self, k) -> Tuple[int, List[List[str]]]:
-        """
-        :param k: list of items
-
-        :type k: list
-
-        :return: count of items in k and list
-
-        :rtype: tuple
-
-        """
-        #count = 0
-        items = []
-        k = list(k)
-        n = len(k) - self._faultTolerance
-        c = _ab._itertools.combinations(k, n)
-        count = 0
-        for j in c:
-            j = list(j)
-            for i in self._Database:
-                if set(j).issubset(i):
-                    count += 1
-                    items.append(i)
-        items = list(set(map(tuple, items)))
-        return len(items), items
-
     def _oneLengthFrequentItems(self) -> None:
+        """
+        Restricts the candidate items to those whose global support is at least ``itemSup``.
+        """
         self._mapSupport = {}
         for li in self._Database:
             for i in li:
@@ -266,37 +247,77 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
                     self._mapSupport[i] += 1
         self._mapSupport = {k: v for k, v in self._mapSupport.items() if v >= self._itemSup}
 
-    def _countItemSupport(self, itemset) -> int:
+    def _buildMatrix(self) -> Tuple[List[str], _np.ndarray]:
         """
-        This function is used to count the  itemSupport
+        Builds the boolean transaction x candidate-item matrix used to count fault-tolerant support.
 
-        :param itemSet: frequent itemSet that generated
-
-        :type itemset: list
-
-        :return: count of items
-
-        :rtype: int
-
+        :return: the sorted list of candidate item names and the ``|D| x nItems`` 0/1 matrix.
+        :rtype: tuple(list, numpy.ndarray)
         """
-        #tids = {}
-        #res = True
-        count = 0
-        for x in self._Database:
-            if abs(len(itemset) - len(set(x) & set(itemset))) <= self._faultTolerance:
-                count += 1
-        return count
+        items = sorted(self._mapSupport.keys())
+        colOf = {item: j for j, item in enumerate(items)}
+        matrix = _np.zeros((len(self._Database), len(items)), dtype=_np.int32)
+        for row, transaction in enumerate(self._Database):
+            for item in transaction:
+                j = colOf.get(item)
+                if j is not None:
+                    matrix[row, j] = 1
+        return items, matrix
 
     def _getFaultPatterns(self) -> None:
-        l = [k for k, v in self._mapSupport.items()]
-        for i in range(0, len(l) + 1):
-            c = _ab._itertools.combinations(l, i)
-            for j in c:
-                res = self._countItemSupport(j)
-                if len(j) >= self._minLength and res >= self._minSup:
-                    self._finalPatterns[tuple(j)] = res
+        """
+        Discovers every fault-tolerant frequent pattern using level-wise apriori generation with
+        downward-closure pruning. The fault-tolerant support of an itemset ``P`` is the number of
+        transactions holding at least ``|P| - faultTolerance`` of its items; this measure is
+        anti-monotone, so a candidate is generated only when all of its (k-1)-subsets are frequent.
+        """
+        items, matrix = self._buildMatrix()
+        if not items:
+            return
+        c = self._faultTolerance
+        minSup = self._minSup
 
-    @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
+        allFrequent: Dict[Tuple[int, ...], int] = {}
+        # Level 1: every candidate item (already itemSup-filtered).
+        level: List[Tuple[Tuple[int, ...], _np.ndarray]] = []
+        for j in range(len(items)):
+            presentCount = matrix[:, j]
+            support = int((presentCount >= 1 - c).sum())
+            if support >= minSup:
+                level.append(((j,), presentCount))
+                allFrequent[(j,)] = support
+
+        while len(level) > 1:
+            level.sort(key=lambda x: x[0])
+            prevSet = set(t for t, _ in level)
+            nextLevel: List[Tuple[Tuple[int, ...], _np.ndarray]] = []
+            m = len(level)
+            i = 0
+            while i < m:
+                j = i + 1
+                prefix = level[i][0][:-1]
+                while j < m and level[j][0][:-1] == prefix:
+                    j += 1
+                for a in range(i, j):
+                    for b in range(a + 1, j):
+                        candidate = level[a][0] + (level[b][0][-1],)
+                        # Prune: every (k-1)-subset must be frequent.
+                        if any((candidate[:idx] + candidate[idx + 1:]) not in prevSet
+                               for idx in range(len(candidate))):
+                            continue
+                        presentCount = level[a][1] + matrix[:, candidate[-1]]
+                        support = int((presentCount >= len(candidate) - c).sum())
+                        if support >= minSup:
+                            nextLevel.append((candidate, presentCount))
+                            allFrequent[candidate] = support
+                i = j
+            level = nextLevel
+
+        for indexTuple, support in allFrequent.items():
+            if len(indexTuple) >= self._minLength:
+                self._finalPatterns[tuple(items[col] for col in indexTuple)] = support
+
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
         """
         Fault-tolerant frequent pattern mining process will start from here
@@ -309,6 +330,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         Fault-tolerant frequent pattern mining process will start from here
         """
         self._Database = []
+        self._finalPatterns = {}
         self._startTime = _ab._time.time()
         self._creatingItemSets()
         self._minSup = self._convert(self._minSup)
@@ -434,10 +456,10 @@ if __name__ == "__main__":
     if len(_ab._sys.argv) == 7 or len(_ab._sys.argv) == 8:
         if len(_ab._sys.argv) == 8:
             _ap = FTApriori(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4],
-                            _ab._sys.argv[5], _ab._sys.argv[6], _ab._sys.argv[7], )
+                            _ab._sys.argv[5], _ab._sys.argv[6], _ab._sys.argv[7])
         if len(_ab._sys.argv) == 7:
             _ap = FTApriori(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
-        _ap.mine()
+
         _ap.mine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
