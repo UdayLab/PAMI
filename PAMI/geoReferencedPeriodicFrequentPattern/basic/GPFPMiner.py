@@ -253,6 +253,8 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
 
         candidate = {}
         for i in self._Database:
+            if not i:
+                continue
             self._lno += 1
             n = int(i[0])
             for j in i[1:]:
@@ -362,7 +364,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
             itemSetX = [itemX]
             neighboursItemsI = self._getNeighbourItems(itemSets[i])
             for j in range(i + 1, len(itemSets)):
-                neighboursItemsJ = self._getNeighbourItems(itemSets[i])
+                neighboursItemsJ = self._getNeighbourItems(itemSets[j])
                 if not itemSets[j] in neighboursItemsI:
                     continue
                 itemJ = itemSets[j]
@@ -419,18 +421,20 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
             if _ab._validators.url(self._nFile):
                 data = _ab._urlopen(self._nFile)
                 for line in data:
-                    line.strip()
                     line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
+                    if not temp:      # skip blank lines (e.g. a trailing newline)
+                        continue
                     self._NeighboursMap[temp[0]] = temp[1:]
             else:
                 try:
                     with open(self._nFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            line.strip()
                             temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
+                            if not temp:      # skip blank lines (e.g. a trailing newline)
+                                continue
                             self._NeighboursMap[temp[0]] = temp[1:]
                 except IOError:
                     print("File Not Found")
@@ -453,10 +457,12 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
+        self._lno = 0
         self._creatingItemSets()
-        self._minSup = self._convert(self._minSup)
         self.mapNeighbours()
         self._finalPatterns = {}
+        # _frequentOneItem() converts minSup and maxPer; converting minSup here as well would
+        # scale a float/percentage threshold twice (e.g. 0.5 -> 5 -> 50) and silently drop patterns.
         plist = self._frequentOneItem()
         for i in range(len(plist)):
             itemX = plist[i]
@@ -573,7 +579,6 @@ if __name__ == "__main__":
             _ap = GPFPMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
         if len(_ab._sys.argv) == 6:
             _ap = GPFPMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
-        _ap.mine()
         _ap.mine()
         print("Total number of Spatial Periodic-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])

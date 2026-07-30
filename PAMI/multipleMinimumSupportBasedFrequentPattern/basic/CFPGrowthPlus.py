@@ -508,7 +508,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         """
         temp = str()
         for i in itemSet:
-            temp = temp + self.__rankDup[i] + " "
+            temp = temp + self.__rankDup[i] + "\t"
         return temp
 
     @deprecated("It is recommended to use mine() instead of mine() for mining process")
@@ -524,7 +524,9 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         main program to start the operation
 
         """
-        global MIS
+        global MIS, minMIS
+        MIS = {}       # reset shared state so repeated runs / multiple instances do not leak stale ranks
+        minMIS = 0
         self.__startTime = _fp._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -589,7 +591,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         dataframe = {}
         data = []
         for a, b in self.__finalPatterns.items():
-            data.append([a, b])
+            data.append([a.replace('\t', ' '), b])
             dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
@@ -602,7 +604,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self.__finalPatterns.items():
-            s1 = x + ":" + str(y)
+            s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
