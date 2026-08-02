@@ -496,11 +496,10 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
                     if pair.quantity > 0:
                         revisedTransaction.append(pair)
             revisedTransaction.sort(key=_ab._functools.cmp_to_key(self._compareItems))
+            remainUtil = 0
             for i in range(len(revisedTransaction) - 1, -1, -1):
                 pair = revisedTransaction[i]
-                remainUtil = 0
-                for j in range(len(revisedTransaction) - 1, i - 1, -1):
-                    remainUtil += revisedTransaction[j].quantity
+                remainUtil += pair.quantity
                 if pair.quantity > remainUtil:
                     remainingUtility = pair.quantity
                 else:

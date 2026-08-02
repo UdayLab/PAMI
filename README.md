@@ -91,6 +91,17 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 ***
 # Recent Updates
 
+- **Version 2026.07.29:**
+In this latest version, the following updates have been made:
+  - Added four new pattern-mining algorithms: **CorrelatedECLAT** (a vertical correlated pattern miner), **FTECLAT** (a vertical fault-tolerant frequent pattern miner), and two new maximal-pattern miners, **GenMax** and **MaxMiner**.
+  - Added CUDA implementations for the fuzzy pattern-mining algorithms **FFIMiner, FPFPMiner, F3PMiner, FCPGrowth, FFSPMiner, and FGPFPMiner**, and for **CMine** (coverage pattern mining).
+  - Fixed a bug in **CMine** where the first item of a transaction was dropped, and optimized its bitset construction.
+  - Made the `plotGraphs()` charts in **TransactionalDatabase** interactive, with hover tooltips showing the item name and value at each point.
+  - Fixed a crash in the `plotGraphs()` method of the database statistics classes, and in the underlying line-graph and pattern-visualization utilities.
+  - Optimized **CoMine, CoMinePlus, FCPGrowth, FPFPMiner, FTApriori, FTFPGrowth, MaxFPGrowth, cuApriori, cuAprioriBit, cuEclat, and cuEclatBit**.
+
+Total number of algorithms: 134
+
 - **Version 2026.07.01:**
 In this latest version, the following updates have been made:
   - Added a **k (maximum-cardinality)** parameter to the fuzzy pattern-mining algorithms -- **FFIMiner, FPFPMiner, FFSPMiner, FGPFPMiner, FCPGrowth, and F3PMiner** -- to control how many top fuzzy terms are retained per item during mining. `k=1` (default) keeps only the highest-support term per item, `k=2` keeps the top two, and `k<=0` disables the filter (mines every term).
