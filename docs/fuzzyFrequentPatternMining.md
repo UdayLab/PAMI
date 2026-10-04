@@ -225,6 +225,60 @@ df
 
 
 
-```python
+## 9. Mining multiple fuzzy frequent itemsets using MFFIMiner
 
+MFFIMiner retains all frequent regions of an item. For example, both `milk.Low` and `milk.High` may be frequent, but they cannot appear together in one pattern. The input must already contain transformed fuzzy memberships.
+
+Each row uses `items:memberships`, with item labels and memberships in the same order. Memberships must be finite values in `[0, 1]`. The item and membership lists must have the same length, and fuzzy item labels must be unique within a transaction. Use `item.Region` labels to identify regions of the same base item. A third field containing a total utility or total membership is not accepted.
+
+The following sample uses spaces as the separator. Save it as `fuzzyTransactions.txt`:
+
+```text
+milk.Low milk.High bread.High:0.8 0.2 0.9
+milk.Low milk.High bread.High:0.3 0.7 0.6
+milk.Low milk.High bread.High:0.6 0.4 0.8
+milk.Low milk.High bread.High:0.1 0.9 0.4
 ```
+
+Fuzzy support is the sum of the minimum membership of a pattern's items in each transaction. If an item is absent, that transaction contributes zero. In the sample, `milk.High bread.High` has support `0.2 + 0.6 + 0.4 + 0.4 = 1.6`.
+
+An integer `minSup=1` sets an absolute fuzzy support threshold of 1. A float `minSup=0.25` sets the threshold to `0.25 * number_of_transactions`, which is also 1 for this four-row sample. Patterns with support equal to the threshold are included. Numeric strings follow the same rules: `'1'` is an absolute threshold, while `'1.0'` is a proportion of 1.0.
+
+Use a PAMI installation that includes MFFIMiner. To install a source checkout, run `python3 -m pip install -e .` from the repository root. MFFIMiner runs on the CPU and does not require CUDA.
+
+```python
+from PAMI.fuzzyFrequentPattern.basic import MFFIMiner as alg
+
+obj = alg.MFFIMiner('fuzzyTransactions.txt', minSup=1, sep=' ')
+obj.mine()
+patterns = obj.getPatterns()
+patternsDF = obj.getPatternsAsDataFrame()
+obj.save('mffiPatterns.txt')
+obj.printResults()
+```
+
+The sample produces these five patterns:
+
+| Pattern | Fuzzy support |
+| --- | --- |
+| bread.High | 2.7 |
+| milk.High | 2.2 |
+| milk.Low | 1.8 |
+| bread.High milk.High | 1.6 |
+| bread.High milk.Low | 1.8 |
+
+`getPatterns()` returns a dictionary with tuples of sorted item labels as keys. `getPatternsAsDataFrame()` returns `Patterns` and `Support` columns. `save()` writes one pattern per line as `fuzzyItem<sep>fuzzyItem:support`, using the separator supplied to the miner.
+
+The input can also be a URL or a DataFrame with `Transactions` and `fuzzyValues` columns. DataFrame cells may contain lists, or strings using the selected separator. The default separator is a tab (`'\t'`).
+
+To run the sample from a terminal in the installed source checkout:
+
+```console
+python3 PAMI/fuzzyFrequentPattern/basic/MFFIMiner.py fuzzyTransactions.txt mffiPatterns.txt 1 ' '
+```
+
+`getRuntime()` reports elapsed mining time in seconds. `getMemoryRSS()` and `getMemoryUSS()` report process memory in bytes after mining; they do not report peak memory or memory used only by MFFIMiner. Low minimum support thresholds can produce many patterns and increase runtime and memory use.
+
+See the [MFFIMiner notebook](https://github.com/UdayLab/PAMI/blob/main/notebooks/fuzzyFrequentPattern/basic/MFFIMiner.ipynb) for file, DataFrame, URL, and threshold comparison examples, and the [MFFIMiner API documentation](https://pami-1.readthedocs.io/en/latest/fuzzyFrequentPatternbasicMFFIMiner.html) for the class and methods.
+
+Reference: Lin et al., [Efficient Mining of Multiple Fuzzy Frequent Itemsets](https://doi.org/10.1007/s40815-016-0246-1).

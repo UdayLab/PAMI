@@ -464,9 +464,10 @@ We invite and encourage all community members to contribute, report bugs, fix bu
 ### 5. Mining  patterns from fuzzy transactional/temporal/geo-referenced databases
 #### 5.1. Fuzzy Frequent pattern mining: [Sample](https://udaylab.github.io/PAMI/fuzzyFrequentPatternMining.html)
 
-| Basic                                                                                                                                                                                                                                                   |
-|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| FFI-Miner <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/fuzzyFrequentPattern/basic/FFIMiner.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
+| Basic                                                                                                                                                                                                                                                   | CUDA |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
+| FFI-Miner <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/fuzzyFrequentPattern/basic/FFIMiner.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> | cuFFIMiner |
+| [MFFI-Miner](./PAMI/fuzzyFrequentPattern/basic/MFFIMiner.py) <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/fuzzyFrequentPattern/basic/MFFIMiner.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> | [cuMFFIMiner](./PAMI/fuzzyFrequentPattern/cuda/cuMFFIMiner.py) |
 
 
 #### 5.2. Fuzzy correlated pattern mining: [Sample](https://udaylab.github.io/PAMI/fuzzyCorrelatedPatternMining.html)
