@@ -256,13 +256,27 @@ class Apriori(_ab._frequentPatterns):
         if memorySaver:
             while cands:
                 newKeys = []
-                for i in range(len(cands)):
-                    for j in range(i + 1, len(cands)):
-                        if cands[i][:-1] == cands[j][:-1]:
-                            newCand = cands[i] + tuple([cands[j][-1]])
-                            intersection = fileData[tuple([newCand[0]])]
-                            for k in range(1, len(newCand)):
-                                intersection = intersection.intersection(fileData[tuple([newCand[k]])])
+                groups = {}
+                for cand in cands:
+                    groups.setdefault(cand[:-1], []).append(cand)
+                for prefix, siblings in groups.items():
+                    if len(siblings) < 2:
+                        continue
+                    # Reuse this group's prefix while retaining only singleton
+                    # TID sets and the current prefix/parent intersections.
+                    if prefix:
+                        prefixTids = fileData[(prefix[0],)]
+                        for item in prefix[1:]:
+                            prefixTids = prefixTids.intersection(fileData[(item,)])
+                    for i in range(len(siblings) - 1):
+                        parent = siblings[i]
+                        parentTids = (
+                            prefixTids.intersection(fileData[(parent[-1],)])
+                            if prefix else fileData[parent]
+                        )
+                        for j in range(i + 1, len(siblings)):
+                            newCand = parent + (siblings[j][-1],)
+                            intersection = parentTids.intersection(fileData[(siblings[j][-1],)])
                             if len(intersection) >= self._minSup:
                                 newKeys.append(newCand)
                                 self._finalPatterns[newCand] = len(intersection)
