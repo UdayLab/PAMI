@@ -597,7 +597,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
             for i in range(0, len(tr)):
                 if tr[i] in oneLength:
                     list2.append(self._rank[tr[i]])
-            if len(list2) >= 2:
+            if list2:
                 list2.sort()
                 list1.append(list2)
         return list1
