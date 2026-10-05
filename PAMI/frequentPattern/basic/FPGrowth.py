@@ -292,7 +292,7 @@ class FPGrowth(_fp._frequentPatterns):
         itemNodes = {}
         for line in data:
             currNode = root
-            line = sorted([item for item in line if item in items], key = lambda x: items[x], reverse = True)
+            line = sorted([item for item in line if item in items], key=lambda x: (-items[x], x))
             for item in line:
                 currNode = currNode.addChild(item)
                 if item in itemNodes:
@@ -378,7 +378,7 @@ class FPGrowth(_fp._frequentPatterns):
                 continue
 
             for transaction, count in transactions.items():
-                transaction = sorted([item for item in transaction if item in itemCount], key = lambda x: itemCount[x], reverse = True)
+                transaction = sorted([item for item in transaction if item in itemCount], key=lambda x: (-itemCount[x], x))
                 currNode = newRoot
                 for item_ in transaction:
                     currNode = currNode.addChild(item_, count)
