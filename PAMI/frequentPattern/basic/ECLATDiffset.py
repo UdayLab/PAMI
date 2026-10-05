@@ -258,7 +258,7 @@ class ECLATDiffset(_ab._frequentPatterns):
             raise Exception("Please enter the Minimum Support")
         self._creatingItemSets()
         #print(len(self._Database))
-        self._minSup = self._convert(self._minSup)
+        self._minSup = self._convert(self._minSupInput)
 
         items = {}
         db = set(range(len(self._Database)))

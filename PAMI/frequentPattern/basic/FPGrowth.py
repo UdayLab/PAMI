@@ -406,7 +406,7 @@ class FPGrowth(_fp._frequentPatterns):
         if self._minSup is None:
             raise Exception("Please enter the Minimum Support")
         self.__creatingItemSets()
-        self._minSup = self.__convert(self._minSup)
+        self._minSup = self.__convert(self._minSupInput)
         _minSup = self._minSup
 
         itemCount = Counter()

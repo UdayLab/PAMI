@@ -226,7 +226,7 @@ class Apriori(_ab._frequentPatterns):
 
         self._creatingItemSets()
 
-        self._minSup = self._convert(self._minSup)
+        self._minSup = self._convert(self._minSupInput)
 
         items = {}
         index = 0

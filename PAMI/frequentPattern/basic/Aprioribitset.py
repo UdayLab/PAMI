@@ -206,7 +206,7 @@ class Aprioribitset(_ab._frequentPatterns):
                             self._Database.append(splitter)
                 except IOError:
                     print("File Not Found")
-        self._minSup = self._convert(self._minSup)
+        self._minSup = self._convert(self._minSupInput)
 
     @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
 

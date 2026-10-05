@@ -232,7 +232,7 @@ class CHARM(_ab._frequentPatterns):
                                     self._tidList[j].append(self._lno)
                 except IOError:
                     print("File Not Found")
-        self._minSup = self._convert(self._minSup)
+        self._minSup = self._convert(self._minSupInput)
         self._tidList = {k: set(v) for k, v in self._tidList.items() if len(v) >= self._minSup}
 
         # return keys based off the sum of their location appearances in the database

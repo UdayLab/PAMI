@@ -265,7 +265,7 @@ class ECLAT(_ab._frequentPatterns):
             raise Exception("Please enter the Minimum Support")
         self._creatingItemSets()
 
-        self._minSup = self._convert(self._minSup)
+        self._minSup = self._convert(self._minSupInput)
 
 
         items = {}
