@@ -290,16 +290,22 @@ class FPGrowth(_fp._frequentPatterns):
 
         root = _Node([], 0, None)
         itemNodes = {}
-        for line in data:
+        # Insert each identical filtered path once while retaining its full
+        # transaction multiplicity in both tree nodes and header supports.
+        transactions = Counter(
+            tuple(sorted([item for item in line if item in items],
+                         key=lambda x: (-items[x], x)))
+            for line in data
+        )
+        for line, count in transactions.items():
             currNode = root
-            line = sorted([item for item in line if item in items], key=lambda x: (-items[x], x))
             for item in line:
-                currNode = currNode.addChild(item)
+                currNode = currNode.addChild(item, count)
                 if item in itemNodes:
                     itemNodes[item][0].add(currNode)
-                    itemNodes[item][1] += 1
+                    itemNodes[item][1] += count
                 else:
-                    itemNodes[item] = [set([currNode]), 1]
+                    itemNodes[item] = [set([currNode]), count]
 
         return root, itemNodes
 
