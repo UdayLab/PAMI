@@ -223,6 +223,7 @@ class Apriori(_ab._frequentPatterns):
         """
         self._Database = []
         self._startTime = _ab._time.time()
+        self._finalPatterns = {}
 
         self._creatingItemSets()
 

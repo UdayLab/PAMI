@@ -401,6 +401,7 @@ class FPGrowth(_fp._frequentPatterns):
         """
         global _minSup
         self.__startTime = _fp._time.time()
+        self._finalPatterns = {}
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
         if self._minSup is None:
