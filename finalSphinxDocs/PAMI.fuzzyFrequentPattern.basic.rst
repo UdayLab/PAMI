@@ -12,6 +12,11 @@ PAMI.fuzzyFrequentPattern.basic.FFIMiner module
    :undoc-members:
    :show-inheritance:
 
+PAMI.fuzzyFrequentPattern.basic.MFFIMiner module
+------------------------------------------------
+
+See :doc:`fuzzyFrequentPatternbasicMFFIMiner` for the API and usage examples.
+
 PAMI.fuzzyFrequentPattern.basic.FFIMiner\_old module
 ----------------------------------------------------
 

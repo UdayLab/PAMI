@@ -12,3 +12,4 @@ Basic
    :maxdepth: 1
 
    fuzzyFrequentPatternbasicFFIMiner
+   fuzzyFrequentPatternbasicMFFIMiner
