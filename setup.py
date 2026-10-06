@@ -14,7 +14,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     url='https://github.com/udayLab/PAMI',
     license='GPLv3',
-    install_requires=[            # All necessary packages utilized by our PAMI software
+    install_requires=[            # Core packages only (No Sphinx here!)
         'psutil',
         'pandas',
         'plotly',
@@ -24,9 +24,6 @@ setuptools.setup(
         'urllib3',
         'Pillow',
         'numpy',
-        'sphinx',
-        'sphinx-rtd-theme',
-        'validators',
         'discord.py',
         'networkx',
         'deprecated',
@@ -36,14 +33,14 @@ setuptools.setup(
         'gpu':  ['cupy', 'pycuda'],
         'spark': ['pyspark'],
         'dev': ['twine', 'setuptools', 'build'],
-        'all': ['cupy', 'pycuda', 'pyspark', 'twine', 'setuptools', 'build']
+        'docs': ['sphinx', 'sphinx-rtd-theme'],  # <--- Put your doc packages here!
+        'all': ['cupy', 'pycuda', 'pyspark', 'twine', 'setuptools', 'build', 'sphinx', 'sphinx-rtd-theme']
     },
     classifiers=[
-        'Development Status :: 5 - Production/Stable',      # Choose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package
+        'Development Status :: 5 - Production/Stable',
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Operating System :: OS Independent',
     ],
     python_requires='>=3.5',
 )
-
