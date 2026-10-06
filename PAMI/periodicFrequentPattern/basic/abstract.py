@@ -102,6 +102,8 @@ class _periodicFrequentPatterns(_ABC):
         self._iFile = iFile
         self._minSup = minSup
         self._maxPer = maxPer
+        self._minSupInput = minSup
+        self._maxPerInput = maxPer
         self._sep = sep
         self._finalPatterns = {}
         self._startTime = float()

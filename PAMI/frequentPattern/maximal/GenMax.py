@@ -257,7 +257,7 @@ class GenMax(_ab._frequentPatterns):
         if self._minSup is None:
             raise Exception("Please enter the Minimum Support")
         self._creatingItemSets()
-        self._minSup = self._convert(self._minSup)
+        self._minSup = self._convert(self._minSupInput)
         self._finalPatterns = {}
 
         # Build vertical tid-sets for every item.

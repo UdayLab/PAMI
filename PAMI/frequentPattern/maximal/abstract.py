@@ -105,6 +105,7 @@ class _frequentPatterns(_ABC):
         self._iFile = iFile
         self._sep = sep
         self._minSup = minSup
+        self._minSupInput = minSup
         self._finalPatterns = {}
         self._oFile = str()
         self._startTime = float()

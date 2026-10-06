@@ -453,6 +453,8 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
 
         global _minSup, _maxPer, _lno
         self._startTime = _ab._time.time()
+        # Mining uses tuple keys; discard the previous run's serialized keys.
+        self._finalPatterns = {}
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
         if self._minSup is None:
@@ -463,8 +465,8 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
             raise Exception("Default separator is tab space, please enter the separator if you have different separator in the input file")
 
         self._creatingItemSets()
-        self._minSup = self._convert(self._minSup)
-        self._maxPer = self._convert(self._maxPer)
+        self._minSup = self._convert(self._minSupInput)
+        self._maxPer = self._convert(self._maxPerInput)
         #tested ok
         _minSup, _maxPer, _lno = self._minSup, self._maxPer, len(self._Database)
         if self._minSup > len(self._Database):

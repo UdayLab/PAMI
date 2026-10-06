@@ -212,7 +212,7 @@ class ECLAT(_ab._frequentPatterns):
 
         self.mine()
 
-    def __recursive(self, items, cands, memorySaver, candTids=None):
+    def __recursive(self, items, cands, memorySaver, candTids=None, prefixTids=None):
         """
 
         This function generates new candidates by taking input as original candidates.
@@ -240,18 +240,21 @@ class ECLAT(_ab._frequentPatterns):
                 if len(newCands) > 1:
                     self.__recursive(items, newCands, memorySaver, newTids)
         else:
-            for i in range(len(cands)):
+            for i in range(len(cands) - 1):
                 newCands = []
+                parent = cands[i]
+                # Reuse the common prefix without storing every candidate's TIDs.
+                parentTids = items[(parent[-1],)]
+                if prefixTids is not None:
+                    parentTids = prefixTids.intersection(parentTids)
                 for j in range(i + 1, len(cands)):
-                    newCand = cands[i] + (cands[j][-1],)
-                    intersection = items[(newCand[0],)]
-                    for k in newCand[1:]:
-                        intersection = intersection.intersection(items[(k,)])
+                    newCand = parent + (cands[j][-1],)
+                    intersection = parentTids.intersection(items[(cands[j][-1],)])
                     if len(intersection) >= self._minSup:
                         newCands.append(newCand)
                         self._finalPatterns[newCand] = len(intersection)
                 if len(newCands) > 1:
-                    self.__recursive(items, newCands, memorySaver)
+                    self.__recursive(items, newCands, memorySaver, prefixTids=parentTids)
 
     def mine(self, memorySaver = True) -> None:
         """
@@ -259,13 +262,14 @@ class ECLAT(_ab._frequentPatterns):
         """
 
         self._startTime = _ab._time.time()
+        self._finalPatterns = {}
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
         if self._minSup is None:
             raise Exception("Please enter the Minimum Support")
         self._creatingItemSets()
 
-        self._minSup = self._convert(self._minSup)
+        self._minSup = self._convert(self._minSupInput)
 
 
         items = {}

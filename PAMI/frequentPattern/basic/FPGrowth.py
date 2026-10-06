@@ -290,16 +290,22 @@ class FPGrowth(_fp._frequentPatterns):
 
         root = _Node([], 0, None)
         itemNodes = {}
-        for line in data:
+        # Insert each identical filtered path once while retaining its full
+        # transaction multiplicity in both tree nodes and header supports.
+        transactions = Counter(
+            tuple(sorted([item for item in line if item in items],
+                         key=lambda x: (-items[x], x)))
+            for line in data
+        )
+        for line, count in transactions.items():
             currNode = root
-            line = sorted([item for item in line if item in items], key = lambda x: items[x], reverse = True)
             for item in line:
-                currNode = currNode.addChild(item)
+                currNode = currNode.addChild(item, count)
                 if item in itemNodes:
                     itemNodes[item][0].add(currNode)
-                    itemNodes[item][1] += 1
+                    itemNodes[item][1] += count
                 else:
-                    itemNodes[item] = [set([currNode]), 1]
+                    itemNodes[item] = [set([currNode]), count]
 
         return root, itemNodes
 
@@ -378,7 +384,7 @@ class FPGrowth(_fp._frequentPatterns):
                 continue
 
             for transaction, count in transactions.items():
-                transaction = sorted([item for item in transaction if item in itemCount], key = lambda x: itemCount[x], reverse = True)
+                transaction = sorted([item for item in transaction if item in itemCount], key=lambda x: (-itemCount[x], x))
                 currNode = newRoot
                 for item_ in transaction:
                     currNode = currNode.addChild(item_, count)
@@ -401,12 +407,13 @@ class FPGrowth(_fp._frequentPatterns):
         """
         global _minSup
         self.__startTime = _fp._time.time()
+        self._finalPatterns = {}
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
         if self._minSup is None:
             raise Exception("Please enter the Minimum Support")
         self.__creatingItemSets()
-        self._minSup = self.__convert(self._minSup)
+        self._minSup = self.__convert(self._minSupInput)
         _minSup = self._minSup
 
         itemCount = Counter()

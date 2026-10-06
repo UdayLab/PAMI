@@ -597,7 +597,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
             for i in range(0, len(tr)):
                 if tr[i] in oneLength:
                     list2.append(self._rank[tr[i]])
-            if len(list2) >= 2:
+            if list2:
                 list2.sort()
                 list1.append(list2)
         return list1
@@ -670,7 +670,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
         if self._minSup is None:
             raise Exception("Please enter the Minimum Support")
         self._creatingItemSets()
-        self._minSup = self._convert(self._minSup)
+        self._minSup = self._convert(self._minSupInput)
         _minSup = self._minSup
         generatedItems, pfList = self._frequentOneItem()
         updatedTransactions = self._updateTransactions(generatedItems)

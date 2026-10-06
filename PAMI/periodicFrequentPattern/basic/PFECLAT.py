@@ -283,8 +283,8 @@ class PFECLAT(_ab._periodicFrequentPatterns):
 
         self._dbSize = maxTS
 
-        self._minSup = self._convert(self._minSup)
-        self._maxPer = self._convert(self._maxPer)
+        self._minSup = self._convert(self._minSupInput)
+        self._maxPer = self._convert(self._maxPerInput)
         minSup = self._minSup
         maxPer = self._maxPer
 
