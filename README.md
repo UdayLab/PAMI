@@ -91,6 +91,24 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 ***
 # Recent Updates
 
+- **Version 2026.10.06.2:**
+Since Version 2026.07.29, the following updates have been made:
+  - Added **BinaryApriori, BinaryECLAT, and BinaryFPGrowth** to mine frequent patterns directly from binary (0/1) databases.
+  - Added **MSECLAT**, a vertical frequent pattern miner with an individual minimum support threshold for each item.
+  - Added **MFFIMiner** and its CUDA implementation, **cuMFFIMiner**, for mining multiple fuzzy frequent itemsets. Both retain all frequent regions and allow at most one region of each item in a pattern.
+  - Added the **generateBinaryDatabase** and **BinaryDatabase** synthetic binary database generators.
+  - Fixed custom separator handling in **CFPGrowth**, standardized pattern formatting and saved output in **CFPGrowthPlus**, and reset shared mining state in both algorithms between runs.
+  - Fixed double conversion of minimum support and neighbor selection in **GPFPMiner**, skipped blank transaction and neighborhood rows, reset its transaction counter between runs, and removed a duplicate command-line mining call.
+  - Fixed item ordering for equal-support items in **FPGrowth** and retained single-item transactions in **MaxFPGrowth**.
+  - Preserved configured minimum support thresholds between mining runs in **Apriori, Aprioribitset, ECLAT, ECLATDiffset, ECLATbitset, FPGrowth, CHARM, GenMax, MaxMiner, MaxFPGrowth, PFECLAT, and PFPGrowth**. **PFECLAT** and **PFPGrowth** also preserve their configured maximum periodicity thresholds.
+  - Cleared previous patterns on each `mine()` call in **Apriori, ECLAT, FPGrowth, and PFPGrowth**.
+  - Optimized **Apriori** by reusing prefix and parent intersections, **ECLAT** by carrying prefix transaction IDs through recursion, and **FPGrowth** by aggregating identical filtered transaction paths.
+  - Added the **MFFIMiner** user manual, Sphinx API and usage documentation, notebook examples, and README links for the CPU and CUDA miners.
+  - Moved **Sphinx** and **sphinx-rtd-theme** from core dependencies into the `docs` and `all` extras, removed the duplicate `validators` requirement, and updated the package version.
+  - Updated **Read the Docs** to install PAMI with the `docs` extra.
+
+Total number of algorithms: 140
+
 - **Version 2026.07.29:**
 In this latest version, the following updates have been made:
   - Added four new pattern-mining algorithms: **CorrelatedECLAT** (a vertical correlated pattern miner), **FTECLAT** (a vertical fault-tolerant frequent pattern miner), and two new maximal-pattern miners, **GenMax** and **MaxMiner**.
