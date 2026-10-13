@@ -33,6 +33,7 @@ Copyright (C)  2021 Rage Uday Kiran
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
+from PAMI.extras.dbStats._frequencyRanges import frequencyRanges as _frequencyRanges
 import sys
 import statistics
 import pandas as pd
@@ -282,17 +283,9 @@ class TransactionalDatabase:
         self.itemFrequencies = {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x: x[1], reverse=True)}
         return self.itemFrequencies
     
-    def getFrequenciesInRange(self) -> dict:
-        fre = self.getSortedListOfItemFrequencies()
-        rangeFrequencies = {}
-        maximum = max([i for i in fre.values()])
-        values = [int(i*maximum/6) for i in range(1,6)]
-        va = len({key: val for key, val in fre.items() if 0 < val < values[0]})
-        rangeFrequencies[va] = values[0]
-        for i in range(1,len(values)):
-            va = len({key: val for key, val in fre.items() if values[i] > val > values[i - 1]})
-            rangeFrequencies[va] = values[i]
-        return rangeFrequencies
+    def getFrequenciesInRange(self, numberOfRanges: int = 6) -> dict:
+        """Return {upper bound of frequency range: number of items}."""
+        return _frequencyRanges(self.getSortedListOfItemFrequencies().values(), numberOfRanges)
 
     def getTransanctionalLengthDistribution(self) -> dict:
         """
