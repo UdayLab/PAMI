@@ -39,6 +39,7 @@ import validators
 from urllib.request import urlopen
 import pandas as pd
 import PAMI.extras.graph.plotLineGraphFromDictionary as plt
+from PAMI.extras.dbStats._frequencyRanges import frequencyRanges as _frequencyRanges
 
 class FuzzyDatabase:
     """
@@ -265,19 +266,14 @@ class FuzzyDatabase:
                 itemFrequencies[item] += 1
         return {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x:x[1], reverse=True)}
     
-    def getFrequenciesInRange(self) -> dict:
-        fre = self.getSortedListOfItemFrequencies()
-        rangeFrequencies = {}
-        maximum = max([i for i in fre.values()])
-        values = [int(i*maximum/6) for i in range(1,6)]
-        #print(maximum)
-        va = len({key: val for key, val in fre.items() if 0 < val < values[0]})
-        rangeFrequencies[va] = values[0]
-        for i in range(1,len(values)):
-            
-            va = len({key: val for key, val in fre.items() if values[i] > val > values[i - 1]})
-            rangeFrequencies[va] = values[i]
-        return rangeFrequencies
+    def getFrequenciesInRange(self, numberOfRanges: int = 6) -> dict:
+        """Return {inclusive upper frequency bound: number of items}.
+
+        Positive frequencies are counted once in (previous bound, upper bound].
+        Empty databases return an empty dictionary. Repeated integer bounds
+        are omitted when the maximum frequency is smaller than numberOfRanges.
+        """
+        return _frequencyRanges(self.getSortedListOfItemFrequencies().values(), numberOfRanges)
 
     def getTransanctionalLengthDistribution(self) -> dict:
         """
@@ -361,7 +357,7 @@ class FuzzyDatabase:
         rangeFrequencies = self.getFrequenciesInRange()
         print(rangeFrequencies)
         transactionLength = self.getTransanctionalLengthDistribution()
-        plt.plotLineGraphFromDictionary(rangeFrequencies, 100, 0, 'Frequency', 'No of items', 'frequency')
+        plt.plotLineGraphFromDictionary(rangeFrequencies, 100, 0, 'Item frequency distribution', 'Frequency (inclusive upper bound)', 'Number of items')
         plt.plotLineGraphFromDictionary(transactionLength, 100, 0, 'transaction length', 'transaction length', 'frequency')
 
 
