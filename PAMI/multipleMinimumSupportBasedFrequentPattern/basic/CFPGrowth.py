@@ -239,7 +239,10 @@ class _Tree:
                     yield q
 
 
-class CFPGrowth(_fp._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class CFPGrowth(CandidatePatternsMixin, _fp._frequentPatterns):
     """
     :Description:   basic is one of the fundamental algorithm to discover frequent patterns based on multiple minimum support in a transactional database.
 
@@ -550,6 +553,7 @@ class CFPGrowth(_fp._frequentPatterns):
         :return: none
 
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
@@ -558,6 +562,7 @@ class CFPGrowth(_fp._frequentPatterns):
         :return: none
 
         """
+        self._resetCandidatePatterns()
         global _MIS
         _MIS = {}  # reset shared state so repeated runs / multiple instances do not leak stale ranks
         self.__startTime = _fp._time.time()

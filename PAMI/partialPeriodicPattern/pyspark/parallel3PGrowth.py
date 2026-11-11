@@ -324,7 +324,10 @@ class Tree(object):
                         yield li_m
             self.remove_node(j)
 
-class parallel3PGrowth(_ab._partialPeriodicPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class parallel3PGrowth(CandidatePatternsMixin, _ab._partialPeriodicPatterns):
     """
     :Description:   4PGrowth is fundamental approach to mine the partial periodic patterns in temporal database.
 
@@ -482,6 +485,7 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
         Main method where the patterns are mined by constructing tree.
         """
         
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -489,6 +493,7 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
         Main method where the patterns are mined by constructing tree.
         """
 
+        self._resetCandidatePatterns()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
         if self._minPS is None:

@@ -55,7 +55,10 @@ from deprecated import deprecated
 from PAMI.fuzzyFrequentPattern.cuda import abstract as _ab
 # import abstract as _ab
 
-class cuFFIMiner(_ab._fuzzyFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class cuFFIMiner(CandidatePatternsMixin, _ab._fuzzyFrequentPatterns):
     """
     :Description: cuFFIMiner is a fundamental algorithm to discover fuzzy frequent patterns using Cuda in a quantitative transactional database. This program employs the downward closure property to reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of fuzzy frequent patterns in a quantitative transactional database.
 
@@ -274,6 +277,7 @@ class cuFFIMiner(_ab._fuzzyFrequentPatterns):
 
         newArraysAndItems = {}
 
+        self._recordCandidates(ArraysAndItems)
         for k, v in ArraysAndItems.items():
             support = float(v.sum())
             if support >= self._minSup:
@@ -287,12 +291,14 @@ class cuFFIMiner(_ab._fuzzyFrequentPatterns):
         """
         Fuzzy frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Fuzzy frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         _ab._cp.cuda.Device(0).use()
         self._startTime = _ab._time.time()
         self._creatingItemSets()
@@ -320,6 +326,7 @@ class cuFFIMiner(_ab._fuzzyFrequentPatterns):
                     pairsA.append(i)
                     pairsB.append(j)
                     unions.append(union)
+                    self._recordCandidate(union)
 
             if len(pairsA) > 0:
                 numPairs = len(pairsA)

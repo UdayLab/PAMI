@@ -23,7 +23,10 @@ import cupy as cp
 import cudf
 from deprecated import deprecated
 
-class gdscuGPPMiner(_ab._partialPeriodicPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class gdscuGPPMiner(CandidatePatternsMixin, _ab._partialPeriodicPatterns):
     """
     :Description:  gPPMiner is the fundamental approach to mine the periodic-frequent patterns using GPU.
 
@@ -266,6 +269,7 @@ class gdscuGPPMiner(_ab._partialPeriodicPatterns):
         )
         period = period.get()
         keys = keys.get()
+        self._recordCandidates((int(key),) for key in keys)
 
         newKeys = []
 
@@ -282,9 +286,11 @@ class gdscuGPPMiner(_ab._partialPeriodicPatterns):
     @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self):
 
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
 
         self._period = self._convert(self._period)
@@ -315,6 +321,7 @@ class gdscuGPPMiner(_ab._partialPeriodicPatterns):
 
             # print(newKeys)
 
+            self._recordCandidates(tuple(int(key) for key in candidate) for candidate in newKeys)
             numberOfKeys = len(newKeys)
             keySize = len(newKeys[0])
 

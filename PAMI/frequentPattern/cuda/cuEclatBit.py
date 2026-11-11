@@ -91,7 +91,10 @@ def _makeBatchedSupportKernel():
 
     ''', 'batchedSupport')
 
-class cuEclatBit(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class cuEclatBit(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     :Description: ECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.
 
@@ -271,6 +274,7 @@ class cuEclatBit(_ab._frequentPatterns):
 
         newArraysAndItems = {}
 
+        self._recordCandidates(ArraysAndItems)
         for k,v in ArraysAndItems.items():
             ArraysAndItems[k] = _ab._np.array(v, dtype=_ab._np.uint32)
             if len(v) >= self._minSup:
@@ -299,12 +303,14 @@ class cuEclatBit(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._Database = []
         self._startTime = _ab._time.time()
         self._creatingItemSets()
@@ -326,6 +332,7 @@ class cuEclatBit(_ab._frequentPatterns):
                         leftIdx.append(i)
                         rightIdx.append(j)
                         unions.append(tuple(iList + [jList[-1]]))
+            self._recordCandidates(unions)
             if not leftIdx:
                 break
 

@@ -290,7 +290,10 @@ class _Tree(object):
             self._removeNode(i)
 
 
-class PPPGrowth(_abstract._partialPeriodicPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class PPPGrowth(CandidatePatternsMixin, _abstract._partialPeriodicPatterns):
     """
     :Description:   3pgrowth is fundamental approach to mine the partial periodic patterns in temporal database.
 
@@ -583,6 +586,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
         :return: None
         """
 
+        self._resetCandidatePatterns()
         self.mine()
 
 
@@ -592,6 +596,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
         :return: None
 
         """
+        self._resetCandidatePatterns()
         global _minPS, _period, _lno
         self._startTime = _abstract._time.time()
         if self._iFile is None:

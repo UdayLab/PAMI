@@ -59,7 +59,10 @@ from deprecated import deprecated
 
 # import abstract as _ab
 
-class cuGPFMiner(_ab._periodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class cuGPFMiner(CandidatePatternsMixin, _ab._periodicFrequentPatterns):
     """
     :Description:   cuGPFMiner is the fundamental approach to mine the periodic-frequent patterns using GPU.
 
@@ -367,6 +370,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
         number = 0
 
 
+        self._recordCandidates(ArraysAndItems)
         for k,v in ArraysAndItems.items():
             if len(v) >= self._minSup:
                 nv = v.copy()
@@ -399,6 +403,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
         Mining process will start from here
         """
 
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         ArraysAndItems = self._creatingOneItemSets()
@@ -425,6 +430,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
 
             # print(newKeys)
 
+            self._recordCandidates(tuple(self._rename[x] for x in candidate) for candidate in newKeys)
             numberOfKeys = len(newKeys)
             keySize = len(newKeys[0])
 
@@ -480,6 +486,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
             Mining process will start from here
             """
 
+            self._resetCandidatePatterns()
             self._startTime = _ab._time.time()
             self._finalPatterns = {}
             ArraysAndItems = self._creatingOneItemSets()
@@ -506,6 +513,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
 
                 # print(newKeys)
 
+                self._recordCandidates(tuple(self._rename[x] for x in candidate) for candidate in newKeys)
                 numberOfKeys = len(newKeys)
                 keySize = len(newKeys[0])
 

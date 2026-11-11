@@ -56,7 +56,10 @@ from typing import Dict, Union
 from deprecated import deprecated
 
 
-class Apriori(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class Apriori(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     **About this algorithm**
 
@@ -209,6 +212,7 @@ class Apriori(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self, memorySaver = True) -> None:
@@ -221,6 +225,7 @@ class Apriori(_ab._frequentPatterns):
             This attribute is used to enable or disable memory saving mode. By default, it is enabled.
             It saves the memory by deleting the intermediate results after the completion of the mining process.
         """
+        self._resetCandidatePatterns()
         self._Database = []
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
@@ -242,6 +247,7 @@ class Apriori(_ab._frequentPatterns):
         # sort by length in descending order
         items = dict(sorted(items.items(), key=lambda x: len(x[1]), reverse=True))
 
+        self._recordCandidates(items)
         cands = []
         fileData = {}
         for key in items:
@@ -276,6 +282,7 @@ class Apriori(_ab._frequentPatterns):
                         )
                         for j in range(i + 1, len(siblings)):
                             newCand = parent + (siblings[j][-1],)
+                            self._recordCandidate(newCand)
                             intersection = parentTids.intersection(fileData[(siblings[j][-1],)])
                             if len(intersection) >= self._minSup:
                                 newKeys.append(newCand)
@@ -290,6 +297,7 @@ class Apriori(_ab._frequentPatterns):
                     for j in range(i + 1, len(cands)):
                         if cands[i][:-1] == cands[j][:-1]:
                             newCand = cands[i] + tuple([cands[j][-1]])
+                            self._recordCandidate(newCand)
                             intersection = fileData[cands[i]] & fileData[cands[j]]
                             # intersection = fileData[tuple([newCand[0]])]
                             # for k in range(1, len(newCand)):

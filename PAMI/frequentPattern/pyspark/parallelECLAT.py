@@ -59,7 +59,10 @@ from abc import ABC as _ABC, abstractmethod as _abstractmethod
 from deprecated import deprecated
 
 
-class parallelECLAT(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class parallelECLAT(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     :Description: ParallelEclat is an algorithm to discover frequent patterns in a transactional database.
      This program employs parallel apriori property (or downward closure property) to  reduce the search space effectively.
@@ -238,6 +241,10 @@ class parallelECLAT(_ab._frequentPatterns):
         """
         return self._finalPatterns
 
+    def _mineCandidatePartition(self, item, data):
+        self._resetCandidatePatterns()
+        patterns = self._genPatterns(item, item, data)
+        return patterns, self.getCandidatePatterns()
     def _genPatterns(self, suffix, pattern, data):
         """
         This function is used to generate patterns
@@ -256,6 +263,7 @@ class parallelECLAT(_ab._frequentPatterns):
         freqPatterns = {}
         index = data.index(suffix)
         for i in range(index + 1, len(data)):
+            self._recordCandidate(tuple(pattern[0].split()) + (data[i][0],))
             tid = pattern[1].intersection(data[i][1])
             if len(tid) >= self._minSup:
                 freqPattern = pattern[0] + ' ' + data[i][0]
@@ -300,6 +308,7 @@ class parallelECLAT(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -307,6 +316,7 @@ class parallelECLAT(_ab._frequentPatterns):
         Frequent pattern mining process will start from here
         """
 
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         conf = SparkConf().setAppName("Parallel ECLAT").setMaster("local[*]")
         sc = SparkContext(conf=conf)
@@ -324,6 +334,7 @@ class parallelECLAT(_ab._frequentPatterns):
             .sortBy(lambda x: len(x[1])) \
             .mapValues(set) \
             .persist()
+        self._recordCandidates((str(item),) for item in data.flatMap(lambda row: row).distinct().collect())
         data.unpersist()
         # elif 'temporal' in self._iFile:
         #     frequentItems = data.flatMap(lambda trans: [(str(item), trans[0]) for item in trans[1:]]) \
@@ -340,10 +351,10 @@ class parallelECLAT(_ab._frequentPatterns):
         # print(len(freqItems))
         self._finalPatterns = {k: len(v) for k, v in freqItems.items()}
 
-        freqPatterns = list(frequentItems.map(lambda x: self._genPatterns(x, x, list(freqItems.items())))
-                            .filter(lambda x: len(x) != 0).collect())
-        for value in freqPatterns:
+        freqPatterns = frequentItems.map(lambda x: self._mineCandidatePartition(x, list(freqItems.items()))).collect()
+        for value, candidates in freqPatterns:
             self._finalPatterns.update(value)
+            self._recordCandidates(candidates)
 
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())

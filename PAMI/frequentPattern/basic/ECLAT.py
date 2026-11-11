@@ -54,7 +54,10 @@ Copyright (C)  2026 Rage Uday Kiran
 from PAMI.frequentPattern.basic import abstract as _ab
 from deprecated import deprecated
 
-class ECLAT(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class ECLAT(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     **About this algorithm**
 
@@ -210,6 +213,7 @@ class ECLAT(_ab._frequentPatterns):
         Frequent pattern mining process will start from here
         """
 
+        self._resetCandidatePatterns()
         self.mine()
 
     def __recursive(self, items, cands, memorySaver, candTids=None, prefixTids=None):
@@ -231,6 +235,7 @@ class ECLAT(_ab._frequentPatterns):
                 newCands = []
                 newTids = {}
                 for j in range(i + 1, len(cands)):
+                    self._recordCandidate(cands[i] + (cands[j][-1],))
                     intersection = candTids[cands[i]].intersection(candTids[cands[j]])
                     if len(intersection) >= self._minSup:
                         newCand = cands[i] + (cands[j][-1],)
@@ -249,6 +254,7 @@ class ECLAT(_ab._frequentPatterns):
                     parentTids = prefixTids.intersection(parentTids)
                 for j in range(i + 1, len(cands)):
                     newCand = parent + (cands[j][-1],)
+                    self._recordCandidate(newCand)
                     intersection = parentTids.intersection(items[(cands[j][-1],)])
                     if len(intersection) >= self._minSup:
                         newCands.append(newCand)
@@ -261,6 +267,7 @@ class ECLAT(_ab._frequentPatterns):
         Frequent pattern mining process will start from here
         """
 
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         if self._iFile is None:
@@ -281,6 +288,7 @@ class ECLAT(_ab._frequentPatterns):
                 items[item].append(index)
             index += 1
 
+        self._recordCandidates((k,) for k in items)
         items = {tuple([k]): set(v) for k, v in items.items() if len(v) >= self._minSup}
         items = {k: v for k, v in sorted(items.items(), key=lambda item_: len(item_[1]), reverse=False)}
         for k, v in items.items():

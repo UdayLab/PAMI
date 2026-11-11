@@ -63,7 +63,10 @@ import pandas as pd
 from deprecated import deprecated
 
 
-class LPPMDepth(_ab._localPeriodicPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class LPPMDepth(CandidatePatternsMixin, _ab._localPeriodicPatterns):
 
     """
     :Description:
@@ -279,6 +282,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
         When finish generating local periodic items, execute mining depth first search.
         """
         I = set()
+        self._recordCandidates((item,) for item in self.__tsList)
         PTL = {}
         for item in self.__tsList:
             PTL[item] = set()
@@ -404,6 +408,9 @@ class LPPMDepth(_ab._localPeriodicPatterns):
         for x in range(len(extensionsOfP)-1):
             extensionsOfPx = set()
             for y in range(x+1,len(extensionsOfP)):
+                left = (extensionsOfP[x],) if isinstance(extensionsOfP[x], str) else extensionsOfP[x]
+                right = (extensionsOfP[y],) if isinstance(extensionsOfP[y], str) else extensionsOfP[y]
+                self._recordCandidate(frozenset(left + right))
                 tspxy = self.__tsList[extensionsOfP[x]] & self.__tsList[extensionsOfP[y]]
                 PTL = self.__calculatePTL(tspxy)
                 if len(PTL) > 0:
@@ -448,12 +455,14 @@ class LPPMDepth(_ab._localPeriodicPatterns):
         """
         Mining process start from here. This function calls createTSlist and generateLPP.
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
         """
         Mining process start from here. This function calls createTSlist and generateLPP.
         """
+        self._resetCandidatePatterns()
         self._localPeriodicPatterns__startTime = _ab._time.time()
         self._localPeriodicPatterns__finalPatterns = {}
         self.__creatingItemSets()

@@ -58,7 +58,10 @@ from deprecated import deprecated
 _fp._sys.setrecursionlimit(20000)
 
 
-class MSECLAT(_fp._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class MSECLAT(CandidatePatternsMixin, _fp._frequentPatterns):
     """
     :Description:   MSECLAT discovers the complete set of frequent patterns based on multiple minimum supports (MIS) in a
                     transactional database using the vertical (tidset) ECLAT strategy. Every item has its own minimum
@@ -238,6 +241,7 @@ class MSECLAT(_fp._frequentPatterns):
         """
         main program to start the operation
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def _threshold(self, itemSet: Tuple[str, ...]) -> int:
@@ -257,6 +261,7 @@ class MSECLAT(_fp._frequentPatterns):
             children: List[Tuple[Tuple[str, ...], set]] = []
             for j in range(i + 1, len(members)):
                 candidate = members[i][0] + (members[j][0][-1],)
+                self._recordCandidate(candidate)
                 tidset = members[i][1] & members[j][1]
                 support = len(tidset)
                 if support >= minMIS:
@@ -270,6 +275,7 @@ class MSECLAT(_fp._frequentPatterns):
         """
         main program to start the operation
         """
+        self._resetCandidatePatterns()
         self._startTime = _fp._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -288,6 +294,7 @@ class MSECLAT(_fp._frequentPatterns):
                 tidsets[item].add(tid)
 
         # Least-minimum-support pruning: an item can only appear in a frequent pattern if its support >= minMIS.
+        self._recordCandidates((item,) for item in tidsets if item in self._MISValues)
         candidates = {item: len(tid) for item, tid in tidsets.items()
                       if item in self._MISValues and len(tid) >= minMIS}
         # Support-ascending total order (with item tiebreaker) - the ECLAT processing order.

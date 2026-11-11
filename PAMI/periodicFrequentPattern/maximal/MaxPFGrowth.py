@@ -390,7 +390,10 @@ def _conditionalTransactions(condPatterns: List[List[int]], condTimeStamps: List
     return pat, timeStamps, updatedDict
 
 
-class MaxPFGrowth(_ab._periodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class MaxPFGrowth(CandidatePatternsMixin, _ab._periodicFrequentPatterns):
     """
     :Description:   MaxPF-Growth is one of the fundamental algorithm to discover maximal periodic-frequent
                     patterns in a temporal database.
@@ -691,6 +694,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         :return: None
         """
 
+        self._resetCandidatePatterns()
         global _minSup, _maxPer, _lno
         self._patterns = {}
         self._startTime = _ab._time.time()
@@ -733,6 +737,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         :return: None
         """
 
+        self._resetCandidatePatterns()
         global _minSup, _maxPer, _lno
         self._patterns = {}
         self._startTime = _ab._time.time()

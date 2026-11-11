@@ -84,7 +84,10 @@ class _FPNode:
         self.node_link = None
 
 
-class FSPGrowth(_ab._spatialFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class FSPGrowth(CandidatePatternsMixin, _ab._spatialFrequentPatterns):
     """
     :Description:   Given a transactional database and a spatial (or neighbourhood) file, FSPM aims to discover all of
                     those patterns that satisfy the user-specified minimum support (minSup) and neighbourhood (maxDist)
@@ -564,12 +567,14 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         """
         Start the pattern-mining process (deprecated alias for mine()).
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Start the pattern-mining process.
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
 

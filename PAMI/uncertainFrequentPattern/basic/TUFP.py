@@ -78,7 +78,10 @@ class _Item:
         self.probability = probability
 
 
-class TUFP(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class TUFP(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     About this algorithm
     ====================
@@ -325,6 +328,7 @@ class TUFP(_ab._frequentPatterns):
                 break
             self._finalPatterns[x] = mapSupport[x]
         self._minimum = min(list(self._finalPatterns.values()))
+        self._recordCandidates((item,) for item in self._cupList)
         return plist
 
     @staticmethod
@@ -407,6 +411,7 @@ class TUFP(_ab._frequentPatterns):
             for j in range(i + 1, len(itemSets)):
                 itemJ = itemSets[j]
                 tidSetJ = tidSets[j]
+                self._recordCandidate(tuple(prefix) + (itemI, itemJ))
                 y = {key: tidSetJ[key] * tidSetI.get(key, 0) for key in tidSetJ.keys()}
                 #sum2 = sum(list(y.values()))
                 # print(prefix, itemJ, y, sum2)
@@ -424,12 +429,14 @@ class TUFP(_ab._frequentPatterns):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
+        self._resetCandidatePatterns()
         global _minSup
         self._startTime = _ab._time.time()
         self._creatingItemSets()
@@ -445,6 +452,7 @@ class TUFP(_ab._frequentPatterns):
             for j in range(i + 1, len(plist)):
                 itemJ = plist[j]
                 tidSetJ = self._cupList[itemJ]
+                self._recordCandidate((itemI, itemJ))
                 y1 = {key: tidSetJ[key] * tidSetI.get(key, 0) for key in tidSetJ.keys()}
                 self._save(itemSetX, [itemJ], y1)
                 itemSets.append(itemJ)

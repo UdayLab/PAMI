@@ -119,7 +119,10 @@ class _Node(object):
         return transaction[::-1], locs
 
 
-class GPFgrowth(partialPeriodicPatterns, ABC):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class GPFgrowth(CandidatePatternsMixin, partialPeriodicPatterns, ABC):
     """
     **About this algorithm**
 
@@ -291,6 +294,7 @@ class GPFgrowth(partialPeriodicPatterns, ABC):
                     quit()
 
     def startMine(self):
+        self._resetCandidatePatterns()
         self.mine()
 
     def _ratioCalc(self, v):
@@ -442,6 +446,7 @@ class GPFgrowth(partialPeriodicPatterns, ABC):
             self._recursive(newRoot, newItemNodes)
 
     def mine(self):
+        self._resetCandidatePatterns()
         self._partialPeriodicPatterns__startTime = time.time()
         self._partialPeriodicPatterns__finalPatterns = {}
         self.__creatingItemSets()

@@ -66,7 +66,10 @@ import pycuda.autoinit
 import psutil
 
 
-class cudaEclatGCT:
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class cudaEclatGCT(CandidatePatternsMixin):
     """
     :Description: Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 
@@ -332,6 +335,7 @@ class cudaEclatGCT:
                 if i1_list[:-1] == i2_list[:-1]:
                     unionOfKey = list(set(i1_list) | set(i2_list))
                     unionOfKey.sort()
+                    self._recordCandidate(unionOfKey)
                     valueList = []
                     for key in unionOfKey:
                         valueList.append(item2idx[key])
@@ -351,12 +355,14 @@ class cudaEclatGCT:
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         startTime = time.time()
         basePattern = []
         final = {}
@@ -366,6 +372,7 @@ class cudaEclatGCT:
         #minSup = self._minSup
         vb_data, idx2item = self.compute_vertical_bitvector_data()
 
+        self._recordCandidates((idx2item[j],) for j in range(len(vb_data)))
         for i in range(len(vb_data)):
             if _gpuarray.sum(vb_data[i]).get() >= self._minSup:
                 basePattern.append(idx2item[i])

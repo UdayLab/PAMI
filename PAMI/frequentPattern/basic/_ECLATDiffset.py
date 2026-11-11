@@ -58,7 +58,10 @@ from PAMI.frequentPattern.basic import abstract as _ab
 from deprecated import deprecated
 
 
-class ECLATDiffset(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class ECLATDiffset(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     :**Description**:   ECLATDiffset uses diffset to extract the frequent patterns in a transactional database.
 
@@ -220,6 +223,7 @@ class ECLATDiffset(_ab._frequentPatterns):
                             tidSets[item].add(transNum)
                         else:
                             tidSets[item] = {transNum}
+        self._recordCandidates((key,) for key in tidSets)
         for key, value in tidSets.items():
             supp = len(value)
             if supp >= self._minSup:
@@ -250,6 +254,7 @@ class ECLATDiffset(_ab._frequentPatterns):
                 item2 = candidateList[j]
                 jList = item2.split()
                 if iList[:-1] == jList[:-1]:
+                    self._recordCandidate(tuple(iList + [jList[-1]]))
                     unionDiffSet = self._diffSets[item2][1].difference(self._diffSets[item1][1])
                     unionSup = self._diffSets[item1][0] - len(unionDiffSet)
                     if unionSup >= self._minSup:
@@ -267,6 +272,7 @@ class ECLATDiffset(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -274,6 +280,7 @@ class ECLATDiffset(_ab._frequentPatterns):
         Frequent pattern mining process will start from here
         """
 
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._Database = []
         self._finalPatterns = {}

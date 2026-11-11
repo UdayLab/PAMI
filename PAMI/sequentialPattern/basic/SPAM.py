@@ -60,7 +60,10 @@ from deprecated import deprecated
 from PAMI.sequentialPattern.basic import abstract as _ab
 _ab._sys.setrecursionlimit(10000)
 
-class SPAM(_ab._sequentialPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class SPAM(CandidatePatternsMixin, _ab._sequentialPatterns):
     """
     :Description:    SPAM is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
                      This program employs SPAM property (or downward closure property) to  reduce the search space effectively.
@@ -307,6 +310,7 @@ class SPAM(_ab._sequentialPatterns):
 
                 seqNumber+=1
             lineNumber+=1
+        self._recordCandidates((item,) for item in idDatabase)
         for key,val in idDatabase.items():
 
             sup=self.countSup(val)
@@ -334,6 +338,7 @@ class SPAM(_ab._sequentialPatterns):
         Inext=[]
         ns = self.Sstep(self._idDatabase[items])
         for i in sStep:
+            self._recordCandidate(items + self._sep + self._sepSeq + self._sep + str(i))
             nnext=[]
             for k in  range(len(self._idDatabase[items])):
                 nandi=ns[k] & self._idDatabase[i][k]
@@ -351,6 +356,7 @@ class SPAM(_ab._sequentialPatterns):
             key = items+self._sep+self._sepSeq+self._sep+i
             self.DfsPruning(key,Snext,[k for k in Snext if self._Database.index(i)<self._Database.index(k)])
         for i in iStep:
+            self._recordCandidate(items + self._sep + str(i))
             nnext = []
 
             for k in range(len(self._idDatabase[items])):
@@ -413,12 +419,14 @@ class SPAM(_ab._sequentialPatterns):
         return count
 
     def startMine(self) -> None:
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._Database = []
         self._startTime = _ab._time.time()
         self._creatingItemSets()

@@ -33,7 +33,10 @@ from PAMI.subgraphMining.basic import gspan as gsp
 from PAMI.extras.stats import graphDatabase as gdb
 from PAMI.graphTransactionalCoveragePattern.basic import abstract as _ab
 
-class GTCP:
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class GTCP(CandidatePatternsMixin):
     def __init__(self,iFile,minsup,minGTC,minGTPC,maxOR=0.2):
         """
             iFile : input file
@@ -71,6 +74,7 @@ class GTCP:
         """
             Mine the coverage patterns
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self.Cmine()
     
@@ -163,6 +167,7 @@ class GTCP:
                     else:
                         newpattern=l2[j]+[l1[i][-1]]
                     
+                    self._recordCandidate(newpattern)
                     ov,cs=self.OverlapRatio(newpattern)
                     
                     if ov<=self.maxOR:
@@ -189,6 +194,7 @@ class GTCP:
         Cmine Algorithm for mining coverage patterns
         """
 
+        self._recordCandidates((graph,) for graph in self.Df)
         self.Nol_1=self.getallFreq1()
         l=1
         self.L=[]

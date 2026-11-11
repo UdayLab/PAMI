@@ -327,7 +327,10 @@ class _Tree(object):
                     conditionalTree.generatePatterns(pattern)
             self.removeNode(i)
 
-class CUFPTree(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class CUFPTree(CandidatePatternsMixin, _ab._frequentPatterns):
   
     """
     About this algorithm
@@ -668,6 +671,7 @@ class CUFPTree(_ab._frequentPatterns):
         :return: patterns with accurate probability
         """
         global _finalPatterns
+        self._recordCandidates(_finalPatterns)
         periods = {}
         for i in self._Database:
             for x, y in _finalPatterns.items():
@@ -699,6 +703,7 @@ class CUFPTree(_ab._frequentPatterns):
 
         :return: None
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
@@ -708,6 +713,7 @@ class CUFPTree(_ab._frequentPatterns):
         :return: None
         """
 
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._creatingItemSets()
         self._minSup = self._convert(self._minSup)

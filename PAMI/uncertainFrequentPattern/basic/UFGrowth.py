@@ -256,7 +256,10 @@ class _Tree(object):
         return q
 
 
-class UFGrowth(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class UFGrowth(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     About this algorithm
     ====================
@@ -608,6 +611,7 @@ class UFGrowth(_ab._frequentPatterns):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
+        self._resetCandidatePatterns()
         self.mine()
 
 
@@ -615,6 +619,7 @@ class UFGrowth(_ab._frequentPatterns):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
+        self._resetCandidatePatterns()
         global minSup
         self._startTime = _ab._time.time()
         self._creatingItemSets()

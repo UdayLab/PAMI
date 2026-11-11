@@ -567,7 +567,10 @@ def conditionalTransactions(patterns, timestamp) -> Tuple[List[List[int]], List[
     return pat, timeStamps, updatedDict
 
 
-class PSGrowth(_ab._periodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class PSGrowth(CandidatePatternsMixin, _ab._periodicFrequentPatterns):
     """
     :Description:   PS-Growth is one of the fundamental algorithm to discover periodic-frequent patterns in a temporal database.
 
@@ -836,6 +839,7 @@ class PSGrowth(_ab._periodicFrequentPatterns):
         Mining process will start from this function
         :return: None
         """
+        self._resetCandidatePatterns()
         global _minSup, _maxPer, _lno, _pfList
         self._startTime = _ab._time.time()
         if self._iFile is None:
@@ -866,6 +870,7 @@ class PSGrowth(_ab._periodicFrequentPatterns):
         Mining process will start from this function
         :return: None
         """
+        self._resetCandidatePatterns()
         global _minSup, _maxPer, _lno, _pfList
         self._startTime = _ab._time.time()
         if self._iFile is None:

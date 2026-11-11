@@ -61,7 +61,10 @@ from typing import List, Dict, Tuple, Set, Union, Any, Generator
 from deprecated import deprecated
 
 
-class CMine(_ab._coveragePatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class CMine(CandidatePatternsMixin, _ab._coveragePatterns):
     """
     About this algorithm
     ====================
@@ -288,6 +291,7 @@ class CMine(_ab._coveragePatterns):
         # Get the length of tidData
         length = len(tidData)
         for i in range(start, length):
+            self._recordCandidate(tuple(item_set.split("\t")) + (tidData[i][0],))
             tid = prefix[1] & tidData[i][1]
             andCount = tid.bit_count()
             if andCount <= self._maxOR * self._mapSupport[tidData[i][0]]:
@@ -305,6 +309,7 @@ class CMine(_ab._coveragePatterns):
         :param coverageItems: coverage items
         :return: None
         """
+        self._recordCandidates((item,) for item in coverageItems)
         tidData = list(coverageItems.items())
         length = len(tidData)
         for i in range(length):
@@ -315,11 +320,13 @@ class CMine(_ab._coveragePatterns):
     def startMine(self) -> None:
         """ Main method to start """
 
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
         """ Main method to start """
 
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")

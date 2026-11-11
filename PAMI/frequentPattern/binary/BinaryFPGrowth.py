@@ -101,7 +101,10 @@ class _Node:
         return transaction[::-1], count
 
 
-class BinaryFPGrowth(_fp._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class BinaryFPGrowth(CandidatePatternsMixin, _fp._frequentPatterns):
     """
     **About this algorithm**
 
@@ -408,6 +411,7 @@ class BinaryFPGrowth(_fp._frequentPatterns):
         """
         Frequent pattern mining process will start from here.
         """
+        self._resetCandidatePatterns()
         self._startTime = _fp._time.time()
         self._finalPatterns = {}
         self._creatingItemSets()
@@ -428,6 +432,7 @@ class BinaryFPGrowth(_fp._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def getMemoryUSS(self) -> float:

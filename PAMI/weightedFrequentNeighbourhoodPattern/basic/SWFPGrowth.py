@@ -322,7 +322,10 @@ class _Tree:
                     yield q
 
 global _maxWeight
-class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class SWFPGrowth(CandidatePatternsMixin, _fp._weightedFrequentSpatialPatterns):
     """
     About this algorithm
     ====================
@@ -677,12 +680,14 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         global _minWS, _neighbourList, _rank
         self.__startTime = _fp._time.time()
         if self._iFile is None:

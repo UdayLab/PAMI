@@ -55,7 +55,10 @@ from PAMI.frequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 from deprecated import deprecated
 
-class Apriori(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class Apriori(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     :Description: Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 
@@ -236,6 +239,7 @@ class Apriori(_ab._frequentPatterns):
 
         """
 
+        self._recordCandidates(candidateList)
         candidateToFrequentList = {}
         for i in self._Database:
             dictionary = {frozenset(j): int(candidateToFrequentList.get(frozenset(j), 0)) + 1 for j in candidateList if
@@ -277,6 +281,7 @@ class Apriori(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._Database = []
         self._startTime = _ab._time.time()
         self._creatingItemSets()
@@ -307,6 +312,7 @@ class Apriori(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._Database = []
         self._startTime = _ab._time.time()
         self._creatingItemSets()

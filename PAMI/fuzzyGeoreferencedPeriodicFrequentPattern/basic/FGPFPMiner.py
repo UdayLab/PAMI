@@ -137,7 +137,10 @@ class _Pair:
         self.quantity = 0
 
 
-class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class FGPFPMiner(CandidatePatternsMixin, _ab._fuzzySpatialFrequentPatterns):
     """
     About this algorithm
     ====================
@@ -417,12 +420,14 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._mapNeighbours()
         self._creatingItemSets()
@@ -546,6 +551,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         """
         for i in range(0, len(FSFIM)):
             _FFListObject1 = FSFIM[i]
+            self._recordCandidate(tuple(prefix[:prefixLen]) + (_FFListObject1.item,))
             if _FFListObject1.sumIUtil >= minSup:
                 self._WriteOut(prefix, prefixLen, _FFListObject1, _FFListObject1.sumIUtil)
             newNeighbourList = self._Intersection(self._mapItemNeighbours.get(_FFListObject1.item[0]), itemNeighbours)

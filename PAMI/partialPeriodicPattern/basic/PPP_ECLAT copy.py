@@ -60,7 +60,10 @@ from PAMI.partialPeriodicPattern.basic import abstract as _ab
 import pandas as pd
 from deprecated import deprecated
 
-class PPP_ECLAT(_ab._partialPeriodicPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class PPP_ECLAT(CandidatePatternsMixin, _ab._partialPeriodicPatterns):
     """
     :Descripition:   3pEclat is the fundamental approach to mine the partial periodic frequent patterns.
 
@@ -314,6 +317,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         self._minPS = self._convert(self._minPS)
         self._mapSupport = {k: v[0] for k, v in self._mapSupport.items() if v[0] >= self._minPS}
         plist = [key for key, value in sorted(self._mapSupport.items(), key=lambda x: x[1], reverse=True)]
+        self._recordCandidates((item,) for item in self._tidList)
         return plist
 
     def _save(self, prefix: List[str], suffix: List[str], tidSetX: List[int]) -> None:
@@ -369,6 +373,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
             for j in range(i + 1, len(itemSets)):
                 itemJ = itemSets[j]
                 tidSetJ = tidSets[j]
+                self._recordCandidate(tuple(prefix) + (itemI, itemJ))
                 y = list(set(tidSetX).intersection(tidSetJ))
                 val = self._getPeriodicSupport(y)
                 if val >= self._minPS:
@@ -387,6 +392,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         :return: None
 
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def Mine(self) -> None:
@@ -396,6 +402,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         :return: None
 
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._creatingItemSets()
         plist = self._creatingOneitemSets()
@@ -409,6 +416,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
             for j in range(i + 1, len(plist)):
                 itemJ = plist[j]
                 tidSetJ = self._tidList[itemJ]
+                self._recordCandidate((itemI, itemJ))
                 y1 = list(set(tidSetX).intersection(tidSetJ))
                 val = self._getPeriodicSupport(y1)
                 if val >= self._minPS:

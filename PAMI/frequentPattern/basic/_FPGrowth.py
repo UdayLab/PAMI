@@ -256,7 +256,10 @@ class _Tree:
                     yield q
 
 
-class FPGrowth(_fp._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class FPGrowth(CandidatePatternsMixin, _fp._frequentPatterns):
     """
 
     :Description:   FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database. It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It employs downward closure property to  reduce the search space effectively.
@@ -534,6 +537,7 @@ class FPGrowth(_fp._frequentPatterns):
         """
         Main program to start the operation
         """
+        self._resetCandidatePatterns()
         global _minSup
         self.__startTime = _fp._time.time()
         if self._iFile is None:
@@ -566,6 +570,7 @@ class FPGrowth(_fp._frequentPatterns):
         """
         Main program to start the operation
         """
+        self._resetCandidatePatterns()
         global _minSup
         self.__startTime = _fp._time.time()
         if self._iFile is None:

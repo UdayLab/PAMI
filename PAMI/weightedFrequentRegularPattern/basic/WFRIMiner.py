@@ -325,7 +325,10 @@ class _Tree:
             self.removeNode(i)
 
 
-class WFRIMiner(_fp._weightedFrequentRegularPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class WFRIMiner(CandidatePatternsMixin, _fp._weightedFrequentRegularPatterns):
     """
     About this algorithm
     ====================
@@ -689,12 +692,14 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         global _WS, _regularity, _weights
         self._startTime = _fp._time.time()
         if self._iFile is None:

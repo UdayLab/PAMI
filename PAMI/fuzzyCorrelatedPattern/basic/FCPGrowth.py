@@ -191,7 +191,10 @@ class _Pair:
         self.region = 'N'
 
 
-class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class FCPGrowth(CandidatePatternsMixin, _ab._corelatedFuzzyFrequentPatterns):
     """
     :Description:   FCPGrowth is the algorithm to discover Correlated Fuzzy-frequent patterns in a transactional database.
                     it is based on traditional fuzzy frequent pattern mining.
@@ -476,6 +479,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         """ 
         Frequent pattern mining process will startTime from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
 
@@ -483,6 +487,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         """
         Frequent pattern mining process will startTime from here
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._creatingItemSets()
         for tr in range(len(self._transactions)):
@@ -590,6 +595,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         """
         for i in range(0, len(FSFIM)):
             X = FSFIM[i]
+            self._recordCandidate(tuple((item.item, item.region) for item in prefix[:prefixLen]) + ((X.item, X.region),))
             if X.sumIUtil >= minSup:
                 ratio = self._getRatio(prefix, X)
                 if ratio >= self._minAllConf:

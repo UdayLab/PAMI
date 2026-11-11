@@ -64,7 +64,10 @@ _minSup = float()
 _lno = int()
 
 
-class CPPG(_ab._coveragePatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class CPPG(CandidatePatternsMixin, _ab._coveragePatterns):
     """
 
     :Description:  CPPG  algorithm discovers coverage patterns in a transactional database.
@@ -235,6 +238,7 @@ class CPPG(_ab._coveragePatterns):
                     data[tr[i]] = [count]
                 else:
                     data[tr[i]].append(count)
+        self._recordCandidates((item,) for item in data)
         data = {k: v for k, v in data.items() if len(v)/len(self._Database) >= self._minRF}
         pfList = [i for i in sorted(data, key=lambda k: len(data[k]), reverse=True)]
         return data, pfList
@@ -301,6 +305,7 @@ class CPPG(_ab._coveragePatterns):
                 item2 = uniqueItems[j]
                 i2_list = item2.split()
                 if i1_list[:-1] == i2_list[:-1]:
+                    self._recordCandidate(tuple(i1_list + [i2_list[-1]]))
                     interSet = set(self._finalPatterns[item1]).intersection(set(self._finalPatterns[item2]))
                     union = set(self._finalPatterns[item1]).union(set(self._finalPatterns[item2]))
                     if len(union)/len(self._Database) >= self._minCS and len(interSet)/len(self._finalPatterns[item1]) <= self._maxOR:
@@ -358,6 +363,7 @@ class CPPG(_ab._coveragePatterns):
     def startMine(self) -> None:
         """ Mining process will start from this function
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
@@ -365,6 +371,7 @@ class CPPG(_ab._coveragePatterns):
         """
 
         #global _minSup, _maxPer, _lno
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")

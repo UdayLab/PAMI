@@ -62,7 +62,10 @@ import numpy as np
 from PAMI.periodicFrequentPattern.basic import abstract as _ab
 
 
-class PFECLAT(_ab._periodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class PFECLAT(CandidatePatternsMixin, _ab._periodicFrequentPatterns):
     """
     **About this algorithm**
 
@@ -242,6 +245,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
 
     @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self) -> None:
+        self._resetCandidatePatterns()
         self.mine()
 
     def _getMaxPer(self, arr, maxTS):
@@ -267,6 +271,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         Mining process will start from this function
         :return: None
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         frequentSets = self._creatingItemSets()
@@ -289,6 +294,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         maxPer = self._maxPer
 
 
+        self._recordCandidates(items)
         items = {k: v for k, v in items.items() if len(v) >= minSup}
         items = {k: v for k, v in sorted(items.items(), key = lambda x: len(x[1]), reverse = True)}
 
@@ -306,6 +312,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                     if keys[i][:-1] == keys[j][:-1] and keys[i][-1] != keys[j][-1]:
                         # print(keys[i], keys[j])
                         newKey = tuple(keys[i] + (keys[j][-1],))
+                        self._recordCandidate(newKey)
                         intersect = items[keys[i]].intersection(items[keys[j]])
                         per = self._getMaxPer(intersect, maxTS)
                         sup = len(intersect)

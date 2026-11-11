@@ -248,7 +248,10 @@ class _Tree:
         return frequentPatterns
 
 
-class FSPGrowth(_ab._spatialFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class FSPGrowth(CandidatePatternsMixin, _ab._spatialFrequentPatterns):
     """
     :Description:   Given a transactional database and a spatial (or neighborhood) file, FSPM aims to discover all of those patterns
                     that satisfy the user-specified minimum support (minSup) and maximum distance (maxDist) constraints
@@ -512,12 +515,14 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         """
         Start pattern mining from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Start pattern mining from here
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         self._readDatabase()

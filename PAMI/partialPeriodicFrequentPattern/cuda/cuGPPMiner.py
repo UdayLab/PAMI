@@ -27,7 +27,10 @@ import numpy as np
 import pandas as pd
 from deprecated import deprecated
 
-class cuGPPMiner(partialPeriodicPatterns, ABC):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class cuGPPMiner(CandidatePatternsMixin, partialPeriodicPatterns, ABC):
   __path = ' '
   _partialPeriodicPatterns__iFile = ' '
   _partialPeriodicPatterns__oFile = ' '
@@ -303,6 +306,7 @@ class cuGPPMiner(partialPeriodicPatterns, ABC):
         self._rename = {}
         number = 0
 
+        self._recordCandidates(ArraysAndItems)
         for k,v in ArraysAndItems.items():
           if len(v) >= self._partialPeriodicPatterns__minSup:
             nv = v.copy()
@@ -337,6 +341,7 @@ class cuGPPMiner(partialPeriodicPatterns, ABC):
     Main program start with extracting the periodic frequent items from the database and
     performs prefix equivalence to form the combinations and generates closed periodic frequent patterns.
     """
+    self._resetCandidatePatterns()
     self.mine()
 
   def Mine(self):
@@ -344,6 +349,7 @@ class cuGPPMiner(partialPeriodicPatterns, ABC):
     Main program start with extracting the periodic frequent items from the database and
     performs prefix equivalence to form the combinations and generates closed periodic frequent patterns.
     """
+    self._resetCandidatePatterns()
     self.__path = self._partialPeriodicPatterns__iFile
     self._partialPeriodicPatterns__startTime = time.time()
     self._partialPeriodicPatterns__finalPatterns = {}
@@ -376,6 +382,7 @@ class cuGPPMiner(partialPeriodicPatterns, ABC):
 
       # print(newKeys)
 
+      self._recordCandidates(tuple(self._rename[x] for x in candidate) for candidate in newKeys)
       numberOfKeys = len(newKeys)
       keySize = len(newKeys[0])
 

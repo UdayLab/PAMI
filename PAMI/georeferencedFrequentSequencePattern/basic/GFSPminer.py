@@ -61,7 +61,10 @@ from deprecated import deprecated
 sys.setrecursionlimit(10000)
 
 
-class GFSPminer(_ab._GeorefarencedFequentialPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class GFSPminer(CandidatePatternsMixin, _ab._GeorefarencedFequentialPatterns):
     """
     :Description:   GFSPminer is one of the fundamental algorithm to discover georeferenced sequential frequent patterns in a transactional database.
                     This program employs GFSPminer property (or downward closure property) to  reduce the search space effectively.
@@ -408,6 +411,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
                 seqNumber += 1
             lineNumber += 1
 
+        self._recordCandidates((item,) for item in idDatabase)
         newDatabase = {i: idDatabase[i] for i in idDatabase.keys()}
         for key in idDatabase.keys():
             if len(idDatabase[key].keys()) < self._minSup:
@@ -475,6 +479,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
         self._xLenDatabase[2] = {tuple([i]): {} for i in nextDatabase.keys()}
         for key1 in nextDatabase.keys():
             for key2 in nextDatabase[key1].keys():
+                self._recordCandidate((key1, -1, key2, -1))
                 if len(nextDatabase[key1][key2].keys()) >= self._minSup:
                     self._finalPatterns[str((key1, -1, key2, -1))] = len(nextDatabase[key1][key2].keys())
                     self._xLenDatabase[2][tuple([key1])][key2] = nextDatabase[key1][key2]
@@ -483,6 +488,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
         self._xLenDatabaseSame[2] = {tuple([i]): {} for i in nextDatabaseSame.keys()}
         for key1 in nextDatabaseSame.keys():
             for key2 in nextDatabaseSame[key1].keys():
+                self._recordCandidate((key1, key2, -1))
                 if len(nextDatabaseSame[key1][key2].keys()) >= self._minSup:
                     self._finalPatterns[str((key1, key2, -1))] = len(nextDatabaseSame[key1][key2].keys())
                     self._xLenDatabaseSame[2][tuple([key1])][key2] = {i: nextDatabaseSame[key1][key2][i] for i in
@@ -550,6 +556,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
                 for seq in self._xLenDatabase[rowLen][bs][latestWord2].keys():
                     if len(self._xLenDatabase[rowLen][bs][latestWord][seq]) >= 2:
                         _next[seq] = self._xLenDatabase[rowLen][bs][latestWord][seq][1:]
+                self._recordCandidate(self.makeNextRow(bs, latestWord, latestWord2)[0])
                 if len(_next) >= self._minSup:
                     nextRow, nextbs = self.makeNextRow(bs, latestWord, latestWord2)
                     if str(nextRow) not in self._finalPatterns.keys():
@@ -597,6 +604,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
                             self._xLenDatabase[rowLen][bs][latestWord2][seq])))
                         if len(x) != 0:
                             nextSame[seq] = x
+            self._recordCandidate(self.makeNextRowSame3(bs, latestWord, latestWord2)[0])
             if len(nextSame) >= self._minSup:
                 nextRow, nextbs, nextlste = self.makeNextRowSame3(bs, latestWord, latestWord2)
                 if str(nextRow) not in self._finalPatterns.keys():
@@ -624,6 +632,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
                             self._xLenDatabase[rowLen][bs][latestWord2][seq])))
                         if len(x) != 0:
                             nextSame[seq] = x
+            self._recordCandidate(self.makeNextRowSame3(bs, latestWord, latestWord2)[0])
             if len(nextSame) >= self._minSup:
                 nextRow, nextbs, nextlate = self.makeNextRowSame3(bs, latestWord, latestWord2)
                 if str(nextRow) not in self._finalPatterns.keys():
@@ -664,6 +673,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
                              i > self._xLenDatabase[rowLen][bs][latestWord][seq][0]]
                         if len(x) != 0:
                             _next[seq] = x
+            self._recordCandidate(self.makeNextRow(bs, latestWord, latestWord2)[0])
             if len(_next) >= self._minSup:
                 nextRow, nextbs = self.makeNextRow(bs, latestWord, latestWord2)
                 if str(nextRow) not in self._finalPatterns.keys():
@@ -690,6 +700,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
                              i > self._xLenDatabase[rowLen][bs][latestWord][seq][0]]
                         if len(x) != 0:
                             _next[seq] = x
+            self._recordCandidate(self.makeNextRow(bs, latestWord, latestWord2)[0])
             if len(_next) >= self._minSup:
                 nextRow, nextbs = self.makeNextRow(bs, latestWord, latestWord2)
                 if str(nextRow) not in self._finalPatterns.keys():
@@ -732,6 +743,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
                              i > self._xLenDatabase[rowLen][bs][latestWord2][seq][0]]
                         if len(x) != 0:
                             next2[seq] = x
+            self._recordCandidate(self.makeNextRow(bs, latestWord2, latestWord)[0])
             if len(next2) >= self._minSup:
                 nextRow, nextbs = self.makeNextRow(bs, latestWord2, latestWord)
                 if str(nextRow) not in self._finalPatterns.keys():
@@ -759,6 +771,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
                              i > self._xLenDatabase[rowLen][bs][latestWord2][seq][0]]
                         if len(x) != 0:
                             next2[seq] = x
+            self._recordCandidate(self.makeNextRow(bs, latestWord2, latestWord)[0])
             if len(next2) >= self._minSup:
                 nextRow, nextbs = self.makeNextRow(bs, latestWord2, latestWord)
                 if str(nextRow) not in self._finalPatterns.keys():
@@ -798,6 +811,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
                              i > self._xLenDatabaseSame[rowLen][bs][latestWord2][seq][0]]
                         if len(x) != 0:
                             _next[seq] = x
+            self._recordCandidate(self.makeNextRowSame(bs, latestWord2, latestWord)[0])
             if len(_next) >= self._minSup:
 
                 nextRow, nextbs = self.makeNextRowSame(bs, latestWord2, latestWord)
@@ -823,6 +837,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
                              i > self._xLenDatabaseSame[rowLen][bs][latestWord2][seq][0]]
                         if len(x) != 0:
                             _next[seq] = x
+            self._recordCandidate(self.makeNextRowSame(bs, latestWord2, latestWord)[0])
             if len(_next) >= self._minSup:
                 nextRow, nextbs = self.makeNextRowSame(bs, latestWord2, latestWord)
                 if str(nextRow) not in self._finalPatterns.keys():
@@ -863,6 +878,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
                         self._xLenDatabaseSame[rowLen][bs][latestWord2][seq])))
                     if len(x) != 0:
                         _next[seq] = x
+            self._recordCandidate(self.makeNextRowSame2(bs, latestWord, latestWord2)[0])
             if len(_next) >= self._minSup:
 
                 nextRow, nextbs, nextLate = self.makeNextRowSame2(bs, latestWord, latestWord2)
@@ -888,6 +904,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
                         self._xLenDatabaseSame[rowLen][bs][latestWord2][seq])))
                     if len(x) != 0:
                         _next[seq] = x
+            self._recordCandidate(self.makeNextRowSame2(bs, latestWord, latestWord2)[0])
             if len(_next) >= self._minSup:
 
                 nextRow, nextbs, nextLate = self.makeNextRowSame2(bs, latestWord, latestWord2)
@@ -1034,12 +1051,14 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._Database = []
         self._startTime = _ab._time.time()
         self._creatingItemSets()

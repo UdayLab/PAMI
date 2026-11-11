@@ -55,7 +55,10 @@ from PAMI.frequentPattern.topk import abstract as _ab
 from deprecated import deprecated
 
 
-class FAE(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class FAE(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     :Description: Top - K is and algorithm to discover top frequent patterns in a transactional database.
 
@@ -215,6 +218,7 @@ class FAE(_ab._frequentPatterns):
                     candidate[j] += 1
                     self._tidList[j].append(i)
         self._finalPatterns = {}
+        self._recordCandidates((key,) for key in candidate)
         plist = [key for key, value in sorted(candidate.items(), key=lambda x: x[1], reverse=True)]
         for i in plist:
             if len(self._finalPatterns) >= self._k:
@@ -289,6 +293,7 @@ class FAE(_ab._frequentPatterns):
             for j in range(i + 1, len(itemSets)):
                 itemJ = itemSets[j]
                 tidSetJ = tidSets[j]
+                self._recordCandidate(tuple(prefix + [itemI, itemJ]))
                 y = list(set(tidSetI).intersection(tidSetJ))
                 if len(y) >= self._minimum:
                     classItemSets.append(itemJ)
@@ -321,12 +326,14 @@ class FAE(_ab._frequentPatterns):
         """
             Main function of the program
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
             Main function of the program
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -344,6 +351,7 @@ class FAE(_ab._frequentPatterns):
             for j in range(i + 1, len(plist)):
                 itemJ = plist[j]
                 tidSetJ = self._tidList[itemJ]
+                self._recordCandidate((itemI, itemJ))
                 y1 = list(set(tidSetI).intersection(tidSetJ))
                 if len(y1) >= self._minimum:
                     itemSets.append(itemJ)

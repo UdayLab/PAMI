@@ -62,7 +62,10 @@ from PAMI.sequentialPattern.basic import abstract as _ab
 
 _ab._sys.setrecursionlimit(10000)
 
-class bitSPADE(_ab._sequentialPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class bitSPADE(CandidatePatternsMixin, _ab._sequentialPatterns):
     """
     :Description:
 
@@ -313,6 +316,7 @@ class bitSPADE(_ab._sequentialPatterns):
                 seqNumber+=1
             lineNumber+=1
 
+        self._recordCandidates((item,) for item in idDatabase)
         self._Database={i :idDatabase[i] for i in idDatabase.keys() if len(idDatabase[i]) >=self._minSup}
         
         self._finalPatterns={key:len(idDatabase[key]) for key in self._Database.keys()}
@@ -425,12 +429,14 @@ class bitSPADE(_ab._sequentialPatterns):
         self._xLenDatabase[2] = {tuple([i]): {} for i in nextDatabase.keys()}
         for key1 in nextDatabase.keys():
             for key2 in nextDatabase[key1].keys():
+                self._recordCandidate((key1, self._sepSeq, key2, self._sepSeq))
                 if len(nextDatabase[key1][key2].keys())>=self._minSup:
                     self._finalPatterns[str((key1,self._sepSeq,key2,self._sepSeq))]=len(nextDatabase[key1][key2].keys())
                     self._xLenDatabase[2][tuple([key1])][key2]=nextDatabase[key1][key2]
         self._xLenDatabaseSame[2]={tuple([i]): {} for i in nextDatabaseSame.keys()}
         for key1 in nextDatabaseSame.keys():
             for key2 in nextDatabaseSame[key1].keys():
+                self._recordCandidate((key1, key2, self._sepSeq))
                 if len(nextDatabaseSame[key1][key2].keys()) >= self._minSup:
                     self._finalPatterns[str((key1,key2,self._sepSeq))]=len(nextDatabaseSame[key1][key2].keys())
                     self._xLenDatabaseSame[2][tuple([key1])][key2]={i:nextDatabaseSame[key1][key2][i] for i in nextDatabaseSame[key1][key2].keys()}
@@ -466,6 +472,7 @@ class bitSPADE(_ab._sequentialPatterns):
                         nextSame=self.combSamePatterns(self._xLenDatabase[rowLen][bs][latestWord],self._xLenDatabase[rowLen][bs][latestWord2])
 
                         
+                        self._recordCandidate(self.makeNextRow(bs, latestWord, latestWord2)[0])
                         if len(next1)>=self._minSup:
                             nextRow,nextbs= self.makeNextRow(bs,latestWord,latestWord2)
                             if str(nextRow) not in self._finalPatterns.keys():
@@ -474,6 +481,7 @@ class bitSPADE(_ab._sequentialPatterns):
                                     self._xLenDatabase[rowLen + 1][nextbs]={}
                                 self._xLenDatabase[rowLen+1][nextbs][latestWord2]={i:next1[i] for i in next1}
                                 self.makexLenDatabase(rowLen+1,nextbs,latestWord2)
+                        self._recordCandidate(self.makeNextRow(bs, latestWord2, latestWord)[0])
                         if len(next2)>=self._minSup:
                             nextRow,nextbs = self.makeNextRow(bs, latestWord2, latestWord)
                             if str(nextRow) not in self._finalPatterns.keys():
@@ -482,6 +490,7 @@ class bitSPADE(_ab._sequentialPatterns):
                                 self._finalPatterns[str(nextRow)] = len(next2)
                                 self._xLenDatabase[rowLen+1][nextbs][latestWord] = {i:next2[i] for i in next2 }
                                 self.makexLenDatabase(rowLen+1, nextbs, latestWord)
+                        self._recordCandidate(self.makeNextRowSame3(bs, latestWord, latestWord2)[0])
                         if len(nextSame) >= self._minSup:
                             nextRow,nextbs ,nextlste= self.makeNextRowSame3(bs, latestWord, latestWord2)
                             if str(nextRow) not in self._finalPatterns.keys():
@@ -496,6 +505,7 @@ class bitSPADE(_ab._sequentialPatterns):
                 else:
                     next1= self.combDifPatterns(self._xLenDatabase[rowLen][bs][latestWord], self._xLenDatabase[rowLen][bs][latestWord2])
                     
+                    self._recordCandidate(self.makeNextRow(bs, latestWord, latestWord2)[0])
                     if len(next1) >= self._minSup:
                         nextRow, nextbs= self.makeNextRow(bs,latestWord,latestWord2)
                         if str(nextRow) not in self._finalPatterns.keys():
@@ -511,6 +521,7 @@ class bitSPADE(_ab._sequentialPatterns):
                             next1 = self.combDifPatterns(self._xLenDatabaseSame[rowLen][bs][latestWord2], self._xLenDatabase[rowLen][bs][latestWord])
 
                             
+                            self._recordCandidate(self.makeNextRowSame(bs, latestWord2, latestWord)[0])
                             if len(next1) >= self._minSup:
 
                                 nextRow ,nextbs= self.makeNextRowSame(bs, latestWord2, latestWord)
@@ -537,6 +548,7 @@ class bitSPADE(_ab._sequentialPatterns):
         if bs in self._xLenDatabase[rowLen]:
             for latestWord2 in self._xLenDatabase[rowLen][bs]:
                     next1 =self.combDifPatterns(self._xLenDatabaseSame[rowLen][bs][latestWord], self._xLenDatabase[rowLen][bs][latestWord2])
+                    self._recordCandidate(self.makeNextRowSame(bs, latestWord, latestWord2)[0])
                     if len(next1) >= self._minSup:
                         nextRow ,nextbs= self.makeNextRowSame(bs, latestWord, latestWord2)
                         if str(nextRow) not in self._finalPatterns.keys():
@@ -552,6 +564,7 @@ class bitSPADE(_ab._sequentialPatterns):
                 if latestWord2!=latestWord:
                         next1= self.combSamePatterns(self._xLenDatabaseSame[rowLen][bs][latestWord], self._xLenDatabaseSame[rowLen][bs][latestWord2])
 
+                        self._recordCandidate(self.makeNextRowSame2(bs, latestWord, latestWord2)[0])
                         if len(next1) >= self._minSup:
 
                                 nextRow, nextbs,nextLate= self.makeNextRowSame2(bs, latestWord, latestWord2)
@@ -653,6 +666,7 @@ class bitSPADE(_ab._sequentialPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._Database = []
         self._startTime = _ab._time.time()
         self._creatingItemSets()
@@ -672,6 +686,7 @@ class bitSPADE(_ab._sequentialPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._Database = []
         self._startTime = _ab._time.time()
         self._creatingItemSets()

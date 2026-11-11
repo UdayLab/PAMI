@@ -240,7 +240,10 @@ class _Tree:
                     yield q
 
 
-class WFIM(_fp._weightedFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class WFIM(CandidatePatternsMixin, _fp._weightedFrequentPatterns):
     """
     About this algorithm
     ====================
@@ -588,6 +591,7 @@ class WFIM(_fp._weightedFrequentPatterns):
 
         :return: None
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
@@ -596,6 +600,7 @@ class WFIM(_fp._weightedFrequentPatterns):
 
         :return: None
         """
+        self._resetCandidatePatterns()
         global _minSup, _minWeight, _miniWeight, _maxWeight, _weights
         self.__startTime = _fp._time.time()
         if self._iFile is None:

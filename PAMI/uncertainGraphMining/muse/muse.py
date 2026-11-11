@@ -1,7 +1,10 @@
 
 
 from PAMI.uncertainGraphMining.muse import abstract as _ab
-class Muse(_ab._MUSE):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class Muse(CandidatePatternsMixin, _ab._MUSE):
     def __init__(self, file_path):
         self.graphCount = None
         self.graphDatabase = self.readGraph(file_path)
@@ -212,10 +215,14 @@ class Muse(_ab._MUSE):
         return superpatterns
 
     def mine(self, minsup, epsilon, delta):
+        self._resetCandidatePatterns()
         T = self._generateInitialPatterns()
         while T:
             S = T.pop()
             S_dict = dict(S)
+            self._recordCandidate(tuple(sorted((key, vertex.getLabel(),
+                tuple(sorted((edge.v1, edge.v2, edge.edgeLabel, edge.existenceProbability)
+                             for edge in vertex.getEdgeList()))) for key, vertex in S_dict.items())))
             embeddings = []
             for Gi in self.graphDatabase:
                 if self._checkSubgraph(Gi.getVertexMap(), S_dict):

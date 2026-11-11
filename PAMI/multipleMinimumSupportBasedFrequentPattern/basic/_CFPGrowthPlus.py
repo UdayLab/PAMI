@@ -197,7 +197,10 @@ class _Tree:
 
 minMIS = 0
 
-class CFPGrowthPlus(_fp._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class CFPGrowthPlus(CandidatePatternsMixin, _fp._frequentPatterns):
     """
 
     :Description:
@@ -506,6 +509,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         main program to start the operation
 
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -513,6 +517,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         main program to start the operation
 
         """
+        self._resetCandidatePatterns()
         global MIS
         self.__startTime = _fp._time.time()
         if self._iFile is None:

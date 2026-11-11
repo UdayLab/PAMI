@@ -65,7 +65,10 @@ from itertools import combinations
 import time, psutil, os, validators, pandas as pd, urllib.request as urlopen   # whatever you aliased as _ab.*
 
 
-class confidence:
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class confidence(CandidatePatternsMixin):
     """
     About this algorithm
     ====================
@@ -205,6 +208,7 @@ class confidence:
         Stores results in self._associationRules as a list of
         (antecedent, consequent, support, confidence).
         """
+        self._resetCandidatePatterns()
         self._startTime = time.time()
         self._readPatterns()
 
@@ -218,6 +222,7 @@ class confidence:
                 for antecedent in combinations(itemset, r):
                     antecedent = tuple(sorted(antecedent))
                     consequent = tuple(sorted(set(itemset) - set(antecedent)))
+                    self._recordCandidate((antecedent, consequent))
 
                     conf = sup / self._frequentPatterns[antecedent]
                     if conf >= self._minConf:

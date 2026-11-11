@@ -21,7 +21,10 @@ __copyright__ = """
 import abstract as _ab
 from deprecated import deprecated
 
-class cuGPPMiner(_ab._partialPeriodicPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class cuGPPMiner(CandidatePatternsMixin, _ab._partialPeriodicPatterns):
     """
     :Description:   gPPMiner is the fundamental approach to mine the periodic-frequent patterns using GPU.
 
@@ -309,6 +312,7 @@ class cuGPPMiner(_ab._partialPeriodicPatterns):
         self._rename = {}
         number = 0
 
+        self._recordCandidates(ArraysAndItems)
         for k,v in ArraysAndItems.items():
             nv = v.copy()
             nv = _ab._cp.array(nv, dtype=_ab._np.uint32)
@@ -335,10 +339,12 @@ class cuGPPMiner(_ab._partialPeriodicPatterns):
     @deprecated("It is recommended to use mine() instead of mine() for mining process")
     def startMine(self):
 
+        self._resetCandidatePatterns()
         self.mine()
 
 
     def mine(self):
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
 
         self._period = self._convert(self._period)
@@ -369,6 +375,7 @@ class cuGPPMiner(_ab._partialPeriodicPatterns):
 
             # print(newKeys)
 
+            self._recordCandidates(tuple(self._rename[x] for x in candidate) for candidate in newKeys)
             numberOfKeys = len(newKeys)
             keySize = len(newKeys[0])
 

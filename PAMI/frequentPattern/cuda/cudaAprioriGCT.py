@@ -62,7 +62,10 @@ import pycuda.gpuarray as gpuarray
 import psutil
 
 
-class cudaAprioriGCT(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class cudaAprioriGCT(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     :Description: cudaAprioriGCT is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 
@@ -332,12 +335,14 @@ class cudaAprioriGCT(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         startTime = time.time()
         basePattern = {}
         final = {}
@@ -347,6 +352,7 @@ class cudaAprioriGCT(_ab._frequentPatterns):
         #minSup = self._minSup
         vb_data, idx2item = self.compute_vertical_bitvector_data()
 
+        self._recordCandidates((idx2item[j],) for j in range(len(vb_data)))
         for i in range(len(vb_data)):
             if gpuarray.sum(vb_data[i]).get() >= self._minSup:
                 basePattern[idx2item[i]] = [i]
@@ -370,6 +376,7 @@ class cudaAprioriGCT(_ab._frequentPatterns):
                     totalArray = vb_data[values[0]]
                     for k in range(1, len(values)):
                         totalArray = totalArray.__mul__(vb_data[values[k]])
+                    self._recordCandidate(tuple(sorted(set(keyI) | set(keyJ))))
                     support = gpuarray.sum(totalArray).get()
                     if support >= self._minSup:
                         combinedKey = " ".join(

@@ -144,7 +144,10 @@ class _Pair:
         self.utility = 0
 
 
-class HDSHUIM(_ab._utilityPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class HDSHUIM(CandidatePatternsMixin, _ab._utilityPatterns):
     """
     :Description:
 
@@ -330,6 +333,7 @@ class HDSHUIM(_ab._utilityPatterns):
         """
         main program to start the operation
         """
+        self._resetCandidatePatterns()
         self.mine()
 
 
@@ -338,6 +342,7 @@ class HDSHUIM(_ab._utilityPatterns):
         """
         main program to start the operation
         """
+        self._resetCandidatePatterns()
         minUtil = self._minUtil
         self._startTime = _ab._time.time()
         with open(self._nFile, 'r') as file1:
@@ -469,6 +474,7 @@ class HDSHUIM(_ab._utilityPatterns):
         """
         for i in range(0, len(uList)):
             x = uList[i]
+            self._recordCandidate(tuple(prefix) + (x.item,))
             if x.item not in exNeighbours:
                 continue
             self._candidates += 1

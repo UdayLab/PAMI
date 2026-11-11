@@ -281,7 +281,10 @@ class _Tree(object):
             self._removeNode(i)
 
 
-class GThreePGrowth(_abstract._partialPeriodicPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class GThreePGrowth(CandidatePatternsMixin, _abstract._partialPeriodicPatterns):
     """
     :Description:   3pgrowth is fundamental approach to mine the partial periodic patterns in temporal database.
 
@@ -571,6 +574,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
         return value
 
     def startMine(self) -> None:
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
@@ -578,6 +582,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
         Main method where the patterns are mined by constructing tree.
 
         """
+        self._resetCandidatePatterns()
         global _minPS, _period, _relativePS, _lno
         self._startTime = float()
         self._startTime = _abstract._time.time()

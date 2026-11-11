@@ -57,7 +57,10 @@ __copyright__ = """
 
 from PAMI.highUtilityPattern.basic import abstract as _ab
 
-class efimParallel(_ab._utilityPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class efimParallel(CandidatePatternsMixin, _ab._utilityPatterns):
     """
     :Description:  EFIM is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
     
@@ -404,6 +407,7 @@ class efimParallel(_ab._utilityPatterns):
 
                     for i in range(len(results)):
                         beta, projected_db, secondary, primary, utility = results[i]
+                        self._recordCandidate(tuple(self.rename[x] for x in beta))
                         if utility >= self.minUtil:
                             pattern = "\t".join([self.rename[x] for x in beta])
                             # self.Patterns[tuple(beta)] = utility
@@ -419,6 +423,7 @@ class efimParallel(_ab._utilityPatterns):
                 for i in range(len(collections)):
                     for j in range(len(collections[i][2])):
                         beta, projected_db, secondary, primary, utility = self._project(collections[i][0] + [collections[i][2][j]], collections[i][1], collections[i][3])
+                        self._recordCandidate(tuple(self.rename[x] for x in beta))
                         if utility >= self.minUtil:
                             pattern = "\t".join([self.rename[x] for x in beta])
                             # self.Patterns[tuple(beta)] = utility
@@ -434,6 +439,7 @@ class efimParallel(_ab._utilityPatterns):
         Start the EFIM algorithm.
         """
 
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -441,6 +447,7 @@ class efimParallel(_ab._utilityPatterns):
         Start the EFIM algorithm.
         """
 
+        self._resetCandidatePatterns()
         ps = psutil.Process(os.getpid())
 
         self.start = time.time()

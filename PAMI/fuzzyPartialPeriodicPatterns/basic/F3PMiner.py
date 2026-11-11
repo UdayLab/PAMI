@@ -143,7 +143,10 @@ class _Pair:
         self.quantity = 0
 
 
-class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class F3PMiner(CandidatePatternsMixin, _ab._fuzzyPartialPeriodicPatterns):
     """
     :Description:   F3PMiner algorithm discovers the fuzzy partial periodic patterns in quantitative Irregulat multiple timeseries databases.
     
@@ -402,12 +405,14 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
         """
         fuzzy-Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         fuzzy-Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._creatingItemsets()
         for line in range(len(self._transactions)):
@@ -492,6 +497,7 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
         """
         for i in range(0, len(FSFIM)):
             X = FSFIM[i]
+            self._recordCandidate(tuple(prefix[:prefixLen]) + (X.item,))
             exULs = []
             if X.sumIUtil >= minSup:
                 self._WriteOut(prefix, prefixLen, X.item, X.sumIUtil)

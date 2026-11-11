@@ -232,7 +232,10 @@ class Tree:
             currentNode.tidList |= tidList
 
 
-class LPPGrowth(_ab._localPeriodicPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class LPPGrowth(CandidatePatternsMixin, _ab._localPeriodicPatterns):
     """
     :Description:
 
@@ -765,12 +768,14 @@ class LPPGrowth(_ab._localPeriodicPatterns):
         """
         Mining process start from here.
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
         """
         Mining process start from here.
         """
+        self._resetCandidatePatterns()
         self._localPeriodicPatterns__startTime = _ab._time.time()
         self._localPeriodicPatterns__finalPatterns = {}
         self.__creatingItemSets()

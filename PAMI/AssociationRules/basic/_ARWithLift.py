@@ -56,7 +56,10 @@ from typing import List, Dict, Tuple, Set, Union, Any, Generator
 from deprecated import deprecated
 
 
-class Lift:
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class Lift(CandidatePatternsMixin):
     """
     :param  patterns: Dictionary containing patterns and its support value.
     :type  patterns: dict
@@ -112,6 +115,8 @@ class Lift:
         :return: the association rule
         :rtype: float
         """
+        self._recordCandidate((tuple(lhs.split()), tuple(rhs.split())))
+        self._recordCandidate((tuple(rhs.split()), tuple(lhs.split())))
         s = lhs + '\t' + rhs
         if self._frequentPatterns.get(s) is None:
             return 0
@@ -139,7 +144,7 @@ class Lift:
             self._generation(prefix, suffix)
 
 
-class ARWithLift:
+class ARWithLift(CandidatePatternsMixin):
     """
     About this algorithm
     ====================
@@ -292,15 +297,18 @@ class ARWithLift:
         """
         Association rule mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
         """
         Association rule mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         k = self._readPatterns()
         a = Lift(self._frequentPatterns, k, self._minConf)
+        a._candidatePatterns = self._candidatePatterns
         a.run()
         self._finalPatterns = a._finalPatterns
         self._endTime = _ab._time.time()

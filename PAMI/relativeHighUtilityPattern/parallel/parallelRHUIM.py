@@ -64,7 +64,10 @@ from PAMI.relativeHighUtilitytPattern.basic import abstract as _ab
 import pandas as pd
 from deprecated import deprecated
 
-class efimParallel(_ab._utilityPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class efimParallel(CandidatePatternsMixin, _ab._utilityPatterns):
     """
     :Description:   EFIM is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
     
@@ -338,6 +341,7 @@ class efimParallel(_ab._utilityPatterns):
 
                     for i in range(len(results)):
                         beta, projected_db, secondary, primary, utility = results[i]
+                        self._recordCandidate(tuple(self.rename[x] for x in beta))
                         pattern = "\t".join([self.rename[x] for x in beta])
                         if len(beta) == 1:
                           self.allStore["\t".join([self.rename[x] for x in beta])] = utility
@@ -364,6 +368,7 @@ class efimParallel(_ab._utilityPatterns):
                 for i in range(len(collections)):
                     for j in range(len(collections[i][2])):
                         beta, projected_db, secondary, primary, utility = self._project(collections[i][0] + [collections[i][2][j]], collections[i][1], collections[i][3])
+                        self._recordCandidate(tuple(self.rename[x] for x in beta))
                         if len(beta) == 1:
                           self.allStore["\t".join([self.rename[x] for x in beta])] = utility
                         pattern = "\t".join([self.rename[x] for x in beta])
@@ -392,6 +397,7 @@ class efimParallel(_ab._utilityPatterns):
         :returns: None
         """
 
+        self._resetCandidatePatterns()
         ps = psutil.Process(os.getpid())
 
         self.start = time.time()
@@ -414,6 +420,7 @@ class efimParallel(_ab._utilityPatterns):
         :returns: None
         """
 
+        self._resetCandidatePatterns()
         ps = psutil.Process(os.getpid())
 
         self.start = time.time()

@@ -37,7 +37,10 @@ from PAMI.frequentPattern.maximal import abstract as _ab
 from deprecated import deprecated
 
 
-class MaxMiner(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class MaxMiner(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     :**Description**:   MaxMiner discovers the complete set of maximal frequent itemsets in a
                         transactional database. It explores a set-enumeration tree whose nodes
@@ -201,6 +204,7 @@ class MaxMiner(_ab._frequentPatterns):
         :param mfi: maximal frequent itemsets discovered so far (frozenset -> support)
         :type mfi: dict
         """
+        self._recordCandidate(frozenset(head).union(it for it, _ in tail))
         hutTidSet = self._headUnionTailTidSet(tail)
         hutItems = frozenset(head).union(it for it, _ in tail)
         if hutTidSet is not None:
@@ -215,6 +219,7 @@ class MaxMiner(_ab._frequentPatterns):
             newTail = []
             for m in range(k + 1, len(tail)):
                 itemM, tidM = tail[m]
+                self._recordCandidate(frozenset(newHead + [itemM]))
                 inter = tidK & tidM
                 if len(inter) >= self._minSup:
                     newTail.append((itemM, inter))
@@ -229,12 +234,14 @@ class MaxMiner(_ab._frequentPatterns):
         """
         Mining process will start from this function
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Mining process will start from this function
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -251,6 +258,7 @@ class MaxMiner(_ab._frequentPatterns):
                     tidSets[item] = set()
                 tidSets[item].add(tid)
 
+        self._recordCandidates((item,) for item in tidSets)
         tail = [(item, tids) for item, tids in tidSets.items() if len(tids) >= self._minSup]
         tail.sort(key=lambda x: len(x[1]))
 

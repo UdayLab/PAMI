@@ -56,7 +56,10 @@ from PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.cuda import abstract as _ab
 # import abstract as _ab
 
 
-class cuFGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class cuFGPFPMiner(CandidatePatternsMixin, _ab._fuzzySpatialFrequentPatterns):
     """
     :Description: cuFGPFPMiner is a fundamental algorithm to discover fuzzy spatial periodic frequent patterns using Cuda in a quantitative temporal database. This program employs the downward closure property, restricted to spatial neighbours, to reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of fuzzy spatial periodic frequent patterns in a quantitative temporal database.
 
@@ -358,6 +361,7 @@ class cuFGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         self._commonNeighbours = {}
         newArraysAndItems = {}
 
+        self._recordCandidates(ArraysAndItems)
         for k, v in ArraysAndItems.items():
             support = float(v.sum())
             if support >= self._minSup:
@@ -400,12 +404,14 @@ class cuFGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         """
         Fuzzy spatial periodic frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Fuzzy spatial periodic frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         _ab._cp.cuda.Device(0).use()
         self._startTime = _ab._time.time()
         self._creatingItemSets()
@@ -445,6 +451,7 @@ class cuFGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                     pairsA.append(i)
                     pairsB.append(j)
                     unions.append(union)
+                    self._recordCandidate(union)
                     newItemOf[union] = newItem
 
             if len(pairsA) > 0:

@@ -17,7 +17,10 @@ from PAMI.sequentialPattern.basic import abstract as _ab
 import sys
 sys.setrecursionlimit(10000)
 
-class PrefixSpanPlus(_ab._sequentialPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class PrefixSpanPlus(CandidatePatternsMixin, _ab._sequentialPatterns):
     """
         Prefix Span is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
         This program employs Prefix Span property (or downward closure property) to  reduce the search space effectively.
@@ -458,12 +461,14 @@ class PrefixSpanPlus(_ab._sequentialPatterns):
             self.makeNextSame(seqDatabaseSame,startrow)
 
     def startMine(self) -> None:
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
             Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._Database = []
         self._startTime = _ab._time.time()
         self._creatingItemSets()

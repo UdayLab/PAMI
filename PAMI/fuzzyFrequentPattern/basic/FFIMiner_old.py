@@ -173,7 +173,10 @@ class _Pair:
         self.quantity = 0
 
 
-class FFIMiner(_ab._fuzzyFrequentPattenrs):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class FFIMiner(CandidatePatternsMixin, _ab._fuzzyFrequentPattenrs):
     """
     :Description:   Fuzzy Frequent  Pattern-Miner is desired to find all  frequent fuzzy patterns which is on-trivial and challenging problem
                     to its huge search space.we are using efficient pruning techniques to reduce the search space.
@@ -493,6 +496,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         """
         fuzzy-Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
 
@@ -500,6 +504,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         """
         fuzzy-Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._creatingItemsets()
         for line in range(len(self._transactions)):
@@ -605,6 +610,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         """
         for i in range(0, len(FSFIM)):
             X = FSFIM[i]
+            self._recordCandidate(tuple(prefix[:prefixLen]) + (X.item,))
             if X.sumIUtil >= minSup:
                 self._WriteOut(prefix, prefixLen, X.item, X.sumIUtil)
             if X.sumRUtil >= minSup:

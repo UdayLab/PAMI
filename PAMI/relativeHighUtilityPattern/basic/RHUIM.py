@@ -297,7 +297,10 @@ class _Dataset:
         return self.transactions
 
 
-class RHUIM(_ab._utilityPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class RHUIM(CandidatePatternsMixin, _ab._utilityPatterns):
     """
     :Description:   RHUIM algorithm helps us to mine Relative High Utility itemSets from transactional databases.
     
@@ -471,6 +474,7 @@ class RHUIM(_ab._utilityPatterns):
         super().__init__(iFile, minUtil, minUR, sep)
 
     def startMine(self) -> None:
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
@@ -478,6 +482,7 @@ class RHUIM(_ab._utilityPatterns):
         Mining process will start from this function
         :return: None
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._dataset = _Dataset(self._iFile, self._sep)
         self._finalPatterns = {}
@@ -593,6 +598,7 @@ class RHUIM(_ab._utilityPatterns):
             if previousTransaction != transactionsOfP[0]:
                 transactionsPe.append(previousTransaction)
             self._temp[prefixLength] = self._newNamesToOldNames[e]
+            self._recordCandidate(tuple(self._dataset.intToStr[item] for item in self._temp[:prefixLength + 1]))
             utility_ratio_pe = float(utilityPe / utilitySumPe)
             if (utilityPe >= self._minUtil) and (utility_ratio_pe * 100 >= self._minUR):
                 self._output(prefixLength, utilityPe, utility_ratio_pe)

@@ -93,7 +93,10 @@ deviceIntersection = SourceModule("""
                                   )
 
 
-class cudaAprioriTID:
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class cudaAprioriTID(CandidatePatternsMixin):
     """
     :Description: Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 
@@ -351,12 +354,14 @@ class cudaAprioriTID:
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         dev_Intersection = deviceIntersection.get_function("intersection")
         startTime = time.time()
         final = {}
@@ -366,6 +371,7 @@ class cudaAprioriTID:
        # minSup = self._minSup
 
 
+        self._recordCandidates((key,) for key, _ in self._Database)
         data = dict(filter(lambda x: len(x[1]) >= self.minSup, self._Database))
         for key, value in data.items():
             final[key] = len(value)
@@ -451,6 +457,7 @@ class cudaAprioriTID:
             index = 0
             for i in range(len(keys)):
                 for j in range(i+1, len(keys)):
+                    self._recordCandidate(tuple(sorted(set(keys[i].split()) | set(keys[j].split()))))
                     newResult = list(sorted(set(result[index])))
                     newResult = list(filter(lambda x: x > 0, newResult))
                     if len(newResult) >= self.minSup:

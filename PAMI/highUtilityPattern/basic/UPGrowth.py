@@ -333,7 +333,10 @@ class _UPTree:
         self.headerList = sorted(self.headerList, key=lambda x: mapItemToTwu[x], reverse=True)
 
 
-class UPGrowth(_ab._utilityPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class UPGrowth(CandidatePatternsMixin, _ab._utilityPatterns):
     """
     :Description:   UP-Growth is two-phase algorithm to mine High Utility Itemsets from transactional databases.
 
@@ -517,6 +520,7 @@ class UPGrowth(_ab._utilityPatterns):
         Mining process will start from here
         :return: None
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
@@ -524,6 +528,7 @@ class UPGrowth(_ab._utilityPatterns):
         Mining process will start from here
         :return: None
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         tree = _UPTree()
         self._creatingItemSets()
@@ -617,6 +622,7 @@ class UPGrowth(_ab._utilityPatterns):
         :return: None
         """
         for item in reversed(tree.headerList):
+            self._recordCandidate(tuple(alpha) + (item,))
             localTree = self._createLocalTree(tree, item)
             node = tree.mapItemNodes[item]
             ItemTotalUtility = 0

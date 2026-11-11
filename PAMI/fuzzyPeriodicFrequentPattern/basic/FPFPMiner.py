@@ -156,7 +156,10 @@ class _Pair:
         self.quantity = 0
 
 
-class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class FPFPMiner(CandidatePatternsMixin, _ab._fuzzyPeriodicFrequentPatterns):
     """
     :Description:   Fuzzy Periodic Frequent Pattern Miner is desired to find all fuzzy periodic frequent patterns which is
                     on-trivial and challenging problem to its huge search space.we are using efficient pruning
@@ -429,12 +432,14 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         """
         Fuzzy periodic Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
         """
         Fuzzy periodic Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         maxTID = 0
         lastTIDs = {}
         self._startTime = _ab._time.time()
@@ -538,6 +543,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         """
         for i in range(0, len(fsFim)):
             X = fsFim[i]
+            self._recordCandidate(tuple(prefix[:prefixLen]) + (X.item,))
             if X.sumLUtil >= self._minSup and X.maxPeriod <= self._maxPer:
                 self._WriteOut(prefix, prefixLen, X.item, X.sumLUtil, X.maxPeriod)
             if X.sumRUtil >= self._minSup:

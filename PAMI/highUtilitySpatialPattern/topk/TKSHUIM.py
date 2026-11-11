@@ -264,7 +264,10 @@ class Dataset:
         return self.transactions
 
 
-class TKSHUIM(utilityPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class TKSHUIM(CandidatePatternsMixin, utilityPatterns):
     """
     :Description:
        Top K Spatial High Utility ItemSet Mining (TKSHUIM) aims to discover Top-K Spatial High Utility Itemsets
@@ -441,12 +444,14 @@ class TKSHUIM(utilityPatterns):
         """
         Main function of the program.
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Main function of the program.
         """
+        self._resetCandidatePatterns()
         self.startTime = time.time()
         self.finalPatterns = {}
         self.dataset = Dataset(self.iFile, self.sep)
@@ -574,6 +579,7 @@ class TKSHUIM(utilityPatterns):
             if previousTransaction != transactionsOfP[0]:
                 transactionsPe.append(previousTransaction)
             self.temp[prefixLength] = self.newNamesToOldNames[e]
+            self._recordCandidate(tuple(self.dataset.intTostr[item] for item in self.temp[:prefixLength + 1]))
             if utilityPe >= self.minUtil:
                 self.output(prefixLength, utilityPe)
             neighbourhoodList = self.calculateNeighbourIntersection(prefixLength)

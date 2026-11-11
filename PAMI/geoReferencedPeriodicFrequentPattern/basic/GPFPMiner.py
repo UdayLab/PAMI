@@ -56,7 +56,10 @@ from  PAMI.geoReferencedPeriodicFrequentPattern.basic import abstract as _ab
 from deprecated import deprecated
 
 
-class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class GPFPMiner(CandidatePatternsMixin, _ab._geoReferencedPeriodicFrequentPatterns):
     """
     :Description:   GPFPMiner is an Extension of ÉCLAT algorithm,which  stands for Equivalence Class Clustering and
     bottom-up Lattice Traversal to mine the geo referenced periodic frequent patterns.
@@ -268,9 +271,11 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
         self._minSup = self._convert(self._minSup)
         self._maxPer = self._convert(self._maxPer)
         #print(self._minSup, self._maxPer)
+        self._recordCandidates((item,) for item in candidate)
         self._tidList = {k: v[3] for k, v in candidate.items() if v[0] >= self._minSup and v[1] <= self._maxPer}
         candidate = {k: [v[0], v[1]] for k, v in candidate.items() if v[0] >= self._minSup and v[1] <= self._maxPer}
         plist = [key for key, value in sorted(candidate.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
+        self._recordCandidates((item,) for item in self._tidList)
         return plist
 
     def _convert(self, value):
@@ -369,6 +374,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
                     continue
                 itemJ = itemSets[j]
                 tidSetJ = tidSets[j]
+                self._recordCandidate(tuple(prefix) + (itemX, itemJ))
                 y = list(set(tidSetX).intersection(tidSetJ))
                 if len(y) >= self._minSup:
                     ne = list(set(neighboursItemsI).intersection(neighboursItemsJ))
@@ -446,6 +452,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
         Frequent pattern mining process will start from here
         """
 
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -454,6 +461,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
         """
 
         # global items_sets, endTime, startTime
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -476,6 +484,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
                     continue
                 itemJ = plist[j]
                 tidSetJ = self._tidList[itemJ]
+                self._recordCandidate((itemX, itemJ))
                 y1 = list(set(tidSetX).intersection(tidSetJ))
                 if len(y1) >= self._minSup:
                     itemSets.append(itemJ)

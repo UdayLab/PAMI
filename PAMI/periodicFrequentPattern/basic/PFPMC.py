@@ -61,7 +61,10 @@ from PAMI.periodicFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
-class PFPMC(_ab._periodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class PFPMC(CandidatePatternsMixin, _ab._periodicFrequentPatterns):
     """
     :Description:   PFPMC is the fundamental approach to mine the periodic-frequent patterns.
 
@@ -358,6 +361,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
         self._maxPer = self._convert(self._maxPer)
         del Database
         candidates = []
+        self._recordCandidates((item,) for item in itemsets)
         for item, tids in itemsets.items():
             diff = self._tidSet.difference(tids)
             per = self._getPeriodic(diff)
@@ -376,6 +380,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
                 item2 = candidates[j]
                 i2_list = item2.split()
                 if i1_list[:-1] == i2_list[:-1]:
+                    self._recordCandidate(tuple(i1_list + [i2_list[-1]]))
                     union_DiffSet = self._finalPatterns[item2][2].union(self._finalPatterns[item1][2])
                     sorted(union_DiffSet)
                     union_supp = self._dbSize - len(union_DiffSet)
@@ -396,6 +401,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
         :return: None
         """
         # print(f"Optimized {type(self).__name__}")
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         frequentSets = self._creatingOneItemSets()
@@ -413,6 +419,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
         Mining process will start from this function
         :return: None
         """
+        self._resetCandidatePatterns()
         self.mine()
         # # print(f"Optimized {type(self).__name__}")
         # self._startTime = _ab._time.time()

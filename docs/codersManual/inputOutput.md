@@ -22,6 +22,15 @@ The algorithm developers were requested to ensure the following output methods e
 4. __getMemoryRSS():__ function must output the RSS memory consumed by a program.
 5. __getRuntime():__ function must output the runtime consumed by a program.
 6. __printResults():__ function must print the results of a program. This function is provided below.
+7. __getCandidatePatterns():__ returns a list of distinct, explicitly generated candidates from the latest mining run, including rejected candidates. Use `len(obj.getCandidatePatterns())` for the candidate count, just as `len(obj.getPatterns())` counts final patterns. Candidates use immutable representations; their format depends on the algorithm. The list is empty before mining and for pattern growth algorithms without explicit candidate generation, such as FP Growth and PrefixSpan. Retaining candidates requires additional memory; this count is not the number of support tests or search nodes.
+
+```python
+obj.mine()
+patterns = obj.getPatterns()
+candidates = obj.getCandidatePatterns()
+print("Final patterns:", len(patterns))
+print("Candidate patterns:", len(candidates))
+```
 
 ```Python
 def printResults(self):

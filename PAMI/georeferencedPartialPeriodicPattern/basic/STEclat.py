@@ -55,7 +55,10 @@ from PAMI.georeferencedPartialPeriodicPattern.basic import abstract as _ab
 from deprecated import deprecated
 
 
-class STEclat(_ab._partialPeriodicSpatialPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class STEclat(CandidatePatternsMixin, _ab._partialPeriodicSpatialPatterns):
     """
     :Description:   STEclat is one of the fundamental algorithm to discover georefereneced partial periodic-frequent patterns in a transactional database.
 
@@ -269,6 +272,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         self._minPS = self._convert(self._minPS)
         self._mapSupport = {k: v[0] for k, v in self._mapSupport.items() if v[0] >= self._minPS}
         plist = [key for key, value in sorted(self._mapSupport.items(), key=lambda x: x[1], reverse=True)]
+        self._recordCandidates((item,) for item in self._tidList)
         return plist
 
     def _convert(self, value):
@@ -357,6 +361,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
             for j in range(i + 1, len(itemSets)):
                 itemJ = itemSets[j]
                 tidSetJ = tidSets[j]
+                self._recordCandidate(tuple(prefix) + (itemI, itemJ))
                 y = list(set(tidSetX).intersection(tidSetJ))
                 val = self._getPeriodicSupport(y)
                 if val >= self._minPS:
@@ -428,6 +433,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         Frequent pattern mining process will start from here
         """
 
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -436,6 +442,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         """
 
         # global items_sets, endTime, startTime
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -456,6 +463,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
                     continue
                 itemJ = plist[j]
                 tidSetJ = self._tidList[itemJ]
+                self._recordCandidate((itemX, itemJ))
                 y1 = list(set(tidSetX).intersection(tidSetJ))
                 val = self._getPeriodicSupport(y1)
                 if val >= self._minPS:

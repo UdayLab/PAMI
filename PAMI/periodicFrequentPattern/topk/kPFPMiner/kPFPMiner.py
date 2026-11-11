@@ -57,7 +57,10 @@ from deprecated import deprecated
 from PAMI.periodicFrequentPattern.topk.kPFPMiner import abstract as _ab
 
 
-class kPFPMiner(_ab._periodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class kPFPMiner(CandidatePatternsMixin, _ab._periodicFrequentPatterns):
     """
     :Description:   Top - K is and algorithm to discover top periodic-frequent patterns in a temporal database.
 
@@ -265,6 +268,7 @@ class kPFPMiner(_ab._periodicFrequentPatterns):
                 self._finalPatterns[i] = self._mapSupport[i][1]
         self._maximum = max([self._finalPatterns[i] for i in self._finalPatterns.keys()])
         plist = list(self._finalPatterns.keys())
+        self._recordCandidates((item,) for item in self._tidList)
         return plist
 
 
@@ -330,6 +334,7 @@ class kPFPMiner(_ab._periodicFrequentPatterns):
             for j in range(i + 1, len(itemSets)):
                 itemJ = itemSets[j]
                 tidSetJ = tidSets[j]
+                self._recordCandidate(tuple(prefix) + (itemI, itemJ))
                 y = list(set(tidSetI).intersection(tidSetJ))
                 if self.getPer_Sup(y) <= self._maximum:
                     classItemSets.append(itemJ)
@@ -362,6 +367,7 @@ class kPFPMiner(_ab._periodicFrequentPatterns):
         Main function of the program
 
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -379,6 +385,7 @@ class kPFPMiner(_ab._periodicFrequentPatterns):
             for j in range(i + 1, len(plist)):
                 itemJ = plist[j]
                 tidSetJ = self._tidList[itemJ]
+                self._recordCandidate((itemI, itemJ))
                 y1 = list(set(tidSetI).intersection(tidSetJ))
                 if self.getPer_Sup(y1) <= self._maximum:
                     itemSets.append(itemJ)
@@ -397,6 +404,7 @@ class kPFPMiner(_ab._periodicFrequentPatterns):
         Main function of the program
 
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -414,6 +422,7 @@ class kPFPMiner(_ab._periodicFrequentPatterns):
             for j in range(i + 1, len(plist)):
                 itemJ = plist[j]
                 tidSetJ = self._tidList[itemJ]
+                self._recordCandidate((itemI, itemJ))
                 y1 = list(set(tidSetI).intersection(tidSetJ))
                 if self.getPer_Sup(y1) <= self._maximum:
                     itemSets.append(itemJ)

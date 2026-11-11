@@ -63,7 +63,10 @@ from deprecated import deprecated
 _ab._sys.setrecursionlimit(20000)
 
 
-class CorrelatedECLAT(_ab._correlatedPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class CorrelatedECLAT(CandidatePatternsMixin, _ab._correlatedPatterns):
     """
     **About this algorithm**
 
@@ -223,6 +226,7 @@ class CorrelatedECLAT(_ab._correlatedPatterns):
         """
         main method to start
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def _maxSup(self, itemSet: Tuple[str, ...]) -> int:
@@ -241,6 +245,7 @@ class CorrelatedECLAT(_ab._correlatedPatterns):
             children: List[Tuple[Tuple[str, ...], set]] = []
             for j in range(i + 1, len(members)):
                 candidate = members[i][0] + (members[j][0][-1],)
+                self._recordCandidate(candidate)
                 tidset = members[i][1] & members[j][1]
                 support = len(tidset)
                 if support >= self._minSup:
@@ -255,6 +260,7 @@ class CorrelatedECLAT(_ab._correlatedPatterns):
         """
         main method to start
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -270,6 +276,7 @@ class CorrelatedECLAT(_ab._correlatedPatterns):
                     tidsets[item] = set()
                 tidsets[item].add(tid)
 
+        self._recordCandidates((k,) for k in tidsets)
         self._mapSupport = {k: len(v) for k, v in tidsets.items() if len(v) >= self._minSup}
         # Support-ascending total order (with item tiebreaker) - the ECLAT processing order.
         frequentItems = sorted(self._mapSupport.keys(), key=lambda it: (self._mapSupport[it], it))

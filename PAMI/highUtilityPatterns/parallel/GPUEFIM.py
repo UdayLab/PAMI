@@ -127,7 +127,10 @@ void searchGPU(uint32_t *items, uint32_t *utils, uint32_t *indexesStart, uint32_
 
 ''', 'searchGPU')
 
-class GPUEFIM:
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class GPUEFIM(CandidatePatternsMixin):
 
     """
     :Description:   GPUEFIM is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
@@ -342,6 +345,7 @@ class GPUEFIM:
                 secondaries.extend(item[2])
 
             candidateSize = len(collection[0][0]) + 1
+            self._recordCandidates(tuple(self.rename[x] for x in candidate) for candidate in candidates)
             numCandidates = len(candidates)
             # print("Candidates: ", numCandidates)
 
@@ -428,6 +432,7 @@ class GPUEFIM:
         Start the EFIM algorithm.
         """
 
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -435,6 +440,7 @@ class GPUEFIM:
         Start the EFIM algorithm.
         """
 
+        self._resetCandidatePatterns()
         ps = psutil.Process(os.getpid())
 
         self.start = time.time()
