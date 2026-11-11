@@ -55,7 +55,10 @@ from PAMI.fuzzyFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 from deprecated import deprecated
 
-class FFIMiner(_ab._fuzzyFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class FFIMiner(CandidatePatternsMixin, _ab._fuzzyFrequentPatterns):
     """
     **About this algorithm**
 
@@ -226,6 +229,7 @@ class FFIMiner(_ab._fuzzyFrequentPatterns):
         """
         Fuzzy frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def _convert(self, value) -> Union[int, float]:
@@ -270,6 +274,7 @@ class FFIMiner(_ab._fuzzyFrequentPatterns):
             cand_i_keys = cand_i_db.keys()
             for j in range(i + 1, len(cands)):
                 cand_j_db = self._Database[cands[j]]
+                self._recordCandidate(cands[i] + (cands[j][-1],))
                 keys = cand_i_keys & cand_j_db.keys()
                 if not keys:
                     continue
@@ -289,6 +294,7 @@ class FFIMiner(_ab._fuzzyFrequentPatterns):
         """
         Main() function start from here.
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         items = {}
         self._creatingItemsets()
@@ -301,6 +307,7 @@ class FFIMiner(_ab._fuzzyFrequentPatterns):
                     items[item] = {}
                 items[item][lineNo] = fuzzyValue
 
+        self._recordCandidates(items)
         if self._k >= 1:
             #default k = 1 (max cardinality)
             labelsByBaseItem = {}

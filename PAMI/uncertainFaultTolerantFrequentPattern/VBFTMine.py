@@ -62,7 +62,10 @@ from deprecated import deprecated
 import numpy as _np
 from PAMI.faultTolerantFrequentPattern.basic import abstract as _ab
 
-class VBFTMine(_ab._faultTolerantFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class VBFTMine(CandidatePatternsMixin, _ab._faultTolerantFrequentPatterns):
     """
     About this algorithm
     ====================
@@ -319,6 +322,7 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
             for j in range(i + 1, len(itemsets)):
                 itemj = itemsets[j]
                 tidsetj = tidsets[j]
+                self._recordCandidate(tuple(prefix) + (itemx, itemj))
                 y = list(_np.array(tidsetx) & _np.array(tidsetj))
                 total = self._Count(y)
                 if total >= self._minSup:
@@ -344,6 +348,7 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
                     Vector[j].append(count)
                 else:
                     Vector[j] = [count]
+        self._recordCandidates((item,) for item in Vector)
         for x, y in Vector.items():
             v = self._Count(y)
             if v >= self._itemSup:
@@ -356,12 +361,14 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._Database = []
         self._startTime = _ab._time.time()
         self._creatingItemSets()
@@ -379,6 +386,7 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
             for j in range(i + 1, len(plist)):
                 itemj = plist[j]
                 tidsetj = Vector[itemj]
+                self._recordCandidate((itemx, itemj))
                 y1 = list(_np.array(tidsetx) | _np.array(tidsetj))
                 total = self._Count(y1)
                 if total >= self._minSup:

@@ -326,7 +326,10 @@ class _Dataset:
         return self.transactions
 
 
-class SHUFIM(_ab._utilityPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class SHUFIM(CandidatePatternsMixin, _ab._utilityPatterns):
     """
     :Description:  Spatial High Utility Frequent ItemSet Mining (SHUFIM) aims to discover all itemSets in a spatioTemporal database
                    that satisfy the user-specified minimum utility, minimum support and maximum distance constraints
@@ -533,12 +536,14 @@ class SHUFIM(_ab._utilityPatterns):
         """
         High Utility Frequent Pattern mining start here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         High Utility Frequent Pattern mining start here
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._patternCount = 0
         self._finalPatterns = {}
@@ -686,6 +691,7 @@ class SHUFIM(_ab._utilityPatterns):
                 transactionsPe.append(previousTransaction)
                 supportPe += previousTransaction.getSupport()
             self._temp[prefixLength] = self._newNamesToOldNames[e]
+            self._recordCandidate(tuple(self._dataset.intToStr[item] for item in self._temp[:prefixLength + 1]))
             if utilityPe >= self._minUtil and supportPe >= self._minSup:
                 self._output(prefixLength, utilityPe, supportPe)
             if supportPe >= self._minSup:

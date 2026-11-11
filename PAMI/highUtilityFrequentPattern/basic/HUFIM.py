@@ -332,7 +332,10 @@ class _Dataset:
         return self.transactions
 
 
-class HUFIM(_ab._utilityPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class HUFIM(CandidatePatternsMixin, _ab._utilityPatterns):
     """
     :Description:  HUFIM (High Utility Frequent Itemset Miner) algorithm helps us to mine High Utility Frequent ItemSets (HUFIs) from transactional databases.
 
@@ -543,6 +546,7 @@ class HUFIM(_ab._utilityPatterns):
 
         :return: None
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
@@ -551,6 +555,7 @@ class HUFIM(_ab._utilityPatterns):
 
         :return: None
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
 
@@ -686,6 +691,7 @@ class HUFIM(_ab._utilityPatterns):
                 supportPe += previousTransaction.getSupport()
             # print("support is", supportPe)
             self._temp[prefixLength] = self._newNamesToOldNames[e]
+            self._recordCandidate(tuple(self._dataset.intToStr[item] for item in self._temp[:prefixLength + 1]))
             if (utilityPe >= self._minUtil) and (supportPe >= self._minSup):
                 self._output(prefixLength, utilityPe, supportPe)
             if supportPe >= self._minSup:

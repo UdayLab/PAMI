@@ -56,7 +56,10 @@ from PAMI.frequentPattern.pyspark import abstract as _ab
 from deprecated import deprecated
 
 
-class parallelApriori(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class parallelApriori(CandidatePatternsMixin, _ab._frequentPatterns):
     """
 
     :Description: Parallel Apriori is an algorithm to discover frequent patterns in a transactional database. This program employs parallel apriori property (or downward closure property) to  reduce the search space effectively.
@@ -316,6 +319,7 @@ class parallelApriori(_ab._frequentPatterns):
                              .reduceByKey(lambda x, y: x + y)
                              .filter(lambda c: c[1] >= self._minSup)
                              .collect())
+        self._recordCandidates((item,) for item in database.flatMap(lambda row: row).distinct().collect())
         return frequentItems
 
     def _getAllFrequentPatterns(self, database, frequentItems):
@@ -332,6 +336,7 @@ class parallelApriori(_ab._frequentPatterns):
         length = 3
         while len(candidates) != 0:
             # if each itemset of candidates is in each transaction, then create (itemset,1)
+            self._recordCandidates(candidates)
             mappedDatabase = database.flatMap(lambda transaction: self._Mapper(transaction, candidates))
 
             # aggregate the values by key by reduceByKey() method
@@ -365,12 +370,14 @@ class parallelApriori(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
 
         # setting SparkConf and SparkContext to process in parallel

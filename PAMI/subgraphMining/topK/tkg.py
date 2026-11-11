@@ -28,7 +28,10 @@
 from PAMI.subgraphMining.topK import abstract as _ab
 
 
-class TKG(_ab._TKG):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class TKG(CandidatePatternsMixin, _ab._TKG):
     ELIMINATE_INFREQUENT_VERTICES = True
     ELIMINATE_INFREQUENT_VERTEX_PAIRS = True
     ELIMINATE_INFREQUENT_EDGE_LABELS = True
@@ -68,6 +71,7 @@ class TKG(_ab._TKG):
         This Python function starts a mining process on a graph database, calculates runtime, pattern count,
         and memory usage metrics.
         """
+        self._resetCandidatePatterns()
         if self.maxNumberOfEdges <= 0:
             return
 
@@ -381,6 +385,8 @@ class TKG(_ab._TKG):
             return
         extensions = self.rightMostPathExtensions(c, graphDB, subgraphId)
         for extension, newGraphIds in extensions.items():
+            self._recordCandidate(tuple((edge.v1, edge.v2, edge.vLabel1, edge.vLabel2, edge.edgeLabel)
+                                    for edge in c.getEeList() + [extension]))
             sup = len(newGraphIds)
             if sup >= self.minSup:
                 newC = c.copy()
@@ -397,6 +403,8 @@ class TKG(_ab._TKG):
 
         extensions = self.rightMostPathExtensions(c, graphDB, graphIds)
         for extension, newGraphIds in extensions.items():
+            self._recordCandidate(tuple((edge.v1, edge.v2, edge.vLabel1, edge.vLabel2, edge.edgeLabel)
+                                    for edge in c.getEeList() + [extension]))
             support = len(newGraphIds)
 
             if support >= self.minSup:
@@ -455,6 +463,7 @@ class TKG(_ab._TKG):
                     vLabel = v.getLabel()
                     labelM.setdefault(vLabel, set()).add(g.getId())
         for label, tempSupG in labelM.items():                
+            self._recordCandidate(((0, 0, label, label, -1),))
             sup = len(tempSupG)
             if sup >= self.minSup:
                 self.frequentVertexLabels.append(label)

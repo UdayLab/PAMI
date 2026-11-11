@@ -73,7 +73,10 @@ __global__ void supportAndPeriod(uint64_t *bitArray, // containing transactions
                                 )
 
 
-class gPPMiner:
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class gPPMiner(CandidatePatternsMixin):
 
     supportAndPeriod = supportAndPeriod.get_function("supportAndPeriod")
 
@@ -178,6 +181,7 @@ class gPPMiner:
         """
         Start the mining process
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     # def __eclat(self, bitValues, keys, index2id):
@@ -258,8 +262,10 @@ class gPPMiner:
         """
         Start the mining process
         """
+        self._resetCandidatePatterns()
         startTime = time.time()
         data = self.__readFile()
+        self._recordCandidates((key,) for key in data)
         bitValues, index2id = self.__generateBitArray(data)
         keys = []
 
@@ -292,6 +298,7 @@ class gPPMiner:
             for j in range(i+1, len(keys)):
                 if keys[i][:-1] == keys[j][:-1] and keys[i][-1] != keys[j][-1]:
                     newCan = keys[i] + [keys[j][-1]]
+                    self._recordCandidate(tuple(index2id[key] for key in newCan))
                     newKeys.append(newCan)
                     locations.append(locations[-1]+len(newKeys[-1]))
                 else:

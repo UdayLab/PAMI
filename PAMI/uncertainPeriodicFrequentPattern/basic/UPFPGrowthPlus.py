@@ -405,7 +405,10 @@ class _Tree(object):
 
 #global first, last
 
-class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class UPFPGrowthPlus(CandidatePatternsMixin, _ab._periodicFrequentPatterns):
     """
     About this algorithm
     ====================
@@ -759,6 +762,7 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
 
         :return: original patterns
         """
+        self._recordCandidates(self._periodic)
         periods = {}
         for i in self._Database:
             for x, y in self._periodic.items():
@@ -791,12 +795,14 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
+        self._resetCandidatePatterns()
         global _minSup, _maxPer, _first, _last, _lno
         self._startTime = _ab._time.time()
         self._creatingItemSets()

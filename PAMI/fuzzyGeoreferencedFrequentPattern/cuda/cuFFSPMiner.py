@@ -56,7 +56,10 @@ from PAMI.fuzzyGeoreferencedFrequentPattern.cuda import abstract as _ab
 # import abstract as _ab
 
 
-class cuFFSPMiner(_ab._fuzzySpatialFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class cuFFSPMiner(CandidatePatternsMixin, _ab._fuzzySpatialFrequentPatterns):
     """
     :Description: cuFFSPMiner is a fundamental algorithm to discover fuzzy spatial frequent patterns using Cuda in a quantitative transactional database. This program employs the downward closure property, restricted to spatial neighbours, to reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of fuzzy spatial frequent patterns in a quantitative transactional database.
 
@@ -322,6 +325,7 @@ class cuFFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         self._commonNeighbours = {}
         newArraysAndItems = {}
 
+        self._recordCandidates(ArraysAndItems)
         for k, v in ArraysAndItems.items():
             support = float(v.sum())
             if support >= self._minSup:
@@ -337,12 +341,14 @@ class cuFFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         """
         Fuzzy spatial frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Fuzzy spatial frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         _ab._cp.cuda.Device(0).use()
         self._startTime = _ab._time.time()
         self._creatingItemSets()
@@ -381,6 +387,7 @@ class cuFFSPMiner(_ab._fuzzySpatialFrequentPatterns):
                     pairsA.append(i)
                     pairsB.append(j)
                     unions.append(union)
+                    self._recordCandidate(union)
                     newItemOf[union] = newItem
 
             if len(pairsA) > 0:

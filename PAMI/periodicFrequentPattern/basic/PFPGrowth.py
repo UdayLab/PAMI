@@ -119,7 +119,10 @@ class _Node(object):
         return transaction[::-1], locs
 
 
-class PFPGrowth(_ab._periodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class PFPGrowth(CandidatePatternsMixin, _ab._periodicFrequentPatterns):
     """
     **About this algorithm**
 
@@ -298,6 +301,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
 
     @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self) -> None:
+        self._resetCandidatePatterns()
         self.mine()
 
     def _getMaxPer(self, arr, maxTS):
@@ -451,6 +455,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
         :return: None
         """
 
+        self._resetCandidatePatterns()
         global _minSup, _maxPer, _lno
         self._startTime = _ab._time.time()
         # Mining uses tuple keys; discard the previous run's serialized keys.

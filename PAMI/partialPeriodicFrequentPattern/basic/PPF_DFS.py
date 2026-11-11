@@ -65,7 +65,10 @@ import numpy as np
 import pandas as pd
 
 
-class PPF_DFS(partialPeriodicPatterns, ABC):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class PPF_DFS(CandidatePatternsMixin, partialPeriodicPatterns, ABC):
     """
     **About this algorithm**
 
@@ -278,6 +281,7 @@ class PPF_DFS(partialPeriodicPatterns, ABC):
 
 
     def startMine(self):
+        self._resetCandidatePatterns()
         self.mine()
 
     def _getPerSup(self, arr):
@@ -315,6 +319,7 @@ class PPF_DFS(partialPeriodicPatterns, ABC):
             newCands = []
             nitems = {}
             for j in range(i + 1, len(cands)):
+                self._recordCandidate(cands[i] + (cands[j][-1],))
                 intersection = items[cands[i]].intersection(items[cands[j]])
                 if len(intersection) >= self._partialPeriodicPatterns__minSup:
                     perSup = self._getPerSup(intersection)
@@ -333,6 +338,7 @@ class PPF_DFS(partialPeriodicPatterns, ABC):
         Main program start with extracting the periodic frequent items from the database and
         performs prefix equivalence to form the combinations and generates closed periodic frequent patterns.
         """
+        self._resetCandidatePatterns()
         self._partialPeriodicPatterns__startTime = time.time()
         self._creatingItemSets()
         self._partialPeriodicPatterns__finalPatterns = {}
@@ -360,6 +366,7 @@ class PPF_DFS(partialPeriodicPatterns, ABC):
         cands = []
         nitems = {}
 
+        self._recordCandidates(items)
         for k, v in items.items():
             if len(v) >= self._partialPeriodicPatterns__minSup:
                 perSup = self._getPerSup(v)

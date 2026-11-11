@@ -58,7 +58,10 @@ from typing import List, Dict, Tuple, Union
 from deprecated import deprecated
 
 
-class FTApriori(_ab._faultTolerantFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class FTApriori(CandidatePatternsMixin, _ab._faultTolerantFrequentPatterns):
     """
 
     :Description:   FT-Apriori is one of the fundamental algorithm to discover fault-tolerant frequent patterns in a transactional database.
@@ -272,6 +275,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         anti-monotone, so a candidate is generated only when all of its (k-1)-subsets are frequent.
         """
         items, matrix = self._buildMatrix()
+        self._recordCandidates((item,) for item in items)
         if not items:
             return
         c = self._faultTolerance
@@ -301,6 +305,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
                 for a in range(i, j):
                     for b in range(a + 1, j):
                         candidate = level[a][0] + (level[b][0][-1],)
+                        self._recordCandidate(tuple(items[col] for col in candidate))
                         # Prune: every (k-1)-subset must be frequent.
                         if any((candidate[:idx] + candidate[idx + 1:]) not in prevSet
                                for idx in range(len(candidate))):
@@ -323,12 +328,14 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         Fault-tolerant frequent pattern mining process will start from here
         """
 
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
         """
         Fault-tolerant frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._Database = []
         self._finalPatterns = {}
         self._startTime = _ab._time.time()

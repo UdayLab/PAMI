@@ -54,7 +54,10 @@ Copyright (C)  2021 Rage Uday Kiran
 from PAMI.AssociationRules.basic import abstract as _ab
 from deprecated import deprecated
 
-class Confidence:
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class Confidence(CandidatePatternsMixin):
     """
     Association Rules are derived from frequent patterns using "confidence" metric.
     """
@@ -93,6 +96,8 @@ class Confidence:
         :param rhs: the suffix of association rule.
         :type rhs: str
         """
+        self._recordCandidate((tuple(lhs.split()), tuple(rhs.split())))
+        self._recordCandidate((tuple(rhs.split()), tuple(lhs.split())))
         s = lhs + '\t' + rhs
         if self._frequentPatterns.get(s) is None:
             return 0
@@ -119,7 +124,7 @@ class Confidence:
     
     
     
-class Lift:
+class Lift(CandidatePatternsMixin):
     """
     Association Rules are derived from frequent patterns using "lift" metric.
     """
@@ -166,6 +171,8 @@ class Lift:
         :param rhs: the suffix of association rule.
         :type rhs: str
         """
+        self._recordCandidate((tuple(lhs.split()), tuple(rhs.split())))
+        self._recordCandidate((tuple(rhs.split()), tuple(lhs.split())))
         s = lhs + '\t' + rhs
         if self._frequentPatterns.get(s) is None:
             return 0
@@ -194,7 +201,7 @@ class Lift:
     
     
     
-class Leverage:
+class Leverage(CandidatePatternsMixin):
     """
     Association Rules are derived from frequent patterns using "leverage" metric.
     """
@@ -240,6 +247,8 @@ class Leverage:
         :param rhs: the suffix of association rule.
         :type rhs: str
         """
+        self._recordCandidate((tuple(lhs.split()), tuple(rhs.split())))
+        self._recordCandidate((tuple(rhs.split()), tuple(lhs.split())))
         s = lhs + '\t' + rhs
         if self._frequentPatterns.get(s) is None:
             return 0
@@ -266,7 +275,7 @@ class Leverage:
                 self._generateWithLeverage(self._singleItems[i], self._singleItems[j])
             self._generation(prefix, suffix)
 
-class RuleMiner:
+class RuleMiner(CandidatePatternsMixin):
     """
     About this algorithm
     ====================
@@ -434,6 +443,7 @@ class RuleMiner:
         """
         Association rule mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
 
@@ -441,18 +451,22 @@ class RuleMiner:
         """
         Association rule mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         k = self._readPatterns()
         if self._measure == 'confidence':
             a = Confidence(self._frequentPatterns, k, self._threshold)
+            a._candidatePatterns = self._candidatePatterns
             a.run()
             self._finalPatterns = a._finalPatterns
         if self._measure == 'lift':
             a = Lift(self._frequentPatterns, k, self._threshold)
+            a._candidatePatterns = self._candidatePatterns
             a.run()
             self._finalPatterns = a._finalPatterns
         if self._measure == 'leverage':
             a = Leverage(self._frequentPatterns, k, self._threshold)
+            a._candidatePatterns = self._candidatePatterns
             a.run()
             self._finalPatterns = a._finalPatterns
         self._endTime = _ab._time.time()

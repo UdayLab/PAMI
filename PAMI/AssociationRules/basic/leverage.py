@@ -62,7 +62,10 @@ from itertools import combinations
 import os, time, psutil, pandas as pd, validators, urllib.request as urlopen
 
 
-class leverage:
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class leverage(CandidatePatternsMixin):
     """
     About this algorithm
     ====================
@@ -222,6 +225,7 @@ class leverage:
 
     def mine(self):
         """Generate rules with leverage ≥ `minLev`."""
+        self._resetCandidatePatterns()
         self._startTime = time.time()
         self._readPatterns()
 
@@ -233,6 +237,7 @@ class leverage:
                 for ante in combinations(itemset, r):
                     ante = tuple(sorted(ante))
                     cons = tuple(sorted(set(itemset) - set(ante)))
+                    self._recordCandidate((ante, cons))
                     lev = sup_xy - self._frequentPatterns[ante] * self._frequentPatterns[cons]
                     if lev >= self._minLev:
                         self._associationRules.append((ante, cons, sup_xy, lev))

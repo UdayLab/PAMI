@@ -281,7 +281,10 @@ class _Tree(object):
             self.removeNode(i)
 
 
-class PFPGrowthPlus(_ab._periodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class PFPGrowthPlus(CandidatePatternsMixin, _ab._periodicFrequentPatterns):
     """
     :Description:   PFPGrowthPlus is fundamental and improved version of PFPGrowth algorithm to discover periodic-frequent patterns in temporal database.
                     It uses greedy approach to discover effectively
@@ -590,6 +593,7 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
         Main method where the patterns are mined by constructing tree.
         :return: None
         """
+        self._resetCandidatePatterns()
         global _minSup, _maxPer, _lno
         self._startTime = _ab._time.time()
         if self._iFile is None:
@@ -624,6 +628,7 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
         Main method where the patterns are mined by constructing tree.
         :return: None
         """
+        self._resetCandidatePatterns()
         self.mine()
         # global _minSup, _maxPer, _lno
         # self._startTime = _ab._time.time()

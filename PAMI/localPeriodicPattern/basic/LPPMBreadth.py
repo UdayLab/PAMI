@@ -64,7 +64,10 @@ import pandas as pd
 from deprecated import deprecated
 
 
-class LPPMBreadth(_ab._localPeriodicPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class LPPMBreadth(CandidatePatternsMixin, _ab._localPeriodicPatterns):
 
     """
     :Description:
@@ -289,6 +292,7 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
         When finish generating local periodic items, execute mining depth first search.
         """
         I = set()
+        self._recordCandidates((item,) for item in self.__tsList)
         PTL = {}
         for item in self.__tsList:
             PTL[item] = set()
@@ -432,6 +436,7 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
                         tspxy = self.__tsList[wMap[p][x]] & self.__tsList[wMap[p][y]]
                     else:
                         tspxy = tsp & self.__tsList[wMap[p][x]] & self.__tsList[wMap[p][y]]
+                    self._recordCandidate((() if p == -1 else tuple(listP)) + (wMap[p][x], wMap[p][y]))
                     PTL = self.__calculatePTL(tspxy)
                     if len(PTL) > 0:
                         if p == -1:
@@ -477,12 +482,14 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
         """
         Mining process start from here.
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
         """
         Mining process start from here.
         """
+        self._resetCandidatePatterns()
         self._localPeriodicPatterns__startTime = _ab._time.time()
         self.__creatingItemSets()
         self._localPeriodicPatterns__maxPer = self.__convert(self._localPeriodicPatterns__maxPer)

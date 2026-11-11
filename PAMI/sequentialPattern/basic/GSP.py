@@ -62,7 +62,10 @@ from PAMI.sequentialPattern.basic import abstract as _ab
 
 _ab._sys.setrecursionlimit(10000)
 
-class GSP(_ab._sequentialPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class GSP(CandidatePatternsMixin, _ab._sequentialPatterns):
     """
     :Description:
 
@@ -295,6 +298,7 @@ class GSP(_ab._sequentialPatterns):
             idDatabase+=list(sorted(set(x)))
 
 
+        self._recordCandidates((item,) for item in idDatabase)
         newDatabase=collections.Counter(idDatabase)
         newDatabase={i:v for i,v in newDatabase.items() if v>=self._minSup}
         self._finalPatterns={str(i):v for i,v in newDatabase.items()}
@@ -343,6 +347,7 @@ class GSP(_ab._sequentialPatterns):
         :return:  sup:int  the support of the pattern
         """
         sup=0
+        self._recordCandidate(tuple(pattern))
         pattern=self.list_split(pattern)
         for seq in self._Database:
             
@@ -455,12 +460,14 @@ class GSP(_ab._sequentialPatterns):
         return nextPatterns
                     
     def startMine(self) -> None:
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._Database = []
         self._startTime = _ab._time.time()
         self._creatingItemSets()

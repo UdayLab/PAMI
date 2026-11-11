@@ -100,7 +100,10 @@ def _makeBatchedIntersectKernel():
     ''', 'batchedIntersectCount')
 
 
-class cuApriori(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class cuApriori(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     :Description: cuApriori is one of the fundamental algorithm to discover frequent patterns using Cuda in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 
@@ -281,6 +284,7 @@ class cuApriori(_ab._frequentPatterns):
 
         newArraysAndItems = {}
 
+        self._recordCandidates(ArraysAndItems)
         for k, v in ArraysAndItems.items():
             ArraysAndItems[k] = _ab._cp.array(v, dtype=_ab._np.uint32)
             if len(v) >= self._minSup:
@@ -294,12 +298,14 @@ class cuApriori(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._Database = []
         self._startTime = _ab._time.time()
         self._creatingItemSets()
@@ -320,6 +326,8 @@ class cuApriori(_ab._frequentPatterns):
 
             # Enumerate all candidate pairs (i < j) once.
             iIdx, jIdx = _ab._np.triu_indices(numCands, k=1)
+            self._recordCandidates(tuple(sorted(set(keys[int(a)]) | set(keys[int(b)])))
+                                   for a, b in zip(iIdx, jIdx))
             numPairs = int(iIdx.shape[0])
             if numPairs == 0:
                 break

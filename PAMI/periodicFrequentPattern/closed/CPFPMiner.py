@@ -59,7 +59,10 @@ from deprecated import deprecated
 
 from PAMI.periodicFrequentPattern.closed import abstract as _ab
 
-class CPFPMiner(_ab._periodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class CPFPMiner(CandidatePatternsMixin, _ab._periodicFrequentPatterns):
     """
     About this algorithm
     ====================
@@ -291,6 +294,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
         self._mapSupport = {k: [v[0], v[1]] for k, v in self._mapSupport.items() if
                            v[0] >= self._minSup and v[1] <= self._maxPer}
         periodicFrequentItems = {}
+        self._recordCandidates((item,) for item in self._tidList)
         self._tidList = {k: v for k, v in self._tidList.items() if k in self._mapSupport}
         for x, y in self._tidList.items():
             t1 = 0
@@ -366,6 +370,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
             saves the closed periodic-frequent pattern
 
         """
+        self._recordCandidate(tuple(prefix or []) + tuple(suffix))
         if prefix is None:
             prefix = suffix
         else:
@@ -404,6 +409,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
             tidSetI = tidSets[0]
             itemJ = itemSets[1]
             tidSetJ = tidSets[1]
+            self._recordCandidate(tuple(prefix or []) + (itemI, itemJ))
             y1 = list(set(tidSetI).intersection(tidSetJ))
             if len(y1) >= self._minSup:
                 suffix = []
@@ -428,6 +434,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
                 if itemJ is None:
                     continue
                 tidSetJ = tidSets[j]
+                self._recordCandidate(tuple(prefix or []) + (itemX, itemJ))
                 y = list(set(tidSetX).intersection(tidSetJ))
                 if len(y) < self._minSup:
                     continue
@@ -455,6 +462,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
         """
         Mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         self._hashing = {}
@@ -472,6 +480,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
                 if itemJ is None:
                     continue
                 tidSetJ = self._tidList[itemJ]
+                self._recordCandidate((itemX, itemJ))
                 y1 = list(set(tidSetX).intersection(tidSetJ))
                 if len(y1) < self._minSup:
                     continue
@@ -503,6 +512,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
         """
         Mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         self._hashing = {}
@@ -520,6 +530,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
                 if itemJ is None:
                     continue
                 tidSetJ = self._tidList[itemJ]
+                self._recordCandidate((itemX, itemJ))
                 y1 = list(set(tidSetX).intersection(tidSetJ))
                 if len(y1) < self._minSup:
                     continue

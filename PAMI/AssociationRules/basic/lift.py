@@ -61,7 +61,10 @@ from itertools import combinations
 import os, time, psutil, pandas as pd, validators, urllib.request as urlopen
 
 
-class lift:
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class lift(CandidatePatternsMixin):
     """
     About this algorithm
     ====================
@@ -220,6 +223,7 @@ class lift:
 
 
     def mine(self):
+        self._resetCandidatePatterns()
         self._startTime = time.time()
         self._readPatterns()
 
@@ -230,6 +234,7 @@ class lift:
                 for ante in combinations(itemset, r):
                     ante = tuple(sorted(ante))
                     cons = tuple(sorted(set(itemset) - set(ante)))
+                    self._recordCandidate((ante, cons))
                     pa   = self._frequentPatterns[ante]
                     pb   = self._frequentPatterns[cons]
                     lift_val = sup_xy / (pa * pb)          # ← correct formula

@@ -278,7 +278,10 @@ class _Dataset:
         return self.transactions
 
 
-class SHUIM(_ab._utilityPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class SHUIM(CandidatePatternsMixin, _ab._utilityPatterns):
     """
     :Description:
 
@@ -469,12 +472,14 @@ class SHUIM(_ab._utilityPatterns):
         """
         main program to start the operation
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
         """
         main program to start the operation
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._patternCount = 0
         self._finalPatterns = {}
@@ -600,6 +605,7 @@ class SHUIM(_ab._utilityPatterns):
             if previousTransaction != transactionsOfP[0]:
                 transactionsPe.append(previousTransaction)
             self._temp[prefixLength] = self._newNamesToOldNames[e]
+            self._recordCandidate(tuple(self._dataset.intToStr[item] for item in self._temp[:prefixLength + 1]))
             if utilityPe >= self._minUtil:
                 self._output(prefixLength, utilityPe)
             neighbourhoodList = self._calculateNeighbourIntersection(prefixLength)

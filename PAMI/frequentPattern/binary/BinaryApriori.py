@@ -60,7 +60,10 @@ from deprecated import deprecated
 import numpy as _np
 
 
-class BinaryApriori(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class BinaryApriori(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     **About this algorithm**
 
@@ -270,12 +273,14 @@ class BinaryApriori(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
         """
         Frequent pattern mining process will start from here.
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         self._creatingItemSets()
@@ -294,6 +299,7 @@ class BinaryApriori(_ab._frequentPatterns):
 
         # ---- Level 1: frequent single items ----
         itemSupports = popcount[self._packed].sum(axis=0)            # support of every item, vectorised
+        self._recordCandidates((item,) for item in self._items)
         frequentCols = _np.where(itemSupports >= self._minSup)[0]    # ascending column indices
 
         # Per-itemset state for the current level:
@@ -323,6 +329,7 @@ class BinaryApriori(_ab._frequentPatterns):
                 for a in range(i, j):
                     for b in range(a + 1, j):
                         candidate = indexTuples[a] + (indexTuples[b][-1],)
+                        self._recordCandidate(tuple(self._items[c] for c in candidate))
                         if k > 2:
                             # Prune: every (k-1)-subset of the candidate must be frequent.
                             if any(sub not in prevFreq for sub in _combinations(candidate, k - 1)):

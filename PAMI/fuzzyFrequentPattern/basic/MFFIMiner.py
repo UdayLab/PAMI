@@ -28,7 +28,10 @@ class _FuzzyList:
         self.resting = math.fsum(element[2] for element in elements)
 
 
-class MFFIMiner(_ab._fuzzyFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class MFFIMiner(CandidatePatternsMixin, _ab._fuzzyFrequentPatterns):
     """
     Mine multiple fuzzy frequent itemsets using sparse fuzzy lists.
 
@@ -134,6 +137,7 @@ class MFFIMiner(_ab._fuzzyFrequentPatterns):
         for transaction, memberships in zip(self._transactions, self._fuzzyValues):
             for item, value in zip(transaction, memberships):
                 values.setdefault(item, []).append(value)
+        self._recordCandidates((item,) for item in values)
         supports = {item: math.fsum(memberships) for item, memberships in values.items()}
         labels = sorted((item for item in supports if supports[item] >= minSup),
                         key=lambda item: (supports[item], item))
@@ -164,6 +168,7 @@ class MFFIMiner(_ab._fuzzyFrequentPatterns):
                 elements.append((tidA, min(valueA, valueB), restingB))
                 i += 1
                 j += 1
+        self._recordCandidate(tuple(sorted(left.pattern + (right.pattern[-1],))))
         return _FuzzyList(left.pattern + (right.pattern[-1],), elements)
 
     def _mineFuzzyLists(self, fuzzyLists, minSup):
@@ -183,9 +188,11 @@ class MFFIMiner(_ab._fuzzyFrequentPatterns):
 
     @deprecated("It is recommended to use 'mine()' instead of 'startMine()'.")
     def startMine(self):
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         self._creatingItemSets()

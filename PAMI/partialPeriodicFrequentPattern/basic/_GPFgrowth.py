@@ -502,7 +502,10 @@ class PFgrowth:
                 result = {**result, **result1}
         return result
 
-class GPFgrowth(partialPeriodicPatterns, ABC):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class GPFgrowth(CandidatePatternsMixin, partialPeriodicPatterns, ABC):
     """
     :Description:   GPFgrowth is algorithm to mine the partial periodic frequent pattern in temporal database.
     
@@ -670,9 +673,11 @@ class GPFgrowth(partialPeriodicPatterns, ABC):
                     quit()
     
     def startMine(self):
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
+        self._resetCandidatePatterns()
         self.__inputFile = self._partialPeriodicPatterns__iFile
         self._partialPeriodicPatterns__startTime = time.time()
         self._partialPeriodicPatterns__finalPatterns = {}

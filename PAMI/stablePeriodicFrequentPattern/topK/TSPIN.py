@@ -315,7 +315,10 @@ class _Tree(object):
             self.removeNode(i)
 
 
-class TSPIN(_ab._stablePeriodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class TSPIN(CandidatePatternsMixin, _ab._stablePeriodicFrequentPatterns):
     """
     :Description:   TSPIN is an algorithm to discover top stable periodic-frequent patterns in a transactional database.
 
@@ -610,6 +613,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         return value
 
     def startMine(self) -> None:
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
@@ -617,6 +621,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         Mining process will start from this function
         """
 
+        self._resetCandidatePatterns()
         global _maxLa, _maxPer, _k, _lno
         self._startTime = _ab._time.time()
         if self._iFile is None:

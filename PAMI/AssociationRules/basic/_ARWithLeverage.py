@@ -58,6 +58,9 @@ from PAMI.AssociationRules.basic import abstract as _ab
 from deprecated import deprecated
 
 
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
 class _Leverage:
 
     """
@@ -144,7 +147,7 @@ class _Leverage:
             self._generation(prefix, suffix)
 
 
-class ARWithLeverage:
+class ARWithLeverage(CandidatePatternsMixin):
     """
     About this algorithm
     ====================
@@ -301,15 +304,18 @@ class ARWithLeverage:
         """
         Association rule mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
         """
         Association rule mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         k = self._readPatterns()
         a = _Leverage(self._frequentPatterns, k, self._minConf)
+        a._candidatePatterns = self._candidatePatterns
         a.run()
         self._finalPatterns = a._finalPatterns
         self._endTime = _ab._time.time()

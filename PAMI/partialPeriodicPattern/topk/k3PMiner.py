@@ -59,7 +59,10 @@ import sys as _sys
 import pandas as pd
 from deprecated import deprecated
 
-class k3PMiner(_abstract.partialPeriodicPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class k3PMiner(CandidatePatternsMixin, _abstract.partialPeriodicPatterns):
     """
     :Description:   k3PMiner is and algorithm to discover top - k partial periodic patterns in a temporal  database.
 
@@ -300,6 +303,7 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
         self._minimum = min([self._finalPatterns[i] for i in self._finalPatterns.keys()])
         #print(self._minimum)
         plist = list(self._finalPatterns.keys())
+        self._recordCandidates((item,) for item in self._tidList)
         return plist
 
     def _getSupportAndPeriod(self, timeStamps):
@@ -385,6 +389,7 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
             for j in range(i + 1, len(itemSets)):
                 itemJ = itemSets[j]
                 tidSetJ = tidSets[j]
+                self._recordCandidate(tuple(prefix) + (itemI, itemJ))
                 y = list(set(tidSetI).intersection(tidSetJ))
                 val = self._getSupportAndPeriod(y)
                 if val > self._minimum:
@@ -400,6 +405,7 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
         Main function of the program
 
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -407,6 +413,7 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
             Main function of the program
 
             """
+            self._resetCandidatePatterns()
             self._startTime = _abstract._time.time()
             if self._iFile is None:
                 raise Exception("Please enter the file path or file name:")
@@ -423,6 +430,7 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
                 for j in range(i + 1, len(plist)):
                     itemJ = plist[j]
                     tidSetJ = self._tidList[itemJ]
+                    self._recordCandidate((itemI, itemJ))
                     y1 = list(set(tidSetI).intersection(tidSetJ))
                     val = self._getSupportAndPeriod(y1)
                     if val > self._minimum:

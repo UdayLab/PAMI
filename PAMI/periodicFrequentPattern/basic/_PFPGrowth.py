@@ -315,7 +315,10 @@ class _Tree(object):
             self.removeNode(i)
 
 
-class PFPGrowth(_ab._periodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class PFPGrowth(CandidatePatternsMixin, _ab._periodicFrequentPatterns):
     """
     :Description:   PFPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.
 
@@ -564,6 +567,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
         :return: None
         """
 
+        self._resetCandidatePatterns()
         global _minSup, _maxPer, _lno
         self._startTime = _ab._time.time()
         if self._iFile is None:
@@ -601,6 +605,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
         :return: None
         """
 
+        self._resetCandidatePatterns()
         global _minSup, _maxPer, _lno
         self._startTime = _ab._time.time()
         if self._iFile is None:

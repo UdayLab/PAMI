@@ -62,7 +62,10 @@ import copy
 import re
 _ab._sys.setrecursionlimit(10000)
 
-class PrefixSpan(_ab._sequentialPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class PrefixSpan(CandidatePatternsMixin, _ab._sequentialPatterns):
     """
     :Description:
         * Prefix Span is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
@@ -507,6 +510,7 @@ class PrefixSpan(_ab._sequentialPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._Database = []
         self._startTime = _ab._time.time()
         self._creatingItemSets()
@@ -525,6 +529,7 @@ class PrefixSpan(_ab._sequentialPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._Database = []
         self._startTime = _ab._time.time()
         self._creatingItemSets()

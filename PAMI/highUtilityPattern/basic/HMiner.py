@@ -138,7 +138,10 @@ class _Pair:
         self.utility = 0
 
 
-class HMiner(_ab._utilityPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class HMiner(CandidatePatternsMixin, _ab._utilityPatterns):
     """
     :Description:   High Utility itemSet Mining (HMIER) is an importent algorithm to miner High utility items from the database.
 
@@ -355,12 +358,14 @@ class HMiner(_ab._utilityPatterns):
         """
         Main program to start the operation
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Main program to start the operation
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._creteItemsets()
         self._finalPatterns = {}
@@ -467,6 +472,7 @@ class HMiner(_ab._utilityPatterns):
             #soted_prefix = [0] * (len(prefix) + 1)
             soted_prefix = prefix[0:len(prefix) + 1]
             soted_prefix.append(x.item)
+            self._recordCandidate(soted_prefix)
             if x.sumnu + x.sumCu >= minutil:
                 self._saveitemSet(prefix, len(prefix), x.item, x.sumnu + x.sumCu)
             self._candidates += 1

@@ -310,7 +310,10 @@ class _Tree(object):
             self.removeNode(i)
 
 
-class PPGrowth(_ab._partialPeriodicPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class PPGrowth(CandidatePatternsMixin, _ab._partialPeriodicPatterns):
     """
     About this algorithm
     ====================
@@ -629,6 +632,7 @@ class PPGrowth(_ab._partialPeriodicPatterns):
         """
 
         #global _minSup, _maxPer, _lno,_period,_periodicSupport
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -665,6 +669,7 @@ class PPGrowth(_ab._partialPeriodicPatterns):
         """
 
         #global _minSup, _maxPer, _lno,_period,_periodicSupport
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")

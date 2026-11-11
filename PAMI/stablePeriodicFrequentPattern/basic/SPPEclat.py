@@ -58,7 +58,10 @@ from deprecated import deprecated
 
 from PAMI.stablePeriodicFrequentPattern.basic import abstract as _ab
 
-class SPPEclat(_ab._stablePeriodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class SPPEclat(CandidatePatternsMixin, _ab._stablePeriodicFrequentPatterns):
     """
     :Description:   Stable periodic pattern mining aims to dicover all interesting patterns in a temporal database using three contraints minimum support,
                     maximum period and maximum lability, that have support no less than the user-specified minimum support  constraint and lability no
@@ -321,6 +324,7 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
         for i in range(len(GPPFList)):
             item = GPPFList[i]
             CP1 = CP | {item}
+            self._recordCandidate(frozenset(CP1))
             if CP != set():
                 self._tsList['\t'.join(CP1)] = list(set(self._tsList['\t'.join(CP)]) & set(self._tsList[item]))
             la = self._calculateLa(self._tsList['\t'.join(CP1)])
@@ -354,12 +358,14 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
         """
         Method to start the mining of patterns
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Method to start the mining of patterns
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._creatingItemsets()
         self._minSup = self._convert(self._minSup)

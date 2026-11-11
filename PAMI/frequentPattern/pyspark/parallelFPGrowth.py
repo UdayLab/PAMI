@@ -150,7 +150,10 @@ class Tree:
 
 
 
-class parallelFPGrowth(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class parallelFPGrowth(CandidatePatternsMixin, _ab._frequentPatterns):
     """
 
     :Description: Parallel FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database. It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It employs downward closure property to  reduce the search space effectively.
@@ -265,6 +268,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -272,6 +276,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
         Frequent pattern mining process will start from here
         """
 
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
 
         conf = _SparkConf().setAppName("Parallel FPGrowth").setMaster("local[*]")

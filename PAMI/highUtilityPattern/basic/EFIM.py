@@ -308,7 +308,10 @@ class _Dataset:
         return self.transactions
 
 
-class EFIM(_ab._utilityPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class EFIM(CandidatePatternsMixin, _ab._utilityPatterns):
     """
     :Description:   EFIM is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
     
@@ -499,6 +502,7 @@ class EFIM(_ab._utilityPatterns):
         Start the EFIM algorithm.
         :return: None
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
@@ -506,6 +510,7 @@ class EFIM(_ab._utilityPatterns):
         Start the EFIM algorithm.
         :return: None
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._dataset = _Dataset(self._iFile, self._sep)
         self._useUtilityBinArrayToCalculateLocalUtilityFirstTime(self._dataset)
@@ -608,6 +613,7 @@ class EFIM(_ab._utilityPatterns):
             if previousTransaction != transactionsOfP[0]:
                 transactionsPe.append(previousTransaction)
             self._temp[prefixLength] = self._newNamesToOldNames[e]
+            self._recordCandidate(tuple(self._dataset.intToStr[item] for item in self._temp[:prefixLength + 1]))
             if utilityPe >= self._minUtil:
                 self._output(prefixLength, utilityPe)
             self._useUtilityBinArraysToCalculateUpperBounds(transactionsPe, idx, itemsToKeep)

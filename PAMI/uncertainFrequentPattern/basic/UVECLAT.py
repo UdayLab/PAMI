@@ -75,7 +75,10 @@ class _Item:
         self.probability = probability
 
 
-class UVEclat(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class UVEclat(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     About this algorithm
     ====================
@@ -299,6 +302,7 @@ class UVEclat(_ab._frequentPatterns):
                     self._tidList[str(j.item)].update({k: j.probability})
         mapSupport = {k: v for k, v in mapSupport.items() if v >= self._minSup}
         plist = dict(sorted(mapSupport.items(), key=_operator.itemgetter(1), reverse=True))
+        self._recordCandidates((item,) for item in self._tidList)
         return list(plist.keys())
 
     @staticmethod
@@ -448,6 +452,7 @@ class UVEclat(_ab._frequentPatterns):
             for j in range(i + 1, len(itemSets)):
                 itemJ = itemSets[j]
                 tidSetJ = tidSets[j]
+                self._recordCandidate(tuple(prefix) + (itemI, itemJ))
                 y = self._Intersection(tidSetI, tidSetJ)
                 if self._calculateExpSup(y) >= self._minSup:
                     classItemSets.append(itemJ)
@@ -457,12 +462,14 @@ class UVEclat(_ab._frequentPatterns):
             self._save(prefix, list(set(itemSetX)), tidSetI)
 
     def startMine(self) -> None:
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
+        self._resetCandidatePatterns()
         global _minSup
         self._startTime = _ab._time.time()
         self._creatingItemSets()
@@ -478,6 +485,7 @@ class UVEclat(_ab._frequentPatterns):
             for j in range(i + 1, len(plist)):
                 itemJ = plist[j]
                 tidSetJ = self._tidList[itemJ]
+                self._recordCandidate((itemI, itemJ))
                 y1 = self._Intersection(tidSetI, tidSetJ)
                 if self._calculateExpSup(y1) >= self._minSup:
                     itemSets.append(itemJ)

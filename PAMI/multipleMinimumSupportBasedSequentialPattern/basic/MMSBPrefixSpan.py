@@ -18,7 +18,10 @@ from PAMI.multipleMinimumSupportBasedSequentialPattern.basic import abstract as 
 import sys
 sys.setrecursionlimit(10000)
 
-class MMSBprefixSpan(_ab._sequentialPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class MMSBprefixSpan(CandidatePatternsMixin, _ab._sequentialPatterns):
     """
         Multiple Minimum Support Based prefix Span is one of the fundamental algorithm to discover multiple Minimum Support Based sequential frequent patterns in a transactional database.
         This program employs prefix Span property (or downward closure property) to  reduce the search space effectively.
@@ -528,6 +531,7 @@ class MMSBprefixSpan(_ab._sequentialPatterns):
         """
             Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._Database = []
         self._startTime = _ab._time.time()
         self._creatingItemSets()

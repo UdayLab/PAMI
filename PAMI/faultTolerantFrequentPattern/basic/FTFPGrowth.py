@@ -63,7 +63,10 @@ from deprecated import deprecated
 _fp._sys.setrecursionlimit(20000)
 
 
-class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class FTFPGrowth(CandidatePatternsMixin, _fp._faultTolerantFrequentPatterns):
     """
     :Description:   FTFPGrowth discovers the complete set of fault-tolerant frequent patterns in a transactional
                     database. A transaction fault-tolerantly contains an itemset ``P`` if it holds all but at most
@@ -275,12 +278,14 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         """
         Main program to start the operation
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
         """
         Main program to start the operation
         """
+        self._resetCandidatePatterns()
         self._startTime = _fp._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -296,6 +301,7 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         self._oneLengthFrequentItems()
 
         items, matrix = self._buildMatrix()
+        self._recordCandidates((item,) for item in items)
         if items:
             c = self._faultTolerance
             minSup = self._minSup
@@ -305,6 +311,7 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
             def grow(prefix: List[int], presentCount: _np.ndarray, startIdx: int) -> None:
                 # Pattern-growth: extend the current prefix with each later item (support-descending order).
                 for x in range(startIdx, nItems):
+                    self._recordCandidate(tuple(items[col] for col in prefix + [x]))
                     newCount = presentCount + matrix[:, x]
                     length = len(prefix) + 1
                     support = int((newCount >= length - c).sum())

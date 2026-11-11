@@ -54,7 +54,10 @@ from PAMI.georeferencedFrequentPattern.basic import abstract as _ab
 from deprecated import deprecated
 
 
-class SpatialECLAT(_ab._spatialFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class SpatialECLAT(CandidatePatternsMixin, _ab._spatialFrequentPatterns):
     """
     :Description:   Spatial Eclat is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up
                     Lattice Traversal.It is one of the popular methods of Association Rule mining. It is a more efficient and
@@ -325,12 +328,14 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
 
@@ -348,6 +353,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
                     tid_list[item] = set()
                 tid_list[item].add(r_idx)
 
+        self._recordCandidates((item,) for item in tid_list)
         frequent_items = []
         for item in sorted(tid_list):
             tids = tid_list[item]
@@ -380,6 +386,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
                 if item_b not in valid_neighbours:
                     continue
 
+                self._recordCandidate(pattern_a + (item_b,))
                 intersection = tids_a.intersection(tids_b)
                 support = len(intersection)
                 if support >= self._minSup:

@@ -56,7 +56,10 @@ from PAMI.georeferencedFrequentPattern.basic import abstract as _ab
 from deprecated import deprecated
 
 
-class SpatialECLAT(_ab._spatialFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class SpatialECLAT(CandidatePatternsMixin, _ab._spatialFrequentPatterns):
     """
     :Description:   Spatial Eclat is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up
                     Lattice Traversal.It is one of the popular methods of Association Rule mining. It is a more efficient and
@@ -252,6 +255,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
                     candidate[self._Database[i][j]] = [i]
                 else:
                     candidate[self._Database[i][j]] += [i]
+        self._recordCandidates((item,) for item in candidate)
         self._finalPatterns = {keys: value for keys, value in candidate.items() if len(value) >= self._minSup}
 
     def _convert(self, value):
@@ -314,6 +318,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
                 itemList = []
                 itemList += key[i]
                 itemList += key[j]
+                self._recordCandidate(tuple(sorted(set(itemList))))
                 if len(intersectionList) >= self._minSup:
                     itemList.sort()
                     if tuple(itemList) not in tidList:
@@ -339,6 +344,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
                 for j in range(i + 1, len(key)):
                     if not key[j] in NeighboursItems:
                         continue
+                    self._recordCandidate((key[i], key[j]))
                     intersectionList = list(set(tidList[key[i]]).intersection(set(tidList[key[j]])))
                     itemList = []
                     if len(intersectionList) >= self._minSup:
@@ -414,6 +420,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         Frequent pattern mining process will start from here
         """
 
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -422,6 +429,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         """
 
         # global items_sets, endTime, startTime
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")

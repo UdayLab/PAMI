@@ -60,7 +60,10 @@ from deprecated import deprecated
 _ab._sys.setrecursionlimit(20000)
 
 
-class FTECLAT(_ab._faultTolerantFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class FTECLAT(CandidatePatternsMixin, _ab._faultTolerantFrequentPatterns):
     """
 
     :Description:   FTECLAT is a vertical algorithm to discover the complete set of fault-tolerant frequent patterns
@@ -278,6 +281,7 @@ class FTECLAT(_ab._faultTolerantFrequentPatterns):
             children: List[Tuple[Tuple[int, ...], _np.ndarray]] = []
             for j in range(i + 1, len(members)):
                 candidate = members[i][0] + (members[j][0][-1],)
+                self._recordCandidate(tuple(items[col] for col in candidate))
                 presentCount = members[i][1] + matrix[:, candidate[-1]]
                 support = int((presentCount >= len(candidate) - c).sum())
                 if support >= minSup:
@@ -292,12 +296,14 @@ class FTECLAT(_ab._faultTolerantFrequentPatterns):
         """
         Fault-tolerant frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
         """
         Fault-tolerant frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._Database = []
         self._finalPatterns = {}
         self._startTime = _ab._time.time()
@@ -309,6 +315,7 @@ class FTECLAT(_ab._faultTolerantFrequentPatterns):
         self._oneLengthFrequentItems()
 
         items, matrix = self._buildMatrix()
+        self._recordCandidates((item,) for item in items)
         if items:
             c = self._faultTolerance
             members: List[Tuple[Tuple[int, ...], _np.ndarray]] = []

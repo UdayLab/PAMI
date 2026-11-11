@@ -422,7 +422,10 @@ class _SHUTree:
                 del tempNode.children[child]
 
     
-class SHUGrowth(_hus._highUtilityPatternStreamMining):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class SHUGrowth(CandidatePatternsMixin, _hus._highUtilityPatternStreamMining):
     """
     :Description:   High-utility pattern mining over data stream is one of the challenging problems in data stream mining.
                     SHUGrowth is an algorithm that discovers high-utility patterns from data streams without rebuilding the tree.
@@ -816,6 +819,7 @@ class SHUGrowth(_hus._highUtilityPatternStreamMining):
 
                 newItemset = curItem.copy()
                 newItemset.append(item)
+                self._recordCandidate(newItemset)
 
                 if len(newItemset) not in candidatePattern:
                     candidatePattern[len(newItemset)] = [newItemset]
@@ -831,6 +835,7 @@ class SHUGrowth(_hus._highUtilityPatternStreamMining):
         """
         This function will start the mining process
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -838,6 +843,7 @@ class SHUGrowth(_hus._highUtilityPatternStreamMining):
         This function will start the mining process
         """
         #global _minUtil
+        self._resetCandidatePatterns()
         self.__startTime = _hus._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")

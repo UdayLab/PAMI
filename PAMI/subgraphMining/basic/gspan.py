@@ -29,7 +29,10 @@
 
 from PAMI.subgraphMining.basic import abstract as _ab
 
-class GSpan(_ab._gSpan):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class GSpan(CandidatePatternsMixin, _ab._gSpan):
 
     eliminate_infrequent_vertices = True
     eliminate_infrequent_vertex_pairs = True
@@ -70,6 +73,7 @@ class GSpan(_ab._gSpan):
 
     def mine(self):
 
+        self._resetCandidatePatterns()
         if self.maxNumberOfEdges <= 0:
             return
         
@@ -445,6 +449,8 @@ class GSpan(_ab._gSpan):
         extensions = self.rightMostPathExtensions(c, graphDb, subgraphId)
 
         for extension, newGraphIds in extensions.items():
+            self._recordCandidate(tuple((edge.v1, edge.v2, edge.vLabel1, edge.vLabel2, edge.edgeLabel)
+                                    for edge in c.getEeList() + [extension]))
             sup = len(newGraphIds)
             
             if sup >= self.minSup:
@@ -557,6 +563,7 @@ class GSpan(_ab._gSpan):
                     labelM.setdefault(vLabel, set()).add(g.getId())
         # Check each label for frequency against the minimum support threshold
         for label, tempSupG in labelM.items():                
+            self._recordCandidate(((0, 0, label, label, -1),))
             sup = len(tempSupG)
             if sup >= self.minSup:
                 self.frequentVertexLabels.append(label)

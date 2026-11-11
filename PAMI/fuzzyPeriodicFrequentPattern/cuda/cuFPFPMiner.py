@@ -55,7 +55,10 @@ from deprecated import deprecated
 from PAMI.fuzzyPeriodicFrequentPattern.cuda import abstract as _ab
 # import abstract as _ab
 
-class cuFPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class cuFPFPMiner(CandidatePatternsMixin, _ab._fuzzyPeriodicFrequentPatterns):
     """
     :Description: cuFPFPMiner is a fundamental algorithm to discover fuzzy periodic frequent patterns using Cuda in a quantitative temporal database. This program employs the downward closure property to reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of fuzzy periodic frequent patterns in a quantitative temporal database.
 
@@ -312,6 +315,7 @@ class cuFPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         lastTs = self._ts[-1]
         newArraysAndItems = {}
 
+        self._recordCandidates(ArraysAndItems)
         for k, v in ArraysAndItems.items():
             support = float(v.sum())
             if support >= self._minSup:
@@ -352,12 +356,14 @@ class cuFPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         """
         Fuzzy periodic frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Fuzzy periodic frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         _ab._cp.cuda.Device(0).use()
         self._startTime = _ab._time.time()
         self._creatingItemSets()
@@ -384,6 +390,7 @@ class cuFPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
                     pairsA.append(i)
                     pairsB.append(j)
                     unions.append(union)
+                    self._recordCandidate(union)
 
             if len(pairsA) > 0:
                 numPairs = len(pairsA)

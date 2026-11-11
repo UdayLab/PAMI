@@ -328,7 +328,10 @@ class _Tree(object):
             self.removeNode(i)
 
 
-class GFPGrowth(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class GFPGrowth(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     About this algorithm
     ====================
@@ -716,6 +719,7 @@ class GFPGrowth(_ab._frequentPatterns):
         :return: patterns with accurate probability
         """
         global _finalPatterns
+        self._recordCandidates(_finalPatterns)
         periods = {}
         for i in self._Database:
             for x, y in _finalPatterns.items():
@@ -745,12 +749,14 @@ class GFPGrowth(_ab._frequentPatterns):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
+        self._resetCandidatePatterns()
         global minSup
         self._startTime = _ab._time.time()
         self._creatingItemSets()

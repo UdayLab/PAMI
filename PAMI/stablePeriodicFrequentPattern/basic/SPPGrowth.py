@@ -265,7 +265,10 @@ class _Tree:
                     yield q
             self.removeNode(i)
 
-class SPPGrowth:
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class SPPGrowth(CandidatePatternsMixin):
     """
     :Description:   Stable periodic pattern mining aims to dicover all interesting patterns in a temporal database using three contraints minimum support,
                     maximum period and maximum lability, that have support no less than the user-specified minimum support  constraint and lability no
@@ -589,6 +592,7 @@ class SPPGrowth:
         Mining process will start from this function
         """
 
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -596,6 +600,7 @@ class SPPGrowth:
         Mining process will start from this function
         """
 
+        self._resetCandidatePatterns()
         global _minSup, _maxPer,_maxLa # _lno
         self._startTime = _ab._time.time()
         if self._iFile is None:

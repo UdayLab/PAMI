@@ -331,7 +331,10 @@ class _Tree(object):
             self.removeNode(i)
 
 
-class EPCPGrowth(_ab._periodicCorrelatedPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class EPCPGrowth(CandidatePatternsMixin, _ab._periodicCorrelatedPatterns):
     """
     :Description:   EPCPGrowth is an algorithm to discover periodic-Correlated patterns in a temporal database.
 
@@ -616,6 +619,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         Mining process will start from this function
         """
 
+        self._resetCandidatePatterns()
         global _minSup, _maxPer, _minAllConf, _maxPerAllConf, _lno
         self._startTime = _ab._time.time()
         if self._iFile is None:
@@ -655,6 +659,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         Mining process will start from this function
         """
 
+        self._resetCandidatePatterns()
         global _minSup, _maxPer, _minAllConf, _maxPerAllConf, _lno
         self._startTime = _ab._time.time()
         if self._iFile is None:

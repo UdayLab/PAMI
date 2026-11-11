@@ -387,7 +387,10 @@ def _conditionalTransactions(condPatterns, condTimeStamps):
     return pat, timeStamps, updatedDict
 
 
-class Max3PGrowth(_abstract._partialPeriodicPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class Max3PGrowth(CandidatePatternsMixin, _abstract._partialPeriodicPatterns):
     """
     :Description:   Max3p-Growth algorithm IS to discover maximal periodic-frequent patterns in a temporal database.
                     It extract the partial periodic patterns from 3p-tree and checks for the maximal property and stores
@@ -685,6 +688,7 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
         return t1
 
     def startMine(self) -> None:
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -692,6 +696,7 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
         Mining process will start from this function
         """
 
+        self._resetCandidatePatterns()
         global _periodicSupport, _period, _lno
         self._startTime = _abstract._time.time()
         if self._iFile is None:

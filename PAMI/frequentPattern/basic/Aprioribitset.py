@@ -55,7 +55,10 @@ from PAMI.frequentPattern.basic import abstract as _ab
 from deprecated import deprecated
 
 
-class Aprioribitset(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class Aprioribitset(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     **About this algorithm**
 
@@ -211,6 +214,7 @@ class Aprioribitset(_ab._frequentPatterns):
     @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
 
     def startMine(self):
+        self._resetCandidatePatterns()
         self.mine()
 
     def _bitPacker(self, data, maxIndex):
@@ -241,6 +245,7 @@ class Aprioribitset(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
 
         self._finalPatterns = {}
@@ -260,6 +265,7 @@ class Aprioribitset(_ab._frequentPatterns):
 
         # sort by length in descending order
         items = dict(sorted(items.items(), key=lambda x: len(x[1]), reverse=True))
+        self._recordCandidates(items)
         cands = []
         for key in items:
             if len(items[key]) >= self._minSup:
@@ -276,6 +282,7 @@ class Aprioribitset(_ab._frequentPatterns):
                     for j in range(i + 1, len(cands)):
                         if cands[i][:-1] == cands[j][:-1]:
                             newCand = tuple(cands[i] + tuple([cands[j][-1]]))
+                            self._recordCandidate(newCand)
                             intersection = items[tuple([newCand[0]])]
                             for k in range(1, len(newCand)):
                                 intersection &= items[tuple([newCand[k]])]
@@ -294,6 +301,7 @@ class Aprioribitset(_ab._frequentPatterns):
                     for j in range(i + 1, len(cands)):
                         if cands[i][:-1] == cands[j][:-1]:
                             newCand = tuple(cands[i] + tuple([cands[j][-1]]))
+                            self._recordCandidate(newCand)
                             intersection = items[cands[i]] & items[cands[j]]
                             count = self._popcount(intersection)
                             if count >= self._minSup:

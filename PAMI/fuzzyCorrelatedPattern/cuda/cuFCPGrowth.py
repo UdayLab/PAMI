@@ -86,7 +86,10 @@ class _Regions:
             self.high = 1.0
 
 
-class cuFCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class cuFCPGrowth(CandidatePatternsMixin, _ab._corelatedFuzzyFrequentPatterns):
     """
     :Description: cuFCPGrowth is a fundamental algorithm to discover correlated fuzzy frequent patterns using Cuda in a quantitative transactional database. This program employs the downward closure property to reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of correlated fuzzy frequent patterns in a quantitative transactional database.
 
@@ -341,6 +344,7 @@ class cuFCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
 
         self._ratioDenom = {}
         newArraysAndItems = {}
+        self._recordCandidates(ArraysAndItems)
         for k, v in ArraysAndItems.items():
             support = float(v.sum())
             if support >= self._minSup:
@@ -357,12 +361,14 @@ class cuFCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         """
         Correlated fuzzy frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Correlated fuzzy frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         _ab._cp.cuda.Device(0).use()
         self._startTime = _ab._time.time()
         self._creatingItemSets()
@@ -394,6 +400,7 @@ class cuFCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
                     pairsA.append(i)
                     pairsB.append(j)
                     unions.append(union)
+                    self._recordCandidate(union)
 
             if len(pairsA) > 0:
                 numPairs = len(pairsA)

@@ -382,7 +382,10 @@ class _Tree(object):
             self.removeNode(i)
 
 
-class UPFPGrowth(_ab._periodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class UPFPGrowth(CandidatePatternsMixin, _ab._periodicFrequentPatterns):
     """
     About this algorithm
     ====================
@@ -763,6 +766,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
 
         :return: None
         """
+        self._recordCandidates(self._periodic)
         periods = {}
         for i in self._Database:
             for x, y in self._periodic.items():
@@ -795,6 +799,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
 
         :return: None
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
@@ -804,6 +809,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
 
         :return: None
         """
+        self._resetCandidatePatterns()
         global _lno, _maxPer, _minSup, _first, _last, periodic
         self._startTime = _ab._time.time()
         self._creatingItemSets()

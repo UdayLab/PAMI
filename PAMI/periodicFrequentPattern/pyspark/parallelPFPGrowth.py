@@ -162,7 +162,10 @@ class Tree:
         return tree
 
 
-class Parallel_PPFP:
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class Parallel_PPFP(CandidatePatternsMixin):
     """
 
     A class used to represent the periodic frequent pattern tree
@@ -213,6 +216,7 @@ class Parallel_PPFP:
         Start the mining process
 
         """
+        self._resetCandidatePatterns()
         self._minSup = self._convert(self._minSup)
         self._startTime = time.time()
 

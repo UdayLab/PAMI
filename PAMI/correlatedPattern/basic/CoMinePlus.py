@@ -113,7 +113,10 @@ class _Node:
             node = node.parent
         return transaction[::-1], count
 
-class CoMinePlus(_ab._correlatedPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class CoMinePlus(CandidatePatternsMixin, _ab._correlatedPatterns):
     """
     **About this algorithm**
 
@@ -290,6 +293,7 @@ class CoMinePlus(_ab._correlatedPatterns):
 
     @deprecated("It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.")
     def startMine(self) -> None:
+        self._resetCandidatePatterns()
         self.mine()
 
     def _maxSup(self, itemSet, item):
@@ -373,6 +377,7 @@ class CoMinePlus(_ab._correlatedPatterns):
         """
         main method to start
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")

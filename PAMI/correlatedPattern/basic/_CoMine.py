@@ -230,7 +230,10 @@ class _Tree:
                     current = child
 
 
-class CoMine(_ab._correlatedPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class CoMine(CandidatePatternsMixin, _ab._correlatedPatterns):
     """
     About this algorithm
     ====================
@@ -554,12 +557,14 @@ class CoMine(_ab._correlatedPatterns):
         """
         main method to start
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
         """
         main method to start
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")

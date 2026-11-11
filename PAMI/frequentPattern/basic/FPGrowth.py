@@ -113,7 +113,10 @@ class _Node:
         return transaction[::-1], count
 
 
-class FPGrowth(_fp._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class FPGrowth(CandidatePatternsMixin, _fp._frequentPatterns):
     """
     **About this algorithm**
 
@@ -405,6 +408,7 @@ class FPGrowth(_fp._frequentPatterns):
         """
         Main program to start the operation
         """
+        self._resetCandidatePatterns()
         global _minSup
         self.__startTime = _fp._time.time()
         self._finalPatterns = {}
@@ -436,6 +440,7 @@ class FPGrowth(_fp._frequentPatterns):
         """
         Starting the mining process
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def getMemoryUSS(self) -> float:

@@ -61,7 +61,10 @@ from deprecated import deprecated
 from PAMI.periodicFrequentPattern.basic import abstract as _ab
 
 
-class PFECLAT(_ab._periodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class PFECLAT(CandidatePatternsMixin, _ab._periodicFrequentPatterns):
     """
     :Description:   PFECLAT is the fundamental approach to mine the periodic-frequent patterns.
 
@@ -312,6 +315,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
             periodicHelper[item][0] = max(periodicHelper[item][0],
                                           abs(self._dbSize - periodicHelper[item][1]))  # tid of the last transaction
         candidates = []
+        self._recordCandidates((item,) for item in itemsets)
         for item, tids in itemsets.items():
             per = periodicHelper[item][0]
             sup = len(tids)
@@ -330,6 +334,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                 item = candidates[j]
                 itemSet = item.split()
                 if prefixItemSet[:-1] == itemSet[:-1] and prefixItemSet[-1] != itemSet[-1]:
+                    self._recordCandidate(tuple(prefixItemSet + [itemSet[-1]]))
                     _value = self._finalPatterns[item][2].intersection(self._finalPatterns[prefixItem][2])
                     sup = len(_value)
                     per = self._getPeriodic(_value)
@@ -347,6 +352,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         Mining process will start from this function
         :return: None
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         frequentSets = self._creatingOneItemSets()
@@ -364,6 +370,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         Mining process will start from this function
         :return: None
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         frequentSets = self._creatingOneItemSets()

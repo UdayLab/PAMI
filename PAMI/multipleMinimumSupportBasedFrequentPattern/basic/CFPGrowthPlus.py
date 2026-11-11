@@ -242,7 +242,10 @@ class _Tree:
 minMIS = 0
 MIS = {}
 
-class CFPGrowthPlus(_fp._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class CFPGrowthPlus(CandidatePatternsMixin, _fp._frequentPatterns):
     """
     **About this algorithm**
 
@@ -517,6 +520,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         main program to start the operation
 
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -524,6 +528,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         main program to start the operation
 
         """
+        self._resetCandidatePatterns()
         global MIS, minMIS
         MIS = {}       # reset shared state so repeated runs / multiple instances do not leak stale ranks
         minMIS = 0

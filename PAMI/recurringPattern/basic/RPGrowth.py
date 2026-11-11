@@ -325,7 +325,10 @@ class _Tree(object):
             self.removeNode(i)
 
 
-class RPGrowth(_ab._recurringPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class RPGrowth(CandidatePatternsMixin, _ab._recurringPatterns):
     """
     :Description:   RPGrowth is one of the fundamental algorithm to discover recurring patterns in a transactional database.
 
@@ -627,6 +630,7 @@ class RPGrowth(_ab._recurringPatterns):
         """
         Mining process will start from this function
         """
+        self._resetCandidatePatterns()
         global _minPS, _minRec, _maxPer, _lno
         self._startTime = _ab._time.time()
         if self._iFile is None:
@@ -659,6 +663,7 @@ class RPGrowth(_ab._recurringPatterns):
         """
         Mining process will start from this function
         """
+        self._resetCandidatePatterns()
         global _minPS, _minRec, _maxPer, _lno
         self._startTime = _ab._time.time()
         if self._iFile is None:

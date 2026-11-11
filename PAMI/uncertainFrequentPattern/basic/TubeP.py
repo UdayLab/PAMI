@@ -338,7 +338,10 @@ class _Tree(object):
             self.removeNode(i)
 
 
-class TubeP(_fp._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class TubeP(CandidatePatternsMixin, _fp._frequentPatterns):
     """
     :Description: TubeP is one of the fastest algorithm to discover frequent patterns in a uncertain transactional database.
 
@@ -617,6 +620,7 @@ class TubeP(_fp._frequentPatterns):
         :return: patterns with accurate probability
         """
         global _finalPatterns
+        self._recordCandidates(_finalPatterns)
         periods = {}
         for i in self._Database:
             for x, y in _finalPatterns.items():
@@ -641,12 +645,14 @@ class TubeP(_fp._frequentPatterns):
                 self._finalPatterns[sample] = y
 
     def startMine(self) -> None:
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
+        self._resetCandidatePatterns()
         global _minSup
         self._startTime = _fp._time.time()
         self._creatingItemSets()

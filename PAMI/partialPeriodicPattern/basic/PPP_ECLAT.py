@@ -58,7 +58,10 @@ import pandas as pd
 import numpy as np
 from deprecated import deprecated
 
-class PPP_ECLAT(_ab._partialPeriodicPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class PPP_ECLAT(CandidatePatternsMixin, _ab._partialPeriodicPatterns):
     """
     :Descripition:   3pEclat is the fundamental approach to mine the partial periodic frequent patterns.
 
@@ -308,6 +311,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         :return: None
 
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def _getPerSup(self, arr):
@@ -325,6 +329,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
             newCands = []
             nitems = {}
             for j in range(i + 1, len(cands)):
+                self._recordCandidate(cands[i] + (cands[j][-1],))
                 intersection = items[cands[i]].intersection(items[cands[j]])
                 perSup = self._getPerSup(intersection)
                 if perSup >= self._minPS:
@@ -351,6 +356,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         :return: None
 
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._creatingItemSets()
         self._finalPatterns = {}
@@ -374,6 +380,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         cands = []
         nitems = {}
 
+        self._recordCandidates(items)
         for k, v in items.items():
             perSup = self._getPerSup(v)
             if perSup >= self._minPS:

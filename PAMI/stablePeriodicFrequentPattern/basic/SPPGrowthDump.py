@@ -263,7 +263,10 @@ class _Tree:
                     yield q
             self.removeNode(i)
 
-class SPPGrowth:
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class SPPGrowth(CandidatePatternsMixin):
     _startTime = float()
     _endTime = float()
     _minSup = str()
@@ -437,6 +440,7 @@ class SPPGrowth:
         Mining process will start from this function
         """
 
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -444,6 +448,7 @@ class SPPGrowth:
         Mining process will start from this function
         """
 
+        self._resetCandidatePatterns()
         global _minSup, _maxPer, _maxLa # _lno,
         self._startTime = time.time()
         if self._iFile is None:

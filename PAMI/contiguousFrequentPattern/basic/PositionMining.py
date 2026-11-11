@@ -50,7 +50,10 @@ class Node:
 
 
 
-class PositionMining:
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class PositionMining(CandidatePatternsMixin):
     """
     About this algorithm
     ====================
@@ -123,6 +126,7 @@ class PositionMining:
             curr_pos+=1
             self.total_length+=len(seq)
 
+        self._recordCandidates(self.symbol_freq)
         temp={}
         for i in self.symbol_freq:
             if len(self.symbol_freq[i])>=self.min_sup:
@@ -248,6 +252,7 @@ class PositionMining:
                 if seq1!=seq2:
                     if length==1:
                         word=seq1+seq2
+                        self._recordCandidate(word)
                         # print(seq1,seq2,db[seq1],db[seq2])
                         minus_1={i-1 for i in db[seq2]}
                         positions=db[seq1].intersection(minus_1)
@@ -258,6 +263,7 @@ class PositionMining:
                     else:
                         if seq1[1:]== seq2[:-1]:
                             word=seq1+seq2[-1]
+                            self._recordCandidate(word)
                             minus_1={i-1 for i in db[seq2]}
                             positions=db[seq1].intersection(minus_1)
                             if len(positions)>=self.min_sup:
@@ -279,6 +285,7 @@ class PositionMining:
         Pattern mining process will start from here
         """
         # pass
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -286,6 +293,7 @@ class PositionMining:
         Pattern mining process will start from here
         """
         # pass
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self.table = {i: {} for i in range(1, self.maxlength)}
         self.readData()

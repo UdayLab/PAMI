@@ -402,7 +402,10 @@ class _MPTree(object):
 #maximalTree = _MPTree()
 
 
-class MaxFPGrowth(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class MaxFPGrowth(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     :Description: MaxFP-Growth is one of the fundamental algorithm to discover maximal frequent patterns in a transactional database.
 
@@ -656,6 +659,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
         Mining process will start from this function
         """
 
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -663,6 +667,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
         Mining process will start from this function
         """
 
+        self._resetCandidatePatterns()
         global _minSup
         self._startTime = _ab._time.time()
         if self._iFile is None:

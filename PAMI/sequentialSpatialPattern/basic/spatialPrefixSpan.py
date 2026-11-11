@@ -19,7 +19,10 @@ import sys
 import copy
 sys.setrecursionlimit(10000)
 
-class spatialPrefixSpan(_ab._sequentialSpatialPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class spatialPrefixSpan(CandidatePatternsMixin, _ab._sequentialSpatialPatterns):
     """
         Prifix Span is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
         This program employs Prifix Span property (or downward closure property) to  reduce the search space effectively.
@@ -505,12 +508,14 @@ class spatialPrefixSpan(_ab._sequentialSpatialPatterns):
             self.makeNextSame(seqDatabaseSame,startrow)
 
     def startMine(self) -> None:
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
             Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._Database = []
         self._startTime = _ab._time.time()
         self._creatingItemSets()

@@ -210,6 +210,11 @@ print('Memory (RSS): ' + str(obj.getMemoryRSS()))
 print('Memory (USS): ' + str(obj.getMemoryUSS()))
 ```
 
+Use `obj.getCandidatePatterns()` to retrieve distinct explicit candidates, and
+`len(obj.getCandidatePatterns())` to count them. This includes rejected candidates
+from the latest run and requires additional memory. Algorithms without explicit
+candidate generation, including FP Growth in this example, return an empty list.
+
 ```
 Output:
 Frequent patterns were generated successfully using frequentPatternGrowth algorithm

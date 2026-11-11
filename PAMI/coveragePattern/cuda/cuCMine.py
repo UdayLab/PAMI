@@ -56,7 +56,10 @@ from typing import List, Dict, Tuple, Union
 from deprecated import deprecated
 
 
-class cuCMine(_ab._coveragePatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class cuCMine(CandidatePatternsMixin, _ab._coveragePatterns):
     """
     About this algorithm
     ====================
@@ -300,6 +303,7 @@ extern "C" __global__ void unionBits(
         :param support: number of transactions covered by every coverage item
         :return: None
         """
+        self._recordCandidates((item,) for item in itemNames)
         itemCount = len(itemNames)
         words = itemBits.shape[1]
         minCoverage = self._minCS * self._lno
@@ -320,6 +324,8 @@ extern "C" __global__ void unionBits(
             offsets = _ab._np.repeat(_ab._np.cumsum(counts) - counts, counts)
             candItemAll = last[candNodeAll] + 1 + (_ab._np.arange(total, dtype=_ab._np.int64) - offsets)
 
+            self._recordCandidates(tuple(itemNames[c] for c in prefix[node]) + (itemNames[item],)
+                                   for node, item in zip(candNodeAll, candItemAll))
             nextPrefix = []
             nextBits = []
             nextUnion = []
@@ -384,11 +390,13 @@ extern "C" __global__ void unionBits(
     @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
         """ Main method to start """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self) -> None:
         """ Main method to start """
 
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")

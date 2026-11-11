@@ -20,7 +20,10 @@ from deprecated import deprecated
 from PAMI.fuzzyFrequentPattern.cuda import abstract as _ab
 
 
-class cuMFFIMiner(_ab._fuzzyFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class cuMFFIMiner(CandidatePatternsMixin, _ab._fuzzyFrequentPatterns):
     """
     Mine multiple fuzzy frequent itemsets using CUDA.
 
@@ -173,6 +176,7 @@ class cuMFFIMiner(_ab._fuzzyFrequentPatterns):
                 if item not in items:
                     items[item] = _ab._np.zeros(self._dbLen, dtype=_ab._np.float64)
                 items[item][tid] = value
+        self._recordCandidates((item,) for item in items)
         supports = {item: float(values.sum()) for item, values in items.items()}
         labels = sorted(item for item in items if supports[item] >= minSup)
         keys = [(item,) for item in labels]
@@ -195,6 +199,7 @@ class cuMFFIMiner(_ab._fuzzyFrequentPatterns):
                     if rightBase == leftBase or rightBase in used:
                         continue
                     candidate = left + (right[-1],)
+                    self._recordCandidate(candidate)
                     if all(candidate[:k] + candidate[k + 1:] in frequent
                            for k in range(len(prefix))):
                         yield i, j, candidate
@@ -233,9 +238,11 @@ class cuMFFIMiner(_ab._fuzzyFrequentPatterns):
 
     @deprecated("It is recommended to use 'mine()' instead of 'startMine()'.")
     def startMine(self):
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         self._creatingItemSets()

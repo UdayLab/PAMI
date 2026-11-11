@@ -60,7 +60,10 @@ from PAMI.partialPeriodicPattern.closed import abstract as _abstract
 import pandas as pd
 from deprecated import deprecated
 
-class PPPClose(_abstract._partialPeriodicPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class PPPClose(CandidatePatternsMixin, _abstract._partialPeriodicPatterns):
     """
     :Description:
 
@@ -296,6 +299,7 @@ class PPPClose(_abstract._partialPeriodicPatterns):
         self._periodicSupport = self._convert(self._periodicSupport)
         self._mapSupport = {k: v[1] for k, v in self._mapSupport.items() if v[1] >= self._periodicSupport}
         periodicFrequentItems = {}
+        self._recordCandidates((item,) for item in self._tidList)
         self._tidList = {k: v for k, v in self._tidList.items() if k in self._mapSupport}
         for x, y in self._tidList.items():
             t1 = 0
@@ -361,6 +365,7 @@ class PPPClose(_abstract._partialPeriodicPatterns):
         :param tidSetX: the timeStamps of the generated itemSet
         :return: saves the closed periodic-frequent pattern
         """
+        self._recordCandidate(tuple(prefix or []) + tuple(suffix))
         if prefix is None:
             prefix = suffix
         else:
@@ -399,6 +404,7 @@ class PPPClose(_abstract._partialPeriodicPatterns):
             tidSetI = tidSets[0]
             itemJ = itemSets[1]
             tidSetJ = tidSets[1]
+            self._recordCandidate(tuple(prefix or []) + (itemI, itemJ))
             y1 = list(set(tidSetI).intersection(tidSetJ))
             if len(y1) >= self._periodicSupport:
                 suffix = []
@@ -423,6 +429,7 @@ class PPPClose(_abstract._partialPeriodicPatterns):
                 if itemJ is None:
                     continue
                 tidSetJ = tidSets[j]
+                self._recordCandidate(tuple(prefix or []) + (itemX, itemJ))
                 y = list(set(tidSetX).intersection(tidSetJ))
                 if len(y) < self._periodicSupport:
                     continue
@@ -450,12 +457,14 @@ class PPPClose(_abstract._partialPeriodicPatterns):
         """
         Mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Mining process will start from here
         """
+        self._resetCandidatePatterns()
         self._startTime = _abstract._time.time()
         self._creatingItemSets()
         self._hashing = {}
@@ -474,6 +483,7 @@ class PPPClose(_abstract._partialPeriodicPatterns):
                 if itemJ is None:
                     continue
                 tidSetJ = self._tidList[itemJ]
+                self._recordCandidate((itemX, itemJ))
                 y1 = list(set(tidSetX).intersection(tidSetJ))
                 if len(y1) < self._periodicSupport:
                     continue

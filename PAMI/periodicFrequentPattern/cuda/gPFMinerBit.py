@@ -132,7 +132,10 @@ __global__ void supportAndPeriod(unsigned long long int *bitArray, // containing
                                 )
 
 
-class gPFMinerBit:
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class gPFMinerBit(CandidatePatternsMixin):
 
     """
     :Description:   ECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.
@@ -361,8 +364,10 @@ class gPFMinerBit:
         """
         Start the mining process
         """
+        self._resetCandidatePatterns()
         startTime = time.time()
         data = self.__readFile()
+        self._recordCandidates((key,) for key in data)
         bitValues, index2id = self.__generateBitArray(data)
 
         keys = [[i] for i in range(len(index2id))]
@@ -381,8 +386,10 @@ class gPFMinerBit:
         """
         Start the mining process
         """
+        self._resetCandidatePatterns()
         startTime = time.time()
         data = self.__readFile()
+        self._recordCandidates((key,) for key in data)
         bitValues, index2id = self.__generateBitArray(data)
 
         keys = [[i] for i in range(len(index2id))]
@@ -415,6 +422,7 @@ class gPFMinerBit:
                 # jKey = keys[j]
                 if keys[i][:-1] == keys[j][:-1] and keys[i][-1] != keys[j][-1]:
                     newCan = keys[i] + [keys[j][-1]]
+                    self._recordCandidate(tuple(index2id[key] for key in newCan))
                     newKeys.append(newCan)
                     locations.append(locations[-1]+len(newKeys[-1]))
                 else:

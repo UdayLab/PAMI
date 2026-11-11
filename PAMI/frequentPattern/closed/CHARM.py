@@ -56,7 +56,10 @@ from PAMI.frequentPattern.closed import abstract as _ab
 from deprecated import deprecated
 
 
-class CHARM(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class CHARM(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     **About this algorithm**
 
@@ -233,6 +236,7 @@ class CHARM(_ab._frequentPatterns):
                 except IOError:
                     print("File Not Found")
         self._minSup = self._convert(self._minSupInput)
+        self._recordCandidates((item,) for item in self._tidList)
         self._tidList = {k: set(v) for k, v in self._tidList.items() if len(v) >= self._minSup}
 
         # return keys based off the sum of their location appearances in the database
@@ -285,6 +289,7 @@ class CHARM(_ab._frequentPatterns):
         :param tidSetx: the timestamp of a patterns
         :type tidSetx: list
         """
+        self._recordCandidate(tuple(prefix or []) + tuple(suffix))
         if prefix is None:
             prefix = suffix
         else:
@@ -328,6 +333,7 @@ class CHARM(_ab._frequentPatterns):
             itemY = itemSets[1]
             tidSetY = tidSets[1]
             # y1 = list(set(tidSetX).intersection(tidSetY))
+            self._recordCandidate(tuple(prefix or []) + (itemX, itemY))
             y1 = tidSetX.intersection(tidSetY)
             if len(y1) >= self._minSup:
                 suffix = []
@@ -352,6 +358,7 @@ class CHARM(_ab._frequentPatterns):
                 if itemY is None:
                     continue
                 tidSetY = tidSets[j]
+                self._recordCandidate(tuple(prefix or []) + (itemX, itemY))
                 y = tidSetX.intersection(tidSetY)
                 if len(y) < self._minSup:
                     continue
@@ -380,6 +387,7 @@ class CHARM(_ab._frequentPatterns):
         Mining process will start from here by extracting the frequent patterns from the database. It performs prefix
         equivalence to generate the combinations and closed frequent patterns.
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -387,6 +395,7 @@ class CHARM(_ab._frequentPatterns):
         Mining process will start from here by extracting the frequent patterns from the database. It performs prefix
         equivalence to generate the combinations and closed frequent patterns.
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         _plist = self._creatingItemsets()
         self._finalPatterns = {}
@@ -404,6 +413,7 @@ class CHARM(_ab._frequentPatterns):
                 if itemY is None:
                     continue
                 tidSetY = self._tidList[itemY]
+                self._recordCandidate((itemX, itemY))
                 y1 = tidSetx.intersection(tidSetY)
                 if len(y1) < self._minSup:
                     continue

@@ -312,7 +312,10 @@ class Summary(object):
         self.tids = set()
 
 
-class parallelPFPGrowth(_ab._periodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class parallelPFPGrowth(CandidatePatternsMixin, _ab._periodicFrequentPatterns):
     """
     :Description:   ParallelPFPGrowth is one of the fundamental distributed algorithm to discover periodic-frequent patterns in a transactional database. It is based PySpark framework.
 
@@ -630,6 +633,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         Start the mining process
 
         """
+        self._resetCandidatePatterns()
         self.__startTime = _ab._time.time()
 
         APP_NAME = "parallelPFPGrowth"
@@ -662,6 +666,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         Start the mining process
 
         """
+        self._resetCandidatePatterns()
         self.__startTime = _ab._time.time()
 
         APP_NAME = "parallelPFPGrowth"

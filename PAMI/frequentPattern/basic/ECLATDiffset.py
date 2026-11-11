@@ -56,7 +56,10 @@ from PAMI.frequentPattern.basic import abstract as _ab
 from deprecated import deprecated
 
 
-class ECLATDiffset(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class ECLATDiffset(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     **About this algorithm**
 
@@ -213,6 +216,7 @@ class ECLATDiffset(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def __recursive(self, items, cands):
@@ -232,6 +236,7 @@ class ECLATDiffset(_ab._frequentPatterns):
             newCands = []
             for j in range(i + 1, len(cands)):
                 intersection = items[cands[i]] | items[cands[j]]
+                self._recordCandidate(cands[i] + (cands[j][-1],))
                 supp = db_size - len(intersection)
                 if supp >= self._minSup:
                     newCand = cands[i] + (cands[j][-1],)
@@ -246,6 +251,7 @@ class ECLATDiffset(_ab._frequentPatterns):
         Frequent pattern mining process will start from here
         """
 
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._Database = []
         self._finalPatterns = {}
@@ -271,6 +277,7 @@ class ECLATDiffset(_ab._frequentPatterns):
 
         items = dict(sorted(items.items(), key=lambda x: len(x[1]), reverse=True))
 
+        self._recordCandidates(items)
         keys = []
         for item in list(items.keys()):
             if len(items[item]) < self._minSup:

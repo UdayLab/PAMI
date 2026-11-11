@@ -45,7 +45,10 @@ from PAMI.frequentPattern.maximal import abstract as _ab
 from deprecated import deprecated
 
 
-class GenMax(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class GenMax(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     :**Description**:   GenMax discovers the complete set of maximal frequent itemsets in a
                         transactional database. A frequent itemset is *maximal* if none of its
@@ -202,6 +205,7 @@ class GenMax(_ab._frequentPatterns):
             for j in range(i + 1, len(combineSet)):
                 itemJ, supJ, diffJ = combineSet[j]
                 diffIJ = diffJ - diffI               # dECLAT diffset recurrence
+                self._recordCandidate(frozenset(mI + [itemJ]))
                 supIJ = supI - len(diffIJ)
                 if supIJ >= self._minSup:
                     newCombine.append((itemJ, supIJ, diffIJ))
@@ -228,6 +232,7 @@ class GenMax(_ab._frequentPatterns):
             newCombine = []
             for j in range(i + 1, len(combineSet)):
                 itemJ, tidJ = combineSet[j]
+                self._recordCandidate(frozenset(mI + [itemJ]))
                 inter = tidI & tidJ
                 if len(inter) >= self._minSup:
                     newCombine.append((itemJ, inter))
@@ -245,12 +250,14 @@ class GenMax(_ab._frequentPatterns):
         """
         Mining process will start from this function
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
         """
         Mining process will start from this function
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -269,6 +276,7 @@ class GenMax(_ab._frequentPatterns):
                 tidSets[item].add(tid)
 
         n = len(self._Database)
+        self._recordCandidates((item,) for item in tidSets)
         frequent = [(item, tids) for item, tids in tidSets.items() if len(tids) >= self._minSup]
 
         mfi = {}

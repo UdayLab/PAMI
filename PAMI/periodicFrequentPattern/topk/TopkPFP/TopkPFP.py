@@ -55,7 +55,10 @@ import pandas as pd
 from deprecated import deprecated
 
 
-class TopkPFPGrowth(_ab._periodicFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class TopkPFPGrowth(CandidatePatternsMixin, _ab._periodicFrequentPatterns):
     """
     :Description:   Top - K is and algorithm to discover top periodic frequent patterns in a temporal database.
 
@@ -282,6 +285,7 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
                 self._finalPatterns[i] = [self._mapSupport[i][0], self._mapSupport[i][1]]
         self._minimum = min([self._finalPatterns[i][0] for i in self._finalPatterns.keys()])
         plist = list(self._finalPatterns.keys())
+        self._recordCandidates((item,) for item in self._tidList)
         return plist
 
     def _getSupportAndPeriod(self, timeStamps):
@@ -368,6 +372,7 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
             for j in range(i + 1, len(itemSets)):
                 itemJ = itemSets[j]
                 tidSetJ = tidSets[j]
+                self._recordCandidate(tuple(prefix) + (itemI, itemJ))
                 y = list(set(tidSetI).intersection(tidSetJ))
                 val = self._getSupportAndPeriod(y)
                 if val[0] >= self._minimum and val[1] <= self._maxPer:
@@ -382,6 +387,7 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
         """
         Main function of the program
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -398,6 +404,7 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
             for j in range(i + 1, len(_plist)):
                 itemJ = _plist[j]
                 tidSetJ = self._tidList[itemJ]
+                self._recordCandidate((itemI, itemJ))
                 y1 = list(set(tidSetI).intersection(tidSetJ))
                 val = self._getSupportAndPeriod(y1)
                 if val[0] >= self._minimum and val[1] <= self._maxPer:
@@ -416,6 +423,7 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
         """
         Main function of the program
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -432,6 +440,7 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
             for j in range(i + 1, len(_plist)):
                 itemJ = _plist[j]
                 tidSetJ = self._tidList[itemJ]
+                self._recordCandidate((itemI, itemJ))
                 y1 = list(set(tidSetI).intersection(tidSetJ))
                 val = self._getSupportAndPeriod(y1)
                 if val[0] >= self._minimum and val[1] <= self._maxPer:

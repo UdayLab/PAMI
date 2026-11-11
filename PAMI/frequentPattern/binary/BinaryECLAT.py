@@ -61,7 +61,10 @@ import numpy as _np
 _ab._sys.setrecursionlimit(20000)
 
 
-class BinaryECLAT(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class BinaryECLAT(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     **About this algorithm**
 
@@ -270,6 +273,7 @@ class BinaryECLAT(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def _recursive(self, indexTuples: List[Tuple[int, ...]], bitsets: _np.ndarray) -> None:
@@ -286,6 +290,8 @@ class BinaryECLAT(_ab._frequentPatterns):
             if i + 1 >= m:
                 break
             # Intersect member i with every later member in one vectorised AND + pop-count.
+            self._recordCandidates(tuple(self._items[c] for c in indexTuples[i] + (other[-1],))
+                                   for other in indexTuples[i + 1:])
             candBitsets = bitsets[i + 1:] & bitsets[i]
             supports = self._popcount[candBitsets].sum(axis=1)
             keep = _np.where(supports >= self._minSup)[0]
@@ -306,6 +312,7 @@ class BinaryECLAT(_ab._frequentPatterns):
         """
         Frequent pattern mining process will start from here.
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         self._creatingItemSets()
@@ -318,6 +325,7 @@ class BinaryECLAT(_ab._frequentPatterns):
         self._popcount = _np.unpackbits(_np.arange(256, dtype=_np.uint8)[:, None], axis=1).sum(axis=1).astype(_np.int64)
 
         itemSupports = self._popcount[self._packed].sum(axis=0)
+        self._recordCandidates((item,) for item in self._items)
         frequentCols = _np.where(itemSupports >= self._minSup)[0]
         if frequentCols.size:
             # Sort ascending by support (mirrors ECLAT's processing order).

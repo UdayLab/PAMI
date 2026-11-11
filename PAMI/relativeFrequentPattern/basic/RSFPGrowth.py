@@ -252,7 +252,10 @@ class _Tree:
                     current = child
 
 
-class RSFPGrowth(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class RSFPGrowth(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     :Description:   Algorithm to find all items with relative support from given dataset
 
@@ -609,6 +612,7 @@ class RSFPGrowth(_ab._frequentPatterns):
         :return: None
         """
 
+        self._resetCandidatePatterns()
         self.__startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -646,6 +650,7 @@ class RSFPGrowth(_ab._frequentPatterns):
             :return: None
             """
 
+            self._resetCandidatePatterns()
             self.__startTime = _ab._time.time()
             if self._iFile is None:
                 raise Exception("Please enter the file path or file name:")

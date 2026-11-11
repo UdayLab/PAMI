@@ -319,7 +319,10 @@ class _Tree(object):
                     conditionalTree.generatePatterns(pattern)
             self.removeNode(i)
 
-class WUFIM(_ab._weightedFrequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class WUFIM(CandidatePatternsMixin, _ab._weightedFrequentPatterns):
     """
     About this algorithm
     ====================
@@ -704,6 +707,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
         :return: patterns with accurate probability
         """
         global _finalPatterns
+        self._recordCandidates(_finalPatterns)
         periods = {}
         for i in self._Database:
             for x, y in _finalPatterns.items():
@@ -737,6 +741,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
         """
         mine() method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns.
         """
+        self._resetCandidatePatterns()
         self.mine()
 
 
@@ -744,6 +749,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
         """
         mine() method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patternS
         """
+        self._resetCandidatePatterns()
         global _expSup, _expWSup, _weights, _finalPatterns
         self._startTime = _ab._time.time()
         self._Database, self._weights = [], {}

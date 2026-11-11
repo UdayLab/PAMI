@@ -55,7 +55,10 @@ from PAMI.frequentPattern.basic import abstract as _ab
 from deprecated import deprecated
 
 
-class ECLATbitset(_ab._frequentPatterns):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class ECLATbitset(CandidatePatternsMixin, _ab._frequentPatterns):
     """
     **About this algorithm**
 
@@ -213,6 +216,7 @@ class ECLATbitset(_ab._frequentPatterns):
         We start with the scanning the itemSets and store the bitsets respectively.
         We form the combinations of single items and  check with minSup condition to check the frequency of patterns
         """
+        self._resetCandidatePatterns()
         self.mine()
 
     def _bitPacker(self, data, maxIndex):
@@ -257,6 +261,7 @@ class ECLATbitset(_ab._frequentPatterns):
                 newCands = []
                 for j in range(i + 1, len(cands)):
                     newCand = tuple(cands[i] + tuple([cands[j][-1]]))
+                    self._recordCandidate(newCand)
                     intersection = items[tuple([newCand[0]])]
                     for k in newCand[1:]:
                         intersection &= items[tuple([k])]
@@ -271,6 +276,7 @@ class ECLATbitset(_ab._frequentPatterns):
                 newCands = []
                 for j in range(i + 1, len(cands)):
                     newCand = tuple(cands[i] + tuple([cands[j][-1]]))
+                    self._recordCandidate(newCand)
                     intersection = items[cands[i]] & items[cands[j]]
                     count = self._popcount(intersection)
                     if count >= self._minSup:
@@ -285,6 +291,7 @@ class ECLATbitset(_ab._frequentPatterns):
         Frequent pattern mining process will start from here
         # Bitset implementation
         """
+        self._resetCandidatePatterns()
         self._startTime = _ab._time.time()
 
         self._finalPatterns = {}
@@ -304,6 +311,7 @@ class ECLATbitset(_ab._frequentPatterns):
 
         # sort by length in descending order
         items = dict(sorted(items.items(), key=lambda x: len(x[1]), reverse=True))
+        self._recordCandidates(items)
         cands = []
         for key in list(items.keys()):
             if len(items[key]) >= self._minSup:

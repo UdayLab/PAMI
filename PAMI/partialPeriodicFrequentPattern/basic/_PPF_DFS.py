@@ -56,7 +56,10 @@ from abc import ABC
 from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
 #import deprecated
 
-class PPF_DFS(partialPeriodicPatterns, ABC):
+from PAMI._candidatePatterns import CandidatePatternsMixin
+
+
+class PPF_DFS(CandidatePatternsMixin, partialPeriodicPatterns, ABC):
     """
     :Description:   PPF_DFS is algorithm to mine the partial periodic frequent patterns.
 
@@ -364,6 +367,7 @@ class PPF_DFS(partialPeriodicPatterns, ABC):
         self.__mapSupport = {k: [v[1], v[0]] for k, v in self.__mapSupport.items() if
                              v[1] >= self._partialPeriodicPatterns__minSup and v[0] / (self._partialPeriodicPatterns__minSup + 1) >= self._partialPeriodicPatterns__minPR}
         plist = [key for key, value in sorted(self.__mapSupport.items(), key=lambda x_: (x_[1][0], x_[0]), reverse=True)]
+        self._recordCandidates((item,) for item in self.__tidlist)
         return plist
 
     def __save(self, prefix, suffix, tidsetx):
@@ -413,6 +417,7 @@ class PPF_DFS(partialPeriodicPatterns, ABC):
             for j in range(item_ + 1, len(itemsets)):
                 itemj = itemsets[j]
                 tidsetj = tidsets[j]
+                self._recordCandidate(tuple(prefix) + (itemx, itemj))
                 y = list(set(tidsetx) & set(tidsetj))
                 val = self._partialPeriodicPatterns__getPerSup(y)
                 if len(y) >= self._partialPeriodicPatterns__minSup and val / (self._partialPeriodicPatterns__minSup + 1) >= self._partialPeriodicPatterns__minPR:
@@ -423,6 +428,7 @@ class PPF_DFS(partialPeriodicPatterns, ABC):
             self.__save(prefix, list(set(itemsetx)), tidsetx)
 
     def startMine(self):
+        self._resetCandidatePatterns()
         self.mine()
 
     def mine(self):
@@ -430,6 +436,7 @@ class PPF_DFS(partialPeriodicPatterns, ABC):
         Main program start with extracting the periodic frequent items from the database and
         performs prefix equivalence to form the combinations and generates closed periodic frequent patterns.
         """
+        self._resetCandidatePatterns()
         self.__path = self._partialPeriodicPatterns__iFile
         self._partialPeriodicPatterns__startTime = time.time()
         self.__creatingItemSets()
@@ -444,6 +451,7 @@ class PPF_DFS(partialPeriodicPatterns, ABC):
             for j in range(i__ + 1, len(plist)):
                 itemj = plist[j]
                 tidsetj = self.__tidlist[itemj]
+                self._recordCandidate((itemx, itemj))
                 y1 = list(set(tidsetx) & set(tidsetj))
                 val = self._partialPeriodicPatterns__getPerSup(y1)
                 if len(y1) >= self._partialPeriodicPatterns__minSup and val / (self._partialPeriodicPatterns__minSup + 1) >= self._partialPeriodicPatterns__minPR:
