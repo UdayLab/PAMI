@@ -75,7 +75,7 @@ The Apriori algorithm can be executed by calling `Apriori` class in  PAMI.freque
     from PAMI.frequentPattern.basic import Apriori  as alg
           
     minSup=0.8     #minimum support of a pattern
-    sep='\t'       #default seperator used to seperate items in a database
+    sep='\t'       #default separator used to separate items in a database
 
     obj = alg.Apriori(inputFile,minSup,sep)
     obj.mine()
